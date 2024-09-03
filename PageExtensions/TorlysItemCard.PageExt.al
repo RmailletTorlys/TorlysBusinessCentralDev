@@ -21,7 +21,7 @@ pageextension 50106 TorlysItemCard extends "Item Card"
                     ApplicationArea = All;
                     Visible = true;
                     Caption = 'Current Item';
-                    ToolTip = 'Specifies if this item is currently being stocked for selling.';
+                    ToolTip = 'Specifies if this item is currently being stocked for selling purposes.';
 
                 }
 

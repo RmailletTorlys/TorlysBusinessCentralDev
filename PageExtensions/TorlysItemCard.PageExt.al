@@ -30,7 +30,7 @@ pageextension 50106 TorlysItemCard extends "Item Card"
                     ApplicationArea = All;
                     Visible = true;
                     Caption = 'Special Item';
-                    ToolTip = 'Specifies if this item is a special item and only stocked for specified purposes. Please refer to the notes section for details.';
+                    ToolTip = 'Specifies if this item is a special item and stocked only for specified purposes. Please refer to the notes section for details.';
 
                 }
 

@@ -5,12 +5,17 @@ page 50117 TorlysOrdersToBeShipped
     SourceTable = "Sales Header";
     UsageCategory = Lists;
     Caption = 'Orders to Be Shipped';
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
+
 
 
     layout
     {
         area(content)
         {
+
             repeater(Group)
             {
 
@@ -69,19 +74,49 @@ page 50117 TorlysOrdersToBeShipped
                     ApplicationArea = All;
                     Caption = 'To Ship Qty.';
                     ToolTip = 'To Ship Quantity';
+
                 }
 
-
-
-
             }
+        }
 
+    }
+
+    actions
+    {
+
+
+        area(processing)
+        {
+            action("Print Pickslip")
+            {
+                Caption = 'Print Pickslip';
+                ToolTip = 'Click here to print the associated pickslip';
+                Promoted = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    CurrentRecord: Record "Sales Header";
+                begin
+                    CurrentRecord := Rec;
+
+                    if CurrentRecord.IsEmpty() then
+                        Error('Please verify that you have selected an order and try again.');
+
+                    Message('Pickslip Printed for Order No. %1', Rec."No.");
+                end;
+            }
         }
     }
+
+
+
     trigger OnOpenPage()
     begin
         // Rec.SetRange("Shipment Date", Today)
         Rec.SetRange("Document Type", Rec."Document Type"::Order);
+
     end;
 
 

@@ -10,7 +10,6 @@ page 50117 TorlysOrdersToBeShipped
     DeleteAllowed = false;
 
 
-
     layout
     {
         area(content)
@@ -79,8 +78,9 @@ page 50117 TorlysOrdersToBeShipped
 
             }
         }
-
     }
+
+
 
     actions
     {
@@ -88,34 +88,46 @@ page 50117 TorlysOrdersToBeShipped
 
         area(processing)
         {
-            action("Print Pickslip")
+
+            action(PrintPickSlipsAction)
             {
-                Caption = 'Print Pickslip';
-                ToolTip = 'Click here to print the associated pickslip';
+                Caption = 'Print Selected Pickslips';
+                ToolTip = 'Click here to print the selected pickslip. If multiple orders are selected, all pickslips will be printed.';
                 Promoted = true;
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    CurrentRecord: Record "Sales Header";
-                begin
-                    CurrentRecord := Rec;
+                    OrderRec: Record "Sales Header";
 
-                    if CurrentRecord.IsEmpty() then
+                begin
+
+                    CurrPage.SetSelectionFilter(OrderRec);
+
+                    if OrderRec.IsEmpty() then
                         Error('Please verify that you have selected an order and try again.');
 
-                    Message('Pickslip Printed for Order No. %1', Rec."No.");
+
+                    if OrderRec.FindSet() then
+                        repeat
+                            Message('Pickslip Printed for Order No. %1', OrderRec."No.");
+                        until OrderRec.Next() = 0;
+
+
                 end;
+
+
             }
         }
     }
 
-
-
     trigger OnOpenPage()
+
     begin
-        // Rec.SetRange("Shipment Date", Today)
+
+
         Rec.SetRange("Document Type", Rec."Document Type"::Order);
+        Rec.SetFilter("Shipment Date", '%1', Today);
 
     end;
 

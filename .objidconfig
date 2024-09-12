@@ -1,0 +1,9 @@
+{
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 50499,
+      "description": "From 50000 to 50499"
+    }
+  ]
+}

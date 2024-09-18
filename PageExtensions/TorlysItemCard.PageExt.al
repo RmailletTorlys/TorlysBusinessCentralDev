@@ -1,4 +1,4 @@
-pageextension 50106 TorlysItemCard extends "Item Card"
+pageextension 50003 TorlysItemCard extends "Item Card"
 {
     layout
     {

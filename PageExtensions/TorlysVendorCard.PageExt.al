@@ -1,4 +1,4 @@
-pageextension 50116 TorlysVendorCard extends "Vendor Card"
+pageextension 50004 TorlysVendorCard extends "Vendor Card"
 {
     layout
     {

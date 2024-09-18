@@ -17,7 +17,7 @@
   "idRanges": [
     {
       "from": 50000,
-      "to": 50499
+      "to": 59999
     }
   ],
   "resourceExposurePolicy": {
@@ -28,5 +28,6 @@
   "runtime": "13.0",
   "features": [
     "NoImplicitWith"
+    
   ]
 }

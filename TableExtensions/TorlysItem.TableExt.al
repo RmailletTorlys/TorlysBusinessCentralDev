@@ -1,4 +1,4 @@
-tableextension 50100 TorlysItem extends Item
+tableextension 50101 TorlysItem extends Item
 {
     fields
     {

@@ -1,4 +1,4 @@
-pageextension 50002 TorlysCustomerCard extends "Customer Card"
+pageextension 50001 TorlysCustomerCard extends "Customer Card"
 {
     layout
     {

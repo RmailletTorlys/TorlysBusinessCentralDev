@@ -1,4 +1,4 @@
-tableextension 50102 TorlysCustomer extends Customer
+tableextension 50100 TorlysCustomer extends Customer
 {
     fields
     {

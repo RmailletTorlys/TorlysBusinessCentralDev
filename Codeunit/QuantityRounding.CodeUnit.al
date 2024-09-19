@@ -43,10 +43,14 @@ codeunit 50202 QuantityRounding
         Iuom.FindFirst();
         PalletConst := Iuom."Qty. per Unit of Measure";
 
+        // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
+        // The number is Rounded to fit as an Integer.
         CaseQuantity := Round(Rec.Quantity / CaseConst, 1, '<');
 
 
-        // Check if Quantity entered fits in the case count. If it does not, ask the user to chose a quantity that fits.
+        // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
+        // If the Quantity in the record is not equal to the Product, then calculate the rounding and present the values to the user to select if
+        // a quantity that fits into the case count. 
         if Rec.Quantity <> CaseConst * CaseQuantity then begin
             RemainingQuantity := Rec.Quantity - (CaseConst * CaseQuantity);
             LowerQuantity := Rec.Quantity - RemainingQuantity;
@@ -60,18 +64,30 @@ codeunit 50202 QuantityRounding
         end;
 
 
-        // Check if Quantity has a value.
-
+        // Check if Quantity has a value before proceeding to the next step.
         if Rec.Quantity <> 0 then begin
+            // Initialize RemaindingQuantity to have the same value as the entered quantity.
             RemainingQuantity := Rec.Quantity;
+
+            // Check if the quantity is larger than a pallet size.
             if Rec.Quantity >= PalletConst then begin
+                // Calculate the number of Pallets that the quantity converts to.
+                // This number is Rounded down/Floored to fit into an integer.
                 PalletQuantity := Round(Rec.Quantity / PalletConst, 1, '<');
+                // Record the remainder and update RemainingQuantity
                 RemainingQuantity := Rec.Quantity - PalletConst * PalletQuantity;
             end;
-            if RemainingQuantity >= 0 then
-                CaseQuantity := Round(RemainingQuantity / CaseConst, 1, '<')
-            else
-                CaseQuantity := 0;
+            // Check if there is an amount left after converting pallet amounts.
+            if RemainingQuantity > 0 then
+                // If there is a remainder, calculate the number of cases that the remainder converts to.
+                if RemainingQuantity >= CaseConst then
+                    // Calculate the number of Cases that the remainder converts to.
+                    // The number is Rounded Down/Floored to fit as an Integer.
+                    CaseQuantity := Round(RemainingQuantity / CaseConst, 1, '<')
+                else
+                    // This line is required to ensure Case Quantity is set to 0 if no cases are remaining after the pallet calculation.
+                    // It also cleans up from the quantity check above.
+                    CaseQuantity := 0;
         end;
 
         Rec."Quantity Case" := CaseQuantity;

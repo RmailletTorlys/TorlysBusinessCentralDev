@@ -7,6 +7,15 @@ pageextension 50002 TorlysItemCard extends "Item Card"
         {
             group("Attributes")
             {
+
+                field("Compare Unit of Measure"; Rec."Compare Unit of Measure")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'Compare Unit of Measure';
+                    ToolTip = 'Specifies the base unit of measure that the item is sold as. For example, a moulding would be "Each" as they are sold by piece. A floor would be set to SqFt as it is sold by the coverage quantity.';
+
+                }
                 field("New Item"; Rec."New Item")
                 {
                     ApplicationArea = All;

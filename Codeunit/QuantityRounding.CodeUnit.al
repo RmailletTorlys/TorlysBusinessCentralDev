@@ -15,8 +15,8 @@ codeunit 50202 QuantityRounding
         Selected: Integer;
         PalletQuantity: Integer;
         CaseQuantity: Integer;
-        Options: Text[30];
-        QuantityOptionsLbl: Label '%1, %2'; // %1 is the lower quantity and %2 is the higher quantity
+        Options: Text[50];
+        QuantityOptionsLbl: Label 'Round down to %1 SQFT, Round up to %2 SQFT'; // %1 is the lower quantity and %2 is the higher quantity
         QuantityMsgLbl: Label 'The Quantity is not an exact amount. Please select a quantity below.';
 
     begin

@@ -23,7 +23,7 @@ codeunit 50202 QuantityRounding
         Item.FindFirst();
         // Check if the Item has a blank 'Compare Unit of Measure' or if it is set to Each and shortcircuit if true
         if (Item."Compare Unit of Measure" = '') then exit;
-        if (Item."Compare Unit of Measure" = 'EACH') then exit;
+
 
         CaseConst := GetCaseConst(Rec."No.");
 

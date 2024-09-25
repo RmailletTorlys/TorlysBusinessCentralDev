@@ -60,7 +60,7 @@ codeunit 50202 QuantityRounding
             if Rec.Quantity >= PalletConst then begin
                 // Calculate the number of Pallets that the quantity converts to.
                 // This number is Rounded down/Floored to fit into an integer.
-                Rec."Quantity Pallet" := NoOfPallets(Rec.Quantity, PalletConst, 0);
+                Rec."Quantity Pallet" := NoOfPallets(Rec.Quantity, PalletConst);
                 // Record the remainder and update RemainingQuantity
                 RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
             end;
@@ -87,30 +87,23 @@ codeunit 50202 QuantityRounding
     var
         PalletConst: Decimal;
         CaseConst: Decimal;
-        PalletQty: Integer;
-        CaseQty: Integer;
         RemainingQuantity: Decimal;
 
     begin
         // Check if the number of cases entered is >= number of cases in a pallet
         CaseConst := GetCaseConst(Rec."No.");
         PalletConst := GetPalletConst(Rec."No.");
-        PalletQty := Rec."Quantity Pallet";
 
         // Calculate the Order Quantity based on the amount of cases entered
-        Rec.Quantity := (CaseConst * Rec."Quantity Case") + PalletConst * Rec."Quantity Pallet";
-
-        CaseQty := Rec."Quantity Case" * CaseConst;
+        Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
         // If yes, Add number to Pallet Quantity and calculate the remaining cases
-        if CaseQty >= PalletConst then begin
-            Rec."Quantity Pallet" := NoOfPallets(Rec.Quantity, PalletConst, PalletQty);
-            RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
-        end;
+        if Rec.Quantity >= PalletConst then Rec."Quantity Pallet" := NoOfPallets(Rec.Quantity, PalletConst);
+
+        RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
 
         // After calculating the number of Pallets, calculate the remaining cases
-        if RemainingQuantity > CaseConst then
-            Rec."Quantity Case" := NoOfCases(RemainingQuantity, CaseConst);
+        if RemainingQuantity >= CaseConst then Rec."Quantity Case" := NoOfCases(RemainingQuantity, CaseConst);
 
 
     end;
@@ -125,7 +118,7 @@ codeunit 50202 QuantityRounding
         // Calculate the Order quantity based on the number of Pallets entered
         PalletConst := GetPalletConst(Rec."No.");
         CaseConst := GetCaseConst(Rec."No.");
-        Rec.Quantity := CaseConst * Rec."Quantity Case" + PalletConst * Rec."Quantity Pallet";
+        Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
     end;
 
 
@@ -158,12 +151,12 @@ codeunit 50202 QuantityRounding
         exit(0);
     end;
 
-    local procedure NoOfPallets(Quantity: Decimal; PalletConst: Decimal; CurrentPallets: Decimal): Integer
+    local procedure NoOfPallets(Quantity: Decimal; PalletConst: Decimal): Integer
     var
         Pallets: Integer;
 
     begin
-        Pallets := Round(Quantity / PalletConst, 1, '<') + CurrentPallets;
+        Pallets := Round(Quantity / PalletConst, 1, '<');
 
         exit(Pallets);
 

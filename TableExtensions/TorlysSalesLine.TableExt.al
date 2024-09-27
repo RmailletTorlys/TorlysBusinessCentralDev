@@ -38,5 +38,17 @@ tableextension 50103 TorlysSalesLine extends "Sales Line"
             Caption = 'Pallet Quantity to Receive';
             DataClassification = ToBeClassified;
         }
+
+        field(50007; "Qty. Received Case"; Integer)
+        {
+            Caption = 'Case Quantity to Receive';
+            DataClassification = ToBeClassified;
+        }
+
+        field(50008; "Qty. Received Pallet"; Integer)
+        {
+            Caption = 'Pallet Quantity to Receive';
+            DataClassification = ToBeClassified;
+        }
     }
 }

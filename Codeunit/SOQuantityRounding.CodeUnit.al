@@ -1,4 +1,4 @@
-codeunit 50202 QuantityRounding
+codeunit 50202 SOQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
 
@@ -18,67 +18,58 @@ codeunit 50202 QuantityRounding
         QuantityMsgLbl: Label 'The Quantity is not an exact amount. Please select a quantity below.';
 
     begin
-        // Initialize the Item record
+
+        // Check if Quantity has a value and Exit if 0
+        if Rec.Quantity = 0 then exit;
+
+        // Initialize the Item record and verify if the item has a valid Compare Unit of measure field
         Item.SetRange("No.", Rec."No.");
-        Item.FindFirst();
-        // Check if the Item has a blank 'Compare Unit of Measure' or if it is set to Each and shortcircuit if true
-        if (Item."Compare Unit of Measure" = '') then exit;
+        if Item.FindFirst() then
+            if InvalidCompareUnitOfMeasure(Item) then exit;
 
 
+
+        // Get the Case and Pallet quantities per Unit of Measure
         CaseConst := GetUoMConst(Rec."No.", 'CASE');
-
-        // Get the Pallet Quantity per unit of Measure and assign to the PalletConst variable for Refferencing
         PalletConst := GetUoMConst(Rec."No.", 'PALLET');
 
         // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
-        // The number is Rounded to fit as an Integer.
         CaseQuantity := NoOfUoM(Rec.Quantity, CaseConst);
 
 
         // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
-        // If the Quantity in the record is not equal to the Product, then calculate the rounding and present the values to the user to select
-        // a quantity that fits into the case count. 
+        // If the Quantity in the record is not equal to the Product, calculate and present the values to the user to chose a quantity that fits 
         if Rec.Quantity <> CaseConst * CaseQuantity then begin
             RemainingQuantity := Rec.Quantity - (CaseConst * CaseQuantity);
             LowerQuantity := Rec.Quantity - RemainingQuantity;
             HigherQuantity := Rec.Quantity + (CaseConst - RemainingQuantity);
             Options := StrSubstNo(QuantityOptionsLbl, Format(LowerQuantity, 0, 2), Format(HigherQuantity, 0, 2));
             Selected := Dialog.StrMenu(Options, 1, QuantityMsgLbl);
-            if Selected = 2 then
-                Rec.Quantity := Rec.Quantity + (CaseConst - RemainingQuantity)
-            else
-                Rec.Quantity := Rec.Quantity - RemainingQuantity;
-        end;
-
-
-        // Check if Quantity has a value before proceeding to the next step.
-        if Rec.Quantity <> 0 then begin
-            // Initialize RemaindingQuantity to have the same value as the entered quantity.
-            RemainingQuantity := Rec.Quantity;
-
-            // Check if the quantity is larger than a pallet size.
-            if Rec.Quantity >= PalletConst then begin
-                // Calculate the number of Pallets that the quantity converts to.
-                // This number is Rounded down/Floored to fit into an integer.
-                Rec."Quantity Pallet" := NoOfUoM(Rec.Quantity, PalletConst);
-                // Record the remainder and update RemainingQuantity
-                RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
+            if Selected = 2 then begin
+                Message('%1', HigherQuantity);
+                Rec.Quantity := HigherQuantity;
+            end
+            else begin
+                Message('%1', LowerQuantity);
+                Rec.Quantity := LowerQuantity;
             end;
-            // Check if there is an amount left after converting pallet amounts.
-            if RemainingQuantity > 0 then
-                // If there is a remainder, calculate the number of cases that the remainder converts to.
-                if RemainingQuantity >= CaseConst then
-                    // Calculate the number of Cases that the remainder converts to.
-                    // The number is Rounded Down/Floored to fit as an Integer.
-                    Rec."Quantity Case" := NoOfUoM(RemainingQuantity, CaseConst)
 
-                else
-                    // This line is required to ensure Case Quantity is set to 0 if no cases are remaining after the pallet calculation.
-                    // It also cleans up from the quantity check above.
-                    Rec."Quantity Case" := 0;
         end;
 
-        exit;
+        // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
+        if Rec.Quantity >= PalletConst then
+            Rec."Quantity Pallet" := NoOfUoM(Rec.Quantity, PalletConst);
+
+        RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
+
+        // If RemainingQuantity is not 0, calculate the cases that are remaining. Otherwise, set the cases to 0.
+        if RemainingQuantity > 0 then
+            Rec."Quantity Case" := NoOfUoM(RemainingQuantity, CaseConst)
+        else
+            Rec."Quantity Case" := 0;
+
+
+        UpdateShipAndInvoice(Rec);
 
     end;
 
@@ -90,22 +81,25 @@ codeunit 50202 QuantityRounding
         RemainingQuantity: Decimal;
 
     begin
-        // Check if the number of cases entered is >= number of cases in a pallet
+        // Get the Case and Pallet SqFt amounts for the item entered.
         CaseConst := GetUoMConst(Rec."No.", 'CASE');
         PalletConst := GetUoMConst(Rec."No.", 'PALLET');
 
-        // Calculate the Order Quantity based on the amount of cases entered
+        // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
-        // If yes, Add number to Pallet Quantity and calculate the remaining cases
+        // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
         if Rec.Quantity >= PalletConst then Rec."Quantity Pallet" := NoOfUoM(Rec.Quantity, PalletConst);
 
         RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
 
-        // After calculating the number of Pallets, calculate the remaining cases
-        if RemainingQuantity >= CaseConst then Rec."Quantity Case" := NoOfUoM(RemainingQuantity, CaseConst);
+        // After calculating the number of Pallets, calculate the remaining cases. If no remainder, set cases to 0
+        if RemainingQuantity > 0 then
+            Rec."Quantity Case" := NoOfUoM(RemainingQuantity, CaseConst)
+        else
+            Rec."Quantity Case" := 0;
 
-
+        UpdateShipAndInvoice(Rec);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
@@ -119,9 +113,13 @@ codeunit 50202 QuantityRounding
         PalletConst := GetUoMConst(Rec."No.", 'PALLET');
         CaseConst := GetUoMConst(Rec."No.", 'CASE');
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
+        UpdateShipAndInvoice(Rec);
     end;
 
-
+    local procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
+    begin
+        exit(Rec."Compare Unit of Measure" = '');
+    end;
 
     local procedure GetUoMConst(ItemNo: Code[20]; Unit: Text[20]): Decimal
     var
@@ -141,5 +139,15 @@ codeunit 50202 QuantityRounding
     begin
         exit(Round(Quantity / Const, 1, '<'));
     end;
+
+    local procedure UpdateShipAndInvoice(var Rec: Record "Sales Line")
+    begin
+        Rec."Qty. to Ship" := Rec.Quantity;
+        Rec."Qty. to Ship Case" := Rec."Quantity Case";
+        Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
+        Rec."Qty. to Invoice" := Rec.Quantity;
+    end;
+
+
 
 }

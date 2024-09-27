@@ -20,6 +20,22 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
 
             }
 
+            field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
+            {
+                Caption = 'Qty. to Ship Case';
+                ToolTip = 'Qty. to Ship Case';
+                ApplicationArea = All;
+
+            }
+
+            field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
+            {
+                Caption = 'Qty. to Ship Pallet';
+                ToolTip = 'Qty. to Ship Pallet';
+                ApplicationArea = All;
+
+            }
+
         }
     }
 }

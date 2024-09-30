@@ -1,11 +1,12 @@
-codeunit 50211 POToReceiveQuantityRounding
+codeunit 50216 TOToReceiveQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive', true, true)]
-    local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive', true, true)]
+    local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line")
     var
         Item: Record "Item";
+        CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         PalletConst: Decimal;
         CaseConst: Decimal;
         RemainingQuantity: Decimal;
@@ -18,20 +19,13 @@ codeunit 50211 POToReceiveQuantityRounding
         QuantityMsgLbl: Label 'The Quantity is not an exact amount. Please select a quantity below.';
 
     begin
-
-        // Check if Quantity has a value and Exit if 0
-        if Rec."Qty. to Receive" = 0 then exit;
-
-        // Initialize the Item record and verify if the item has a valid Compare Unit of measure field
-        Item.SetRange("No.", Rec."No.");
-        if Item.FindFirst() then
-            if InvalidCompareUnitOfMeasure(Item) then exit;
+        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."Item No.") then exit;
 
 
 
         // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMConst(Rec."No.", 'CASE');
-        PalletConst := GetUoMConst(Rec."No.", 'PALLET');
+        CaseConst := GetUoMConst(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMConst(Rec."Item No.", 'PALLET');
 
         // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
         CaseQuantity := NoOfUoM(Rec."Qty. to Receive", CaseConst);
@@ -65,8 +59,8 @@ codeunit 50211 POToReceiveQuantityRounding
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', true, true)]
-    local procedure OnChangeCaseQuantity(var Rec: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', true, true)]
+    local procedure OnChangeCaseQuantity(var Rec: Record "Transfer Line")
     var
         PalletConst: Decimal;
         CaseConst: Decimal;
@@ -74,8 +68,8 @@ codeunit 50211 POToReceiveQuantityRounding
 
     begin
         // Get the Case and Pallet SqFt amounts for the item entered.
-        CaseConst := GetUoMConst(Rec."No.", 'CASE');
-        PalletConst := GetUoMConst(Rec."No.", 'PALLET');
+        CaseConst := GetUoMConst(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMConst(Rec."Item No.", 'PALLET');
 
         // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
         Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
@@ -94,24 +88,17 @@ codeunit 50211 POToReceiveQuantityRounding
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', true, true)]
-    local procedure OnChangePalletQuantity(var Rec: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', true, true)]
+    local procedure OnChangePalletQuantity(var Rec: Record "Transfer Line")
     var
         PalletConst: Decimal;
         CaseConst: Decimal;
 
     begin
         // Calculate the Order quantity based on the number of Pallets entered
-        PalletConst := GetUoMConst(Rec."No.", 'PALLET');
-        CaseConst := GetUoMConst(Rec."No.", 'CASE');
+        PalletConst := GetUoMConst(Rec."Item No.", 'PALLET');
+        CaseConst := GetUoMConst(Rec."Item No.", 'CASE');
         Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
-    end;
-
-    local procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
-    begin
-        if Rec."Compare Unit of Measure" = '' then
-            exit(true);
-        exit(false);
     end;
 
     local procedure GetUoMConst(ItemNo: Code[20]; Unit: Text[20]): Decimal

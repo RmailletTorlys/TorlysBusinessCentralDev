@@ -6,6 +6,7 @@ codeunit 50202 SOQuantityRounding
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")
     var
         Item: Record "Item";
+        CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         PalletConst: Decimal;
         CaseConst: Decimal;
         RemainingQuantity: Decimal;
@@ -19,14 +20,7 @@ codeunit 50202 SOQuantityRounding
 
     begin
 
-        // Check if Quantity has a value and Exit if 0
-        if Rec.Quantity = 0 then exit;
-
-        // Initialize the Item record and verify if the item has a valid Compare Unit of measure field
-        Item.SetRange("No.", Rec."No.");
-        if Item.FindFirst() then
-            if InvalidCompareUnitOfMeasure(Item) then exit;
-
+        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
 
 
         // Get the Case and Pallet quantities per Unit of Measure
@@ -45,14 +39,10 @@ codeunit 50202 SOQuantityRounding
             HigherQuantity := Rec.Quantity + (CaseConst - RemainingQuantity);
             Options := StrSubstNo(QuantityOptionsLbl, Format(LowerQuantity, 0, 2), Format(HigherQuantity, 0, 2));
             Selected := Dialog.StrMenu(Options, 1, QuantityMsgLbl);
-            if Selected = 2 then begin
-                Message('%1', HigherQuantity);
-                Rec.Quantity := HigherQuantity;
-            end
-            else begin
-                Message('%1', LowerQuantity);
+            if Selected = 2 then
+                Rec.Quantity := HigherQuantity
+            else
                 Rec.Quantity := LowerQuantity;
-            end;
 
         end;
 
@@ -114,11 +104,6 @@ codeunit 50202 SOQuantityRounding
         CaseConst := GetUoMConst(Rec."No.", 'CASE');
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
         UpdateShipAndInvoice(Rec);
-    end;
-
-    local procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
-    begin
-        exit(Rec."Compare Unit of Measure" = '');
     end;
 
     local procedure GetUoMConst(ItemNo: Code[20]; Unit: Text[20]): Decimal

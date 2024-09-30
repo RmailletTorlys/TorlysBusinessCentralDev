@@ -6,6 +6,7 @@ codeunit 50205 ROQuantityRounding
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")
     var
         Item: Record "Item";
+        CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         PalletConst: Decimal;
         CaseConst: Decimal;
         RemainingQuantity: Decimal;
@@ -18,14 +19,7 @@ codeunit 50205 ROQuantityRounding
         QuantityMsgLbl: Label 'The Quantity is not an exact amount. Please select a quantity below.';
 
     begin
-
-        // Check if Quantity has a value and Exit if 0
-        if Rec."Quantity" = 0 then exit;
-
-        // Initialize the Item record and verify if the item has a valid Compare Unit of measure field
-        Item.SetRange("No.", Rec."No.");
-        if Item.FindFirst() then
-            if InvalidCompareUnitOfMeasure(Item) then exit;
+        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
 
 
 
@@ -110,13 +104,6 @@ codeunit 50205 ROQuantityRounding
         UpdateToReceive(Rec);
     end;
 
-    local procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
-    begin
-        if Rec."Compare Unit of Measure" = '' then
-            exit(true);
-        exit(false);
-    end;
-
     local procedure GetUoMConst(ItemNo: Code[20]; Unit: Text[20]): Decimal
     var
         Iuom: Record "Item Unit of Measure";
@@ -139,6 +126,7 @@ codeunit 50205 ROQuantityRounding
     local procedure UpdateToReceive(var Rec: Record "Sales Line")
     begin
         Rec."Return Qty. to Receive" := Rec.Quantity;
+        Rec."Qty. to Invoice" := Rec.Quantity;
         Rec."Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
     end;

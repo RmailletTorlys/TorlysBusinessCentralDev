@@ -18,20 +18,12 @@ codeunit 50213 IJLinesQuantityRounding
         QuantityMsgLbl: Label 'The Quantity is not an exact amount. Please select a quantity below.';
 
     begin
-
-        // Check if Quantity has a value and Exit if 0
-        if Rec.Quantity = 0 then exit;
-
-        // Initialize the Item record and verify if the item has a valid Compare Unit of measure field
-        Item.SetRange("No.", Rec."No.");
-        if Item.FindFirst() then
-            if InvalidCompareUnitOfMeasure(Item) then exit;
-
+        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
 
 
         // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMConst(Rec."No.", 'CASE');
-        PalletConst := GetUoMConst(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
 
         // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
         CaseQuantity := NoOfUoM(Rec.Quantity, CaseConst);
@@ -79,8 +71,8 @@ codeunit 50213 IJLinesQuantityRounding
 
     begin
         // Get the Case and Pallet SqFt amounts for the item entered.
-        CaseConst := GetUoMConst(Rec."No.", 'CASE');
-        PalletConst := GetUoMConst(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
 
         // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
@@ -102,34 +94,16 @@ codeunit 50213 IJLinesQuantityRounding
     [EventSubscriber(ObjectType::Page, Page::"Item Journal Lines", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
     local procedure OnChangePalletQuantity(var Rec: Record "Item Journal Line")
     var
+
         PalletConst: Decimal;
         CaseConst: Decimal;
 
     begin
         // Calculate the Order quantity based on the number of Pallets entered
-        PalletConst := GetUoMConst(Rec."No.", 'PALLET');
-        CaseConst := GetUoMConst(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
-    end;
-
-    local procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
-    begin
-        exit(Rec."Compare Unit of Measure" = '');
-    end;
-
-    local procedure GetUoMConst(ItemNo: Code[20]; Unit: Text[20]): Decimal
-    var
-        Iuom: Record "Item Unit of Measure";
-
-    begin
-        Iuom.SetRange("Item No.", ItemNo);
-        Iuom.SetRange("Code", Unit);
-
-        if Iuom.FindFirst() then
-            exit(Iuom."Qty. per Unit of Measure");
-
-        exit(0);
     end;
 
     local procedure NoOfUoM(Quantity: Decimal; Const: Decimal): Integer
@@ -137,6 +111,7 @@ codeunit 50213 IJLinesQuantityRounding
         exit(Round(Quantity / Const, 1, '<'));
     end;
 
-
-
+    var
+        GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
+        CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
 }

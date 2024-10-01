@@ -1,6 +1,7 @@
 codeunit 50220 SCrOQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
+    SingleInstance = true;
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")

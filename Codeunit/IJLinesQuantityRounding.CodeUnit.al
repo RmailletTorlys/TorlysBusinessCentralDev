@@ -1,6 +1,7 @@
 codeunit 50213 IJLinesQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
+    SingleInstance = true;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Journal Lines", 'OnBeforeValidateEvent', 'Quantity', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Item Journal Line")

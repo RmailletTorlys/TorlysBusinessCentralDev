@@ -1,6 +1,7 @@
 Codeunit 50212 POReceivedQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
+    SingleInstance = true;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity Received', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Purchase Line")

@@ -1,6 +1,7 @@
 codeunit 50205 ROQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
+    SingleInstance = true;
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")

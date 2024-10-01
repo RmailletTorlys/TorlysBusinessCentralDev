@@ -1,6 +1,7 @@
 codeunit 50215 TOToShipQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
+    SingleInstance = true;
 
     [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line")

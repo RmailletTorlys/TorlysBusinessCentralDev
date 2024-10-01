@@ -7,7 +7,7 @@ codeunit 50221 QuantityFitsInCase
         HigherQuantity: Decimal;
         Options: Text[100];
         Selected: Integer;
-        QuantityOptionsLbl: Label 'Round down to %1 SQFT, Round up to %2 SQFT';
+        QuantityOptionsLbl: Label 'Round down to %1 SQFT, Round up to %2 SQFT', Comment = 'Round down to %1 SQFT, Round up to %2 SQFT';
         QuantityMsgLbl: Label 'The Quantity is not an exact amount. Please select a quantity below.';
 
     begin

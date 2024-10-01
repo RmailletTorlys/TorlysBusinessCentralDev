@@ -3,18 +3,18 @@ codeunit 50211 IJLinesQuantityRounding
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Journal Lines", 'OnBeforeValidateEvent', 'Quantity', true, true)]
+    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Quantity', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Item Journal Line")
     var
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."Item No.") then exit;
 
 
         // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
 
         // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
         CaseQuantity := QtyOfUoM.Quantity(Rec.Quantity, CaseConst);
@@ -38,13 +38,13 @@ codeunit 50211 IJLinesQuantityRounding
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Journal Lines", 'OnBeforeValidateEvent', 'Case Quantity', true, true)]
+    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Case Quantity', true, true)]
     local procedure OnChangeCaseQuantity(var Rec: Record "Item Journal Line")
 
     begin
         // Get the Case and Pallet SqFt amounts for the item entered.
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
 
         // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
@@ -63,13 +63,13 @@ codeunit 50211 IJLinesQuantityRounding
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Journal Lines", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
+    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
     local procedure OnChangePalletQuantity(var Rec: Record "Item Journal Line")
 
     begin
         // Calculate the Order quantity based on the number of Pallets entered
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
     end;

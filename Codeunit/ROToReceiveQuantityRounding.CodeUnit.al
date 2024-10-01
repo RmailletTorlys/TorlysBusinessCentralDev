@@ -36,6 +36,8 @@ codeunit 50227 ROToReceiveQuantityRounding
         else
             Rec."Qty. to Receive Case" := 0;
 
+        UpdateToInvoice(Rec);
+
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', true, true)]
@@ -60,6 +62,8 @@ codeunit 50227 ROToReceiveQuantityRounding
         else
             Rec."Qty. to Receive Case" := 0;
 
+        UpdateToInvoice(Rec);
+
 
     end;
 
@@ -71,6 +75,12 @@ codeunit 50227 ROToReceiveQuantityRounding
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
         Rec."Return Qty. to Receive" := CheckQtyAndCuom.CheckQty(CaseConst, PalletConst, Rec."Qty. to Receive Case", Rec."Qty. to Receive Pallet", Rec.Quantity);
+        UpdateToInvoice(Rec);
+    end;
+
+    local procedure UpdateToInvoice(var Rec: Record "Sales Line")
+    begin
+        Rec."Qty. to Invoice" := Rec.Quantity;
     end;
 
     var

@@ -37,6 +37,8 @@ Codeunit 50223 POReceivedQuantityRounding
         else
             Rec."Qty. Received Case" := 0;
 
+        UpdateToInvoice(Rec);
+
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. Received Case', true, true)]
@@ -60,6 +62,8 @@ Codeunit 50223 POReceivedQuantityRounding
         else
             Rec."Qty. Received Case" := 0;
 
+        UpdateToInvoice(Rec);
+
 
     end;
 
@@ -70,6 +74,13 @@ Codeunit 50223 POReceivedQuantityRounding
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
         Rec."Qty. to Receive" := CheckQtyAndCuom.CheckQty(CaseConst, PalletConst, Rec."Qty. to Receive Case", Rec."Qty. to Receive Pallet", Rec.Quantity);
+        UpdateToInvoice(Rec);
+    end;
+
+    local procedure UpdateToInvoice(var Rec: Record "Purchase Line")
+    begin
+        Rec."Qty. to Invoice" := Rec."Quantity Received";
+
     end;
 
     var

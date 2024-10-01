@@ -9,7 +9,7 @@ codeunit 50205 ROQuantityRounding
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
 
 
 
@@ -18,7 +18,7 @@ codeunit 50205 ROQuantityRounding
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
 
         // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
-        CaseQuantity := QtyOfUoM.Quantity(Rec."Quantity", CaseConst);
+        CaseQuantity := QtyOfUoM.Quantity(Rec.Quantity, CaseConst);
 
 
         // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
@@ -89,7 +89,6 @@ codeunit 50205 ROQuantityRounding
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

@@ -1,6 +1,9 @@
 codeunit 50217 CheckQtyAndCompareUoM
 {
-    procedure Validate(var Item: Record "Item"; Qty: Decimal; "No.": Text[20]): Boolean
+    procedure Validate(Qty: Decimal; "No.": Text[20]): Boolean
+    var
+        Item: Record Item;
+
     begin
         if Qty = 0 then exit(true);
 
@@ -10,6 +13,20 @@ codeunit 50217 CheckQtyAndCompareUoM
             if InvalidCompareUnitOfMeasure(Item) then exit(true);
 
         exit(false);
+
+    end;
+
+    procedure CheckQty(CaseConst: Decimal; PalletConst: Decimal; QtyCase: Decimal; QtyPallet: Decimal; CurrentAmt: Decimal): Decimal;
+    var
+        EnteredAmt: Decimal;
+    begin
+        EnteredAmt := (CaseConst * QtyCase) + (PalletConst * QtyPallet);
+
+
+        if EnteredAmt > CurrentAmt then
+            Error('You cannot enter more Quantity than has been ordered. Please verify your entry and try again.');
+
+        exit(EnteredAmt);
 
     end;
 

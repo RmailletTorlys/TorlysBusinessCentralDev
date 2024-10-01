@@ -9,7 +9,7 @@ codeunit 50213 IJLinesQuantityRounding
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
 
 
         // Get the Case and Pallet quantities per Unit of Measure
@@ -75,7 +75,6 @@ codeunit 50213 IJLinesQuantityRounding
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

@@ -9,9 +9,10 @@ codeunit 50218 GetUnitOfMeasureQuantity
         Iuom.SetRange("Code", Unit);
 
         if Iuom.FindFirst() then
-            exit(Iuom."Qty. per Unit of Measure");
+            exit(Iuom."Qty. per Unit of Measure")
+        else
+            Error('%1 does not appear to have a quantity set for %2. Please contact IT for more information.', ItemNo, Unit);
 
-        exit(0);
     end;
 }
 

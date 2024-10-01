@@ -9,7 +9,7 @@ codeunit 50209 POQuantityRounding
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
@@ -90,7 +90,6 @@ codeunit 50209 POQuantityRounding
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

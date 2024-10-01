@@ -9,7 +9,7 @@ codeunit 50214 TOQuantityRounding
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."Item No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."Item No.") then exit;
 
 
 
@@ -88,7 +88,6 @@ codeunit 50214 TOQuantityRounding
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

@@ -9,7 +9,7 @@ codeunit 50204 SOToShipQuantityRounding
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
@@ -20,7 +20,7 @@ codeunit 50204 SOToShipQuantityRounding
 
         // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
         // If the Quantity in the record is not equal to the Product, calculate and present the values to the user to chose a quantity that fits 
-        Rec.Quantity := QtyFits.Validate(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec."Qty. to Ship" := QtyFits.Validate(Rec."Qty. to Ship", CaseConst, CaseQuantity);
 
         // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
         if Rec."Qty. to Ship" >= PalletConst then
@@ -38,8 +38,8 @@ codeunit 50204 SOToShipQuantityRounding
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', true, true)]
-    local procedure OnChangeCaseQuantity(var Rec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Case', true, true)]
+    local procedure OnChangeCaseQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
 
     begin
         // Get the Case and Pallet SqFt amounts for the item entered.
@@ -47,7 +47,9 @@ codeunit 50204 SOToShipQuantityRounding
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
 
         // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
-        Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+
+        Rec."Qty. to Ship" := CheckQtyAndCuom.CheckQty(CaseConst, PalletConst, Rec."Qty. to Ship Case", Rec."Qty. to Ship Pallet", Rec.Quantity);
+
         UpdateShipAndInvoice(Rec);
 
         // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
@@ -64,14 +66,15 @@ codeunit 50204 SOToShipQuantityRounding
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
-    local procedure OnChangePalletQuantity(var Rec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Pallet', true, true)]
+    local procedure OnChangePalletQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
 
     begin
         // Calculate the Order quantity based on the number of Pallets entered
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship" := CheckQtyAndCuom.CheckQty(CaseConst, PalletConst, Rec."Qty. to Ship Case", Rec."Qty. to Ship Pallet", Rec.Quantity);
+
         UpdateShipAndInvoice(Rec);
     end;
 
@@ -81,7 +84,6 @@ codeunit 50204 SOToShipQuantityRounding
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

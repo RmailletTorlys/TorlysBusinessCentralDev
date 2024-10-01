@@ -1,6 +1,6 @@
 codeunit 50221 QuantityFitsInCase
 {
-    procedure Validate(Qty: Decimal; CaseConst: Integer; CaseQuantity: Decimal): Decimal
+    procedure Validate(Qty: Decimal; CaseConst: Decimal; CaseQuantity: Integer): Decimal
     var
         RemainingQuantity: Decimal;
         LowerQuantity: Decimal;
@@ -16,7 +16,7 @@ codeunit 50221 QuantityFitsInCase
             LowerQuantity := Qty - RemainingQuantity;
             HigherQuantity := Qty + (CaseConst - RemainingQuantity);
             Options := StrSubstNo(QuantityOptionsLbl, Format(LowerQuantity, 0, 2), Format(HigherQuantity, 0, 2));
-            Selected := Dialog.StrMenu(Options, 1, QuantityMsgLbl);
+            Selected := Dialog.StrMenu(Options, 2, QuantityMsgLbl);
             if Selected = 2 then
                 exit(HigherQuantity)
             else

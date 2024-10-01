@@ -10,7 +10,7 @@ codeunit 50220 SCrOQuantityRounding
 
     begin
 
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
 
 
         // Get the Case and Pallet quantities per Unit of Measure
@@ -88,7 +88,6 @@ codeunit 50220 SCrOQuantityRounding
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

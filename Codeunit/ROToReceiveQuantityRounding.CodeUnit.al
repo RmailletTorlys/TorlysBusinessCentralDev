@@ -9,7 +9,7 @@ codeunit 50207 ROToReceiveQuantityRounding
         CaseQuantity: Integer;
 
     begin
-        if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
 
 
         // Get the Case and Pallet quantities per Unit of Measure
@@ -22,7 +22,7 @@ codeunit 50207 ROToReceiveQuantityRounding
         // CHECK IF NEEDED?????
         // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
         // If the Quantity in the record is not equal to the Product, calculate and present the values to the user to chose a quantity that fits 
-        Rec.Quantity := QtyFits.Validate(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec."Return Qty. to Receive" := QtyFits.Validate(Rec."Return Qty. to Receive", CaseConst, CaseQuantity);
 
         // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
         if Rec."Return Qty. to Receive" >= PalletConst then
@@ -47,7 +47,7 @@ codeunit 50207 ROToReceiveQuantityRounding
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
 
         // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
-        Rec."Return Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Return Qty. to Receive" := CheckQtyAndCuom.CheckQty(CaseConst, PalletConst, Rec."Qty. to Receive Case", Rec."Qty. to Receive Pallet", Rec.Quantity);
 
         // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
         if Rec."Return Qty. to Receive" >= PalletConst then Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Return Qty. to Receive", PalletConst);
@@ -70,11 +70,10 @@ codeunit 50207 ROToReceiveQuantityRounding
         // Calculate the Order quantity based on the number of Pallets entered
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        Rec."Return Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Return Qty. to Receive" := CheckQtyAndCuom.CheckQty(CaseConst, PalletConst, Rec."Qty. to Receive Case", Rec."Qty. to Receive Pallet", Rec.Quantity);
     end;
 
     var
-        Item: Record "Item";
         GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
         CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
         QtyOfUoM: Codeunit QtyOfUnitOfMeasure;

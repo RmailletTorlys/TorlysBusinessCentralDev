@@ -38,16 +38,16 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
             field("Qty. to Receive Case"; Rec."Qty. to Ship Case")
             {
-                Caption = 'Qty. to Ship Case';
-                ToolTip = 'Qty. to Ship Case';
+                Caption = 'Qty. to Receive Case';
+                ToolTip = 'Qty. to Receive Case';
                 ApplicationArea = All;
 
             }
 
             field("Qty. to Receive Pallet"; Rec."Qty. to Ship Pallet")
             {
-                Caption = 'Qty. to Ship Pallet';
-                ToolTip = 'Qty. to Ship Pallet';
+                Caption = 'Qty. to Receive Pallet';
+                ToolTip = 'Qty. to Receive Pallet';
                 ApplicationArea = All;
 
             }

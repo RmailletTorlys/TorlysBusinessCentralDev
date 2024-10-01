@@ -1,14 +1,16 @@
-codeunit 50209 POQuantityRounding
+codeunit 50220 SCrOQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]
-    local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]
+    local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")
     var
         CaseQuantity: Integer;
 
     begin
+
         if CheckQtyAndCuom.Validate(Item, Rec.Quantity, Rec."No.") then exit;
+
 
         // Get the Case and Pallet quantities per Unit of Measure
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
@@ -34,14 +36,13 @@ codeunit 50209 POQuantityRounding
         else
             Rec."Quantity Case" := 0;
 
-
         Commit();
-        UpdateToReceive(Rec);
+        UpdateShipAndInvoice(Rec);
 
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', true, true)]
-    local procedure OnChangeCaseQuantity(var Rec: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Case Quantity', true, true)]
+    local procedure OnChangeCaseQuantity(var Rec: Record "Sales Line")
 
     begin
         // Get the Case and Pallet SqFt amounts for the item entered.
@@ -61,31 +62,28 @@ codeunit 50209 POQuantityRounding
             Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
-
-
         Commit();
-        UpdateToReceive(Rec);
+        UpdateShipAndInvoice(Rec);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
-    local procedure OnChangePalletQuantity(var Rec: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', true, true)]
+    local procedure OnChangePalletQuantity(var Rec: Record "Sales Line")
 
     begin
         // Calculate the Order quantity based on the number of Pallets entered
         PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
         CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
-
-
         Commit();
-        UpdateToReceive(Rec);
+        UpdateShipAndInvoice(Rec);
     end;
 
-    local procedure UpdateToReceive(var Rec: Record "Purchase Line")
+    local procedure UpdateShipAndInvoice(var Rec: Record "Sales Line")
     begin
-        Rec."Qty. to Receive" := Rec.Quantity;
-        Rec."Qty. to Receive Case" := Rec."Quantity Case";
-        Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
+        Rec."Qty. to Ship" := Rec.Quantity;
+        Rec."Qty. to Ship Case" := Rec."Quantity Case";
+        Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
+        Rec."Qty. to Invoice" := Rec.Quantity;
     end;
 
     var
@@ -97,5 +95,7 @@ codeunit 50209 POQuantityRounding
         PalletConst: Decimal;
         CaseConst: Decimal;
         RemainingQuantity: Decimal;
+
+
 
 }

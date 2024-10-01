@@ -1,13 +1,22 @@
-pageextension 50010 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
+pageextension 50012 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 {
     layout
     {
         addafter(Quantity)
         {
-            field("Quantity Case"; Rec."Quantity Case")
+            field("Case Quantity"; Rec."Quantity Case")
             {
-                visible = true;
-                enabled = false;
+                ToolTip = 'Case Quantity';
+                Caption = 'Case Quantity';
+                ApplicationArea = All;
+
+            }
+
+            field("Pallet Quantity"; Rec."Quantity Pallet")
+            {
+                ToolTip = 'Pallet Quantity';
+                Caption = 'Pallet Quantity';
+                ApplicationArea = All;
 
             }
         }

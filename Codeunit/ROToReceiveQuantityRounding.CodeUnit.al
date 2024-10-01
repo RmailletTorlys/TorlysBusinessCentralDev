@@ -1,4 +1,4 @@
-codeunit 50207 ROToReceiveQuantityRounding
+codeunit 50227 ROToReceiveQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

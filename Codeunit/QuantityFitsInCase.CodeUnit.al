@@ -1,4 +1,4 @@
-codeunit 50221 QuantityFitsInCase
+codeunit 50225 QuantityFitsInCase
 {
     procedure Validate(Qty: Decimal; CaseConst: Decimal; CaseQuantity: Integer): Decimal
     var

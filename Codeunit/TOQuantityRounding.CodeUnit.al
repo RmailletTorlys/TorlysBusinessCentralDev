@@ -1,4 +1,4 @@
-codeunit 50214 TOQuantityRounding
+codeunit 50231 TOQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

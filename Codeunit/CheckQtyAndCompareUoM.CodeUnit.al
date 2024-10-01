@@ -1,4 +1,4 @@
-codeunit 50217 CheckQtyAndCompareUoM
+codeunit 50208 CheckQtyAndCompareUoM
 {
     procedure Validate(Qty: Decimal; "No.": Text[20]): Boolean
     var

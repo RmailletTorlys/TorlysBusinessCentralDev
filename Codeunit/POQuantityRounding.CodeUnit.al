@@ -1,4 +1,4 @@
-codeunit 50209 POQuantityRounding
+codeunit 50222 POQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

@@ -1,4 +1,4 @@
-codeunit 50218 GetUnitOfMeasureQuantity
+codeunit 50210 GetUnitOfMeasureQuantity
 {
     procedure Get(ItemNo: Code[20]; Unit: Text[20]): Decimal
     var

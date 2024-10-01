@@ -1,4 +1,4 @@
-codeunit 50205 ROQuantityRounding
+codeunit 50226 ROQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

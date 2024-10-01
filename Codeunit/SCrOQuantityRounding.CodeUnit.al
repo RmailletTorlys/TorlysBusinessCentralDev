@@ -1,4 +1,4 @@
-codeunit 50220 SCrOQuantityRounding
+codeunit 50228 SCrOQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

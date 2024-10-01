@@ -1,4 +1,4 @@
-codeunit 50202 SOQuantityRounding
+codeunit 50229 SOQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

@@ -1,4 +1,4 @@
-codeunit 50204 SOToShipQuantityRounding
+codeunit 50230 SOToShipQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

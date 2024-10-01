@@ -1,4 +1,4 @@
-Codeunit 50212 POReceivedQuantityRounding
+Codeunit 50223 POReceivedQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

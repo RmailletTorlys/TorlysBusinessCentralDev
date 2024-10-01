@@ -1,4 +1,4 @@
-codeunit 50216 TOToReceiveQuantityRounding
+codeunit 50232 TOToReceiveQuantityRounding
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

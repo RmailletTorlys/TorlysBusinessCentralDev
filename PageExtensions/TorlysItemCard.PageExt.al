@@ -102,3 +102,13 @@ pageextension 50002 TorlysItemCard extends "Item Card"
     end;
 }
 
+
+//On Page section, when clicking Show More...how to order lines when Show More or Show less
+//On Page section, how can I customize the previews tabs when collapsed?
+
+
+
+//Item Card
+
+//Preview Tab -> Stock Levels TOR and CAL
+//Those tabs are called PROMOTED

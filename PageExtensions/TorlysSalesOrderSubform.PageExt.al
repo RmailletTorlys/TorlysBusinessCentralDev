@@ -19,7 +19,9 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
 
             }
-
+        }
+        addafter("Qty. to Ship")
+        {
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
             {
                 Caption = 'Qty. to Ship Case';
@@ -39,3 +41,31 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
     }
 }
+
+
+//Unit of measure
+//Quantity
+//Outstanding Quantity
+//Qty. to Ship
+//Qty. to Ship Case
+//Qty. to Ship Pallet
+//Quantity Shipped
+//Quantity Shipped Not Invoiced
+//Quantity to Invoice
+//Quantity Invoiced
+
+
+//Line Discount % -> HIDE
+//Line Amount Excl. Tax
+//Unit Cost -> Change Visible = True
+//Line Cost (Is it a flowfield? or calculated field on subform?)
+
+//Purchasing Code
+//Drop Shipment
+//Purchase Order Number
+//Purch. Order Line Number
+//Special Order
+//Special Order Purchase Number
+//Special Order Purch. Line Number
+
+

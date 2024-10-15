@@ -22,7 +22,3 @@ pageextension 50012 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         }
     }
 }
-
-
-// If Compare UoM is not Case or Blank, error message
-// Case or Pallet UoM not set up

@@ -2,7 +2,6 @@ pageextension 50002 TorlysItemCard extends "Item Card"
 {
     layout
     {
-        // Add changes to page layout here
         addafter("Item")
         {
             group("Attributes")

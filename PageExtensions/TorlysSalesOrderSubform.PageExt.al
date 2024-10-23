@@ -2,6 +2,8 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
 {
     layout
     {
+        movebefore(Quantity; "Unit of Measure")
+
         addafter(Quantity)
         {
             field("Case Quantity"; Rec."Quantity Case")
@@ -20,6 +22,8 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
 
             }
         }
+
+        moveafter("Pallet Quantity"; "Qty. to Ship")
         addafter("Qty. to Ship")
         {
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
@@ -39,33 +43,101 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
 
         }
+        moveafter("Qty. to Ship Pallet"; "Quantity Shipped")
+        addafter("Quantity Shipped")
+        {
+            field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
+            {
+                Caption = 'Qty. Shipped Not Invoiced';
+                ToolTip = 'Qty. Shipped Not Invoiced';
+                ApplicationArea = All;
+            }
+        }
+
+        addafter("Qty. Shipped Not Invoiced")
+        {
+            field("Quantity to Invoice"; Rec."Qty. to Invoice")
+            {
+                Caption = 'Quantity to Invoice';
+                ToolTip = 'Quantity to Invoice';
+                ApplicationArea = All;
+
+            }
+        }
+
+        moveafter("Quantity to Invoice"; "Quantity Invoiced")
+
+        moveafter("Quantity Invoiced"; "Total Amount Excl. VAT")
+
+        moveafter("Total Amount Excl. VAT"; "Unit Cost (LCY)")
+
+        moveafter("Unit Cost (LCY)"; "Line Amount")
+
+        moveafter("Line Amount"; "Purchasing Code")
+
+        moveafter("Purchasing Code"; "Drop Shipment")
+
+        addafter("Drop Shipment")
+        {
+            field("PO No."; Rec."Purchase Order No.")
+            {
+                Caption = 'PO Number';
+                ToolTip = 'Purchase Order No.';
+                ApplicationArea = All;
+
+            }
+        }
+
+        addafter("PO No.")
+        {
+            field("PO Line No."; Rec."Purch. Order Line No.")
+            {
+                Caption = 'PO Line No.';
+                ToolTip = 'Purch. Order Line No.';
+                ApplicationArea = All;
+
+            }
+        }
+
+        moveafter("PO Line No."; "Special Order")
+
+        addafter("Special Order")
+        {
+            field("Special Order PO No."; Rec."Special Order Purchase No.")
+            {
+                Caption = 'Special Order PO No.';
+                ToolTip = 'Special Order PO No.';
+                ApplicationArea = All;
+
+            }
+        }
+
+        addafter("Special Order PO No.")
+        {
+            field("Special Order PO Line No."; Rec."Special Order Purch. Line No.")
+            {
+                Caption = 'Special Order PO Line No.';
+                ToolTip = 'Special Order Line No.';
+                ApplicationArea = All;
+
+            }
+        }
+
+
+
+
+
+        modify("Line Discount %")
+        {
+            Visible = false;
+        }
+
+        modify("Unit Cost (LCY)")
+        {
+            Visible = true;
+        }
     }
 }
 
-
-//Unit of measure
-//Quantity
-//Outstanding Quantity
-//Qty. to Ship
-//Qty. to Ship Case
-//Qty. to Ship Pallet
-//Quantity Shipped
-//Quantity Shipped Not Invoiced
-//Quantity to Invoice
-//Quantity Invoiced
-
-
-//Line Discount % -> HIDE
-//Line Amount Excl. Tax
-//Unit Cost -> Change Visible = True
-//Line Cost (Is it a flowfield? or calculated field on subform?)
-
-//Purchasing Code
-//Drop Shipment
-//Purchase Order Number
-//Purch. Order Line Number
-//Special Order
-//Special Order Purchase Number
-//Special Order Purch. Line Number
 
 

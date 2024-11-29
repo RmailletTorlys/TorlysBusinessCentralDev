@@ -8,7 +8,7 @@
             "environmentType": "Sandbox",
             "environmentName": "Sandbox_DEV",
             "tenant": "8e814182-a16b-4579-954b-adbc4658aada",
-            "startupObjectId": 44,
+            "startupObjectId": 30,
             "startupObjectType": "Page",
             "schemaUpdateMode": "ForceSync",
             "breakOnError": true,

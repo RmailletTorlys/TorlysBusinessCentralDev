@@ -2,25 +2,31 @@ pageextension 50002 TorlysItemCard extends "Item Card"
 {
     layout
     {
+        addafter("Base Unit of Measure")
+        {
+            field("Compare Unit of Measure"; Rec."Compare Unit of Measure")
+            {
+                Caption = 'Compare Unit of Measure';
+                ToolTip = 'Specifies the unit of measure for rounding in sales and purchase orders.';
+                ApplicationArea = All;
+                Visible = true;
+
+            }
+
+        }
         addafter("Item")
         {
+
             group("Attributes")
             {
 
-                field("Compare Unit of Measure"; Rec."Compare Unit of Measure")
-                {
-                    ApplicationArea = All;
-                    Visible = true;
-                    Caption = 'Compare Unit of Measure';
-                    ToolTip = 'Specifies the base unit of measure that the item is sold as. For example, a moulding would be "Each" as they are sold by piece. A floor would be set to SqFt as it is sold by the coverage quantity.';
-
-                }
                 field("New Item"; Rec."New Item")
                 {
                     ApplicationArea = All;
                     Visible = true;
                     Caption = 'New Item';
                     ToolTip = 'Specifies if this item is a new item for selling purposes.';
+                    Importance = Promoted;
 
                 }
 
@@ -30,6 +36,7 @@ pageextension 50002 TorlysItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'Current Item';
                     ToolTip = 'Specifies if this item is currently being stocked for selling purposes.';
+                    Importance = Additional;
 
                 }
 
@@ -87,7 +94,28 @@ pageextension 50002 TorlysItemCard extends "Item Card"
                 }
             }
         }
-
+        //"Item" group - start
+        modify("Description 2")
+        {
+            Visible = true;
+        }
+        modify("Type")
+        {
+            Visible = false;
+        }
+        modify("GTIN")
+        {
+            Visible = false;
+        }
+        modify("Item Category Code")
+        {
+            Visible = false;
+        }
+        modify("Common Item No.")
+        {
+            Visible = false;
+        }
+        //"Item" group - end
     }
 
     procedure QuantityOfItem(Item: Record Item): Decimal

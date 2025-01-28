@@ -1,7 +1,7 @@
 {
   "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
-  "name": "Test",
-  "publisher": "Default Publisher",
+  "name": "Torlys Extensions",
+  "publisher": "TORLYS IT",
   "version": "1.0.0.0",
   "brief": "",
   "description": "",
@@ -10,7 +10,14 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id": "80d6fa89-22c4-48be-bfab-ea1ecdd7ea01",
+      "name": "torlys",
+      "publisher": "BDO Canada LLP",
+      "version": "1.0.0.1"
+    }
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "24.0.0.0",
@@ -18,6 +25,10 @@
     {
       "from": 50000,
       "to": 59999
+    },
+    {
+      "from": 70000,
+      "to": 79999
     }
   ],
   "resourceExposurePolicy": {
@@ -28,6 +39,5 @@
   "runtime": "13.0",
   "features": [
     "NoImplicitWith"
-    
   ]
 }

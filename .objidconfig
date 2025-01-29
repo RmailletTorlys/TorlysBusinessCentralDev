@@ -17,11 +17,6 @@
     },
     {
       "from": 50300,
-      "to": 50399,
-      "description": "Reserved"
-    },
-    {
-      "from": 50400,
       "to": 50999,
       "description": "Reserved"
     },

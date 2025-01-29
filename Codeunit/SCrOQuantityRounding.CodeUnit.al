@@ -3,45 +3,6 @@ codeunit 50228 SCrOQuantityRounding
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]
-    local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")
-    var
-        CaseQuantity: Integer;
-
-    begin
-
-        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
-
-
-        // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
-
-        // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
-        CaseQuantity := QtyOfUoM.Quantity(Rec.Quantity, CaseConst);
-
-
-        // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
-        // If the Quantity in the record is not equal to the Product, calculate and present the values to the user to chose a quantity that fits 
-        Rec.Quantity := QtyFits.Validate(Rec.Quantity, CaseConst, CaseQuantity);
-
-        // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
-        if Rec.Quantity >= PalletConst then
-            Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
-
-        RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
-
-        // If RemainingQuantity is not 0, calculate the cases that are remaining. Otherwise, set the cases to 0.
-        if RemainingQuantity > 0 then
-            Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-        else
-            Rec."Quantity Case" := 0;
-
-        Commit();
-        UpdateShipAndInvoice(Rec);
-
-    end;
-
     [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Case Quantity', true, true)]
     local procedure OnChangeCaseQuantity(var Rec: Record "Sales Line")
 

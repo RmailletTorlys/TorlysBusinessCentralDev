@@ -3,43 +3,6 @@ codeunit 50227 ROToReceiveQuantityRounding
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Return Qty. to Receive', true, true)]
-    local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")
-    var
-        CaseQuantity: Integer;
-
-    begin
-        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then exit;
-
-
-        // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
-
-        // Set Case Quantity to the entered quantity divided by CaseConst, which is the quantity of a case entered in the Item Unit of Measure table. 
-        CaseQuantity := QtyOfUoM.Quantity(Rec."Return Qty. to Receive", CaseConst);
-
-        // CHECK IF NEEDED?????
-        // Check if Quantity is not equal to the Case Quantity (calculated in the previous step) times the CaseConst value set above.
-        // If the Quantity in the record is not equal to the Product, calculate and present the values to the user to chose a quantity that fits 
-        Rec."Return Qty. to Receive" := QtyFits.Validate(Rec."Return Qty. to Receive", CaseConst, CaseQuantity);
-
-        // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
-        if Rec."Return Qty. to Receive" >= PalletConst then
-            Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Return Qty. to Receive", PalletConst);
-
-        RemainingQuantity := Rec."Return Qty. to Receive" - PalletConst * Rec."Qty. to Receive Pallet";
-
-        // If RemainingQuantity is not 0, calculate the cases that are remaining. Otherwise, set the cases to 0.
-        if RemainingQuantity > 0 then
-            Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-        else
-            Rec."Qty. to Receive Case" := 0;
-
-        UpdateToInvoice(Rec);
-
-    end;
-
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', true, true)]
     local procedure OnChangeCaseQuantity(var Rec: Record "Sales Line")
 
@@ -63,7 +26,6 @@ codeunit 50227 ROToReceiveQuantityRounding
             Rec."Qty. to Receive Case" := 0;
 
         UpdateToInvoice(Rec);
-
 
     end;
 

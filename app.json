@@ -25,10 +25,6 @@
     {
       "from": 50000,
       "to": 59999
-    },
-    {
-      "from": 70000,
-      "to": 79999
     }
   ],
   "resourceExposurePolicy": {

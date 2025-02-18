@@ -10,14 +10,7 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [
-    {
-      "id": "80d6fa89-22c4-48be-bfab-ea1ecdd7ea01",
-      "name": "torlys",
-      "publisher": "BDO Canada LLP",
-      "version": "1.0.0.1"
-    }
-  ],
+  "dependencies": [],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "24.0.0.0",

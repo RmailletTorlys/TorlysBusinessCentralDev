@@ -1,4 +1,4 @@
-tableextension 51119 "TorlysItemCategory" extends "Item Category"
+tableextension 50119 "TorlysItemCategory" extends "Item Category"
 {
     fields
     {

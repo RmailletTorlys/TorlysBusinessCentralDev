@@ -10,7 +10,10 @@ pageextension 50009 TorlysItemJournal extends "Item Journal"
                 Caption = 'Case Quantity';
                 ToolTip = 'Case Quantity';
                 ApplicationArea = All;
-
+                trigger OnValidate()
+                begin
+                    Rec.OnValidateQuantityCase(Rec, xRec, 50001, 13);
+                end;
             }
 
             field("Pallet Quantity"; Rec."Quantity Pallet")
@@ -18,6 +21,10 @@ pageextension 50009 TorlysItemJournal extends "Item Journal"
                 Caption = 'Pallet Quantity';
                 ToolTip = 'Pallet Quantity';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 13);
+                end;
             }
         }
     }

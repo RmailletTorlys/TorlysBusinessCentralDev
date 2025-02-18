@@ -12,6 +12,11 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Case Quantity';
                 ApplicationArea = All;
 
+                trigger OnValidate()
+                begin
+                    TorlysSLQuantityRounding.OnChangeQuantityCase(Rec, xRec, 50001, 15);
+                end;
+
             }
 
             field("Pallet Quantity"; Rec."Quantity Pallet")
@@ -19,6 +24,13 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Pallet Quantity';
                 ToolTip = 'Pallet Quantity';
                 ApplicationArea = All;
+
+                trigger OnValidate()
+                begin
+                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 15);
+                    Rec.Get(Rec."Document Type", Rec."Document No.", Rec."Line No.");
+                end;
+
 
             }
         }
@@ -32,6 +44,12 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
 
+                trigger OnValidate()
+                begin
+                    Rec.OnValidateQuantityCase(Rec, xRec, 50003, 18);
+                    Rec.Get(Rec."Document Type", Rec."Document No.", Rec."Line No.");
+                end;
+
             }
 
             field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
@@ -39,6 +57,11 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    Rec.OnValidateQuantityPallet(Rec, xRec, 50004, 18);
+                    Rec.Get(Rec."Document Type", Rec."Document No.", Rec."Line No.");
+                end;
 
             }
 
@@ -54,18 +77,9 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
         }
 
-        addafter("Qty. Shipped Not Invoiced")
-        {
-            field("Quantity to Invoice"; Rec."Qty. to Invoice")
-            {
-                Caption = 'Quantity to Invoice';
-                ToolTip = 'Quantity to Invoice';
-                ApplicationArea = All;
+        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice")
 
-            }
-        }
-
-        moveafter("Quantity to Invoice"; "Quantity Invoiced")
+        moveafter("Qty. to Invoice"; "Quantity Invoiced")
 
         moveafter("Quantity Invoiced"; "Total Amount Excl. VAT")
 
@@ -124,9 +138,6 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
 
 
-
-
-
         modify("Line Discount %")
         {
             Visible = false;
@@ -136,8 +147,13 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
         {
             Visible = true;
         }
-    }
-}
 
+
+    }
+
+    var
+
+        TorlysSLQuantityRounding: Codeunit "Torlys SL Quantity Rounding";
+}
 
 

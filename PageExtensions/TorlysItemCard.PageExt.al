@@ -63,7 +63,7 @@ pageextension 50002 TorlysItemCard extends "Item Card"
                     Importance = Standard;
 
                 }
-                field("Discontinued"; Rec.Discontinued)
+                field("Discontinued"; Rec."Discontinued Item")
                 {
                     ApplicationArea = All;
                     Visible = true;

@@ -1,258 +1,281 @@
-codeunit 50201 TorlysTLQuantityRounding
+codeunit 50201 "Torlys TL Quantity Rounding"
 {
-
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
-    local procedure OnBeforeValidateQuantity(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    local procedure OnValidateSOQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
-    local procedure OnBeforeValidateQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    begin
-        OnChangeQuantityCase(Rec, xRec, 1);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
-    local procedure OnBeforeValidateQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    begin
-        OnChangeQuantityPallet(Rec, xRec, 1);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
-    local procedure OnBeforeValidateQtyToShipBase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
+    local procedure OnValidateSOToShipQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         QuantityRoundingToCaseAndPallet(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Case', false, false)]
-    local procedure OnBeforeValidateQtyToShipCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    local procedure OnValidateROQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    local procedure OnValidateCrMemoQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    local procedure OnValidateSOCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        OnChangeQuantityCase(Rec, xRec, 1);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Case', false, false)]
+    local procedure OnValidateSOToShipCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Pallet', false, false)]
-    local procedure OnBeforeValidateQtyToShipPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    local procedure OnValidateROCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
-        OnChangeQuantityPallet(Rec, xRec, 2);
+        OnChangeQuantityCase(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive', false, false)]
-    local procedure OnBeforeValidateQtyToReceiveBase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 3);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', false, false)]
-    local procedure OnBeforeValidateQtyToReceiveCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', false, false)]
+    local procedure OnValidateROToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 3);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', false, false)]
-    local procedure OnBeforeValidateQtyToReceivePallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    local procedure OnValidateCrMemoCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        OnChangeQuantityCase(Rec, xRec, 1);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    local procedure OnValidateSOPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec, 1);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Pallet', false, false)]
+    local procedure OnValidateSOToShipPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec, 2);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    local procedure OnValidateROPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec, 1);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', false, false)]
+    local procedure OnValidateROToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 3);
     end;
 
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    local procedure OnValidateCrMemoPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec, 1);
+    end;
 
+    procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
+    begin
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then
+            exit;
 
-    procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
+        // Get the Case and Pallet quantities per Unit of Measure
+        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+
+        case OrderType of
+            1: // Quantity
+                HandleQuantity(Rec);
+            2: // Qty. to Ship (Base)
+                HandleQtyToShip(Rec);
+        end;
+    end;
+
+    procedure OnChangeQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
+    begin
+        // Get the Case and Pallet quantities for the item entered
+        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+
+        case OrderType of
+            1: // Case Quantity
+                HandleCaseQuantity(Rec);
+            2: // Qty. to Ship Case
+                HandleQtyToShipCase(Rec);
+            3: // Qty. to Receive Case
+                HandleQtyToReceiveCase(Rec);
+        end;
+    end;
+
+    procedure OnChangeQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
+    begin
+        // Get the Case and Pallet quantities for the item entered
+        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+
+        case OrderType of
+            1: // Pallet Quantity
+                HandlePalletQuantity(Rec);
+            2: // Qty. to Ship Pallet
+                HandleQtyToShipPallet(Rec);
+            3: // Qty. to Receive Pallet
+                HandleQtyToReceivePallet(Rec);
+        end;
+    end;
+
+    local procedure HandleQuantity(var Rec: Record "Sales Line")
     var
         CaseQuantity: Integer;
-
     begin
+        CaseQuantity := QtyOfUoM.Quantity(Rec.Quantity, CaseConst);
+        Rec.Quantity := QtyFits.Validate(Rec.Quantity, CaseConst, CaseQuantity);
 
-        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."Item No.") then exit;
+        if Rec.Quantity >= PalletConst then
+            Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst)
+        else
+            Rec."Quantity Pallet" := 0;
 
-        // Get the Case and Pallet quantities per Unit of Measure and calculate the number of Cases from the quantity entered.
-        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
+        RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
 
+        if RemainingQuantity > 0 then
+            Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+        else
+            Rec."Quantity Case" := 0;
 
-        case OrderType of
-            //Quantity
-            1:
-                begin
-                    CaseQuantity := QtyOfUoM.Quantity(Rec.Quantity, CaseConst);
-
-                    // Check if Quantity entered matched CaseConst * CaseQuantity. If Not, present options to user to chose quantity that fits.
-                    Rec.Quantity := QtyFits.Validate(Rec.Quantity, CaseConst, CaseQuantity);
-
-                    // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
-                    if Rec.Quantity >= PalletConst then
-                        Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst)
-                    else
-                        Rec."Quantity Pallet" := 0;
-
-                    RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
-
-                    // If RemainingQuantity is not 0, calculate the cases that are remaining. Set Quantity Case to 0 otherwise.
-                    if RemainingQuantity > 0 then
-                        Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-                    else
-                        Rec."Quantity Case" := 0;
-
-                    UpdateShip(Rec);
-
-
-                end;
-            //Qty. to Ship
-            2:
-                begin
-                    CaseQuantity := QtyOfUoM.Quantity(Rec."Qty. to Ship", CaseConst);
-
-                    // Check if Quantity entered matched CaseConst * CaseQuantity. If Not, present options to user to chose quantity that fits.
-                    Rec.Quantity := QtyFits.Validate(Rec."Qty. to Ship", CaseConst, CaseQuantity);
-
-                    // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
-                    if Rec."Qty. to Ship" >= PalletConst then
-                        Rec."Qty. to Ship Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Ship", PalletConst)
-                    else
-                        Rec."Quantity Pallet" := 0;
-
-                    RemainingQuantity := Rec."Qty. to Ship" - PalletConst * Rec."Qty. to Ship Pallet";
-
-                    // If RemainingQuantity is not 0, calculate the cases that are remaining. Set Quantity Case to 0 otherwise.
-                    if RemainingQuantity > 0 then
-                        Rec."Qty. to Ship Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-                    else
-                        Rec."Qty. to Ship Case" := 0;
-                end;
-            //Qty. to Receive
-            3:
-                begin
-                    CaseQuantity := QtyOfUoM.Quantity(Rec."Qty. to Receive", CaseConst);
-
-                    // Check if Quantity entered matched CaseConst * CaseQuantity. If Not, present options to user to chose quantity that fits.
-                    Rec."Qty. to Receive" := QtyFits.Validate(Rec."Qty. to Receive", CaseConst, CaseQuantity);
-
-                    // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
-                    if Rec."Qty. to Receive" >= PalletConst then
-                        Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Receive", PalletConst)
-                    else
-                        Rec."Qty. to Receive Pallet" := 0;
-
-                    RemainingQuantity := Rec."Qty. to Receive" - PalletConst * Rec."Qty. to Receive Pallet";
-
-                    // If RemainingQuantity is not 0, calculate the cases that are remaining. Set Quantity Case to 0 otherwise.
-                    if RemainingQuantity > 0 then
-                        Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-                    else
-                        Rec."Qty. to Receive Case" := 0;
-                end;
+        case Rec."Document Type" of
+            Rec."Document Type"::Order:
+                UpdateShipAndInvoice(Rec);
+            Rec."Document Type"::"Return Order":
+                UpdateToReceive(Rec);
         end;
     end;
 
-    procedure OnChangeQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
-
+    local procedure HandleQtyToShip(var Rec: Record "Sales Line")
+    var
+        CaseQuantity: Integer;
     begin
+        CaseQuantity := QtyOfUoM.Quantity(Rec."Qty. to Ship (Base)", CaseConst);
+        Rec.Quantity := QtyFits.Validate(Rec."Qty. to Ship (Base)", CaseConst, CaseQuantity);
 
-        // Get the Case and Pallet SqFt amounts for the item entered.
-        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
+        if Rec."Qty. to Ship (Base)" >= PalletConst then
+            Rec."Qty. to Ship Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Ship (Base)", PalletConst)
+        else
+            Rec."Quantity Pallet" := 0;
 
-        case OrderType of
-            //Case Quantity
-            1:
-                begin
-                    // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
-                    Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
+        RemainingQuantity := Rec."Qty. to Ship (Base)" - PalletConst * Rec."Qty. to Ship Pallet";
 
-                    // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
-                    if Rec.Quantity >= PalletConst then Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
-
-                    RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
-
-                    // After calculating the number of Pallets, calculate the remaining cases. If no remainder, set cases to 0
-                    if RemainingQuantity > 0 then
-                        Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-                    else
-                        Rec."Quantity Case" := 0;
-
-                    UpdateShip(Rec);
-                end;
-            //Case Qty. to Ship
-            2:
-                begin
-                    // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
-                    Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
-
-                    // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
-                    if Rec.Quantity >= PalletConst then Rec."Qty. to Ship Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
-
-                    RemainingQuantity := Rec.Quantity - PalletConst * Rec."Qty. to Ship Pallet";
-
-                    // After calculating the number of Pallets, calculate the remaining cases. If no remainder, set cases to 0
-                    if RemainingQuantity > 0 then
-                        Rec."Qty. to Ship Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-                    else
-                        Rec."Qty. to Ship Case" := 0;
-                end;
-            //Case Qty. to Receive
-            3:
-                begin
-                    // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
-                    Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
-
-                    // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
-                    if Rec.Quantity >= PalletConst then Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
-
-                    RemainingQuantity := Rec.Quantity - PalletConst * Rec."Qty. to Receive Pallet";
-
-                    // After calculating the number of Pallets, calculate the remaining cases. If no remainder, set cases to 0
-                    if RemainingQuantity > 0 then
-                        Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
-                    else
-                        Rec."Qty. to Receive Case" := 0;
-                end;
-        end;
-
-        Commit();
-
-
+        if RemainingQuantity > 0 then
+            Rec."Qty. to Ship Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+        else
+            Rec."Qty. to Ship Case" := 0;
     end;
 
-    procedure OnChangeQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
-
+    local procedure HandleCaseQuantity(var Rec: Record "Sales Line")
     begin
+        Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
-        // Calculate the Order quantity based on the number of Pallets entered
-        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
-        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
+        if Rec.Quantity >= PalletConst then
+            Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
 
+        RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
 
+        if RemainingQuantity > 0 then
+            Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+        else
+            Rec."Quantity Case" := 0;
 
-        case OrderType of
-            //Pallet Quantity
-            1:
-                begin
-                    Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
-                    UpdateShip(Rec);
-
-                end;
-            //Pallet Qty. to Ship
-            2:
-                Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
-            //Pallet Qty. to Receive
-            3:
-                Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
-
-
+        case Rec."Document Type" of
+            Rec."Document Type"::Order:
+                UpdateShipAndInvoice(Rec);
+            Rec."Document Type"::"Return Order":
+                UpdateToReceive(Rec);
         end;
-
-        Commit();
-
     end;
 
-    local procedure UpdateShip(var Rec: Record "Transfer Line")
+    local procedure HandleQtyToShipCase(var Rec: Record "Sales Line")
+    begin
+        Rec."Qty. to Ship (Base)" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+
+        if Rec.Quantity >= PalletConst then
+            Rec."Qty. to Ship Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
+
+        RemainingQuantity := Rec.Quantity - PalletConst * Rec."Qty. to Ship Pallet";
+
+        if RemainingQuantity > 0 then
+            Rec."Qty. to Ship Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+        else
+            Rec."Qty. to Ship Case" := 0;
+    end;
+
+    local procedure HandleQtyToReceiveCase(var Rec: Record "Sales Line")
+    begin
+        Rec."Return Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+
+        if Rec."Return Qty. to Receive (Base)" >= PalletConst then
+            Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Return Qty. to Receive (Base)", PalletConst);
+
+        RemainingQuantity := Rec."Return Qty. to Receive (Base)" - PalletConst * Rec."Qty. to Receive Pallet";
+
+        if RemainingQuantity > 0 then
+            Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+        else
+            Rec."Qty. to Receive Case" := 0;
+
+        UpdateToInvoice(Rec);
+    end;
+
+    local procedure HandlePalletQuantity(var Rec: Record "Sales Line")
+    begin
+        Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
+
+        case Rec."Document Type" of
+            Rec."Document Type"::Order:
+                UpdateShipAndInvoice(Rec);
+            Rec."Document Type"::"Return Order":
+                UpdateToReceive(Rec);
+        end;
+    end;
+
+    local procedure HandleQtyToShipPallet(var Rec: Record "Sales Line")
+    begin
+        Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+    end;
+
+    local procedure HandleQtyToReceivePallet(var Rec: Record "Sales Line")
+    begin
+        Rec."Return Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        UpdateToInvoice(Rec);
+    end;
+
+    local procedure UpdateShipAndInvoice(var Rec: Record "Sales Line")
     begin
         Rec."Qty. to Ship" := Rec.Quantity;
         Rec."Qty. to Ship Case" := Rec."Quantity Case";
         Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
-        Rec."Qty. to Receive (Base)" := Rec.Quantity;
+        Rec."Qty. to Invoice" := Rec.Quantity;
+    end;
+
+    local procedure UpdateToReceive(var Rec: Record "Sales Line")
+    begin
+        Rec."Return Qty. to Receive" := Rec.Quantity;
+        Rec."Qty. to Invoice" := Rec.Quantity;
         Rec."Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
+    end;
+
+    local procedure UpdateToInvoice(var Rec: Record "Sales Line")
+    begin
+        Rec."Qty. to Invoice" := Rec.Quantity;
     end;
 
     var
@@ -264,4 +287,3 @@ codeunit 50201 TorlysTLQuantityRounding
         CaseConst: Decimal;
         RemainingQuantity: Decimal;
 }
-    

@@ -37,6 +37,24 @@ codeunit 50201 TorlysTLQuantityRounding
         OnChangeQuantityPallet(Rec, xRec, 2);
     end;
 
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive', false, false)]
+    local procedure OnBeforeValidateQtyToReceiveBase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+        QuantityRoundingToCaseAndPallet(Rec, xRec, 3);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', false, false)]
+    local procedure OnBeforeValidateQtyToReceiveCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+        OnChangeQuantityCase(Rec, xRec, 3);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', false, false)]
+    local procedure OnBeforeValidateQtyToReceivePallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec, 3);
+    end;
+
 
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
@@ -101,6 +119,28 @@ codeunit 50201 TorlysTLQuantityRounding
                     else
                         Rec."Qty. to Ship Case" := 0;
                 end;
+            //Qty. to Receive
+            3:
+                begin
+                    CaseQuantity := QtyOfUoM.Quantity(Rec."Qty. to Receive", CaseConst);
+
+                    // Check if Quantity entered matched CaseConst * CaseQuantity. If Not, present options to user to chose quantity that fits.
+                    Rec."Qty. to Receive" := QtyFits.Validate(Rec."Qty. to Receive", CaseConst, CaseQuantity);
+
+                    // Check if the quantity is larger than a pallet size and calculate the remaining quantity after converting to pallets.
+                    if Rec."Qty. to Receive" >= PalletConst then
+                        Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Receive", PalletConst)
+                    else
+                        Rec."Qty. to Receive Pallet" := 0;
+
+                    RemainingQuantity := Rec."Qty. to Receive" - PalletConst * Rec."Qty. to Receive Pallet";
+
+                    // If RemainingQuantity is not 0, calculate the cases that are remaining. Set Quantity Case to 0 otherwise.
+                    if RemainingQuantity > 0 then
+                        Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+                    else
+                        Rec."Qty. to Receive Case" := 0;
+                end;
         end;
     end;
 
@@ -149,7 +189,23 @@ codeunit 50201 TorlysTLQuantityRounding
                     else
                         Rec."Qty. to Ship Case" := 0;
                 end;
+            //Case Qty. to Receive
+            3:
+                begin
+                    // Calculate the Order Quantity based on the amount of cases entered and any pallets already on the order.
+                    Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
 
+                    // If quantity is more than a pallet, calculate the amount for a pallet and pass remainder to case count.
+                    if Rec.Quantity >= PalletConst then Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
+
+                    RemainingQuantity := Rec.Quantity - PalletConst * Rec."Qty. to Receive Pallet";
+
+                    // After calculating the number of Pallets, calculate the remaining cases. If no remainder, set cases to 0
+                    if RemainingQuantity > 0 then
+                        Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+                    else
+                        Rec."Qty. to Receive Case" := 0;
+                end;
         end;
 
         Commit();
@@ -178,6 +234,9 @@ codeunit 50201 TorlysTLQuantityRounding
             //Pallet Qty. to Ship
             2:
                 Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+            //Pallet Qty. to Receive
+            3:
+                Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
 
 
         end;
@@ -191,10 +250,7 @@ codeunit 50201 TorlysTLQuantityRounding
         Rec."Qty. to Ship" := Rec.Quantity;
         Rec."Qty. to Ship Case" := Rec."Quantity Case";
         Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
-    end;
-
-    local procedure UpdateToReceive(var Rec: Record "Transfer Line")
-    begin
+        Rec."Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
     end;
@@ -209,4 +265,3 @@ codeunit 50201 TorlysTLQuantityRounding
         RemainingQuantity: Decimal;
 }
     
-}

@@ -11,7 +11,7 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50001, 4);
+                    OnValidateCase(Rec, xRec);
                 end;
             }
 
@@ -22,7 +22,7 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 4);
+                    OnValidatePallet(Rec, xRec);
                 end;
             }
 
@@ -33,7 +33,7 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50003, 4)
+                    OnValidateToShipCase(Rec, xRec)
                 end;
             }
 
@@ -44,7 +44,7 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50004, 6)
+                    OnValidateToShipPallet(Rec, xRec)
                 end;
             }
 
@@ -56,7 +56,7 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50005, 7)
+                    OnValidateToReceiveCase(Rec, xRec)
                 end;
 
             }
@@ -69,12 +69,42 @@ pageextension 50011 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50006, 7)
+                    OnValidateToReceivePallet(Rec, xRec)
                 end;
 
             }
 
         }
     }
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToShipCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToShipPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceiveCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceivePallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
+    begin
+    end;
 
 }

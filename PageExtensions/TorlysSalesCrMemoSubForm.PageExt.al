@@ -11,7 +11,7 @@ pageextension 50012 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50001, 15);
+                    OnValidateCase(Rec, xRec);
                 end;
             }
 
@@ -22,9 +22,19 @@ pageextension 50012 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 15);
+                    OnValidatePallet(Rec, xRec);
                 end;
             }
         }
     }
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
 }

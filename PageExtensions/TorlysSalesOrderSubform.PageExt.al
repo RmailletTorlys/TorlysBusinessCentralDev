@@ -14,7 +14,7 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
 
                 trigger OnValidate()
                 begin
-                    TorlysSLQuantityRounding.OnChangeQuantityCase(Rec, xRec, 50001, 15);
+                    OnValidateCase(Rec, Rec);
                 end;
 
             }
@@ -27,8 +27,7 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 15);
-                    Rec.Get(Rec."Document Type", Rec."Document No.", Rec."Line No.");
+                    OnValidatePallet(Rec, Rec);
                 end;
 
 
@@ -46,8 +45,7 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50003, 18);
-                    Rec.Get(Rec."Document Type", Rec."Document No.", Rec."Line No.");
+                    OnValidateToShipCase(Rec, xRec);
                 end;
 
             }
@@ -59,8 +57,7 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50004, 18);
-                    Rec.Get(Rec."Document Type", Rec."Document No.", Rec."Line No.");
+                    OnValidateToShipPallet(Rec, xRec);
                 end;
 
             }
@@ -149,11 +146,28 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
 
 
+
     }
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
 
-    var
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
 
-        TorlysSLQuantityRounding: Codeunit "Torlys SL Quantity Rounding";
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToShipCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToShipPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
 }
 
 

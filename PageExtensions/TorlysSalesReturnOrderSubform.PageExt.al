@@ -12,7 +12,7 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50001, 15);
+                    OnValidateCase(Rec, xRec);
                 end;
             }
 
@@ -23,7 +23,7 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 15);
+                    OnValidatePallet(Rec, xRec);
                 end;
             }
 
@@ -35,7 +35,7 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50005, 5803)
+                    OnValidateToReceiveCase(Rec, xRec);
                 end;
 
             }
@@ -47,7 +47,7 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50006, 5803)
+                    OnValidateToReceivePallet(Rec, xRec);
                 end;
             }
 
@@ -59,7 +59,7 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50007, 5809);
+
                 end;
 
 
@@ -72,9 +72,30 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50008, 5809);
+
                 end;
             }
         }
     }
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
 }

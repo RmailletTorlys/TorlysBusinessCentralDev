@@ -12,7 +12,7 @@ pageextension 50009 TorlysItemJournal extends "Item Journal"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50001, 13);
+                    OnValidateCase(Rec, xRec);
                 end;
             }
 
@@ -23,9 +23,19 @@ pageextension 50009 TorlysItemJournal extends "Item Journal"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 13);
+                    OnValidatePallet(Rec, xRec);
                 end;
             }
         }
     }
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
+    begin
+    end;
 }

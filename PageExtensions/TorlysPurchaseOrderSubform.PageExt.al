@@ -11,7 +11,7 @@ pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50001, 15);
+                    OnValidateCase(Rec, xRec);
                 end;
             }
 
@@ -22,7 +22,7 @@ pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50002, 15);
+                    OnValidatePallet(Rec, xRec);
                 end;
             }
 
@@ -34,7 +34,7 @@ pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50003, 15);
+                    OnValidateToReceiveCase(Rec, xRec);
                 end;
 
             }
@@ -47,7 +47,7 @@ pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50004, 18);
+                    OnValidateToReceivePallet(Rec, xRec);
                 end;
 
             }
@@ -60,7 +60,7 @@ pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityCase(Rec, xRec, 50005, 60);
+                    OnValidateReceivedCase(Rec, xRec);
                 end;
 
             }
@@ -72,11 +72,41 @@ pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    Rec.OnValidateQuantityPallet(Rec, xRec, 50006, 60);
+                    OnValidateReceivedPallet(Rec, xRec);
                 end;
             }
 
         }
     }
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceiveCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateReceivedCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateReceivedPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
 
 }

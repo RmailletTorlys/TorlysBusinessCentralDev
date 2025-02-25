@@ -1,97 +1,68 @@
 codeunit 50201 "Torlys TL Quantity Rounding"
 {
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
-    local procedure OnValidateSOQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    local procedure OnValidateTOQuantity(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
     begin
         QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
-    local procedure OnValidateSOToShipQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
+    local procedure OnValidateTOToShipQuantity(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
     begin
         QuantityRoundingToCaseAndPallet(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
-    local procedure OnValidateROQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive', false, false)]
+    local procedure OnValidateTOToReceiveQuantity(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
     begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
+        QuantityRoundingToCaseAndPallet(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
-    local procedure OnValidateCrMemoQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
-    local procedure OnValidateSOCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    local procedure OnValidateTOCase(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Case', false, false)]
-    local procedure OnValidateSOToShipCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Case', false, false)]
+    local procedure OnValidateTOToShipCase(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
-    local procedure OnValidateROCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-        OnChangeQuantityCase(Rec, xRec, 1);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', false, false)]
-    local procedure OnValidateROToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Case', false, false)]
+    local procedure OnValidateTOToReceiveCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 3);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
-    local procedure OnValidateCrMemoCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
-    begin
-        OnChangeQuantityCase(Rec, xRec, 1);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
-    local procedure OnValidateSOPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    local procedure OnValidateTOPallet(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Pallet', false, false)]
-    local procedure OnValidateSOToShipPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Ship Pallet', false, false)]
+    local procedure OnValidateTOToShipPallet(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
-    local procedure OnValidateROPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-        OnChangeQuantityPallet(Rec, xRec, 1);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', false, false)]
-    local procedure OnValidateROToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive Pallet', false, false)]
+    local procedure OnValidateTOToReceivePallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 3);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
-    local procedure OnValidateCrMemoPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
-    begin
-        OnChangeQuantityPallet(Rec, xRec, 1);
-    end;
 
-    procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
+    procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
-        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."No.") then
+        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."Item No.") then
             exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Quantity
@@ -101,11 +72,11 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         end;
     end;
 
-    procedure OnChangeQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
+    procedure OnChangeQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
         // Get the Case and Pallet quantities for the item entered
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Case Quantity
@@ -117,11 +88,11 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         end;
     end;
 
-    procedure OnChangeQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
+    procedure OnChangeQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
         // Get the Case and Pallet quantities for the item entered
-        CaseConst := GetUoMQuantity.Get(Rec."No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."No.", 'PALLET');
+        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
+        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Pallet Quantity
@@ -133,7 +104,7 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         end;
     end;
 
-    local procedure HandleQuantity(var Rec: Record "Sales Line")
+    local procedure HandleQuantity(var Rec: Record "Transfer Line")
     var
         CaseQuantity: Integer;
     begin
@@ -151,16 +122,11 @@ codeunit 50201 "Torlys TL Quantity Rounding"
             Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
-
-        case Rec."Document Type" of
-            Rec."Document Type"::Order:
-                UpdateShipAndInvoice(Rec);
-            Rec."Document Type"::"Return Order":
-                UpdateToReceive(Rec);
-        end;
+        UpdateToReceive(Rec);
     end;
 
-    local procedure HandleQtyToShip(var Rec: Record "Sales Line")
+
+    local procedure HandleQtyToShip(var Rec: Record "Transfer Line")
     var
         CaseQuantity: Integer;
     begin
@@ -180,7 +146,7 @@ codeunit 50201 "Torlys TL Quantity Rounding"
             Rec."Qty. to Ship Case" := 0;
     end;
 
-    local procedure HandleCaseQuantity(var Rec: Record "Sales Line")
+    local procedure HandleCaseQuantity(var Rec: Record "Transfer Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
@@ -194,15 +160,10 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         else
             Rec."Quantity Case" := 0;
 
-        case Rec."Document Type" of
-            Rec."Document Type"::Order:
-                UpdateShipAndInvoice(Rec);
-            Rec."Document Type"::"Return Order":
-                UpdateToReceive(Rec);
-        end;
+        UpdateToReceive(Rec);
     end;
 
-    local procedure HandleQtyToShipCase(var Rec: Record "Sales Line")
+    local procedure HandleQtyToShipCase(var Rec: Record "Transfer Line")
     begin
         Rec."Qty. to Ship (Base)" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
 
@@ -217,65 +178,44 @@ codeunit 50201 "Torlys TL Quantity Rounding"
             Rec."Qty. to Ship Case" := 0;
     end;
 
-    local procedure HandleQtyToReceiveCase(var Rec: Record "Sales Line")
+    local procedure HandleQtyToReceiveCase(var Rec: Record "Transfer Line")
     begin
-        Rec."Return Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
 
-        if Rec."Return Qty. to Receive (Base)" >= PalletConst then
-            Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Return Qty. to Receive (Base)", PalletConst);
+        if Rec."Qty. to Receive (Base)" >= PalletConst then
+            Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Receive (Base)", PalletConst);
 
-        RemainingQuantity := Rec."Return Qty. to Receive (Base)" - PalletConst * Rec."Qty. to Receive Pallet";
+        RemainingQuantity := Rec."Qty. to Receive (Base)" - PalletConst * Rec."Qty. to Receive Pallet";
 
         if RemainingQuantity > 0 then
             Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
         else
             Rec."Qty. to Receive Case" := 0;
-
-        UpdateToInvoice(Rec);
     end;
 
-    local procedure HandlePalletQuantity(var Rec: Record "Sales Line")
+    local procedure HandlePalletQuantity(var Rec: Record "Transfer Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
-        case Rec."Document Type" of
-            Rec."Document Type"::Order:
-                UpdateShipAndInvoice(Rec);
-            Rec."Document Type"::"Return Order":
-                UpdateToReceive(Rec);
-        end;
+        UpdateToReceive(Rec);
     end;
 
-    local procedure HandleQtyToShipPallet(var Rec: Record "Sales Line")
+    local procedure HandleQtyToShipPallet(var Rec: Record "Transfer Line")
     begin
         Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
     end;
 
-    local procedure HandleQtyToReceivePallet(var Rec: Record "Sales Line")
+    local procedure HandleQtyToReceivePallet(var Rec: Record "Transfer Line")
     begin
-        Rec."Return Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
-        UpdateToInvoice(Rec);
+        Rec."Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+
     end;
 
-    local procedure UpdateShipAndInvoice(var Rec: Record "Sales Line")
+    local procedure UpdateToReceive(var Rec: Record "Transfer Line")
     begin
-        Rec."Qty. to Ship" := Rec.Quantity;
-        Rec."Qty. to Ship Case" := Rec."Quantity Case";
-        Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
-        Rec."Qty. to Invoice" := Rec.Quantity;
-    end;
-
-    local procedure UpdateToReceive(var Rec: Record "Sales Line")
-    begin
-        Rec."Return Qty. to Receive" := Rec.Quantity;
-        Rec."Qty. to Invoice" := Rec.Quantity;
+        Rec."Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
-    end;
-
-    local procedure UpdateToInvoice(var Rec: Record "Sales Line")
-    begin
-        Rec."Qty. to Invoice" := Rec.Quantity;
     end;
 
     var

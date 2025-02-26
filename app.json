@@ -10,7 +10,14 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
+      "name": "Sustainability",
+      "version": "25.3.28755.29171",
+      "publisher": "Microsoft"
+    }
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "24.0.0.0",
@@ -18,10 +25,6 @@
     {
       "from": 50000,
       "to": 59999
-    },
-    {
-      "from": 70000,
-      "to": 79999
     }
   ],
   "resourceExposurePolicy": {

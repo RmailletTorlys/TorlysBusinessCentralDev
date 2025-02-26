@@ -307,6 +307,12 @@ tableextension 50101 TorlysItem extends Item
             Caption = 'Tariff No. (Sales)';
             DataClassification = CustomerContent;
         }
+
+        field(50051; "Tarrif Charge Required"; Boolean)
+        {
+            Caption = 'Tariff Charge Required';
+            DataClassification = CustomerContent;
+        }
     }
 
 

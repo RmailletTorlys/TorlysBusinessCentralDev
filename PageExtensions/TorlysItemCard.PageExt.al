@@ -420,6 +420,42 @@ pageextension 50002 TorlysItemCard extends "Item Card"
                     Visible = true;
                     Importance = Additional;
                 }
+
+                field("Kit Components on Sales Orders"; Rec."Assembly Components on SO")
+                {
+                    Caption = 'Kit Components on Sales Orders';
+                    ToolTip = 'Add the Kit assembly components on open sales orders';
+                    ApplicationArea = All;
+                    Visible = true;
+                    Importance = Additional;
+                }
+
+                field("Kit Components on Shipments"; Rec."Assembly Components on Ship")
+                {
+                    Caption = 'Kit Components on Purchase Orders';
+                    ToolTip = 'Add the Kit assembly components on shipments';
+                    ApplicationArea = All;
+                    Visible = true;
+                    Importance = Additional;
+                }
+
+                field("Kit Components on Invoices"; Rec."Assembly Components on Inv")
+                {
+                    Caption = 'Kit Components on Invoices';
+                    ToolTip = 'Add the Kit assembly components on Invoices';
+                    ApplicationArea = All;
+                    Visible = true;
+                    Importance = Additional;
+                }
+
+                field("Kit Components on Pick Tickets"; Rec."Assembly Components on Pick")
+                {
+                    Caption = 'Kit Components on Pick Tickets';
+                    ToolTip = 'Add the Kit assembly components on Pick Tickets';
+                    ApplicationArea = All;
+                    Visible = true;
+                    Importance = Additional;
+                }
             }
 
 

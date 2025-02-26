@@ -313,6 +313,30 @@ tableextension 50101 TorlysItem extends Item
             Caption = 'Tariff Charge Required';
             DataClassification = CustomerContent;
         }
+
+        field(50052; "Assembly Components on SO"; Boolean)
+        {
+            Caption = 'Assembly Components on Sales Order';
+            DataClassification = CustomerContent;
+        }
+
+        field(50053; "Assembly Components on Ship"; Boolean)
+        {
+            Caption = 'Assembly Components on Shipments';
+            DataClassification = CustomerContent;
+        }
+
+        field(50054; "Assembly Components on Inv"; Boolean)
+        {
+            Caption = 'Assembly Components on Invoices';
+            DataClassification = CustomerContent;
+        }
+
+        field(50055; "Assembly Components on Pick"; Boolean)
+        {
+            Caption = 'Assembly Components on Pick Tickets';
+            DataClassification = CustomerContent;
+        }
     }
 
 

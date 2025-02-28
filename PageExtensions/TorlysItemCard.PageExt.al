@@ -96,22 +96,30 @@ pageextension 50002 TorlysItemCard extends "Item Card"
                 Caption = 'Attributes';
                 Visible = IsInventoriable;
 
-                field("Launch Date"; Rec."Launch Date")
+                field("Assembly BOM"; Rec."Assembly BOM")
                 {
+                    Caption = 'Kit BOM No.';
+                    ToolTip = 'The Item No. for the Kit Bill of Material';
                     ApplicationArea = All;
                     Visible = true;
-                    Caption = 'New Item';
-                    ToolTip = 'Date the Item launched';
-                    Importance = Standard;
+                    Importance = Additional;
                 }
+
                 field("New Item"; Rec."New Item")
                 {
                     ApplicationArea = All;
                     Visible = true;
                     Caption = 'New Item';
                     ToolTip = 'Specifies if this item is a new item for selling purposes.';
+                    Importance = Promoted;
+                }
+                field("Launch Date"; Rec."Launch Date")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'New Item Launch Date';
+                    ToolTip = 'Date the Item launched';
                     Importance = Standard;
-
                 }
 
                 field("Current Item"; Rec."Current Item")
@@ -394,74 +402,7 @@ pageextension 50002 TorlysItemCard extends "Item Card"
 
         //Replenishment Group End
 
-        //Kitting Group Start
 
-        addafter(Replenishment)
-        {
-            group(Kitting)
-            {
-                Caption = 'Kitting';
-                Visible = IsInventoriable;
-
-                field("Kit BOM No."; Rec."Production BOM No.")
-                {
-                    Caption = 'Kit BOM No.';
-                    ToolTip = 'The Item No. for the Kit Bill of Material';
-                    ApplicationArea = All;
-                    Visible = true;
-                    Importance = Additional;
-                }
-
-                field("Kit Dissassembly BOM No."; Rec."Production BOM No.")
-                {
-                    Caption = 'Kit Dissassembly BOM No. (REVIEW)';
-                    ToolTip = 'The Item No. for the Kit Bill of Material';
-                    ApplicationArea = All;
-                    Visible = true;
-                    Importance = Additional;
-                }
-
-                field("Kit Components on Sales Orders"; Rec."Assembly Components on SO")
-                {
-                    Caption = 'Kit Components on Sales Orders';
-                    ToolTip = 'Add the Kit assembly components on open sales orders';
-                    ApplicationArea = All;
-                    Visible = true;
-                    Importance = Additional;
-                }
-
-                field("Kit Components on Shipments"; Rec."Assembly Components on Ship")
-                {
-                    Caption = 'Kit Components on Purchase Orders';
-                    ToolTip = 'Add the Kit assembly components on shipments';
-                    ApplicationArea = All;
-                    Visible = true;
-                    Importance = Additional;
-                }
-
-                field("Kit Components on Invoices"; Rec."Assembly Components on Inv")
-                {
-                    Caption = 'Kit Components on Invoices';
-                    ToolTip = 'Add the Kit assembly components on Invoices';
-                    ApplicationArea = All;
-                    Visible = true;
-                    Importance = Additional;
-                }
-
-                field("Kit Components on Pick Tickets"; Rec."Assembly Components on Pick")
-                {
-                    Caption = 'Kit Components on Pick Tickets';
-                    ToolTip = 'Add the Kit assembly components on Pick Tickets';
-                    ApplicationArea = All;
-                    Visible = true;
-                    Importance = Additional;
-                }
-            }
-
-
-        }
-
-        //Kitting Group End
 
 
         //Hidden Groups - start

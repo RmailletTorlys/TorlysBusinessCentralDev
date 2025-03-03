@@ -1,39 +1,39 @@
 {
-  "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
-  "name": "Torlys Extensions",
-  "publisher": "TORLYS IT",
-  "version": "1.0.7.0",
-  "brief": "",
-  "description": "",
-  "privacyStatement": "",
-  "EULA": "",
-  "help": "",
-  "url": "",
-  "logo": "",
-  "dependencies": [
-    {
-      "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
-      "name": "Sustainability",
-      "version": "25.3.28755.29171",
-      "publisher": "Microsoft"
-    }
-  ],
-  "screenshots": [],
-  "platform": "1.0.0.0",
-  "application": "24.0.0.0",
-  "idRanges": [
-    {
-      "from": 50000,
-      "to": 59999
-    }
-  ],
-  "resourceExposurePolicy": {
-    "allowDebugging": true,
-    "allowDownloadingSource": true,
-    "includeSourceInSymbolFile": true
-  },
-  "runtime": "13.0",
-  "features": [
-    "NoImplicitWith"
-  ]
+    "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
+    "name": "Torlys Extensions",
+    "publisher": "TORLYS IT",
+    "version": "1.0.8.0",
+    "brief": "",
+    "description": "",
+    "privacyStatement": "",
+    "EULA": "",
+    "help": "",
+    "url": "",
+    "logo": "",
+    "dependencies": [
+        {
+            "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
+            "name": "Sustainability",
+            "version": "25.3.28755.29171",
+            "publisher": "Microsoft"
+        }
+    ],
+    "screenshots": [],
+    "platform": "1.0.0.0",
+    "application": "25.3.28755.29171",
+    "idRanges": [
+        {
+            "from": 50000,
+            "to": 59999
+        }
+    ],
+    "resourceExposurePolicy": {
+        "allowDebugging": true,
+        "allowDownloadingSource": true,
+        "includeSourceInSymbolFile": true
+    },
+    "runtime": "14.0",
+    "features": [
+        "NoImplicitWith"
+    ]
 }

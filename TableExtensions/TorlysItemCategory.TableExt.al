@@ -33,7 +33,7 @@ tableextension 50119 "TorlysItemCategory" extends "Item Category"
             DataClassification = CustomerContent;
         }
 
-        field(50006; "Price List Order"; Boolean)
+        field(50006; "Price List Order"; Integer)
         {
             Caption = 'Price List Order';
             DataClassification = CustomerContent;
@@ -54,6 +54,12 @@ tableextension 50119 "TorlysItemCategory" extends "Item Category"
         field(50009; "Outbound Duty % to US"; Decimal)
         {
             Caption = 'Outbound Duty % to US';
+            DataClassification = CustomerContent;
+        }
+
+        field(50010; "Sales Price Code"; Boolean)
+        {
+            Caption = 'Sales Price Code';
             DataClassification = CustomerContent;
         }
     }

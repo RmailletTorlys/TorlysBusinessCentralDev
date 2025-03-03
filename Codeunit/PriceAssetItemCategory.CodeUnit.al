@@ -1,3 +1,10 @@
+namespace Microsoft.Pricing.Asset;
+
+using Microsoft.Inventory.Item;
+using Microsoft.Inventory.Location;
+using Microsoft.Pricing.Calculation;
+using Microsoft.Pricing.PriceList;
+
 codeunit 50303 "Price Asset - Item Category" implements "Price Asset"
 
 {
@@ -28,9 +35,8 @@ codeunit 50303 "Price Asset - Item Category" implements "Price Asset"
     var
         xPriceAsset: Record "Price Asset";
     begin
-        xPriceAsset := PriceAsset;
-        if ItemCategory.Get(xPriceAsset."Asset No.") then;
-        if Page.RunModal(Page::"Item Lookup", ItemCategory) = ACTION::LookupOK then begin
+        Message('%1', 'I am getting here');
+        if Page.RunModal(Page::"Item Categories", ItemCategory) = ACTION::LookupOK then begin
             xPriceAsset.Validate("Asset No.", ItemCategory."Code");
             PriceAsset := xPriceAsset;
             exit(true);

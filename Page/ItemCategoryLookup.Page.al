@@ -1,16 +1,16 @@
-page 50305 "Torlys Item Category Lookup"
+page 50305 "Item Category Lookup"
 {
     PageType = List;
     SourceTable = "Item Category";
     Editable = false;
     Caption = 'Item Category';
-    CardPageId = "Item Category Card";
+
 
     layout
     {
-        area(Content)
+        area(content)
         {
-            repeater(GroupName)
+            repeater(Group)
             {
                 field("Code"; Rec."Code")
                 {
@@ -26,13 +26,20 @@ page 50305 "Torlys Item Category Lookup"
                     ToolTip = 'Description';
                 }
 
-                field("Display on Price List"; Rec."Display on Price Lists")
+                field("Sales Price Code"; Rec."Sales Price Code")
                 {
                     ApplicationArea = All;
-                    Caption = 'Display on Price List';
-                    ToolTip = 'Display on Price List';
+                    Caption = 'Sales Price Code';
+                    ToolTip = 'Sales Price Code';
                 }
             }
         }
     }
+    trigger OnFindRecord(Which: Text): Boolean
+    var
+        Found: Boolean;
+        IsHandled: Boolean;
+    begin
+        exit(Rec.Find(Which));
+    end;
 }

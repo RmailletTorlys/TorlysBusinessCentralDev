@@ -35,6 +35,7 @@ tableextension 50103 TorlysSalesLine extends "Sales Line"
         {
             Caption = 'Case Quantity to Receive';
             DataClassification = CustomerContent;
+            DataClassification = CustomerContent;
         }
 
         field(50006; "Qty. to Receive Pallet"; Integer)

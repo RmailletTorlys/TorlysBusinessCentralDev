@@ -17,18 +17,13 @@
     },
     {
       "from": 50300,
-      "to": 50399,
-      "description": "Reserved"
-    },
-    {
-      "from": 50400,
       "to": 50999,
       "description": "Reserved"
     },
     {
       "from": 51000,
       "to": 51499,
-      "description": "Fields"
+      "description": "Reserved"
     },
     {
       "from": 51500,

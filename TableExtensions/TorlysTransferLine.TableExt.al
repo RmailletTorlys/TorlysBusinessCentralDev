@@ -38,4 +38,14 @@ tableextension 50113 TorlysTransferLine extends "Transfer Line"
             DataClassification = CustomerContent;
         }
     }
+
+    [IntegrationEvent(false, false)]
+    procedure OnValidateQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnValidateQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    begin
+    end;
 }

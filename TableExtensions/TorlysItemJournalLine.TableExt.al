@@ -14,4 +14,14 @@ tableextension 50116 TorlysItemJournalLine extends "Item Journal Line"
             DataClassification = CustomerContent;
         }
     }
+
+    [IntegrationEvent(false, false)]
+    procedure OnValidateQuantityCase(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnValidateQuantityPallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    begin
+    end;
 }

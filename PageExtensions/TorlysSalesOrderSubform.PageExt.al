@@ -12,6 +12,11 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Case Quantity';
                 ApplicationArea = All;
 
+                trigger OnValidate()
+                begin
+                    OnValidateCase(Rec, Rec);
+                end;
+
             }
 
             field("Pallet Quantity"; Rec."Quantity Pallet")
@@ -19,6 +24,12 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Pallet Quantity';
                 ToolTip = 'Pallet Quantity';
                 ApplicationArea = All;
+
+                trigger OnValidate()
+                begin
+                    OnValidatePallet(Rec, Rec);
+                end;
+
 
             }
         }
@@ -32,6 +43,11 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
 
+                trigger OnValidate()
+                begin
+                    OnValidateToShipCase(Rec, xRec);
+                end;
+
             }
 
             field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
@@ -39,6 +55,10 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    OnValidateToShipPallet(Rec, xRec);
+                end;
 
             }
 
@@ -138,9 +158,6 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
 
 
-
-
-
         modify("Line Discount %")
         {
             Visible = false;
@@ -150,8 +167,30 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
         {
             Visible = true;
         }
-    }
-}
 
+
+
+    }
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToShipCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToShipPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+}
 
 

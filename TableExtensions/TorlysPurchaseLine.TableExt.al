@@ -38,4 +38,14 @@ tableextension 50108 TorlysPurchaseLine extends "Purchase Line"
             DataClassification = CustomerContent;
         }
     }
+
+    [IntegrationEvent(false, false)]
+    procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    begin
+    end;
 }

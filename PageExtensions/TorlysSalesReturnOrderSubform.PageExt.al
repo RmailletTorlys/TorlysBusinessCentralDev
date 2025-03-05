@@ -10,7 +10,10 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Case Quantity';
                 ToolTip = 'Case Quantity';
                 ApplicationArea = All;
-
+                trigger OnValidate()
+                begin
+                    OnValidateCase(Rec, xRec);
+                end;
             }
 
             field("Pallet Quantity"; Rec."Quantity Pallet")
@@ -18,7 +21,10 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Pallet Quantity';
                 ToolTip = 'Pallet Quantity';
                 ApplicationArea = All;
-
+                trigger OnValidate()
+                begin
+                    OnValidatePallet(Rec, xRec);
+                end;
             }
 
             field("Qty. To Receive Case"; Rec."Qty. to Receive Case")
@@ -27,6 +33,11 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Qty. to Receive Case';
                 ApplicationArea = All;
 
+                trigger OnValidate()
+                begin
+                    OnValidateToReceiveCase(Rec, xRec);
+                end;
+
             }
 
             field("Qty. to Receive Pallet"; Rec."Qty. to Receive Pallet")
@@ -34,7 +45,10 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Qty. to Receive Pallet';
                 ToolTip = 'Qty. to Receive Pallet';
                 ApplicationArea = All;
-
+                trigger OnValidate()
+                begin
+                    OnValidateToReceivePallet(Rec, xRec);
+                end;
             }
 
             field("Qty. Received Case"; Rec."Qty. Received Case")
@@ -43,6 +57,12 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Qty. Received Case';
                 ApplicationArea = All;
 
+                trigger OnValidate()
+                begin
+
+                end;
+
+
             }
 
             field("Qty. Received Pallet"; Rec."Qty. Received Pallet")
@@ -50,8 +70,32 @@ pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Qty. Received Pallet';
                 ToolTip = 'Qty. Received Pallet';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
 
+                end;
             }
         }
     }
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
 }

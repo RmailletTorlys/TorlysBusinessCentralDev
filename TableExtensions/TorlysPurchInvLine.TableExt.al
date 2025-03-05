@@ -14,5 +14,4 @@ tableextension 50110 TorlysPurchInvLine extends "Purch. Inv. Line"
             DataClassification = CustomerContent;
         }
     }
-
 }

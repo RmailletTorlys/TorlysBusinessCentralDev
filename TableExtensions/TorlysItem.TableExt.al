@@ -56,7 +56,7 @@ tableextension 50101 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(500010; "SC Review Item"; Boolean)
+        field(50010; "SC Review Item"; Boolean)
         {
             Caption = 'sc Review Item';
             DataClassification = CustomerContent;

@@ -9,34 +9,49 @@ codeunit 50229 SOQuantityRounding
     var
         Customer: Record "Customer";
         Item: Record "Item";
-        PriceCode: Record "Price List Line";
+        PriceListLine: Record "Price List Line";
 
     begin
         Customer.Reset();
-        Item.Reset();
         Customer.Get(Rec."Sell-to Customer No.");
+        Item.Reset();
         Item.Get(Rec."No.");
 
         Rec."Sales Price Code" := Item."Sales Price Code";
         Rec."Default Price List" := Customer."Default Price List Code";
         Rec."Price List" := Customer."Default Price List Code";
 
-        PriceCode.Reset();
-        PriceCode.SetFilter("Price List Code", Rec."Price List");
-        PriceCode.SetFilter("Asset No.", Rec."No.");
+        Commit();
 
-        if (PriceCode.FindFirst()) then
-            Rec."Unit Price" := PriceCode."Unit Price"
-        else begin
-            PriceCode.Reset();
-            PriceCode.SetFilter("Price List Code", Rec."Price List");
-            PriceCode.SetFilter("Asset No.", Item."Sales Price Code");
+        Message('Sales Price Code: %1', Rec."Sales Price Code");
+        Message('Default Price List: %1', Rec."Default Price List");
+        Message('Price List: %1', Rec."Price List");
 
-            if (PriceCode.FindFirst()) then
-                Rec."Unit Price" := PriceCode."Unit Price"
-            else
-                Rec."Unit Price" := Item."Unit Price";
+
+        PriceListLine.Reset();
+        PriceListLine.SetRange("Price List Code", Rec."Price List");
+
+        PriceListLine.SetRange("Product No.", Rec."No.");
+
+        if (PriceListLine.FindFirst())
+        then begin
+            Message('PriceListLine: %1', PriceListLine);
+            Rec."Unit Price" := PriceListLine."Unit Price";
+            exit;
         end;
+
+        PriceListLine.SetRange("Product No.", Rec."Sales Price Code");
+
+        if (PriceListLine.FindFirst())
+        then begin
+            Message('PriceListLine: %1', PriceListLine);
+            Rec."Unit Price" := PriceListLine."Unit Price";
+            exit;
+        end;
+
+        Rec."Unit Price" := Item."Unit Price";
+        Commit();
+
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]

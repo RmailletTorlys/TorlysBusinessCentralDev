@@ -50,5 +50,25 @@ tableextension 50103 TorlysSalesLine extends "Sales Line"
             Caption = 'Pallet Quantity to Receive';
             DataClassification = CustomerContent;
         }
+
+        field(50009; "Sales Price Code"; Code[20])
+        {
+            Caption = 'Pallet Quantity to Receive';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+
+        field(50010; "Default Price List"; Code[20])
+        {
+            Caption = 'Pallet Quantity to Receive';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+
+        field(50011; "Price List"; Code[20])
+        {
+            Caption = 'Item Category Code';
+            DataClassification = CustomerContent;
+        }
     }
 }

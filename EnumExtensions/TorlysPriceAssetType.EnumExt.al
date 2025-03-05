@@ -1,8 +1,8 @@
 enumextension 50301 TorlysPriceAssetType extends "Price Asset Type"
 {
-    value(70; "Item Category")
+    value(70; "Price Code")
     {
-        Caption = 'Item Category';
-        Implementation = "Price Asset" = "Price Asset - Item Category";
+        Caption = 'Price Code';
+        Implementation = "Price Asset" = "Price Asset - Price Code";
     }
 }

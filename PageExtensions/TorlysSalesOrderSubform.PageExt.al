@@ -65,17 +65,31 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
         }
 
-        moveafter("Quantity to Invoice"; "Quantity Invoiced")
+        addafter("Unit of Measure Code")
+        {
+            field("Sales Price Code"; Rec."Sales Price Code")
+            {
+                Caption = 'Sales Price Code';
+                ToolTip = 'Sales Price Code';
+                ApplicationArea = All;
+            }
 
-        moveafter("Quantity Invoiced"; "Total Amount Excl. VAT")
+            field("Default Price List"; Rec."Default Price List")
+            {
+                Caption = 'Default Price List';
+                ToolTip = 'Default Price List';
+                ApplicationArea = All;
+            }
 
-        moveafter("Total Amount Excl. VAT"; "Unit Cost (LCY)")
+            field("Price List"; Rec."Price List")
+            {
+                Caption = 'Price List';
+                ToolTip = 'Price List';
+                ApplicationArea = All;
+            }
+        }
 
-        moveafter("Unit Cost (LCY)"; "Line Amount")
-
-        moveafter("Line Amount"; "Purchasing Code")
-
-        moveafter("Purchasing Code"; "Drop Shipment")
+        moveafter("Quantity to Invoice"; "Quantity Invoiced", "Total Amount Excl. VAT", "Unit Cost (LCY)", "Line Amount", "Purchasing Code", "Drop Shipment")
 
         addafter("Drop Shipment")
         {

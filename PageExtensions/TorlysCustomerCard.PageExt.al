@@ -12,6 +12,17 @@ pageextension 50001 TorlysCustomerCard extends "Customer Card"
                 ToolTip = 'This field is the Primary Credit Collector assigned to the customer account.';
             }
         }
+        addfirst(PricesandDiscounts)
+        {
+            field("Default Price List"; Rec."Default Price List Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Default Price List';
+                Visible = true;
+                ToolTip = 'This field is the default price list assigned to the customer account.';
+
+            }
+        }
     }
 
 }

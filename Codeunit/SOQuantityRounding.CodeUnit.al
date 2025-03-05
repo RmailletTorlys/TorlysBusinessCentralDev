@@ -3,6 +3,42 @@ codeunit 50229 SOQuantityRounding
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'No.', true, true)]
+    local procedure OnAfterValidateItem(var Rec: Record "Sales Line")
+
+    var
+        Customer: Record "Customer";
+        Item: Record "Item";
+        PriceCode: Record "Price List Line";
+
+    begin
+        Customer.Reset();
+        Item.Reset();
+        Customer.Get(Rec."Sell-to Customer No.");
+        Item.Get(Rec."No.");
+
+        Rec."Sales Price Code" := Item."Sales Price Code";
+        Rec."Default Price List" := Customer."Default Price List Code";
+        Rec."Price List" := Customer."Default Price List Code";
+
+        PriceCode.Reset();
+        PriceCode.SetFilter("Price List Code", Rec."Price List");
+        PriceCode.SetFilter("Asset No.", Rec."No.");
+
+        if (PriceCode.FindFirst()) then
+            Rec."Unit Price" := PriceCode."Unit Price"
+        else begin
+            PriceCode.Reset();
+            PriceCode.SetFilter("Price List Code", Rec."Price List");
+            PriceCode.SetFilter("Asset No.", Item."Sales Price Code");
+
+            if (PriceCode.FindFirst()) then
+                Rec."Unit Price" := PriceCode."Unit Price"
+            else
+                Rec."Unit Price" := Item."Unit Price";
+        end;
+    end;
+
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity', true, true)]
     local procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line")
     var

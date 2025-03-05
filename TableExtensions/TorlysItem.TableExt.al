@@ -285,9 +285,18 @@ tableextension 50101 TorlysItem extends Item
             TableRelation = "Unit of Measure";
         }
 
-        field(50047; "Sales Price Code"; Code[10])
+        field(50047; "Sales Price Code"; Code[20])
         {
             DataClassification = CustomerContent;
+
+            trigger OnLookup()
+            var
+                Category: Record "Item Category";
+            begin
+                Category.Reset();
+                if Page.RunModal(Page::"Item Price Category Lookup", Category) = Action::LookupOK then
+                    Rec."Sales Price Code" := Category.Code;
+            end;
         }
 
         field(50048; "Replacement Cost (LCY)"; Decimal)

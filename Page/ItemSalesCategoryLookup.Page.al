@@ -1,9 +1,11 @@
-page 50305 "Item Category Lookup"
+page 50307 "Item Sales Category Lookup"
 {
     PageType = List;
     SourceTable = "Item Category";
+    SourceTableView = where("Sales Price Code" = const(false));
     Editable = false;
     Caption = 'Item Category';
+    ApplicationArea = All;
 
 
     layout
@@ -35,11 +37,4 @@ page 50305 "Item Category Lookup"
             }
         }
     }
-    trigger OnFindRecord(Which: Text): Boolean
-    var
-        Found: Boolean;
-        IsHandled: Boolean;
-    begin
-        exit(Rec.Find(Which));
-    end;
 }

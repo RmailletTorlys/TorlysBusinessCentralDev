@@ -5,11 +5,12 @@ using Microsoft.Inventory.Location;
 using Microsoft.Pricing.Calculation;
 using Microsoft.Pricing.PriceList;
 
-codeunit 50303 "Price Asset - Item Category" implements "Price Asset"
+codeunit 50303 "Price Asset - Price Code" implements "Price Asset"
 
 {
     var
         ItemCategory: Record "Item Category";
+        Item: Record "Item";
 
     procedure GetNo(var PriceAsset: Record "Price Asset")
     begin
@@ -35,8 +36,10 @@ codeunit 50303 "Price Asset - Item Category" implements "Price Asset"
     var
         xPriceAsset: Record "Price Asset";
     begin
+        xPriceAsset := PriceAsset;
+        if ItemCategory.Get(xPriceAsset."Asset No.") then;
         Message('%1', 'I am getting here');
-        if Page.RunModal(Page::"Item Categories", ItemCategory) = ACTION::LookupOK then begin
+        if Page.RunModal(Page::"Item Price Category Lookup", ItemCategory) = ACTION::LookupOK then begin
             xPriceAsset.Validate("Asset No.", ItemCategory."Code");
             PriceAsset := xPriceAsset;
             exit(true);
@@ -45,6 +48,7 @@ codeunit 50303 "Price Asset - Item Category" implements "Price Asset"
 
     procedure IsLookupUnitOfMeasureOK(var PriceAsset: Record "Price Asset"): Boolean
     begin
+        exit(false)
     end;
 
     procedure IsLookupVariantOK(var PriceAsset: Record "Price Asset"): Boolean

@@ -35,7 +35,6 @@ tableextension 50103 TorlysSalesLine extends "Sales Line"
         {
             Caption = 'Case Quantity to Receive';
             DataClassification = CustomerContent;
-            DataClassification = CustomerContent;
         }
 
         field(50006; "Qty. to Receive Pallet"; Integer)
@@ -79,13 +78,44 @@ tableextension 50103 TorlysSalesLine extends "Sales Line"
         {
             Caption = 'Item Category Code';
             DataClassification = CustomerContent;
+            Editable = false;
+
         }
+
+        field(50012; "Override Unit Price"; Boolean)
+        {
+            Caption = 'Override Unit Price';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50013; "OverrideSOUnitPriceModDate"; Date)
+        {
+            Caption = 'Override Unit Price Modified Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50014; "OverrideSOUnitPriceModTime"; Time)
+        {
+            Caption = 'Override Unit Price Modified Time';
+            DataClassification = CustomerContent;
+        }
+
+        field(50015; "OverrideSOUnitPriceModUserID"; Text[2048])
+        {
+            Caption = 'Override Unit Price Modified User ID';
+            DataClassification = CustomerContent;
+        }
+
     }
+
     trigger OnModify()
     begin
-        if ((Quantity) <> (xRec.Quantity)) then
+        if ((Rec.Quantity) <> (xRec.Quantity)) then
             Rec.Validate(Quantity);
+
     end;
+
 
     [IntegrationEvent(false, false)]
     procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)

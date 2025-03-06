@@ -92,6 +92,7 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
                 ApplicationArea = All;
+                Editable = false;
             }
 
             field("Default Price List"; Rec."Default Price List")
@@ -99,6 +100,7 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
+                Editable = false;
             }
 
             field("Price List"; Rec."Price List")
@@ -106,7 +108,9 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
+                Editable = false;
             }
+
         }
 
         moveafter("Quantity to Invoice"; "Quantity Invoiced", "Total Amount Excl. VAT", "Unit Cost (LCY)", "Line Amount", "Purchasing Code", "Drop Shipment")
@@ -168,9 +172,36 @@ pageextension 50005 TorlysSalesOrderSubform extends "Sales Order Subform"
             Visible = true;
         }
 
+        modify("Unit Price")
+        {
+            trigger OnBeforeValidate()
+            begin
+                PrepareUserModifiedUnitPrice();
 
-
+                if ((Rec."Unit Price") <> (xRec."Unit Price")) and (xRec."Unit Price" <> 0) and (UserModifiedUnitPrice) then begin
+                    Rec."Price List" := '';
+                    UserModifiedUnitPrice := false;
+                    CurrPage.Update()
+                end;
+            end;
+        }
     }
+
+    trigger OnModifyRecord(): Boolean
+    begin
+
+    end;
+
+    var
+        UserModifiedUnitPrice: Boolean;
+
+
+    procedure PrepareUserModifiedUnitPrice()
+    begin
+        UserModifiedUnitPrice := true;
+    end;
+
+
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin

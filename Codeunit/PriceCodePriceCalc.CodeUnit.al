@@ -6,4 +6,5 @@ codeunit 50306 "Price Code Price Calc"
         if SalesLine.Type = SalesLine.Type::"Price Code" then
             AssetType := AssetType::"Price Code";
     end;
+
 }

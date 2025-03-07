@@ -22,13 +22,12 @@ codeunit 50310 "SL Price List Triggers"
         SalesLine."Price List" := PriceListLine."Price List Code";
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterFillBuffer', '', true, true)]
-    local procedure OnAfterFillBuffer(
-        var PriceCalculationBuffer: Record "Price Calculation Buffer"; SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line")
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterGetLineWithPrice', '', true, true)]
+    local procedure OnAfterGetLineWithPrice(var LineWithPrice: Interface "Line With Price")
+    var
+        TorlysLineWithPrice: Codeunit "Torlys Sales Line - Price";
     begin
-        // Message('PriceCalculationBuffer: %1', PriceCalculationBuffer);
-        // Message('SalesHeader: %1', SalesHeader);
-        // Message('SalesLine: %1', SalesLine);
+        LineWithPrice := TorlysLineWithPrice;
     end;
 
     local procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")

@@ -12,7 +12,7 @@ using Microsoft.Pricing.Asset;
 using Microsoft.Pricing.PriceList;
 using Microsoft.Pricing.Source;
 
-codeunit 50330 "TorlysPriceCalcBufferMgt."
+codeunit 50339 "TorlysPriceCalcBufferMgt"
 {
     var
         PriceCalculationBuffer: Record "Price Calculation Buffer";

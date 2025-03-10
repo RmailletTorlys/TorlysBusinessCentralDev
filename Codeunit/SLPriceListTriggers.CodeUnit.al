@@ -30,6 +30,7 @@ codeunit 50310 "SL Price List Triggers"
         LineWithPrice := TorlysLineWithPrice;
     end;
 
+
     local procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")
     var
         Customer: Record "Customer";
@@ -73,6 +74,44 @@ codeunit 50310 "SL Price List Triggers"
 
         SalesLine."Unit Price" := Item."Unit Price";
         Commit();
+    end;
+
+    procedure CopyLinesBySource(
+            var PriceListLine: Record "Price List Line";
+            PriceSource: Record "Price Source";
+            var PriceAssetList: Codeunit "Price Asset List";
+            var TempPriceListLine: Record "Price List Line" temporary) FoundLines: Boolean;
+    var
+        PriceAsset: Record "Price Asset";
+        Level: array[2] of Integer;
+        CurrLevel: Integer;
+    begin
+        PriceAssetList.GetMinMaxLevel(Level);
+        for CurrLevel := Level[2] downto Level[1] do
+            if not FoundLines then
+                if PriceAssetList.First(PriceAsset, CurrLevel) then
+                    repeat
+                        FoundLines :=
+                            FoundLines or CopyLinesBySource(PriceListLine, PriceSource, PriceAsset, TempPriceListLine);
+                    until not PriceAssetList.Next(PriceAsset);
+    end;
+
+    procedure CopyLinesBySource(
+        var PriceListLine: Record "Price List Line";
+        PriceSource: Record "Price Source";
+        PriceAsset: Record "Price Asset";
+        var TempPriceListLine: Record "Price List Line" temporary) FoundLines: Boolean;
+    var
+        PriceListLineFilters: Record "Price List Line";
+    begin
+        PriceListLineFilters.CopyFilters(PriceListLine);
+
+        PriceSource.FilterPriceLines(PriceListLine);
+        PriceAsset.FilterPriceLines(PriceListLine);
+        FoundLines := PriceListLine.CopyFilteredLinesToTemporaryBuffer(TempPriceListLine);
+
+        PriceListLine.Reset();
+        PriceListLine.CopyFilters(PriceListLineFilters);
     end;
 
 

@@ -2,7 +2,6 @@ page 50305 "Item Price Category Lookup"
 {
     PageType = List;
     SourceTable = "Item Category";
-    SourceTableView = where("Sales Price Code" = const(true));
     Editable = false;
     Caption = 'Item Category';
     ApplicationArea = All;

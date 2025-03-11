@@ -30,6 +30,14 @@ codeunit 50310 "SL Price List Triggers"
         LineWithPrice := TorlysLineWithPrice;
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Price Calculation Mgt.", 'OnGetHandlerOnAfterFindSetup', '', true, true)]
+    local procedure OnGetHandlerOnAfterFindSetup(LineWithPrice: Interface "Line With Price"; var PriceCalculation: Interface "Price Calculation"; var Result: Boolean; var PriceCalculationSetup: Record "Price Calculation Setup");
+    begin
+        Message('PriceCalcSetup %1', PriceCalculationSetup);
+    end;
+
+    // [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterGetLineWithPrice', '', true, true)]
+
 
     local procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")
     var

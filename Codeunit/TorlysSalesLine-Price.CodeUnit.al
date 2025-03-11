@@ -105,22 +105,29 @@ codeunit 50333 "Torlys Sales Line - Price" implements "Line With Price"
     local procedure SetAssetSource(var PriceCalculationBuffer: Record "Price Calculation Buffer"): Boolean
     begin
         PriceCalculationBuffer."Price Type" := CurrPriceType;
-        // PriceCalculationBuffer."Asset Type" := GetAssetType();
-        PriceCalculationBuffer."Asset Type" := PriceCalculationBuffer."Asset Type"::"Price Code";
-        PriceCalculationBuffer."Asset No." := SalesLine."Sales Price Code";
+        PriceCalculationBuffer."Asset Type" := GetAssetType();
+        case
+            PriceCalculationBuffer."Asset Type" of
+            PriceCalculationBuffer."Asset Type"::"Price Code":
+                PriceCalculationBuffer."Asset No." := SalesLine."Sales Price Code";
+            else
+                PriceCalculationBuffer."Asset No." := SalesLine."No.";
+        end;
+        PriceCalculationBuffer."Asset No." := SalesLine."No.";
         exit((PriceCalculationBuffer."Asset Type" <> PriceCalculationBuffer."Asset Type"::" ") and (PriceCalculationBuffer."Asset No." <> ''));
-        // exit((PriceCalculationBuffer."Asset No." <> ''));
     end;
 
     procedure GetAssetType() AssetType: Enum "Price Asset Type";
     begin
         case SalesLine.Type of
             SalesLine.Type::Item:
-                AssetType := AssetType::Item;
+                AssetType := AssetType::"Item";
             SalesLine.Type::Resource:
                 AssetType := AssetType::Resource;
             SalesLine.Type::"G/L Account":
                 AssetType := AssetType::"G/L Account";
+            SalesLine.Type::"Price Code":
+                AssetType := AssetType::"Price Code";
             else
                 AssetType := AssetType::" ";
         end;
@@ -200,7 +207,6 @@ codeunit 50333 "Torlys Sales Line - Price" implements "Line With Price"
         PriceCalculationBuffer."Allow Line Disc." := IsDiscountAllowed();
         PriceCalculationBuffer."Allow Invoice Disc." := SalesLine."Allow Invoice Disc.";
         OnAfterFillBuffer(PriceCalculationBuffer, SalesHeader, SalesLine);
-        Message('PriceCalculationBuffer %1', PriceCalculationBuffer);
     end;
 
     local procedure AddSources()
@@ -217,13 +223,22 @@ codeunit 50333 "Torlys Sales Line - Price" implements "Line With Price"
     end;
 
     local procedure AddCustomerSources()
+    var
+        Item: Record Item;
+
     begin
+
         PriceSourceList.Add(Enum::"Price Source Type"::"All Customers");
         PriceSourceList.Add(Enum::"Price Source Type"::Customer, SalesHeader."Bill-to Customer No.");
         PriceSourceList.Add(Enum::"Price Source Type"::Contact, SalesHeader."Bill-to Contact No.");
         PriceSourceList.Add(Enum::"Price Source Type"::Campaign, SalesHeader."Campaign No.");
-        PriceSourceList.Add(Enum::"Price Source TYpe"::"Price Code", SalesLine."Sales Price Code");
+
+        Item.SetFilter("No.", SalesLine."No.");
+        if Item.FindFirst() then
+            PriceSourceList.Add(Enum::"Price Source Type"::"Price Code", Item."Sales Price Code");
+
         AddActivatedCampaignsAsSource();
+
         PriceSourceList.Add(Enum::"Price Source Type"::"Customer Price Group", SalesLine."Customer Price Group");
         PriceSourceList.Add(Enum::"Price Source Type"::"Customer Disc. Group", SalesLine."Customer Disc. Group");
     end;

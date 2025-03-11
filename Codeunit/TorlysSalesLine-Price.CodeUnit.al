@@ -264,6 +264,7 @@ codeunit 50333 "Torlys Sales Line - Price" implements "Line With Price"
                     CurrPriceType::Sale:
                         begin
                             SalesLine."Unit Price" := PriceListLine."Unit Price";
+                            SalesLine."Price List" := PriceListLine."Price List Code";
                             if PriceListLine.IsRealLine() then
                                 SalesLine."Allow Line Disc." := PriceListLine."Allow Line Disc.";
                             SalesLine."Allow Invoice Disc." := PriceListLine."Allow Invoice Disc.";

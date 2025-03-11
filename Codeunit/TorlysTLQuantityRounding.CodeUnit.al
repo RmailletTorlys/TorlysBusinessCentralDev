@@ -57,12 +57,12 @@ codeunit 50201 "Torlys TL Quantity Rounding"
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
-        if CheckQtyAndCuom.Validate(Rec.Quantity, Rec."Item No.") then
+        if QuantityRoundingHelper.Validate(Rec.Quantity, Rec."Item No.") then
             exit;
 
-        // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
+        // GetQuantityUoM the Case and Pallet quantities per Unit of Measure
+        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
+        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Quantity
@@ -74,9 +74,9 @@ codeunit 50201 "Torlys TL Quantity Rounding"
 
     procedure OnChangeQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
-        // Get the Case and Pallet quantities for the item entered
-        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
+        // GetQuantityUoM the Case and Pallet quantities for the item entered
+        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
+        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Case Quantity
@@ -90,9 +90,9 @@ codeunit 50201 "Torlys TL Quantity Rounding"
 
     procedure OnChangeQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
-        // Get the Case and Pallet quantities for the item entered
-        CaseConst := GetUoMQuantity.Get(Rec."Item No.", 'CASE');
-        PalletConst := GetUoMQuantity.Get(Rec."Item No.", 'PALLET');
+        // GetQuantityUoM the Case and Pallet quantities for the item entered
+        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
+        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Pallet Quantity
@@ -108,18 +108,18 @@ codeunit 50201 "Torlys TL Quantity Rounding"
     var
         CaseQuantity: Integer;
     begin
-        CaseQuantity := QtyOfUoM.Quantity(Rec.Quantity, CaseConst);
-        Rec.Quantity := QtyFits.Validate(Rec.Quantity, CaseConst, CaseQuantity);
+        CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
+        Rec.Quantity := QuantityRoundingHelper.Validate(Rec.Quantity, CaseConst, CaseQuantity);
 
         if Rec.Quantity >= PalletConst then
-            Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst)
+            Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst)
         else
             Rec."Quantity Pallet" := 0;
 
         RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
 
         if RemainingQuantity > 0 then
-            Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+            Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
         UpdateToReceive(Rec);
@@ -130,18 +130,18 @@ codeunit 50201 "Torlys TL Quantity Rounding"
     var
         CaseQuantity: Integer;
     begin
-        CaseQuantity := QtyOfUoM.Quantity(Rec."Qty. to Ship (Base)", CaseConst);
-        Rec.Quantity := QtyFits.Validate(Rec."Qty. to Ship (Base)", CaseConst, CaseQuantity);
+        CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship (Base)", CaseConst);
+        Rec.Quantity := QuantityRoundingHelper.Validate(Rec."Qty. to Ship (Base)", CaseConst, CaseQuantity);
 
         if Rec."Qty. to Ship (Base)" >= PalletConst then
-            Rec."Qty. to Ship Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Ship (Base)", PalletConst)
+            Rec."Qty. to Ship Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship (Base)", PalletConst)
         else
             Rec."Quantity Pallet" := 0;
 
         RemainingQuantity := Rec."Qty. to Ship (Base)" - PalletConst * Rec."Qty. to Ship Pallet";
 
         if RemainingQuantity > 0 then
-            Rec."Qty. to Ship Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+            Rec."Qty. to Ship Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Qty. to Ship Case" := 0;
     end;
@@ -151,12 +151,12 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
 
         if Rec.Quantity >= PalletConst then
-            Rec."Quantity Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
+            Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
 
         RemainingQuantity := Rec.Quantity - PalletConst * Rec."Quantity Pallet";
 
         if RemainingQuantity > 0 then
-            Rec."Quantity Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+            Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
 
@@ -168,12 +168,12 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         Rec."Qty. to Ship (Base)" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
 
         if Rec.Quantity >= PalletConst then
-            Rec."Qty. to Ship Pallet" := QtyOfUoM.Quantity(Rec.Quantity, PalletConst);
+            Rec."Qty. to Ship Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
 
         RemainingQuantity := Rec.Quantity - PalletConst * Rec."Qty. to Ship Pallet";
 
         if RemainingQuantity > 0 then
-            Rec."Qty. to Ship Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+            Rec."Qty. to Ship Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Qty. to Ship Case" := 0;
     end;
@@ -183,12 +183,12 @@ codeunit 50201 "Torlys TL Quantity Rounding"
         Rec."Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
 
         if Rec."Qty. to Receive (Base)" >= PalletConst then
-            Rec."Qty. to Receive Pallet" := QtyOfUoM.Quantity(Rec."Qty. to Receive (Base)", PalletConst);
+            Rec."Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Receive (Base)", PalletConst);
 
         RemainingQuantity := Rec."Qty. to Receive (Base)" - PalletConst * Rec."Qty. to Receive Pallet";
 
         if RemainingQuantity > 0 then
-            Rec."Qty. to Receive Case" := QtyOfUoM.Quantity(RemainingQuantity, CaseConst)
+            Rec."Qty. to Receive Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Qty. to Receive Case" := 0;
     end;
@@ -219,10 +219,7 @@ codeunit 50201 "Torlys TL Quantity Rounding"
     end;
 
     var
-        GetUoMQuantity: Codeunit GetUnitOfMeasureQuantity;
-        CheckQtyAndCuom: Codeunit CheckQtyAndCompareUoM;
-        QtyOfUoM: Codeunit QtyOfUnitOfMeasure;
-        QtyFits: Codeunit QuantityFitsInCase;
+        QuantityRoundingHelper: Codeunit "Quantity Rounding Helper";
         PalletConst: Decimal;
         CaseConst: Decimal;
         RemainingQuantity: Decimal;

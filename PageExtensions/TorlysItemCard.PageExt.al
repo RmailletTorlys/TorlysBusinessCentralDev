@@ -230,14 +230,6 @@ pageextension 50002 TorlysItemCard extends "Item Card"
                 Importance = Additional;
             }
 
-            field("Qty. in Transit"; Rec."Qty. in Transit")
-            {
-                Caption = 'Qty. in Transit';
-                ToolTip = 'The quantity in transit on Purchase Orders';
-                ApplicationArea = All;
-                Visible = true;
-                Importance = Additional;
-            }
         }
         moveafter("Inventory Value"; "Qty. on Sales Order")
         moveafter("Qty. to Ship"; "Qty. on Purch. Order")

@@ -1,12 +1,16 @@
+using Microsoft.Sales.Document;
+
+
+
 pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 {
     layout
     {
-        movebefore(Quantity; "Unit of Measure")
-
+        moveafter("No."; "Item Reference No.")
+        moveafter(Description; "Description 2", "Unit of Measure Code", Quantity)
         addafter(Quantity)
         {
-            field("Case Quantity"; Rec."Quantity Case")
+            field("Quantity Case;"; Rec."Quantity Case")
             {
                 Caption = 'Case Quantity';
                 ToolTip = 'Case Quantity';
@@ -19,7 +23,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
             }
 
-            field("Pallet Quantity"; Rec."Quantity Pallet")
+            field("Quantity Pallet"; Rec."Quantity Pallet")
             {
                 Caption = 'Pallet Quantity';
                 ToolTip = 'Pallet Quantity';
@@ -32,9 +36,17 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
 
             }
+
+            field("Outstanding Quantity"; Rec."Outstanding Quantity")
+            {
+                Caption = 'Outstanding Quantity';
+                ToolTip = 'Outstanding Quantity';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Pallet Quantity"; "Qty. to Ship")
+
+        moveafter("Outstanding Quantity"; "Qty. to Ship")
         addafter("Qty. to Ship")
         {
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
@@ -74,25 +86,25 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
         }
 
-        addafter("Qty. Shipped Not Invoiced")
+        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Shipment Date")
+        addafter("Shipment Date")
         {
-            field("Quantity to Invoice"; Rec."Qty. to Invoice")
+            field("Item Category Code"; Rec."Item Category Code")
             {
-                Caption = 'Quantity to Invoice';
-                ToolTip = 'Quantity to Invoice';
+                Caption = 'Item Category Code';
+                ToolTip = 'Item Category Code';
                 ApplicationArea = All;
-
+                Editable = false;
+                Visible = false;
             }
-        }
 
-        addafter("Unit of Measure Code")
-        {
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
                 ApplicationArea = All;
                 Editable = false;
+                Visible = false;
             }
 
             field("Default Price List"; Rec."Default Price List")
@@ -101,6 +113,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
                 Editable = false;
+                Visible = false;
             }
 
             field("Price List"; Rec."Price List")
@@ -113,32 +126,40 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         }
 
-        moveafter("Quantity to Invoice"; "Quantity Invoiced", "Total Amount Excl. VAT", "Unit Cost (LCY)", "Line Amount", "Purchasing Code", "Drop Shipment")
+        moveafter("Price List"; "Unit Price", "Line Amount", "Unit Cost (LCY)")
+        addafter("Unit Cost (LCY)")
+        {
+            field("Unit Cost"; Rec."Unit Cost")
+            {
+                Caption = 'Unit Cost';
+                ToolTip = 'Unit Cost';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
 
+        }
+
+        moveafter("Unit Cost"; "Purchasing Code", "Drop Shipment")
         addafter("Drop Shipment")
         {
-            field("PO No."; Rec."Purchase Order No.")
+            field("Purchase Order No."; Rec."Purchase Order No.")
             {
                 Caption = 'PO Number';
                 ToolTip = 'Purchase Order No.';
                 ApplicationArea = All;
-
+                Visible = false;
             }
-        }
-
-        addafter("PO No.")
-        {
-            field("PO Line No."; Rec."Purch. Order Line No.")
+            field("Purch. Order Line No."; Rec."Purch. Order Line No.")
             {
                 Caption = 'PO Line No.';
                 ToolTip = 'Purch. Order Line No.';
                 ApplicationArea = All;
-
+                Visible = false;
             }
         }
 
-        moveafter("PO Line No."; "Special Order")
-
+        moveafter("Purch. Order Line No."; "Special Order")
         addafter("Special Order")
         {
             field("Special Order PO No."; Rec."Special Order Purchase No.")
@@ -146,21 +167,65 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Special Order PO No.';
                 ToolTip = 'Special Order PO No.';
                 ApplicationArea = All;
-
+                Visible = false;
             }
-        }
-
-        addafter("Special Order PO No.")
-        {
             field("Special Order PO Line No."; Rec."Special Order Purch. Line No.")
             {
                 Caption = 'Special Order PO Line No.';
                 ToolTip = 'Special Order Line No.';
                 ApplicationArea = All;
-
+                Visible = false;
             }
         }
 
+        addafter("Special Order PO Line No.")
+        {
+            field("System Created By"; Rec."SystemCreatedBy")
+            {
+                Caption = 'System Created By';
+                ToolTip = 'System Created By';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+            field("System Created Date"; Rec."SystemCreatedAt")
+            {
+                Caption = 'System Created Date';
+                ToolTip = 'System Created Date';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+
+            field("System Last Modified By"; Rec."SystemModifiedBy")
+            {
+                Caption = 'System Last Modified By';
+                ToolTip = 'System Last Modified By';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+
+            field("System Last Modified Date"; Rec."SystemModifiedAt")
+            {
+                Caption = 'System Last Modified Date';
+                ToolTip = 'System Last Modified Date';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+
+        }
+
+        modify("Item Reference No.")
+        {
+            Visible = false;
+        }
+
+        modify("Description 2")
+        {
+            Visible = false;
+        }
 
         modify("Line Discount %")
         {
@@ -170,6 +235,122 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         modify("Unit Cost (LCY)")
         {
             Visible = true;
+        }
+
+        modify("Drop Shipment")
+        {
+            Visible = false;
+        }
+
+        modify("Special Order")
+        {
+            Visible = false;
+        }
+
+        modify("Location Code")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. to Assemble to Order")
+        {
+            Visible = false;
+        }
+
+        modify("Reserved Quantity")
+        {
+            Visible = false;
+        }
+
+        modify("Tax Area Code")
+        {
+            Visible = false;
+        }
+
+        modify("Tax Group Code")
+        {
+            Visible = false;
+        }
+
+        modify("Amount Including VAT")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. to Assign")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. Assigned")
+        {
+            Visible = false;
+        }
+
+        modify("Planned Delivery Date")
+        {
+            Visible = false;
+        }
+
+        modify("Planned Shipment Date")
+        {
+            Visible = false;
+        }
+        modify("Service Commitments")
+        {
+            Visible = false;
+        }
+        modify("Customer Contract No.")
+        {
+            Visible = false;
+        }
+        modify("Vendor Contract No.")
+        {
+            Visible = false;
+        }
+        modify("Item Charge Qty. to Handle")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode3)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode4)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode5)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode6)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode7)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode8)
+        {
+            Visible = false;
         }
 
         modify("Unit Price")

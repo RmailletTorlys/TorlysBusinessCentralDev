@@ -24,8 +24,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
-    local procedure OnValidateSOCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnValidateCase', '', false, false)]
+    local procedure OnValidateSOCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
     end;
@@ -48,13 +48,13 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantityCase(Rec, xRec, 3);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
-    local procedure OnValidateCrMemoCase(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnValidateCase', '', false, false)]
+    local procedure OnValidateCrMemoCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
     local procedure OnValidateSOPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 1);

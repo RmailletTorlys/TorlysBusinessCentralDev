@@ -1,5 +1,3 @@
-namespace Microsoft.Sales.Pricing;
-
 using Microsoft.CRM.Campaign;
 using Microsoft.CRM.Contact;
 using Microsoft.Inventory.Item;

@@ -1,5 +1,3 @@
-namespace Microsoft.Pricing.Asset;
-
 using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Location;
 using Microsoft.Pricing.Calculation;

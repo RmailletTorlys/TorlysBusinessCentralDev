@@ -1,4 +1,4 @@
-pageextension 50008 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
+pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 {
     layout
     {

@@ -1,4 +1,4 @@
-tableextension 50115 TorlysTransferReceiptLine extends "Transfer Receipt Line"
+tableextension 55747 TorlysTransferReceiptLine extends "Transfer Receipt Line"
 {
     fields
     {

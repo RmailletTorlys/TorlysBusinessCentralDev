@@ -1,4 +1,4 @@
-pageextension 50306 TorlysItemCategories extends "Item Categories"
+pageextension 55730 TorlysItemCategories extends "Item Categories"
 {
     layout
     {

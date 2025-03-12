@@ -1,4 +1,4 @@
-pageextension 50007 TorlysSalesReturnOrderSubform extends "Sales Return Order Subform"
+pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Subform"
 {
     layout
     {

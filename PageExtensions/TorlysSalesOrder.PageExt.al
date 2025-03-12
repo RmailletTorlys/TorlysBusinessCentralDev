@@ -1,4 +1,4 @@
-pageextension 50006 TorlysSalesOrder extends "Sales Order"
+pageextension 50042 TorlysSalesOrder extends "Sales Order"
 {
     layout
     {

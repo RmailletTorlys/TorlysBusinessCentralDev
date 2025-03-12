@@ -1,4 +1,4 @@
-codeunit 50310 "SL Price List Triggers"
+codeunit 57000 "SL Price List Triggers"
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

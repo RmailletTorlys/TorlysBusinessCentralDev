@@ -1,4 +1,4 @@
-tableextension 50103 TorlysSalesLine extends "Sales Line"
+tableextension 50037 TorlysSalesLine extends "Sales Line"
 {
     fields
     {

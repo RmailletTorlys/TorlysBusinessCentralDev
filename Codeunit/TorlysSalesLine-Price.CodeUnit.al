@@ -10,7 +10,7 @@ using Microsoft.Pricing.Source;
 using Microsoft.Projects.Resources.Resource;
 using Microsoft.Sales.Document;
 
-codeunit 50333 "Torlys Sales Line - Price" implements "Line With Price"
+codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
 {
     var
         SalesHeader: Record "Sales Header";

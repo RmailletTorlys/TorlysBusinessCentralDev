@@ -1,4 +1,4 @@
-tableextension 50113 TorlysTransferLine extends "Transfer Line"
+tableextension 55741 TorlysTransferLine extends "Transfer Line"
 {
     fields
     {

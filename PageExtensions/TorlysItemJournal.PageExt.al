@@ -1,4 +1,4 @@
-pageextension 50009 TorlysItemJournal extends "Item Journal"
+pageextension 50040 TorlysItemJournal extends "Item Journal"
 {
     layout
     {

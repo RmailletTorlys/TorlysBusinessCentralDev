@@ -1,4 +1,4 @@
-page 50306 "CustomerSalesPriceListsLookup"
+page 51000 "CustomerSalesPriceListsLookup"
 {
     PageType = List;
     SourceTable = "Price List Header";

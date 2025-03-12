@@ -1,4 +1,4 @@
-tableextension 50108 TorlysPurchaseLine extends "Purchase Line"
+tableextension 50039 TorlysPurchaseLine extends "Purchase Line"
 {
     fields
     {

@@ -1,4 +1,4 @@
-page 50307 "Item Sales Category Lookup"
+page 51002 "Item Sales Category Lookup"
 {
     PageType = List;
     SourceTable = "Item Category";

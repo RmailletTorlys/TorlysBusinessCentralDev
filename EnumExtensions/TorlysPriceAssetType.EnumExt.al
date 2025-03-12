@@ -1,4 +1,4 @@
-enumextension 50301 TorlysPriceAssetType extends "Price Asset Type"
+enumextension 57004 TorlysPriceAssetType extends "Price Asset Type"
 {
     value(70; "Price Code")
     {

@@ -1,4 +1,4 @@
-tableextension 50107 TorlysSalesCrMemoLine extends "Sales Cr.Memo Line"
+tableextension 50115 TorlysSalesCrMemoLine extends "Sales Cr.Memo Line"
 {
     fields
     {

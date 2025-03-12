@@ -1,4 +1,4 @@
-tableextension 50106 TorlysReturnReceiptLine extends "Return Receipt Line"
+tableextension 56661 TorlysReturnReceiptLine extends "Return Receipt Line"
 {
     fields
     {

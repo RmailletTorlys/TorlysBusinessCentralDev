@@ -1,4 +1,4 @@
-CodeUnit 50205 "Quantity Rounding Helper"
+CodeUnit 50005 "Quantity Rounding Helper"
 {
     procedure Validate(Quantity: Decimal; CaseSize: Decimal; CasesFilled: Integer): Decimal
     var

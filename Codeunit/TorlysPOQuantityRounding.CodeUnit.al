@@ -1,4 +1,4 @@
-codeunit 50203 "Torlys PO Quantity Rounding"
+codeunit 50003 "Torlys PO Quantity Rounding"
 {
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
     local procedure OnValidatePOQuantity(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")

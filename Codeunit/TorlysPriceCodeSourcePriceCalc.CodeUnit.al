@@ -1,4 +1,4 @@
-codeunit 50318 "TorlysPriceCodeSourcePriceCalc"
+codeunit 57003 "TorlysPriceCodeSourcePriceCalc"
 {
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime', '', false, false)]
     local procedure OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime(var SalesLine: Record "Sales Line")

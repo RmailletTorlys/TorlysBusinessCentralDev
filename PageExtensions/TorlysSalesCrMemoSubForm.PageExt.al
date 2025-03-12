@@ -1,4 +1,4 @@
-pageextension 50004 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
+pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 {
     layout
     {

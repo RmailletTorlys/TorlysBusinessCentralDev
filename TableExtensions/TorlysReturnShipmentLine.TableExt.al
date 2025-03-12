@@ -1,4 +1,4 @@
-tableextension 50111 TorlysReturnShipmentLine extends "Return Shipment Line"
+tableextension 56651 TorlysReturnShipmentLine extends "Return Shipment Line"
 {
     fields
     {

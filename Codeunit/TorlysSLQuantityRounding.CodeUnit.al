@@ -1,4 +1,4 @@
-codeunit 50202 "Torlys SL Quantity Rounding"
+codeunit 50002 "Torlys SL Quantity Rounding"
 {
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
     local procedure OnValidateSOQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")

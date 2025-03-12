@@ -1,4 +1,4 @@
-enumextension 50315 TorlysPriceSourceType extends "Price Source Type"
+enumextension 57003 TorlysPriceSourceType extends "Price Source Type"
 {
     value(50001; "Price Code")
     {

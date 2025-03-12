@@ -1,4 +1,4 @@
-codeunit 50204 "Torlys IJ Quantity Rounding"
+codeunit 50004 "Torlys IJ Quantity Rounding"
 {
     [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Quantity', false, false)]
     local procedure OnValidateIJQuantity(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")

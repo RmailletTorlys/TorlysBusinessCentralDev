@@ -5,7 +5,7 @@ using Microsoft.Inventory.Location;
 using Microsoft.Pricing.Calculation;
 using Microsoft.Pricing.PriceList;
 
-codeunit 50303 "Price Asset - Price Code" implements "Price Asset"
+codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
 
 {
     var

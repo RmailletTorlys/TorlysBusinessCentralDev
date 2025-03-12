@@ -1,4 +1,4 @@
-tableextension 50118 "TorlysShiptoAddress" extends "Ship-to Address"
+tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
 {
     fields
     {

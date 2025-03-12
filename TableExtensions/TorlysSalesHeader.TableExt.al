@@ -1,4 +1,4 @@
-tableextension 50120 "TorlysSalesHeader" extends "Sales Header"
+tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
 {
     fields
     {

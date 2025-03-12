@@ -1,4 +1,4 @@
-codeunit 50317 "Price Source - Price Code" implements "Price Source"
+codeunit 57002 "Price Source - Price Code" implements "Price Source"
 {
     var
         PriceCode: Record "Item Category";

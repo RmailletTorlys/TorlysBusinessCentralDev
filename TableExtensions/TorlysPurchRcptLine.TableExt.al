@@ -1,4 +1,4 @@
-tableextension 50109 TorlysPurchRcptLine extends "Purch. Rcpt. Line"
+tableextension 50121 TorlysPurchRcptLine extends "Purch. Rcpt. Line"
 {
     fields
     {

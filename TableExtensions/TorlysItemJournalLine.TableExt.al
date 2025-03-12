@@ -1,4 +1,4 @@
-tableextension 50116 TorlysItemJournalLine extends "Item Journal Line"
+tableextension 50083 TorlysItemJournalLine extends "Item Journal Line"
 {
     fields
     {

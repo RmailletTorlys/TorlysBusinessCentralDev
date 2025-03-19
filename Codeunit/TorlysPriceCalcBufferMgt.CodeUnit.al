@@ -1,16 +1,3 @@
-// ------------------------------------------------------------------------------------------------
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-// ------------------------------------------------------------------------------------------------
-using Microsoft.Inventory.Item;
-using Microsoft.Finance.Currency;
-using Microsoft.Finance.GeneralLedger.Setup;
-using Microsoft.Finance.VAT.Setup;
-using Microsoft.Foundation.Enums;
-using Microsoft.Pricing.Asset;
-using Microsoft.Pricing.PriceList;
-using Microsoft.Pricing.Source;
-
 codeunit 57005 "TorlysPriceCalcBufferMgt"
 {
     var

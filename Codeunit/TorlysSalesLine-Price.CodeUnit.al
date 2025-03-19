@@ -1,13 +1,3 @@
-using Microsoft.CRM.Campaign;
-using Microsoft.CRM.Contact;
-using Microsoft.Inventory.Item;
-using Microsoft.Pricing.Asset;
-using Microsoft.Pricing.Calculation;
-using Microsoft.Pricing.PriceList;
-using Microsoft.Pricing.Source;
-using Microsoft.Projects.Resources.Resource;
-using Microsoft.Sales.Document;
-
 codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
 {
     var

@@ -1,8 +1,3 @@
-using Microsoft.Inventory.Item;
-using Microsoft.Inventory.Location;
-using Microsoft.Pricing.Calculation;
-using Microsoft.Pricing.PriceList;
-
 codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
 
 {

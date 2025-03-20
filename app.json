@@ -2,7 +2,7 @@
     "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
-    "version": "1.0.8.1",
+    "version": "1.0.8.2",
     "brief": "",
     "description": "",
     "privacyStatement": "",
@@ -15,24 +15,6 @@
             "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
             "name": "Sustainability",
             "version": "25.3.28755.29171",
-            "publisher": "Microsoft"
-        },
-        {
-            "id": "3099ffc7-4cf7-4df6-9b96-7e4bc2bb587c",
-            "name": "Subsciption & Reccuring Billing",
-            "version": "25.4.29661.31177",
-            "publisher": "Microsoft"
-        },
-        {
-            "id": "dd3f226b-40bf-4b3c-9988-9b1e0f74edd8",
-            "name": "Sales Lines Suggestions",
-            "version": "25.4.29661.29959",
-            "publisher": "Microsoft"
-        },
-        {
-            "id": "ec255f57-31d0-4ca2-b751-f2fa7c745abb",
-            "name": "Shopify Connector",
-            "version": "25.4.29661.29959",
             "publisher": "Microsoft"
         }
     ],

@@ -2,10 +2,49 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 {
     layout
     {
+        moveafter(status; "Shortcut Dimension 1 Code")
+        addafter("Shortcut Dimension 1 Code")
+        {
+            field(ShortcutDimCode3; ShortcutDimCode[3])
+            {
+                ApplicationArea = Dimensions;
+                CaptionClass = '1,2,3';
+                ToolTip = 'Global Dimension 3 Code';
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                                                                  "Dimension Value Type" = const(Standard),
+                                                                  Blocked = const(false));
+                Visible = true;
+
+                trigger OnValidate()
+                begin
+                    ValidateShortcutDimension(3);
+                end;
+            }
+        }
         modify("Shipping Agent Service Code")
         {
             Visible = false;
         }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = true;
+        }
     }
 
+    protected var
+        ShortcutDimCode: array[8] of Code[20];
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.ShowShortcutDimCode(ShortcutDimCode);
+    end;
+
+
+
+    local procedure ValidateShortcutDimension(DimIndex: Integer)
+    var
+    begin
+        Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
+    end;
 }

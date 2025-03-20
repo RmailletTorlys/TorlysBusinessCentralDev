@@ -174,7 +174,13 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             TableRelation = "User";
             DataClassification = CustomerContent;
         }
+
     }
 
-
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        DimMgt: Codeunit "DimensionManagement";
+    begin
+        DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
 }

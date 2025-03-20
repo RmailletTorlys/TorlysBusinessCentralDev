@@ -296,18 +296,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         {
             Visible = false;
         }
-        modify("Service Commitments")
-        {
-            Visible = false;
-        }
-        modify("Customer Contract No.")
-        {
-            Visible = false;
-        }
-        modify("Vendor Contract No.")
-        {
-            Visible = false;
-        }
         modify("Item Charge Qty. to Handle")
         {
             Visible = false;
@@ -315,17 +303,17 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Shortcut Dimension 1 Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Shortcut Dimension 2 Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify(ShortcutDimCode3)
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify(ShortcutDimCode4)

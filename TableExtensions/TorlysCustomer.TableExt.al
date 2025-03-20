@@ -219,6 +219,19 @@ tableextension 50018 TorlysCustomer extends Customer
                     Rec."Default Price List Code" := PriceList.Code;
             end;
         }
+
+        field(50033; "Shortcut Dimension 3 Code"; Code[20])
+        {
+            CaptionClass = '1,2,3';
+            Caption = 'Shortcut Dimension 3 Code';
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                                                          Blocked = const(false));
+
+            trigger OnValidate()
+            begin
+                Rec.ValidateShortcutDimCode(3, "Shortcut Dimension 3 Code");
+            end;
+        }
     }
 
 }

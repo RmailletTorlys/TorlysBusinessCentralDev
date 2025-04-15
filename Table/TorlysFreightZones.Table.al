@@ -1,5 +1,7 @@
 table 55001 "Torlys Freight Zones"
 {
+    DrillDownPageID = "Freight Zone List";
+    LookupPageID = "Freight Zone Lookup";
     DataClassification = CustomerContent;
     Caption = 'Torlys Freight Zones';
 
@@ -86,7 +88,7 @@ table 55001 "Torlys Freight Zones"
             Caption = 'Modified';
             DataClassification = CustomerContent;
         }
-        field(17; "Modified By"; Code[20])
+        field(17; "Modified By"; Code[50])
         {
             Caption = 'Modified By';
             DataClassification = CustomerContent;
@@ -97,7 +99,7 @@ table 55001 "Torlys Freight Zones"
             DataClassification = CustomerContent;
 
         }
-        field(19; "Created By"; Code[20])
+        field(19; "Created By"; Code[50])
         {
             Caption = 'Created By';
             DataClassification = CustomerContent;
@@ -106,21 +108,44 @@ table 55001 "Torlys Freight Zones"
 
     keys
     {
-        key(PK; "Code", "Start Date", "End Date")
+        key(key1; "Code")
         {
             Clustered = true;
+        }
+
+        key(key2; "Description")
+        {
+
+        }
+
+        key(key3; "Start Date")
+        {
+
+        }
+
+        key(key4; "End Date")
+        {
+
+        }
+    }
+
+    fieldgroups
+    {
+        fieldgroup(Dropdown; "Code", "Description")
+        {
+            Caption = 'Drop Down';
         }
     }
 
     trigger OnInsert()
     begin
-        "Created By" := UserId;
+        "Created By" := CopyStr(UserId, 1, MaxStrLen("Created By"));
         "Created Date" := CurrentDateTime;
     end;
 
     trigger OnModify()
     begin
-        "Modified By" := UserId;
+        "Modified By" := CopyStr(UserId, 1, MaxStrLen("Modified By"));
         "Modifed Date" := CurrentDateTime;
     end;
 

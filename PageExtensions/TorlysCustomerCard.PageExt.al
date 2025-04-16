@@ -50,20 +50,14 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 end;
             }
 
-            field(ShortcutDimCode6; ShortcutDimCode[6])
+            field("TORLYS Club"; Rec."TORLYS Club")
             {
-                ApplicationArea = Dimensions;
-                CaptionClass = '1,2,6';
-                ToolTip = 'Global Dimension 6 Code';
-                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(6),
-                                                                "Dimension Value Type" = const(Standard),
-                                                                  Blocked = const(false));
+                ApplicationArea = All;
+                CaptionClass = 'TORLYS Club';
+                ToolTip = 'TORLYS Club';
                 Visible = true;
 
-                trigger OnValidate()
-                begin
-                    ValidateShortcutDimension(6);
-                end;
+
             }
         }
 

@@ -218,6 +218,13 @@ tableextension 50018 TorlysCustomer extends Customer
                     Rec."Default Price List Code" := PriceList.Code;
             end;
         }
+
+        field(50033; "TORLYS Club"; Option)
+        {
+            Caption = 'TORLYS Club';
+            OptionMembers = "Power Up","Power Up National","Power Up Assurance","Power Up USA";
+            DataClassification = CustomerContent;
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
@@ -229,7 +236,7 @@ tableextension 50018 TorlysCustomer extends Customer
         Dimension.SetRange("Table ID", 18);
         Dimension.SetRange("No.", Rec."No.");
 
-        if Dimension.FindFirst() then
+        if Dimension.FindSet() then
             repeat
                 case Dimension."Dimension Code" of
                     'REGION':
@@ -242,7 +249,7 @@ tableextension 50018 TorlysCustomer extends Customer
                         ShortcutDimCode[4] := Dimension."Dimension Value Code";
                     'BUYING GROUP':
                         ShortcutDimCode[5] := Dimension."Dimension Value Code";
-                    'TORLYS CLUB':
+                    '6':
                         ShortcutDimCode[6] := Dimension."Dimension Value Code";
                     'PROJECT':
                         ShortcutDimCode[7] := Dimension."Dimension Value Code";

@@ -1,6 +1,3 @@
-using Microsoft.Sales.Document;
-
-
 
 pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 {

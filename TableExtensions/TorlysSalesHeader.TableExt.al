@@ -175,6 +175,14 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50028; "Freight Zone Code"; Code[20])
+        {
+            Caption = 'Freight Zone Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Freight Zones";
+
+        }
+
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

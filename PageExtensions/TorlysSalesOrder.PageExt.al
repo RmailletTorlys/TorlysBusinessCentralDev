@@ -20,6 +20,15 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     ValidateShortcutDimension(4);
                 end;
             }
+
+            field("Freight Zone Code"; Rec."Freight Zone Code")
+            {
+                ApplicationArea = Dimensions;
+                ToolTip = 'Freight Zone Code';
+                Lookup = true;
+                LookupPageId = "Freight Zone List";
+            }
+
         }
         modify("Shipping Agent Service Code")
         {

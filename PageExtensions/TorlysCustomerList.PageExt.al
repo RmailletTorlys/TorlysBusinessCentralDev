@@ -1,23 +1,9 @@
-pageextension 50021 TorlysCustomerCard extends "Customer Card"
+pageextension 50028 TorlysCustomerList extends "Customer List"
 {
     layout
     {
         addafter("No.")
         {
-            field("Collector ID"; Rec."Collector ID")
-            {
-                ApplicationArea = All;
-                Caption = 'Collector ID';
-                Visible = true;
-                ToolTip = 'This field is the Primary Credit Collector assigned to the customer account.';
-            }
-
-            field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
-            {
-                ApplicationArea = Dimensions;
-                ToolTip = 'Global Dimension 1 Code';
-            }
-
             field(ShortcutDimCode4; ShortcutDimCode[4])
             {
                 ApplicationArea = Dimensions;
@@ -66,20 +52,8 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 end;
             }
         }
-
-
-        addfirst(PricesandDiscounts)
-        {
-            field("Default Price List"; Rec."Default Price List Code")
-            {
-                ApplicationArea = All;
-                Caption = 'Default Price List';
-                Visible = true;
-                ToolTip = 'This field is the default price list assigned to the customer account.';
-
-            }
-        }
     }
+
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -96,5 +70,4 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
-
 }

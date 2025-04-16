@@ -348,6 +348,47 @@ tableextension 50027 TorlysItem extends Item
         }
     }
 
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        Dimension: Record "Default Dimension";
+    begin
+        ClearShortcutDimCode(ShortcutDimCode);
+        Dimension.Reset();
+        Dimension.SetRange("Table ID", 27);
+        Dimension.SetRange("No.", Rec."No.");
+
+        if Dimension.FindFirst() then
+            repeat
+                case Dimension."Dimension Code" of
+                    'REGION':
+                        ShortcutDimCode[1] := Dimension."Dimension Value Code";
+                    'DEPARTMENT':
+                        ShortcutDimCode[2] := Dimension."Dimension Value Code";
+                    'PRODUCT':
+                        ShortcutDimCode[3] := Dimension."Dimension Value Code";
+                    'CHANNEL':
+                        ShortcutDimCode[4] := Dimension."Dimension Value Code";
+                    'BUYING GROUP':
+                        ShortcutDimCode[5] := Dimension."Dimension Value Code";
+                    'TORLYS CLUB':
+                        ShortcutDimCode[6] := Dimension."Dimension Value Code";
+                    'PROJECT':
+                        ShortcutDimCode[7] := Dimension."Dimension Value Code";
+                    '8':
+                        ShortcutDimCode[8] := Dimension."Dimension Value Code";
+                end;
+            until Dimension.Next() = 0;
+
+    end;
+
+    local procedure ClearShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        i: Integer;
+    begin
+        for i := 1 to 8 do
+            ShortcutDimCode[i] := '';
+    end;
+
 
 }
 

@@ -7,7 +7,6 @@ tableextension 50018 TorlysCustomer extends Customer
             Caption = 'Collector ID';
             TableRelation = "Salesperson/Purchaser";
             DataClassification = CustomerContent;
-
         }
 
         field(50002; "DBA"; text[20])
@@ -219,19 +218,47 @@ tableextension 50018 TorlysCustomer extends Customer
                     Rec."Default Price List Code" := PriceList.Code;
             end;
         }
-
-        field(50033; "Shortcut Dimension 3 Code"; Code[20])
-        {
-            CaptionClass = '1,2,3';
-            Caption = 'Shortcut Dimension 3 Code';
-            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
-                                                          Blocked = const(false));
-
-            trigger OnValidate()
-            begin
-                Rec.ValidateShortcutDimCode(3, "Shortcut Dimension 3 Code");
-            end;
-        }
     }
+
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        Dimension: Record "Default Dimension";
+    begin
+        ClearShortcutDimCode(ShortcutDimCode);
+        Dimension.Reset();
+        Dimension.SetRange("Table ID", 18);
+        Dimension.SetRange("No.", Rec."No.");
+
+        if Dimension.FindFirst() then
+            repeat
+                case Dimension."Dimension Code" of
+                    'REGION':
+                        ShortcutDimCode[1] := Dimension."Dimension Value Code";
+                    'DEPARTMENT':
+                        ShortcutDimCode[2] := Dimension."Dimension Value Code";
+                    'PRODUCT':
+                        ShortcutDimCode[3] := Dimension."Dimension Value Code";
+                    'CHANNEL':
+                        ShortcutDimCode[4] := Dimension."Dimension Value Code";
+                    'BUYING GROUP':
+                        ShortcutDimCode[5] := Dimension."Dimension Value Code";
+                    'TORLYS CLUB':
+                        ShortcutDimCode[6] := Dimension."Dimension Value Code";
+                    'PROJECT':
+                        ShortcutDimCode[7] := Dimension."Dimension Value Code";
+                    '8':
+                        ShortcutDimCode[8] := Dimension."Dimension Value Code";
+                end;
+            until Dimension.Next() = 0;
+
+    end;
+
+    local procedure ClearShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        i: Integer;
+    begin
+        for i := 1 to 8 do
+            ShortcutDimCode[i] := '';
+    end;
 
 }

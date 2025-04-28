@@ -25,7 +25,6 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50004; "Credit Limit Modified By"; code[20])
         {
             Caption = 'Credit Limit Modified By';
-            TableRelation = "Salesperson/Purchaser";
             DataClassification = CustomerContent;
         }
 

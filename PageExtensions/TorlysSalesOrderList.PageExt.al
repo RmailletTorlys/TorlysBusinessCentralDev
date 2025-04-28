@@ -1,10 +1,11 @@
-pageextension 50042 TorlysSalesOrder extends "Sales Order"
+pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 {
     layout
     {
-        moveafter(status; "Shortcut Dimension 1 Code")
+        moveafter("No."; "Shortcut Dimension 1 Code")
         addafter("Shortcut Dimension 1 Code")
         {
+
             field(ShortcutDimCode4; ShortcutDimCode[4])
             {
                 ApplicationArea = Dimensions;
@@ -20,19 +21,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     ValidateShortcutDimension(4);
                 end;
             }
-
-            field("Freight Zone Code"; Rec."Freight Zone Code")
-            {
-                ApplicationArea = Dimensions;
-                ToolTip = 'Freight Zone Code';
-                Lookup = true;
-                LookupPageId = "Freight Zone List";
-            }
-
-        }
-        modify("Shipping Agent Service Code")
-        {
-            Visible = false;
         }
 
         modify("Shortcut Dimension 1 Code")
@@ -40,6 +28,8 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = true;
         }
     }
+
+
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

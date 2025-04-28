@@ -14,6 +14,21 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                 Importance = Standard;
 
             }
+
+            field(ShortcutDimCode3; ShortcutDimCode[3])
+            {
+                CaptionClass = '1,2,3';
+                ToolTip = 'Global Dimension 4 Code';
+                ApplicationArea = Dimensions;
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                                                                "Dimension Value Type" = const(Standard),
+                                                                  Blocked = const(false));
+                Visible = true;
+                trigger OnValidate()
+                begin
+                    ValidateShortcutDimension(3);
+                end;
+            }
         }
 
         moveafter("Description 2"; "Item Category Code")
@@ -424,6 +439,22 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         }
         //Hidden Groups - End
     }
+
+    protected var
+        ShortcutDimCode: array[8] of Code[20];
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.ShowShortcutDimCode(ShortcutDimCode);
+    end;
+
+
+
+    local procedure ValidateShortcutDimension(DimIndex: Integer)
+    var
+    begin
+        Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
+    end;
 
     procedure QuantityOfItem(Item: Record Item): Decimal
     begin

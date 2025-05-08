@@ -224,6 +224,15 @@ tableextension 50018 TorlysCustomer extends Customer
             OptionMembers = "Power Up","Power Up National","Power Up Assurance","Power Up USA";
             DataClassification = CustomerContent;
         }
+
+        field(50034; "Freight Zone"; Code[20])
+        {
+            Caption = 'Freight Zone';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Freight Zones";
+            ToolTip = 'Specifies the freight zone that the customer is assigned to.';
+
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

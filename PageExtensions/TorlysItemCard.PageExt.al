@@ -433,10 +433,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         {
             Visible = false;
         }
-        modify(Sustainability)
-        {
-            Visible = false;
-        }
+
         //Hidden Groups - End
     }
 

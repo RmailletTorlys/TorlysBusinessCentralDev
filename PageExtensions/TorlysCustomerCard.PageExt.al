@@ -56,8 +56,14 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 CaptionClass = 'TORLYS Club';
                 ToolTip = 'TORLYS Club';
                 Visible = true;
+            }
 
-
+            field("Power Up Level"; Rec."Power Up Level")
+            {
+                ApplicationArea = All;
+                CaptionClass = 'Power Up Level';
+                ToolTip = 'Power Up Level';
+                Visible = true;
             }
         }
 

@@ -18,7 +18,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
             field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 CaptionClass = '1,2,3';
-                ToolTip = 'Global Dimension 4 Code';
+                ToolTip = 'Global Dimension 3 Code';
                 ApplicationArea = Dimensions;
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                 "Dimension Value Type" = const(Standard),
@@ -433,10 +433,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         {
             Visible = false;
         }
-        modify(Sustainability)
-        {
-            Visible = false;
-        }
+
         //Hidden Groups - End
     }
 

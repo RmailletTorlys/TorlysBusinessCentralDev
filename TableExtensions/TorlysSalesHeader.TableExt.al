@@ -71,7 +71,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         field(50011; "Pick Slip Printed By"; code[20])
         {
             Caption = 'Pick Slip Printed By';
-            TableRelation = "User";
+            TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
@@ -90,7 +90,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         field(50014; "Popup Modify By"; code[20])
         {
             Caption = 'Popup Modify By';
-            TableRelation = "User";
+            TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
@@ -145,7 +145,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         field(50023; "CM Accuracy Approval By"; code[20])
         {
             Caption = 'CM Accuracy Approval By';
-            TableRelation = "User";
+            TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
@@ -164,14 +164,14 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         field(50026; "Warehouse Associate Picked By"; code[20])
         {
             Caption = 'Warehouse Associate Picked By';
-            TableRelation = "User";
+            TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
         field(50027; "Warehouse Associate Checked By"; code[20])
         {
             Caption = 'Warehouse Associate Checked By';
-            TableRelation = "User";
+            TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 

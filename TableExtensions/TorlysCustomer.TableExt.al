@@ -24,7 +24,6 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50004; "Credit Limit Modified By"; code[20])
         {
             Caption = 'Credit Limit Modified By';
-            TableRelation = "Salesperson/Purchaser";
             DataClassification = CustomerContent;
         }
 
@@ -224,6 +223,15 @@ tableextension 50018 TorlysCustomer extends Customer
             Caption = 'TORLYS Club';
             OptionMembers = "","Power Up","Power Up National","Power Up Assurance","Power Up USA";
             DataClassification = CustomerContent;
+        }
+
+        field(50034; "Freight Zone"; Code[20])
+        {
+            Caption = 'Freight Zone';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Freight Zones";
+            ToolTip = 'Specifies the freight zone that the customer is assigned to.';
+
         }
     }
 

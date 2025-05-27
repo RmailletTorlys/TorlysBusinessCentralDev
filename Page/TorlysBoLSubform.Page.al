@@ -16,147 +16,111 @@ page 55006 "Torlys BOL Subform"
             repeater(Group)
             {
                 ShowCaption = false;
-                field("BOL No."; Rec."BOL No.")
+                field("Order No."; Rec."Order No.")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
                 }
 
-                field("Customer No."; Rec."Customer No.")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the number of the customer.';
-                    Caption = 'Customer No.';
-                }
-
-                field("Ship-to Code"; Rec."Ship-to Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the ship-to address.';
-                    Caption = 'Ship-to Code';
-                }
-
-                field("Ship-to Name"; Rec."Ship-to Name")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the name of the ship-to address.';
-                    Caption = 'Ship-to Name';
-                }
-
-                field("Ship-to Address"; Rec."Ship-to Address")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the address of the ship-to address.';
-                    Caption = 'Ship-to Address';
-                }
-
-                field("Ship-to Address 2"; Rec."Ship-to Address 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second address line of the ship-to address.';
-                    Caption = 'Ship-to Address 2';
-                }
-
-                field("Ship-to City"; Rec."Ship-to City")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the city of the ship-to address.';
-                    Caption = 'Ship-to City';
-                }
-
-                field("Ship-to County"; Rec."Ship-to County")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the county of the ship-to address.';
-                    Caption = 'Ship-to County';
-                }
-
-                field("Ship-to Post Code"; Rec."Ship-to Post Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the post code of the ship-to address.';
-                    Caption = 'Ship-to Post Code';
-                }
-
-                field("Ship-to Country/Region Code"; Rec."Ship-to Country/Region Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the country/region code of the ship-to address.';
-                    Caption = 'Ship-to Country/Region Code';
-                }
-
-                field("Order No."; Rec."Order No.")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the number of the order that is being shipped.';
-                    Caption = 'Order No.';
-                }
-
                 field("Shipment No."; Rec."Shipment No.")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the number of the shipment that is being shipped.';
-                    Caption = 'Shipment No.';
+                    ToolTip = 'The associated shipment';
                 }
 
                 field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the date that the shipment is being shipped.';
-                    Caption = 'Shipment Date';
+                    ToolTip = 'The date of the shipment';
                 }
 
-                field("External Document No."; Rec."External Document No.")
+                field("PO Number"; Rec."External Document No.")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the number of the external document that is being shipped.';
-                    Caption = 'External Document No.';
+                    ToolTip = 'The associated purchase order';
                 }
 
-                field("Shipping Agent Code"; Rec."Shipping Agent Code")
+                field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the shipping agent that is being used to ship the document.';
-                    Caption = 'Shipping Agent Code';
+                    ToolTip = 'The associated customer';
                 }
 
-                field("Destination Instruction 1"; Rec."Destination Instruction 1")
+                field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the destination instructions.';
-                    Caption = 'Destination Instruction';
+                    ToolTip = 'The associated ship-to code';
                 }
 
-                field("Destination Instruction 2"; Rec."Destination Instruction 2")
+                field("Ship-to Name"; Rec."Ship-to Name")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the destination instructions.';
-                    Caption = 'Destination Instruction 2';
+                    ToolTip = 'The associated ship-to name';
                 }
 
-                field("Total Cases"; Rec."Total Cases")
+                field("Ship-to Address"; Rec."Ship-to Address")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the total number of cases that are being shipped.';
-                    Caption = 'Total Cases';
+                    ToolTip = 'The associated ship-to address';
+
                 }
 
-                field("Total Pallet"; Rec."Total Pallet")
+                field("Ship-to Address 2"; Rec."Ship-to Address 2")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the total number of pallets that are being shipped.';
-                    Caption = 'Total Pallet';
+                    ToolTip = 'The associated ship-to address 2';
+
+                }
+
+                field("Ship-to City"; Rec."Ship-to City")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'The associated ship-to city';
+                }
+
+                field("Ship-to State"; Rec."Ship-to County")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'The associated ship-to state';
+                }
+
+                field("Ship-to Country"; Rec."Ship-to Country/Region Code")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'The associated ship-to country';
+
+                }
+
+                field("Ship-to Zip"; Rec."Ship-to Post Code")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'The associated ship-to zip';
                 }
 
                 field("Total Weight"; Rec."Total Weight")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the total weight of the items that are being shipped.';
-                    Caption = 'Total Weight';
+                    ToolTip = 'The associated total weight';
                 }
+
+                field("Total Cases"; Rec."Total Cases")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'The associated total cases';
+
+                }
+
+                field("Total Base Qty."; Rec."Total Pallet")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'The associated total base quantity';
+                    Caption = 'NEED TO UPDATE FIELD';
+
+                }
+
+
             }
         }
-
     }
 
     trigger OnOpenPage()

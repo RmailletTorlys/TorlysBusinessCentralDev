@@ -104,19 +104,4 @@ page 55003 "Freight Zone Card"
             }
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
 }

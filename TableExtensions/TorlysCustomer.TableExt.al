@@ -147,7 +147,7 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50023; "Power Up Level"; Option)
         {
             Caption = 'Power Up Level';
-            OptionMembers = "Premier","Elite","Designer";
+            OptionMembers = "","Premier","Elite","Designer";
             DataClassification = CustomerContent;
         }
 
@@ -221,7 +221,7 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50033; "TORLYS Club"; Option)
         {
             Caption = 'TORLYS Club';
-            OptionMembers = "Power Up","Power Up National","Power Up Assurance","Power Up USA";
+            OptionMembers = "","Power Up","Power Up National","Power Up Assurance","Power Up USA";
             DataClassification = CustomerContent;
         }
 

@@ -22,6 +22,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(LineTotalWeight; ("Net Weight" * "Qty. to Ship"))
+            {
+
+            }
 
         }
         add(Header)

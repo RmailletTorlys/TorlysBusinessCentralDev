@@ -22,12 +22,21 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
-            column(LineTotalWeight; ("Net Weight" * "Qty. to Ship"))
-            {
-
-            }
 
         }
+
+        modify(Line)
+        {
+            trigger OnBeforeAfterGetRecord()
+            begin
+                TotalWeight += "Net Weight" * "Qty. to Ship";
+            end;
+
+
+        }
+
+
+
         add(Header)
         {
             column(ShipMethod; "Transport Method")
@@ -42,8 +51,19 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
         }
 
+        add(Totals)
+        {
+            column(Total_Weight; TotalWeight)
+            {
+
+            }
+        }
+
 
     }
+
+    var
+        TotalWeight: Decimal;
 
 
 }

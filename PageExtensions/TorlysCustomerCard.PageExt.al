@@ -281,7 +281,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Program Fees Amount';
                     DecimalPlaces = 2;
-                    Editable = false;
                     ToolTip = 'Specifies the amount of the program fees that you have paid for the customer.';
                 }
 
@@ -290,7 +289,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Co-op Entitlement %';
                     DecimalPlaces = 2 : 1;
-                    Editable = false;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s co-op.';
                 }
 
@@ -299,7 +297,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Sample Allowance %';
                     DecimalPlaces = 2 : 1;
-                    Editable = false;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
                 }
             }
@@ -314,7 +311,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             {
                 ApplicationArea = All;
                 Caption = 'A/R Notes';
-                Editable = false;
                 ToolTip = 'Specifies the notes that you have entered for the customer.';
             }
 
@@ -322,7 +318,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             {
                 ApplicationArea = All;
                 Caption = 'On Hold Count';
-                Editable = false;
                 ToolTip = 'Specifies the number of times that the customer has been put on hold.';
             }
 
@@ -330,7 +325,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             {
                 ApplicationArea = All;
                 Caption = 'NSF Count';
-                Editable = false;
                 ToolTip = 'Specifies the number of times that the customer has been marked with NSF cheques.';
             }
         }

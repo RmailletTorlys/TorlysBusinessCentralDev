@@ -7,7 +7,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         {
             field("No. 2"; Rec."No. 2")
             {
-                Caption = 'Collection No.';
+                Caption = 'No. 2';
                 ToolTip = 'Specifies the collection that the item belongs to.';
                 ApplicationArea = All;
                 Visible = true;
@@ -404,6 +404,11 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         modify(Replenishment_Assembly)
         {
             Visible = false;
+        }
+
+        modify("Description 2")
+        {
+            Visible = true;
         }
 
 

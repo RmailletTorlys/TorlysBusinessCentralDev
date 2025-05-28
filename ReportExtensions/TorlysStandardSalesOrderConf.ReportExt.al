@@ -26,12 +26,12 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         }
         add(Header)
         {
-            column(ShipmentMethod; "Transport Method")
+            column(ShipMethod; "Transport Method")
             {
 
             }
 
-            column(ShippingIns; "Shipping Advice")
+            column(Shipping_Advice; "Shipping Advice")
             {
 
             }

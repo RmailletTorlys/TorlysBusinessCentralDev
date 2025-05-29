@@ -29,10 +29,15 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         {
             trigger OnBeforeAfterGetRecord()
             begin
-                TotalWeight += "Net Weight" * "Qty. to Ship";
-            end;
+                If "Gen. Bus. Posting Group" <> 'IFS' then
+                    TotalWeight += "Net Weight" * "Quantity";
 
+                If "Gen. Bus. Posting Group" <> 'IFS' then
+                    ShipWeight += "Net Weight" * "Qty. to Ship";
 
+                If "Gen. Bus. Posting Group" <> 'IFS' then
+                    TotalPieces += "Quantity Case";
+            End;
         }
 
 
@@ -48,12 +53,20 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(Total_Pieces; "TotalPieces")
+            {
+
+            }
 
         }
 
         add(Totals)
         {
             column(Total_Weight; TotalWeight)
+            {
+
+            }
+            column(Ship_Weight; ShipWeight)
             {
 
             }
@@ -64,6 +77,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
     var
         TotalWeight: Decimal;
+        ShipWeight: Decimal;
+        TotalPieces: Decimal;
+        QtyPerPallet: Decimal;
+        QtyPerCase: Decimal;
 
 
 }

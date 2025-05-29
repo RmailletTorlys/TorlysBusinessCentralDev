@@ -53,11 +53,6 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
-            column(Total_Pieces; "TotalPieces")
-            {
-
-            }
-
         }
 
         add(Totals)
@@ -70,6 +65,11 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(Total_Pieces; "TotalPieces")
+            {
+
+            }
+
         }
 
 

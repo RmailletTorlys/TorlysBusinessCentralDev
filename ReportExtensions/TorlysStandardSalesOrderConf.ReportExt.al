@@ -27,25 +27,27 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
         modify(Line)
         {
-            trigger OnBeforeAfterGetRecord()
+            trigger OnAfterAfterGetRecord()
             begin
                 If "Gen. Bus. Posting Group" <> 'IFS' then
-                    TotalWeight += "Net Weight" * "Quantity";
+                    TotalWeight += ("Net Weight" * Quantity);
 
                 If "Gen. Bus. Posting Group" <> 'IFS' then
-                    ShipWeight += "Net Weight" * "Qty. to Ship";
+                    ShipWeight += ("Net Weight" * "Qty. to Ship");
 
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     TotalPieces += "Quantity Case";
 
-                If "Quantity Pallet" > 0 then Begin
-                    If Type = Type::Item then Begin
-                        Item.Get("No.");
-                        QtyPerPallet := GetQtyUOM(Item, 'PALLET');
-                        QtyPerCase := GetQtyUOM(Item, 'CASE');
-                        TotalPieces := TotalPieces + ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                    End;
-                End;
+                //        If "Quantity Pallet" > 0 then Begin
+                //            If Type = Type::Item then Begin
+                //                Item.Get("No.");
+                //                QtyPerPallet := GetQtyUOM(Item, 'PALLET');
+                //                QtyPerCase := GetQtyUOM(Item, 'CASE');
+                //                TotalPieces += TotalPieces + ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+                //            End;
+                //       End;
+
+
             End;
         }
 
@@ -95,6 +97,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ItemUOM: Record "Item Unit of Measure";
         TorlysUOMManagement: Codeunit "TorlysUOMManagement";
         UnitOfMeasureCode: Code[10];
+
 
     procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal
     Begin

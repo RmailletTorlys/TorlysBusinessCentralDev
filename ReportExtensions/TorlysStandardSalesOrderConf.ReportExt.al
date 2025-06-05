@@ -38,18 +38,31 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     TotalPieces += "Quantity Case";
 
-                //        If "Quantity Pallet" > 0 then Begin
-                //            If Type = Type::Item then Begin
-                //                Item.Get("No.");
-                //                QtyPerPallet := GetQtyUOM(Item, 'PALLET');
-                //                QtyPerCase := GetQtyUOM(Item, 'CASE');
-                //                TotalPieces += TotalPieces + ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                //            End;
-                //       End;
+                If "Quantity Pallet" > 0 then Begin
+                    If Type = Type::Item then Begin
+                        Item.Get("No.");
+                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
+                        TotalPieces += ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+                    End;
+                End;
+
+                If "Gen. Bus. Posting Group" <> 'IFS' then
+                    ToShipPieces += "Qty. to Ship Case";
+
+                If "Qty. to Ship Pallet" > 0 then Begin
+                    If Type = Type::Item then Begin
+                        Item.Get("No.");
+                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
+                        ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
+                    End;
+                End;
 
 
             End;
         }
+
 
 
 
@@ -80,6 +93,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(ToShip_Pieces; "ToShipPieces")
+            {
+
+            }
 
         }
 
@@ -94,14 +111,14 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         QtyPerCase: Decimal;
         UOMMgt: Decimal;
         Item: Record Item;
-        ItemUOM: Record "Item Unit of Measure";
         TorlysUOMManagement: Codeunit "TorlysUOMManagement";
         UnitOfMeasureCode: Code[10];
+        ToShipPieces: Decimal;
 
 
     procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal
     Begin
-        TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, UnitOfMeasureCode, ItemUOM)
+        TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, UnitOfMeasureCode)
     End;
 
 

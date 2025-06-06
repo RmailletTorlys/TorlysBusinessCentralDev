@@ -81,9 +81,17 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 If ("Quantity Case" = 0) and ("Quantity Pallet" = 0) then
                     TotalPieces += "Quantity";
 
-                If "Qty. to Ship Pallet" > 0 then
-                    If Type = Type::Item then
-                        IncrementTotalPieces("No.", "Quantity Pallet", 2);
+                If "Gen. Bus. Posting Group" <> 'IFS' then
+                    ToShipPieces += "Qty. to Ship Case";
+
+                If "Qty. to Ship Pallet" > 0 then Begin
+                    If Type = Type::Item then Begin
+                        Item.Get("No.");
+                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
+                        ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
+                    End;
+                End;
 
                 If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     ToShipPieces += "Qty. to Ship";
@@ -157,6 +165,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
     var
         Item: Record Item;
+        TorlysUOMManagement: Codeunit "TorlysUOMManagement";
         QtyRoundingHelper: Codeunit "Quantity Rounding Helper";
         TotalWeight: Decimal;
         ShipWeight: Decimal;

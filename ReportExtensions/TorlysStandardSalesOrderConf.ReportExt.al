@@ -34,11 +34,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         {
             trigger OnAfterAfterGetRecord()
             begin
-                if "Currency Code" = '' then begin
+                if "Currency Code" = '' then
                     CurrencyCode := 'CDN'
-                end else begin
+                else
                     CurrencyCode := "Currency Code"
-                end;
             end;
         }
 
@@ -51,36 +50,21 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     TotalWeight += ("Net Weight" * Quantity);
+                ShipWeight += ("Net Weight" * "Qty. to Ship");
+                TotalPieces += "Quantity Case";
+                ToShipPieces += "Qty. to Ship Case";
 
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    ShipWeight += ("Net Weight" * "Qty. to Ship");
+                If "Quantity Pallet" > 0 then
+                    If Type = Type::Item then
+                        IncrementTotalPieces("No.", "Quantity Pallet", 1);
 
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    TotalPieces += "Quantity Case";
-
-                If "Quantity Pallet" > 0 then Begin
-                    If Type = Type::Item then Begin
-                        Item.Get("No.");
-                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
-                        TotalPieces += ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                    End;
-                End;
 
                 If ("Quantity Case" = 0) and ("Quantity Pallet" = 0) then
                     TotalPieces += "Quantity";
 
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    ToShipPieces += "Qty. to Ship Case";
-
-                If "Qty. to Ship Pallet" > 0 then Begin
-                    If Type = Type::Item then Begin
-                        Item.Get("No.");
-                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
-                        ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
-                    End;
-                End;
+                If "Qty. to Ship Pallet" > 0 then
+                    If Type = Type::Item then
+                        IncrementTotalPieces("No.", "Quantity Pallet", 2);
 
                 If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     ToShipPieces += "Qty. to Ship";
@@ -130,24 +114,31 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
     }
 
     var
+        Item: Record Item;
+        QtyRoundingHelper: Codeunit "Quantity Rounding Helper";
         TotalWeight: Decimal;
         ShipWeight: Decimal;
         TotalPieces: Decimal;
         QtyPerPallet: Decimal;
         QtyPerCase: Decimal;
-        UOMMgt: Decimal;
-        Item: Record Item;
-        TorlysUOMManagement: Codeunit "TorlysUOMManagement";
-        UnitOfMeasureCode: Code[10];
         ToShipPieces: Decimal;
         CurrencyCode: Text;
         ItemDescription: Text;
 
+    procedure IncrementTotalPieces(itemNo: Code[20]; QtyPallet: Decimal; fieldId: Integer): Decimal
+    begin
 
-    procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal
-    Begin
-        TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, UnitOfMeasureCode)
-    End;
+        QtyPerPallet := QtyRoundingHelper.GetQuantityUoM(itemNo, 'PALLET');
+        QtyPerCase := QtyRoundingHelper.GetQuantityUoM(itemNo, 'CASE');
+
+        CASE (fieldId) OF
+            1:
+                TotalPieces += (QtyPallet * (QtyPerPallet / QtyPerCase));
+            2:
+                ToShipPieces += (QtyPallet * (QtyPerPallet / QtyPerCase));
+        end;
+    end;
+
 
 
 

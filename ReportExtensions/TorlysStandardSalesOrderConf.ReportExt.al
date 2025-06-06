@@ -48,12 +48,6 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 If "Item Reference No." <> '' then
                     ItemDescription := (Item."Description");
 
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    TotalWeight += ("Net Weight" * Quantity);
-                ShipWeight += ("Net Weight" * "Qty. to Ship");
-                TotalPieces += "Quantity Case";
-                ToShipPieces += "Qty. to Ship Case";
-
                 If "Quantity Pallet" > 0 then
                     If Type = Type::Item then
                         IncrementTotalPieces("No.", "Quantity Pallet", 1);
@@ -68,6 +62,12 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
                 If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     ToShipPieces += "Qty. to Ship";
+
+                If "Gen. Bus. Posting Group" <> 'IFS' then
+                    TotalWeight += ("Net Weight" * Quantity);
+                ShipWeight += ("Net Weight" * "Qty. to Ship");
+                TotalPieces += "Quantity Case";
+                ToShipPieces += "Qty. to Ship Case";
 
 
             End;

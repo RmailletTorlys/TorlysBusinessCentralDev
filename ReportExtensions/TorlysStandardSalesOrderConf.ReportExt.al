@@ -23,12 +23,32 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
             }
 
+            column(Item_Description; "ItemDescription")
+            {
+
+            }
+
+        }
+
+        modify(Header)
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                if "Currency Code" = '' then begin
+                    CurrencyCode := 'CDN'
+                end else begin
+                    CurrencyCode := "Currency Code"
+                end;
+            end;
         }
 
         modify(Line)
         {
             trigger OnAfterAfterGetRecord()
             begin
+                If "Item Reference No." <> '' then
+                    ItemDescription := (Item."Description");
+
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     TotalWeight += ("Net Weight" * Quantity);
 
@@ -47,6 +67,9 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                     End;
                 End;
 
+                If ("Quantity Case" = 0) and ("Quantity Pallet" = 0) then
+                    TotalPieces += "Quantity";
+
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     ToShipPieces += "Qty. to Ship Case";
 
@@ -58,6 +81,9 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                         ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
                     End;
                 End;
+
+                If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
+                    ToShipPieces += "Qty. to Ship";
 
 
             End;
@@ -114,6 +140,8 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         TorlysUOMManagement: Codeunit "TorlysUOMManagement";
         UnitOfMeasureCode: Code[10];
         ToShipPieces: Decimal;
+        CurrencyCode: Text;
+        ItemDescription: Text;
 
 
     procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal

@@ -28,6 +28,21 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
             }
 
+            column(ParentBinLocationLabel; "ParentBinLocationLabel")
+            {
+
+            }
+
+            column(ParentBinLocation; "ParentBinLocation")
+            {
+
+            }
+
+            column(TempDesc; "TempDesc")
+            {
+
+            }
+
         }
 
         modify(Header)
@@ -46,9 +61,6 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         {
             trigger OnAfterAfterGetRecord()
             begin
-                If "Item Reference No." <> '' then
-                    ItemDescription := (Item."Description");
-
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     TotalWeight += ("Net Weight" * Quantity);
 
@@ -85,6 +97,29 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     ToShipPieces += "Qty. to Ship";
 
+                ParentBinLocation := '';
+                ParentBinLocationLabel := '';
+                ParentBinCOntent.Reset;
+                ParentBinCOntent.SetRange(ParentBinCOntent."Location Code", "Location Code");
+                ParentBinCOntent.SetRange(ParentBinCOntent."Item No.", "No.");
+                If (ParentBinCOntent.Find('-')) then begin
+                    repeat
+                        if StrPos(ParentBinLocation, ParentBinCOntent."Bin Code") = 0 then begin
+                            ParentBinLocation := ParentBinLocation + '  ' + ParentBinCOntent."Bin Code";
+                        end;
+                    Until ParentBinCOntent.Next = 0;
+                    ParentBinLocationLabel := 'Bin(s): ';
+                end;
+
+                Clear(TempDesc);
+                If "Item Reference No." <> '' then begin
+                    Clear(ItemNoTemp);
+                    ItemNoTemp.get("No.");
+                    TempDesc := Description;
+                    Description := ItemNoTemp.Description;
+                    Modify;
+
+                end;
 
             End;
         }
@@ -141,7 +176,12 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         UnitOfMeasureCode: Code[10];
         ToShipPieces: Decimal;
         CurrencyCode: Text;
+        ItemNoTemp: Record Item;
+        TempDesc: Text;
         ItemDescription: Text;
+        ParentBinCOntent: Record "Bin Content";
+        ParentBinLocationLabel: Text;
+        ParentBinLocation: Code[100];
 
 
     procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal

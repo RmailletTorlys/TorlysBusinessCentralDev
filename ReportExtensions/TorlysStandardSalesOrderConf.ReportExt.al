@@ -64,35 +64,23 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             begin
                 If "Gen. Bus. Posting Group" <> 'IFS' then
                     TotalWeight += ("Net Weight" * Quantity);
-
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    ShipWeight += ("Net Weight" * "Qty. to Ship");
-
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    TotalPieces += "Quantity Case";
+                ShipWeight += ("Net Weight" * "Qty. to Ship");
+                TotalPieces += "Quantity Case";
+                ToShipPieces += "Qty. to Ship Case";
 
                 If "Quantity Pallet" > 0 then Begin
-                    If Type = Type::Item then Begin
-                        Item.Get("No.");
-                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
-                        TotalPieces += ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                    End;
+                    If Type = Type::Item then
+                        SetQtyConst("No.");
+                    TotalPieces += ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
                 End;
 
                 If ("Quantity Case" = 0) and ("Quantity Pallet" = 0) then
                     TotalPieces += "Quantity";
 
-                If "Gen. Bus. Posting Group" <> 'IFS' then
-                    ToShipPieces += "Qty. to Ship Case";
-
                 If "Qty. to Ship Pallet" > 0 then Begin
-                    If Type = Type::Item then Begin
-                        Item.Get("No.");
-                        QtyPerPallet := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-                        QtyPerCase := TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, 'CASE');
-                        ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
-                    End;
+                    If Type = Type::Item then
+                        SetQtyConst("No.");
+                    ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
                 End;
 
                 If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
@@ -100,15 +88,14 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
                 ParentBinLocation := '';
                 ParentBinLocationLabel := '';
-                ParentBinCOntent.Reset;
+                ParentBinCOntent.Reset();
                 ParentBinCOntent.SetRange(ParentBinCOntent."Location Code", "Location Code");
                 ParentBinCOntent.SetRange(ParentBinCOntent."Item No.", "No.");
                 If (ParentBinCOntent.Find('-')) then begin
                     repeat
-                        if StrPos(ParentBinLocation, ParentBinCOntent."Bin Code") = 0 then begin
+                        if StrPos(ParentBinLocation, ParentBinCOntent."Bin Code") = 0 then
                             ParentBinLocation := ParentBinLocation + '  ' + ParentBinCOntent."Bin Code";
-                        end;
-                    Until ParentBinCOntent.Next = 0;
+                    Until ParentBinCOntent.Next() = 0;
                     ParentBinLocationLabel := 'Bin(s): ';
                 end;
 
@@ -118,7 +105,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                     ItemNoTemp.get("No.");
                     TempDesc := Description;
                     Description := ItemNoTemp.Description;
-                    Modify;
+                    Modify();
 
                 end;
 
@@ -175,8 +162,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
     var
         Item: Record Item;
-        TorlysUOMManagement: Codeunit "TorlysUOMManagement";
-        QtyRoundingHelper: Codeunit "Quantity Rounding Helper";
+        ItemNoTemp: Record Item;
+        ParentBinCOntent: Record "Bin Content";
+        DimMgmt: CodeUnit DimensionManagement;
+        UoMHelper: CodeUnit "Quantity Rounding Helper";
         TotalWeight: Decimal;
         ShipWeight: Decimal;
         TotalPieces: Decimal;
@@ -184,22 +173,18 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         QtyPerCase: Decimal;
         ToShipPieces: Decimal;
         CurrencyCode: Text;
-        ItemNoTemp: Record Item;
         TempDesc: Text;
         ItemDescription: Text;
-        ParentBinCOntent: Record "Bin Content";
         ParentBinLocationLabel: Text;
         ParentBinLocation: Code[100];
-        DimMgmt: CodeUnit DimensionManagement;
         ShortCutDimCode: array[8] of Code[20];
 
 
-
-    procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal
-    Begin
-        TorlysUOMManagement.GetQtyPerUnitOfMeasure(Item, UnitOfMeasureCode)
-    End;
-
-
+    procedure SetQtyConst(No_: Code[20])
+    begin
+        Item.Get(No_);
+        QtyPerPallet := UoMHelper.GetQuantityUoM(Item."No.", 'PALLET');
+        QtyPerCase := UoMHelper.GetQuantityUoM(Item."No.", 'CASE');
+    end;
 
 }

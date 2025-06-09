@@ -52,7 +52,9 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 if "Currency Code" = '' then
                     CurrencyCode := 'CDN'
                 else
-                    CurrencyCode := "Currency Code"
+                    CurrencyCode := "Currency Code";
+
+                DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
             end;
         }
 
@@ -137,6 +139,14 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(ShortCutDimCode; ShortCutDimCode[3])
+            {
+
+            }
+            column(tagname; "Tag Name")
+            {
+
+            }
         }
 
         add(Totals)
@@ -180,6 +190,9 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ParentBinCOntent: Record "Bin Content";
         ParentBinLocationLabel: Text;
         ParentBinLocation: Code[100];
+        DimMgmt: CodeUnit DimensionManagement;
+        ShortCutDimCode: array[8] of Code[20];
+
 
 
     procedure GetQtyUOM(Item: Record Item; UnitOfMeasureCode: Code[10]): Decimal

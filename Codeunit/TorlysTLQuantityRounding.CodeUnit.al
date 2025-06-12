@@ -54,10 +54,28 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         OnChangeQuantityPallet(Rec, xRec, 3);
     end;
 
+    procedure ValidateUoM(var Rec: Record "Transfer Line"): Boolean
+    var
+        Item: Record Item;
+
+    begin
+
+        if Rec."Item No." = '' then
+            exit(true);
+
+        Item.SetRange("No.", Rec."Item No.");
+        Item.FindFirst();
+
+        //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
+        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+
+        exit(true);
+    end;
+
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
-        if QuantityRoundingHelper.Validate(Rec.Quantity, Rec."Item No.") then
+        if ValidateUoM(Rec) = false then
             exit;
 
         // GetQuantityUoM the Case and Pallet quantities per Unit of Measure
@@ -90,6 +108,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
 
     procedure OnChangeQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
+
         // GetQuantityUoM the Case and Pallet quantities for the item entered
         CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
         PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
@@ -109,7 +128,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         CaseQuantity: Integer;
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
-        Rec.Quantity := QuantityRoundingHelper.Validate(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst)
@@ -131,7 +150,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         CaseQuantity: Integer;
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship (Base)", CaseConst);
-        Rec.Quantity := QuantityRoundingHelper.Validate(Rec."Qty. to Ship (Base)", CaseConst, CaseQuantity);
+        Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec."Qty. to Ship (Base)", CaseConst, CaseQuantity);
 
         if Rec."Qty. to Ship (Base)" >= PalletConst then
             Rec."Qty. to Ship Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship (Base)", PalletConst)

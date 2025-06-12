@@ -62,28 +62,29 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         {
             trigger OnAfterAfterGetRecord()
             begin
-                If "Gen. Bus. Posting Group" <> 'IFS' then
+                if "Gen. Bus. Posting Group" <> 'IFS' then begin
                     TotalWeight += ("Net Weight" * Quantity);
-                ShipWeight += ("Net Weight" * "Qty. to Ship");
-                TotalPieces += "Quantity Case";
-                ToShipPieces += "Qty. to Ship Case";
+                    ShipWeight += ("Net Weight" * "Qty. to Ship");
+                    TotalPieces += "Quantity Case";
+                    ToShipPieces += "Qty. to Ship Case";
+                end;
 
-                If "Quantity Pallet" > 0 then Begin
-                    If Type = Type::Item then
+                if "Quantity Pallet" > 0 then begin
+                    if Type = Type::Item then
                         SetQtyConst("No.");
                     TotalPieces += ("Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                End;
+                end;
 
-                If ("Quantity Case" = 0) and ("Quantity Pallet" = 0) then
+                if ("Quantity Case" = 0) and ("Quantity Pallet" = 0) then
                     TotalPieces += "Quantity";
 
-                If "Qty. to Ship Pallet" > 0 then Begin
-                    If Type = Type::Item then
+                if "Qty. to Ship Pallet" > 0 then begin
+                    if Type = Type::Item then
                         SetQtyConst("No.");
                     ToShipPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
-                End;
+                end;
 
-                If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
+                if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     ToShipPieces += "Qty. to Ship";
 
                 ParentBinLocation := '';
@@ -91,7 +92,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 ParentBinCOntent.Reset();
                 ParentBinCOntent.SetRange(ParentBinCOntent."Location Code", "Location Code");
                 ParentBinCOntent.SetRange(ParentBinCOntent."Item No.", "No.");
-                If (ParentBinCOntent.Find('-')) then begin
+                if (ParentBinCOntent.Find('-')) then begin
                     repeat
                         if StrPos(ParentBinLocation, ParentBinCOntent."Bin Code") = 0 then
                             ParentBinLocation := ParentBinLocation + '  ' + ParentBinCOntent."Bin Code";
@@ -100,7 +101,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 end;
 
                 Clear(TempDesc);
-                If "Item Reference No." <> '' then begin
+                if "Item Reference No." <> '' then begin
                     Clear(ItemNoTemp);
                     ItemNoTemp.get("No.");
                     TempDesc := Description;

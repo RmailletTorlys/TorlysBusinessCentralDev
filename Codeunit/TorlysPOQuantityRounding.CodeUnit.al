@@ -54,9 +54,27 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         OnChangeQuantityPallet(Rec, xRec, 3);
     end;
 
+    procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean
+    var
+        Item: Record Item;
+
+    begin
+
+        if Rec."No." = '' then
+            exit(true);
+
+        Item.SetRange("No.", Rec."No.");
+        Item.FindFirst();
+
+        //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
+        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+
+        exit(true);
+    end;
+
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; OrderType: Integer)
     begin
-        if QuantityRoundingHelper.Validate(Rec.Quantity, Rec."No.") then
+        if ValidateUoM(Rec) = false then
             exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
@@ -110,7 +128,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         CaseQuantity: Integer;
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
-        Rec.Quantity := QuantityRoundingHelper.Validate(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst)
@@ -132,7 +150,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         CaseQuantity: Integer;
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Receive", CaseConst);
-        Rec."Qty. to Receive" := QuantityRoundingHelper.Validate(Rec."Qty. to Receive", CaseConst, CaseQuantity);
+        Rec."Qty. to Receive" := QuantityRoundingHelper.ValidateQty(Rec."Qty. to Receive", CaseConst, CaseQuantity);
 
         if Rec."Qty. to Receive" >= PalletConst then
             Rec."Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Receive", PalletConst)
@@ -151,7 +169,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         CaseQuantity: Integer;
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Quantity Received", CaseConst);
-        Rec."Quantity Received" := QuantityRoundingHelper.Validate(Rec."Quantity Received", CaseConst, CaseQuantity);
+        Rec."Quantity Received" := QuantityRoundingHelper.ValidateQty(Rec."Quantity Received", CaseConst, CaseQuantity);
 
         if Rec."Quantity Received" >= PalletConst then
             Rec."Qty. Received Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Quantity Received", PalletConst)

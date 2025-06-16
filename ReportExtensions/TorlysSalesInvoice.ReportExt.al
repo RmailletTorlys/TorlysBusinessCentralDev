@@ -16,6 +16,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(Descoprint; DescToPrint)
+            {
+
+            }
         }
 
         add(Header)
@@ -29,6 +33,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
 
             }
             column(currencycode1; currcode)
+            {
+
+            }
+            column(tagname; "Tag Name")
             {
 
             }

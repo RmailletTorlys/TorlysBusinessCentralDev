@@ -36,10 +36,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
-            column(tagname; "Tag Name")
-            {
+            // column(tagname; "Tag Name")
+            // {
 
-            }
+            // }
 
         }
 

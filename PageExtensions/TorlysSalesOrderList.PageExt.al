@@ -6,11 +6,11 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
         addafter("Shortcut Dimension 1 Code")
         {
 
-            field(ShortcutDimCode4; ShortcutDimCode[4])
+            field(ShortcutDimCode4; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
-                CaptionClass = '1,2,4';
-                ToolTip = 'Global Dimension 4 Code';
+                CaptionClass = '1,2,3';
+                ToolTip = 'Global Dimension 3 Code';
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));

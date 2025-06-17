@@ -123,7 +123,6 @@ page 55005 "Torlys BOL"
             part(BoLLine; "Torlys BOL Subform")
             {
                 ApplicationArea = Basic, Suite;
-                Caption = 'Bill of Lading Lines';
                 Editable = true;
                 Enabled = true;
                 SubPageLink = "BOL No." = field("No.");

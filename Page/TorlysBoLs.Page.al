@@ -1,8 +1,9 @@
 page 55004 "Torlys BOLs"
 {
-    ApplicationArea = Basic, Suite;
+    ApplicationArea = Basic, Suite, Assembly;
     UsageCategory = Lists;
-    Caption = 'Bills of Lading';
+    Caption = 'BoLs';
+    CardPageId = "Torlys BOL";
     DataCaptionFields = "No.";
     Editable = false;
     PageType = List;
@@ -37,6 +38,13 @@ page 55004 "Torlys BOLs"
                     Caption = 'Customer No.';
                 }
 
+                field("Customer Name"; Rec."Ship-to Name")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the name of the customer.';
+                    Caption = 'Customer Name';
+                }
+
                 field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = Basic, Suite;
@@ -58,33 +66,93 @@ page 55004 "Torlys BOLs"
                     Caption = 'Ship-to Name';
                 }
 
-                field("Ship-to Address"; Rec."Ship-to Address")
+                field("Carrier Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the address of the ship-to address.';
-                    Caption = 'Ship-to Address';
+                    ToolTip = 'Specifies the code of the carrier.';
+                    Caption = 'Carrier Code';
                 }
 
-                field("Ship-to Address 2"; Rec."Ship-to Address 2")
+                field("Carrier Tracking No."; Rec."Carrier Tracking No.")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second address line of the ship-to address.';
-                    Caption = 'Ship-to Address 2';
+                    ToolTip = 'Specifies the tracking number of the carrier.';
+                    Caption = 'Carrier Tracking No.';
                 }
 
-                field("Ship-to City"; Rec."Ship-to City")
+                field("Pickup Date"; Rec."Pickup Date")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the city of the ship-to address.';
-                    Caption = 'Ship-to City';
+                    ToolTip = 'Specifies the date of the pickup.';
+                    Caption = 'Pickup Date';
                 }
 
-                field("Ship-to Post Code"; Rec."Ship-to Post Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the post code of the ship-to address.';
-                    Caption = 'Ship-to Post Code';
+                    ToolTip = 'Specifies the code of the location.';
+                    Caption = 'Location Code';
                 }
+
+                field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the first line of the shipping instructions.';
+                    Caption = 'Shipping Instructions 1';
+                }
+
+                field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the second line of the shipping instructions.';
+                    Caption = 'Shipping Instructions 2';
+                }
+
+                field("Destination Instructions 1"; Rec."Destination Instructions 1")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the first line of the destination instruction.';
+                    Caption = 'Destination Instruction 1';
+                }
+
+                field("Destination Instructions 2"; Rec."Destination Instructions 2")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the second line of the destination instruction.';
+                    Caption = 'Destination Instruction 2';
+                }
+
+                field("Piece Count"; Rec."Piece Count")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the number of pieces.';
+                    Caption = 'Piece Count';
+                }
+
+                field("Total Weight"; Rec."Weight - Total")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the total weight.';
+                    Caption = 'Total Weight';
+                }
+
+                field("Total Cases"; Rec."Cases - Total")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the total number of cases.';
+                    Caption = 'Total Cases';
+                }
+
+                field("Total Base Qty"; Rec."Base Quantity - Total")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the total base quantity.';
+                    Caption = 'Total Base Qty';
+                }
+
+
+
+
             }
         }
     }

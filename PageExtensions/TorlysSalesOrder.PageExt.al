@@ -5,19 +5,19 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         moveafter(status; "Shortcut Dimension 1 Code")
         addafter("Shortcut Dimension 1 Code")
         {
-            field(ShortcutDimCode4; ShortcutDimCode[4])
+            field(ShortcutDimCode4; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
-                CaptionClass = '1,2,4';
+                CaptionClass = '1,2,3';
                 ToolTip = 'Global Dimension 4 Code';
-                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4),
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
 
                 trigger OnValidate()
                 begin
-                    ValidateShortcutDimension(4);
+                    ValidateShortcutDimension(3);
                 end;
             }
 
@@ -48,8 +48,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
-
 
     local procedure ValidateShortcutDimension(DimIndex: Integer)
     var

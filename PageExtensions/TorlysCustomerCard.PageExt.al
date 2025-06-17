@@ -64,7 +64,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Importance = Additional;
             }
 
-            field(ShortcutDimCode4; ShortcutDimCode[3])
+            field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
                 CaptionClass = '1,2,3';

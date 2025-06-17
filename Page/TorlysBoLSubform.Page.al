@@ -88,11 +88,6 @@ page 55006 "Torlys BOL Subform"
                     Caption = 'Ship-to Country';
                 }
 
-                field("Ship-to Country"; Rec."Ship-to Country/Region Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'The associated ship-to country';
-
                 field("Ship-to Comment 1"; Rec."Destination Instruction 1")
                 {
                     ApplicationArea = Basic, Suite;
@@ -107,7 +102,6 @@ page 55006 "Torlys BOL Subform"
                     Caption = 'Ship-to Comment 2';
                 }
 
-                field("Total Weight"; Rec."Total Weight")
                 field("Total Weight"; Rec."Total Weight")
                 {
                     ApplicationArea = Basic, Suite;

@@ -11,14 +11,14 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 ApplicationArea = Dimensions;
                 CaptionClass = '1,2,4';
                 ToolTip = 'Global Dimension 4 Code';
-                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4),
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
 
                 trigger OnValidate()
                 begin
-                    ValidateShortcutDimension(4);
+                    ValidateShortcutDimension(3);
                 end;
             }
         }

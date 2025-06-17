@@ -1,6 +1,6 @@
 CodeUnit 50005 "Quantity Rounding Helper"
 {
-    procedure Validate(Quantity: Decimal; CaseSize: Decimal; CasesFilled: Integer): Decimal
+    procedure ValidateQty(Quantity: Decimal; CaseSize: Decimal; CasesFilled: Integer): Decimal
     var
         RemainingQuantity: Decimal;
         RoundedDownQuantity: Decimal;
@@ -41,21 +41,6 @@ CodeUnit 50005 "Quantity Rounding Helper"
         exit(Quantity);
     end;
 
-    procedure Validate(Qty: Decimal; "No.": Text[20]): Boolean
-    var
-        Item: Record Item;
-
-    begin
-        if Qty = 0 then exit(true);
-
-        // Initialize the Item record and verify if the item has a valid Compare Unit of measure field
-        Item.SetRange("No.", "No.");
-        if Item.FindFirst() then
-            if InvalidCompareUnitOfMeasure(Item) then exit(true);
-        exit(false);
-
-    end;
-
     local procedure CalculateRemainingQuantity(Qty: Decimal; CaseSize: Decimal; FilledCases: Integer): Decimal
     begin
         // Calculates the remaining quantity after subtracting filled cases
@@ -77,8 +62,7 @@ CodeUnit 50005 "Quantity Rounding Helper"
 
         if Iuom.FindFirst() then
             exit(Iuom."Qty. per Unit of Measure")
-        else
-            Error('%1 does not appear to have a quantity set for %2. Please contact IT for more information.', ItemNo, Unit);
+
 
     end;
 
@@ -94,15 +78,34 @@ CodeUnit 50005 "Quantity Rounding Helper"
 
     end;
 
-    local procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
+    procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
+    var
+        iuom: Record "Item Unit of Measure";
+
     begin
-        if (Rec."Compare Unit of Measure" = 'CASE') then exit(false);
-        if (Rec."Compare Unit of Measure" = '') then begin
-            Message('Item %1 does not have a Compare Unit of Measure set. Please contact IT for assistance.', Rec."No.");
-            exit(true)
-        end
-        else
-            Error('Item %1 has an invalid Compare Unit of Measure set on the item card. Please contact IT for assistance.', Rec."No.");
+        //Return True IF Item does NOT have a Compare Unit of Measure
+        if Rec."Compare Unit of Measure" = '' then
+            exit(true);
+
+        iuom.SetRange("Item No.", Rec."No.");
+        iuom.SetRange("Code", Rec."Compare Unit of Measure");
+        if iuom.IsEmpty then begin
+            Message('%1 does not have a matching %2 Item Unit of Measure. Please contact ??? for support.', Rec."No.", Rec."Compare Unit of Measure");
+            exit(true);
+        end;
+
+
+
+        if Rec."Compare Unit of Measure" = 'CASE' then begin
+            iuom.SetRange("Code", 'PALLET');
+            if iuom.IsEmpty() then begin
+                Message('%1 does not have a matching Pallet Item Unit of Measure. Please contact ??? for support.', Rec."No.");
+                exit(true);
+            end
+        end;
+
+
+        exit(false);
     end;
 
 

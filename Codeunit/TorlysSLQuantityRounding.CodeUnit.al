@@ -1,5 +1,11 @@
 codeunit 50002 "Torlys SL Quantity Rounding"
 {
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterGetRecordOnValidateUoM', '', false, false)]
+    local procedure OnAfterNoOnAfterValidate(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var UoMValid: Boolean)
+    begin
+        UoMValid := ValidateUoM(Rec);
+    end;
+
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
     local procedure OnValidateSOQuantity(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
@@ -84,9 +90,28 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantityPallet(Rec, xRec, 1);
     end;
 
+    procedure ValidateUoM(var Rec: Record "Sales Line"): Boolean
+    var
+        Item: Record Item;
+
+    begin
+
+        if Rec."No." = '' then
+            exit(true);
+
+        Item.SetRange("No.", Rec."No.");
+        Item.FindFirst();
+
+        //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
+        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+
+        exit(true);
+    end;
+
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
     begin
-        if QuantityRoundingHelper.Validate(Rec.Quantity, Rec."No.") then
+
+        if ValidateUoM(Rec) = false then
             exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
@@ -103,6 +128,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
 
     procedure OnChangeQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; OrderType: Integer)
     begin
+
         // Get the Case and Pallet quantities for the item entered
         CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'CASE');
         PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'PALLET');
@@ -138,7 +164,12 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         CaseQuantity: Integer;
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
-        Rec.Quantity := QuantityRoundingHelper.Validate(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec."Quantity (Base)" := Rec.Quantity;
+
+        if Rec.Quantity = 0 then
+            Rec."Quantity Case" := 0;
+        Rec."Quantity Pallet" := 0;
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst)
@@ -164,8 +195,9 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     var
         CaseQuantity: Integer;
     begin
-        CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship (Base)", CaseConst);
-        Rec.Quantity := QuantityRoundingHelper.Validate(Rec."Qty. to Ship (Base)", CaseConst, CaseQuantity);
+        CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship", CaseConst);
+        Rec."Qty. to Ship" := QuantityRoundingHelper.ValidateQty(Rec."Qty. to Ship", CaseConst, CaseQuantity);
+        Rec."Qty. to Ship (Base)" := Rec."Qty. to Ship";
 
         if Rec."Qty. to Ship (Base)" >= PalletConst then
             Rec."Qty. to Ship Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Ship (Base)", PalletConst)
@@ -204,7 +236,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
 
     local procedure HandleQtyToShipCase(var Rec: Record "Sales Line")
     begin
-        Rec."Qty. to Ship (Base)" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship (Base)" := Rec."Qty. to Ship";
 
         if Rec.Quantity >= PalletConst then
             Rec."Qty. to Ship Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
@@ -220,6 +253,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     local procedure HandleQtyToReceiveCase(var Rec: Record "Sales Line")
     begin
         Rec."Return Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Return Qty. to Receive" := Rec."Return Qty. to Receive (Base)";
+
 
         if Rec."Return Qty. to Receive (Base)" >= PalletConst then
             Rec."Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Return Qty. to Receive (Base)", PalletConst);
@@ -237,6 +272,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     local procedure HandlePalletQuantity(var Rec: Record "Sales Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
+        Rec."Quantity (Base)" := Rec.Quantity;
+
 
         case Rec."Document Type" of
             Rec."Document Type"::Order:
@@ -249,26 +286,34 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     local procedure HandleQtyToShipPallet(var Rec: Record "Sales Line")
     begin
         Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship (Base)" := Rec."Qty. to Ship";
     end;
 
     local procedure HandleQtyToReceivePallet(var Rec: Record "Sales Line")
     begin
         Rec."Return Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Return Qty. to Receive (Base)" := Rec."Return Qty. to Receive";
+
         UpdateToInvoice(Rec);
     end;
 
     local procedure UpdateShipAndInvoice(var Rec: Record "Sales Line")
     begin
+        Rec."Outstanding Quantity" := Rec.Quantity;
         Rec."Qty. to Ship" := Rec.Quantity;
+        Rec."Qty. to Ship (Base)" := Rec.Quantity;
         Rec."Qty. to Ship Case" := Rec."Quantity Case";
         Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
         Rec."Qty. to Invoice" := Rec.Quantity;
+        Rec."Qty. to Invoice (Base)" := Rec.Quantity;
     end;
 
     local procedure UpdateToReceive(var Rec: Record "Sales Line")
     begin
         Rec."Return Qty. to Receive" := Rec.Quantity;
+        Rec."Return Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Qty. to Invoice" := Rec.Quantity;
+        Rec."Qty. to Invoice (Base)" := Rec.Quantity;
         Rec."Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
     end;
@@ -276,6 +321,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     local procedure UpdateToInvoice(var Rec: Record "Sales Line")
     begin
         Rec."Qty. to Invoice" := Rec.Quantity;
+        Rec."Qty. to Invoice (Base)" := Rec.Quantity;
     end;
 
     var

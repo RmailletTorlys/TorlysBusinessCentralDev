@@ -12,10 +12,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Case Quantity';
                 ToolTip = 'Case Quantity';
                 ApplicationArea = All;
+                Editable = UoMValid;
+
 
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, Rec);
+
                 end;
 
             }
@@ -25,6 +28,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Pallet Quantity';
                 ToolTip = 'Pallet Quantity';
                 ApplicationArea = All;
+                Editable = UoMValid;
 
                 trigger OnValidate()
                 begin
@@ -51,6 +55,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Case';
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
+                Editable = UoMValid;
 
                 trigger OnValidate()
                 begin
@@ -64,6 +69,8 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
+                Editable = UoMValid;
+
                 trigger OnValidate()
                 begin
                     OnValidateToShipPallet(Rec, xRec);
@@ -353,13 +360,14 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
     }
 
-    trigger OnModifyRecord(): Boolean
+    trigger OnAfterGetRecord()
     begin
-
+        OnAfterGetRecordOnValidateUoM(Rec, xRec, UoMValid);
     end;
 
     var
         UserModifiedUnitPrice: Boolean;
+        UoMValid: Boolean;
 
 
     procedure PrepareUserModifiedUnitPrice()
@@ -388,6 +396,10 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     begin
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordOnValidateUoM(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var UoMValid: Boolean)
+    begin
+    end;
 }
 
 

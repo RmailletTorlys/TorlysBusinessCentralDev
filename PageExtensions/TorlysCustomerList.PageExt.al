@@ -270,7 +270,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 ApplicationArea = All;
                 Caption = 'A/R Notes';
                 ToolTip = 'A/R Notes';
-                Visible = true;
+                Visible = false;
             }
 
             field("On Hold Count"; Rec."On Hold Count")
@@ -286,6 +286,13 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 ApplicationArea = All;
                 Caption = 'NSF Count';
                 ToolTip = 'NSF Count';
+                Visible = false;
+            }
+            field("Credit Limit"; Rec."Credit Limit (LCY)")
+            {
+                ApplicationArea = All;
+                Caption = 'Credit Limit';
+                ToolTip = 'Credit Limit';
                 Visible = true;
             }
         }

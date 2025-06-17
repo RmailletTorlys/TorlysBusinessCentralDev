@@ -40,29 +40,26 @@ page 55006 "Torlys BOL Subform"
                 field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the number of the customer.';
-                    Caption = 'Customer No.';
+                    ToolTip = 'The associated customer';
                 }
 
                 field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the ship-to address.';
-                    Caption = 'Ship-to Code';
+                    ToolTip = 'The associated ship-to code';
                 }
 
                 field("Ship-to Name"; Rec."Ship-to Name")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the name of the ship-to address.';
-                    Caption = 'Ship-to Name';
+                    ToolTip = 'The associated ship-to name';
                 }
 
                 field("Ship-to Address"; Rec."Ship-to Address")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the address of the ship-to address.';
-                    Caption = 'Ship-to Address';
+                    ToolTip = 'The associated ship-to address';
+
                 }
 
                 field("Ship-to Address 2"; Rec."Ship-to Address 2")
@@ -75,8 +72,7 @@ page 55006 "Torlys BOL Subform"
                 field("Ship-to City"; Rec."Ship-to City")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the city of the ship-to address.';
-                    Caption = 'Ship-to City';
+                    ToolTip = 'The associated ship-to city';
                 }
 
                 field("Ship-to State"; Rec."Ship-to County")
@@ -92,12 +88,10 @@ page 55006 "Torlys BOL Subform"
                     Caption = 'Ship-to Country';
                 }
 
-                field("Ship-to Post Code"; Rec."Ship-to Post Code")
+                field("Ship-to Country"; Rec."Ship-to Country/Region Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the post code of the ship-to address.';
-                    Caption = 'Ship-to Post Code';
-                }
+                    ToolTip = 'The associated ship-to country';
 
                 field("Ship-to Comment 1"; Rec."Destination Instruction 1")
                 {
@@ -114,6 +108,7 @@ page 55006 "Torlys BOL Subform"
                 }
 
                 field("Total Weight"; Rec."Total Weight")
+                field("Total Weight"; Rec."Total Weight")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the total weight of the shipment.';
@@ -128,7 +123,6 @@ page 55006 "Torlys BOL Subform"
                 }
             }
         }
-
     }
 
     trigger OnOpenPage()

@@ -123,6 +123,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Caption = 'Credit Limit Modified Date';
                 Visible = true;
                 ToolTip = 'This field is the date the credit limit was last modified.';
+                Importance = Additional;
             }
 
             field("Credit Limit Modified By"; Rec."Credit Limit Modified By")
@@ -131,6 +132,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Caption = 'Credit Limit Modified By';
                 Visible = true;
                 ToolTip = 'This field is the user who last modified the credit limit.';
+                Importance = Additional;
             }
 
             field("Prev. Credit Limit (LCY)"; Rec."Previous Credit Limit (LCY)")
@@ -139,6 +141,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Caption = 'Prev. Credit Limit (LCY)';
                 Visible = true;
                 ToolTip = 'This field is the previous credit limit of the customer account.';
+                Importance = Additional;
             }
 
             field("Temp. Credit Limit (LCY)"; Rec."Temp. Credit Limit (LCY)")
@@ -147,6 +150,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Caption = 'Temp. Credit Limit (LCY)';
                 Visible = true;
                 ToolTip = 'This field is the temporary credit limit of the customer account.';
+                Importance = Additional;
             }
 
             field("Temp. Credit Limit Expiry Date"; Rec."Temp. Credit Limit Expiry Date")
@@ -155,6 +159,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Caption = 'Temp. Credit Limit Expiry Date';
                 Visible = true;
                 ToolTip = 'This field is the date the temporary credit limit expires.';
+                Importance = Additional;
             }
 
             field("SystemCreatedBy"; Rec."SystemCreatedBy")
@@ -281,7 +286,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Program Fees Amount';
                     DecimalPlaces = 2;
-                    Editable = false;
                     ToolTip = 'Specifies the amount of the program fees that you have paid for the customer.';
                 }
 
@@ -290,7 +294,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Co-op Entitlement %';
                     DecimalPlaces = 2 : 1;
-                    Editable = false;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s co-op.';
                 }
 
@@ -299,7 +302,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Sample Allowance %';
                     DecimalPlaces = 2 : 1;
-                    Editable = false;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
                 }
             }
@@ -314,24 +316,24 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             {
                 ApplicationArea = All;
                 Caption = 'A/R Notes';
-                Editable = false;
                 ToolTip = 'Specifies the notes that you have entered for the customer.';
+                Importance = Additional;
             }
 
             field("On Hold Count"; Rec."On Hold Count")
             {
                 ApplicationArea = All;
                 Caption = 'On Hold Count';
-                Editable = false;
                 ToolTip = 'Specifies the number of times that the customer has been put on hold.';
+                Importance = Additional;
             }
 
             field("NSF Count"; Rec."NSF Count")
             {
                 ApplicationArea = All;
                 Caption = 'NSF Count';
-                Editable = false;
                 ToolTip = 'Specifies the number of times that the customer has been marked with NSF cheques.';
+                Importance = Additional;
             }
         }
 
@@ -554,6 +556,60 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
+        modify("Address")
+        {
+            Importance = Promoted;
+        }
+        modify("City")
+        {
+            Importance = Promoted;
+        }
+        modify("Bill-to Customer No.")
+        {
+            Importance = Promoted;
+        }
+        modify("Application Method")
+        {
+            Importance = Additional;
+        }
+        modify("Payment Method Code")
+        {
+            Importance = Additional;
+        }
+        modify("Print Statements")
+        {
+            Importance = Additional;
+        }
+        modify("Last Statement No.")
+        {
+            Importance = Additional;
+        }
+        modify("Block Payment Tolerance")
+        {
+            Importance = Additional;
+        }
+        modify("Ship-to Code")
+        {
+            Importance = Promoted;
+        }
+        modify("Location Code")
+        {
+            Importance = Promoted;
+        }
+        modify("Reserve")
+        {
+            Importance = Additional;
+        }
+        modify("Shipping Advice")
+        {
+            Importance = Additional;
+        }
+        modify("Shipping Time")
+        {
+            Importance = Additional;
+        }
+
+
 
 
     }

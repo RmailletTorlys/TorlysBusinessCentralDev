@@ -49,8 +49,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
 
-
-
     local procedure ValidateShortcutDimension(DimIndex: Integer)
     var
     begin

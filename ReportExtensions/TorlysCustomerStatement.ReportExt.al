@@ -16,5 +16,12 @@ reportextension 50200 "TorlysCustomerStatement" extends "Customer Statements"
 
             }
         }
+        add(openitem)
+        {
+            column(tempPONumber; TempCustLedgEntry."External Document No.")
+            {
+
+            }
+        }
     }
 }

@@ -61,11 +61,24 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
+            column(Item_No_; "Item No.")
+            {
+
+            }
+            column(qty; Quantity)
+            {
+
+            }
         }
 
         modify("Transfer Header")
         {
             trigger OnAfterAfterGetRecord()
+            var
+                BarcodeSymbology: Enum "Barcode Symbology";
+                BarcodeFontProvider: Interface "Barcode Font Provider";
+                BarcodeStrings: Code[20];
+
             begin
                 // Declare the barcode provider using the barcode provider interface and enum
                 BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
@@ -115,15 +128,12 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
     }
 
     var
-
-        BarcodeSymbology: Enum "Barcode Symbology";
-        BarcodeFontProvider: Interface "Barcode Font Provider";
         BinContent: Record "Bin Content";
         BinLocation: Code[100];
         TotalWeight: Decimal;
         ToShipWeight: Decimal;
         ToReceiveWeight: Decimal;
-        BarcodeStrings: Text;
+        qty: Decimal;
         EncodedText: Text;
         Picked: Text;
         BinLocationLabel: Text;

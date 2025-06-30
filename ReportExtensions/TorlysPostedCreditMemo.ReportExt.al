@@ -22,7 +22,7 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                     Modify();
                 end;
 
-                If Type = 0 then begin
+                If Type = Type::" " then begin
                     "No." := '';
                     "Unit of Measure" := '';
                     Amount := 0;

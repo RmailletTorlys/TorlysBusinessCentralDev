@@ -66,7 +66,7 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
                     Clear(Item);
 
                 If ("Buy-from Vendor No." = 'S237') OR ("Buy-from Vendor No." = 'S239') Then
-                    If (Type = 2) AND (Quantity <> 0) then begin
+                    If (Type = Type::"Item") AND (Quantity <> 0) then begin
                         SQM2Qty := "Quantity (Base)" / 10.764;
                         SQM2Price := "Line Amount" / SQM2Qty;
                         SQM2Label := '/SQM2'
@@ -76,7 +76,7 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
                         SQM2Label := '';
                     end;
 
-                If Type = 0 then begin
+                If Type = Type::" " then begin
                     "No." := '';
                     "Vendor Item No." := '';
                     "Unit of Measure" := '';

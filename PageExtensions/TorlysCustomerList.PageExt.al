@@ -61,19 +61,19 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 Visible = false;
             }
 
-            field(ShortcutDimCode4; ShortcutDimCode[4])
+            field(ShortcutDimCode4; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
-                CaptionClass = '1,2,4';
-                ToolTip = 'Global Dimension 4 Code';
-                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4),
+                CaptionClass = '1,2,3';
+                ToolTip = 'Global Dimension 3 Code';
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                 "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = false;
 
                 trigger OnValidate()
                 begin
-                    ValidateShortcutDimension(4);
+                    ValidateShortcutDimension(3);
                 end;
             }
 

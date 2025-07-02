@@ -42,6 +42,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(QtyOrd; "Quantity")
+            {
+
+            }
 
         }
 
@@ -173,6 +177,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         QtyPerPallet: Decimal;
         QtyPerCase: Decimal;
         ToShipPieces: Decimal;
+        QtyOrd: Decimal;
         CurrencyCode: Text;
         TempDesc: Text;
         ItemDescription: Text;

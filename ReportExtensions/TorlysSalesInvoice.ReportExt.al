@@ -16,6 +16,14 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(Descoprint; DescToPrint)
+            {
+
+            }
+            column(ShipQty; "Quantity")
+            {
+
+            }
         }
 
         add(Header)
@@ -32,6 +40,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            // column(tagname; "Tag Name")
+            // {
+
+            // }
 
         }
 
@@ -98,6 +110,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         OrderedQuantity: Decimal;
         UnitPriceToPrint: Decimal;
         AmountExclInvDisc: Decimal;
+        ShipQty: Decimal;
         TempDesc: Text;
         DescToPrint: Text;
         currcode1: Text;

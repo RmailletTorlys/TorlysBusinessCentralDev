@@ -37,6 +37,7 @@ tableextension 50039 TorlysPurchaseLine extends "Purchase Line"
             Caption = 'Pallet Quantity Received';
             DataClassification = CustomerContent;
         }
+
     }
 
     [IntegrationEvent(false, false)]

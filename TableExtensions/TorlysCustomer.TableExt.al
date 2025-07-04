@@ -233,6 +233,14 @@ tableextension 50018 TorlysCustomer extends Customer
             ToolTip = 'Specifies the freight zone that the customer is assigned to.';
 
         }
+
+        field(50035; "Dealer Locator Participant"; Boolean)
+        {
+            Caption = 'Dealer Locator Participant';
+            DataClassification = CustomerContent;
+        }
+
+
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

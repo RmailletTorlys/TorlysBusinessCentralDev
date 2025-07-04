@@ -1,5 +1,6 @@
-tableextension 50043 TorlysSalesShipmentHeader extends "Sales Shipment Header"
+tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
 {
+
     fields
     {
         field(50001; "Salesperson Commission"; Decimal)
@@ -183,5 +184,4 @@ tableextension 50043 TorlysSalesShipmentHeader extends "Sales Shipment Header"
 
         }
     }
-
 }

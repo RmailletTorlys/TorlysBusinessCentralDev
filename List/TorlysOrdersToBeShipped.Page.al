@@ -125,7 +125,6 @@ page 50001 TorlysOrdersToBeShipped
 
     begin
 
-
         Rec.SetRange("Document Type", Rec."Document Type"::Order);
         Rec.SetFilter("Shipment Date", '%1', Today);
 

@@ -1,1 +1,5 @@
-﻿{"Added":[],"Modified":[],"Removed":[]}
+<<<<<<< HEAD
+﻿{"Added":[],"Modified":[{"Id":50054,"Kind":16,"Name":"TorlysPurchaseOrderSubform","Namespace":""},{"Id":50043,"Kind":16,"Name":"TorlysPostedSalesShipment","Namespace":""},{"Id":55730,"Kind":16,"Name":"TorlysItemCategories","Namespace":""}],"Removed":[]}
+=======
+﻿{"Added":[],"Modified":[{"Id":59305,"Kind":16,"Name":"TorlysSalesOrderList","Namespace":""},{"Id":50046,"Kind":16,"Name":"TorlysSalesOrderSubform","Namespace":""},{"Id":50042,"Kind":16,"Name":"TorlysSalesOrder","Namespace":""}],"Removed":[]}
+>>>>>>> a5814e0bd8e7d48c6748dd4aefe43dd44deeae74

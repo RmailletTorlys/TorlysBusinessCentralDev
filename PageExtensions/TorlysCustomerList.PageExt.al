@@ -61,7 +61,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 Visible = false;
             }
 
-            field(ShortcutDimCode4; ShortcutDimCode[3])
+            field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
                 CaptionClass = '1,2,3';

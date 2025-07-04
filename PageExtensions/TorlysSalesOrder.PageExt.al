@@ -5,7 +5,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         moveafter(status; "Shortcut Dimension 1 Code")
         addafter("Shortcut Dimension 1 Code")
         {
-            field(ShortcutDimCode4; ShortcutDimCode[3])
+            field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
                 CaptionClass = '1,2,3';

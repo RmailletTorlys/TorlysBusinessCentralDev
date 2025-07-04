@@ -182,5 +182,26 @@ tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             TableRelation = "Torlys Freight Zones";
 
         }
+
+        field(50029; "Total Excl. Tax"; Decimal)
+        {
+            Caption = 'Total Excl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50030; "Total Tax"; Decimal)
+        {
+            Caption = 'Total Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50031; "Total Incl. Tax"; Decimal)
+        {
+            Caption = 'Total Incl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
     }
 }

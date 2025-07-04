@@ -107,6 +107,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             DataClassification = CustomerContent;
         }
 
+
     }
 
     trigger OnModify()

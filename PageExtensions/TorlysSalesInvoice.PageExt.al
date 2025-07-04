@@ -1,4 +1,4 @@
-pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
+pageextension 50043 TorlysSalesInvoice extends "Sales Invoice"
 {
     layout
     {
@@ -39,19 +39,20 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
 
         moveafter("Order Date"; "Posting Date")
 
-        moveafter("Tag Name"; "Shipment Date", "Requested Delivery Date")
+        moveafter("Tag Name"; "Shipment Date")
 
-        addafter("Requested Delivery Date")
+        addafter("Shipment Date")
         {
-            field("Your Reference"; Rec."Your Reference")
+            field("Requested Delivery Date"; Rec."Requested Delivery Date")
             {
-                Caption = 'Your Reference';
-                ToolTip = 'Your Reference';
+                Caption = 'Requested Delivery Date';
+                ToolTip = 'Requested Delivery Date';
                 ApplicationArea = All;
             }
+
         }
 
-        moveafter("Your Reference"; "Salesperson Code")
+        moveafter("Requested Delivery Date"; "Your Reference", "Salesperson Code")
 
         addafter("Salesperson Code")
         {
@@ -129,110 +130,43 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             }
         }
 
-        addafter(SalesShipmLines)
+        addfirst("Invoice Details")
         {
-            group("Invoice Details")
+            field("Bill-to"; Rec."Bill-to Customer No.")
             {
-                Caption = 'Invoice Details';
-                field("Bill-to"; Rec."Bill-to Customer No.")
-                {
-                    Caption = 'Bill-to Customer No.';
-                    ToolTip = 'Bill-to Customer No.';
-                    ApplicationArea = All;
-                }
-
-                field("Total Excl. Tax"; Rec."Total Excl. Tax")
-                {
-                    Caption = 'Total Excl. Tax';
-                    ToolTip = 'Total Excl. Tax';
-                    ApplicationArea = All;
-                    DecimalPlaces = 2;
-                }
-
-                field("Total Tax"; Rec."Total Tax")
-                {
-                    Caption = 'Total Tax';
-                    ToolTip = 'Total Tax';
-                    ApplicationArea = All;
-                    DecimalPlaces = 2;
-                }
-
-                field("Total Incl. Tax"; Rec."Total Incl. Tax")
-                {
-                    Caption = 'Total Incl. Tax';
-                    ToolTip = 'Total Incl. Tax';
-                    ApplicationArea = All;
-                    DecimalPlaces = 2;
-                }
-
-                field("Region Code"; Rec."Region Code")
-                {
-                    Caption = 'Region Code';
-                    ToolTip = 'Region Code';
-                    ApplicationArea = All;
-                }
-
-                field("Currency Code"; Rec."Currency Code")
-                {
-                    Caption = 'Currency Code';
-                    ToolTip = 'Currency Code';
-                    ApplicationArea = All;
-                }
-
-                field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
-                {
-                    Caption = 'Gen. Bus. Posting Group';
-                    ToolTip = 'Gen. Bus. Posting Group';
-                    ApplicationArea = All;
-                }
-
-                field("Customer Posting Group"; Rec."Customer Posting Group")
-                {
-                    Caption = 'Customer Posting Group';
-                    ToolTip = 'Customer Posting Group';
-                    ApplicationArea = All;
-                }
-
-                field("Payment Terms Code"; Rec."Payment Terms Code")
-                {
-                    Caption = 'Payment Terms Code';
-                    ToolTip = 'Payment Terms Code';
-                    ApplicationArea = All;
-                }
-
-                field("Due Date"; Rec."Due Date")
-                {
-                    Caption = 'Due Date';
-                    ToolTip = 'Due Date';
-                    ApplicationArea = All;
-                }
-
-                field("Tax Liable"; Rec."Tax Liable")
-                {
-                    Caption = 'Tax Liable';
-                    ToolTip = 'Tax Liable';
-                    ApplicationArea = All;
-                }
-
-                field("Tax Area Code"; Rec."Tax Area Code")
-                {
-                    Caption = 'Tax Area Code';
-                    ToolTip = 'Tax Area Code';
-                    ApplicationArea = All;
-                }
-
-
+                Caption = 'Bill-to Customer No.';
+                ToolTip = 'Bill-to Customer No.';
+                ApplicationArea = All;
             }
+
+            field("Total Excl. Tax"; Rec.Amount)
+            {
+                Caption = 'Total Excl. Tax';
+                ToolTip = 'Total Excl. Tax';
+                ApplicationArea = All;
+                DecimalPlaces = 2;
+            }
+
+            field("Total Tax"; Rec."Amount Including VAT" - Rec.Amount)
+            {
+                Caption = 'Total Tax';
+                ToolTip = 'Total Tax';
+                ApplicationArea = All;
+                DecimalPlaces = 2;
+            }
+
+            field("Total Incl. Tax"; Rec."Amount Including VAT")
+            {
+                Caption = 'Total Incl. Tax';
+                ToolTip = 'Total Incl. Tax';
+                ApplicationArea = All;
+                DecimalPlaces = 2;
+            }
+
         }
 
-        addafter("Invoice Details")
-        {
-            group("Shipping and Billing")
-            {
-                Caption = 'Shipping and Billing';
+        moveafter("Total Incl. Tax"; "Shortcut Dimension 1 Code", "Currency Code", "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Terms Code", "Due Date", "Tax Liable", "Tax Area Code")
 
-            }
-        }
 
         movefirst("Shipping and Billing"; "Shipment Method")
 
@@ -284,37 +218,12 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             Visible = false;
         }
 
-        modify(Shipping)
-        {
-            Visible = false;
-        }
-
-        modify(Billing)
-        {
-            Visible = false;
-        }
-
-        modify("No. Printed")
-        {
-            Visible = false;
-        }
-
         modify("Document Date")
         {
             Visible = false;
         }
 
-        modify("Promised Delivery Date")
-        {
-            Visible = false;
-        }
-
         modify("Quote No.")
-        {
-            Visible = false;
-        }
-
-        modify("Order No.")
         {
             Visible = false;
         }
@@ -329,7 +238,57 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             Visible = false;
         }
 
-        modify(GetWorkDescription)
+        modify(Status)
+        {
+            Visible = false;
+        }
+
+        modify("Company Bank Account Code")
+        {
+            Visible = false;
+        }
+
+        modify("VAT Bus. Posting Group")
+        {
+            Visible = false;
+        }
+
+        modify(SelectedPayments)
+        {
+            Visible = false;
+        }
+
+        modify("Payment Discount %")
+        {
+            Visible = false;
+        }
+
+        modify("Direct Debit Mandate ID")
+        {
+            Visible = false;
+        }
+
+        modify("Shipping Agent Service Code")
+        {
+            Visible = false;
+        }
+
+        modify("Package Tracking No.")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Code")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Phone No.")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Contact")
         {
             Visible = false;
         }

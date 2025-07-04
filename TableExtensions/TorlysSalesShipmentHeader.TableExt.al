@@ -182,6 +182,40 @@ tableextension 50043 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             TableRelation = "Torlys Freight Zones";
 
         }
+
+        field(50029; "Total Excl. Tax"; Decimal)
+        {
+            Caption = 'Total Excl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50030; "Total Tax"; Decimal)
+        {
+            Caption = 'Total Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50031; "Total Incl. Tax"; Decimal)
+        {
+            Caption = 'Total Incl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50032; "Region Code"; Code[10])
+        {
+            Caption = 'Region Code';
+            DataClassification = CustomerContent;
+        }
+
+        field(50033; "Shipping Advice"; Text[250])
+        {
+            Caption = 'Shipping Advice';
+            DataClassification = CustomerContent;
+        }
+
     }
 
 }

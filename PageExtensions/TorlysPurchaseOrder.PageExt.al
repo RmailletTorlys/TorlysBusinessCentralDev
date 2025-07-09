@@ -2,17 +2,8 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
 {
     layout
     {
-        moveafter("Buy-from"; "Buy-from Vendor No.")
-        addafter("Buy-from Country/Region Code")
-        {
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
-            {
-                Caption = 'Created By';
-                ToolTip = 'Created By';
-                ApplicationArea = All;
-            }
-        }
-        moveafter(SystemCreatedBy; "Posting Date", "Order Date", "Document Date", "Vendor Order No.", "Vendor Invoice No.")
+        movefirst(General; "Buy-from Vendor No.", "Buy-from Vendor Name", "Buy-from")
+        moveafter("Buy-from"; "Posting Date", "Order Date", "Document Date", "Vendor Order No.", "Vendor Invoice No.")
 
         addafter("Vendor Invoice No.")
         {
@@ -91,6 +82,18 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 ApplicationArea = All;
             }
 
+
+
+        }
+
+        addafter("Total Incl. Tax")
+        {
+            field(SystemCreatedBy; Rec.SystemCreatedBy)
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
         }
 
 
@@ -153,27 +156,36 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 ApplicationArea = All;
             }
         }
-
-        moveafter("Country"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Payment Terms Code", "Due Date", "Payment Discount %", "Pmt. Discount Date", "Tax Liable", "Tax Area Code", "Tax Exemption No.")
-
-        movebefore("Ship-to Code"; "Sell-to Customer No.")
-
-        moveafter("Ship-to Contact"; "Location Code")
-
-        addafter("Location Code")
+        addfirst("Shipping and Payment")
         {
-            field("Incoterms"; Rec.Incoterms)
+            group("Ship-to")
             {
-                Caption = 'Incoterms';
-                ToolTip = 'Incoterms';
-                ApplicationArea = All;
+                Caption = 'Ship-to';
             }
         }
 
-        moveafter("Incoterms"; "Requested Receipt Date", "Promised Receipt Date", "Expected Receipt Date")
+        movefirst("Ship-to"; ShippingOptionWithLocation, "Ship-to Code", "Ship-to Name", "Ship-to Address", "Ship-to Address 2", "Ship-to City", "Ship-to County", "Ship-to Post Code", "Ship-to Country/Region Code")
+
+        moveafter("Ship-to"; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Payment Terms Code", "Due Date", "Payment Discount %", "Pmt. Discount Date", "Tax Liable", "Tax Area Code", "Tax Exemption No.")
+
+        movebefore("Ship-to Code"; "Sell-to Customer No.")
+
+        moveafter("Tax Exemption No."; "Location Code", "Shipment Method Code", "Requested Receipt Date", "Promised Receipt Date", "Expected Receipt Date")
 
         moveafter("Shipping and Payment"; "Foreign Trade")
 
+        modify("Shipment Method Code")
+        {
+            Visible = true;
+            Caption = 'Incoterms';
+        }
+
+        modify("Buy-from Vendor No.")
+        {
+            Importance = Standard;
+            Visible = true;
+            Caption = 'Vendor No.';
+        }
 
         modify("Buy-from Contact No.")
         {
@@ -220,11 +232,6 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
             Visible = false;
         }
 
-        modify(PurchaseOrderLinkedToEdoc)
-        {
-            Visible = false;
-        }
-
         modify("Ship-to Phone No.")
         {
             Visible = false;
@@ -250,10 +257,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
             Visible = false;
         }
 
-        modify("Shipment Method Code")
-        {
-            Visible = false;
-        }
+
 
         modify("Payment Reference")
         {

@@ -1,8 +1,22 @@
-pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
+pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Memo Subform"
 {
     layout
     {
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter(Description; "Description 2", "Unit of Measure Code")
+
+        addafter("Unit of Measure Code")
+        {
+            field("Location Code"; Rec."Location Code")
+            {
+                Caption = 'Location Code';
+                ToolTip = 'Location Code';
+                ApplicationArea = All;
+                Visible = false;
+            }
+        }
+
+        moveafter("Location Code"; "Quantity")
+
 
         addafter(Quantity)
         {
@@ -29,81 +43,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 end;
             }
 
-            field("Outstanding Quantity"; Rec."Outstanding Quantity")
-            {
-                Caption = 'Outstanding Quantity';
-                ToolTip = 'Outstanding Quantity';
-                ApplicationArea = All;
-            }
-        }
 
-        addafter("Outstanding Quantity")
-        {
-            field("Return Qty. to Receive"; Rec."Return Qty. to Receive")
-            {
-                Caption = 'Return Qty. to Receive';
-                ToolTip = 'Return Qty. to Receive';
-                ApplicationArea = All;
-            }
-
-            field("Return Qty. To Receive Case"; Rec."Qty. to Receive Case")
-            {
-                Caption = 'Qty. to Receive Case';
-                ToolTip = 'Qty. to Receive Case';
-                ApplicationArea = All;
-
-                trigger OnValidate()
-                begin
-                    OnValidateToReceiveCase(Rec, xRec);
-                end;
-
-            }
-
-            field("Return Qty. to Receive Pallet"; Rec."Qty. to Receive Pallet")
-            {
-                Caption = 'Qty. to Receive Pallet';
-                ToolTip = 'Qty. to Receive Pallet';
-                ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    OnValidateToReceivePallet(Rec, xRec);
-                end;
-            }
-        }
-        addafter("Return Qty. to Receive Pallet")
-        {
-            field("Return Qty. Received"; Rec."Return Qty. Received")
-            {
-                Caption = 'Qty. Received';
-                ToolTip = 'Qty. Received';
-                ApplicationArea = All;
-                Visible = false;
-            }
-
-            field("Return Qty. Rcd. Not Invoiced"; Rec."Return Rcd. Not Invd.")
-            {
-                Caption = 'Return Qty. Rcd. Not Invoiced';
-                ToolTip = 'Return Qty. Rcd. Not Invoiced';
-                ApplicationArea = All;
-                Visible = false;
-            }
-        }
-        addafter("Return Qty. Rcd. Not Invoiced")
-        {
-            field("Qty. to Invoice"; Rec."Qty. to Invoice")
-            {
-                Caption = 'Qty. to Invoice';
-                ToolTip = 'Qty. to Invoice';
-                ApplicationArea = All;
-            }
-
-            field("Qty. Invoiced"; Rec."Quantity Invoiced")
-            {
-                Caption = 'Qty. Invoiced';
-                ToolTip = 'Qty. Invoiced';
-                ApplicationArea = All;
-                Visible = false;
-            }
 
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -194,30 +134,27 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
             Visible = false;
         }
 
-        modify("Location Code")
-        {
-            Visible = false;
-        }
+
 
     }
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateCase(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidatePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
     begin
     end;
 }

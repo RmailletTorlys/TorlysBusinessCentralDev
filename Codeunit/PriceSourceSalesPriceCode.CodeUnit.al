@@ -1,4 +1,4 @@
-codeunit 57002 "Price Source - Price Code" implements "Price Source"
+codeunit 57002 "Price Source - SalesPriceCode" implements "Price Source"
 {
     var
         PriceCode: Record "Item Category";
@@ -59,7 +59,7 @@ codeunit 57002 "Price Source - Price Code" implements "Price Source"
     local procedure FillAdditionalFields(var PriceSource: Record "Price Source")
     begin
         PriceSource.Description := PriceCode.Description;
-        PriceSource."Source Type" := "Price Source Type"::"Price Code";
+        PriceSource."Source Type" := "Price Source Type"::"Sales Price Code";
         PriceSource."Price Type" := "Price Type"::"Sale";
     end;
 

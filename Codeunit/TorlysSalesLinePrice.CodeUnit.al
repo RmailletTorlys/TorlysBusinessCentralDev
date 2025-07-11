@@ -223,7 +223,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
 
         Item.SetFilter("No.", SalesLine."No.");
         if Item.FindFirst() then
-            PriceSourceList.Add(Enum::"Price Source Type"::"Price Code", Item."Sales Price Code");
+            PriceSourceList.Add(Enum::"Price Source Type"::"Sales Price Code", Item."Sales Price Code");
 
         AddActivatedCampaignsAsSource();
 

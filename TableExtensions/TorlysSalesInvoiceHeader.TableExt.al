@@ -1,4 +1,4 @@
-tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
+tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
 {
     fields
     {

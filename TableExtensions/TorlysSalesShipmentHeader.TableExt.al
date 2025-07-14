@@ -1,4 +1,4 @@
-tableextension 50043 TorlysSalesShipmentHeader extends "Sales Shipment Header"
+tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
 {
     fields
     {

@@ -96,7 +96,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
         PriceCalculationBuffer."Asset Type" := GetAssetType();
         case
             PriceCalculationBuffer."Asset Type" of
-            PriceCalculationBuffer."Asset Type"::"Price Code":
+            PriceCalculationBuffer."Asset Type"::"Sales Price Code":
                 PriceCalculationBuffer."Asset No." := SalesLine."Sales Price Code";
             else
                 PriceCalculationBuffer."Asset No." := SalesLine."No.";
@@ -114,8 +114,8 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
                 AssetType := AssetType::Resource;
             SalesLine.Type::"G/L Account":
                 AssetType := AssetType::"G/L Account";
-            SalesLine.Type::"Price Code":
-                AssetType := AssetType::"Price Code";
+            SalesLine.Type::"Sales Price Code":
+                AssetType := AssetType::"Sales Price Code";
             else
                 AssetType := AssetType::" ";
         end;
@@ -161,7 +161,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
                     if PriceCalculationBuffer."VAT Prod. Posting Group" = '' then
                         PriceCalculationBuffer."VAT Prod. Posting Group" := Item."VAT Prod. Posting Group";
                 end;
-            PriceCalculationBuffer."Asset Type"::"Price Code":
+            PriceCalculationBuffer."Asset Type"::"Sales Price Code":
                 begin
                     PriceCalculationBuffer."Variant Code" := SalesLine."Variant Code";
                     ItemCategory.Get(PriceCalculationBuffer."Asset No.");

@@ -288,15 +288,9 @@ tableextension 50027 TorlysItem extends Item
         field(50047; "Sales Price Code"; Code[20])
         {
             DataClassification = CustomerContent;
+            TableRelation = "Torlys Sales Price Code";
+            Caption = 'Sales Price Code';
 
-            trigger OnLookup()
-            var
-                Category: Record "Item Category";
-            begin
-                Category.Reset();
-                if Page.RunModal(Page::"Item Price Category Lookup", Category) = Action::LookupOK then
-                    Rec."Sales Price Code" := Category.Code;
-            end;
         }
 
         field(50048; "Replacement Cost (LCY)"; Decimal)

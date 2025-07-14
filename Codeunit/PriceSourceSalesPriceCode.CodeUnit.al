@@ -1,13 +1,13 @@
 codeunit 57002 "Price Source - SalesPriceCode" implements "Price Source"
 {
     var
-        PriceCode: Record "Item Category";
+        SalesPriceCode: Record "Torlys Sales Price Code";
         ParentErr: Label 'Parent Source No. must be blank for Price Code source Type';
 
     procedure GetNo(var PriceSource: Record "Price Source")
     begin
-        if PriceCode.GetBySystemId(PriceSource."Source ID") then begin
-            PriceSource."Source No." := PriceCode.Code;
+        if SalesPriceCode.GetBySystemId(PriceSource."Source ID") then begin
+            PriceSource."Source No." := SalesPriceCode.Code;
             FillAdditionalFields(PriceSource);
         end else
             PriceSource.InitSource();
@@ -15,8 +15,8 @@ codeunit 57002 "Price Source - SalesPriceCode" implements "Price Source"
 
     procedure GetId(var PriceSource: Record "Price Source")
     begin
-        if PriceCode.Get(PriceSource."Source No.") then begin
-            PriceSource."Source ID" := PriceCode.SystemId;
+        if SalesPriceCode.Get(PriceSource."Source No.") then begin
+            PriceSource."Source ID" := SalesPriceCode.SystemId;
             FillAdditionalFields(PriceSource);
         end else
             PriceSource.InitSource();
@@ -37,9 +37,9 @@ codeunit 57002 "Price Source - SalesPriceCode" implements "Price Source"
         xPriceSource: Record "Price Source";
     begin
         xPriceSource := PriceSource;
-        if PriceCode.Get(xPriceSource."Source No.") then;
-        if Page.RunModal(Page::"Item Sales Category Lookup", PriceCode) = ACTION::LookupOK then begin
-            xPriceSource.Validate("Source No.", PriceCode.Code);
+        if SalesPriceCode.Get(xPriceSource."Source No.") then;
+        if Page.RunModal(Page::"Sales Price Code Lookup", SalesPriceCode) = ACTION::LookupOK then begin
+            xPriceSource.Validate("Source No.", SalesPriceCode.Code);
             PriceSource := xPriceSource;
             exit(true);
         end;
@@ -58,7 +58,7 @@ codeunit 57002 "Price Source - SalesPriceCode" implements "Price Source"
 
     local procedure FillAdditionalFields(var PriceSource: Record "Price Source")
     begin
-        PriceSource.Description := PriceCode.Description;
+        PriceSource.Description := SalesPriceCode.Description;
         PriceSource."Source Type" := "Price Source Type"::"Sales Price Code";
         PriceSource."Price Type" := "Price Type"::"Sale";
     end;

@@ -2,7 +2,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 {
     layout
     {
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Description 2", "Unit of Measure Code", "Location Code", Quantity)
 
         addafter(Quantity)
         {
@@ -113,7 +113,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Visible = false;
             }
 
-            field("Default Price List"; Rec."Default Price List")
+            field("Default Price List Code"; Rec."Default Price List")
             {
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';

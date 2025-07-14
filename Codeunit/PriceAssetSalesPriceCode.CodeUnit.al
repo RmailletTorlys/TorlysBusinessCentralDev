@@ -1,15 +1,15 @@
-codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
+codeunit 57001 "Price Asset - SalesPriceCode" implements "Price Asset"
 
 {
     var
-        ItemCategory: Record "Item Category";
+        SalesPriceCode: Record "Torlys Sales Price Code";
         Item: Record "Item";
 
     procedure GetNo(var PriceAsset: Record "Price Asset")
     begin
         PriceAsset."Table Id" := Database::"Item Category";
-        if ItemCategory.GetBySystemId(PriceAsset."Asset ID") then begin
-            PriceAsset."Asset No." := ItemCategory."Code";
+        if SalesPriceCode.GetBySystemId(PriceAsset."Asset ID") then begin
+            PriceAsset."Asset No." := SalesPriceCode."Code";
             FillAdditionalFields(PriceAsset);
         end else
             PriceAsset.InitAsset();
@@ -18,8 +18,8 @@ codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
     procedure GetId(var PriceAsset: Record "Price Asset")
     begin
         PriceAsset."Table Id" := Database::"Item Category";
-        if ItemCategory.Get(PriceAsset."Asset No.") then begin
-            PriceAsset."Asset ID" := ItemCategory.SystemId;
+        if SalesPriceCode.Get(PriceAsset."Asset No.") then begin
+            PriceAsset."Asset ID" := SalesPriceCode.SystemId;
             FillAdditionalFields(PriceAsset);
         end else
             PriceAsset.InitAsset();
@@ -30,10 +30,9 @@ codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
         xPriceAsset: Record "Price Asset";
     begin
         xPriceAsset := PriceAsset;
-        if ItemCategory.Get(xPriceAsset."Asset No.") then;
-        // Message('%1', 'I am getting here');
-        if Page.RunModal(Page::"Item Price Category Lookup", ItemCategory) = ACTION::LookupOK then begin
-            xPriceAsset.Validate("Asset No.", ItemCategory."Code");
+        if SalesPriceCode.Get(xPriceAsset."Asset No.") then;
+        if Page.RunModal(Page::"Sales Price Code Lookup", SalesPriceCode) = ACTION::LookupOK then begin
+            xPriceAsset.Validate("Asset No.", SalesPriceCode."Code");
             PriceAsset := xPriceAsset;
             exit(true);
         end;
@@ -61,7 +60,7 @@ codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
 
     procedure FillBestLine(PriceCalculationBuffer: Record "Price Calculation Buffer"; AmountType: Enum "Price Amount Type"; var PriceListLine: Record "Price List Line")
     begin
-        ItemCategory.Get(PriceCalculationBuffer."Asset No.");
+        SalesPriceCode.Get(PriceCalculationBuffer."Asset No.");
         PriceListLine."Unit of Measure Code" := '';
         PriceListLine."Currency Code" := '';
         if AmountType <> AmountType::Discount then
@@ -92,7 +91,7 @@ codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
         if PriceAsset."Asset No." = '' then
             exit;
 
-        ItemCategory.Get(PriceAsset."Asset No.");
+        SalesPriceCode.Get(PriceAsset."Asset No.");
         if Item."Item Disc. Group" <> '' then begin
             PriceAssetList.SetLevel(PriceAsset.Level);
             PriceAssetList.Add(PriceAsset."Asset Type"::"Item Discount Group", Item."Item Disc. Group");
@@ -113,7 +112,7 @@ codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
 
     local procedure FillAdditionalFields(var PriceAsset: Record "Price Asset")
     begin
-        PriceAsset.Description := ItemCategory.Description;
+        PriceAsset.Description := SalesPriceCode.Description;
         PriceAsset."Unit of Measure Code" := '';
         PriceAsset."Variant Code" := '';
     end;

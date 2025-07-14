@@ -4,7 +4,7 @@ pageextension 50050 "TorlysSalespersonsPurchasers" extends "Salespersons/Purchas
     {
         addafter(Name)
         {
-            field("Job Title"; Rec."Title")
+            field("Job Title"; Rec."Job Title")
             {
                 Caption = 'Job Title';
                 ToolTip = 'Job Title';
@@ -12,17 +12,8 @@ pageextension 50050 "TorlysSalespersonsPurchasers" extends "Salespersons/Purchas
             }
         }
 
-        moveafter("Job Title"; "Phone No.")
-
-        addafter("Phone No.")
+        addafter("Job Title")
         {
-            field("Email"; Rec."Email")
-            {
-                Caption = 'Email';
-                ToolTip = 'Email';
-                ApplicationArea = All;
-            }
-
             field(Manager; Rec.Manager)
             {
                 Caption = 'Manager';
@@ -30,17 +21,24 @@ pageextension 50050 "TorlysSalespersonsPurchasers" extends "Salespersons/Purchas
                 ApplicationArea = All;
             }
 
-            field("Intranet - View Margin"; Rec."Intranet - View Margin")
+            field("View Margin - Intranet"; Rec."View Margin - Intranet")
             {
                 Caption = 'Intranet - View Margin';
                 ToolTip = 'Intranet - View Margin';
                 ApplicationArea = All;
             }
 
-            field("Intranet - View Manager Pricing"; Rec."Intranet - View Mgr Pricing")
+            field("View Mgr Pricing - Intranet"; Rec."View Mgr Pricing - Intranet")
             {
                 Caption = 'Intranet - View Manager Pricing';
                 ToolTip = 'Intranet - View Manager Pricing';
+                ApplicationArea = All;
+            }
+
+            field("Order Shipping Location"; Rec."Order Shipping Location")
+            {
+                Caption = 'Order Shipping Location';
+                ToolTip = 'Order Shipping Location';
                 ApplicationArea = All;
             }
         }

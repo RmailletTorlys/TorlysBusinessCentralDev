@@ -1,10 +1,9 @@
-page 51002 "Item Sales Category Lookup"
+page 51002 "Sales Price Code Lookup"
 {
     PageType = List;
-    SourceTable = "Item Category";
-    SourceTableView = where("Sales Price Code" = const(false));
+    SourceTable = "Torlys Sales Price Code";
     Editable = false;
-    Caption = 'Item Category';
+    Caption = 'Sales Price Code';
     ApplicationArea = All;
 
 
@@ -21,18 +20,11 @@ page 51002 "Item Sales Category Lookup"
                     ToolTip = 'Code';
                 }
 
-                field("Description"; Rec."Code")
+                field("Description"; Rec."Description")
                 {
                     ApplicationArea = All;
                     Caption = 'Description';
                     ToolTip = 'Description';
-                }
-
-                field("Sales Price Code"; Rec."Sales Price Code")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sales Price Code';
-                    ToolTip = 'Sales Price Code';
                 }
             }
         }

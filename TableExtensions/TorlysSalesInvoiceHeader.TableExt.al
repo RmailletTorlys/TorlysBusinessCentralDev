@@ -9,7 +9,7 @@ tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50002; "Salesperson Code 2"; code[10])
+        field(50002; "Salesperson Code 2"; code[20])
         {
             Caption = 'Salesperson Code 2';
             TableRelation = "Salesperson/Purchaser";
@@ -23,7 +23,7 @@ tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50004; "Salesperson Code 3"; code[10])
+        field(50004; "Salesperson Code 3"; code[20])
         {
             Caption = 'Salesperson Code 3';
             TableRelation = "Salesperson/Purchaser";
@@ -43,10 +43,10 @@ tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50007; "Order Type"; Option)
+        field(50007; "Order Type"; Code[20])
         {
             Caption = 'Order Type';
-            OptionMembers = "Standard","Rush","Special";
+            TableRelation = "Torlys Lookup Values";
             DataClassification = CustomerContent;
         }
 
@@ -112,28 +112,18 @@ tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50018; "Comment 1"; Text[250])
+        field(50020; "Qty. To ship"; Decimal)
         {
-            Caption = 'Comment 1';
-            DataClassification = CustomerContent;
-        }
-
-        field(50019; "Comment 2"; Text[250])
-        {
-            Caption = 'Comment 2';
-            DataClassification = CustomerContent;
-        }
-
-        field(50020; "To ship"; Boolean)
-        {
-            Caption = 'To ship';
-            DataClassification = CustomerContent;
+            Caption = 'Qty. To ship';
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
+            FieldClass = FlowField;
         }
 
         field(50021; "Outstanding Quantity"; Decimal)
         {
             Caption = 'Outstanding Quantity';
-            DataClassification = CustomerContent;
+            CalcFormula = Sum("Sales Line"."Outstanding Quantity" WHERE("Document No." = FIELD("No.")));
+            FieldClass = FlowField;
         }
 
         field(50022; "Roll out Order"; Boolean)
@@ -183,25 +173,51 @@ tableextension 50044 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
 
         }
 
-        field(50029; "Total Excl. Tax"; Decimal)
+        field(50029; "CM Approved By"; code[20])
+        {
+            Caption = 'CM Approved By';
+            TableRelation = "User Details";
+            DataClassification = CustomerContent;
+        }
+
+        field(50030; "CM Approved Date"; Date)
+        {
+            Caption = 'CM Approved Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50031; "Order Method"; Code[20])
+        {
+            Caption = 'Order Method';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values";
+        }
+
+        field(50032; "Total Excl. Tax"; Decimal)
         {
             Caption = 'Total Excl. Tax';
             DataClassification = CustomerContent;
             DecimalPlaces = 2;
         }
 
-        field(50030; "Total Tax"; Decimal)
+        field(50033; "Total Tax"; Decimal)
         {
             Caption = 'Total Tax';
             DataClassification = CustomerContent;
             DecimalPlaces = 2;
         }
 
-        field(50031; "Total Incl. Tax"; Decimal)
+        field(50034; "Total Incl. Tax"; Decimal)
         {
             Caption = 'Total Incl. Tax';
             DataClassification = CustomerContent;
             DecimalPlaces = 2;
+        }
+
+        field(50035; "To ship"; Boolean)
+        {
+            Caption = 'To ship';
+            DataClassification = CustomerContent;
         }
     }
 }

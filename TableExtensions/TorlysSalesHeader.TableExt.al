@@ -185,6 +185,46 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             Caption = 'CM Approved Date';
             DataClassification = CustomerContent;
         }
+
+        field(50031; "Order Method"; Code[20])
+        {
+            Caption = 'Order Method';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values";
+        }
+
+        field(50032; "Total Excl. Tax"; Decimal)
+        {
+            Caption = 'Total Excl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50033; "Total Tax"; Decimal)
+        {
+            Caption = 'Total Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50034; "Total Incl. Tax"; Decimal)
+        {
+            Caption = 'Total Incl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50035; "To ship"; Boolean)
+        {
+            Caption = 'To ship';
+            DataClassification = CustomerContent;
+        }
+
+        field(50036; "Region Code"; Code[10])
+        {
+            Caption = 'Region Code';
+            DataClassification = CustomerContent;
+        }
     }
 
 

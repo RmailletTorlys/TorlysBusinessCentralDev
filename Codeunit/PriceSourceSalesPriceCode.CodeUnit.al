@@ -38,7 +38,7 @@ codeunit 57002 "Price Source - SalesPriceCode" implements "Price Source"
     begin
         xPriceSource := PriceSource;
         if SalesPriceCode.Get(xPriceSource."Source No.") then;
-        if Page.RunModal(Page::"Sales Price Code Lookup", SalesPriceCode) = ACTION::LookupOK then begin
+        if Page.RunModal(Page::"Sales Price Code List", SalesPriceCode) = ACTION::LookupOK then begin
             xPriceSource.Validate("Source No.", SalesPriceCode.Code);
             PriceSource := xPriceSource;
             exit(true);

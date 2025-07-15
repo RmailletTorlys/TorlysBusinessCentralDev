@@ -4,7 +4,7 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
     {
         field(50001; "Comment"; Text[100])
         {
-            Caption = 'Comment 1';
+            Caption = 'Comment';
             DataClassification = CustomerContent;
         }
         field(50003; "Email (BoL)"; Text[80])

@@ -290,7 +290,6 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
             TableRelation = "Torlys Sales Price Code";
             Caption = 'Sales Price Code';
-
         }
 
         field(50048; "Replacement Cost (LCY)"; Decimal)

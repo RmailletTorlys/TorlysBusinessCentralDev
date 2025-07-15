@@ -31,7 +31,7 @@ codeunit 57001 "Price Asset - SalesPriceCode" implements "Price Asset"
     begin
         xPriceAsset := PriceAsset;
         if SalesPriceCode.Get(xPriceAsset."Asset No.") then;
-        if Page.RunModal(Page::"Sales Price Code Lookup", SalesPriceCode) = ACTION::LookupOK then begin
+        if Page.RunModal(Page::"Sales Price Code List", SalesPriceCode) = ACTION::LookupOK then begin
             xPriceAsset.Validate("Asset No.", SalesPriceCode."Code");
             PriceAsset := xPriceAsset;
             exit(true);

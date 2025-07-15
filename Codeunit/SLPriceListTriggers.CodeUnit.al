@@ -14,7 +14,7 @@ codeunit 57000 "SL Price List Triggers"
     local procedure OnAfterGetAssetType(SalesLine: Record "Sales Line"; var AssetType: Enum "Price Asset Type")
     begin
         if SalesLine.Type = SalesLine.Type::"Price Code" then
-            AssetType := AssetType::"Price Code";
+            AssetType := AssetType::"Sales Price Code";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnUpdateUnitPriceOnBeforeFindPrice', '', true, true)]
@@ -40,7 +40,7 @@ codeunit 57000 "SL Price List Triggers"
     begin
         Item.Reset();
         Item.Get(PriceCalculationBuffer."Asset No.");
-        NewPriceAssetList.Add(AssetType::"Price Code", Item."Sales Price Code");
+        NewPriceAssetList.Add(AssetType::"Sales Price Code", Item."Sales Price Code");
     end;
 
 

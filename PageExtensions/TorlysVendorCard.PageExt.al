@@ -31,13 +31,6 @@ pageextension 50026 TorlysVendorCard extends "Vendor Card"
                 Visible = true;
                 ToolTip = 'This field is the Payer ID assigned to this vendor';
             }
-            field("Payer ID 2"; Rec."Payer ID 2")
-            {
-                ApplicationArea = All;
-                Caption = 'Payer ID 2';
-                Visible = true;
-                ToolTip = 'This field is the backup Payer ID.';
-            }
         }
 
         addafter("Location Code")

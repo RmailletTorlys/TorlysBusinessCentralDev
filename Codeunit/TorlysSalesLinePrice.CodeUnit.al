@@ -96,7 +96,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
         PriceCalculationBuffer."Asset Type" := GetAssetType();
         case
             PriceCalculationBuffer."Asset Type" of
-            PriceCalculationBuffer."Asset Type"::"Price Code":
+            PriceCalculationBuffer."Asset Type"::"Sales Price Code":
                 PriceCalculationBuffer."Asset No." := SalesLine."Sales Price Code";
             else
                 PriceCalculationBuffer."Asset No." := SalesLine."No.";
@@ -115,7 +115,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
             SalesLine.Type::"G/L Account":
                 AssetType := AssetType::"G/L Account";
             SalesLine.Type::"Price Code":
-                AssetType := AssetType::"Price Code";
+                AssetType := AssetType::"Sales Price Code";
             else
                 AssetType := AssetType::" ";
         end;
@@ -161,7 +161,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
                     if PriceCalculationBuffer."VAT Prod. Posting Group" = '' then
                         PriceCalculationBuffer."VAT Prod. Posting Group" := Item."VAT Prod. Posting Group";
                 end;
-            PriceCalculationBuffer."Asset Type"::"Price Code":
+            PriceCalculationBuffer."Asset Type"::"Sales Price Code":
                 begin
                     PriceCalculationBuffer."Variant Code" := SalesLine."Variant Code";
                     ItemCategory.Get(PriceCalculationBuffer."Asset No.");
@@ -223,7 +223,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
 
         Item.SetFilter("No.", SalesLine."No.");
         if Item.FindFirst() then
-            PriceSourceList.Add(Enum::"Price Source Type"::"Price Code", Item."Sales Price Code");
+            PriceSourceList.Add(Enum::"Price Source Type"::"Sales Price Code", Item."Sales Price Code");
 
         AddActivatedCampaignsAsSource();
 

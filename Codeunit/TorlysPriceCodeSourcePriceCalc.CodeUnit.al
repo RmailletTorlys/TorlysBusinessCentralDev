@@ -26,6 +26,6 @@ codeunit 57003 "TorlysPriceCodeSourcePriceCalc"
     local procedure OnAfterAddSources(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line";
                                         PriceType: Enum "Price Type"; var PriceSourceList: Codeunit "Price Source List");
     begin
-        PriceSourceList.Add("Price Source Type"::"Price Code", SalesLine."Sales Price Code");
+        PriceSourceList.Add("Price Source Type"::"Sales Price Code", SalesLine."Sales Price Code");
     end;
 }

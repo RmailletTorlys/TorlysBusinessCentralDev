@@ -23,14 +23,6 @@ tableextension 50023 "TorlysVendor" extends Vendor
 
         }
 
-        field(50004; "Payer ID 2"; Code[20])
-        {
-            Caption = 'Payer ID 2';
-            TableRelation = "Salesperson/Purchaser";
-            DataClassification = CustomerContent;
-
-        }
-
         field(50005; "Invoice Unit of Measure"; Code[20])
         {
             Caption = 'Invoice Unit of Measure';

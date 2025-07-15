@@ -1,4 +1,4 @@
-codeunit 57001 "Price Asset - Price Code" implements "Price Asset"
+codeunit 57001 "Price Asset - SalesPriceCode" implements "Price Asset"
 
 {
     var

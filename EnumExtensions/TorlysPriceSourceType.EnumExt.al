@@ -1,9 +1,9 @@
 enumextension 57003 TorlysPriceSourceType extends "Price Source Type"
 {
-    value(50001; "Price Code")
+    value(50001; "Sales Price Code")
     {
-        Caption = 'Price Code';
-        Implementation = "Price Source" = "Price Source - Price Code", "Price Source Group" = "Price Source Group - All";
+        Caption = 'Sales Price Code';
+        Implementation = "Price Source" = "Price Source - SalesPriceCode", "Price Source Group" = "Price Source Group - All";
     }
 }
 

@@ -15,11 +15,6 @@ tableextension 55722 "TorlysItemCategory" extends "Item Category"
             DataClassification = CustomerContent;
         }
 
-        field(50003; "Display on Price Lists"; Boolean)
-        {
-            Caption = 'Display on Price Lists';
-            DataClassification = CustomerContent;
-        }
 
         field(50004; "Description (FR)"; Text[100])
         {
@@ -48,12 +43,6 @@ tableextension 55722 "TorlysItemCategory" extends "Item Category"
         field(50008; "US Exclusive"; Boolean)
         {
             Caption = 'US Exclusive';
-            DataClassification = CustomerContent;
-        }
-
-        field(50009; "Outbound Duty % to US"; Decimal)
-        {
-            Caption = 'Outbound Duty % to US';
             DataClassification = CustomerContent;
         }
 

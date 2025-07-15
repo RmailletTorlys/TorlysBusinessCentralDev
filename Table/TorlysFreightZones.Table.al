@@ -83,27 +83,6 @@ table 55001 "Torlys Freight Zones"
             Caption = 'Ships on - Friday';
             DataClassification = CustomerContent;
         }
-        field(16; "Modifed Date"; DateTime)
-        {
-            Caption = 'Modified';
-            DataClassification = CustomerContent;
-        }
-        field(17; "Modified By"; Code[50])
-        {
-            Caption = 'Modified By';
-            DataClassification = CustomerContent;
-        }
-        field(18; "Created Date"; DateTime)
-        {
-            Caption = 'Created';
-            DataClassification = CustomerContent;
-
-        }
-        field(19; "Created By"; Code[50])
-        {
-            Caption = 'Created By';
-            DataClassification = CustomerContent;
-        }
     }
 
     keys
@@ -136,17 +115,4 @@ table 55001 "Torlys Freight Zones"
             Caption = 'Drop Down';
         }
     }
-
-    trigger OnInsert()
-    begin
-        "Created By" := CopyStr(UserId, 1, MaxStrLen("Created By"));
-        "Created Date" := CurrentDateTime;
-    end;
-
-    trigger OnModify()
-    begin
-        "Modified By" := CopyStr(UserId, 1, MaxStrLen("Modified By"));
-        "Modifed Date" := CurrentDateTime;
-    end;
-
 }

@@ -55,13 +55,6 @@ pageextension 55730 TorlysItemCategories extends "Item Categories"
 
             }
 
-            field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
-            {
-                ApplicationArea = All;
-                Caption = 'Outbound Duty % to US';
-                ToolTip = 'Outbound Duty % to US';
-            }
-
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 ApplicationArea = All;

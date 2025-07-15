@@ -9,7 +9,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50002; "Salesperson Code 2"; code[10])
+        field(50002; "Salesperson Code 2"; code[20])
         {
             Caption = 'Salesperson Code 2';
             TableRelation = "Salesperson/Purchaser";
@@ -23,7 +23,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50004; "Salesperson Code 3"; code[10])
+        field(50004; "Salesperson Code 3"; code[20])
         {
             Caption = 'Salesperson Code 3';
             TableRelation = "Salesperson/Purchaser";
@@ -112,7 +112,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50018; "Comment 1"; Text[250])
+        field(50018; "Comment 1"; Text[100])
         {
             Caption = 'Comment 1';
             DataClassification = CustomerContent;

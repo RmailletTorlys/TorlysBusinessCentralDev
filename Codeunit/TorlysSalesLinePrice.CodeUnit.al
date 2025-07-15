@@ -114,7 +114,7 @@ codeunit 57004 "Torlys Sales Line - Price" implements "Line With Price"
                 AssetType := AssetType::Resource;
             SalesLine.Type::"G/L Account":
                 AssetType := AssetType::"G/L Account";
-            SalesLine.Type::"Price Code":
+            SalesLine.Type::"Sales Price Code":
                 AssetType := AssetType::"Sales Price Code";
             else
                 AssetType := AssetType::" ";

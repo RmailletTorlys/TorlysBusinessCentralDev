@@ -33,12 +33,6 @@ pageextension 55730 TorlysItemCategories extends "Item Categories"
                 ToolTip = 'Dimensions';
             }
 
-            field("Price List Order"; Rec."Price List Order")
-            {
-                ApplicationArea = All;
-                Caption = 'Price List Order';
-                ToolTip = 'Price List Order';
-            }
 
             field("US Exclusive"; Rec."US Exclusive")
             {
@@ -55,39 +49,35 @@ pageextension 55730 TorlysItemCategories extends "Item Categories"
 
             }
 
-            field("Sales Price Code"; Rec."Sales Price Code")
+            field(SystemCreatedBy; Rec.SystemCreatedBy)
             {
                 ApplicationArea = All;
-                Caption = 'Sales Price Code';
-                ToolTip = 'Sales Price Code';
+                Caption = 'System Created By';
+                ToolTip = 'System Created By';
+                Editable = false;
             }
 
-            field("SystemCreatedBy"; Rec."SystemCreatedBy")
+            field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
                 ApplicationArea = All;
-                Caption = 'SystemCreatedBy';
-                ToolTip = 'SystemCreatedBy';
+                Caption = 'System Created At';
+                ToolTip = 'System Created At';
+                Editable = false;
             }
 
-            field("SystemCreatedAt"; Rec."SystemCreatedAt")
+            field(SystemModifiedBy; Rec.SystemModifiedBy)
             {
                 ApplicationArea = All;
-                Caption = 'SystemCreatedAtd';
-                ToolTip = 'SystemCreatedAtd';
+                Caption = 'System Modified By';
+                ToolTip = 'System Modified By';
+                Editable = false;
             }
-
-            field("SystemModifiedBy"; Rec."SystemModifiedBy")
+            field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
                 ApplicationArea = All;
-                Caption = 'SystemModifiedBy';
-                ToolTip = 'SystemModifiedBy';
-            }
-
-            field("SystemModifiedAt"; Rec."SystemModifiedAt")
-            {
-                ApplicationArea = All;
-                Caption = 'SystemModifiedAt';
-                ToolTip = 'SystemModifiedAt';
+                Caption = 'System Modified At';
+                ToolTip = 'System Modified At';
+                Editable = false;
             }
         }
     }

@@ -14,13 +14,13 @@ tableextension 50013 TorlysSalespersonsPurchasers extends "Salesperson/Purchaser
             DataClassification = CustomerContent;
         }
 
-        field(50003; "Intranet - View Margin"; Boolean)
+        field(50003; "View Margin - Intranet"; Boolean)
         {
             Caption = 'Intranet - View Margin';
             DataClassification = CustomerContent;
         }
 
-        field(50004; "Intranet - View Mgr Pricing"; Boolean)
+        field(50004; "View Mgr Pricing - Intranet"; Boolean)
         {
             Caption = 'Intranet - View Manager Pricing';
             DataClassification = CustomerContent;
@@ -39,13 +39,6 @@ tableextension 50013 TorlysSalespersonsPurchasers extends "Salesperson/Purchaser
         field(50007; "Commission Percentage Share"; Decimal)
         {
             Caption = 'Commission Percentage Share';
-            DataClassification = CustomerContent;
-        }
-
-        field(50008; "Title"; Option)
-        {
-            Caption = 'Job Title';
-            OptionMembers = "Territory Manager","Warehouse","Customer Service","Accounts Payables","Accounts Receivable";
             DataClassification = CustomerContent;
         }
     }

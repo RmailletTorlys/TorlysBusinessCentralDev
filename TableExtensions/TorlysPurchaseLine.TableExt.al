@@ -171,6 +171,17 @@ tableextension 50039 TorlysPurchaseLine extends "Purchase Line"
             DataClassification = CustomerContent;
         }
 
+        field(50028; "Delivery Appointment Date"; Date)
+        {
+            Caption = 'Delivery Appointment Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50029; "Warehouse Receipt Date"; Date)
+        {
+            Caption = 'Warehouse Receipt Date';
+            DataClassification = CustomerContent;
+        }
     }
 
     [IntegrationEvent(false, false)]

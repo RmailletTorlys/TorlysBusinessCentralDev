@@ -122,7 +122,7 @@ pageextension 50031 TorlysItemList extends "Item List"
                 ApplicationArea = Dimensions;
                 Caption = 'Inventory Value';
                 ToolTip = 'Inventory Value';
-                DecimalPlaces = 3;
+                DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;
             }
@@ -291,7 +291,70 @@ pageextension 50031 TorlysItemList extends "Item List"
             Visible = true;
         }
 
+        modify(Blocked)
+        {
+            Visible = false;
+        }
 
+        modify("Costing Method")
+        {
+            Visible = false;
+        }
+
+        modify("Standard Cost")
+        {
+            Visible = false;
+        }
+
+        modify("Gen. Prod. Posting Group")
+        {
+            Visible = false;
+        }
+
+        modify("Inventory Posting Group")
+        {
+            Visible = false;
+        }
+
+        modify("Replenishment System")
+        {
+            Visible = false;
+        }
+
+        modify("Vendor Item No.")
+        {
+            Visible = false;
+        }
+
+        modify(Type)
+        {
+            Visible = false;
+        }
+
+        modify("Substitutes Exist")
+        {
+            Visible = false;
+        }
+
+        modify("Assembly BOM")
+        {
+            Visible = false;
+        }
+
+        modify("Cost is Adjusted")
+        {
+            Visible = false;
+        }
+
+        modify("Unit Price")
+        {
+            Visible = false;
+        }
+
+        modify("Default Deferral Template Code")
+        {
+            Visible = false;
+        }
     }
 
 

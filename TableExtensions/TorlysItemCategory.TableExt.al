@@ -45,12 +45,6 @@ tableextension 55722 "TorlysItemCategory" extends "Item Category"
             Caption = 'US Exclusive';
             DataClassification = CustomerContent;
         }
-
-        field(50010; "Sales Price Code"; Boolean)
-        {
-            Caption = 'Sales Price Code';
-            DataClassification = CustomerContent;
-        }
     }
 
 }

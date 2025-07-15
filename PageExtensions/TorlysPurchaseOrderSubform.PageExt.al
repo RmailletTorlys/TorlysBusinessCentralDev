@@ -80,6 +80,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             {
                 Caption = 'Production Date';
                 ToolTip = 'Production Date';
+                ApplicationArea = All;
             }
         }
 

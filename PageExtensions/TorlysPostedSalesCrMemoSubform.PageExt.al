@@ -2,7 +2,7 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
 {
     layout
     {
-        moveafter(Description; "Description 2", "Unit of Measure Code")
+        moveafter("No."; "Item Reference No.", Description, "Description 2", "Unit of Measure Code")
 
         addafter("Unit of Measure Code")
         {
@@ -53,7 +53,7 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 Visible = false;
             }
 
-            field("Default Price List"; Rec."Default Price List")
+            field("Default Price List Code"; Rec."Default Price List")
             {
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';

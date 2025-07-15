@@ -34,19 +34,4 @@ page 55002 "Freight Zone Lookup"
 
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
 }

@@ -6,9 +6,9 @@ table 55006 "Torlys Lookup Values"
 
     fields
     {
-        field(1; "Type"; Code[20])
+        field(1; "Type"; Enum "Torlys Lookup Values")
         {
-            Caption = 'Start Date';
+            Caption = 'Type';
             DataClassification = CustomerContent;
         }
         field(2; "Code"; Code[20])

@@ -37,7 +37,7 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50006; "Credit Warnings"; Option)
         {
             Caption = 'Credit Warnings';
-            OptionMembers = "No","Yes";
+            OptionMembers = "Both Warnings","Credit Limit","Overdule Balance","No Warning";
             DataClassification = CustomerContent;
         }
 
@@ -77,7 +77,7 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50013; "Salesperson Code 2"; code[10])
+        field(50013; "Salesperson Code 2"; code[20])
         {
             Caption = 'Salesperson Code 2';
             TableRelation = "Salesperson/Purchaser";
@@ -91,7 +91,7 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50015; "Salesperson Code 3"; code[10])
+        field(50015; "Salesperson Code 3"; code[20])
         {
             Caption = 'Salesperson Code 3';
             TableRelation = "Salesperson/Purchaser";
@@ -148,6 +148,8 @@ tableextension 50018 TorlysCustomer extends Customer
         {
             Caption = 'Power Up Level';
             OptionMembers = "","Premier","Elite","Designer";
+            InitValue = "";
+            ToolTip = 'Specifies the Power Up level that the customer is assigned to.';
             DataClassification = CustomerContent;
         }
 
@@ -222,6 +224,8 @@ tableextension 50018 TorlysCustomer extends Customer
         {
             Caption = 'TORLYS Club';
             OptionMembers = "","Power Up","Power Up National","Power Up Assurance","Power Up USA";
+            InitValue = "";
+            ToolTip = 'Specifies the TORLYS Club that the customer is assigned to.';
             DataClassification = CustomerContent;
         }
 

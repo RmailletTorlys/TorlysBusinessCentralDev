@@ -2,6 +2,12 @@ table 50007 "Torlys Sales Price Code"
 {
     Caption = 'Sales Price Code';
     DataClassification = CustomerContent;
+    TableType = Normal;
+    Access = Public;
+    Extensible = true;
+    DrillDownPageID = "Sales Price Code List";
+    LookupPageID = "Sales Price Code Lookup";
+
 
     fields
     {
@@ -35,5 +41,4 @@ table 50007 "Torlys Sales Price Code"
         }
 
     }
-
 }

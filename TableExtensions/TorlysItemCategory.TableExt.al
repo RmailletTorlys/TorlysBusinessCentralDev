@@ -15,11 +15,6 @@ tableextension 55722 "TorlysItemCategory" extends "Item Category"
             DataClassification = CustomerContent;
         }
 
-        field(50003; "Display on Price Lists"; Boolean)
-        {
-            Caption = 'Display on Price Lists';
-            DataClassification = CustomerContent;
-        }
 
         field(50004; "Description (FR)"; Text[100])
         {

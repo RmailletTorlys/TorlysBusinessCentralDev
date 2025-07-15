@@ -42,5 +42,15 @@ pageextension 50050 "TorlysSalespersonsPurchasers" extends "Salespersons/Purchas
                 ApplicationArea = All;
             }
         }
+
+        modify("Commission %")
+        {
+            Visible = false;
+        }
+
+        modify("Phone No.")
+        {
+            Visible = false;
+        }
     }
 }

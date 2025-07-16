@@ -37,27 +37,27 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
             {
 
             }
-            column(LocAdd1; LocationAddress[1] [1])
+            column(LocAdd1; LocationAddress[1])
             {
 
             }
-            column(LocAdd2; LocationAddress[1] [2])
+            column(LocAdd2; LocationAddress[2])
             {
 
             }
-            column(LocAdd3; LocationAddress[1] [3])
+            column(LocAdd3; LocationAddress[3])
             {
 
             }
-            column(LocAdd4; LocationAddress[1] [4])
+            column(LocAdd4; LocationAddress[4])
             {
 
             }
-            column(LocAdd5; LocationAddress[1] [5])
+            column(LocAdd5; LocationAddress[5])
             {
 
             }
-            column(LocAdd6; LocationAddress[1] [6])
+            column(LocAdd6; LocationAddress[6])
             {
 
             }

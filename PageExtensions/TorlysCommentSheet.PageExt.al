@@ -12,6 +12,22 @@ pageextension 50124 "Torlys Comment Sheet" extends "Comment Sheet"
 
             }
 
+            field("Copy to Sales Order"; Rec."Copy to Sales Order")
+            {
+                ApplicationArea = All;
+                Caption = 'Copy to Sales Order';
+                ToolTip = 'Specifies if the comment should be copied to the sales order.';
+
+            }
+
+            field("Copy to Purchase Order"; Rec."Copy to Purchase Order")
+            {
+                ApplicationArea = All;
+                Caption = 'Copy to Purchase Order';
+                ToolTip = 'Specifies if the comment should be copied to the purchase order.';
+
+            }
+
             field("Print on Quote"; Rec."Print on Quote")
             {
                 ApplicationArea = All;

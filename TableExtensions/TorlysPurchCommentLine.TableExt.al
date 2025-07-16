@@ -2,7 +2,7 @@ tableextension 50043 TorlysPurchCommentLine extends "Purch. Comment Line"
 {
     fields
     {
-        field(50001; Type; Code[50])
+        field(50001; Type; Enum "Torlys Comment Type")
         {
             Caption = 'Type';
             ToolTip = 'Specifies the type of comment.';

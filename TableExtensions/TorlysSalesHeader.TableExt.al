@@ -225,7 +225,20 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             Caption = 'Region Code';
             DataClassification = CustomerContent;
         }
+
+        modify("Sell-to Customer No.")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopyCommentsFromCustCardToSalesHeader();
+            end;
+        }
     }
+
+    trigger OnAfterInsert()
+    begin
+        CopyCommentsFromCustCardToSalesHeader();
+    end;
 
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
@@ -233,5 +246,63 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         DimMgt: Codeunit "DimensionManagement";
     begin
         DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
+
+    local procedure CopyCommentsFromCustCardToSalesHeader()
+    var
+        CommentLine: Record "Comment Line";
+        SalesCommentLine: Record "Sales Comment Line";
+        IsHandled: Boolean;
+    begin
+        OnBeforeCopyCommentsFromCustCardToSalesHeader(IsHandled);
+        if IsHandled then
+            exit;
+
+        if Rec."Sell-to Customer No." = '' then
+            exit;
+
+        SalesCommentLine.Reset();
+        SalesCommentLine.SetRange("Document Type", Rec."Document Type");
+        SalesCommentLine.SetRange("No.", Rec."No.");
+        if SalesCommentLine.IsEmpty() then begin
+            CommentLine.Reset();
+            CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Customer);
+            CommentLine.SetRange("No.", Rec."Sell-to Customer No.");
+            CommentLine.SetRange("Copy to Sales Order", true);
+            if CommentLine.FindSet() then
+                repeat
+                    SalesCommentLine.Init();
+                    SalesCommentLine."Document Type" := Rec."Document Type";
+                    SalesCommentLine."No." := Rec."No.";
+                    SalesCommentLine."Type" := CommentLine.Type;
+                    SalesCommentLine."Line No." := CommentLine."Line No.";
+                    SalesCommentLine.Date := CommentLine.Date;
+                    SalesCommentLine.Comment := CommentLine.Comment;
+                    SalesCommentLine."Print on Quote" := CommentLine."Print on Quote";
+                    SalesCommentLine."Print on Pick Ticket" := CommentLine."Print on Pick Ticket";
+                    SalesCommentLine."Print on Order Confirmation" := CommentLine."Print on Order Confirmation";
+                    SalesCommentLine."Print on Shipment" := CommentLine."Print on Shipment";
+                    SalesCommentLine."Print on Invoice" := CommentLine."Print on Invoice";
+                    SalesCommentLine."Print on Credit Memo" := CommentLine."Print on Credit Memo";
+                    SalesCommentLine."Print on Return Authorization" := CommentLine."Print on Return Authorization";
+                    SalesCommentLine."Print on Return Receipt" := CommentLine."Print on Return Receipt";
+                    SalesCommentLine.Insert();
+                until CommentLine.Next() = 0;
+
+        end;
+
+
+
+        OnAfterCopyCommentsFromCustCardToSalesHeader();
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeCopyCommentsFromCustCardToSalesHeader(var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterCopyCommentsFromCustCardToSalesHeader()
+    begin
     end;
 }

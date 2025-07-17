@@ -60,6 +60,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
 
     begin
 
+
         if Rec."Item No." = '' then
             exit(true);
 

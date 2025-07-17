@@ -46,7 +46,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         field(50007; "Order Type"; Code[20])
         {
             Caption = 'Order Type';
-            TableRelation = "Torlys Lookup Values";
+            TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
             DataClassification = CustomerContent;
         }
 

@@ -90,7 +90,7 @@ CodeUnit 50005 "Quantity Rounding Helper"
         iuom.SetRange("Item No.", Rec."No.");
         iuom.SetRange("Code", Rec."Compare Unit of Measure");
         if iuom.IsEmpty then begin
-            Message('%1 does not have a matching %2 Item Unit of Measure. Please contact ??? for support.', Rec."No.", Rec."Compare Unit of Measure");
+            Message('%1 does not have a matching %2 Item Unit of Measure. Please contact Purchasing for support.', Rec."No.", Rec."Compare Unit of Measure");
             exit(true);
         end;
 
@@ -99,7 +99,7 @@ CodeUnit 50005 "Quantity Rounding Helper"
         if Rec."Compare Unit of Measure" = 'CASE' then begin
             iuom.SetRange("Code", 'PALLET');
             if iuom.IsEmpty() then begin
-                Message('%1 does not have a matching Pallet Item Unit of Measure. Please contact ??? for support.', Rec."No.");
+                Message('%1 does not have a matching Pallet Item Unit of Measure. Please contact Purchasing for support.', Rec."No.");
                 exit(true);
             end
         end;

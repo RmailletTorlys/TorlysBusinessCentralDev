@@ -39,7 +39,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Tag Name"; "Shipment Date", "Requested Delivery Date", Status, "Your Reference", "Salesperson Code")
+        moveafter("Tag Name"; "Shipment Date", "Requested Delivery Date", Status, "External Document No.", "Salesperson Code")
 
         addafter("Salesperson Code")
         {
@@ -335,7 +335,8 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         modify("External Document No.")
         {
-            Visible = false;
+            Visible = true;
+            Importance = Standard;
         }
 
         modify("Campaign No.")

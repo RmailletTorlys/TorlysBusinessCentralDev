@@ -74,6 +74,10 @@ codeunit 50003 "Torlys PO Quantity Rounding"
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; OrderType: Integer)
     begin
+
+        if Rec.Type <> Rec.Type::Item then
+            exit;
+
         if ValidateUoM(Rec) = false then
             exit;
 

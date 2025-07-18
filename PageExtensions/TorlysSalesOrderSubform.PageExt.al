@@ -342,12 +342,14 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         {
             trigger OnBeforeValidate()
             begin
+                if Rec.Type <> Rec.Type::Item then
+                    exit;
                 PrepareUserModifiedUnitPrice();
 
                 if ((Rec."Unit Price") <> (xRec."Unit Price")) and (xRec."Unit Price" <> 0) and (UserModifiedUnitPrice) then begin
                     Rec."Price List" := '';
                     UserModifiedUnitPrice := false;
-                    CurrPage.Update()
+                    CurrPage.Update();
                 end;
             end;
         }
@@ -355,6 +357,8 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
     trigger OnAfterGetRecord()
     begin
+        if Rec."Type" <> Rec.Type::Item then
+            exit;
         OnAfterGetRecordOnValidateUoM(Rec, xRec, UoMValid);
     end;
 
@@ -365,7 +369,11 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
     procedure PrepareUserModifiedUnitPrice()
     begin
+        if Rec.Type <> Rec.Type::Item then
+            exit;
+
         UserModifiedUnitPrice := true;
+
     end;
 
 

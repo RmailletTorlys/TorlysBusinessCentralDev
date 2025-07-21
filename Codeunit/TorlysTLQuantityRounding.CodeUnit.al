@@ -68,7 +68,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         Item.FindFirst();
 
         //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
-        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+        if not QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
 
         exit(true);
     end;
@@ -76,6 +76,8 @@ codeunit 50001 "Torlys TL Quantity Rounding"
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
+
+
         if ValidateUoM(Rec) = false then
             exit;
 
@@ -130,6 +132,11 @@ codeunit 50001 "Torlys TL Quantity Rounding"
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
         Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec."Quantity (Base)" := Rec.Quantity;
+
+        if Rec.Quantity = 0 then
+            Rec."Quantity Case" := 0;
+        Rec."Quantity Pallet" := 0;
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst)

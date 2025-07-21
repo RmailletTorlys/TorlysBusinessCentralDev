@@ -24,10 +24,10 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
 
     begin
 
-        if Rec."No." = '' then
+        if Rec."Item No." = '' then
             exit(true);
 
-        Item.SetRange("No.", Rec."No.");
+        Item.SetRange("No.", Rec."Item No.");
         Item.FindFirst();
 
         //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
@@ -38,12 +38,13 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; OrderType: Integer)
     begin
+
         if ValidateUoM(Rec) = false then
             exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
-        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'CASE');
-        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'PALLET');
+        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
+        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Quantity
@@ -54,8 +55,8 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     procedure OnChangeQuantityCase(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; OrderType: Integer)
     begin
         // Get the Case and Pallet quantities for the item entered
-        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'CASE');
-        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'PALLET');
+        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
+        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Case Quantity
@@ -66,8 +67,8 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     procedure OnChangeQuantityPallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; OrderType: Integer)
     begin
         // Get the Case and Pallet quantities for the item entered
-        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'CASE');
-        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'PALLET');
+        CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');
+        PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'PALLET');
 
         case OrderType of
             1: // Pallet Quantity

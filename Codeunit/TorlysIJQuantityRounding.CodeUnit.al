@@ -9,13 +9,13 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
     local procedure OnValidateIJCaseQuantity(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
     begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
+        OnChangeQuantityCase(Rec, xRec, 1);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
     local procedure OnValidateIJPalletQuantity(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
     begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
+        OnChangeQuantityPallet(Rec, xRec, 1);
     end;
 
     procedure ValidateUoM(var Rec: Record "Item Journal Line"): Boolean

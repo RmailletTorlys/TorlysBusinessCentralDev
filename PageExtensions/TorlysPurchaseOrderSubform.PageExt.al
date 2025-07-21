@@ -33,6 +33,8 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
+                    if Rec.Type <> Rec.Type::Item then
+                        exit;
                     OnValidateCase(Rec, xRec);
                 end;
             }
@@ -44,6 +46,8 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
+                    if Rec.Type <> Rec.Type::Item then
+                        exit;
                     OnValidatePallet(Rec, xRec);
                 end;
             }

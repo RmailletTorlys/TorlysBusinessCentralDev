@@ -44,11 +44,11 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50007; "Order Type"; Option)
+        field(50007; "Order Type"; Code[20])
         {
             Caption = 'Order Type';
-            OptionMembers = "Standard","Rush","Special";
             DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
         }
 
         field(50008; "Tag Name"; code[20])

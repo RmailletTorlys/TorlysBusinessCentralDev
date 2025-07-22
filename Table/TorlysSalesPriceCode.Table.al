@@ -6,7 +6,7 @@ table 50007 "Torlys Sales Price Code"
     Access = Public;
     Extensible = true;
     DrillDownPageID = "Sales Price Code List";
-    LookupPageID = "Sales Price Code Lookup";
+    LookupPageID = "Sales Price Code List";
 
 
     fields

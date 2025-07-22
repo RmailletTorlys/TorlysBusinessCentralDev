@@ -9,12 +9,6 @@ tableextension 50097 "Torlys Comment Line" extends "Comment Line"
             ToolTip = 'Specifies the type of comment.';
         }
 
-        field(50002; "Comment Code"; Code[20])
-        {
-            Caption = 'Comment Code';
-            DataClassification = CustomerContent;
-        }
-
         field(50003; "Copy to Sales Order"; Boolean)
         {
             Caption = 'Copy to Sales Order';
@@ -74,5 +68,27 @@ tableextension 50097 "Torlys Comment Line" extends "Comment Line"
             Caption = 'Print on Return Receipt';
             ToolTip = 'Specifies whether the comment line should be printed on the Return Receipt.';
         }
+        field(50013; "Print on Purcahse Order"; Boolean)
+        {
+            Caption = 'Print on Purchase Order';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Order.';
+        }
+        field(50014; "Print On Purchase Receipt"; Boolean)
+        {
+            Caption = 'Print on Purchase Receipt';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Receipt.';
+        }
+        field(50015; "Print On Purchase Invoice"; Boolean)
+        {
+            Caption = 'Print on Purchase Invoice';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Invoice.';
+        }
+        field(50016; "Print On Purchase Credit Memo"; Boolean)
+        {
+            Caption = 'Print on Purchase Credit Memo';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Credit Memo.';
+        }
+
     }
+
 }

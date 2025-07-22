@@ -68,7 +68,7 @@ tableextension 50097 "Torlys Comment Line" extends "Comment Line"
             Caption = 'Print on Return Receipt';
             ToolTip = 'Specifies whether the comment line should be printed on the Return Receipt.';
         }
-        field(50013; "Print on Purcahse Order"; Boolean)
+        field(50013; "Print on Purchase Order"; Boolean)
         {
             Caption = 'Print on Purchase Order';
             ToolTip = 'Specifies whether the comment line should be printed on the Purchase Order.';

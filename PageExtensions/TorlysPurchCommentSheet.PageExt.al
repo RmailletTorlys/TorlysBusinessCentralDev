@@ -12,69 +12,38 @@ pageextension 50068 "TorlysPurchCommentSheet" extends "Purch. Comment Sheet"
 
             }
 
-            field("Print on Quote"; Rec."Print on Quote")
+            field("Print on Purchase Order"; Rec."Print on Purchase Order")
             {
                 ApplicationArea = All;
-                Caption = 'Print on Quote';
-                ToolTip = 'Specifies if the comment should be printed on the quote.';
+                Caption = 'Print on Purchase Order';
+                ToolTip = 'Specifies if the comment should be printed on the purchase order.';
 
             }
 
-            field("Print on Pick Ticket"; Rec."Print on Pick Ticket")
+            field("Print on Purchase Receipt"; Rec."Print on Purchase Receipt")
             {
                 ApplicationArea = All;
-                Caption = 'Print on Pick Ticket';
-                ToolTip = 'Specifies if the comment should be printed on the pick ticket.';
+                Caption = 'Print on Purchase Receipt';
+                ToolTip = 'Specifies if the comment should be printed on the purcahse receipt.';
 
             }
 
-            field("Print on Order Confirmation"; Rec."Print on Order Confirmation")
+            field("Print on Purchase Invoice"; Rec."Print on Purchase Invoice")
             {
                 ApplicationArea = All;
-                Caption = 'Print on Order Confirmation';
-                ToolTip = 'Specifies if the comment should be printed on the order confirmation.';
+                Caption = 'Print on Purchase Invoice';
+                ToolTip = 'Specifies if the comment should be printed on the purchase invoice.';
+
+            }
+            field("Print on Purchase Credit Memo"; Rec."Print on Purchase Credit Memo")
+            {
+                ApplicationArea = All;
+                Caption = 'Print on Purchase Credit Memo';
+                ToolTip = 'Specifies if the comment should be printed on the purchase credit memo.';
 
             }
 
-            field("Print on Shipment"; Rec."Print on Shipment")
-            {
-                ApplicationArea = All;
-                Caption = 'Print on Shipment';
-                ToolTip = 'Specifies if the comment should be printed on the shipment.';
 
-            }
-
-            field("Print on Invoice"; Rec."Print on Invoice")
-            {
-                ApplicationArea = All;
-                Caption = 'Print on Invoice';
-                ToolTip = 'Specifies if the comment should be printed on the invoice.';
-
-            }
-
-            field("Print on Credit Memo"; Rec."Print on Credit Memo")
-            {
-                ApplicationArea = All;
-                Caption = 'Print on Credit Memo';
-                ToolTip = 'Specifies if the comment should be printed on the credit memo.';
-
-            }
-
-            field("Print on Return Authorization"; Rec."Print on Return Authorization")
-            {
-                ApplicationArea = All;
-                Caption = 'Print on Return Authorization';
-                ToolTip = 'Specifies if the comment should be printed on the return authorization.';
-
-            }
-
-            field("Print on Return Receipt"; Rec."Print on Return Receipt")
-            {
-                ApplicationArea = All;
-                Caption = 'Print on Return Receipt';
-                ToolTip = 'Specifies if the comment should be printed on the return receipt.';
-
-            }
         }
 
         modify(Code)

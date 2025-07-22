@@ -8,58 +8,25 @@ tableextension 50043 TorlysPurchCommentLine extends "Purch. Comment Line"
             ToolTip = 'Specifies the type of comment.';
         }
 
-        field(50002; "Comment Code"; Enum "Torlys Comment Type")
+        field(50013; "Print on Purchase Order"; Boolean)
         {
-            Caption = 'Comment Code';
-            DataClassification = CustomerContent;
+            Caption = 'Print on Purchase Order';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Order.';
         }
-
-        field(50003; "Print on Quote"; Boolean)
+        field(50014; "Print On Purchase Receipt"; Boolean)
         {
-            Caption = 'Print on Quote';
-            DataClassification = CustomerContent;
+            Caption = 'Print on Purchase Receipt';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Receipt.';
         }
-
-        field(50004; "Print on Pick Ticket"; Boolean)
+        field(50015; "Print On Purchase Invoice"; Boolean)
         {
-            Caption = 'Print on Pick Ticket';
-            DataClassification = CustomerContent;
+            Caption = 'Print on Purchase Invoice';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Invoice.';
         }
-
-        field(50005; "Print on Order Confirmation"; Boolean)
+        field(50016; "Print On Purchase Credit Memo"; Boolean)
         {
-            Caption = 'Print on Order Confirmation';
-            DataClassification = CustomerContent;
-        }
-
-        field(50006; "Print on Shipment"; Boolean)
-        {
-            Caption = 'Print on Shipment';
-            DataClassification = CustomerContent;
-        }
-
-        field(50007; "Print on Invoice"; Boolean)
-        {
-            Caption = 'Print on Invoice';
-            DataClassification = CustomerContent;
-        }
-
-        field(50008; "Print on Credit Memo"; Boolean)
-        {
-            Caption = 'Print on Credit Memo';
-            DataClassification = CustomerContent;
-        }
-
-        field(50009; "Print on Return Authorization"; Boolean)
-        {
-            Caption = 'Print on Return Authorization';
-            DataClassification = CustomerContent;
-        }
-
-        field(50010; "Print on Return Receipt"; Boolean)
-        {
-            Caption = 'Print on Return Receipt';
-            DataClassification = CustomerContent;
+            Caption = 'Print on Purchase Credit Memo';
+            ToolTip = 'Specifies whether the comment line should be printed on the Purchase Credit Memo.';
         }
     }
 }

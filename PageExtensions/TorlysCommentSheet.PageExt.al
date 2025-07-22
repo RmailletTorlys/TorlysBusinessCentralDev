@@ -20,13 +20,6 @@ pageextension 50124 "Torlys Comment Sheet" extends "Comment Sheet"
 
             }
 
-            field("Copy to Purchase Order"; Rec."Copy to Purchase Order")
-            {
-                ApplicationArea = All;
-                Caption = 'Copy to Purchase Order';
-                ToolTip = 'Specifies if the comment should be copied to the purchase order.';
-
-            }
 
             field("Print on Quote"; Rec."Print on Quote")
             {
@@ -89,6 +82,41 @@ pageextension 50124 "Torlys Comment Sheet" extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Return Receipt';
                 ToolTip = 'Specifies if the comment should be printed on the return receipt.';
+
+            }
+            field("Copy to Purchase Order"; Rec."Copy to Purchase Order")
+            {
+                ApplicationArea = All;
+                Caption = 'Copy to Purchase Order';
+                ToolTip = 'Specifies if the comment should be copied to the purchase order.';
+
+            }
+            field("Print on Purchase Order"; Rec."Print on Purchase Order")
+            {
+                ApplicationArea = All;
+                Caption = 'Print on Purchase Order';
+                ToolTip = 'Specifies if the comment should be printed on the purchase order.';
+
+            }
+            field("Print on Purchase Receipt"; Rec."Print on Purchase Receipt")
+            {
+                ApplicationArea = All;
+                Caption = 'Print on Purchase Receipt';
+                ToolTip = 'Specifies if the comment should be printed on the purchase receipt.';
+
+            }
+            field("Print on Purchase Invoice"; Rec."Print on Purchase Invoice")
+            {
+                ApplicationArea = All;
+                Caption = 'Print on Purchase Invoice';
+                ToolTip = 'Specifies if the comment should be printed on the purchase invoice.';
+
+            }
+            field("Print on Purchase Credit Memo"; Rec."Print on Purchase Credit Memo")
+            {
+                ApplicationArea = All;
+                Caption = 'Print on Purchase Credit Memo';
+                ToolTip = 'Specifies if the comment should be printed on the purchase credit memo.';
 
             }
         }

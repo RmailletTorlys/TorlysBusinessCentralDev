@@ -1,11 +1,10 @@
-page 50007 "Torlys Sales Price Code Card"
+page 50008 "Lookup Values Card"
 {
     PageType = Card;
     ApplicationArea = All;
-    SourceTable = "Torlys Sales Price Code";
-    Caption = 'Sales Price Code Card';
+    SourceTable = "Torlys Lookup Values";
+    Caption = 'Lookup Values Card';
     Editable = true;
-
 
     layout
     {
@@ -14,29 +13,23 @@ page 50007 "Torlys Sales Price Code Card"
             group(Group)
             {
                 Caption = 'General';
+                field(Type; Rec."Type")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Type';
+                    ToolTip = 'Lookup Value Type.';
+                }
                 field(Code; Rec."Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Code';
-                    ToolTip = 'Code of the sales price.';
+                    ToolTip = 'Lookup Value Code.';
                 }
                 field(Description; Rec."Description")
                 {
                     ApplicationArea = All;
                     Caption = 'Description';
-                    ToolTip = 'Description of the sales price.';
-                }
-                field("Start Date"; Rec."Start Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Start Date';
-                    ToolTip = 'Start date of the sales price.';
-                }
-                field("End Date"; Rec."End Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'End Date';
-                    ToolTip = 'End date of the sales price.';
+                    ToolTip = 'Lookup Value Description.';
                 }
             }
         }

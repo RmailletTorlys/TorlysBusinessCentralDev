@@ -1,11 +1,7 @@
 page 50002 "Sales Price Code List"
 {
     Caption = 'Sales Price Codes';
-    Editable = false;
     PageType = List;
-    QueryCategory = 'Sales Price Code List';
-    ApplicationArea = All;
-    UsageCategory = Lists;
     SourceTable = "Torlys Sales Price Code";
     SourceTableView = SORTING(Code) ORDER(Ascending);
     CardPageId = "Torlys Sales Price Code Card";
@@ -46,15 +42,23 @@ page 50002 "Sales Price Code List"
 
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
             action(New)
             {
-                ApplicationArea = All;
-                Caption = 'New';
+                Caption = 'New Sales Price Code';
+                ToolTip = 'Create a new price cocde.';
                 Image = New;
-                ToolTip = 'Create a new sales price code.';
-                RunObject = page "Torlys Sales Price Code Card";
+                Promoted = true;
+                PromotedCategory = New;
+                trigger OnAction()
+                var
+                    PriceCode: Record "Torlys Sales Price Code";
+                begin
+                    PriceCode.Init();
+                    if Page.RunModal(Page::"Sales Price Code List", PriceCode) = ACTION::OK then
+                        PriceCode.Insert(true);
+                end;
             }
         }
     }

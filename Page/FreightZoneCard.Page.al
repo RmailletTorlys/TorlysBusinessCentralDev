@@ -3,7 +3,8 @@ page 55003 "Freight Zone Card"
     PageType = Card;
     ApplicationArea = All;
     SourceTable = "Torlys Freight Zones";
-
+    Editable = true;
+    Caption = 'Freight Zone Card';
 
     layout
     {

@@ -44,7 +44,7 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50007; "Order Type"; Code[20])
+        field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
             DataClassification = CustomerContent;

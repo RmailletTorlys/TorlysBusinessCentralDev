@@ -28,9 +28,9 @@ table 55001 "Torlys Freight Zones"
             Caption = 'End Date';
             DataClassification = CustomerContent;
         }
-        field(5; "Rate per sqft (flooring)"; Decimal)
+        field(5; "Rate per sqft (floor)"; Decimal)
         {
-            Caption = 'Rate per sqft (flooring)';
+            Caption = 'Rate per sqft (floor)';
             DataClassification = CustomerContent;
         }
         field(6; "Minimum Charge"; Decimal)
@@ -38,19 +38,19 @@ table 55001 "Torlys Freight Zones"
             Caption = 'Minimum Charge';
             DataClassification = CustomerContent;
         }
-        field(7; "Rate per Roll(Underlay)"; Decimal)
+        field(7; "Rate per Roll (underlay)"; Decimal)
         {
-            Caption = 'Rate per Roll(Underlay)';
+            Caption = 'Rate per Roll (underlay)';
             DataClassification = CustomerContent;
         }
-        field(8; "Rate per Case(Sheet underlay)"; Decimal)
+        field(8; "Rate per Case (sheet underlay)"; Decimal)
         {
-            Caption = 'Rate per Roll(Overlay)';
+            Caption = 'Rate per Case (sheet underlay)';
             DataClassification = CustomerContent;
         }
-        field(9; "Minimum Charge(Moulding)"; Decimal)
+        field(9; "Minimum Charge (moulding)"; Decimal)
         {
-            Caption = 'Minimum Charge(Moulding)';
+            Caption = 'Minimum Charge (moulding)';
             DataClassification = CustomerContent;
         }
         field(10; "Tailgate Charge"; Decimal)

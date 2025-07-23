@@ -43,7 +43,7 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50007; "Order Type"; Code[20])
+        field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
             TableRelation = "Torlys Lookup Values";
@@ -186,7 +186,7 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50031; "Order Method"; Code[20])
+        field(50031; "Order Method"; Code[25])
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;

@@ -13,9 +13,9 @@ table 55006 "Torlys Lookup Values"
         {
             Caption = 'Type';
             DataClassification = CustomerContent;
-            OptionMembers = "Order Type","Order Method","Freight Zone";
+            OptionMembers = " ","Order Type","Order Method","Comment Type";
         }
-        field(2; "Code"; Code[20])
+        field(2; "Code"; Code[25])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
@@ -29,7 +29,7 @@ table 55006 "Torlys Lookup Values"
 
     keys
     {
-        key(key1; "Code")
+        key(key1; "Type", "Code")
         {
             Clustered = true;
         }

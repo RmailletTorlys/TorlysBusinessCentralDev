@@ -3,10 +3,12 @@ tableextension 50097 "Torlys Comment Line" extends "Comment Line"
     fields
     {
 
-        field(50001; Type; Enum "Torlys Comment Type")
+        field(50001; "Comment Type"; Code[25])
         {
-            Caption = 'Type';
+            Caption = 'Comment Type';
             ToolTip = 'Specifies the type of comment.';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values".Code where(Type = const("Comment Type"));
         }
 
         field(50003; "Copy to Sales Order"; Boolean)

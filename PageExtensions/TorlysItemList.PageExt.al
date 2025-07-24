@@ -210,6 +210,20 @@ pageextension 50031 TorlysItemList extends "Item List"
 
         addafter("Inventory Posting Group")
         {
+            field(ShortcutDimCode4; ShortcutDimCode[4])
+            {
+                CaptionClass = '1,2,4';
+                ToolTip = 'Global Dimension 4 Code';
+                ApplicationArea = Dimensions;
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4),
+                                                                "Dimension Value Type" = const(Standard),
+                                                                  Blocked = const(false));
+                Visible = true;
+                trigger OnValidate()
+                begin
+                    ValidateShortcutDimension(4);
+                end;
+            }
             field("Tax Group Code"; Rec."Tax Group Code")
             {
                 ApplicationArea = Dimensions;

@@ -69,7 +69,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                 "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
-                Visible = false;
+                Visible = true;
 
                 trigger OnValidate()
                 begin
@@ -176,9 +176,14 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 ToolTip = 'Default Price List';
                 Visible = true;
             }
+
+            field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
+            {
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Default Price List"; "Currency Code")
+        moveafter("Global Dimension 1 Code"; "Currency Code")
 
         addafter("Currency Code")
         {
@@ -190,7 +195,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(5),
                                                                 "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
-                Visible = false;
+                Visible = true;
 
                 trigger OnValidate()
                 begin
@@ -198,21 +203,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 end;
             }
 
-            field(ShortcutDimCode6; ShortcutDimCode[6])
-            {
-                ApplicationArea = Dimensions;
-                CaptionClass = '1,2,6';
-                ToolTip = 'Global Dimension 6 Code';
-                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(6),
-                                                                "Dimension Value Type" = const(Standard),
-                                                                  Blocked = const(false));
-                Visible = true;
 
-                trigger OnValidate()
-                begin
-                    ValidateShortcutDimension(6);
-                end;
-            }
 
             field("Power Up Code"; Rec."Power Up Level")
             {
@@ -278,7 +269,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 ApplicationArea = All;
                 Caption = 'On Hold Count';
                 ToolTip = 'On Hold Count';
-                Visible = true;
+                Visible = false;
             }
 
             field("NSF Count"; Rec."NSF Count")
@@ -349,7 +340,7 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
                 ToolTip = 'Profit ($)';
                 DecimalPlaces = 2;
                 Editable = false;
-                Visible = true;
+                Visible = false;
             }
 
             field(SystemCreatedBy; Rec.SystemCreatedBy)
@@ -419,6 +410,10 @@ pageextension 50028 TorlysCustomerList extends "Customer List"
         }
 
         modify("Payments (LCY)")
+        {
+            Visible = false;
+        }
+        modify("Sales (LCY)")
         {
             Visible = false;
         }

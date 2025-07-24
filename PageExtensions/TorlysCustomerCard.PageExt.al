@@ -1,6 +1,8 @@
 
 pageextension 50021 TorlysCustomerCard extends "Customer Card"
+
 {
+
     layout
     {
         moveafter("No."; Name, "Search Name")
@@ -208,12 +210,21 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             {
                 ApplicationArea = All;
                 Caption = 'Credit Warnings';
-                Editable = false;
                 ToolTip = 'Specifies the number of times that the customer''s credit limit has been exceeded.';
             }
         }
 
         moveafter("Credit Warnings"; "Tax Liable", "Tax Area Code", "Tax Identification Type", "Registration Number", "VAT Registration No.", "Tax Exemption No.")
+
+        addafter("Customer Posting Group")
+
+        {
+            field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
+            {
+                ApplicationArea = All;
+            }
+
+        }
 
         addfirst(PricesandDiscounts)
         {
@@ -233,7 +244,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Restocking Fee %';
                 DecimalPlaces = 2 : 1;
-                Editable = false;
                 ToolTip = 'Specifies the percentage of the item that is restocked when the item is restocked.';
             }
 
@@ -242,7 +252,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Restocking Fee Minimum';
                 DecimalPlaces = 2;
-                Editable = false;
                 ToolTip = 'Specifies the minimum amount of the item that is restocked when the item is restocked.';
             }
 
@@ -631,5 +640,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
+
+
 
 }

@@ -17,8 +17,8 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
             field("Roll out Order"; Rec."Roll out Order")
             {
-                Caption = 'Roll-out Order';
-                ToolTip = 'Roll-out Order';
+                Caption = 'Roll out Order';
+                ToolTip = 'Roll out Order';
                 ApplicationArea = All;
                 Importance = Additional;
             }
@@ -146,44 +146,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         }
 
 
-        movefirst("Invoice Details"; BillToOptions)
-
-        addafter(BillToOptions)
-        {
-            field("Total Excl. Tax"; Rec."Total Excl. Tax")
-            {
-                Caption = 'Total Excl. Tax';
-                ToolTip = 'Total Excl. Tax';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Total Tax"; Rec."Total Tax")
-            {
-                Caption = 'Total Tax';
-                ToolTip = 'Total Tax';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Total Incl. Tax"; Rec."Total Incl. Tax")
-            {
-                Caption = 'Total Incl. Tax';
-                ToolTip = 'Total Incl. Tax';
-                ApplicationArea = All;
-                Importance = Promoted;
-            }
-
-            field("Region Code"; Rec."Region Code")
-            {
-                Caption = 'Region Code';
-                ToolTip = 'Region Code';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-        }
-
-        moveafter("Region Code"; "Currency Code", "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Terms Code", "Due Date", "Tax Liable", "Tax Area Code")
+        movefirst("Invoice Details"; BillToOptions, "Shortcut Dimension 1 Code", "Currency Code", "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Terms Code", "Due Date", "Tax Liable", "Tax Area Code")
 
         movefirst("Shipping and Billing"; "Shipment Method", "Shipment Method Code", "Shipping Agent Code")
 
@@ -280,7 +243,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         modify("Due Date")
         {
-            Importance = Promoted;
+            Visible = false;
         }
 
         modify("Shipping Agent Service Code")
@@ -290,7 +253,28 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         modify("Shortcut Dimension 1 Code")
         {
-            Visible = false;
+            Importance = Promoted;
+        }
+        modify("Currency Code")
+        {
+            Importance = Additional;
+        }
+        modify("Gen. Bus. Posting Group")
+        {
+            Importance = Additional;
+            Editable = false;
+        }
+        modify("Customer Posting Group")
+        {
+            Importance = Additional;
+        }
+        modify("Tax Liable")
+        {
+            Importance = Additional;
+        }
+        modify("Tax Area Code")
+        {
+            Importance = Additional;
         }
 
         modify("Sell-to Contact")

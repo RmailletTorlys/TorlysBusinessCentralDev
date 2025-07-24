@@ -15,18 +15,18 @@ pageextension 50030 TorlysItemCard extends "Item Card"
 
             }
 
-            field(ShortcutDimCode3; ShortcutDimCode[3])
+            field(ShortcutDimCode4; ShortcutDimCode[4])
             {
-                CaptionClass = '1,2,3';
-                ToolTip = 'Global Dimension 3 Code';
+                CaptionClass = '1,2,4';
+                ToolTip = 'Global Dimension 4 Code';
                 ApplicationArea = Dimensions;
-                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4),
                                                                 "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
                 trigger OnValidate()
                 begin
-                    ValidateShortcutDimension(3);
+                    ValidateShortcutDimension(4);
                 end;
             }
         }
@@ -310,8 +310,12 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         moveafter("Replacement Cost Date"; "Cost is Adjusted", "Cost is Posted to G/L")
         moveafter("Allow SO Unit Cost Edit"; SpecialPurchPriceListTxt, "Posting Details")
         moveafter("Inventory Posting Group"; "Tax Group Code")
+
+
+
         addafter("Tax Group Code")
         {
+
             field("Automatically Allocate"; Rec."Automatically Allocate")
             {
                 Caption = 'Automatically Allocate';

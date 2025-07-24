@@ -4,10 +4,10 @@ pageextension 50124 "Torlys Comment Sheet" extends "Comment Sheet"
     {
         addafter(Code)
         {
-            field(Type; Rec.Type)
+            field(Type; Rec."Comment Type")
             {
                 ApplicationArea = All;
-                Caption = 'Type';
+                Caption = 'Comment Type';
                 ToolTip = 'Specifies the type of comment.';
 
             }

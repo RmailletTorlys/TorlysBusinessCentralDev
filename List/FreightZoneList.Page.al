@@ -41,11 +41,11 @@ page 55001 "Freight Zone List"
                     Caption = 'End Date';
                     ToolTip = 'End date of the freight zone.';
                 }
-                field(RatePerSqftFlooring; Rec."Rate per sqft (flooring)")
+                field(RatePerSqftFlooring; Rec."Rate per sqft (floor)")
                 {
                     ApplicationArea = All;
-                    Caption = 'Rate per sqft (flooring)';
-                    ToolTip = 'Rate per sqft (flooring).';
+                    Caption = 'Rate per sqft (floor)';
+                    ToolTip = 'Rate per sqft (floor).';
                 }
                 field(MinimumCharge; Rec."Minimum Charge")
                 {
@@ -53,23 +53,23 @@ page 55001 "Freight Zone List"
                     Caption = 'Minimum Charge';
                     ToolTip = 'Minimum Charge.';
                 }
-                field(RatePerRollUnderlay; Rec."Rate per Roll(Underlay)")
+                field(RatePerRollUnderlay; Rec."Rate per Roll (underlay)")
                 {
                     ApplicationArea = All;
-                    Caption = 'Rate per Roll(Underlay)';
-                    ToolTip = 'Rate per Roll(Underlay).';
+                    Caption = 'Rate per Roll (underlay)';
+                    ToolTip = 'Rate per Roll (underlay).';
                 }
-                field(RatePerCaseSheetUnderlay; Rec."Rate per Case(Sheet underlay)")
+                field(RatePerCaseSheetUnderlay; Rec."Rate per Case (sheet underlay)")
                 {
                     ApplicationArea = All;
-                    Caption = 'Rate per Case(Sheet underlay)';
-                    ToolTip = 'Rate per Case(Sheet underlay).';
+                    Caption = 'Rate per Case (sheet underlay)';
+                    ToolTip = 'Rate per Case (sheet underlay).';
                 }
-                field(MinimumChargeMoulding; Rec."Minimum Charge(Moulding)")
+                field(MinimumChargeMoulding; Rec."Minimum Charge (moulding)")
                 {
                     ApplicationArea = All;
-                    Caption = 'Minimum Charge(Moulding)';
-                    ToolTip = 'Minimum Charge(Moulding).';
+                    Caption = 'Minimum Charge (moulding)';
+                    ToolTip = 'Minimum Charge (moulding).';
                 }
                 field(TailgateCharge; Rec."Tailgate Charge")
                 {

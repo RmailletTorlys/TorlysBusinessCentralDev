@@ -43,7 +43,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50007; "Order Type"; Code[20])
+        field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
             TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
@@ -186,11 +186,11 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50031; "Order Method"; Code[20])
+        field(50031; "Order Method"; Code[25])
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values";
+            TableRelation = "Torlys Lookup Values" where(Type = const("Order Method"));
         }
 
         field(50032; "Total Excl. Tax"; Decimal)
@@ -278,7 +278,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
                 SalesCommentLine.Init();
                 SalesCommentLine."Document Type" := Rec."Document Type";
                 SalesCommentLine."No." := Rec."No.";
-                SalesCommentLine."Type" := CommentLine.Type;
+                SalesCommentLine."Comment Type" := CommentLine."Comment Type";
                 SalesCommentLine."Line No." := LineNo;
                 LineNo += 10000;
                 SalesCommentLine.Date := CommentLine.Date;

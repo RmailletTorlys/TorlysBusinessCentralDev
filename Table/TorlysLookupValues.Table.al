@@ -2,16 +2,20 @@ table 55006 "Torlys Lookup Values"
 {
     DataClassification = CustomerContent;
     Caption = 'TORLYS Lookup Values';
+    LookupPageId = "Lookup Values Lookup";
+    DrillDownPageId = "Lookup Values List";
+
 
 
     fields
     {
-        field(1; "Type"; Enum "Torlys Lookup Values")
+        field(1; "Type"; Option)
         {
             Caption = 'Type';
             DataClassification = CustomerContent;
+            OptionMembers = " ","Order Type","Order Method","Comment Type";
         }
-        field(2; "Code"; Code[20])
+        field(2; "Code"; Code[25])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
@@ -30,13 +34,5 @@ table 55006 "Torlys Lookup Values"
             Clustered = true;
         }
 
-    }
-
-    fieldgroups
-    {
-        fieldgroup(Dropdown; "Code", "Description")
-        {
-            Caption = 'Drop Down';
-        }
     }
 }

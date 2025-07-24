@@ -4,15 +4,19 @@ enum 50004 "Torlys Lookup Values"
     Extensible = true;
     AssignmentCompatibility = true;
 
-    value(0; "Order Method")
+    value(0; " ")
+    {
+        Caption = ' ';
+    }
+    value(1; "Order Method")
     {
         Caption = 'Order Method';
     }
-    value(1; "Order Type")
+    value(2; "Order Type")
     {
         Caption = 'Order Type';
     }
-    value(2; "Comment Type")
+    value(3; "Comment Type")
     {
         Caption = 'Comment Type';
     }

@@ -67,7 +67,7 @@ tableextension 50038 TorlysPurchaseHeader extends "Purchase Header"
                 PurchaseCommentLine.Init();
                 PurchaseCommentLine."Document Type" := Rec."Document Type";
                 PurchaseCommentLine."No." := Rec."No.";
-                PurchaseCommentLine."Type" := CommentLine.Type;
+                PurchaseCommentLine."Comment Type" := CommentLine."Comment Type";
                 PurchaseCommentLine."Line No." := LineNo;
                 LineNo += 10000;
                 PurchaseCommentLine.Date := CommentLine.Date;

@@ -22,6 +22,18 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
 
                 DayOfWeekNo := Date2DWY("Shipment Date", 1);
 
+                ShippingAgent1.Get("Shipping Agent Code");
+                If ShippingAgent1."Pickup/Beyond Method" then begin
+                    ShipToAddress[1] := "Ship-to Name";
+                    ShipToAddress[2] := ShippingAgent1."Pickup/Beyond Address 1";
+                    ShipToAddress[3] := ShippingAgent1."Pickup/Beyond Address 2";
+                    ShipToAddress[4] := ShippingAgent1."Pickup/Beyond Address 3";
+                    ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 4";
+                    ShipToAddress[6] := ShippingAgent1."Pickup/Beyond Address 5";
+                end else begin
+                    FmtAddress.SalesShptShipTo(ShipToAddress, "Sales Shipment Header");
+                end;
+
                 if DayOfWeekNo = 1 then begin
                     DayOfWeek := 'Monday';
                 end else if DayOfWeekNo = 2 then begin
@@ -92,9 +104,12 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
     var
         ShipmentMethod: Record "Shipment Method";
         ShippingAgent: Record "Shipping Agent";
+        ShippingAgent1: Record "Shipping Agent";
         Location: Record Location;
         FmtAddress: Codeunit "Format Address";
         LocationAddress: array[8] of Text[100];
+        ShipToAddress: array[8] of Text[100];
         DayOfWeekNo: Integer;
         DayOfWeek: Text;
+        ShipDate: Text[10];
 }

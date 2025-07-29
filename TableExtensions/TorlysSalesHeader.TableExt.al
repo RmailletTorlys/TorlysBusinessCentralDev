@@ -267,7 +267,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         CommentLine.SetRange("No.", Rec."Sell-to Customer No.");
         CommentLine.SetRange("Copy to Sales Order", true);
         if CommentLine.FindSet() then BEGIN
-            SalesCommentLine.RESET;
+            SalesCommentLine.RESET();
             SalesCommentLine.SETCURRENTKEY("Document Type", "No.");
             SalesCommentLine.SETRANGE("Document Type", "Document Type");
             SalesCommentLine.SETRANGE("No.", "No.");
@@ -278,7 +278,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
                 SalesCommentLine.Init();
                 SalesCommentLine."Document Type" := Rec."Document Type";
                 SalesCommentLine."No." := Rec."No.";
-                SalesCommentLine."Comment Type" := CommentLine."Comment Type";
+                SalesCommentLine."Type" := CommentLine."Type";
                 SalesCommentLine."Line No." := LineNo;
                 LineNo += 10000;
                 SalesCommentLine.Date := CommentLine.Date;

@@ -36,7 +36,7 @@ page 55003 "Freight Zone Card"
                     Caption = 'End Date';
                     ToolTip = 'End date of the freight zone.';
                 }
-                field(RatePerSqftFlooring; Rec."Rate per sqft (floor)")
+                field(RatePerSqftFlooring; Rec."Rate per sqft (flooring)")
                 {
                     ApplicationArea = All;
                     Caption = 'Rate per sqft (floor)';
@@ -48,19 +48,19 @@ page 55003 "Freight Zone Card"
                     Caption = 'Minimum Charge';
                     ToolTip = 'Minimum Charge.';
                 }
-                field(RatePerRollUnderlay; Rec."Rate per Roll (underlay)")
+                field(RatePerRollUnderlay; Rec."Rate per Roll(underlay)")
                 {
                     ApplicationArea = All;
                     Caption = 'Rate per Roll (underlay)';
                     ToolTip = 'Rate per Roll (underlay).';
                 }
-                field(RatePerCaseSheetUnderlay; Rec."Rate per Case (sheet underlay)")
+                field(RatePerCaseSheetUnderlay; Rec."Rate per Case(sheet underlay)")
                 {
                     ApplicationArea = All;
                     Caption = 'Rate per Case (sheet underlay)';
                     ToolTip = 'Rate per Case (sheet underlay).';
                 }
-                field(MinimumChargeMoulding; Rec."Minimum Charge (moulding)")
+                field(MinimumChargeMoulding; Rec."Minimum Charge(moulding)")
                 {
                     ApplicationArea = All;
                     Caption = 'Minimum Charge (moulding)';

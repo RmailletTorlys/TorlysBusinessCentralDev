@@ -47,7 +47,8 @@ page 50002 "Sales Price Code List"
             action(New)
             {
                 Caption = 'New Sales Price Code';
-                ToolTip = 'Create a new price cocde.';
+                ToolTip = 'Create a new price code.';
+                ApplicationArea = All;
                 Image = New;
                 Promoted = true;
                 PromotedCategory = New;

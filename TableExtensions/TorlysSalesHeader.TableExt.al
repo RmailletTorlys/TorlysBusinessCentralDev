@@ -278,7 +278,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
                 SalesCommentLine.Init();
                 SalesCommentLine."Document Type" := Rec."Document Type";
                 SalesCommentLine."No." := Rec."No.";
-                SalesCommentLine."Type" := CommentLine."Type";
+                SalesCommentLine."Comment Type" := CommentLine."Comment Type";
                 SalesCommentLine."Line No." := LineNo;
                 LineNo += 10000;
                 SalesCommentLine.Date := CommentLine.Date;

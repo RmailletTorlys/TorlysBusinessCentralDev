@@ -2,7 +2,7 @@
     "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
-    "version": "1.0.9.4",
+    "version": "1.0.10.1",
     "brief": "",
     "description": "",
     "privacyStatement": "",
@@ -14,19 +14,37 @@
         {
             "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
             "name": "Sustainability",
-            "version": "26.1.33404.34471",
+            "version": "26.2.34746.36197",
             "publisher": "Microsoft"
         },
         {
             "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
             "name": "E-Document Core",
-            "version": "26.1.33404.33834",
+            "version": "26.2.34746.36889",
             "publisher": "Microsoft"
+        },
+        {
+            "id": "e036113a-c9ad-4354-ab15-213d62be5127",
+            "name": "Container Management",
+            "version": "1.0.231.0",
+            "publisher": "Ternpoint Solutions LP"
+        },
+        {
+            "id": "8c70d081-5c33-431c-a585-66ed91a6f257",
+            "name": "Lanham App Library",
+            "version": "18.1.5.0",
+            "publisher": "Lanham Associates"
+        },
+        {
+            "id": "a8c19647-b664-4902-a66a-c9f19da9121e",
+            "name": "Lanham Demand Planning",
+            "version": "25.3.6.11",
+            "publisher": "Lanham Associates"
         }
     ],
     "screenshots": [],
     "platform": "1.0.0.0",
-    "application": "26.0.36152.0",
+    "application": "26.2.34746.35601",
     "idRanges": [
         {
             "from": 50000,

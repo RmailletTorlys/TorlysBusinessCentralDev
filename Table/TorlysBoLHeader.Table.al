@@ -23,6 +23,7 @@ table 55002 "Torlys BOL Header"
         {
             Caption = 'No. Series';
             DataClassification = CustomerContent;
+            TableRelation = "No. Series";
         }
 
         field(4; "Customer No."; Code[10])
@@ -35,17 +36,17 @@ table 55002 "Torlys BOL Header"
         field(5; "Ship-to Code"; Code[10])
         {
             Caption = 'Ship-to Code';
-            TableRelation = "Customer";
+            TableRelation = "Ship-to Address".Code where("Customer No." = field("Customer No."));
             DataClassification = CustomerContent;
         }
 
-        field(6; "Ship-to Name"; Text[50])
+        field(6; "Ship-to Name"; Text[100])
         {
             Caption = 'Ship-to Name';
             DataClassification = CustomerContent;
         }
 
-        field(7; "Ship-to Address"; Text[50])
+        field(7; "Ship-to Address"; Text[100])
         {
             Caption = 'Ship-to Address';
             DataClassification = CustomerContent;
@@ -85,6 +86,7 @@ table 55002 "Torlys BOL Header"
         {
             Caption = 'Shipping Agent Code';
             DataClassification = CustomerContent;
+            TableRelation = "Shipping Agent";
         }
 
         field(14; "Freight Type"; Option)

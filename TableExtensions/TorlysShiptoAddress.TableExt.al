@@ -44,4 +44,12 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
         }
     }
 
+    keys
+    {
+        key(key2; "Code")
+        {
+
+        }
+    }
+
 }

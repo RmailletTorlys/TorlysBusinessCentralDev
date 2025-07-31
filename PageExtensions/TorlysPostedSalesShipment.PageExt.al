@@ -256,6 +256,13 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                 ToolTip = 'Shipping Advice';
                 ApplicationArea = All;
             }
+
+            field("BoL No."; Rec."BoL No.")
+            {
+                Caption = 'BoL No.';
+                ToolTip = 'BoL No.';
+                ApplicationArea = All;
+            }
         }
 
         modify("No.")

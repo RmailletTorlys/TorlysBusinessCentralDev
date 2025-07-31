@@ -232,6 +232,30 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
+        field(50038; "BoL No."; Code[20])
+        {
+            Caption = 'BoL No.';
+            TableRelation = "Torlys BOL Header";
+            DataClassification = CustomerContent;
+        }
+
     }
 
+    keys
+    {
+        key(key8; "Ship-to Code")
+        {
+
+        }
+
+        key(key9; "Shipping Agent Code")
+        {
+
+        }
+
+        key(key10; "Shipment Date")
+        {
+
+        }
+    }
 }

@@ -1,17 +1,12 @@
-page 55006 "Torlys BOL Subform"
+page 55008 "Torlys BoL Line"
 {
-    AutoSplitKey = true;
+    ApplicationArea = Basic, Suite;
     Caption = 'BoL Lines';
-    DelayedInsert = true;
+    Editable = true;
     LinksAllowed = false;
-    MultipleNewLines = true;
-    PageType = ListPart;
+    PageType = List;
     SourceTable = "Torlys BOL Line";
-
-
-
-
-
+    UsageCategory = Lists;
 
     layout
     {
@@ -20,11 +15,12 @@ page 55006 "Torlys BOL Subform"
             repeater(Control1)
             {
                 ShowCaption = false;
-                field("BOL No."; Rec."BOL No.")
+
+                field("BoL No."; Rec."BOL No.")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the number of the bill of lading.';
-                    Caption = 'BOL No.';
+                    ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
+                    Caption = 'BoL No.';
                 }
 
                 field("Order No."; Rec."Order No.")
@@ -39,13 +35,6 @@ page 55006 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the shipment that is being shipped.';
                     Caption = 'Shipment No.';
-                }
-
-                field("Shipment Date"; Rec."Shipment Date")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the date of the shipment.';
-                    Caption = 'Shipment Date';
                 }
 
                 field("Customer No."; Rec."Customer No.")
@@ -70,7 +59,6 @@ page 55006 "Torlys BOL Subform"
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to address';
-
                 }
 
                 field("Ship-to Address 2"; Rec."Ship-to Address 2")
@@ -78,6 +66,7 @@ page 55006 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the second line of the address of the ship-to address.';
                     Caption = 'Ship-to Address 2';
+
                 }
 
                 field("Ship-to City"; Rec."Ship-to City")
@@ -86,45 +75,18 @@ page 55006 "Torlys BOL Subform"
                     ToolTip = 'The associated ship-to city';
                 }
 
-                field("Ship-to State"; Rec."Ship-to County")
+                field("Ship-to County"; Rec."Ship-to County")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the state of the ship-to address.';
-                    Caption = 'Ship-to State';
-                }
-                field("Ship-to Country"; Rec."Ship-to Country/Region Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the country of the ship-to address.';
-                    Caption = 'Ship-to Country';
+                    ToolTip = 'Specifies the county of the ship-to address.';
+                    Caption = 'Ship-to County';
                 }
 
-                field("Ship-to Comment 1"; Rec."Destination Instruction 1")
+                field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the comment for the ship-to address.';
-                    Caption = 'Ship-to Comment 1';
-                }
-
-                field("Ship-to Comment 2"; Rec."Destination Instruction 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the comment for the ship-to address.';
-                    Caption = 'Ship-to Comment 2';
-                }
-
-                field("Total Weight"; Rec."Total Weight")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the total weight of the shipment.';
-                    Caption = 'Total Weight';
-                }
-
-                field("Total Cases"; Rec."Total Cases")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the total number of cases in the shipment.';
-                    Caption = 'Total Cases';
+                    ToolTip = 'Specifies the post code of the ship-to address.';
+                    Caption = 'Ship-to Post Code';
                 }
             }
         }

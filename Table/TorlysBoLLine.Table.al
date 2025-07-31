@@ -2,6 +2,9 @@ table 55003 "Torlys BOL Line"
 {
     DataClassification = CustomerContent;
     Caption = 'Torlys BOL Line';
+    DrillDownPageId = "Torlys BoL Line";
+    LookupPageId = "Torlys BoL Line";
+
 
     fields
     {
@@ -17,7 +20,7 @@ table 55003 "Torlys BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(3; "Customer No."; Code[10])
+        field(3; "Customer No."; Code[20])
         {
             Caption = 'Customer No.';
             TableRelation = "Customer";
@@ -30,13 +33,13 @@ table 55003 "Torlys BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(5; "Ship-to Name"; Text[50])
+        field(5; "Ship-to Name"; Text[100])
         {
             Caption = 'Ship-to Name';
             DataClassification = CustomerContent;
         }
 
-        field(6; "Ship-to Address"; Text[50])
+        field(6; "Ship-to Address"; Text[100])
         {
             Caption = 'Ship-to Address';
             DataClassification = CustomerContent;
@@ -111,7 +114,7 @@ table 55003 "Torlys BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(18; "Destination Instruction 2"; Date)
+        field(18; "Destination Instruction 2"; Text[50])
         {
             Caption = 'Destination Instruction 2';
             DataClassification = CustomerContent;

@@ -190,7 +190,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Order Method"));
+            TableRelation = "Torlys Lookup Values".Code where(Type = const("Order Method"));
         }
 
         field(50032; "Total Excl. Tax"; Decimal)

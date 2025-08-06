@@ -42,6 +42,16 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
             Caption = 'Pump Truck Required';
             DataClassification = CustomerContent;
         }
+        field(50010; "Destination Instructions 1"; Text[50])
+        {
+            Caption = 'Destination Instructions 1';
+            DataClassification = CustomerContent;
+        }
+        field(50011; "Destination Instructions 2"; Text[50])
+        {
+            Caption = 'Destination Instructions 2';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

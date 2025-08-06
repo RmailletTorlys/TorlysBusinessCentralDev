@@ -38,6 +38,11 @@ table 55002 "Torlys BOL Header"
             Caption = 'Ship-to Code';
             TableRelation = "Ship-to Address".Code where("Customer No." = field("Customer No."));
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                OnAfterLookupOnSetShipToInfo("Ship-to Code");
+            end;
         }
 
         field(6; "Ship-to Name"; Text[100])
@@ -130,33 +135,58 @@ table 55002 "Torlys BOL Header"
         {
             Caption = 'No. of Skids';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                UpdatePieceCount();
+            end;
         }
 
         field(21; "No. of Boxes"; Integer)
         {
             Caption = 'No. of Boxes';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                UpdatePieceCount();
+            end;
         }
 
         field(22; "No. of Tubes"; Integer)
         {
             Caption = 'No. of Tubes';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                UpdatePieceCount();
+            end;
         }
 
         field(23; "No. of Packages"; Integer)
         {
             Caption = 'No. of Packages';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                UpdatePieceCount();
+            end;
         }
 
         field(24; "No. of Rolls"; Integer)
         {
             Caption = 'No. of Rolls';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                UpdatePieceCount();
+            end;
         }
 
-        field(25; "Piece Count"; text[50])
+        field(25; "Piece Count"; text[260])
         {
             Caption = 'Piece Count';
             DataClassification = CustomerContent;
@@ -316,5 +346,157 @@ table 55002 "Torlys BOL Header"
             Clustered = true;
         }
     }
+
+    var
+        PieceCount: Text[260];
+        SkidCount: Text[50];
+        BoxCount: Text[50];
+        TubeCount: Text[50];
+        PackageCount: Text[50];
+        RollCount: Text[50];
+
+    local procedure OnAfterLookupOnSetShipToInfo(ShipToCode: Code[10])
+    var
+        ShipTo: Record "Ship-to Address";
+        IsHandled: Boolean;
+
+    begin
+        OnBeforeOnAfterLookupOnSetShipToInfo(ShipToCode, IsHandled);
+        if IsHandled then
+            exit;
+
+        if Rec."Ship-to Code" = '' then begin
+            Rec."Ship-to Name" := '';
+            Rec."Ship-to Address" := '';
+            Rec."Ship-to Address 2" := '';
+            Rec."Ship-to City" := '';
+            Rec."Ship-to Post Code" := '';
+            exit;
+        end;
+
+        ShipTo.Reset();
+        ShipTo.SetRange("Customer No.", Rec."Customer No.");
+        ShipTo.SetRange(Code, Rec."Ship-to Code");
+
+
+        if ShipTo.FindFirst() then begin
+            Rec."Ship-to Name" := ShipTo."Name";
+            Rec."Ship-to Address" := ShipTo."Address";
+            Rec."Ship-to Address 2" := ShipTo."Address 2";
+            Rec."Ship-to City" := ShipTo."City";
+            Rec."Ship-to Post Code" := ShipTo."Post Code";
+            Rec."Destination Instructions 1" := ShipTo."Destination Instructions 1";
+            Rec."Destination Instructions 2" := ShipTo."Destination Instructions 2";
+
+        end else
+            Message('No ship-to address found for the selected Ship-to Code. Please verify and try again');
+
+        OnAfterOnAfterLookupOnSetShipToInfo(ShipToCode);
+
+    end;
+
+    local procedure UpdatePieceCount()
+    begin
+        //Create a Message that only displays the content item if gt 0
+
+
+        if Rec."No. of Skids" > 0 then begin
+            SkidCount := Rec."No. of Skids".ToText() + ' Skid /';
+            if Rec."No. of Skids" > 1 then
+                SkidCount := Rec."No. of Skids".ToText() + ' Skids /';
+        end;
+
+
+        if Rec."No. of Boxes" > 0 then begin
+            BoxCount := Rec."No. of Boxes".ToText() + ' Box /';
+            if Rec."No. of Boxes" > 1 then
+                BoxCount := Rec."No. of Boxes".ToText() + ' Boxes /';
+        end;
+
+        if Rec."No. of Tubes" > 0 then begin
+            TubeCount := Rec."No. of Tubes".ToText() + ' Tube /';
+            if Rec."No. of Tubes" > 1 then
+                TubeCount := Rec."No. of Tubes".ToText() + ' Tubes /';
+        end;
+
+        if Rec."No. of Packages" > 0 then begin
+            PackageCount := Rec."No. of Packages".ToText() + ' Package /';
+            if Rec."No. of Packages" > 1 then
+                PackageCount := Rec."No. of Packages".ToText() + ' Packages /';
+        end;
+
+        if Rec."No. of Rolls" > 0 then begin
+            RollCount := Rec."No. of Rolls".ToText() + ' Roll';
+            if Rec."No. of Rolls" > 1 then
+                RollCount := Rec."No. of Rolls".ToText() + ' Rolls';
+        end;
+
+        PieceCount := SkidCount + BoxCount + TubeCount + PackageCount + RollCount;
+
+        Rec."Piece Count" := PieceCount;
+
+    end;
+
+
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnAfterLookupOnSetShipToInfo(ShipToCode: Code[10]; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterOnAfterLookupOnSetShipToInfo(ShipToCode: Code[10])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnUpdateNoOfSkids(NoofSkids: Integer; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterOnUpdateNoOfSkids(NoofSkids: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnUpdateNoOfBoxes(NoofBoxes: Integer; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterOnUpdateNoOfBoxes(NoofBoxes: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnUpdateNoOfTubes(NoofTubes: Integer; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterOnUpdateNoOfTubes(NoofTubes: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnUpdateNoOfPackages(NoofPackages: Integer; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterOnUpdateNoOfPackages(NoofPackages: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnUpdateNoOfRolls(NoofRolls: Integer; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterOnUpdateNoOfRolls(NoofRolls: Integer)
+    begin
+    end;
 
 }

@@ -11,7 +11,7 @@ codeunit 57003 "TorlysPriceCodeSourcePriceCalc"
         SalesHeader: Record "Sales Header";
         PriceCalculation: Interface "Price Calculation";
     begin
-        SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Sales Price Code");
+        SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
         SalesLine.TestField("Qty. per Unit of Measure");
 
         SalesLine.GetPriceCalculationHandler("Price Type"::Sale, SalesHeader, PriceCalculation);

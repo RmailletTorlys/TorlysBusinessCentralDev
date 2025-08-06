@@ -40,11 +40,6 @@ page 55005 "Torlys BOL"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the code of the ship-to address.';
                     Caption = 'Ship-to Code';
-
-                    trigger OnAfterLookup(Selected: RecordRef)
-                    begin
-                        OnAfterLookupOnSetShipToInfo(Selected);
-                    end;
                 }
 
 
@@ -136,6 +131,47 @@ page 55005 "Torlys BOL"
                     ToolTip = 'Specifies the second line of the shipping instructions.';
                     Caption = 'Shipping Instructions 2';
                 }
+                group("Shipment Contents")
+                {
+                    Caption = 'Shipment Contents';
+                    field("No. of Skids"; Rec."No. of Skids")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the number of skids in the shipment.';
+                        Caption = 'No. of Skids';
+                    }
+                    field("No. of Boxes"; Rec."No. of Boxes")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the number of boxes in the shipment.';
+                        Caption = 'No. of Boxes';
+                    }
+                    field("No. of Tubes"; Rec."No. of Tubes")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the number of tubes in the shipment.';
+                        Caption = 'No. of Tubes';
+                    }
+                    field("No. of Packages"; Rec."No. of Packages")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the number of packages in the shipment.';
+                        Caption = 'No. of Packages';
+                    }
+                    field("No. of Rolls"; Rec."No. of Rolls")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the number of rolls in the shipment.';
+                        Caption = 'No. of Rolls';
+                    }
+
+                    field("Piece Count"; Rec."Piece Count")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the number of pieces in the shipment.';
+                        Caption = 'Piece Count';
+                    }
+                }
             }
 
             group(Destination)
@@ -164,6 +200,135 @@ page 55005 "Torlys BOL"
                 SubPageLink = "BOL No." = field("No.");
                 UpdatePropagation = Both;
             }
+
+            group(WeightsQuantities)
+            {
+                Caption = 'Weights & Quantities';
+                group(Weights)
+                {
+
+                    Caption = 'Weights';
+
+                    field("Weight - Flooring"; Rec."Weight - Flooring")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the weight of the flooring in the shipment.';
+                        Caption = 'Weight - Flooring';
+                    }
+
+                    field("Weight - Underlayment Rolls"; Rec."Weight - Underlayment Rolls")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the weight of the underlayment rolls in the shipment.';
+                        Caption = 'Weight - Underlayment Rolls';
+                    }
+
+                    field("Weight - Mouldings"; Rec."Weight - Mouldings")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the weight of the mdlings in the shipment.';
+                        Caption = 'Weight - Mouldings';
+                    }
+
+                    field("Weight - Other"; Rec."Weight - Other")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the weight of other items in the shipment.';
+                        Caption = 'Weight - Other';
+                    }
+
+                    field("Weight - Total"; Rec."Weight - Total")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the total weight of the shipment.';
+                        Caption = 'Weight - Total';
+                    }
+
+                }
+
+                group(Quantity)
+                {
+                    Caption = 'Quantity(CASE)';
+
+                    field("Cases - Flooring"; Rec."Cases - Flooring")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the quantity of the flooring in the shipment.';
+                        Caption = 'Case - Flooring';
+                    }
+
+                    field("Cases - Underlayment Rolls"; Rec."Cases - Underlayment Rolls")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the quantity of the underlayment rolls in the shipment.';
+                        Caption = 'Cases - Underlayment Rolls';
+                    }
+
+                    field("Cases - Mouldings"; Rec."Cases - Mouldings")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the quantity of the mdlings in the shipment.';
+                        Caption = 'Cases - Mouldings';
+
+                    }
+
+                    field("Cases - Other"; Rec."Cases - Other")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the quantity of other items in the shipment.';
+                        Caption = 'Cases - Other';
+
+                    }
+
+                    field("Cases - Total"; Rec."Cases - Total")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the total quantity of the shipment.';
+                        Caption = 'Cases - Total';
+                    }
+
+                }
+
+                group(Quantity2)
+                {
+                    Caption = 'Quantity(BASE)';
+
+                    field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
+                        Caption = 'Base Quantity - Flooring';
+                    }
+
+                    field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
+                        Caption = 'Base Quantity - Underlayment Rolls';
+                    }
+
+                    field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
+                        Caption = 'Base Quantity - Mouldings';
+                    }
+
+                    field("Base Quantity - Other"; Rec."Base Quantity - Other")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the base quantity of other items in the shipment.';
+                        Caption = 'Base Quantity - Other';
+                    }
+
+                    field("Base Quantity - Total"; Rec."Base Quantity - Total")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        ToolTip = 'Specifies the total base quantity of the shipment.';
+                        Caption = 'Base Quantity - Total';
+                    }
+                }
+            }
         }
     }
 
@@ -186,42 +351,7 @@ page 55005 "Torlys BOL"
         }
     }
 
-    local procedure OnAfterLookupOnSetShipToInfo(Selected: RecordRef)
-    var
-        ShipTo: Record "Ship-to Address";
-        IsHandled: Boolean;
 
-    begin
-        OnBeforeOnAfterLookupOnSetShipToInfo(Selected, IsHandled);
-        if IsHandled then
-            exit;
-
-        if Rec."Ship-to Code" = '' then begin
-            Rec."Ship-to Name" := '';
-            Rec."Ship-to Address" := '';
-            Rec."Ship-to Address 2" := '';
-            Rec."Ship-to City" := '';
-            Rec."Ship-to Post Code" := '';
-            exit;
-        end;
-
-        ShipTo.Reset();
-        ShipTo.SetRange("Customer No.", Rec."Customer No.");
-        ShipTo.SetRange(Code, Rec."Ship-to Code");
-
-
-        if ShipTo.FindFirst() then begin
-            Rec."Ship-to Name" := ShipTo."Name";
-            Rec."Ship-to Address" := ShipTo."Address";
-            Rec."Ship-to Address 2" := ShipTo."Address 2";
-            Rec."Ship-to City" := ShipTo."City";
-            Rec."Ship-to Post Code" := ShipTo."Post Code";
-        end else
-            Message('No ship-to address found for the selected Ship-to Code. Please verify and try again');
-
-        OnAfterOnAfterLookupOnSetShipToInfo(Selected);
-
-    end;
 
     internal procedure GetShipments()
     var
@@ -231,6 +361,24 @@ page 55005 "Torlys BOL"
         UpdateBoL: Codeunit UpdateBillOfLadingOnShipHeader;
         IsHandled: Boolean;
         CurrentLine: Integer;
+        PostedShipmentCases: Integer;
+        PostedShipmentPallets: Integer;
+        PostedShipmentWeight: Decimal;
+        WeightFloor: Decimal;
+        WeightUL: Decimal;
+        WeightMould: Decimal;
+        WeightOther: Decimal;
+        CaseFloor: Decimal;
+        CaseUL: Decimal;
+        CaseMould: Decimal;
+        CaseOther: Decimal;
+        BaseFloor: Decimal;
+        BaseUL: Decimal;
+        BaseMould: Decimal;
+        BaseOther: Decimal;
+
+
+
     begin
         OnBeforeFindBoLEntries(IsHandled);
         if IsHandled then
@@ -238,6 +386,23 @@ page 55005 "Torlys BOL"
 
         PostedShipments.Reset();
         PostedShipmentLines.Reset();
+        PostedShipmentWeight := 0;
+        PostedShipmentCases := 0;
+        PostedShipmentPallets := 0;
+        WeightFloor := 0;
+        WeightUL := 0;
+        WeightMould := 0;
+        WeightOther := 0;
+        CaseFloor := 0;
+        CaseUL := 0;
+        CaseMould := 0;
+        CaseOther := 0;
+        BaseFloor := 0;
+        BaseUL := 0;
+        BaseMould := 0;
+        BaseOther := 0;
+
+        BoLLines.Reset();
 
         if BoLLines.FindLast() then
             CurrentLine := BoLLines."BOL Line No.";
@@ -248,7 +413,7 @@ page 55005 "Torlys BOL"
         PostedShipments.SetRange("Shipment Date", Rec."Pickup Date");
 
         if Rec."Customer No." <> '' then begin
-            PostedShipments.SetRange("BoL No.", '');
+            PostedShipments.SetRange("BoL No.", '', Rec."No.");
             PostedShipments.SetRange("Sell-to Customer No.", Rec."Customer No.");
             PostedShipments.SetRange("Ship-to Code", Rec."Ship-to Code");
         end;
@@ -264,6 +429,14 @@ page 55005 "Torlys BOL"
 
         if PostedShipments.FindSet() then
             repeat
+
+                PostedShipmentWeight := 0;
+                PostedShipmentCases := 0;
+                PostedShipmentPallets := 0;
+                PostedShipmentLines.Reset();
+                PostedShipmentLines.SetRange("Document No.", PostedShipments."No.");
+                PostedShipmentLines.SetRange(Type, Enum::"Sales Line Type"::Item);
+
 
                 BoLLines.Init();
                 BoLLines."BOL Line No." := CurrentLine;
@@ -287,42 +460,69 @@ page 55005 "Torlys BOL"
                 BoLLines."Destination Instruction 1" := Rec."Destination Instructions 1";
                 BoLLines."Destination Instruction 2" := Rec."Destination Instructions 2";
 
+                if PostedShipmentLines.FindSet() then
+                    repeat
+                        PostedShipmentWeight := PostedShipmentWeight + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
+                        PostedShipmentCases := PostedShipmentCases + PostedShipmentLines."Qty. to Ship Case";
+                        PostedShipmentPallets := PostedShipmentPallets + PostedShipmentLines."Qty. to Ship Pallet";
 
-
-
-                PostedShipmentLines.CalcSums("Qty. to Ship Case");
-                BoLLines."Total Cases" := PostedShipmentLines."Qty. to Ship Case";
-
-                PostedShipmentLines.CalcSums("Qty. to Ship Pallet");
-                BoLLines."Total Pallet" := PostedShipmentLines."Qty. to Ship Pallet";
-
-                PostedShipmentLines.CalcSums("Net Weight");
-                BoLLines."Total Weight" := PostedShipmentLines."Net Weight";
-
-
-
+                        case PostedShipmentLines."Gen. Prod. Posting Group" of
+                            'ACCESSORIES':
+                                begin
+                                    WeightMould := WeightMould + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
+                                    CaseMould := CaseMould + PostedShipmentLines."Qty. to Ship Case";
+                                    BaseMould := BaseMould + PostedShipmentLines."Quantity (Base)";
+                                end;
+                            'UNDERLAYMENT':
+                                begin
+                                    WeightUL := WeightUL + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
+                                    CaseUL := CaseUL + PostedShipmentLines."Qty. to Ship Case";
+                                    BaseUL := BaseUL + PostedShipmentLines."Quantity (Base)";
+                                end;
+                            'FLOORING':
+                                begin
+                                    WeightFloor := WeightFloor + (PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)");
+                                    CaseFloor := CaseFloor + PostedShipmentLines."Qty. to Ship Case";
+                                    BaseFloor := BaseFloor + PostedShipmentLines."Quantity (Base)";
+                                end;
+                            else begin
+                                WeightOther := WeightOther + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
+                                CaseOther := CaseOther + PostedShipmentLines."Qty. to Ship Case";
+                                BaseOther := BaseOther + PostedShipmentLines."Quantity (Base)";
+                            end;
+                        end;
+                    until PostedShipmentLines.Next() = 0;
+                BoLLines."Total Cases" := PostedShipmentCases;
+                BoLLines."Total Pallet" := PostedShipmentPallets;
+                BoLLines."Total Weight" := PostedShipmentWeight;
                 UpdateBoL.UpdateBolNumber(PostedShipments."No.", BoLLines."BOL No.");
-
-
                 BoLLines.Insert();
 
                 CurrentLine += 10000;
             until PostedShipments.Next() = 0;
 
+        Rec."Weight - Flooring" := WeightFloor;
+        Rec."Weight - Underlayment Rolls" := WeightUL;
+        Rec."Weight - Mouldings" := WeightMould;
+        Rec."Weight - Other" := WeightOther;
+        Rec."Weight - Total" := WeightFloor + WeightUL + WeightMould + WeightOther;
 
+        Rec."Cases - Flooring" := CaseFloor;
+        Rec."Cases - Underlayment Rolls" := CaseUL;
+        Rec."Cases - Mouldings" := CaseMould;
+        Rec."Cases - Other" := CaseOther;
+        Rec."Cases - Total" := CaseFloor + CaseUL + CaseMould + CaseOther;
+
+        Rec."Base Qty. - Underlayment Rolls" := BaseUL;
+        Rec."Base Quantity - Flooring" := BaseFloor;
+        Rec."Base Quantity - Mouldings" := BaseMould;
+        Rec."Base Quantity - Other" := BaseOther;
+        Rec."Base Quantity - Total" := BaseFloor + BaseUL + BaseMould + BaseOther;
 
         OnAfterFindBoLEntries();
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnAfterLookupOnSetShipToInfo(Selected: RecordRef; var IsHandled: Boolean)
-    begin
-    end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnAfterLookupOnSetShipToInfo(Selected: RecordRef)
-    begin
-    end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeFindBoLEntries(var IsHandled: Boolean)

@@ -1,13 +1,13 @@
-page 55004 "Torlys BOLs"
+page 55012 "Torlys Processed BOLs"
 {
     ApplicationArea = Basic, Suite, Assembly;
     UsageCategory = Lists;
-    Caption = 'BoLs';
-    CardPageId = "Torlys BOL";
+    Caption = 'Processed BoLs';
+    CardPageId = "Torlys Processed BOL";
     DataCaptionFields = "No.";
     Editable = false;
     PageType = List;
-    SourceTable = "Torlys BOL Header";
+    SourceTable = "Torlys Processed BOL Header";
     AdditionalSearchTerms = 'Bill of Lading, Bill of Lading, BOL, BOLs, Bills of Lading';
 
     layout
@@ -50,13 +50,6 @@ page 55004 "Torlys BOLs"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the code of the ship-to address.';
                     Caption = 'Ship-to Code';
-
-                    trigger onValidate()
-                    begin
-                        if Rec."Ship-to Code" = '' then
-                            exit;
-                        OnGetShipToCode(Rec."Ship-to Code", Rec."Customer No.");
-                    end;
                 }
 
                 field("Ship-to Name"; Rec."Ship-to Name")
@@ -158,32 +151,6 @@ page 55004 "Torlys BOLs"
     }
     actions
     {
-        area(Processing)
-        {
-            action(FindBill)
-            {
-                ApplicationArea = Basic, Suite;
-                ToolTip = 'Find BoL';
-                Caption = 'Find BoL';
-                Image = Document;
-
-                trigger OnAction()
-                var
-                    BillOfLading: Record "Torlys BOL Header";
-                    BoLListPage: Page "Torlys Bols";
-
-                begin
-                    BoLListPage.SetTableView(BillOfLading);
-                    BoLListPage.SetRecord(BillOfLading);
-                    BoLListPage.LookupMode := true;
-                    if BoLListPage.RunModal() = Action::LookupOK then begin
-                        BoLListPage.GetRecord(BillOfLading);
-                        Rec.Get(BillOfLading."No.");
-                    end;
-                end;
-
-            }
-        }
         area(navigation)
         {
             group("&Line")
@@ -202,29 +169,4 @@ page 55004 "Torlys BOLs"
             }
         }
     }
-
-
-    procedure OnGetShipToCode(ShipToCode: Code[10]; CustomerNo: Code[10])
-    var
-
-        Customer: Record Customer;
-
-
-    begin
-
-        if CustomerNo = '' then
-            exit;
-
-        if ShipToCode = '' then
-            ShipToCode := CustomerNo;
-
-        Customer.Get(CustomerNo);
-
-        Rec."Ship-to Name" := Rec."Ship-to Name";
-        Rec."Ship-to Address" := Rec."Ship-to Address";
-        Rec."Ship-to Address 2" := Rec."Ship-to Address 2";
-        Rec."Ship-to City" := Rec."Ship-to City";
-        Rec."Ship-to Post Code" := Rec."Ship-to Post Code";
-        Rec."Ship-to Country/Region Code" := Rec."Ship-to Country/Region Code";
-    end;
 }

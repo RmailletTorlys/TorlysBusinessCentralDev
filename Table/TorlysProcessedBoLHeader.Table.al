@@ -1,7 +1,7 @@
 table 55004 "Torlys Processed BOL Header"
 {
     DataClassification = CustomerContent;
-    Caption = 'Torlys BOL Header';
+    Caption = 'Torlys Processed BOL Header';
 
     fields
     {
@@ -15,7 +15,7 @@ table 55004 "Torlys Processed BOL Header"
         field(2; "Transaction Type"; Option)
         {
             Caption = 'Transaction Type';
-            OptionMembers = "Shipent","Transfer";
+            OptionMembers = "Shipment","Transfer";
             DataClassification = CustomerContent;
         }
 
@@ -23,29 +23,30 @@ table 55004 "Torlys Processed BOL Header"
         {
             Caption = 'No. Series';
             DataClassification = CustomerContent;
+
         }
 
-        field(4; "Customer No."; Code[20])
+        field(4; "Customer No."; Code[10])
         {
             Caption = 'Customer No.';
-            TableRelation = "Customer";
+
             DataClassification = CustomerContent;
         }
 
         field(5; "Ship-to Code"; Code[10])
         {
             Caption = 'Ship-to Code';
-            TableRelation = "Customer";
             DataClassification = CustomerContent;
+
         }
 
-        field(6; "Ship-to Name"; Text[50])
+        field(6; "Ship-to Name"; Text[100])
         {
             Caption = 'Ship-to Name';
             DataClassification = CustomerContent;
         }
 
-        field(7; "Ship-to Address"; Text[50])
+        field(7; "Ship-to Address"; Text[100])
         {
             Caption = 'Ship-to Address';
             DataClassification = CustomerContent;
@@ -85,6 +86,7 @@ table 55004 "Torlys Processed BOL Header"
         {
             Caption = 'Shipping Agent Code';
             DataClassification = CustomerContent;
+            TableRelation = "Shipping Agent";
         }
 
         field(14; "Freight Type"; Option)
@@ -128,18 +130,21 @@ table 55004 "Torlys Processed BOL Header"
         {
             Caption = 'No. of Skids';
             DataClassification = CustomerContent;
+
         }
 
         field(21; "No. of Boxes"; Integer)
         {
             Caption = 'No. of Boxes';
             DataClassification = CustomerContent;
+
         }
 
         field(22; "No. of Tubes"; Integer)
         {
             Caption = 'No. of Tubes';
             DataClassification = CustomerContent;
+
         }
 
         field(23; "No. of Packages"; Integer)
@@ -152,9 +157,10 @@ table 55004 "Torlys Processed BOL Header"
         {
             Caption = 'No. of Rolls';
             DataClassification = CustomerContent;
+
         }
 
-        field(25; "Piece Count"; text[50])
+        field(25; "Piece Count"; text[260])
         {
             Caption = 'Piece Count';
             DataClassification = CustomerContent;
@@ -164,7 +170,7 @@ table 55004 "Torlys Processed BOL Header"
         {
             Caption = 'Warehouse Associate Loaded by';
             DataClassification = CustomerContent;
-            TableRelation = "Salesperson/Purchaser";
+
         }
 
         field(27; "Carrier Tracking No."; Code[15])
@@ -305,19 +311,14 @@ table 55004 "Torlys Processed BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(50; "Processed By"; Code[20])
+        field(50; "Posted By"; Code[30])
         {
-            Caption = 'Processed By';
+            Caption = 'Posted By';
             DataClassification = CustomerContent;
         }
-        field(51; "Processed Date"; DateTime)
+        field(51; "Posted Date"; DateTime)
         {
-            Caption = 'Processed Date';
-            DataClassification = CustomerContent;
-        }
-        field(52; "Processed Time"; Time)
-        {
-            Caption = 'Processed Time';
+            Caption = 'Posted Date';
             DataClassification = CustomerContent;
         }
 
@@ -330,5 +331,4 @@ table 55004 "Torlys Processed BOL Header"
             Clustered = true;
         }
     }
-
 }

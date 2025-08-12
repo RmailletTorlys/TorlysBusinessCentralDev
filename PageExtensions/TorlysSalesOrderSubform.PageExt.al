@@ -112,6 +112,15 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Visible = false;
             }
 
+            field("Sales Price Code"; Rec."Sales Price Code")
+            {
+                Caption = 'Sales Price Code';
+                ToolTip = 'Sales Price Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+
             field("Price List Code"; Rec."Price List")
             {
                 Caption = 'Price List';

@@ -350,7 +350,7 @@ tableextension 50027 TorlysItem extends Item
         Dimension.SetRange("Table ID", 27);
         Dimension.SetRange("No.", Rec."No.");
 
-        if Dimension.FindFirst() then
+        if Dimension.FindSet() then
             repeat
                 case Dimension."Dimension Code" of
                     'REGION':

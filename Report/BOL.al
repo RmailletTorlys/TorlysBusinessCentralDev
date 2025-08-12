@@ -1,6 +1,6 @@
 report 50008 "Bill Of Lading"
 {
-    Caption = 'Summary Pick Slip Transfer TLY';
+    Caption = 'Bill Of Lading';
     PreviewMode = PrintLayout;
     WordMergeDataItem = "BOL Header";
     RDLCLayout = './Sales/Reports/BOL.rdlc';
@@ -21,7 +21,7 @@ report 50008 "Bill Of Lading"
 
             trigger OnAfterGetRecord()
             begin
-                ShippingAgent1.Get("Bol Header"."Shipment");
+                ShippingAgent1.Get("Shipping Agent Code");
                 If ShippingAgent1."Pickup/Beyond Method" then begin
                     ShipToAddress[1] := "Ship-to Name";
                     ShipToAddress[2] := ShippingAgent1."Pickup/Beyond Address 1";
@@ -39,18 +39,41 @@ report 50008 "Bill Of Lading"
                 end;
 
                 Location.Get("Location Code");
-                Shippin
+                ShippingAgent.Get("Shipping Agent Code");
+
+                FormatAddress.Location(LocationAddress, Location);
+                LocationAddress[8] := Location."Phone No." + ' Fax: ' + Location."Fax No.";
+                CompressArray(LocationAddress);
+
+                OrderStringToUse := 1;
+                OrderString[1] := '';
+                OrderString[2] := '';
+                OrderString[3] := '';
+                OrderString[4] := '';
+                OrderString[5] := '';
+                OrderString[6] := '';
+                HeatRequiredMessage := '';
+
+                LoadClassArray()
             end;
+
+
         }
     }
 
     var
         ShippingAgent1: Record "Shipping Agent";
+        ShippingAgent: Record "Shipping Agent";
         Location: Record Location;
         FormatAddress: Codeunit "Format Address";
         LastFieldNo: Integer;
+        OrderStringToUse: Integer;
         ShipToAddress: array[8] of Text[100];
+        LocationAddress: array[8] of Text[100];
+        OrderString: array[6] of Text[100];
+        CategoryArray: array[6] of Text[30];
         DestinationInstructions1: Text;
         DestinationInstructions2: Text;
+        HeatRequiredMessage: Text;
 
 }

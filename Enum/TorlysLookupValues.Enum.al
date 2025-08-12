@@ -20,4 +20,9 @@ enum 50004 "Torlys Lookup Values"
     {
         Caption = 'Comment Type';
     }
+
+    value(4; "Shipping Instructions")
+    {
+        Caption = 'Shipping Instructions';
+    }
 }

@@ -30,10 +30,10 @@ report 50008 "Bill Of Lading"
                     ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 6";
                     ShipToAddress[6] := "Destination Instructions 1";
                     ShipToAddress[7] := "Destination Instructions 2";
-                    DestinationInstructions1 := ShippingAgent1."Destination Instructions";
+                    //DestinationInstructions1 := ShippingAgent1."Destination Instructions";
                     DestinationInstructions2 := '';
                 end else begin
-                    FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
+                    //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
                     DestinationInstructions1 := "Destination Instructions 1";
                     DestinationInstructions2 := "Destination Instructions 2";
                 end;
@@ -54,7 +54,7 @@ report 50008 "Bill Of Lading"
                 OrderString[6] := '';
                 HeatRequiredMessage := '';
 
-                LoadClassArray()
+                //LoadClassArray()
             end;
 
 

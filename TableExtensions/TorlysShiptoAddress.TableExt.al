@@ -2,7 +2,7 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
 {
     fields
     {
-        field(50001; "Comment"; Text[100])
+        field(50001; "Comment"; Text[50])
         {
             Caption = 'Comment';
             DataClassification = CustomerContent;
@@ -51,6 +51,13 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
         {
             Caption = 'Destination Instructions 2';
             DataClassification = CustomerContent;
+        }
+
+        field(50012; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
     }
 

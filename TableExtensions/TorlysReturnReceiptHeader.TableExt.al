@@ -113,18 +113,6 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50018; "Comment 1"; Text[250])
-        {
-            Caption = 'Comment 1';
-            DataClassification = CustomerContent;
-        }
-
-        field(50019; "Comment 2"; Text[250])
-        {
-            Caption = 'Comment 2';
-            DataClassification = CustomerContent;
-        }
-
         field(50020; "To ship"; Boolean)
         {
             Caption = 'To ship';
@@ -182,6 +170,13 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
             TableRelation = "Torlys Freight Zones";
 
+        }
+
+        field(50029; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
     }
 }

@@ -9,11 +9,10 @@ table 55006 "Torlys Lookup Values"
 
     fields
     {
-        field(1; "Type"; Option)
+        field(1; "Type"; Enum "Torlys Lookup Values")
         {
             Caption = 'Type';
             DataClassification = CustomerContent;
-            OptionMembers = " ","Order Type","Order Method","Comment Type";
         }
         field(2; "Code"; Code[25])
         {

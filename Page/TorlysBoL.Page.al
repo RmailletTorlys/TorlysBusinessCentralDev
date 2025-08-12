@@ -82,94 +82,116 @@ page 55005 "Torlys BOL"
             group(Shipping)
             {
                 Caption = 'Shipping';
+                grid(ShippingGrid)
+                {
 
-                field("Location Code"; Rec."Location Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the location.';
-                    Caption = 'Location Code';
-                }
-
-                field("Pickup Date"; Rec."Pickup Date")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the date of the pickup.';
-                    Caption = 'Pickup Date';
-                }
-
-                field("Carrier Agent Code"; Rec."Shipping Agent Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the Carrier agent.';
-                    Caption = 'Carrier Agent Code';
-                }
-
-                field("Carrier Tracking No."; Rec."Carrier Tracking No.")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the tracking number of the carrier.';
-                    Caption = 'Carrier Tracking No.';
-                }
-
-                field("Whse Associate Loaded By"; Rec."Warehouse Associate Loaded by")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
-                    Caption = 'Whse Associate Loaded By';
-                }
-
-                field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the shipping instructions.';
-                    Caption = 'Shipping Instructions 1';
-                }
-
-                field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the shipping instructions.';
-                    Caption = 'Shipping Instructions 2';
-                }
-                group("Shipment Contents")
-                {
-                    Caption = 'Shipment Contents';
-                    field("No. of Skids"; Rec."No. of Skids")
+                    group(ShipmentInfo)
                     {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the number of skids in the shipment.';
-                        Caption = 'No. of Skids';
+                        ShowCaption = false;
+
+
+                        field("Location Code"; Rec."Location Code")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the code of the location.';
+                            Caption = 'Location Code';
+                            Editable = false;
+                        }
+
+                        field("Pickup Date"; Rec."Pickup Date")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the date of the pickup.';
+                            Caption = 'Pickup Date';
+                            Editable = false;
+                        }
+
+                        field("Carrier Agent Code"; Rec."Shipping Agent Code")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the code of the Carrier agent.';
+                            Caption = 'Carrier Agent Code';
+                            Editable = false;
+                        }
+
+                        field("Tracking No."; Rec."Carrier Tracking No.")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the tracking number of the carrier.';
+                            Caption = 'Carrier Tracking No.';
+                            Editable = false;
+                        }
+
+                        field("Whse Associate Loaded"; Rec."Warehouse Associate Loaded by")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
+                            Caption = 'Whse Associate Loaded By';
+                            Editable = false;
+                        }
+
+                        field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the first line of the shipping instructions.';
+                            Caption = 'Shipping Instructions 1';
+                            Editable = false;
+                        }
+
+                        field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the second line of the shipping instructions.';
+                            Caption = 'Shipping Instructions 2';
+                            Editable = false;
+                        }
                     }
-                    field("No. of Boxes"; Rec."No. of Boxes")
+                    group("Shipment Contents")
                     {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the number of boxes in the shipment.';
-                        Caption = 'No. of Boxes';
-                    }
-                    field("No. of Tubes"; Rec."No. of Tubes")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the number of tubes in the shipment.';
-                        Caption = 'No. of Tubes';
-                    }
-                    field("No. of Packages"; Rec."No. of Packages")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the number of packages in the shipment.';
-                        Caption = 'No. of Packages';
-                    }
-                    field("No. of Rolls"; Rec."No. of Rolls")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the number of rolls in the shipment.';
-                        Caption = 'No. of Rolls';
-                    }
+                        Caption = 'Shipment Contents';
+                        field("No. of Skids"; Rec."No. of Skids")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the number of skids in the shipment.';
+                            Caption = 'No. of Skids';
+                            Editable = false;
+                        }
+                        field("No. of Boxes"; Rec."No. of Boxes")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the number of boxes in the shipment.';
+                            Caption = 'No. of Boxes';
+                            Editable = false;
+                        }
+                        field("No. of Tubes"; Rec."No. of Tubes")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the number of tubes in the shipment.';
+                            Caption = 'No. of Tubes';
+                            Editable = false;
+                        }
+                        field("No. of Packages"; Rec."No. of Packages")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the number of packages in the shipment.';
+                            Caption = 'No. of Packages';
+                            Editable = false;
+                        }
+                        field("No. of Rolls"; Rec."No. of Rolls")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the number of rolls in the shipment.';
+                            Caption = 'No. of Rolls';
+                            Editable = false;
+                        }
 
-                    field("Piece Count"; Rec."Piece Count")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the number of pieces in the shipment.';
-                        Caption = 'Piece Count';
+                        field("Piece Count"; Rec."Piece Count")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the number of pieces in the shipment.';
+                            Caption = 'Piece Count';
+                            Editable = false;
+                        }
                     }
                 }
             }
@@ -204,128 +226,149 @@ page 55005 "Torlys BOL"
             group(WeightsQuantities)
             {
                 Caption = 'Weights & Quantities';
-                group(Weights)
+                grid(WeightsAndQuantities)
                 {
 
-                    Caption = 'Weights';
 
-                    field("Weight - Flooring"; Rec."Weight - Flooring")
+                    group(Weights)
                     {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the weight of the flooring in the shipment.';
-                        Caption = 'Weight - Flooring';
-                    }
 
-                    field("Weight - Underlayment Rolls"; Rec."Weight - Underlayment Rolls")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the weight of the underlayment rolls in the shipment.';
-                        Caption = 'Weight - Underlayment Rolls';
-                    }
+                        Caption = 'Weights';
 
-                    field("Weight - Mouldings"; Rec."Weight - Mouldings")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the weight of the mdlings in the shipment.';
-                        Caption = 'Weight - Mouldings';
-                    }
+                        field("Weight - Flooring"; Rec."Weight - Flooring")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the weight of the flooring in the shipment.';
+                            Caption = 'Flooring';
+                            Editable = false;
+                        }
 
-                    field("Weight - Other"; Rec."Weight - Other")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the weight of other items in the shipment.';
-                        Caption = 'Weight - Other';
-                    }
 
-                    field("Weight - Total"; Rec."Weight - Total")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the total weight of the shipment.';
-                        Caption = 'Weight - Total';
-                    }
+                        field("Weight - Underlayment Rolls"; Rec."Weight - Underlayment Rolls")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the weight of the underlayment rolls in the shipment.';
+                            Caption = 'Underlayment Rolls';
+                            Editable = false;
+                        }
 
-                }
+                        field("Weight - Mouldings"; Rec."Weight - Mouldings")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the weight of the mdlings in the shipment.';
+                            Caption = 'Mouldings';
+                            Editable = false;
+                        }
 
-                group(Quantity)
-                {
-                    Caption = 'Quantity(CASE)';
+                        field("Weight - Other"; Rec."Weight - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the weight of other items in the shipment.';
+                            Caption = 'Other';
+                            Editable = false;
+                        }
 
-                    field("Cases - Flooring"; Rec."Cases - Flooring")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the quantity of the flooring in the shipment.';
-                        Caption = 'Case - Flooring';
-                    }
-
-                    field("Cases - Underlayment Rolls"; Rec."Cases - Underlayment Rolls")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the quantity of the underlayment rolls in the shipment.';
-                        Caption = 'Cases - Underlayment Rolls';
-                    }
-
-                    field("Cases - Mouldings"; Rec."Cases - Mouldings")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the quantity of the mdlings in the shipment.';
-                        Caption = 'Cases - Mouldings';
+                        field("Weight - Total"; Rec."Weight - Total")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the total weight of the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                        }
 
                     }
 
-                    field("Cases - Other"; Rec."Cases - Other")
+                    group(Quantity)
                     {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the quantity of other items in the shipment.';
-                        Caption = 'Cases - Other';
+                        Caption = 'Quantity(CASE)';
+
+                        field("Cases - Flooring"; Rec."Cases - Flooring")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the quantity of the flooring in the shipment.';
+                            Caption = 'Flooring';
+                            Editable = false;
+                        }
+
+                        field("Cases - Underlayment Rolls"; Rec."Cases - Underlayment Rolls")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the quantity of the underlayment rolls in the shipment.';
+                            Caption = 'Underlayment Rolls';
+                            Editable = false;
+                        }
+
+                        field("Cases - Mouldings"; Rec."Cases - Mouldings")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the quantity of the mdlings in the shipment.';
+                            Caption = 'Mouldings';
+                            Editable = false;
+
+                        }
+
+                        field("Cases - Other"; Rec."Cases - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the quantity of other items in the shipment.';
+                            Caption = 'Other';
+                            Editable = false;
+
+                        }
+
+                        field("Cases - Total"; Rec."Cases - Total")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the total quantity of the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                        }
 
                     }
 
-                    field("Cases - Total"; Rec."Cases - Total")
+                    group(Quantity2)
                     {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the total quantity of the shipment.';
-                        Caption = 'Cases - Total';
-                    }
+                        Caption = 'Quantity(BASE)';
 
-                }
+                        field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
+                            Caption = 'Flooring';
+                            Editable = false;
+                        }
 
-                group(Quantity2)
-                {
-                    Caption = 'Quantity(BASE)';
+                        field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
+                            Caption = 'Underlayment Rolls';
+                            Editable = false;
+                        }
 
-                    field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
-                        Caption = 'Base Quantity - Flooring';
-                    }
+                        field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
+                            Caption = 'Mouldings';
+                            Editable = false;
+                        }
 
-                    field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
-                        Caption = 'Base Quantity - Underlayment Rolls';
-                    }
+                        field("Base Quantity - Other"; Rec."Base Quantity - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the base quantity of other items in the shipment.';
+                            Caption = 'Other';
+                            Editable = false;
+                        }
 
-                    field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
-                        Caption = 'Base Quantity - Mouldings';
-                    }
-
-                    field("Base Quantity - Other"; Rec."Base Quantity - Other")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the base quantity of other items in the shipment.';
-                        Caption = 'Base Quantity - Other';
-                    }
-
-                    field("Base Quantity - Total"; Rec."Base Quantity - Total")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        ToolTip = 'Specifies the total base quantity of the shipment.';
-                        Caption = 'Base Quantity - Total';
+                        field("Base Quantity - Total"; Rec."Base Quantity - Total")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the total base quantity of the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                        }
                     }
                 }
             }

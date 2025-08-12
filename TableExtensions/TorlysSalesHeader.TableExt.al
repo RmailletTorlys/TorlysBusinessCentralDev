@@ -226,6 +226,13 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50037; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()

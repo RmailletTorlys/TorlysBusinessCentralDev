@@ -225,5 +225,12 @@ tableextension 50045 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
             Caption = 'Region Code';
             DataClassification = CustomerContent;
         }
+
+        field(50037; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
     }
 }

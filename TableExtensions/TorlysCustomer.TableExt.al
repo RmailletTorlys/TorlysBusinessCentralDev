@@ -244,6 +244,12 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
+        field(50036; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
 
     }
 

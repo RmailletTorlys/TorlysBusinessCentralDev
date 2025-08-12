@@ -7,42 +7,22 @@ page 55011 "Torlys Process BOL"
     PageType = Card;
     RefreshOnActivate = true;
     SourceTable = "Torlys BOL Header";
+    Editable = false;
 
     layout
     {
         area(content)
         {
-            group(FindBoL)
-            {
-
-                field("Carrier Tracking No."; Rec."Carrier Tracking No.")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the tracking number of the carrier.';
-                    Caption = 'Carrier Tracking No.';
-                    Editable = true;
-                }
-
-                field("Whse Associate Loaded By"; Rec."Warehouse Associate Loaded by")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
-                    Caption = 'Whse Associate Loaded By';
-                    TableRelation = "Torlys BOL Header";
-                    Editable = true;
-                }
-
-            }
             group(General)
             {
-
                 Caption = 'General';
+
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
                     Caption = 'No.';
-                    Editable = false;
+                    Importance = Promoted;
                 }
 
                 field("Transaction Type"; Rec."Transaction Type")
@@ -50,7 +30,6 @@ page 55011 "Torlys Process BOL"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the type of transaction that is being posted for this bill of lading.';
                     Caption = 'Transaction Type';
-                    Editable = false;
                 }
 
                 field("Customer No."; Rec."Customer No.")
@@ -58,57 +37,45 @@ page 55011 "Torlys Process BOL"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the customer.';
                     Caption = 'Customer No.';
-                    Editable = false;
+                    Importance = Promoted;
                 }
+
 
                 field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the code of the ship-to address.';
                     Caption = 'Ship-to Code';
-                    Editable = false;
+                    Importance = Promoted;
                 }
 
-
-                field("Ship-to Name"; Rec."Ship-to Name")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the name of the ship-to address.';
-                    Caption = 'Ship-to Name';
-                    Editable = false;
+                    ToolTip = 'Specifies the code of the location.';
+                    Caption = 'Location Code';
+                    Importance = Promoted;
                 }
 
-                field("Ship-to Address"; Rec."Ship-to Address")
+                field("Pickup Date"; Rec."Pickup Date")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the address of the ship-to address.';
-                    Caption = 'Ship-to Address';
-                    Editable = false;
+                    ToolTip = 'Specifies the date of the pickup.';
+                    Caption = 'Pickup Date';
+                    Importance = Promoted;
                 }
 
-                field("Ship-to Address 2"; Rec."Ship-to Address 2")
+                field("Carrier Agent Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second address line of the ship-to address.';
-                    Caption = 'Ship-to Address 2';
-                    Editable = false;
+                    ToolTip = 'Specifies the code of the Carrier agent.';
+                    Caption = 'Carrier Agent Code';
+                    Importance = Promoted;
                 }
 
-                field("Ship-to City"; Rec."Ship-to City")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the city of the ship-to address.';
-                    Caption = 'Ship-to City';
-                    Editable = false;
-                }
 
-                field("Ship-to Post Code"; Rec."Ship-to Post Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the post code of the ship-to address.';
-                    Caption = 'Ship-to Post Code';
-                    Editable = false;
-                }
+
+
             }
 
             group(Shipping)
@@ -122,36 +89,54 @@ page 55011 "Torlys Process BOL"
                         ShowCaption = false;
 
 
-                        field("Location Code"; Rec."Location Code")
+                        field("Ship-to Name"; Rec."Ship-to Name")
                         {
                             ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the code of the location.';
-                            Caption = 'Location Code';
-                            Editable = false;
+                            ToolTip = 'Specifies the name of the ship-to address.';
+                            Caption = 'Ship-to Name';
+                            Importance = Additional;
                         }
 
-                        field("Pickup Date"; Rec."Pickup Date")
+                        field("Ship-to Address"; Rec."Ship-to Address")
                         {
                             ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the date of the pickup.';
-                            Caption = 'Pickup Date';
-                            Editable = false;
+                            ToolTip = 'Specifies the address of the ship-to address.';
+                            Caption = 'Ship-to Address';
+                            Importance = Additional;
                         }
 
-                        field("Carrier Agent Code"; Rec."Shipping Agent Code")
+                        field("Ship-to Address 2"; Rec."Ship-to Address 2")
                         {
                             ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the code of the Carrier agent.';
-                            Caption = 'Carrier Agent Code';
-                            Editable = false;
+                            ToolTip = 'Specifies the second address line of the ship-to address.';
+                            Caption = 'Ship-to Address 2';
+                            Importance = Additional;
                         }
+
+                        field("Ship-to City"; Rec."Ship-to City")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the city of the ship-to address.';
+                            Caption = 'Ship-to City';
+                            Importance = Additional;
+                        }
+
+                        field("Ship-to Post Code"; Rec."Ship-to Post Code")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the post code of the ship-to address.';
+                            Caption = 'Ship-to Post Code';
+                            Importance = Additional;
+                        }
+
+
 
                         field("Tracking No."; Rec."Carrier Tracking No.")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the tracking number of the carrier.';
                             Caption = 'Carrier Tracking No.';
-                            Editable = false;
+
                         }
 
                         field("Whse Associate Loaded"; Rec."Warehouse Associate Loaded by")
@@ -159,7 +144,14 @@ page 55011 "Torlys Process BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
                             Caption = 'Whse Associate Loaded By';
-                            Editable = false;
+
+                        }
+
+                        field("Destination Instructions"; Rec."Destination Instructions 1")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the first line of the destination instructions.';
+                            Caption = 'Destination Instructions 1';
                         }
 
                         field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
@@ -167,7 +159,7 @@ page 55011 "Torlys Process BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the first line of the shipping instructions.';
                             Caption = 'Shipping Instructions 1';
-                            Editable = false;
+
                         }
 
                         field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
@@ -175,7 +167,7 @@ page 55011 "Torlys Process BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the second line of the shipping instructions.';
                             Caption = 'Shipping Instructions 2';
-                            Editable = false;
+
                         }
                     }
                     group("Shipment Contents")
@@ -186,35 +178,35 @@ page 55011 "Torlys Process BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of skids in the shipment.';
                             Caption = 'No. of Skids';
-                            Editable = false;
+
                         }
                         field("No. of Boxes"; Rec."No. of Boxes")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of boxes in the shipment.';
                             Caption = 'No. of Boxes';
-                            Editable = false;
+
                         }
                         field("No. of Tubes"; Rec."No. of Tubes")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of tubes in the shipment.';
                             Caption = 'No. of Tubes';
-                            Editable = false;
+
                         }
                         field("No. of Packages"; Rec."No. of Packages")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of packages in the shipment.';
                             Caption = 'No. of Packages';
-                            Editable = false;
+
                         }
                         field("No. of Rolls"; Rec."No. of Rolls")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of rolls in the shipment.';
                             Caption = 'No. of Rolls';
-                            Editable = false;
+
                         }
 
                         field("Piece Count"; Rec."Piece Count")
@@ -222,30 +214,19 @@ page 55011 "Torlys Process BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of pieces in the shipment.';
                             Caption = 'Piece Count';
-                            Editable = false;
+
                         }
                     }
                 }
             }
 
-            group(Destination)
+            part(BoLLine; "Torlys BOL Subform")
             {
-                Caption = 'Destination';
-                field("Destination Instructions 1"; Rec."Destination Instructions 1")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the destination instructions.';
-                    Caption = 'Destination Instructions 1';
-                    Editable = false;
-                }
-
-                field("Destination Instructions 2"; Rec."Destination Instructions 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the destination instructions.';
-                    Caption = 'Destination Instructions 2';
-                    Editable = false;
-                }
+                ApplicationArea = All;
+                Editable = false;
+                Enabled = true;
+                SubPageLink = "BOL No." = field("No.");
+                UpdatePropagation = Both;
             }
 
             group(WeightsQuantities)

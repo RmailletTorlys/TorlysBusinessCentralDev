@@ -144,11 +144,10 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50023; "Power Up Level"; Option)
+        field(50023; "Power Up Level"; Enum "Torlys Power Up Level")
         {
             Caption = 'Power Up Level';
-            OptionMembers = "","Premier","Elite","Designer";
-            InitValue = "";
+            InitValue = '';
             ToolTip = 'Specifies the Power Up level that the customer is assigned to.';
             DataClassification = CustomerContent;
         }
@@ -220,11 +219,10 @@ tableextension 50018 TorlysCustomer extends Customer
             end;
         }
 
-        field(50033; "TORLYS Club"; Option)
+        field(50033; "TORLYS Club"; Enum "Torlys CLUB")
         {
             Caption = 'TORLYS Club';
-            OptionMembers = "","Power Up","Power Up National","Power Up Assurance","Power Up USA";
-            InitValue = "";
+            InitValue = '';
             ToolTip = 'Specifies the TORLYS Club that the customer is assigned to.';
             DataClassification = CustomerContent;
         }
@@ -249,6 +247,18 @@ tableextension 50018 TorlysCustomer extends Customer
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
+
+        field(50037; "Website"; text[50])
+        {
+            Caption = 'website';
+            DataClassification = CustomerContent;
+        }
+
+        field(50038; "Add to Dealer Finder"; Boolean)
+        {
+            Caption = 'Add to Dealer Finder';
+            DataClassification = CustomerContent;
         }
 
     }

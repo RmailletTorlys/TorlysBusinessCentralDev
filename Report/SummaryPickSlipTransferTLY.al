@@ -13,7 +13,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Lists Printed", "Released", "On Hold";
-            RequestFilterHeading = 'Orders To Release TLY';
+            RequestFilterHeading = 'Summary Pick Slip Transfer TLY';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
             {

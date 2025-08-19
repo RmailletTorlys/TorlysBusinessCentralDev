@@ -13,7 +13,7 @@ report 50006 "Orders to review pre-pick slip"
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Lists Printed", "Released", "On Hold";
-            RequestFilterHeading = 'Orders To Release TLY';
+            RequestFilterHeading = 'Orders to review pre-pick slip';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
             {

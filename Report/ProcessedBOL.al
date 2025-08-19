@@ -26,7 +26,7 @@ report 50009 "Processed Bill Of Lading"
                     ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 6";
                     ShipToAddress[6] := "Destination Instructions 1";
                     ShipToAddress[7] := "Destination Instructions 2";
-                    //DestinationInstructions1 := ShippingAgent1."Destination Instructions";
+                    DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
                 end else begin
                     //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");

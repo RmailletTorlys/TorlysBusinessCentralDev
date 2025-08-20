@@ -3,7 +3,7 @@ report 50006 "Orders to review pre-pick slip"
     Caption = 'Orders to review pre-pick slip';
     PreviewMode = PrintLayout;
     WordMergeDataItem = Header;
-    WordLayout = './Sales/Reports/OrdersToReviewPre-Pickslip.docx';
+    rdlcLayout = './Sales/Reports/OrdersToReviewPre-Pickslip.rdlc';
     UsageCategory = ReportsAndAnalysis;
 
 
@@ -12,7 +12,7 @@ report 50006 "Orders to review pre-pick slip"
         dataitem(Header; "Sales Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Lists Printed", "Released", "On Hold";
+            RequestFilterFields = "Location Code", "Shipment Date", "No. Pick Lists Printed", "Shipping Agent Code", "Released", "On Hold", SystemCreatedBy;
             RequestFilterHeading = 'Orders to review pre-pick slip';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
@@ -32,6 +32,18 @@ report 50006 "Orders to review pre-pick slip"
 
             }
             column(Released; Released)
+            {
+
+            }
+            column(Shipping_Advice; "Shipping Advice")
+            {
+
+            }
+            column(Ship_to_Code; "Ship-to Code")
+            {
+
+            }
+            column(Salesperson_Code; "Salesperson Code")
             {
 
             }
@@ -59,7 +71,7 @@ report 50006 "Orders to review pre-pick slip"
             {
 
             }
-            column(SystemCreatedBy; SystemCreatedBy)
+            column(SystemCreatedBy; LookupUserIdWithGuid(SystemCreatedBy))
             {
 
             }
@@ -67,19 +79,67 @@ report 50006 "Orders to review pre-pick slip"
             {
 
             }
-            trigger OnAfterGetRecord()
-            var
-                ModifiedAfterPrint: Boolean;
-            begin
+            dataitem(Line; "Sales Line")
+            {
+                DataItemLinkReference = Header;
+                UseTemporary = true;
 
+                column(ItemNo; "No.")
+                {
+
+                }
+                column(Quantity; Quantity)
+                {
+
+                }
+                column(Qty__to_Ship; "Qty. to Ship")
+                {
+
+                }
+                column(Outstanding_Quantity; "Outstanding Quantity")
+                {
+
+                }
+            }
+            trigger OnPreDataItem()
+            begin
+                LastFieldNo := FieldNo("Document Type");
+                HeaderFilter := "Header".GetFilters;
             end;
+
+            trigger OnAfterGetRecord()
+            begin
+                If "No. Pick Lists Printed" > 0 then begin
+                    If "Pick Slip Printed Date" > "Popup Modify Date" then
+                        ModifiedAfterPrint := False
+                    else if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        ModifiedAfterPrint := true
+                    else if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                        ModifiedAfterPrint := true
+                    else
+                        ModifiedAfterPrint := false;
+                end;
+
+                If ModifiedAfterPrint then
+                    RePrintPickSlip := 'Yes'
+                else
+                    RePrintPickSlip := '';
+            End;
         }
     }
 
-    trigger OnPreReport()
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        HeaderFilter: Text;
+        UserDetails: Record "User";
     begin
-        HeaderFilter := Header.GetFilters;
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
     end;
+
+    var
+        ModifiedAfterPrint: Boolean;
+        RePrintPickSlip: Text;
+        HeaderFilter: Text;
+        LastFieldNo: Integer;
+        ContainerTransferNumber: code[25];
 }

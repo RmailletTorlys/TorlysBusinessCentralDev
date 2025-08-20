@@ -63,6 +63,25 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     Modify;
                 end;
 
+                If Type = Type::" " then begin
+                    "No." := '';
+                    "Unit of Measure" := '';
+                    "Line Amount" := 0;
+                    "Inv. Discount Amount" := 0;
+                    Quantity := 0;
+                end else if type = type::"G/L Account" then
+                        "No." := '';
+
+                TaxAmount := "Amount Including VAT" - Amount;
+                If TaxAmount <> 0 then begin
+                    TaxFlag := True;
+                    TaxLiable := Amount;
+                end else begin
+                    TaxFlag := false;
+                    TaxLiable := 0;
+                end;
+
+
                 amountexclusivedisc := "Line Amount";
 
                 If quantity = 0 then
@@ -106,7 +125,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     "Qty. to Receive Pallet" := 0;
                 end;
 
-
+                SRSetup.get;
             end;
         }
     }
@@ -116,10 +135,15 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
         tempitem: Record "Item";
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
+        TempSalesLine1: Record "Sales Line";
+        SRSetup: Record "Sales & Receivables Setup";
+        TaxFlag: Boolean;
         recCaseQty: Integer;
         recPalletQty: Integer;
         TempDesc3: Text;
         quantity: Decimal;
+        TaxAmount: Decimal;
+        TaxLiable: Decimal;
         amountexclusivedisc: Decimal;
         unitpricetoprint: Decimal;
 }

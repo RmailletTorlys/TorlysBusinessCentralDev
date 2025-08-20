@@ -202,7 +202,20 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
 
         }
 
-        moveafter("Address 2"; "City", "County", "Country/Region Code", "Post Code", ShowMap, "Phone No.", MobilePhoneNo, "Fax No.", "E-Mail", "Language Code")
+        moveafter("Address 2"; "City", "County", "Country/Region Code", "Post Code", ShowMap, "Phone No.")
+
+        addafter("Phone No.")
+        {
+            field("Website"; Rec.Website)
+            {
+                ApplicationArea = All;
+                Caption = 'Website';
+                ToolTip = 'This field is the website of the customer account.';
+            }
+        }
+
+
+        moveafter(Website; MobilePhoneNo, "Fax No.", "E-Mail", "Language Code")
 
         addafter("Bill-to Customer No.")
         {
@@ -312,6 +325,13 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     Caption = 'Sample Allowance %';
                     DecimalPlaces = 2 : 1;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
+                }
+
+                field("Add to Dealer Finder"; Rec."Add to Dealer Finder")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Add to Dealer Finder';
+                    ToolTip = 'Specifies whether the customer is added to the dealer finder.';
                 }
             }
 

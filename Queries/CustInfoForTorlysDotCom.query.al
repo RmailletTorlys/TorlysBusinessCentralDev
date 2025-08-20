@@ -34,16 +34,16 @@ query 50002 CustInfoForTorlysDotCom
             column(Power_Up_Level; "Power Up Level")
             {
             }
-
             column(Phone_No_; "Phone No.")
             {
             }
-            column(Website; Website)
+            column(website; Website)
             {
             }
-            column(Add_To_Dealer_Finder; "Dealer Locator Participant")
+            column(Add_to_Dealer_Finder; "Add to Dealer Finder")
             {
             }
+
         }
     }
 

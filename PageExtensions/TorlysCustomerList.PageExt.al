@@ -1,4 +1,4 @@
-pageextension 50028 TorlysCustomerList extends "Customer List"
+pageextension 50022 TorlysCustomerList extends "Customer List"
 {
     layout
     {

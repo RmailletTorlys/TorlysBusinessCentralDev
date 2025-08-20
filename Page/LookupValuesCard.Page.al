@@ -1,4 +1,4 @@
-page 50008 "Lookup Values Card"
+page 51013 "Lookup Values Card"
 {
     PageType = Card;
     ApplicationArea = All;

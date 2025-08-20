@@ -1,4 +1,4 @@
-codeunit 50120 "UpdateBillOfLadingOnShipHeader"
+codeunit 50006 "UpdateBillOfLadingOnShipHeader"
 {
     Permissions = tabledata "Sales Shipment Header" = rm;
 

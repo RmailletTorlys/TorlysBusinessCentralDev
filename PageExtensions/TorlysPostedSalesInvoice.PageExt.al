@@ -1,4 +1,4 @@
-pageextension 50044 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
+pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
 {
     layout
     {

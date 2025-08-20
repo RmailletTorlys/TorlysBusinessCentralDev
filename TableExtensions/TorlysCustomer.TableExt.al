@@ -251,6 +251,12 @@ tableextension 50018 TorlysCustomer extends Customer
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
 
+        field(50037; "Website"; Text[100])
+        {
+            Caption = 'Website';
+            DataClassification = CustomerContent;
+        }
+
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

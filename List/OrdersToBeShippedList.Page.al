@@ -1,4 +1,4 @@
-page 50000 "Orders To Be Shipped List"
+page 52001 "Orders To Be Shipped List"
 {
     Caption = 'Orders to be Shipped';
     Editable = false;

@@ -1,4 +1,4 @@
-page 50007 "Torlys Sales Price Code Card"
+page 51011 "Torlys Sales Price Code Card"
 {
     PageType = Card;
     ApplicationArea = All;

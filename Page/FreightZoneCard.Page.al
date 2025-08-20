@@ -1,4 +1,4 @@
-page 55003 "Freight Zone Card"
+page 51016 "Freight Zone Card"
 {
     PageType = Card;
     ApplicationArea = All;

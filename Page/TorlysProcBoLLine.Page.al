@@ -1,4 +1,4 @@
-page 55009 "Torlys Proc BoL Line"
+page 51009 "Torlys Proc BoL Line"
 {
     ApplicationArea = Basic, Suite;
     Caption = 'Processed BoL Lines';

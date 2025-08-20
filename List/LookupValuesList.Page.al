@@ -1,4 +1,4 @@
-page 50003 "Lookup Values List"
+page 52004 "Lookup Values List"
 {
     Caption = 'Lookup Values';
     Editable = true;

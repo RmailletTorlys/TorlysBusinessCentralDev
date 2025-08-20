@@ -1,4 +1,4 @@
-page 55014 "Torlys Processed BOL"
+page 51006 "Torlys Processed BOL"
 {
     AdditionalSearchTerms = 'Bill of Lading, BOL, BoL';
     Caption = 'Processed Bill of Lading';

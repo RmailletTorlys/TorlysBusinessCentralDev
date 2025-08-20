@@ -1,4 +1,4 @@
-page 55012 "Torlys Processed BOLs"
+page 51005 "Torlys Processed BOLs"
 {
     ApplicationArea = Basic, Suite, Assembly;
     UsageCategory = Lists;

@@ -1,4 +1,4 @@
-page 55006 "Torlys BOL Subform"
+page 51004 "Torlys BOL Subform"
 {
     AutoSplitKey = true;
     Caption = 'BoL Lines';

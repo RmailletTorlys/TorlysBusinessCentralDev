@@ -1,4 +1,4 @@
-page 55011 "Torlys Process BOL"
+page 51007 "Torlys Process BOL"
 {
     ApplicationArea = Basic, Suite;
     AdditionalSearchTerms = 'Process Bill of Lading, Process BOL, Process BoL, Bill of Lading, BOL, BoL';

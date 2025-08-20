@@ -1,4 +1,4 @@
-page 51001 "Item Price Category Lookup"
+page 51014 "Item Price Category Lookup"
 {
     PageType = List;
     SourceTable = "Torlys Sales Price Code";

@@ -1,4 +1,4 @@
-page 55005 "Torlys BOL"
+page 51002 "Torlys BOL"
 {
     AdditionalSearchTerms = 'Bill of Lading, BOL, BoL';
     Caption = 'Bill of Lading';

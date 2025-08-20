@@ -1,4 +1,4 @@
-pageextension 50050 "TorlysSalespersonsPurchasers" extends "Salespersons/Purchasers"
+pageextension 50014 "TorlysSalespersonsPurchasers" extends "Salespersons/Purchasers"
 {
     layout
     {

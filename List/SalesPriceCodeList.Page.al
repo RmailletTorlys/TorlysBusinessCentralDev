@@ -1,10 +1,15 @@
-page 50002 "Sales Price Code List"
+page 52003 "Sales Price Code List"
 {
+    ApplicationArea = Basic, Suite;
     Caption = 'Sales Price Codes';
+    CardPageID = "Torlys Sales Price Code Card";
+    InsertAllowed = false;
     PageType = List;
+    RefreshOnActivate = true;
+    ShowFilter = false;
     SourceTable = "Torlys Sales Price Code";
     SourceTableView = SORTING(Code) ORDER(Ascending);
-    CardPageId = "Torlys Sales Price Code Card";
+    UsageCategory = Administration;
 
     layout
     {

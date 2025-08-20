@@ -1,4 +1,4 @@
-page 55002 "Freight Zone Lookup"
+page 51015 "Freight Zone Lookup"
 {
     Caption = 'Freight Zones';
     CardPageID = "Freight Zone Card";

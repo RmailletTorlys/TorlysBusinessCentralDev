@@ -1,4 +1,4 @@
-page 55007 "Ship-to Addresses List"
+page 52007 "Ship-to Addresses List"
 {
     PageType = List;
     SourceTable = "Ship-to Address";

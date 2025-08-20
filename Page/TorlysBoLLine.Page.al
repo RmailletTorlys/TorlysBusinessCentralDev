@@ -1,4 +1,4 @@
-page 55008 "Torlys BoL Line"
+page 51003 "Torlys BoL Line"
 {
     ApplicationArea = Basic, Suite;
     Caption = 'BoL Lines';

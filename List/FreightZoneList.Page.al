@@ -1,4 +1,4 @@
-page 55001 "Freight Zone List"
+page 52005 "Freight Zone List"
 {
     Caption = 'Freight Zones';
     Editable = false;

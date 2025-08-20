@@ -1,4 +1,4 @@
-page 51003 "Lookup Values Lookup"
+page 51012 "Lookup Values Lookup"
 {
     Caption = 'Lookup Values';
     CardPageID = "Lookup Values Card";

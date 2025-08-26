@@ -34,10 +34,9 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50006; "Credit Warnings"; Option)
+        field(50006; "Credit Warnings"; enum "Torlys Cust. Cr.Warnings")
         {
             Caption = 'Credit Warnings';
-            OptionMembers = "Both Warnings","Credit Limit","Overdule Balance","No Warning";
             DataClassification = CustomerContent;
         }
 
@@ -144,12 +143,13 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50023; "Power Up Level"; Enum "Torlys Power Up Level")
+        field(50023; "Power Up Level"; Option)
         {
             Caption = 'Power Up Level';
-            InitValue = '';
+            InitValue = None;
             ToolTip = 'Specifies the Power Up level that the customer is assigned to.';
             DataClassification = CustomerContent;
+            OptionMembers = None,Premier,Elite,Designer;
         }
 
         field(50024; "Power Up Start Date"; Date)
@@ -219,12 +219,13 @@ tableextension 50018 TorlysCustomer extends Customer
             end;
         }
 
-        field(50033; "TORLYS Club"; Enum "Torlys CLUB")
+        field(50033; "TORLYS Club"; Option)
         {
             Caption = 'TORLYS Club';
-            InitValue = '';
+            InitValue = None;
             ToolTip = 'Specifies the TORLYS Club that the customer is assigned to.';
             DataClassification = CustomerContent;
+            OptionMembers = None,"Power Up","Power Up National","Power Up Assurance","Power Up USA";
         }
 
         field(50034; "Freight Zone"; Code[20])
@@ -304,4 +305,16 @@ tableextension 50018 TorlysCustomer extends Customer
             ShortcutDimCode[i] := '';
     end;
 
+    procedure GetOptionsTorlysClub(): Text[30]
+    begin
+        exit(Format(Rec."TORLYS Club"));
+    end;
+
+    procedure GetOptionsPowerUpLevel(): Text[30]
+    begin
+        exit(Format(Rec."Power Up Level"));
+    end;
 }
+
+
+

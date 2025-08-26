@@ -51,6 +51,10 @@ report 50004 "Orders to Release TLY"
             {
 
             }
+            column(RePrintPickSlip; RePrintPickSlip)
+            {
+
+            }
             column(On_Hold; "On Hold")
             {
 
@@ -59,7 +63,7 @@ report 50004 "Orders to Release TLY"
             {
 
             }
-            column(SystemCreatedBy; SystemCreatedBy)
+            column(SystemCreatedBy; LookupUserIdWithGuid(SystemCreatedBy))
             {
 
             }
@@ -67,19 +71,44 @@ report 50004 "Orders to Release TLY"
             {
 
             }
-            trigger OnAfterGetRecord()
-            var
-                ModifiedAfterPrint: Boolean;
-            begin
 
+            trigger OnPreDataItem()
+            begin
+                LastFieldNo := FieldNo("Document Type");
+                HeaderFilter := "Header".GetFilters;
+            end;
+
+            trigger OnAfterGetRecord()
+            begin
+                If "No. Pick Lists Printed" > 0 then begin
+                    If "Pick Slip Printed Date" > "Popup Modify Date" then
+                        ModifiedAfterPrint := False
+                    else if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        ModifiedAfterPrint := true
+                    else if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                        ModifiedAfterPrint := true
+                    else
+                        ModifiedAfterPrint := false;
+                end;
+
+                If ModifiedAfterPrint then
+                    RePrintPickSlip := 'Yes'
+                else
+                    RePrintPickSlip := '';
             end;
         }
     }
-
-    trigger OnPreReport()
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        HeaderFilter: Text;
+        UserDetails: Record "User";
     begin
-        HeaderFilter := Header.GetFilters;
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
     end;
+
+    var
+        ModifiedAfterPrint: Boolean;
+        RePrintPickSlip: Text;
+        HeaderFilter: Text;
+        LastFieldNo: Integer;
 }

@@ -7,7 +7,10 @@ page 52001 "Orders To Be Shipped List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Sales Header";
-    SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending);
+    SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
+    WHERE("Document Type" = CONST(Order),
+          "Status" = Const(Released)
+    );
     // CardPageId = "Orders to be Shipped Card";
 
 
@@ -31,7 +34,7 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Location Code';
                 }
 
-                field("Collector ID"; GetCollectorID(Rec."Sell-to Customer No."))
+                field("Collector ID"; GetCollectorID(Rec."Bill-to Customer No."))
                 {
                     ApplicationArea = All;
                     Caption = 'Collector ID';
@@ -201,12 +204,12 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Shipment No.';
                 }
 
-                // field("Shipment Weight"; GetShipmentWeight(Rec."No."))
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Shipment Weight';
-                //     ToolTip = 'Shipment Weight';
-                // }
+                field("Shipment Weight"; GetShipmentWeight(Rec."No."))
+                {
+                    ApplicationArea = All;
+                    Caption = 'Shipment Weight';
+                    ToolTip = 'Shipment Weight';
+                }
 
                 // field("BOL No."; Rec."BOL No.")
                 // {
@@ -346,7 +349,7 @@ page 52001 "Orders To Be Shipped List"
 
                 trigger OnAction()
                 begin
-                    Rec.SetFilter("Pick Slip Printed By", '');
+                    Rec.SetFilter("No. Pick Lists Printed", '=0');
                     Message('Filter applied for Orders where the Pickslip was not printed.');
                 end;
             }
@@ -360,7 +363,8 @@ page 52001 "Orders To Be Shipped List"
 
                 trigger OnAction()
                 begin
-                    Rec.SetFilter("Pick Slip Printed By", '<>%1', '');
+                    Rec.SetFilter("No. Pick Lists Printed", '<>0');
+                    Rec.SetFilter("Posting Date", '');
                     Message('Filter applied for Orders where the Pickslip was printed but not posted.');
                 end;
             }
@@ -374,7 +378,7 @@ page 52001 "Orders To Be Shipped List"
 
                 trigger OnAction()
                 begin
-                    Rec.SetFilter("Pick Slip Printed By", '<>%1', '');
+                    Rec.SetFilter("No. Pick Lists Printed", '<>0');
                     Rec.SetFilter("Warehouse Associate Picked By", '');
                     Message('Filter applied for Orders where the PickSlip was printed but not yet assigned.')
                 end;
@@ -390,6 +394,7 @@ page 52001 "Orders To Be Shipped List"
                 trigger OnAction()
                 begin
                     Rec.SetFilter("Warehouse Associate Picked By", '<>%1', '');
+                    Rec.SetFilter("Posting Date", '');
                     Message('Filter applied for Orders Assigned to A Warehouse associate but not yet posted.')
                 end;
             }
@@ -399,6 +404,7 @@ page 52001 "Orders To Be Shipped List"
     local procedure GetCollectorID(CustomerNo: Code[20]) returnVar: Code[20]
     var
         CustomerRec: Record Customer;
+        CollectorId: Code[20];
         IsHandled: Boolean;
 
     begin
@@ -406,12 +412,14 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        if not (CustomerRec.Get(CustomerNo)) then
-            Error('Customer with No. %1 not found', CustomerNo);
+        if (CustomerRec.Get(CustomerNo)) then
+            CollectorId := CustomerRec."Collector ID"
+        else
+            CollectorId := '';
 
         OnAfterGetCollectorID(CustomerNo, returnVar);
 
-        exit(CustomerRec."Collector ID");
+        exit(CollectorId);
     end;
 
     procedure SumSalesLines(No: Code[20]) returnVar: Decimal
@@ -440,16 +448,33 @@ page 52001 "Orders To Be Shipped List"
 
     local procedure GetShipmentWeight(No: Code[20]) returnVar: Decimal
     var
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        TotalWeight: Decimal;
         IsHandled: Boolean;
     begin
         OnBeforeGetShipmentWeight(No, returnVar, IsHandled);
         if IsHandled then
             exit;
 
-        Error('Procedure GetShipmentWeight not implemented.');
+        TotalWeight := 0;
+        SalesHeader.Reset();
+        SalesHeader.SetRange("No.", No);
+        if SalesHeader.FindSet() then begin
+            SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
 
-        OnAfterGetShipmentWeight(No, returnVar);
+            if SalesLine.FindSet() then
+                repeat
+                    TotalWeight += SalesLine."Net Weight" * SalesLine.Quantity;
+
+                until SalesHeader.Next() = 0;
+
+            OnAfterGetShipmentWeight(No, returnVar);
+            exit(TotalWeight);
+        end;
     end;
+
 
     local procedure GetNoOfSkids(No: Code[20]) returnVar: Integer
     var
@@ -551,8 +576,8 @@ page 52001 "Orders To Be Shipped List"
 
     local procedure getOrderWeight(No: Code[20]) returnVar: Decimal
     var
-        IsHandled: Boolean;
         SalesHeader: Record "Sales Header";
+        IsHandled: Boolean;
         TotalWeight: Decimal;
 
     begin
@@ -572,14 +597,6 @@ page 52001 "Orders To Be Shipped List"
 
         exit(TotalWeight);
 
-    end;
-
-    local procedure GetTomorrowDate(): Date
-    var
-        TomorrowDate: Date;
-    begin
-        TomorrowDate := CalcDate('<+1D>', Today());
-        exit(TomorrowDate);
     end;
 
 

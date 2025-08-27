@@ -90,18 +90,6 @@ codeunit 50343 TorlysCheckCreditLimit
                   SalesHeader."Amount Including VAT", SalesHeader."Currency Factor"));
     end;
 
-    local procedure CalcSalesLineOrderAmountsLCY(SalesLine: Record "Sales Line")
-    begin
-
-
-        NewOrderAmountLCY := SalesLine."Outstanding Amount (LCY)" + SalesLine."Shipped Not Invoiced (LCY)";
-
-        if SalesLine.FindFirst() then
-            OldOrderAmountLCY := SalesLine."Outstanding Amount (LCY)" + SalesLine."Shipped Not Invoiced (LCY)"
-        else
-            OldOrderAmountLCY := 0;
-    end;
-
     local procedure SalesLineAmount(DocType: Enum "Sales Document Type"; DocNo: Code[20]): Decimal
     begin
 

@@ -73,7 +73,7 @@ report 50008 "Bill Of Lading"
                 OrderString[6] := '';
                 HeatRequiredMessage := '';
 
-                //LoadClassArray();
+                LoadClassArray();
 
                 //BOLLine.SetFilter("BOL No.", "Bol Header"."No.");
                 //If BOLLine.Find('-') then begin
@@ -169,13 +169,42 @@ report 50008 "Bill Of Lading"
                     //"BOL Header"."Lines Deleted" := FALSE;
                     "BOL Header".MODIFY;
                 end;
-
-
             end;
-
-
         }
     }
+    procedure LoadClassArray()
+    var
+        Loop: Integer;
+        Found: Boolean;
+    begin
+        Loop := 1;
+        If ("Bol Header"."Weight - Flooring" > 0) or ("Bol Header"."Cases - Flooring" > 0) then begin
+            CategoryArray[Loop] := 'Flooring';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Flooring";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Flooring";
+            Loop := Loop + 1;
+        end;
+        If ("Bol Header"."Weight - Underlayment Rolls" > 0) or ("Bol Header"."Cases - Underlayment Rolls" > 0) then begin
+            CategoryArray[Loop] := 'Underlayment Rolls';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Underlayment Rolls";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Underlayment Rolls";
+            Loop := Loop + 1;
+        end;
+        If ("Bol Header"."Weight - Mouldings" > 0) or ("Bol Header"."Cases - Mouldings" > 0) then begin
+            CategoryArray[Loop] := 'Mouldings';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Mouldings";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Mouldings";
+            Loop := Loop + 1;
+        end;
+        If ("Bol Header"."Weight - Other" > 0) or ("Bol Header"."Cases - Other" > 0) then begin
+            CategoryArray[Loop] := 'Other';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Other";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Other";
+            Loop := Loop + 1;
+        end;
+    end;
+
+
 
     var
         ShippingAgent1: Record "Shipping Agent";
@@ -196,7 +225,9 @@ report 50008 "Bill Of Lading"
         ShipToAddress: array[8] of Text[100];
         LocationAddress: array[8] of Text[100];
         OrderString: array[6] of Text[100];
-        CategoryArray: array[6] of Text[30];
+        CategoryArray: array[1] of Text[30];
+        NumberofPackagesArray: array[1] of Decimal;
+        WeightArray: array[1] of Decimal;
         DestinationInstructions1: Text;
         DestinationInstructions2: Text;
         HeatRequiredMessage: Text;
@@ -204,7 +235,4 @@ report 50008 "Bill Of Lading"
         CollectMessage: Text;
         PrePaidMessage: Text;
         EncodedText: Text;
-        NumberofPackagesArray: Decimal;
-        WeightArray: Decimal;
-
 }

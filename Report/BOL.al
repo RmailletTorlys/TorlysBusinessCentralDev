@@ -54,7 +54,12 @@ report 50008 "Bill Of Lading"
                 OrderString[6] := '';
                 HeatRequiredMessage := '';
 
-                //LoadClassArray()
+                //LoadClassArray();
+
+                BOLLine.SetFilter("BOL No.", "Bol Header"."No.");
+                If BOLLine.Find('-') then begin
+
+                end;
             end;
 
 
@@ -65,7 +70,16 @@ report 50008 "Bill Of Lading"
         ShippingAgent1: Record "Shipping Agent";
         ShippingAgent: Record "Shipping Agent";
         Location: Record Location;
+        BOLLine: Record "Torlys BOL Line";
+        Customer: Record Customer;
+        Item: Record Item;
+        ItemUnitOfMeasure: Record "Item Unit of Measure";
+        SalesShipmentHeader: Record "Sales Shipment Header";
+        SalesShipmentLine: Record "Sales Shipment Line";
+        TransferShipmentHeader: Record "Transfer Shipment Header";
+        TransferShipmentLine: Record "Transfer Shipment Line";
         FormatAddress: Codeunit "Format Address";
+        NoOrderString: Boolean;
         LastFieldNo: Integer;
         OrderStringToUse: Integer;
         ShipToAddress: array[8] of Text[100];
@@ -75,5 +89,10 @@ report 50008 "Bill Of Lading"
         DestinationInstructions1: Text;
         DestinationInstructions2: Text;
         HeatRequiredMessage: Text;
+        LocationString: Text;
+        CollectMessage: Text;
+        PrePaidMessage: Text;
+        NumberofPackagesArray: Decimal;
+        WeightArray: Decimal;
 
 }

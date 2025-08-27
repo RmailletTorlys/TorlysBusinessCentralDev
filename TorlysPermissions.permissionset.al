@@ -37,7 +37,7 @@ permissionset 50000 TorlysPermissions
         page "Torlys BOL" = X,
         page "Torlys BOL Subform" = X,
         page "Torlys BOLs" = X,
-        page TorlysOrdersToBeShipped = X,
+        page "Orders To Be Shipped List" = X,
         query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;
 }

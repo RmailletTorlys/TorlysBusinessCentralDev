@@ -14,6 +14,16 @@ codeunit 50343 TorlysCheckCreditLimit
         Result := SalesLineShowWarning(SalesLine, Result, DeltaAmount);
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforePutOrderOnHold(var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterCalcOverdueBalanceLCY()
+    begin
+    end;
+
 
     local procedure SalesHeaderShowWarning(var SalesHeader: Record "Sales Header"; var Result: Boolean): Boolean
     var
@@ -45,20 +55,17 @@ codeunit 50343 TorlysCheckCreditLimit
         if AssignDeltaAmount then
             DeltaAmount := NewOrderAmountLCY;
 
-        Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, 0, true);
+
+        Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, OldOrderAmountLCY, true, SalesHeader."No.");
+
     end;
 
     local procedure SalesLineShowWarning(var SalesLine: Record "Sales Line"; var Result: Boolean; var DeltaAmount: Decimal): Boolean
     var
         SalesHeader: Record "Sales Header";
-
     begin
-        SalesHeader.Get(SalesLine."Document No.");
+        SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
 
-        if (SalesHeader."Document Type" <> SalesLine."Document Type") or
-           (SalesHeader."No." <> SalesLine."Document No.")
-        then
-            SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
 
         BillToCustomerNo := SalesHeader."Bill-to Customer No.";
         if BillToCustomerNo = '' then
@@ -72,8 +79,8 @@ codeunit 50343 TorlysCheckCreditLimit
 
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Quote then
             DeltaAmount := NewOrderAmountLCY;
-
-        Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, OldOrderAmountLCY, false);
+        Message('Get Here on the lines');
+        Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, OldOrderAmountLCY, false, SalesLine."Document No.");
     end;
 
     local procedure CalcSalesHeaderNewOrderAmountLCY(SalesHeader: Record "Sales Header")
@@ -104,8 +111,6 @@ codeunit 50343 TorlysCheckCreditLimit
 
     local procedure SalesLineAmount(DocType: Enum "Sales Document Type"; DocNo: Code[20]): Decimal
     begin
-
-
         SalesLineRec.Reset();
         SalesLineRec.SetRange("Document Type", DocType);
         SalesLineRec.SetRange("Document No.", DocNo);
@@ -113,7 +118,7 @@ codeunit 50343 TorlysCheckCreditLimit
         exit(SalesLineRec."Outstanding Amount (LCY)" + SalesLineRec."Shipped Not Invoiced (LCY)");
     end;
 
-    procedure ShowWarning(NewCustNo: Code[20]; NewOrderAmountLCY2: Decimal; OldOrderAmountLCY2: Decimal; CheckOverDueBalance: Boolean) Result: Boolean
+    procedure ShowWarning(NewCustNo: Code[20]; NewOrderAmountLCY2: Decimal; OldOrderAmountLCY2: Decimal; CheckOverDueBalance: Boolean; SalesHeaderNo: Code[20]) Result: Boolean
     var
         CustCheckCrLimit: Codeunit "Cust-Check Cr. Limit";
         ExitValue: Integer;
@@ -123,7 +128,7 @@ codeunit 50343 TorlysCheckCreditLimit
             exit;
         CustNo := NewCustNo;
         NewOrderAmountLCY := NewOrderAmountLCY2;
-        Message('NewCustNo: %1', NewCustNo);
+        OldOrderAmountLCY := OldOrderAmountLCY2;
         Rec.Get(CustNo);
         Rec.SetRange("No.", Rec."No.");
         Cust2.Copy(Rec);
@@ -144,8 +149,35 @@ codeunit 50343 TorlysCheckCreditLimit
                 ExitValue := ExitValue + 2;
         end;
 
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit / Terms"
+        then begin
+            CalcCreditLimitLCY();
+            CalcOverdueBalanceLCY();
+            if (CustCreditAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then
+                ExitValue := 1;
+            if Rec."Balance Due (LCY)" > 0 then
+                ExitValue := ExitValue + 2;
+        end;
+
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit + Open Orders" then begin
+            CalcCreditLimitLCY();
+            if (CustCreditAmountLCY + NewOrderAmountLCY - OldOrderAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then
+                ExitValue := 1;
+        end;
+
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit + Open Orders / Terms" then begin
+            CalcCreditLimitLCY();
+            CalcOverdueBalanceLCY();
+            if (CustCreditAmountLCY + NewOrderAmountLCY - OldOrderAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then
+                ExitValue := 1;
+            if Rec."Balance Due (LCY)" > 0 then
+                ExitValue := ExitValue + 2;
+        end;
 
         if ExitValue > 0 then begin
+
+            PutOrderOnHold(SalesHeaderNo);
+
             case ExitValue of
                 1:
                     begin
@@ -171,7 +203,6 @@ codeunit 50343 TorlysCheckCreditLimit
     local procedure CalcCreditLimitLCY()
     begin
         Rec.Get(BillToCustomerNo);
-        Message('CalcCreditMimit LCY Bill to Customer: %1', Rec."No.");
         if Rec.GetFilter("Date Filter") = '' then
             Rec.SetFilter("Date Filter", '..%1', WorkDate());
         Rec.CalcFields("Balance (LCY)", "Shipped Not Invoiced (LCY)");
@@ -202,7 +233,6 @@ codeunit 50343 TorlysCheckCreditLimit
 
     begin
         Rec.Get(BillToCustomerNo);
-        Message('CalcTotalOutstandingAmt Bill to Customer: %1', Rec."No.");
         Rec.CalcFields("Outstanding Invoices (LCY)", "Outstanding Orders (LCY)");
         SalesOutstandingAmountFromShipment := SalesLineRec.OutstandingInvoiceAmountFromShipment(Rec."No.");
 
@@ -213,10 +243,31 @@ codeunit 50343 TorlysCheckCreditLimit
     local procedure CalcOverdueBalanceLCY()
     begin
         Rec.Get(BillToCustomerNo);
-        Message('CalcOverdueBalanceLCY Bill to Customer: %1', Rec."No.");
         if Rec.GetFilter("Date Filter") = '' then
             Rec.SetFilter("Date Filter", '..%1', WorkDate());
         Rec.CalcFields("Balance Due (LCY)");
+
+        OnAfterCalcOverdueBalanceLCY();
+    end;
+
+    local procedure PutOrderOnHold(OrderNo: Code[20])
+    var
+        SalesHeader: Record "Sales Header";
+        IsHandled: Boolean;
+    begin
+        OnBeforePutOrderOnHold(IsHandled);
+        if IsHandled then
+            exit;
+        Message('Putting Order %1 on Hold', OrderNo);
+        if SalesHeader.Get(SalesHeader."Document Type"::Order, OrderNo) then begin
+            Message('Before Change: %1', SalesHeader."On Hold");
+            SalesHeader."On Hold" := 'CR';
+            Message('After Change: %1', SalesHeader."On Hold");
+            SalesHeader.Modify(true);
+
+
+
+        end;
     end;
 
 

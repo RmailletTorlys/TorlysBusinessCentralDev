@@ -42,4 +42,11 @@ tableextension 50013 TorlysSalespersonsPurchasers extends "Salesperson/Purchaser
             DataClassification = CustomerContent;
         }
     }
+    keys
+    {
+        key(Key4; "Code", "Name")
+        {
+        }
+
+    }
 }

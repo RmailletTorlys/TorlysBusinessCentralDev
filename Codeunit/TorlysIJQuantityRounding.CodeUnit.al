@@ -82,6 +82,11 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     begin
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
         Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
+        Rec."Quantity (Base)" := Rec.Quantity;
+
+        if Rec.Quantity = 0 then
+            Rec."Quantity Case" := 0;
+        Rec."Quantity Pallet" := 0;
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst)
@@ -100,7 +105,7 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     local procedure HandleCaseQuantity(var Rec: Record "Item Journal Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
-
+        Rec."Quantity (Base)" := Rec.Quantity;
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
 
@@ -117,6 +122,7 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     local procedure HandlePalletQuantity(var Rec: Record "Item Journal Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
+        Rec."Quantity (Base)" := Rec.Quantity;
     end;
 
 

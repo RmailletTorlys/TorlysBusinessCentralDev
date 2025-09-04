@@ -118,16 +118,14 @@ table 55002 "Torlys BOL Header"
             Caption = 'Shipping Instructions 2';
             DataClassification = CustomerContent;
         }
-
-        field(18; "Destination Instructions 1"; Text[50])
+        field(18; "Shipping Instructions 3"; Text[50])
         {
-            Caption = 'Destination Instructions 1';
+            Caption = 'Shipping Instructions 3';
             DataClassification = CustomerContent;
         }
-
-        field(19; "Destination Instructions 2"; Text[50])
+        field(19; "Shipping Instructions 4"; Text[50])
         {
-            Caption = 'Destination Instructions 2';
+            Caption = 'Shipping Instructions 4';
             DataClassification = CustomerContent;
         }
 
@@ -337,6 +335,12 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
+        field(50; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys
@@ -385,8 +389,9 @@ table 55002 "Torlys BOL Header"
             Rec."Ship-to Address 2" := ShipTo."Address 2";
             Rec."Ship-to City" := ShipTo."City";
             Rec."Ship-to Post Code" := ShipTo."Post Code";
-            Rec."Destination Instructions 1" := ShipTo."Destination Instructions 1";
-            Rec."Destination Instructions 2" := ShipTo."Destination Instructions 2";
+            //Rec."Destination Instructions" := ShipTo."Destination Instructions"; //Change to come from the order
+
+
 
         end else
             Message('No ship-to address found for the selected Ship-to Code. Please verify and try again');

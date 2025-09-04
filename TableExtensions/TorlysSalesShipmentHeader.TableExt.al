@@ -239,6 +239,13 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
+        field(50039; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
+
     }
 
     keys

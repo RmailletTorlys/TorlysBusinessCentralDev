@@ -138,6 +138,19 @@ table 55005 "Torlys Processed BOL Line"
             DataClassification = CustomerContent;
         }
 
+        field(22; "Shipping Instructions"; Code[30])
+        {
+            Caption = 'Shipping Instructions';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
+
+        field(23; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys

@@ -14,17 +14,6 @@ codeunit 50343 TorlysCheckCreditLimit
         Result := SalesLineShowWarning(SalesLine, Result, DeltaAmount);
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforePutOrderOnHold(var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterCalcOverdueBalanceLCY()
-    begin
-    end;
-
-
     local procedure SalesHeaderShowWarning(var SalesHeader: Record "Sales Header"; var Result: Boolean): Boolean
     var
         OldSalesHeader: Record "Sales Header";
@@ -247,23 +236,22 @@ codeunit 50343 TorlysCheckCreditLimit
             Rec.SetFilter("Date Filter", '..%1', WorkDate());
         Rec.CalcFields("Balance Due (LCY)");
 
-        OnAfterCalcOverdueBalanceLCY();
     end;
 
     local procedure PutOrderOnHold(OrderNo: Code[20])
     var
         SalesHeader: Record "Sales Header";
-        IsHandled: Boolean;
+
     begin
-        OnBeforePutOrderOnHold(IsHandled);
-        if IsHandled then
-            exit;
-        Message('Putting Order %1 on Hold', OrderNo);
-        if SalesHeader.Get(SalesHeader."Document Type"::Order, OrderNo) then begin
-            Message('Before Change: %1', SalesHeader."On Hold");
-            SalesHeader."On Hold" := 'CR';
-            Message('After Change: %1', SalesHeader."On Hold");
+        SalesHeader.Reset();
+        SalesHeader.SetRange("No.", OrderNo);
+
+        if SalesHeader.FindFirst() then begin
+            if SalesHeader."On Hold" = '' then
+                SalesHeader."On Hold" := 'CR';
+
             SalesHeader.Modify(true);
+
 
 
 

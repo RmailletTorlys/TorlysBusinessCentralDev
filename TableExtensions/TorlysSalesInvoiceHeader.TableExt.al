@@ -226,5 +226,11 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
+
+        field(50037; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
+        }
     }
 }

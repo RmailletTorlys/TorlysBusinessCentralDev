@@ -146,7 +146,7 @@ page 51006 "Torlys Processed BOL"
 
                         }
 
-                        field("Destination Instructions"; Rec."Destination Instructions 1")
+                        field("Shipping Comment"; Rec."Shipping Comment")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the first line of the destination instructions.';

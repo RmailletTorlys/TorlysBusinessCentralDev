@@ -43,14 +43,14 @@ report 50009 "Processed Bill Of Lading"
                     ShipToAddress[3] := ShippingAgent1."Pickup/Beyond Address 3";
                     ShipToAddress[4] := ShippingAgent1."Pickup/Beyond Address 5";
                     ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 6";
-                    ShipToAddress[6] := "Destination Instructions 1";
-                    ShipToAddress[7] := "Destination Instructions 2";
+                    ShipToAddress[6] := "Shipping Comment";
+
                     DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
                 end else begin
                     //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
-                    DestinationInstructions1 := "Destination Instructions 1";
-                    DestinationInstructions2 := "Destination Instructions 2";
+                    DestinationInstructions1 := "Shipping Comment";
+
                 end;
 
                 Location.Get("Location Code");

@@ -147,7 +147,7 @@ page 51007 "Torlys Process BOL"
 
                         }
 
-                        field("Destination Instructions"; Rec."Destination Instructions 1")
+                        field("Shipping Comment"; Rec."Shipping Comment")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the first line of the destination instructions.';
@@ -397,7 +397,7 @@ page 51007 "Torlys Process BOL"
                 trigger OnAction()
                 var
                     BillOfLading: Record "Torlys BOL Header";
-                    BoLListPage: Page "Torlys Bols";
+                    BoLListPage: Page "Torlys BOLs";
 
                 begin
                     BoLListPage.SetTableView(BillOfLading);

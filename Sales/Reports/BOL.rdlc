@@ -109,11 +109,20 @@ End Function
         <Field Name="Pickup_Date">
           <DataField>Pickup_Date</DataField>
         </Field>
+        <Field Name="Picking_instructions">
+          <DataField>Picking_instructions</DataField>
+        </Field>
         <Field Name="DestinationInstructions1">
           <DataField>DestinationInstructions1</DataField>
         </Field>
         <Field Name="DestinationInstructions2">
           <DataField>DestinationInstructions2</DataField>
+        </Field>
+        <Field Name="Shipping_Instructions_1">
+          <DataField>Shipping_Instructions_1</DataField>
+        </Field>
+        <Field Name="Shipping_Instructions_2">
+          <DataField>Shipping_Instructions_2</DataField>
         </Field>
         <Field Name="OrderString1">
           <DataField>OrderString1</DataField>
@@ -273,6 +282,9 @@ End Function
         </Field>
         <Field Name="Weight___TotalFormat">
           <DataField>Weight___TotalFormat</DataField>
+        </Field>
+        <Field Name="EncodedText">
+          <DataField>EncodedText</DataField>
         </Field>
       </Fields>
       <Query>

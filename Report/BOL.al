@@ -74,11 +74,23 @@ report 50008 "Bill Of Lading"
             {
 
             }
+            column(Picking_instructions; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            {
+
+            }
             column(DestinationInstructions1; DestinationInstructions1)
             {
 
             }
             column(DestinationInstructions2; DestinationInstructions2)
+            {
+
+            }
+            column(Shipping_Instructions_1; "Shipping Instructions 1")
+            {
+
+            }
+            column(Shipping_Instructions_2; "Shipping Instructions 2")
             {
 
             }
@@ -110,7 +122,7 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(OrderString8; OrderString[7])
+            column(OrderString8; OrderString[8])
             {
 
             }
@@ -214,11 +226,19 @@ report 50008 "Bill Of Lading"
             {
 
             }
+            column(LocationString; LocationString)
+            {
+
+            }
             column(Cases___Total; "Cases - Total")
             {
 
             }
             column(Weight___Total; "Weight - Total")
+            {
+
+            }
+            column(EncodedText; EncodedText)
             {
 
             }

@@ -44,10 +44,6 @@ report 50009 "Processed Bill Of Lading"
                     ShipToAddress[4] := ShippingAgent1."Pickup/Beyond Address 5";
                     ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 6";
                     ShipToAddress[6] := "Shipping Comment";
-<<<<<<< HEAD
-=======
-
->>>>>>> e32032bb9d8569e5cc1241b818041950807bdd4a
                     DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
                 end else begin

@@ -108,19 +108,13 @@ page 51001 "Torlys BOLs"
                     Caption = 'Shipping Instructions 2';
                 }
 
-                field("Destination Instructions 1"; Rec."Destination Instructions 1")
+                field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the first line of the destination instruction.';
                     Caption = 'Destination Instruction 1';
                 }
 
-                field("Destination Instructions 2"; Rec."Destination Instructions 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the destination instruction.';
-                    Caption = 'Destination Instruction 2';
-                }
 
                 field("Piece Count"; Rec."Piece Count")
                 {

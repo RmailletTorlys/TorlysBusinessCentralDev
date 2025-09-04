@@ -271,6 +271,9 @@ End Function
         <Field Name="Piece_Count">
           <DataField>Piece_Count</DataField>
         </Field>
+        <Field Name="LocationString">
+          <DataField>LocationString</DataField>
+        </Field>
         <Field Name="Cases___Total">
           <DataField>Cases___Total</DataField>
         </Field>

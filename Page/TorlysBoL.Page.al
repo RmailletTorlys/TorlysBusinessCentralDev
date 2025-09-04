@@ -145,7 +145,7 @@ page 51002 "Torlys BOL"
 
                         }
 
-                        field("Destination Instructions"; Rec."Destination Instructions 1")
+                        field("Shipping Comment"; Rec."Shipping Comment")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the first line of the destination instructions.';
@@ -532,8 +532,8 @@ page 51002 "Torlys BOL"
                 BoLLines."Total Cases" := 0;
                 BoLLines."Total Weight" := 0;
                 BoLLines."Total Pallet" := 0;
-                BoLLines."Destination Instruction 1" := Rec."Destination Instructions 1";
-                BoLLines."Destination Instruction 2" := Rec."Destination Instructions 2";
+                BoLLines."Shipping Comment" := Rec."Shipping Comment";
+
 
                 if PostedShipmentLines.FindSet() then
                     repeat

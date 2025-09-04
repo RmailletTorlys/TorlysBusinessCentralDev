@@ -14,6 +14,215 @@ report 50008 "Bill Of Lading"
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Bill Of Lading';
 
+            column(LocAdd1; LocationAddress[1])
+            {
+
+            }
+            column(LocAdd2; LocationAddress[2])
+            {
+
+            }
+            column(LocAdd3; LocationAddress[3])
+            {
+
+            }
+            column(LocAdd4; LocationAddress[4])
+            {
+
+            }
+            column(LocAdd5; LocationAddress[5])
+            {
+
+            }
+            column(LocAdd6; LocationAddress[6])
+            {
+
+            }
+            column(ShipAdd1; ShipToAddress[1])
+            {
+
+            }
+            column(ShipAdd2; ShipToAddress[2])
+            {
+
+            }
+            column(ShipAdd3; ShipToAddress[3])
+            {
+
+            }
+            column(ShipAdd4; ShipToAddress[4])
+            {
+
+            }
+            column(ShipAdd5; ShipToAddress[5])
+            {
+
+            }
+            column(ShipAdd6; ShipToAddress[6])
+            {
+
+            }
+            column(Carrier_Tracking_No_; "Carrier Tracking No.")
+            {
+
+            }
+            column(No_; "No.")
+            {
+
+            }
+            column(Pickup_Date; "Pickup Date")
+            {
+
+            }
+            column(DestinationInstructions1; DestinationInstructions1)
+            {
+
+            }
+            column(DestinationInstructions2; DestinationInstructions2)
+            {
+
+            }
+            column(OrderString1; OrderString[1])
+            {
+
+            }
+            column(OrderString2; OrderString[2])
+            {
+
+            }
+            column(OrderString3; OrderString[3])
+            {
+
+            }
+            column(OrderString4; OrderString[4])
+            {
+
+            }
+            column(OrderString5; OrderString[5])
+            {
+
+            }
+            column(OrderString6; OrderString[6])
+            {
+
+            }
+            column(OrderString7; OrderString[7])
+            {
+
+            }
+            column(OrderString8; OrderString[7])
+            {
+
+            }
+            column(CategoryArray1; CategoryArray[1])
+            {
+
+            }
+            column(CategoryArray2; CategoryArray[2])
+            {
+
+            }
+            column(CategoryArra3; CategoryArray[3])
+            {
+
+            }
+            column(CategoryArray4; CategoryArray[4])
+            {
+
+            }
+            column(CategoryArray5; CategoryArray[5])
+            {
+
+            }
+            column(CategoryArray6; CategoryArray[6])
+            {
+
+            }
+            column(CategoryArray7; CategoryArray[7])
+            {
+
+            }
+            column(CategoryArray8; CategoryArray[8])
+            {
+
+            }
+            column(WeightArray1; WeightArray[1])
+            {
+
+            }
+            column(WeightArray2; WeightArray[2])
+            {
+
+            }
+            column(WeightArray3; WeightArray[3])
+            {
+
+            }
+            column(WeightArray4; WeightArray[4])
+            {
+
+            }
+            column(WeightArray5; WeightArray[5])
+            {
+
+            }
+            column(WeightArray6; WeightArray[6])
+            {
+
+            }
+            column(WeightArray7; WeightArray[7])
+            {
+
+            }
+            column(WeightArray8; WeightArray[8])
+            {
+
+            }
+            column(NumberofPackagesArray1; NumberofPackagesArray[1])
+            {
+
+            }
+            column(NumberofPackagesArray2; NumberofPackagesArray[2])
+            {
+
+            }
+            column(NumberofPackagesArray3; NumberofPackagesArray[3])
+            {
+
+            }
+            column(NumberofPackagesArray4; NumberofPackagesArray[4])
+            {
+
+            }
+            column(NumberofPackagesArray5; NumberofPackagesArray[5])
+            {
+
+            }
+            column(NumberofPackagesArray6; NumberofPackagesArray[6])
+            {
+
+            }
+            column(NumberofPackagesArray7; NumberofPackagesArray[7])
+            {
+
+            }
+            column(NumberofPackagesArray8; NumberofPackagesArray[8])
+            {
+
+            }
+            column(Piece_Count; "Piece Count")
+            {
+
+            }
+            column(Cases___Total; "Cases - Total")
+            {
+
+            }
+            column(Weight___Total; "Weight - Total")
+            {
+
+            }
+
             trigger OnPreDataItem()
             begin
                 LastFieldNo := FieldNo("No.");
@@ -73,7 +282,7 @@ report 50008 "Bill Of Lading"
                 OrderString[6] := '';
                 HeatRequiredMessage := '';
 
-                //LoadClassArray();
+                LoadClassArray();
 
                 //BOLLine.SetFilter("BOL No.", "Bol Header"."No.");
                 //If BOLLine.Find('-') then begin
@@ -169,13 +378,42 @@ report 50008 "Bill Of Lading"
                     //"BOL Header"."Lines Deleted" := FALSE;
                     "BOL Header".MODIFY;
                 end;
-
-
             end;
-
-
         }
     }
+    procedure LoadClassArray()
+    var
+        Loop: Integer;
+        Found: Boolean;
+    begin
+        Loop := 1;
+        If ("Bol Header"."Weight - Flooring" > 0) or ("Bol Header"."Cases - Flooring" > 0) then begin
+            CategoryArray[Loop] := 'Flooring';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Flooring";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Flooring";
+            Loop := Loop + 1;
+        end;
+        If ("Bol Header"."Weight - Underlayment Rolls" > 0) or ("Bol Header"."Cases - Underlayment Rolls" > 0) then begin
+            CategoryArray[Loop] := 'Underlayment Rolls';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Underlayment Rolls";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Underlayment Rolls";
+            Loop := Loop + 1;
+        end;
+        If ("Bol Header"."Weight - Mouldings" > 0) or ("Bol Header"."Cases - Mouldings" > 0) then begin
+            CategoryArray[Loop] := 'Mouldings';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Mouldings";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Mouldings";
+            Loop := Loop + 1;
+        end;
+        If ("Bol Header"."Weight - Other" > 0) or ("Bol Header"."Cases - Other" > 0) then begin
+            CategoryArray[Loop] := 'Other';
+            NumberofPackagesArray[Loop] := "Bol Header"."Cases - Other";
+            WeightArray[Loop] := WeightArray[Loop] + "Bol Header"."Weight - Other";
+            Loop := Loop + 1;
+        end;
+    end;
+
+
 
     var
         ShippingAgent1: Record "Shipping Agent";
@@ -195,8 +433,10 @@ report 50008 "Bill Of Lading"
         OrderStringToUse: Integer;
         ShipToAddress: array[8] of Text[100];
         LocationAddress: array[8] of Text[100];
-        OrderString: array[6] of Text[100];
-        CategoryArray: array[6] of Text[30];
+        OrderString: array[8] of Text[100];
+        CategoryArray: array[8] of Text[30];
+        NumberofPackagesArray: array[8] of Decimal;
+        WeightArray: array[8] of Decimal;
         DestinationInstructions1: Text;
         DestinationInstructions2: Text;
         HeatRequiredMessage: Text;
@@ -204,7 +444,4 @@ report 50008 "Bill Of Lading"
         CollectMessage: Text;
         PrePaidMessage: Text;
         EncodedText: Text;
-        NumberofPackagesArray: Decimal;
-        WeightArray: Decimal;
-
 }

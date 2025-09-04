@@ -1,16 +1,17 @@
-page 52001 "Orders To Be Shipped List"
+page 52002 "Credit Hold"
 {
-    Caption = 'Orders to be Shipped';
+    Caption = 'Credit Holds';
     Editable = false;
     PageType = List;
     CardPageId = "Torlys Sales Order Shipment";
-    QueryCategory = 'Orders to be Shipped List';
+    QueryCategory = 'Orders on Credit Hold';
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Sales Header";
     SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
     WHERE("Document Type" = CONST(Order),
-          "Status" = Const(Released)
+          "Status" = Const(Released),
+          "On Hold" = Filter(<> '')
  );
 
 
@@ -257,6 +258,9 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = Warehouse;
                     Caption = 'Pick Instruction';
                     Image = Print;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
 
                     trigger OnAction()
@@ -275,10 +279,45 @@ page 52001 "Orders To Be Shipped List"
                     end;
                 }
             }
+
+            group(Process)
+            {
+                Caption = 'Process';
+                Image = Process;
+                action("Release Credit Hold")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Release Credit Hold';
+                    Image = Release;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    ToolTip = 'Release the credit hold on the selected order.';
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if SelectedSalesHeader.FindSet() then
+                            repeat
+                                SelectedSalesHeader."On Hold" := '';
+                                SelectedSalesHeader.Modify();
+                            until SelectedSalesHeader.Next() = 0
+                        else begin
+                            Rec."On Hold" := '';
+                            Rec.Modify();
+                        end;
+                        Message('Credit Hold Released');
+                    end;
+                }
+            }
             group(Views)
             {
                 Caption = 'Views';
                 Image = View;
+
                 action("PicupOnly")
                 {
                     Caption = 'Show only Pickup Shipments';
@@ -291,6 +330,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetRange("Shipment Method Code", 'PICKUP');
                         Message('Filter applied for Shipment Method Code: %1', 'PICKUP');
                     end;
@@ -308,6 +348,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetRange("Shipment Method Code", '<>%1', 'PICKUP');
                         Message('Filter applied for Shipment Method Code: %1', 'SHIPMENT');
                     end;
@@ -325,6 +366,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetRange("Shipment Date", CalcDate('<+1D>', WorkDate()));
                         Message('Filter applied for Shipment Date: %1', CalcDate('<+1D>', WorkDate()));
                     end;
@@ -342,6 +384,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetRange("Shipment Date", CalcDate('<+1D>', WorkDate()));
                         Rec.SetRange("Shipment Method Code", 'ROCKCITY');
 
@@ -382,6 +425,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetFilter("No.", FilterText);
                         Message('Filter applied for only Orders to be Shipped');
                     end;
@@ -398,6 +442,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetFilter("No. Pick Lists Printed", '=0');
                         Message('Filter applied for Orders where the Pickslip was not printed.');
                     end;
@@ -415,6 +460,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetFilter("No. Pick Lists Printed", '<>0');
                         Rec.SetFilter("Posting Date", '');
                         Message('Filter applied for Orders where the Pickslip was printed but not posted.');
@@ -433,6 +479,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetFilter("No. Pick Lists Printed", '<>0');
                         Rec.SetFilter("Warehouse Associate Picked By", '');
                         Message('Filter applied for Orders where the PickSlip was printed but not yet assigned.')
@@ -451,6 +498,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
+                        Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetFilter("Warehouse Associate Picked By", '<>%1', '');
                         Rec.SetFilter("Posting Date", '');
                         Message('Filter applied for Orders Assigned to A Warehouse associate but not yet posted.')

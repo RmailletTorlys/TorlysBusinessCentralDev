@@ -113,16 +113,14 @@ table 55004 "Torlys Processed BOL Header"
             Caption = 'Shipping Instructions 2';
             DataClassification = CustomerContent;
         }
-
-        field(18; "Destination Instructions 1"; Text[50])
+        field(18; "Shipping Instructions 3"; Text[50])
         {
-            Caption = 'Destination Instructions 1';
+            Caption = 'Shipping Instructions 3';
             DataClassification = CustomerContent;
         }
-
-        field(19; "Destination Instructions 2"; Text[50])
+        field(19; "Shipping Instructions 4"; Text[50])
         {
-            Caption = 'Destination Instructions 2';
+            Caption = 'Shipping Instructions 4';
             DataClassification = CustomerContent;
         }
 
@@ -319,6 +317,12 @@ table 55004 "Torlys Processed BOL Header"
         field(51; "Posted Date"; DateTime)
         {
             Caption = 'Posted Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(52; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
 

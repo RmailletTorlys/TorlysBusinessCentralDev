@@ -68,7 +68,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50011; "Pick Slip Printed By"; code[20])
+        field(50011; "Pick Slip Printed By"; Text[30])
         {
             Caption = 'Pick Slip Printed By';
             TableRelation = "User Details";
@@ -151,18 +151,18 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50026; "Warehouse Associate Picked By"; code[20])
+        field(50026; "Warehouse Associate Picked By"; code[50])
         {
             Caption = 'Warehouse Associate Picked By';
-            TableRelation = "User Details";
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
 
-        field(50027; "Warehouse Associate Checked By"; code[20])
+        field(50027; "Warehouse Associate Checked By"; code[50])
         {
             Caption = 'Warehouse Associate Checked By';
-            TableRelation = "User Details";
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
 
         field(50028; "Freight Zone Code"; Code[20])
@@ -231,6 +231,26 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
+
+        field(50038; "Whse Assoc. Picked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Picked By';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50039; "Whse Assoc. Checked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Checked By';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50040; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
         }
 
         modify("Sell-to Customer No.")

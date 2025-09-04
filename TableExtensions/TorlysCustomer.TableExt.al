@@ -262,6 +262,12 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
+        field(50039; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
+        }
+
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

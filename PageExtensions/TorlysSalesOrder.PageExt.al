@@ -148,6 +148,18 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         movefirst("Invoice Details"; BillToOptions, "Shortcut Dimension 1 Code", "Currency Code", "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Terms Code", "Due Date", "Tax Liable", "Tax Area Code")
 
+        addafter(BilltoOptions)
+        {
+            field("On Hold"; Rec."On Hold")
+            {
+                Caption = 'On Hold';
+                ToolTip = 'On Hold';
+                ApplicationArea = All;
+                Importance = Promoted;
+                Editable = false;
+            }
+        }
+
         movefirst("Shipping and Billing"; "Shipment Method", "Shipment Method Code", "Shipping Agent Code")
 
         addafter("Shipping Agent Code")

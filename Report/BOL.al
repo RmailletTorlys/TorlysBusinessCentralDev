@@ -70,7 +70,7 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(Pickup_Date; "Pickup Date")
+            column(Pickup_Date; Format("Pickup Date", 0, '<day>/<month>/<year>'))
             {
 
             }
@@ -91,6 +91,14 @@ report 50008 "Bill Of Lading"
 
             }
             column(Shipping_Instructions_2; "Shipping Instructions 2")
+            {
+
+            }
+            column(Shipping_Instructions_3; "Shipping Instructions 3")
+            {
+
+            }
+            column(Shipping_Instructions_4; "Shipping Instructions 4")
             {
 
             }
@@ -242,6 +250,18 @@ report 50008 "Bill Of Lading"
             {
 
             }
+            column(Last_Print_Time; "Last Print Time")
+            {
+
+            }
+            column(Last_Print_Date; "Last Print Date")
+            {
+
+            }
+            column(No__Printed; "No. Printed")
+            {
+
+            }
 
             trigger OnPreDataItem()
             begin
@@ -277,13 +297,11 @@ report 50008 "Bill Of Lading"
                     ShipToAddress[4] := ShippingAgent1."Pickup/Beyond Address 5";
                     ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 6";
                     ShipToAddress[6] := "Shipping Comment";
-
                     DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
                 end else begin
                     //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
                     DestinationInstructions1 := "Shipping Comment";
-
                 end;
 
                 Location.Get("Location Code");
@@ -304,16 +322,16 @@ report 50008 "Bill Of Lading"
 
                 LoadClassArray();
 
-                //BOLLine.SetFilter("BOL No.", "Bol Header"."No.");
-                //If BOLLine.Find('-') then begin
+                // BOLLine.SetFilter("BOL No.", "Bol Header"."No.");
+                // If BOLLine.Find('-') then begin
                 //    repeat
-                //        IF BOLLine."Heated Service" = TRUE THEN
-                //        HeatRequiredMessage := 'HEAT REQUIRED';
+                //     //    IF BOLLine."Heated Service" = TRUE THEN
+                //     //    HeatRequiredMessage := 'HEAT REQUIRED';
                 //        IF BOLLine."Freight Charges" = BOLLine."Freight Charges"::Collect THEN
                 //        CollectMessage := '*'
                 //        ELSE
                 //        PrePaidMessage := '*';
-                //End;
+                // End;
 
                 Case
                     "Bol Header"."Transaction Type" Of

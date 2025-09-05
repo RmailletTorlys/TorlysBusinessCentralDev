@@ -212,19 +212,19 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Shipment Weight';
                 }
 
-                // field("BOL No."; Rec."BOL No.")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'BOL No.';
-                //     ToolTip = 'BOL No.';
-                // }
+                field("BOL No."; GetBoLNo(Rec."No."))
+                {
+                    ApplicationArea = All;
+                    Caption = 'BOL No.';
+                    ToolTip = 'BOL No.';
+                }
 
-                // field("BOL Processed Date"; Rec."BOL Processed Date")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Processed Date';
-                //     ToolTip = 'Processed Date';
-                // }
+                field("BOL Processed Date"; GetBoLDate(Rec."No."))
+                {
+                    ApplicationArea = All;
+                    Caption = 'Processed Date';
+                    ToolTip = 'Processed Date';
+                }
 
                 field("No. of Skids"; GetNoOfSkids(Rec."No."))
                 {
@@ -486,6 +486,50 @@ page 52001 "Orders To Be Shipped List"
         exit(CollectorId);
     end;
 
+    local procedure GetBoLNo(No: Code[20]): Code[20]
+    var
+        SalesShipment: Record "Sales Shipment Header";
+        IsHandled: Boolean;
+
+    begin
+        OnBeforeGetBoLNo(No, IsHandled);
+        if IsHandled then
+            exit;
+        SalesShipment.Reset();
+        SalesShipment.SetRange("Order No.", No);
+
+        if not SalesShipment.IsEmpty() then begin
+            SalesShipment.FindLast();
+            exit(SalesShipment."BoL No.");
+        end;
+
+
+        OnAfterGetBoLNo(No);
+    end;
+
+    local procedure GetBoLDate(No: Code[20]): DateTime
+    var
+        BoLRec: Record "Torlys Processed BOL Header";
+        IsHandled: Boolean;
+        BoLNo: Code[20];
+
+
+
+    begin
+        OnBeforeGetBoLDate(No, IsHandled);
+        if IsHandled then
+            exit;
+
+        BoLNo := GetBoLNo(No);
+        BoLRec.Reset();
+        BoLRec.SetRange("No.", BoLNo);
+
+        if not BoLRec.IsEmpty() then
+            exit(BoLRec."Posted Date");
+
+        OnAfterGetBoLDate(No);
+    end;
+
     procedure SumSalesLines(No: Code[20]) returnVar: Decimal
     var
         SalesLines: Record "Sales Line";
@@ -625,18 +669,24 @@ page 52001 "Orders To Be Shipped List"
 
     end;
 
-    local procedure getTransferOrderNo(No: Code[20]) returnVar: Code[20]
-    var
-        IsHandled: Boolean;
-    begin
-        OnBeforeGetTransferOrderNo(No, returnVar, IsHandled);
-        if IsHandled then
-            exit;
+    // local procedure getTransferOrderNo(No: Code[20]) returnVar: Code[20]
+    // var
+    //     IsHandled: Boolean;
+    //     SalesHeader: Record "Sales Header";
 
-        Error('Procedure getTransferOrderNo not implemented.');
+    // begin
+    //     OnBeforeGetTransferOrderNo(No, returnVar, IsHandled);
+    //     if IsHandled then
+    //         exit;
+    //     SalesHeader.Reset();
+    //     SalesHeader.SetRange("No.", No);
+    //     if SalesHeader.FindFirst() then
+    //         returnVar := SalesHeader."Transfer Order No."
+    //     else
+    //         returnVar := '';
 
-        OnAfterGetTransferOrderNo(No, returnVar);
-    end;
+    //     OnAfterGetTransferOrderNo(No, returnVar);
+    // end;
 
     local procedure getOrderWeight(No: Code[20]) returnVar: Decimal
     var
@@ -747,6 +797,26 @@ page 52001 "Orders To Be Shipped List"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetOrderWeight(No: Code[20]; var returnVar: Decimal)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeGetBoLNo(No: Code[20]; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetBoLNo(No: Code[20])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeGetBoLDate(No: Code[20]; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetBoLDate(No: Code[20])
     begin
     end;
 }

@@ -68,7 +68,6 @@ codeunit 50343 TorlysCheckCreditLimit
 
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Quote then
             DeltaAmount := NewOrderAmountLCY;
-        Message('Get Here on the lines');
         Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, OldOrderAmountLCY, false, SalesLine."Document No.");
     end;
 

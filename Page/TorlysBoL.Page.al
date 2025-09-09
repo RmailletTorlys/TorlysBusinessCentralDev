@@ -20,7 +20,13 @@ page 51002 "Torlys BOL"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
                     Caption = 'No.';
-                    Importance = Promoted;
+
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit(xRec) then
+                            CurrPage.Update();
+                    end;
+
                 }
 
                 field("Transaction Type"; Rec."Transaction Type")
@@ -221,7 +227,6 @@ page 51002 "Torlys BOL"
             part(BoLLine; "Torlys BOL Subform")
             {
                 ApplicationArea = All;
-                Editable = false;
                 Enabled = true;
                 SubPageLink = "BOL No." = field("No.");
                 UpdatePropagation = Both;
@@ -382,7 +387,7 @@ page 51002 "Torlys BOL"
 
     actions
     {
-        area(Processing)
+        area(Navigation)
         {
             action(AddBoLLinesToday)
             {
@@ -391,6 +396,8 @@ page 51002 "Torlys BOL"
                 Caption = 'Add BoL Lines for Today';
                 Image = Document;
                 Promoted = true;
+                PromotedIsBig = true;
+
 
 
                 trigger OnAction()
@@ -407,6 +414,9 @@ page 51002 "Torlys BOL"
                 Caption = 'Add BoL Lines for Another Day';
                 Image = Document;
                 Promoted = true;
+                PromotedIsBig = true;
+
+
 
                 trigger OnAction()
                 var
@@ -423,6 +433,63 @@ page 51002 "Torlys BOL"
                     end;
                 end;
             }
+
+            action(PostBill)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Post BoL';
+                Caption = 'Post BoL';
+                Image = Document;
+
+
+                trigger OnAction()
+                var
+                    BoL: Record "Torlys BOL Header";
+                    BoLLine: Record "Torlys BOL Line";
+                    PBoL: Record "Torlys Processed BOL Header";
+                    PBoLLine: Record "Torlys Processed BOL Line";
+
+
+                begin
+                    BoL.Reset();
+                    BoLLine.Reset();
+                    PBoL.Reset();
+                    PBoLLine.Reset();
+
+                    BoL.SetRange("No.", Rec."No.");
+                    BoLLine.SetRange("BOL No.", Rec."No.");
+
+                    if BoL.FindFirst() then begin
+
+                        PBoL.Init();
+                        PBoL."No." := BoL."No.";
+                        PBoL."Transaction Type" := BoL."Transaction Type";
+                        PBoL.TransferFields(BoL, true);
+                        PBoL."Posted By" := FORMAT(UserId(), 30);
+                        PBoL."Posted Date" := CreateDateTime(Today(), 0T);
+                        PBoL.Insert();
+
+
+                        if BoLLine.FindSet() then begin
+                            repeat
+                                PBoLLine.Init();
+                                PBoLLine."Shipment No." := BoLLine."Shipment No.";
+                                PBoLLine.TransferFields(BoLLine, true);
+                                PBoLLine.Insert();
+                            until BoLLine.Next() = 0;
+                            BoLLine.DeleteAll();
+                        end
+                        else
+                            Message('%1 failed Posting Lines. Please Verify and try again', BoL."No.");
+
+                        BoL.Delete();
+                    end;
+
+                    Message('%1 Posted', BoL."No.");
+
+                end;
+
+            }
         }
     }
 
@@ -435,6 +502,7 @@ page 51002 "Torlys BOL"
         BoLLines: Record "Torlys BOL Line";
         UpdateBoL: Codeunit UpdateBillOfLadingOnShipHeader;
         IsHandled: Boolean;
+        CurrentLocationCode: Code[10];
         CurrentLine: Integer;
         PostedShipmentCases: Integer;
         PostedShipmentPallets: Integer;
@@ -482,13 +550,15 @@ page 51002 "Torlys BOL"
         if BoLLines.FindLast() then
             CurrentLine := BoLLines."BOL Line No.";
 
+        CurrentLocationCode := FORMAT(Rec."Location Code");
+
         PostedShipments.SetCurrentKey("Shipping Agent Code", "Shipment Date", "BoL No.");
-        PostedShipments.SetRange("Location Code", Rec."Location Code");
+        PostedShipments.SetRange("Location Code", CurrentLocationCode);
         PostedShipments.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
         PostedShipments.SetRange("Shipment Date", Rec."Pickup Date");
 
         if Rec."Customer No." <> '' then begin
-            PostedShipments.SetRange("BoL No.", '', Rec."No.");
+            PostedShipments.SetRange("BoL No.", '');
             PostedShipments.SetRange("Sell-to Customer No.", Rec."Customer No.");
             PostedShipments.SetRange("Ship-to Code", Rec."Ship-to Code");
         end;

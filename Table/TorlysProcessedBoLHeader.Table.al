@@ -309,20 +309,21 @@ table 55004 "Torlys Processed BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(50; "Posted By"; Code[30])
+        field(50; "Shipping Comment"; Text[50])
         {
-            Caption = 'Posted By';
+            Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
+
         field(51; "Posted Date"; DateTime)
         {
             Caption = 'Posted Date';
             DataClassification = CustomerContent;
         }
 
-        field(52; "Shipping Comment"; Text[50])
+        field(52; "Posted By"; Code[30])
         {
-            Caption = 'Shipping Comment';
+            Caption = 'Posted By';
             DataClassification = CustomerContent;
         }
 

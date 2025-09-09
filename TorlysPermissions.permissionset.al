@@ -1,5 +1,4 @@
 namespace TORLYS;
-using Microsoft.Sales.History;
 
 permissionset 50000 TorlysPermissions
 {
@@ -37,6 +36,7 @@ permissionset 50000 TorlysPermissions
         page "Torlys BOL" = X,
         page "Torlys BOL Subform" = X,
         page "Torlys BOLs" = X,
+        page "Torlys Process BOL" = X,
         page "Orders To Be Shipped List" = X,
         query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;

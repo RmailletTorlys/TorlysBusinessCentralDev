@@ -19,7 +19,7 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(3; "No. Series"; Code[10])
+        field(3; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             DataClassification = CustomerContent;
@@ -81,7 +81,7 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(12; "Location Code"; Code[10])
+        field(12; "Location Code"; Code[20])
         {
             Caption = 'Location Code';
             DataClassification = CustomerContent;
@@ -341,6 +341,13 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
+        field(51; "Posted Date"; DateTime)
+        {
+            Caption = 'Posted Date';
+            DataClassification = CustomerContent;
+        }
+
+
     }
 
     keys
@@ -358,6 +365,39 @@ table 55002 "Torlys BOL Header"
         TubeCount: Text[50];
         PackageCount: Text[50];
         RollCount: Text[50];
+
+    trigger OnInsert()
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeries: Codeunit "No. Series";
+
+    begin
+
+        SalesSetup.FindFirst();
+        if not SalesSetup.IsEmpty() then
+            Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
+    end;
+
+
+    procedure AssistEdit(OldBoLHeader: Record "Torlys BoL Header") Result: Boolean
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeries: Codeunit "No. Series";
+        IsHandled: Boolean;
+
+    begin
+        IsHandled := false;
+        OnBeforeAssistEdit(Rec, OldBoLHeader, IsHandled, Result);
+        if IsHandled then
+            exit;
+
+        SalesSetup.FindFirst();
+        if not SalesSetup.IsEmpty() then
+            Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
+
+        exit(true);
+    end;
+
 
     local procedure OnAfterLookupOnSetShipToInfo(ShipToCode: Code[10])
     var
@@ -399,6 +439,10 @@ table 55002 "Torlys BOL Header"
         OnAfterOnAfterLookupOnSetShipToInfo(ShipToCode);
 
     end;
+
+
+
+
 
     local procedure UpdatePieceCount()
     begin
@@ -501,6 +545,11 @@ table 55002 "Torlys BOL Header"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterOnUpdateNoOfRolls(NoofRolls: Integer)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeAssistEdit(Rec: Record "Torlys BOL Header"; OldSalesHeader: Record "Torlys BOL Header"; var IsHandled: Boolean; var Result: Boolean)
     begin
     end;
 

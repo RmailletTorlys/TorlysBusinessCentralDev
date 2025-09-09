@@ -76,10 +76,13 @@ codeunit 50007 PrintPickTicketSOUpdate
                 Item.Reset();
                 Item.SetRange("No.", SalesLine."No.");
                 Item.SetFilter("Location Filter", SalesLine."Location Code");
-                Item.CalcFields(Inventory);
+                if Item.FindSet() then begin
 
-                if SalesLine."Qty. To Ship" > Item.Inventory then
-                    ERROR('There is not enough inventory of %1 in %2.\Allocated quantity = %3.\NAV on hand = %4.\Please contact purchasing!', Item."No.", SalesLine."Location Code", SalesLine."Qty. to Ship", Item.Inventory);
+
+                    Item.CalcFields(Inventory);
+                    if SalesLine."Qty. To Ship" > Item.Inventory then
+                        ERROR('There is not enough inventory of %1 in %2.\Allocated quantity = %3.\NAV on hand = %4.\Please contact purchasing!', Item."No.", SalesLine."Location Code", SalesLine."Qty. to Ship", Item.Inventory);
+                end
             until SalesLine.Next() = 0;
 
         //NOTIFY IF Gateway to put proper sitckers on boxes.

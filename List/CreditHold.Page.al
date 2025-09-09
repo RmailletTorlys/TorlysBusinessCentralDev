@@ -1,9 +1,9 @@
 page 52002 "Credit Hold"
 {
     Caption = 'Credit Holds';
-    Editable = false;
     PageType = List;
-    CardPageId = "Torlys Sales Order Shipment";
+    InsertAllowed = false;
+    DeleteAllowed = false;
     QueryCategory = 'Orders on Credit Hold';
     ApplicationArea = All;
     UsageCategory = Lists;
@@ -245,6 +245,7 @@ page 52002 "Credit Hold"
         }
     }
 
+
     actions
     {
         area(Navigation)
@@ -288,7 +289,7 @@ page 52002 "Credit Hold"
                 {
                     ApplicationArea = All;
                     Caption = 'Release Credit Hold';
-                    Image = Release;
+                    Image = Process;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
@@ -576,7 +577,7 @@ page 52002 "Credit Hold"
             SalesLine.SetRange("Document Type", SalesHeader."Document Type");
             SalesLine.SetRange("Document No.", SalesHeader."No.");
 
-            if SalesLine.FindSet() then
+            if not SalesLine.IsEmpty() then
                 repeat
                     TotalWeight += SalesLine."Net Weight" * SalesLine.Quantity;
 
@@ -673,18 +674,7 @@ page 52002 "Credit Hold"
 
     end;
 
-    local procedure getTransferOrderNo(No: Code[20]) returnVar: Code[20]
-    var
-        IsHandled: Boolean;
-    begin
-        OnBeforeGetTransferOrderNo(No, returnVar, IsHandled);
-        if IsHandled then
-            exit;
 
-        Error('Procedure getTransferOrderNo not implemented.');
-
-        OnAfterGetTransferOrderNo(No, returnVar);
-    end;
 
     local procedure getOrderWeight(No: Code[20]) returnVar: Decimal
     var
@@ -775,16 +765,6 @@ page 52002 "Credit Hold"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterIsFullyAllocated(No: Code[20]; var returnVar: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeGetTransferOrderNo(No: Code[20]; var returnVar: Code[20]; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetTransferOrderNo(No: Code[20]; var returnVar: Code[20])
     begin
     end;
 

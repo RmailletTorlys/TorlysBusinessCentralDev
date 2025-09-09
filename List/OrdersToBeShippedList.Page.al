@@ -246,18 +246,21 @@ page 52001 "Orders To Be Shipped List"
 
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
             group(Print)
             {
                 Caption = 'Print';
                 Image = Print;
+
                 action("Pick Instruction")
                 {
                     ApplicationArea = Warehouse;
                     Caption = 'Pick Instruction';
                     Image = Print;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
+                    Promoted = true;
+                    PromotedIsBig = true;
 
                     trigger OnAction()
                     var
@@ -272,6 +275,37 @@ page 52001 "Orders To Be Shipped List"
                             until SelectedSalesHeader.Next() = 0
                         else
                             DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
+                    end;
+                }
+
+                action("Clear BoL")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Clear BoL';
+                    Image = CheckList;
+                    ToolTip = 'Remove the BoL # from the current line.';
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    var
+                        SalesShipmentHeader: Record "Sales Shipment Header";
+                        SelectedSalesHeader: Record "Sales Header";
+                        UpdateBoL: Codeunit UpdateBillOfLadingOnShipHeader;
+
+
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if SelectedSalesHeader.FindSet() then
+                            repeat
+                                SalesShipmentHeader.Reset();
+                                SalesShipmentHeader.SetRange("Ship-to Code", SelectedSalesHeader."Ship-to Code");
+                                SalesShipmentHeader.SetRange("Shipment Date", SelectedSalesHeader."Shipment Date");
+                                if SalesShipmentHeader.FindLast() then
+                                    UpdateBoL.DeleteBolNumber(SalesShipmentHeader."No.", SalesShipmentHeader."BoL No.");
+
+                            until SelectedSalesHeader.Next() = 0
                     end;
                 }
             }

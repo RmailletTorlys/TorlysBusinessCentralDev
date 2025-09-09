@@ -418,14 +418,12 @@ page 51007 "Torlys Process BOL"
                 Caption = 'Post BoL';
                 Image = Document;
 
-
                 trigger OnAction()
                 var
                     BoL: Record "Torlys BOL Header";
                     BoLLine: Record "Torlys BOL Line";
                     PBoL: Record "Torlys Processed BOL Header";
                     PBoLLine: Record "Torlys Processed BOL Line";
-
 
                 begin
                     BoL.Reset();
@@ -445,7 +443,6 @@ page 51007 "Torlys Process BOL"
                         PBoL."Posted By" := FORMAT(UserId(), 30);
                         PBoL."Posted Date" := CreateDateTime(Today(), 0T);
                         PBoL.Insert();
-
 
                         if BoLLine.FindSet() then begin
                             repeat

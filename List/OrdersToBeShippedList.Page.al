@@ -1,7 +1,6 @@
 page 52001 "Orders To Be Shipped List"
 {
     Caption = 'Orders to be Shipped';
-    Editable = false;
     PageType = List;
     CardPageId = "Torlys Sales Order Shipment";
     QueryCategory = 'Orders to be Shipped List';
@@ -26,6 +25,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Order No.';
                     ToolTip = 'Order Number';
+                    Editable = false;
                 }
 
                 field("Shipment Date"; Rec."Shipment Date")
@@ -40,6 +40,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Location Code';
                     ToolTip = 'Location Code';
+                    Editable = false;
                 }
 
                 field("Collector ID"; GetCollectorID(Rec."Bill-to Customer No."))
@@ -47,6 +48,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Collector ID';
                     ToolTip = 'Collector ID';
+                    Editable = false;
                 }
 
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
@@ -54,6 +56,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Customer Number';
                     ToolTip = 'Customer Number';
+                    Editable = false;
                 }
 
                 field("Ship-to Name"; Rec."Ship-to Name")
@@ -61,6 +64,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Customer Name';
                     ToolTip = 'Customer Name';
+                    Editable = false;
                 }
 
                 field("Ship-to Code"; Rec."Ship-to Code")
@@ -68,6 +72,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Ship-to Code';
                     ToolTip = 'Ship-to Code';
+                    Editable = false;
                 }
 
                 field("Shipping Advice"; Rec."Shipping Advice")
@@ -75,6 +80,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Shipping Advice';
                     ToolTip = 'Shipping Advice';
+                    Editable = false;
                 }
 
                 // field("SO Count"; Rec."SO Count")
@@ -96,6 +102,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Fully Allocated';
                     ToolTip = 'Fully Allocated';
+                    Editable = false;
                 }
 
                 // field("Transfer Order No."; getTransferOrderNo(Rec."No."))
@@ -110,6 +117,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'To Ship Qty.';
                     ToolTip = 'To Ship Quantity';
+                    Editable = false;
                 }
 
                 field("To Ship Weight"; getOrderWeight(Rec."No."))
@@ -117,6 +125,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'To Ship Weight';
                     ToolTip = 'To Ship Weight';
+                    Editable = false;
                 }
 
                 field("Shipping Agent Code"; Rec."Shipping Agent Code")
@@ -124,6 +133,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Shipping Agent Code';
                     ToolTip = 'Shipping Agent Code';
+                    Editable = false;
                 }
 
                 field("Ship-to Country/Region"; Rec."Ship-to Country/Region Code")
@@ -131,6 +141,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Ship-to Country/Region';
                     ToolTip = 'Ship-to Country/Region';
+                    Editable = false;
                 }
 
                 field("On Hold"; Rec."On Hold")
@@ -138,6 +149,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'On Hold';
                     ToolTip = 'On Hold';
+                    Editable = false;
                 }
 
                 field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
@@ -145,13 +157,15 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Pick Slip Printed By';
                     ToolTip = 'Pick Slip Printed By';
+                    Editable = false;
                 }
 
-                field("Pick Sli Printed Date"; Rec."Pick Slip Printed Date")
+                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Pick Slip Printed Date';
                     ToolTip = 'Pick Slip Printed Date';
+                    Editable = false;
                 }
 
                 field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
@@ -159,6 +173,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Pick Slip Printed Time';
                     ToolTip = 'Pick Slip Printed Time';
+                    Editable = false;
                 }
 
                 field("No. Pick Lists Printed"; Rec."No. Pick Lists Printed")
@@ -166,6 +181,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'No. Pick Lists Printed';
                     ToolTip = 'No. Pick Lists Printed';
+                    Editable = false;
                 }
 
                 field("Whse Associate Picked By"; Rec."Warehouse Associate Picked By")
@@ -173,6 +189,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Whse Associate Picked By';
                     ToolTip = 'Whse Associate Picked By';
+
                 }
 
                 field("Whse Associate Checked By"; Rec."Warehouse Associate Checked By")
@@ -181,6 +198,7 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Whse Associate Checked By';
                     ToolTip = 'Whse Associate Checked By';
 
+
                 }
 
                 field("Last Modified By"; Rec.SystemModifiedBy)
@@ -188,6 +206,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Last Modified By';
                     ToolTip = 'Last Modified By';
+                    Editable = false;
 
                 }
 
@@ -196,6 +215,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Last Modified Date';
                     ToolTip = 'Last Modified Date';
+                    Editable = false;
                 }
 
                 field("Shipment No."; Rec."Shipping No.")
@@ -203,6 +223,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Shipment No.';
                     ToolTip = 'Shipment No.';
+                    Editable = false;
                 }
 
                 field("Shipment Weight"; GetShipmentWeight(Rec."No."))
@@ -210,6 +231,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Shipment Weight';
                     ToolTip = 'Shipment Weight';
+                    Editable = false;
                 }
 
                 field("BOL No."; GetBoLNo(Rec."No."))
@@ -217,6 +239,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'BOL No.';
                     ToolTip = 'BOL No.';
+                    Editable = false;
                 }
 
                 field("BOL Processed Date"; GetBoLDate(Rec."No."))
@@ -224,6 +247,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'Processed Date';
                     ToolTip = 'Processed Date';
+                    Editable = false;
                 }
 
                 field("No. of Skids"; GetNoOfSkids(Rec."No."))
@@ -231,6 +255,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'No. of Skids';
                     ToolTip = 'No. of Skids';
+                    Editable = false;
                 }
 
                 field("No. of Packages"; GetNoOfCases(Rec."No."))
@@ -238,6 +263,7 @@ page 52001 "Orders To Be Shipped List"
                     ApplicationArea = All;
                     Caption = 'No. of Packages';
                     ToolTip = 'No. of Packages';
+                    Editable = false;
                 }
 
             }

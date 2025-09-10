@@ -86,7 +86,6 @@ page 50999 "Torlys Sales Order Shipment"
                 field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                     ToolTip = 'Specifies the date when the items are shipped.';
                     Caption = 'Shipment Date';
                 }

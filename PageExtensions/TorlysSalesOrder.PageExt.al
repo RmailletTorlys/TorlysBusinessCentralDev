@@ -442,6 +442,63 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
     }
 
+    actions
+    {
+        addbefore(Category_New)
+        {
+            group("Credit Hold")
+            {
+                Visible = true;
+                Caption = 'Credit Hold';
+
+                actionref("Remove from Hold"; "Remove Credit Hold")
+                {
+                }
+
+                actionref("Add to Hold"; "Place Credit Hold")
+                {
+                }
+            }
+        }
+        addfirst("F&unctions")
+        {
+            action("Remove Credit Hold")
+            {
+                ToolTip = 'Removes the Credit hold on an Order.';
+                Caption = 'Remove Credit Hold';
+                Image = Report;
+                ApplicationArea = All;
+
+
+                trigger OnAction()
+                begin
+
+                    Rec."On Hold" := '';
+                    Rec.Modify(true);
+
+                    Message('Removed Order from Credit Hold');
+                end;
+            }
+
+            action("Place Credit Hold")
+            {
+                ToolTip = 'Places selected Order(s) on Credit Hold.';
+                Caption = 'Place Credit Hold';
+                Image = Report;
+                ApplicationArea = All;
+
+
+                trigger OnAction()
+                begin
+                    Rec."On Hold" := 'CR';
+                    Rec.Modify(true);
+
+                    Message('Placed Order on Credit Hold');
+                end;
+            }
+        }
+    }
+
     var
         ShortcutDimCode: array[8] of Code[20];
 

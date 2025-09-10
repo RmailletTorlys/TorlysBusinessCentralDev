@@ -23,11 +23,97 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             }
         }
 
+        addafter(Status)
+        {
+            field("On Hold"; Rec."On Hold")
+            {
+                Caption = 'On Hold';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+                ToolTip = 'Display if an order is currently on Credit Hold';
+
+            }
+        }
+
         modify("Shortcut Dimension 1 Code")
         {
             Visible = true;
         }
+
+
     }
+
+    actions
+    {
+        addbefore(Category_New)
+        {
+            group("Credit Hold")
+            {
+                Visible = true;
+                Caption = 'Credit Hold';
+
+                actionref("Remove from Hold"; "Remove Credit Hold")
+                {
+                }
+
+                actionref("Add to Hold"; "Place Credit Hold")
+                {
+                }
+            }
+        }
+        addfirst("F&unctions")
+        {
+            action("Remove Credit Hold")
+            {
+                ToolTip = 'Removes the Credit hold on an Order.';
+                Caption = 'Remove Credit Hold';
+                Image = Report;
+                ApplicationArea = All;
+
+
+                trigger OnAction()
+                var
+                    SelectedOrders: Record "Sales Header";
+                begin
+                    CurrPage.SetSelectionFilter(SelectedOrders);
+
+                    if SelectedOrders.FindSet() then
+                        repeat
+                            SelectedOrders."On Hold" := '';
+                            SelectedOrders.Modify(true);
+                        until SelectedOrders.Next() = 0;
+
+                    Message('Removed Order(s) from Credit Hold');
+                end;
+            }
+
+            action("Place Credit Hold")
+            {
+                ToolTip = 'Places selected Order(s) on Credit Hold.';
+                Caption = 'Place Credit Hold';
+                Image = Report;
+                ApplicationArea = All;
+
+
+                trigger OnAction()
+                var
+                    SelectedOrders: Record "Sales Header";
+                begin
+                    CurrPage.SetSelectionFilter(SelectedOrders);
+
+                    if SelectedOrders.FindSet() then
+                        repeat
+                            SelectedOrders."On Hold" := 'CR';
+                            SelectedOrders.Modify(true);
+                        until SelectedOrders.Next() = 0;
+
+                    Message('Placed Order(s) on Credit Hold');
+                end;
+            }
+        }
+    }
+
 
 
 

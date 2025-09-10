@@ -10,7 +10,7 @@ page 52002 "Credit Hold"
     SourceTable = "Sales Header";
     SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
     WHERE("Document Type" = CONST(Order),
-          "Status" = Const(Released),
+          "Status" = Const(Open),
           "On Hold" = Filter(<> '')
  );
 
@@ -311,6 +311,32 @@ page 52002 "Credit Hold"
                             Rec.Modify();
                         end;
                         Message('Credit Hold Released');
+                    end;
+                }
+
+                action("Release")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Re&lease';
+                    Image = ReleaseDoc;
+                    Enabled = Rec.Status <> Rec.Status::Released;
+                    ToolTip = 'Release the selected order.';
+
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if SelectedSalesheader.FindSet() then
+                            repeat
+                                SelectedSalesHeader.PerformManualRelease();
+                            until SelectedSalesHeader.Next() = 0
+                        else
+                            Rec.PerformManualRelease();
+
+                        Message('Order(s) Released');
                     end;
                 }
             }

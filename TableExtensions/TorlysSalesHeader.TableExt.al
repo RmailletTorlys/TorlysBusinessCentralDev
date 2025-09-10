@@ -68,7 +68,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50011; "Pick Slip Printed By"; Text[30])
+        field(50011; "Pick Slip Printed By"; Code[50])
         {
             Caption = 'Pick Slip Printed By';
             TableRelation = "User Details";
@@ -261,6 +261,9 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             end;
         }
     }
+
+
+
 
     trigger OnAfterInsert()
     begin

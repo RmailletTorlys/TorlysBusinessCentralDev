@@ -28,6 +28,14 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(TotalPieces; TotalPieces)
+            {
+
+            }
+            column(TotalWeight; TotalWeight)
+            {
+
+            }
             column(Pick_Slip_Printed_By; "Pick Slip Printed By")
             {
 
@@ -44,11 +52,11 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(Order_Date; "Order Date")
+            column(Order_Date; Format("Order Date", 0, '<day>/<month>/<year>'))
             {
 
             }
-            column(Shipment_Date; "Shipment Date")
+            column(Shipment_Date; Format("Shipment Date", 0, '<day>/<month>/<year>'))
             {
 
             }
@@ -251,10 +259,15 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     SalesCommentLine1.Comment := PickPrintComment;
                     //SalesCommentLine1.Code := SalesCommentLine1.Code::"DOC-PRINT";
                     SalesCommentLine1.Insert();
+                    Modify;
+                end;
+
+                If Not CurrReport.Preview then begin
                     "Pick Slip Printed By" := UserId;
                     "Pick Slip Printed Date" := WorkDate;
                     "Pick Slip Printed Time" := Time;
-                    Modify;
+                    "No. Pick Lists Printed" := "No. Pick Lists Printed" + 1;
+                    Modify();
                 end;
 
                 TotalPieces := 0;

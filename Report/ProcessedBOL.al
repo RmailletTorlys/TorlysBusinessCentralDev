@@ -10,6 +10,258 @@ report 50009 "Processed Bill Of Lading"
     {
         dataitem("Processed Bol Header"; "Torlys Processed BOL Header")
         {
+            DataItemTableView = sorting("No.");
+            RequestFilterFields = "No.";
+            RequestFilterHeading = 'Processed Bill Of Lading';
+
+            column(LocAdd1; LocationAddress[1])
+            {
+
+            }
+            column(LocAdd2; LocationAddress[2])
+            {
+
+            }
+            column(LocAdd3; LocationAddress[3])
+            {
+
+            }
+            column(LocAdd4; LocationAddress[4])
+            {
+
+            }
+            column(LocAdd5; LocationAddress[5])
+            {
+
+            }
+            column(LocAdd6; LocationAddress[6])
+            {
+
+            }
+            column(ShipAdd1; ShipToAddress[1])
+            {
+
+            }
+            column(ShipAdd2; ShipToAddress[2])
+            {
+
+            }
+            column(ShipAdd3; ShipToAddress[3])
+            {
+
+            }
+            column(ShipAdd4; ShipToAddress[4])
+            {
+
+            }
+            column(ShipAdd5; ShipToAddress[5])
+            {
+
+            }
+            column(ShipAdd6; ShipToAddress[6])
+            {
+
+            }
+            column(Carrier_Tracking_No_; "Carrier Tracking No.")
+            {
+
+            }
+            column(No_; "No.")
+            {
+
+            }
+            column(Pickup_Date; Format("Pickup Date", 0, '<day>/<month>/<year>'))
+            {
+
+            }
+            column(Picking_instructions; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            {
+
+            }
+            column(DestinationInstructions1; DestinationInstructions1)
+            {
+
+            }
+            column(DestinationInstructions2; DestinationInstructions2)
+            {
+
+            }
+            column(Shipping_Instructions_1; "Shipping Instructions 1")
+            {
+
+            }
+            column(Shipping_Instructions_2; "Shipping Instructions 2")
+            {
+
+            }
+            column(Shipping_Instructions_3; "Shipping Instructions 3")
+            {
+
+            }
+            column(Shipping_Instructions_4; "Shipping Instructions 4")
+            {
+
+            }
+            column(OrderString1; OrderString[1])
+            {
+
+            }
+            column(OrderString2; OrderString[2])
+            {
+
+            }
+            column(OrderString3; OrderString[3])
+            {
+
+            }
+            column(OrderString4; OrderString[4])
+            {
+
+            }
+            column(OrderString5; OrderString[5])
+            {
+
+            }
+            column(OrderString6; OrderString[6])
+            {
+
+            }
+            column(OrderString7; OrderString[7])
+            {
+
+            }
+            column(OrderString8; OrderString[8])
+            {
+
+            }
+            column(CategoryArray1; CategoryArray[1])
+            {
+
+            }
+            column(CategoryArray2; CategoryArray[2])
+            {
+
+            }
+            column(CategoryArra3; CategoryArray[3])
+            {
+
+            }
+            column(CategoryArray4; CategoryArray[4])
+            {
+
+            }
+            column(CategoryArray5; CategoryArray[5])
+            {
+
+            }
+            column(CategoryArray6; CategoryArray[6])
+            {
+
+            }
+            column(CategoryArray7; CategoryArray[7])
+            {
+
+            }
+            column(CategoryArray8; CategoryArray[8])
+            {
+
+            }
+            column(WeightArray1; WeightArray[1])
+            {
+
+            }
+            column(WeightArray2; WeightArray[2])
+            {
+
+            }
+            column(WeightArray3; WeightArray[3])
+            {
+
+            }
+            column(WeightArray4; WeightArray[4])
+            {
+
+            }
+            column(WeightArray5; WeightArray[5])
+            {
+
+            }
+            column(WeightArray6; WeightArray[6])
+            {
+
+            }
+            column(WeightArray7; WeightArray[7])
+            {
+
+            }
+            column(WeightArray8; WeightArray[8])
+            {
+
+            }
+            column(NumberofPackagesArray1; NumberofPackagesArray[1])
+            {
+
+            }
+            column(NumberofPackagesArray2; NumberofPackagesArray[2])
+            {
+
+            }
+            column(NumberofPackagesArray3; NumberofPackagesArray[3])
+            {
+
+            }
+            column(NumberofPackagesArray4; NumberofPackagesArray[4])
+            {
+
+            }
+            column(NumberofPackagesArray5; NumberofPackagesArray[5])
+            {
+
+            }
+            column(NumberofPackagesArray6; NumberofPackagesArray[6])
+            {
+
+            }
+            column(NumberofPackagesArray7; NumberofPackagesArray[7])
+            {
+
+            }
+            column(NumberofPackagesArray8; NumberofPackagesArray[8])
+            {
+
+            }
+            column(Piece_Count; "Piece Count")
+            {
+
+            }
+            column(LocationString; LocationString)
+            {
+
+            }
+            column(Cases___Total; "Cases - Total")
+            {
+
+            }
+            column(Weight___Total; "Weight - Total")
+            {
+
+            }
+            column(EncodedText; EncodedText)
+            {
+
+            }
+            column(Last_Print_Time; "Last Print Time")
+            {
+
+            }
+            column(Last_Print_Date; "Last Print Date")
+            {
+
+            }
+            column(No__Printed; "No. Printed")
+            {
+
+            }
             trigger OnPreDataItem()
             begin
                 LastFieldNo := FieldNo("No.");

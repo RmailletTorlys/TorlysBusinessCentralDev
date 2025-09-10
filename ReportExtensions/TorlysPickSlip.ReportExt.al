@@ -44,7 +44,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(Pick_Slip_Printed_Time; Format("Pick Slip Printed Time", 0, '<Hours24,2><Filler Character,0><Minutes,2><Seconds,2>'))
+            column(Pick_Slip_Printed_Time; Format("Pick Slip Printed Time", 0, '<Hours24,2>:<Minutes,2>:<Seconds,2>'))
             {
 
             }
@@ -152,7 +152,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(QtyPallet; "Sales Header"."Qty. to Ship Pallet")
+            column(QtyPallet; "Qty. to Ship Pallet")
             {
 
             }

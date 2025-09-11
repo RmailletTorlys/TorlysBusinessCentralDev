@@ -303,7 +303,11 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     end;
 
     local procedure UpdateToReceive(var Rec: Record "Sales Line")
+    var
+        PurchSetup: Record "Purchases & Payables Setup";
     begin
+
+
         Rec."Return Qty. to Receive" := Rec.Quantity;
         Rec."Return Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Qty. to Invoice" := Rec.Quantity;

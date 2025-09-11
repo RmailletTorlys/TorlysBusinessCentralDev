@@ -32,6 +32,8 @@ report 50010 "BOL Shipment Label"
                 POCount := BOLLine.Count;
             end;
         }
+
+
     }
 
     var

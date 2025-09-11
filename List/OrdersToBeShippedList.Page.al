@@ -272,6 +272,60 @@ page 52001 "Orders To Be Shipped List"
 
     actions
     {
+        area(Promoted)
+        {
+            group("Assign Orders")
+            {
+                actionref("Assign a Picker"; "Assign Picker")
+                { }
+
+                actionref("Assign a Checker"; "Assign Checker")
+                { }
+            }
+
+            actionref("Remove BoL"; "Clear BoL")
+            { }
+
+            group("Printing")
+            {
+                actionref("Print Pick Slip"; "Pick Instruction")
+                { }
+            }
+
+            group("Default Views")
+            {
+                actionref("Show Pickups"; "PickupOnly")
+                { }
+
+                actionref("Show Shipments"; "OnlyShipments")
+                { }
+
+                actionref("Shipments for Tomorrow"; "TomorrowOnly")
+                { }
+
+                actionref("Rock City Shipments for Tomorrow"; "TomorrowRockCity")
+                { }
+
+                actionref("Orders Not Shipped"; "NotShippedOnly")
+                { }
+
+                actionref("Pick Slip not yet Printed"; "PickNotPrinted")
+                { }
+
+                actionref("Picked Printed but not Posted"; "PickPrintedButNotPosted")
+                { }
+
+                actionref("Pick Slip Printed but Not assigned"; "PrintedNotAssigned")
+                { }
+
+                actionref("Assigned to a Picker but not Posted"; "AssignedNotPosted")
+                { }
+
+            }
+
+        }
+
+
         area(Processing)
         {
             group(Print)
@@ -285,8 +339,7 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Pick Instruction';
                     Image = Print;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
-                    Promoted = true;
-                    PromotedIsBig = true;
+
 
                     trigger OnAction()
                     var
@@ -310,8 +363,7 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Clear BoL';
                     Image = CheckList;
                     ToolTip = 'Remove the BoL # from the current line.';
-                    Promoted = true;
-                    PromotedIsBig = true;
+
 
                     trigger OnAction()
                     var
@@ -344,8 +396,7 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Assign Picker';
                     Image = CheckList;
                     ToolTip = 'Assign a warehouse employee to the Picker field of selected Order(s).';
-                    Promoted = true;
-                    PromotedIsBig = true;
+
 
                     trigger OnAction()
                     var
@@ -354,6 +405,9 @@ page 52001 "Orders To Be Shipped List"
                         WarehouseAssignment: Page "Warehouse Assignment";
                     begin
                         CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if not SelectedSalesHeader.FindSet() then
+                            Message('No Orders have been selected. Please check your selection and try again.');
 
                         WarehouseAssignment.LookupMode(true);
                         if SelectedSalesHeader.FindSet() then begin
@@ -369,14 +423,13 @@ page 52001 "Orders To Be Shipped List"
                     end;
                 }
 
-                action("Assign Auditor")
+                action("Assign Checker")
                 {
                     ApplicationArea = All;
                     Caption = 'Assign Auditor';
-                    Image = GetSelection;
+                    Image = CheckList;
                     ToolTip = 'Assign a warehouse employee to the Auditor field of selected Order(s).';
-                    Promoted = true;
-                    PromotedIsBig = true;
+
 
                     trigger OnAction()
                     var
@@ -385,29 +438,31 @@ page 52001 "Orders To Be Shipped List"
                         WarehouseAssignment: Page "Warehouse Assignment";
                     begin
                         CurrPage.SetSelectionFilter(SelectedSalesHeader);
-                        Message('Lines Selected');
                         WarehouseAssignment.LookupMode(true);
+
+                        if not SelectedSalesHeader.FindSet() then
+                            Message('No Orders have been selected. Please check your selection and try again.');
+
                         if SelectedSalesHeader.FindSet() then begin
-                            Message('Before Opening the Modal');
-                            if WarehouseAssignment.RunModal() = Action::LookupOK then begin
-                                Message('After Opening the Modal');
+
+                            if WarehouseAssignment.RunModal() = Action::LookupOK then
                                 WarehouseAssignment.GetRecord(WhseAssoc);
-                                repeat
-                                    if SelectedSalesHeader."Warehouse Associate Picked By" = '' then begin
-                                        Message('You must assign a picker before you can assign a checker on Order %1.', SelectedSalesHeader."No.");
-                                        continue;
-                                    end;
+                            repeat
+                                if SelectedSalesHeader."Warehouse Associate Picked By" = '' then begin
+                                    Message('You must assign a picker before you can assign a checker on Order %1.', SelectedSalesHeader."No.");
+                                    continue;
+                                end;
 
-                                    if SelectedSalesHeader."Warehouse Associate Picked By" = WhseAssoc."Code" then begin
-                                        Message('You cannot assign the same person for picker and checker on an Order. Check Order %1 and retry.', SelectedSalesHeader."No.");
-                                        continue;
-                                    end;
+                                if SelectedSalesHeader."Warehouse Associate Picked By" = WhseAssoc."Code" then begin
+                                    Message('You cannot assign the same person for picker and checker on an Order. Check Order %1 and retry.', SelectedSalesHeader."No.");
+                                    continue;
+                                end;
 
-                                    SelectedSalesHeader."Warehouse Associate Checked By" := WhseAssoc.Code;
-                                    SelectedSalesheader.Modify();
-                                until SelectedSalesHeader.Next() = 0;
-                            end;
+                                SelectedSalesHeader."Warehouse Associate Checked By" := WhseAssoc.Code;
+                                SelectedSalesheader.Modify();
+                            until SelectedSalesHeader.Next() = 0;
                         end;
+
 
                         CurrPage.Update(false);
                     end;
@@ -417,7 +472,7 @@ page 52001 "Orders To Be Shipped List"
             {
                 Caption = 'Views';
                 Image = View;
-                action("PicupOnly")
+                action("PickupOnly")
                 {
                     Caption = 'Show only Pickup Shipments';
                     ToolTip = 'Filters the list to show only pickup shipments.';

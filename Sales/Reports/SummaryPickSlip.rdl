@@ -97,6 +97,12 @@ End Function
         <Field Name="OrderString6">
           <DataField>OrderString6</DataField>
         </Field>
+        <Field Name="PrintDate">
+          <DataField>PrintDate</DataField>
+        </Field>
+        <Field Name="PrintTime">
+          <DataField>PrintTime</DataField>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>

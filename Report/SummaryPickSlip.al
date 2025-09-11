@@ -75,6 +75,14 @@ report 50012 "Summary Pick Slip"
             {
 
             }
+            column(PrintDate; Format(PrintDate, 0, '<month,2>/<day,2>/<year,4>'))
+            {
+
+            }
+            column(PrintTime; Format(PrintTime, 0, '<Hours24,2>:<Minutes,2>:<Seconds,2>'))
+            {
+
+            }
             column(No_; "No.")
             {
 

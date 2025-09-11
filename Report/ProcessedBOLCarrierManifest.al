@@ -111,9 +111,12 @@ report 50013 "Processed BOL Carrier Manifest"
                 DataItemLink = "Bol No." = field("No.");
                 DataItemLinkReference = BOLHeader;
                 DataItemTableView = sorting("BOL No.", "BOL Line No.");
-                // UseTemporary = true;
 
                 column(Shipment_No_; "Shipment No.")
+                {
+
+                }
+                column(BOL_No_; "BOL No.")
                 {
 
                 }

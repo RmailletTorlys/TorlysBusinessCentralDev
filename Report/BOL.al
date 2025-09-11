@@ -281,7 +281,7 @@ report 50008 "Bill Of Lading"
                 BarcodeSymbology := Enum::"Barcode Symbology"::"Code39";
 
                 // Set data string source
-                BarcodeStrings := "No.";
+                BarcodeStrings := '*' + "No." + '*';
 
                 // Validate the input. This method is not available for 2D provider
                 BarcodeFontProvider.ValidateInput(BarcodeStrings, BarcodeSymbology);

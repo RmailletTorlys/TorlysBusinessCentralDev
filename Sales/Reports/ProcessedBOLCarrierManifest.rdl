@@ -145,6 +145,9 @@ End Function
         <Field Name="Shipment_No_">
           <DataField>Shipment_No_</DataField>
         </Field>
+        <Field Name="BOL_No_">
+          <DataField>BOL_No_</DataField>
+        </Field>
         <Field Name="Order_No_">
           <DataField>Order_No_</DataField>
         </Field>

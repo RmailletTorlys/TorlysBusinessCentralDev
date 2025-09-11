@@ -39,6 +39,7 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; OrderType: Integer)
     begin
 
+
         if ValidateUoM(Rec) = false then
             exit;
 

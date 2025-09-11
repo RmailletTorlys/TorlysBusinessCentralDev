@@ -335,6 +335,84 @@ page 52001 "Orders To Be Shipped List"
                     end;
                 }
             }
+
+            group(Assignment)
+            {
+                action("Assign Picker")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Assign Picker';
+                    Image = CheckList;
+                    ToolTip = 'Assign a warehouse employee to the Picker field of selected Order(s).';
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        WhseAssoc: Record "Salesperson/Purchaser";
+                        WarehouseAssignment: Page "Warehouse Assignment";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        WarehouseAssignment.LookupMode(true);
+                        if SelectedSalesHeader.FindSet() then begin
+
+                            if WarehouseAssignment.RunModal() = Action::LookupOK then
+                                WarehouseAssignment.GetRecord(WhseAssoc);
+                            repeat
+                                SelectedSalesHeader."Warehouse Associate Picked By" := WhseAssoc.Code;
+                                SelectedSalesheader.Modify();
+                            until SelectedSalesHeader.Next() = 0;
+
+                        end;
+                    end;
+                }
+
+                action("Assign Auditor")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Assign Auditor';
+                    Image = GetSelection;
+                    ToolTip = 'Assign a warehouse employee to the Auditor field of selected Order(s).';
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        WhseAssoc: Record "Salesperson/Purchaser";
+                        WarehouseAssignment: Page "Warehouse Assignment";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+                        Message('Lines Selected');
+                        WarehouseAssignment.LookupMode(true);
+                        if SelectedSalesHeader.FindSet() then begin
+                            Message('Before Opening the Modal');
+                            if WarehouseAssignment.RunModal() = Action::LookupOK then begin
+                                Message('After Opening the Modal');
+                                WarehouseAssignment.GetRecord(WhseAssoc);
+                                repeat
+                                    if SelectedSalesHeader."Warehouse Associate Picked By" = '' then begin
+                                        Message('You must assign a picker before you can assign a checker on Order %1.', SelectedSalesHeader."No.");
+                                        continue;
+                                    end;
+
+                                    if SelectedSalesHeader."Warehouse Associate Picked By" = WhseAssoc."Code" then begin
+                                        Message('You cannot assign the same person for picker and checker on an Order. Check Order %1 and retry.', SelectedSalesHeader."No.");
+                                        continue;
+                                    end;
+
+                                    SelectedSalesHeader."Warehouse Associate Checked By" := WhseAssoc.Code;
+                                    SelectedSalesheader.Modify();
+                                until SelectedSalesHeader.Next() = 0;
+                            end;
+                        end;
+
+                        CurrPage.Update(false);
+                    end;
+                }
+            }
             group(Views)
             {
                 Caption = 'Views';

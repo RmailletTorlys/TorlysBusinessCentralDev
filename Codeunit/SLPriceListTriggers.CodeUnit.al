@@ -38,9 +38,11 @@ codeunit 57000 "SL Price List Triggers"
         AssetType: Enum "Price Asset Type";
 
     begin
-        Item.Reset();
-        Item.Get(PriceCalculationBuffer."Asset No.");
-        NewPriceAssetList.Add(AssetType::"Sales Price Code", Item."Sales Price Code");
+        if not (PriceCalculationBuffer."Asset Type" <> Enum::"Price Asset Type"::Item) then begin
+            Item.Reset();
+            Item.Get(PriceCalculationBuffer."Asset No.");
+            NewPriceAssetList.Add(AssetType::"Sales Price Code", Item."Sales Price Code");
+        end;
     end;
 
 

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ShippingAgentFilter">
+          <DataField>ShippingAgentFilter</DataField>
+        </Field>
+        <Field Name="Printdate">
+          <DataField>Printdate</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Pickupdate">
+          <DataField>Pickupdate</DataField>
+        </Field>
+        <Field Name="Customer_No_">
+          <DataField>Customer_No_</DataField>
+        </Field>
+        <Field Name="Ship_to_Address">
+          <DataField>Ship_to_Address</DataField>
+        </Field>
+        <Field Name="Ship_to_Address_2">
+          <DataField>Ship_to_Address_2</DataField>
+        </Field>
+        <Field Name="Ship_to_City">
+          <DataField>Ship_to_City</DataField>
+        </Field>
+        <Field Name="Ship_to_Post_Code">
+          <DataField>Ship_to_Post_Code</DataField>
+        </Field>
+        <Field Name="Ship_to_Country_Region_Code">
+          <DataField>Ship_to_Country_Region_Code</DataField>
+        </Field>
+        <Field Name="Shipping_Agent_Code">
+          <DataField>Shipping_Agent_Code</DataField>
+        </Field>
+        <Field Name="Shipping_Comment">
+          <DataField>Shipping_Comment</DataField>
+        </Field>
+        <Field Name="Weight___Total">
+          <DataField>Weight___Total</DataField>
+        </Field>
+        <Field Name="Weight___TotalFormat">
+          <DataField>Weight___TotalFormat</DataField>
+        </Field>
+        <Field Name="Piece_Count">
+          <DataField>Piece_Count</DataField>
+        </Field>
+        <Field Name="CarrierTotalWeight">
+          <DataField>CarrierTotalWeight</DataField>
+        </Field>
+        <Field Name="CarrierTotalWeightFormat">
+          <DataField>CarrierTotalWeightFormat</DataField>
+        </Field>
+        <Field Name="TotalBoxes">
+          <DataField>TotalBoxes</DataField>
+        </Field>
+        <Field Name="TotalPackages">
+          <DataField>TotalPackages</DataField>
+        </Field>
+        <Field Name="TotalRolls">
+          <DataField>TotalRolls</DataField>
+        </Field>
+        <Field Name="TotalSkids">
+          <DataField>TotalSkids</DataField>
+        </Field>
+        <Field Name="TotalTubes">
+          <DataField>TotalTubes</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

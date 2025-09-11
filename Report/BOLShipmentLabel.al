@@ -36,6 +36,16 @@ report 50010 "BOL Shipment Label"
 
     }
 
+    // local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")
+    // var
+    //     Handled: Boolean;
+    //     FormatAddrress: Codeunit "Format Address";
+    // begin
+    //     FormatAddr(
+    //         AddrArray, SalesHeader."Sell-to Customer Name", SalesHeader."Sell-to Customer Name 2", SalesHeader."Sell-to Contact", SalesHeader."Sell-to Address", SalesHeader."Sell-to Address 2",
+    //         SalesHeader."Sell-to City", SalesHeader."Sell-to Post Code", SalesHeader."Sell-to County", SalesHeader."Sell-to Country/Region Code");
+    // end;
+
     var
         ShippingAgent: Record "Shipping Agent";
         Location: Record Location;

@@ -64,11 +64,17 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="Code">
+          <DataField>Code</DataField>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>
-        <Field Name="FilterString">
-          <DataField>FilterString</DataField>
+        <Field Name="Customer_No_">
+          <DataField>Customer_No_</DataField>
         </Field>
         <Field Name="Ship_to_Address">
           <DataField>Ship_to_Address</DataField>
@@ -78,9 +84,6 @@ End Function
         </Field>
         <Field Name="Ship_to_City">
           <DataField>Ship_to_City</DataField>
-        </Field>
-        <Field Name="Ship_to_Post_Code">
-          <DataField>Ship_to_Post_Code</DataField>
         </Field>
         <Field Name="Ship_to_Country_Region_Code">
           <DataField>Ship_to_Country_Region_Code</DataField>
@@ -97,9 +100,6 @@ End Function
         <Field Name="Shipping_Instructions_4">
           <DataField>Shipping_Instructions_4</DataField>
         </Field>
-        <Field Name="Piece_Count">
-          <DataField>Piece_Count</DataField>
-        </Field>
         <Field Name="Shipping_Comment">
           <DataField>Shipping_Comment</DataField>
         </Field>
@@ -114,60 +114,6 @@ End Function
         </Field>
         <Field Name="Weight___TotalFormat">
           <DataField>Weight___TotalFormat</DataField>
-        </Field>
-        <Field Name="Warehouse_Associate_Loaded_by">
-          <DataField>Warehouse_Associate_Loaded_by</DataField>
-        </Field>
-        <Field Name="BOLCount">
-          <DataField>BOLCount</DataField>
-        </Field>
-        <Field Name="TotalWeight">
-          <DataField>TotalWeight</DataField>
-        </Field>
-        <Field Name="TotalWeightFormat">
-          <DataField>TotalWeightFormat</DataField>
-        </Field>
-        <Field Name="TotalSkids">
-          <DataField>TotalSkids</DataField>
-        </Field>
-        <Field Name="TotalBoxes">
-          <DataField>TotalBoxes</DataField>
-        </Field>
-        <Field Name="TotalTubes">
-          <DataField>TotalTubes</DataField>
-        </Field>
-        <Field Name="TotalPackages">
-          <DataField>TotalPackages</DataField>
-        </Field>
-        <Field Name="TotalRolls">
-          <DataField>TotalRolls</DataField>
-        </Field>
-        <Field Name="Shipment_No_">
-          <DataField>Shipment_No_</DataField>
-        </Field>
-        <Field Name="BOL_No_">
-          <DataField>BOL_No_</DataField>
-        </Field>
-        <Field Name="Order_No_">
-          <DataField>Order_No_</DataField>
-        </Field>
-        <Field Name="Total_Cases">
-          <DataField>Total_Cases</DataField>
-        </Field>
-        <Field Name="Total_CasesFormat">
-          <DataField>Total_CasesFormat</DataField>
-        </Field>
-        <Field Name="Total_Pallet">
-          <DataField>Total_Pallet</DataField>
-        </Field>
-        <Field Name="Total_PalletFormat">
-          <DataField>Total_PalletFormat</DataField>
-        </Field>
-        <Field Name="Total_Weight">
-          <DataField>Total_Weight</DataField>
-        </Field>
-        <Field Name="Total_WeightFormat">
-          <DataField>Total_WeightFormat</DataField>
         </Field>
       </Fields>
       <Query>

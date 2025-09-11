@@ -28,15 +28,23 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(TotalPieces; TotalPieces)
+            {
+
+            }
+            column(TotalWeight; TotalWeight)
+            {
+
+            }
             column(Pick_Slip_Printed_By; "Pick Slip Printed By")
             {
 
             }
-            column(Pick_Slip_Printed_Date; "Pick Slip Printed Date")
+            column(Pick_Slip_Printed_Date; Format("Pick Slip Printed Date", 0, '<month,2>/<day,2>/<year,4>'))
             {
 
             }
-            column(Pick_Slip_Printed_Time; "Pick Slip Printed Time")
+            column(Pick_Slip_Printed_Time; Format("Pick Slip Printed Time", 0, '<Hours24,2>:<Minutes,2>:<Seconds,2>'))
             {
 
             }
@@ -44,11 +52,11 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(Order_Date; "Order Date")
+            column(Order_Date; Format("Order Date", 0, '<month,2>/<day,2>/<year,4>'))
             {
 
             }
-            column(Shipment_Date; "Shipment Date")
+            column(Shipment_Date; Format("Shipment Date", 0, '<month,2>/<day,2>/<year,4>'))
             {
 
             }
@@ -247,18 +255,23 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     SalesCommentLine1."No." := "No.";
                     SalesCommentLine1."Line No." := LineNo + 10000;
                     SalesCommentLine1.Date := WorkDate;
-                    SalesCommentLine1.SystemCreatedBy := UserId;
+                    //SalesCommentLine1.SystemCreatedBy := UserId;
                     SalesCommentLine1.Comment := PickPrintComment;
                     //SalesCommentLine1.Code := SalesCommentLine1.Code::"DOC-PRINT";
                     SalesCommentLine1.Insert();
-                    "Pick Slip Printed By" := UserId;
-                    "Pick Slip Printed Date" := WorkDate;
-                    "Pick Slip Printed Time" := Time;
                     Modify;
                 end;
 
-                TotalPieces := 0;
-                TotalWeight := 0;
+                If Not CurrReport.Preview then begin
+                    "Pick Slip Printed By" := UserId();
+                    "Pick Slip Printed Date" := WorkDate;
+                    "Pick Slip Printed Time" := Time;
+                    "No. Pick Lists Printed" := "No. Pick Lists Printed" + 1;
+                    Modify();
+                end;
+
+                // TotalPieces := 0;
+                // TotalWeight := 0;
 
                 If "No. Pick Lists Printed" > 0 then
                     RePrintMessage := 'REPRINT'

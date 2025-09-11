@@ -63,7 +63,248 @@ End Function
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
-      <Fields />
+      <Fields>
+        <Field Name="LocAdd1">
+          <DataField>LocAdd1</DataField>
+        </Field>
+        <Field Name="LocAdd2">
+          <DataField>LocAdd2</DataField>
+        </Field>
+        <Field Name="LocAdd3">
+          <DataField>LocAdd3</DataField>
+        </Field>
+        <Field Name="LocAdd4">
+          <DataField>LocAdd4</DataField>
+        </Field>
+        <Field Name="LocAdd5">
+          <DataField>LocAdd5</DataField>
+        </Field>
+        <Field Name="LocAdd6">
+          <DataField>LocAdd6</DataField>
+        </Field>
+        <Field Name="ShipAdd1">
+          <DataField>ShipAdd1</DataField>
+        </Field>
+        <Field Name="ShipAdd2">
+          <DataField>ShipAdd2</DataField>
+        </Field>
+        <Field Name="ShipAdd3">
+          <DataField>ShipAdd3</DataField>
+        </Field>
+        <Field Name="ShipAdd4">
+          <DataField>ShipAdd4</DataField>
+        </Field>
+        <Field Name="ShipAdd5">
+          <DataField>ShipAdd5</DataField>
+        </Field>
+        <Field Name="ShipAdd6">
+          <DataField>ShipAdd6</DataField>
+        </Field>
+        <Field Name="Carrier_Tracking_No_">
+          <DataField>Carrier_Tracking_No_</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Pickup_Date">
+          <DataField>Pickup_Date</DataField>
+        </Field>
+        <Field Name="Picking_instructions">
+          <DataField>Picking_instructions</DataField>
+        </Field>
+        <Field Name="DestinationInstructions1">
+          <DataField>DestinationInstructions1</DataField>
+        </Field>
+        <Field Name="DestinationInstructions2">
+          <DataField>DestinationInstructions2</DataField>
+        </Field>
+        <Field Name="Shipping_Instructions_1">
+          <DataField>Shipping_Instructions_1</DataField>
+        </Field>
+        <Field Name="Shipping_Instructions_2">
+          <DataField>Shipping_Instructions_2</DataField>
+        </Field>
+        <Field Name="Shipping_Instructions_3">
+          <DataField>Shipping_Instructions_3</DataField>
+        </Field>
+        <Field Name="Shipping_Instructions_4">
+          <DataField>Shipping_Instructions_4</DataField>
+        </Field>
+        <Field Name="OrderString1">
+          <DataField>OrderString1</DataField>
+        </Field>
+        <Field Name="OrderString2">
+          <DataField>OrderString2</DataField>
+        </Field>
+        <Field Name="OrderString3">
+          <DataField>OrderString3</DataField>
+        </Field>
+        <Field Name="OrderString4">
+          <DataField>OrderString4</DataField>
+        </Field>
+        <Field Name="OrderString5">
+          <DataField>OrderString5</DataField>
+        </Field>
+        <Field Name="OrderString6">
+          <DataField>OrderString6</DataField>
+        </Field>
+        <Field Name="OrderString7">
+          <DataField>OrderString7</DataField>
+        </Field>
+        <Field Name="OrderString8">
+          <DataField>OrderString8</DataField>
+        </Field>
+        <Field Name="CategoryArray1">
+          <DataField>CategoryArray1</DataField>
+        </Field>
+        <Field Name="CategoryArray2">
+          <DataField>CategoryArray2</DataField>
+        </Field>
+        <Field Name="CategoryArra3">
+          <DataField>CategoryArra3</DataField>
+        </Field>
+        <Field Name="CategoryArray4">
+          <DataField>CategoryArray4</DataField>
+        </Field>
+        <Field Name="CategoryArray5">
+          <DataField>CategoryArray5</DataField>
+        </Field>
+        <Field Name="CategoryArray6">
+          <DataField>CategoryArray6</DataField>
+        </Field>
+        <Field Name="CategoryArray7">
+          <DataField>CategoryArray7</DataField>
+        </Field>
+        <Field Name="CategoryArray8">
+          <DataField>CategoryArray8</DataField>
+        </Field>
+        <Field Name="WeightArray1">
+          <DataField>WeightArray1</DataField>
+        </Field>
+        <Field Name="WeightArray1Format">
+          <DataField>WeightArray1Format</DataField>
+        </Field>
+        <Field Name="WeightArray2">
+          <DataField>WeightArray2</DataField>
+        </Field>
+        <Field Name="WeightArray2Format">
+          <DataField>WeightArray2Format</DataField>
+        </Field>
+        <Field Name="WeightArray3">
+          <DataField>WeightArray3</DataField>
+        </Field>
+        <Field Name="WeightArray3Format">
+          <DataField>WeightArray3Format</DataField>
+        </Field>
+        <Field Name="WeightArray4">
+          <DataField>WeightArray4</DataField>
+        </Field>
+        <Field Name="WeightArray4Format">
+          <DataField>WeightArray4Format</DataField>
+        </Field>
+        <Field Name="WeightArray5">
+          <DataField>WeightArray5</DataField>
+        </Field>
+        <Field Name="WeightArray5Format">
+          <DataField>WeightArray5Format</DataField>
+        </Field>
+        <Field Name="WeightArray6">
+          <DataField>WeightArray6</DataField>
+        </Field>
+        <Field Name="WeightArray6Format">
+          <DataField>WeightArray6Format</DataField>
+        </Field>
+        <Field Name="WeightArray7">
+          <DataField>WeightArray7</DataField>
+        </Field>
+        <Field Name="WeightArray7Format">
+          <DataField>WeightArray7Format</DataField>
+        </Field>
+        <Field Name="WeightArray8">
+          <DataField>WeightArray8</DataField>
+        </Field>
+        <Field Name="WeightArray8Format">
+          <DataField>WeightArray8Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray1">
+          <DataField>NumberofPackagesArray1</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray1Format">
+          <DataField>NumberofPackagesArray1Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray2">
+          <DataField>NumberofPackagesArray2</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray2Format">
+          <DataField>NumberofPackagesArray2Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray3">
+          <DataField>NumberofPackagesArray3</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray3Format">
+          <DataField>NumberofPackagesArray3Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray4">
+          <DataField>NumberofPackagesArray4</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray4Format">
+          <DataField>NumberofPackagesArray4Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray5">
+          <DataField>NumberofPackagesArray5</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray5Format">
+          <DataField>NumberofPackagesArray5Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray6">
+          <DataField>NumberofPackagesArray6</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray6Format">
+          <DataField>NumberofPackagesArray6Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray7">
+          <DataField>NumberofPackagesArray7</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray7Format">
+          <DataField>NumberofPackagesArray7Format</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray8">
+          <DataField>NumberofPackagesArray8</DataField>
+        </Field>
+        <Field Name="NumberofPackagesArray8Format">
+          <DataField>NumberofPackagesArray8Format</DataField>
+        </Field>
+        <Field Name="Piece_Count">
+          <DataField>Piece_Count</DataField>
+        </Field>
+        <Field Name="LocationString">
+          <DataField>LocationString</DataField>
+        </Field>
+        <Field Name="Cases___Total">
+          <DataField>Cases___Total</DataField>
+        </Field>
+        <Field Name="Cases___TotalFormat">
+          <DataField>Cases___TotalFormat</DataField>
+        </Field>
+        <Field Name="Weight___Total">
+          <DataField>Weight___Total</DataField>
+        </Field>
+        <Field Name="Weight___TotalFormat">
+          <DataField>Weight___TotalFormat</DataField>
+        </Field>
+        <Field Name="EncodedText">
+          <DataField>EncodedText</DataField>
+        </Field>
+        <Field Name="Last_Print_Time">
+          <DataField>Last_Print_Time</DataField>
+        </Field>
+        <Field Name="Last_Print_Date">
+          <DataField>Last_Print_Date</DataField>
+        </Field>
+        <Field Name="No__Printed">
+          <DataField>No__Printed</DataField>
+        </Field>
+      </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>
         <CommandText />

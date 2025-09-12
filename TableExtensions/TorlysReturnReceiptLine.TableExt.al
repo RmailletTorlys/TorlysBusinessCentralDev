@@ -6,12 +6,15 @@ tableextension 56661 TorlysReturnReceiptLine extends "Return Receipt Line"
         {
             Caption = 'Case Quantity';
             DataClassification = CustomerContent;
+
+
         }
 
         field(50002; "Quantity Pallet"; Integer)
         {
             Caption = 'Pallet Quantity';
             DataClassification = CustomerContent;
+
         }
 
         field(50003; "Qty. to Ship Case"; Integer)

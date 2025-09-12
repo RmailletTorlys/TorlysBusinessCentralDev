@@ -32,6 +32,8 @@ report 50010 "BOL Shipment Label"
                 POCount := BOLLine.Count;
             end;
         }
+
+
     }
 
     // local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")

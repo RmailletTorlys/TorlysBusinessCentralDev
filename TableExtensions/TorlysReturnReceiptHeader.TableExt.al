@@ -10,7 +10,7 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50002; "Salesperson Code 2"; code[10])
+        field(50002; "Salesperson Code 2"; code[20])
         {
             Caption = 'Salesperson Code 2';
             TableRelation = "Salesperson/Purchaser";
@@ -24,7 +24,7 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50004; "Salesperson Code 3"; code[10])
+        field(50004; "Salesperson Code 3"; code[20])
         {
             Caption = 'Salesperson Code 3';
             TableRelation = "Salesperson/Purchaser";
@@ -47,8 +47,8 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
         field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
-            DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
+            DataClassification = CustomerContent;
         }
 
         field(50008; "Tag Name"; code[20])
@@ -69,7 +69,7 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50011; "Pick Slip Printed By"; code[20])
+        field(50011; "Pick Slip Printed By"; Code[50])
         {
             Caption = 'Pick Slip Printed By';
             TableRelation = "User Details";
@@ -113,16 +113,18 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50020; "To ship"; Boolean)
+        field(50020; "Qty. To ship"; Decimal)
         {
-            Caption = 'To ship';
-            DataClassification = CustomerContent;
+            Caption = 'Qty. To ship';
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
+            FieldClass = FlowField;
         }
 
         field(50021; "Outstanding Quantity"; Decimal)
         {
             Caption = 'Outstanding Quantity';
-            DataClassification = CustomerContent;
+            CalcFormula = Sum("Sales Line"."Outstanding Quantity" WHERE("Document No." = FIELD("No.")));
+            FieldClass = FlowField;
         }
 
         field(50022; "Roll out Order"; Boolean)
@@ -153,15 +155,15 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
         field(50026; "Warehouse Associate Picked By"; code[20])
         {
             Caption = 'Warehouse Associate Picked By';
-            TableRelation = "User Details";
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
 
         field(50027; "Warehouse Associate Checked By"; code[20])
         {
             Caption = 'Warehouse Associate Checked By';
-            TableRelation = "User Details";
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
 
         field(50028; "Freight Zone Code"; Code[20])
@@ -172,14 +174,81 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
 
         }
 
-        field(50029; "Shipping Instructions"; Code[30])
+        field(50029; "CM Approved By"; code[20])
+        {
+            Caption = 'CM Approved By';
+            TableRelation = "User Details";
+            DataClassification = CustomerContent;
+        }
+
+        field(50030; "CM Approved Date"; Date)
+        {
+            Caption = 'CM Approved Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50031; "Order Method"; Code[25])
+        {
+            Caption = 'Order Method';
+            DataClassification = CustomerContent;
+            TableRelation = "Torlys Lookup Values".Code where(Type = const("Order Method"));
+        }
+
+        field(50032; "Total Excl. Tax"; Decimal)
+        {
+            Caption = 'Total Excl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50033; "Total Tax"; Decimal)
+        {
+            Caption = 'Total Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50034; "Total Incl. Tax"; Decimal)
+        {
+            Caption = 'Total Incl. Tax';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 2;
+        }
+
+        field(50035; "To ship"; Boolean)
+        {
+            Caption = 'To ship';
+            DataClassification = CustomerContent;
+        }
+
+        field(50036; "Region Code"; Code[10])
+        {
+            Caption = 'Region Code';
+            DataClassification = CustomerContent;
+        }
+
+        field(50037; "Shipping Instructions"; Code[30])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
 
-        field(50030; "Shipping Comment"; Text[50])
+        field(50038; "Whse Assoc. Picked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Picked By';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50039; "Whse Assoc. Checked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Checked By';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50040; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

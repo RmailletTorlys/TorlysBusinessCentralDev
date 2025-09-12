@@ -2,6 +2,8 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
 {
     layout
     {
+        movebefore(Quantity; "Unit of Measure Code")
+
         addafter(Quantity)
         {
             field("Case Quantity"; Rec."Quantity Case")
@@ -25,6 +27,12 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
                     OnValidatePallet(Rec, xRec);
                 end;
             }
+        }
+
+        moveafter("Pallet Quantity"; "Qty. to Ship")
+
+        addafter("Qty. to Ship")
+        {
 
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
             {
@@ -47,6 +55,11 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
                     OnValidateToShipPallet(Rec, xRec)
                 end;
             }
+        }
+        moveafter("Qty. to Ship Pallet"; "Qty. to Receive")
+
+        addafter("Qty. to Receive")
+        {
 
             field("Qty. to Receive Case"; Rec."Qty. to Receive Case")
             {
@@ -74,6 +87,46 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
             }
 
+        }
+
+        addafter("Quantity Shipped")
+        {
+            field("Quantity in Transit"; Rec."Qty. in Transit")
+            {
+                Caption = 'Qty. in Transit';
+                ToolTip = 'Qty. in Transit';
+                ApplicationArea = All;
+            }
+        }
+
+        modify("Reserved Quantity Inbnd.")
+        {
+            Visible = false;
+        }
+
+        modify("Reserved Quantity Shipped")
+        {
+            Visible = false;
+        }
+
+        modify("Reserved Quantity Outbnd.")
+        {
+            Visible = false;
+        }
+
+        modify("Shipment Date")
+        {
+            Visible = false;
+        }
+
+        modify("Receipt Date")
+        {
+            Visible = false;
+        }
+
+        modify("Custom Transit Number")
+        {
+            Visible = false;
         }
     }
 

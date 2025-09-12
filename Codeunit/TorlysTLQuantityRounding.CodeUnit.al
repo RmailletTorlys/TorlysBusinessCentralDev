@@ -67,8 +67,8 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         Item.SetRange("No.", Rec."Item No.");
         Item.FindFirst();
 
-        //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
-        if not QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+
+        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
 
         exit(true);
     end;
@@ -76,6 +76,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; OrderType: Integer)
     begin
+
 
 
         if ValidateUoM(Rec) = false then
@@ -134,6 +135,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
         Rec."Quantity (Base)" := Rec.Quantity;
 
+
         if Rec.Quantity = 0 then
             Rec."Quantity Case" := 0;
         Rec."Quantity Pallet" := 0;
@@ -149,6 +151,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
             Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
+        UpdateToShip(Rec);
         UpdateToReceive(Rec);
     end;
 
@@ -176,6 +179,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
     local procedure HandleCaseQuantity(var Rec: Record "Transfer Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
+        Rec."Quantity (Base)" := Rec."Quantity";
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
@@ -186,13 +190,14 @@ codeunit 50001 "Torlys TL Quantity Rounding"
             Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
-
+        UpdateToShip(Rec);
         UpdateToReceive(Rec);
     end;
 
     local procedure HandleQtyToShipCase(var Rec: Record "Transfer Line")
     begin
-        Rec."Qty. to Ship (Base)" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship (Base)" := Rec."Qty. to Ship";
 
         if Rec.Quantity >= PalletConst then
             Rec."Qty. to Ship Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
@@ -207,7 +212,8 @@ codeunit 50001 "Torlys TL Quantity Rounding"
 
     local procedure HandleQtyToReceiveCase(var Rec: Record "Transfer Line")
     begin
-        Rec."Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Qty. to Receive (Base)" := Rec."Qty. to Receive";
 
         if Rec."Qty. to Receive (Base)" >= PalletConst then
             Rec."Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Qty. to Receive (Base)", PalletConst);
@@ -223,23 +229,37 @@ codeunit 50001 "Torlys TL Quantity Rounding"
     local procedure HandlePalletQuantity(var Rec: Record "Transfer Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
-
+        Rec."Quantity (Base)" := Rec."Quantity";
+        UpdateToShip(Rec);
         UpdateToReceive(Rec);
     end;
 
     local procedure HandleQtyToShipPallet(var Rec: Record "Transfer Line")
     begin
         Rec."Qty. to Ship" := (CaseConst * Rec."Qty. to Ship Case") + (PalletConst * Rec."Qty. to Ship Pallet");
+        Rec."Qty. to Ship (Base)" := Rec."Qty. to Ship";
     end;
 
     local procedure HandleQtyToReceivePallet(var Rec: Record "Transfer Line")
     begin
-        Rec."Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Qty. to Receive (Base)" := Rec."Qty. to Receive";
 
+    end;
+
+    local procedure UpdateToShip(var Rec: Record "Transfer Line")
+    begin
+        Rec."Outstanding Quantity" := Rec.Quantity;
+        Rec."Outstanding Qty. (Base)" := Rec.Quantity;
+        Rec."Qty. to Ship" := Rec.Quantity;
+        Rec."Qty. to Ship (Base)" := Rec.Quantity;
+        Rec."Qty. to Ship Case" := Rec."Quantity Case";
+        Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
     end;
 
     local procedure UpdateToReceive(var Rec: Record "Transfer Line")
     begin
+        Rec."Qty. to Receive" := Rec.Quantity;
         Rec."Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";

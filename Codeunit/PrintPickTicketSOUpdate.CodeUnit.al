@@ -3,19 +3,14 @@ codeunit 50007 PrintPickTicketSOUpdate
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Print", 'OnBeforePrintSalesOrder', '', false, false)]
     local procedure OnBeforePrintSalesOrder(var SalesHeader: Record "Sales Header"; ReportUsage: Integer; var IsPrinted: Boolean)
     begin
-        UpdatePickTicketPrinted(SalesHeader);
+        if ReportUsage = 2 then
+            UpdatePickTicketPrinted(SalesHeader);
     end;
 
     local procedure UpdatePickTicketPrinted(var SalesHeader: Record "Sales Header")
     begin
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then
-            if ValidateBeforePrinting(SalesHeader) then begin
-                SalesHeader."Pick Slip Printed By" := COPYSTR(UserId(), 1, 30);
-                SalesHeader."Pick Slip Printed Date" := WorkDate();
-                SalesHeader."Pick Slip Printed Time" := Time();
-                SalesHeader.Modify(true);
-            end
-            else
+            if not ValidateBeforePrinting(SalesHeader) then
                 ERROR('Please review errors and retry.');
     end;
 

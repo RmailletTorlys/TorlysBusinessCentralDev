@@ -67,6 +67,9 @@ End Function
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>
+        <Field Name="PrintDetail">
+          <DataField>PrintDetail</DataField>
+        </Field>
         <Field Name="FilterString">
           <DataField>FilterString</DataField>
         </Field>

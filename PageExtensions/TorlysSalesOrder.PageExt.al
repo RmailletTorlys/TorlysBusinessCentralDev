@@ -176,6 +176,47 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         moveafter("Freight Zone Code"; "Location Code", "Shipping Advice")
 
+        addafter("Shipping and Billing")
+        {
+            group("Marketing")
+            {
+                Caption = 'Marketing';
+
+                field("MK Required"; Rec."MKRequired")
+                {
+                    Caption = 'MK Required';
+                    ToolTip = 'MK Required';
+                    ApplicationArea = All;
+                }
+
+                field("MK Required By"; Rec."MKRequired By")
+                {
+                    Caption = 'MK Required By';
+                    ToolTip = 'MK Required By';
+                    ApplicationArea = All;
+                }
+                field("MK Staged"; Rec."MKStaged_Location")
+                {
+                    Caption = 'MK Staged';
+                    ToolTip = 'MK Staged';
+                    ApplicationArea = All;
+                }
+                field("MK Staged By"; Rec."MKStaged_By")
+                {
+                    Caption = 'MK Staged By';
+                    ToolTip = 'MK Staged By';
+                    ApplicationArea = All;
+                }
+
+                field("MK Staged Date"; Rec."MKStaged_Date")
+                {
+                    Caption = 'MK Staged Date';
+                    ToolTip = 'MK Staged Date';
+                    ApplicationArea = All;
+                }
+            }
+        }
+
         modify("Sell-to Customer No.")
         {
             Importance = Standard;

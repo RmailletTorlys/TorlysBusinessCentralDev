@@ -60,6 +60,7 @@ report 50018 "Packing Slip"
             {
                 DataItemLink = "Document No." = field("No.");
                 DataItemTableView = sorting("Document No.", "Line No.");
+
                 dataitem(SalesLineComments; "Sales Comment Line")
                 {
                     DataItemLink = "No." = field("Document No."), "Document Line No." = field("Line No.");
@@ -78,6 +79,8 @@ report 50018 "Packing Slip"
                     TempSalesShipmentLineAsm := "Sales Shipment Line";
                     TempSalesShipmentLineAsm.Insert();
                     HighestLineNo := "Line No.";
+
+                    SRSetup.GET;
                 end;
 
                 trigger OnPreDataItem()
@@ -761,6 +764,7 @@ report 50018 "Packing Slip"
         ShippingAgent: Record "Shipping Agent";
         PostedAsmHeader: Record "Posted Assembly Header";
         PostedAsmLine: Record "Posted Assembly Line";
+        SRSetup: Record "Sales & Receivables Setup";
         LanguageMgt: Codeunit Language;
         UOMMgt: Codeunit "Unit of Measure Management";
         SalesShipmentPrinted: Codeunit "Sales Shpt.-Printed";

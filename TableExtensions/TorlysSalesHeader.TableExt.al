@@ -253,6 +253,45 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50041; "MKRequired"; Boolean)
+        {
+            Caption = 'MKRequired';
+            DataClassification = CustomerContent;
+        }
+
+        field(50042; "MKRequired By"; Date)
+        {
+            Caption = 'MKRequired By';
+            DataClassification = CustomerContent;
+        }
+
+        field(50043; "MKStaged_Location"; Code[10])
+        {
+            Caption = 'MKStaged_Location';
+            TableRelation = Bin;
+            DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                UpdateMKStagedDateAndByFields();
+            end;
+        }
+
+        field(50044; "MKStaged_Date"; Date)
+        {
+            Caption = 'MKStaged_Date';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+
+        field(50045; "MKStaged_By"; Text[50])
+        {
+            Caption = 'MKStaged_By';
+            TableRelation = "User Details";
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()
@@ -325,9 +364,13 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             until CommentLine.Next() = 0;
         end;
 
-
-
         OnAfterCopyCommentsFromCustCardToSalesHeader();
+    end;
+
+    local procedure UpdateMKStagedDateAndByFields()
+    begin
+        "MKStaged_Date" := Today();
+        "MKStaged_By" := USERID;
     end;
 
     [IntegrationEvent(false, false)]

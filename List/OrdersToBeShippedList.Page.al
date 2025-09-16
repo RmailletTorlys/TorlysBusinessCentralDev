@@ -286,9 +286,12 @@ page 52001 "Orders To Be Shipped List"
             actionref("Remove BoL"; "Clear BoL")
             { }
 
-            group("Printing")
+            group("Posting & Printing")
             {
-                actionref("Print Pick Slip"; "Pick Instruction")
+                actionref("Print Pick Slip"; "Print Pick Instruction")
+                { }
+
+                actionref("Post & Print"; "Post and Print Order(s)")
                 { }
             }
 
@@ -328,12 +331,12 @@ page 52001 "Orders To Be Shipped List"
 
         area(Processing)
         {
-            group(Print)
+            group("Post and Print")
             {
                 Caption = 'Print';
                 Image = Print;
 
-                action("Pick Instruction")
+                action("Print Pick Instruction")
                 {
                     ApplicationArea = Warehouse;
                     Caption = 'Pick Instruction';
@@ -351,9 +354,35 @@ page 52001 "Orders To Be Shipped List"
                         if SelectedSalesHeader.FindSet() then
                             repeat
                                 DocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
+                            until SelectedSalesHeader.Next() = 0;
+                    end;
+                }
+
+                action("Post and Print Order(s)")
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Post and Print Order(s)';
+                    Image = Post;
+                    ToolTip = 'Post the selected sales order(s) as shipped.';
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        SalesShpHeader: Record "Sales Shipment Header";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if SelectedSalesHeader.FindSet() then
+                            repeat
+
+                                PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
+                                SalesShpHeader.FindLast();
+                                Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
+                                SalesShpHeader.PrintRecords(true);
+
                             until SelectedSalesHeader.Next() = 0
-                        else
-                            DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
+
                     end;
                 }
 
@@ -856,8 +885,26 @@ page 52001 "Orders To Be Shipped List"
         OnAfterIsFullyAllocated(No, isComplete);
 
         exit(isComplete);
+    end;
+
+    local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
+    var
+        SalesHeader: Record "Sales Header";
+        LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
+        DocumentIsScheduledForPosting: Boolean;
+        DocumentIsPosted: Boolean;
 
 
+    begin
+        LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(SelectedSalesHeader);
+        SelectedSalesHeader.SendToPosting(PostingCodeunitID);
+
+        DocumentIsScheduledForPosting := SelectedSalesHeader."Job Queue Status" = SelectedSalesHeader."Job Queue Status"::"Scheduled for Posting";
+        DocumentIsPosted := (not SalesHeader.Get(SelectedSalesHeader."Document Type", SelectedSalesHeader."No.")) or DocumentIsScheduledForPosting;
+
+        CurrPage.Update(False);
+
+        exit(DocumentIsPosted);
 
 
     end;

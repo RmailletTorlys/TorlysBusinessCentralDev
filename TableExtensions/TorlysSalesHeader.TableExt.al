@@ -50,7 +50,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50008; "Tag Name"; code[20])
+        field(50008; "Tag Name"; text[30])
         {
             Caption = 'Tag Name';
             DataClassification = CustomerContent;

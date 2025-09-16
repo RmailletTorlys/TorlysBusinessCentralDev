@@ -32,6 +32,10 @@ report 50016 "Bill Of Lading List"
                 {
 
                 }
+                column(Ship_to_Post_Code; "Ship-to Post Code")
+                {
+
+                }
                 column(Customer_No_; "Customer No.")
                 {
 

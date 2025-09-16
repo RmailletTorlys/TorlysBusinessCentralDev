@@ -14,7 +14,7 @@ report 50014 "BOL Shipping Manifest"
             RequestFilterFields = "No.";
             RequestFilterHeading = 'BOL Shipping Manifest';
 
-            column(Pickup_Date; "Pickup Date")
+            column(Pickup_Date; Format("Pickup Date", 0, '<month,2>/<day,2>/<year,4>'))
             {
 
             }

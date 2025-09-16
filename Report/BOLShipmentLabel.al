@@ -11,8 +11,110 @@ report 50010 "BOL Shipment Label"
         dataitem("Bol Header"; "Torlys BOL Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "No.";
+            RequestFilterFields = "No.", "Customer No.", "Ship-to Code", "No. Printed";
             RequestFilterHeading = 'BOL Shipment Label';
+
+            dataitem(CopyLoop; Integer)
+            {
+                DataItemTableView = sorting(Number);
+                DataItemLinkReference = "Bol Header";
+
+                dataitem(PageLoop; Integer)
+                {
+                    DataItemTableView = sorting(Number) where(Number = const(1));
+                    DataItemLinkReference = CopyLoop;
+
+                    column(LocationAddress1; LocationAddress[1])
+                    {
+
+                    }
+                    column(LocationAddress2; LocationAddress[2])
+                    {
+
+                    }
+                    column(LocationAddress3; LocationAddress[3])
+                    {
+
+                    }
+                    column(LocationAddress4; LocationAddress[4])
+                    {
+
+                    }
+                    column(LocationAddress5; LocationAddress[5])
+                    {
+
+                    }
+                    column(LocationAddress6; LocationAddress[6])
+                    {
+
+                    }
+                    column(ShippingAgent; ShippingAgent."Pickup/Beyond Dest. Instr.")
+                    {
+
+                    }
+                    column(ShipToAddress1; ShipToAddress[1])
+                    {
+
+                    }
+                    column(ShipToAddress2; ShipToAddress[2])
+                    {
+
+                    }
+                    column(ShipToAddress3; ShipToAddress[3])
+                    {
+
+                    }
+                    column(ShipToAddress4; ShipToAddress[4])
+                    {
+
+                    }
+                    column(ShipToAddress5; ShipToAddress[5])
+                    {
+
+                    }
+                    column(ShipToAddress6; ShipToAddress[6])
+                    {
+
+                    }
+                    column(Shipping_comment; "Bol Header"."Shipping Comment")
+                    {
+
+                    }
+                    column(PickupDate; Format(("Bol Header"."Pickup Date"), 0, '<month,2>/<day,2>/<year,4>'))
+                    {
+
+                    }
+                    column(BOL_No; "Bol Header"."No.")
+                    {
+
+                    }
+                    column(PieceCount; "Bol Header"."Piece Count")
+                    {
+
+                    }
+                    column(POCount; POCount)
+                    {
+
+                    }
+                }
+
+                trigger OnPreDataItem()
+                begin
+                    NoLoops := 1 + Abs(NoCopies);
+                    If NoLoops <= 0 then
+                        NoLoops := 1;
+                    CopyNo := 0;
+                end;
+
+                trigger OnAfterGetRecord()
+                begin
+                    CurrReport.PageNo := 1;
+                    If CopyNo = NoLoops then begin
+                        CurrReport.Break();
+                    end else
+                        CopyNo := CopyNo + 1;
+                end;
+            }
 
             trigger OnAfterGetRecord()
             begin
@@ -25,7 +127,7 @@ report 50010 "BOL Shipment Label"
                     Clear(Location);
                 FormatAddress.Location(LocationAddress, Location);
 
-                //FormatAddress.BOLHeaderShipTo(ShipToAddress,"BOL Header");
+                BOLHeaderShipTo(ShipToAddress, "BOL Header");
 
                 BOLLine.Reset();
                 BOLLine.SetRange("BOL No.", "No.");
@@ -36,15 +138,14 @@ report 50010 "BOL Shipment Label"
 
     }
 
-    // local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")
-    // var
-    //     Handled: Boolean;
-    //     FormatAddrress: Codeunit "Format Address";
-    // begin
-    //     FormatAddr(
-    //         AddrArray, SalesHeader."Sell-to Customer Name", SalesHeader."Sell-to Customer Name 2", SalesHeader."Sell-to Contact", SalesHeader."Sell-to Address", SalesHeader."Sell-to Address 2",
-    //         SalesHeader."Sell-to City", SalesHeader."Sell-to Post Code", SalesHeader."Sell-to County", SalesHeader."Sell-to Country/Region Code");
-    // end;
+    local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var BOLHeader: Record "Torlys BOL Header")
+    var
+    begin
+        FormatAddress.FormatAddr(
+            AddrArray, '', '', '', BOLHeader."Ship-to Address", BOLHeader."Ship-to Address 2",
+            BOLHeader."Ship-to City", BOLHeader."Ship-to Post Code", '', BOLHeader."Ship-to Country/Region Code");
+    end;
+
 
     var
         ShippingAgent: Record "Shipping Agent";
@@ -55,5 +156,7 @@ report 50010 "BOL Shipment Label"
         ShipToAddress: array[8] of Text[50];
         POCount: Integer;
         PONumbers: Text;
-
+        NoCopies: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
 }

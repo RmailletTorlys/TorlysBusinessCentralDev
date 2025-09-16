@@ -18,6 +18,10 @@ report 50013 "Processed BOL Carrier Manifest"
             {
 
             }
+            column(PrintDetail; PrintDetail)
+            {
+
+            }
             column(FilterString; FilterString)
             {
 
@@ -141,15 +145,37 @@ report 50013 "Processed BOL Carrier Manifest"
             trigger OnAfterGetRecord()
             begin
                 BOLCount := BOLHeader.Count;
-                TotalSkids := TotalSkids + "No. of Skids";
-                TotalBoxes := TotalBoxes + "No. of Boxes";
-                TotalTubes := TotalTubes + "No. of Tubes";
-                TotalPackages := TotalPackages + "No. of Packages";
-                TotalRolls := TotalRolls + "No. of Rolls";
-                TotalWeight := TotalWeight + "Weight - Total";
+                TotalSkids += "No. of Skids";
+                TotalBoxes += "No. of Boxes";
+                TotalTubes += "No. of Tubes";
+                TotalPackages += "No. of Packages";
+                TotalRolls += "No. of Rolls";
+                TotalWeight += "Weight - Total";
             end;
         }
     }
+
+    requestpage
+    {
+        SaveValues = true;
+
+        layout
+        {
+            area(content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+                    field(PrintDetail; PrintDetail)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Print Detail';
+                    }
+                }
+            }
+        }
+    }
+
     var
         BOLCount: Integer;
         LastFieldNo: Integer;

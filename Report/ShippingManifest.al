@@ -33,6 +33,10 @@ report 50015 "Shipping Manifest"
                 {
 
                 }
+                column(ProcessedBOLFilter; ProcessedBOLFilter)
+                {
+
+                }
                 column(Pickupdate; Format(Pickupdate, 0, '<month,2>/<day,2>/<year,4>'))
                 {
 

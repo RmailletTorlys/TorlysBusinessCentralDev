@@ -60,6 +60,54 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
             {
 
             }
+            column(BillToAddress1; BillToAddress[1])
+            {
+
+            }
+            column(BillToAddress2; BillToAddress[2])
+            {
+
+            }
+            column(BillToAddress3; BillToAddress[3])
+            {
+
+            }
+            column(BillToAddress4; BillToAddress[4])
+            {
+
+            }
+            column(BillToAddress5; BillToAddress[5])
+            {
+
+            }
+            column(BillToAddress6; BillToAddress[6])
+            {
+
+            }
+            column(ShipToAddress1; ShipToAddress[1])
+            {
+
+            }
+            column(ShipToAddress2; ShipToAddress[2])
+            {
+
+            }
+            column(ShipToAddress3; ShipToAddress[3])
+            {
+
+            }
+            column(ShipToAddress4; ShipToAddress[4])
+            {
+
+            }
+            column(ShipToAddress5; ShipToAddress[5])
+            {
+
+            }
+            column(ShipToAddress6; ShipToAddress[6])
+            {
+
+            }
         }
 
         addlast(Header)
@@ -451,8 +499,8 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
                 If not Cust.get("Sell-to Customer No.") then
                     Clear(Cust);
 
-                Fmtaddr.SalesHeaderSellTo(BillToAddress, Header);
-                Fmtaddr.SalesHeaderShipTo(ShipToAddress, CustomerAddress, Header);
+                // Fmtaddr.SalesHeaderSellTo(BillToAddress, Header);
+                // Fmtaddr.SalesHeaderShipTo(ShipToAddress, CustomerAddress, Header);
 
                 If not CurrReport.Preview then begin
                     if ArchieveDocument then

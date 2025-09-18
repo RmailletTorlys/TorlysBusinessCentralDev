@@ -2,6 +2,66 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
 {
     dataset
     {
+        add(Header)
+        {
+            column(CALaddress1; CALaddress1)
+            {
+
+            }
+            column(CALaddress2; CALaddress2)
+            {
+
+            }
+            column(CALaddress3; CALaddress3)
+            {
+
+            }
+            column(CALaddress4; CALaddress4)
+            {
+
+            }
+            column(CALaddress5; CALaddress5)
+            {
+
+            }
+            column(Your_Reference; "Your Reference")
+            {
+
+            }
+            column(ShipmentMethodDescription1; ShipmentMethod.Description)
+            {
+
+            }
+            column(PaymentTermsDesc; PaymentTerms.Description)
+            {
+
+            }
+            column(CustVatRegNo; Cust."VAT Registration No.")
+            {
+
+            }
+            column(Tag_Name; "Tag Name")
+            {
+
+            }
+            column(Bill_to_Customer_No_; "Bill-to Customer No.")
+            {
+
+            }
+            column(External_Document_No_; "External Document No.")
+            {
+
+            }
+            column(SalesPurchPerson; SalesPurchPerson.Name)
+            {
+
+            }
+            column(Order_Date; "Order Date")
+            {
+
+            }
+        }
+
         addlast(Header)
         {
             dataitem(SalesCommentLine; "Sales Comment Line")
@@ -56,6 +116,107 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
                         DataItemTableView = sorting(Number);
                         DataItemLinkReference = PageLoop;
 
+                        column(TempSalesLineNo; TempSalesLine."No.")
+                        {
+
+                        }
+                        column(TempSalesLineDesc; TempSalesLine.Description + ' ' + TempSalesLine."Description 2")
+                        {
+
+                        }
+                        column(TempSalesLineUOM; TempSalesLine."Unit of Measure Code")
+                        {
+
+                        }
+                        column(weightlb; weight1calc)
+                        {
+
+                        }
+                        column(Weight2Calc; Weight2Calc)
+                        {
+
+                        }
+                        column(QtyOrderedNo; QtyOrderedNo)
+                        {
+
+                        }
+                        column(UnitPriceToPrint; UnitPriceToPrint)
+                        {
+
+                        }
+                        column(AmountExclInvDisc; AmountExclInvDisc)
+                        {
+
+                        }
+                        column(CountryOfOrigin; CountryOfOrigin)
+                        {
+
+                        }
+                        column(TariffNo; TariffNo)
+                        {
+
+                        }
+                        column(TariffNote; TariffNote)
+                        {
+
+                        }
+                        column(TotalWeight1; TotalWeight)
+                        {
+
+                        }
+                        column(TotalPieces; TotalPieces)
+                        {
+
+                        }
+                        column(TotalLabel; TotalLabel)
+                        {
+
+                        }
+                        column(BreakdownLabel1; BreakdownLabel[1])
+                        {
+
+                        }
+                        column(BreakdownLabel2; BreakdownLabel[2])
+                        {
+
+                        }
+                        column(BreakdownLabel3; BreakdownLabel[3])
+                        {
+
+                        }
+                        column(BreakdownLabel4; BreakdownLabel[4])
+                        {
+
+                        }
+                        column(BreakdownAmt1; BreakdownAmt[1])
+                        {
+
+                        }
+                        column(BreakdownAmt2; BreakdownAmt[2])
+                        {
+
+                        }
+                        column(BreakdownAmt3; BreakdownAmt[3])
+                        {
+
+                        }
+                        column(BreakdownAmt4; BreakdownAmt[4])
+                        {
+
+                        }
+                        column(CurrencyCode; CurrencyCode)
+                        {
+
+                        }
+                        column(GrandTotalLabel; GrandTotalLabel)
+                        {
+
+                        }
+                        column(grandT; AmountExclInvDisc + (BreakdownAmt[1] + BreakdownAmt[2] + BreakdownAmt[3] + BreakdownAmt[4]))
+                        {
+
+                        }
+
                         trigger OnPreDataItem()
                         begin
                             CurrReport.CreateTotals(taxliable, TaxAmount, AmountExclInvDisc, TempSalesLine."Line Amount", TempSalesLine."Inv. Discount Amount", TotalPieces);
@@ -71,7 +232,7 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
                                 QtyOrderedLabel := '';
                                 TotalLabel := 'Total:';
                                 GrandTotalLabel := '';
-                                GrandTotal := 0;
+                                GrandTotal := 0
                             end else begin
                                 QtyLabel := '';
                                 QtyOrderedLabel := 'Quantity';
@@ -110,91 +271,133 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
                                     CurrencyCode := 'CDN';
                                 end else
                                     CurrencyCode := Header."Currency Code";
-                            end;
 
-                            Item3.Get(Line."No.");
-                            If (OrderShipped) then begin
-                                If (CostInsteadOfPrice) then
-                                    AmountExclInvDisc := Line."Unit Cost (LCY)" * line."Quantity Shipped"
-                                else if (UseListPrice) then
-                                    AmountExclInvDisc := Line."Unit Cost" * Line."Quantity Shipped"
-                                else if (BackoutDuty) and (Item3."Tarrif Charge Required") then
-                                    AmountExclInvDisc := ((Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=')) / 1.25) * (Line."Quantity Shipped")
-                                else
-                                    AmountExclInvDisc := Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=') * Line."Quantity Shipped";
-
-                                QtyOrderedNo := Line."Quantity Shipped";
-                                If Line."Quantity Shipped" = 0 then
-                                    UnitPriceToPrint := 0
-                                Else
-                                    UnitPriceToPrint := Round(AmountExclInvDisc / Line."Quantity Shipped", 0.00001);
-
-                                If AdditionalWeight = 0 then begin
-                                    Weight1Label := 'Net Weight (LB)';
-                                    Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped");
-                                    Weight2Label := 'Net Weight (KG)';
-                                    Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
-                                end else begin
-                                    Weight1Label := 'Net Weight (KG)';
-                                    Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
-                                    Weight2Label := 'Gross Weight (KG)';
-                                    Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
-                                end;
-
-                                TotalWeight := TotalWeight + line."Net Weight" * line."Quantity Shipped";
-                            end;
-
-                            Item3.Get(Line."No.");
-                            If (Not OrderShipped) then begin
-                                If (CostInsteadOfPrice) then
-                                    AmountExclInvDisc := Line."Unit Cost (LCY)" * line."Qty. to Ship"
-                                else if (UseListPrice) then
-                                    AmountExclInvDisc := Line."Unit Cost" * Line."Qty. to Ship"
-                                else if (BackoutDuty) and (Item3."Tarrif Charge Required") then
-                                    AmountExclInvDisc := ((Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=')) / 1.25) * (Line."Qty. to Ship")
-                                else
-                                    AmountExclInvDisc := Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=') * Line."Qty. to Ship";
-
-                                QtyOrderedNo := Line."Qty. to Ship";
-                                If Line."Qty. to Ship" = 0 then
-                                    UnitPriceToPrint := 0
-                                Else
-                                    UnitPriceToPrint := Round(AmountExclInvDisc / Line."Qty. to Ship", 0.00001);
-
-                                If AdditionalWeight = 0 then begin
-                                    Weight1Label := 'Net Weight (LB)';
-                                    Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship");
-                                    Weight2Label := 'Net Weight (KG)';
-                                    Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                end else begin
-                                    Weight1Label := 'Net Weight (KG)';
-                                    Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                    Weight2Label := 'Gross Weight (KG)';
-                                    Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                end;
-
-                                TotalWeight := TotalWeight + line."Net Weight" * line."Qty. to Ship";
-                            end;
-
-                            If Line.Type = Line.Type::Item then begin
-                                If Item.Get(Line."No.") then begin
-                                    CountryOfOrigin := Item."Country/Region of Origin Code";
-                                    // ICProgramNo := Item."Program No.";
-                                    // TariffNote := Item.tarrifnote;
-                                    If UsePurchasesTariff then
-                                        TariffNo := Item."Tariff No."
+                                Item3.Get(Line."No.");
+                                If (OrderShipped) then begin
+                                    If (CostInsteadOfPrice) then
+                                        AmountExclInvDisc := Line."Unit Cost (LCY)" * line."Quantity Shipped"
+                                    else if (UseListPrice) then
+                                        AmountExclInvDisc := Line."Unit Cost" * Line."Quantity Shipped"
+                                    else if (BackoutDuty) and (Item3."Tarrif Charge Required") then
+                                        AmountExclInvDisc := ((Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=')) / 1.25) * (Line."Quantity Shipped")
                                     else
-                                        TariffNo := item."Tariff No. (Sales)";
+                                        AmountExclInvDisc := Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=') * Line."Quantity Shipped";
+
+                                    QtyOrderedNo := Line."Quantity Shipped";
+                                    If Line."Quantity Shipped" = 0 then
+                                        UnitPriceToPrint := 0
+                                    Else
+                                        UnitPriceToPrint := Round(AmountExclInvDisc / Line."Quantity Shipped", 0.00001);
+
+                                    If AdditionalWeight = 0 then begin
+                                        Weight1Label := 'Net Weight (LB)';
+                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped");
+                                        Weight2Label := 'Net Weight (KG)';
+                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
+                                    end else begin
+                                        Weight1Label := 'Net Weight (KG)';
+                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
+                                        Weight2Label := 'Gross Weight (KG)';
+                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
+                                    end;
+
+                                    TotalWeight := TotalWeight + line."Net Weight" * line."Quantity Shipped";
+                                end;
+
+                                Item3.Get(Line."No.");
+                                If (Not OrderShipped) then begin
+                                    If (CostInsteadOfPrice) then
+                                        AmountExclInvDisc := Line."Unit Cost (LCY)" * line."Qty. to Ship"
+                                    else if (UseListPrice) then
+                                        AmountExclInvDisc := Line."Unit Cost" * Line."Qty. to Ship"
+                                    else if (BackoutDuty) and (Item3."Tarrif Charge Required") then
+                                        AmountExclInvDisc := ((Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=')) / 1.25) * (Line."Qty. to Ship")
+                                    else
+                                        AmountExclInvDisc := Round((Line."Unit Price" * (1 - Line."Line Discount %" / 100)), 0.01, '=') * Line."Qty. to Ship";
+
+                                    QtyOrderedNo := Line."Qty. to Ship";
+                                    If Line."Qty. to Ship" = 0 then
+                                        UnitPriceToPrint := 0
+                                    Else
+                                        UnitPriceToPrint := Round(AmountExclInvDisc / Line."Qty. to Ship", 0.00001);
+
+                                    If AdditionalWeight = 0 then begin
+                                        Weight1Label := 'Net Weight (LB)';
+                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship");
+                                        Weight2Label := 'Net Weight (KG)';
+                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
+                                    end else begin
+                                        Weight1Label := 'Net Weight (KG)';
+                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
+                                        Weight2Label := 'Gross Weight (KG)';
+                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
+                                    end;
+
+                                    TotalWeight := TotalWeight + line."Net Weight" * line."Qty. to Ship";
+                                end;
+
+                                If Line.Type = Line.Type::Item then begin
+                                    If Item.Get(Line."No.") then begin
+                                        CountryOfOrigin := Item."Country/Region of Origin Code";
+                                        // ICProgramNo := Item."Program No.";
+                                        // TariffNote := Item.tarrifnote;
+                                        If UsePurchasesTariff then
+                                            TariffNo := Item."Tariff No."
+                                        else
+                                            TariffNo := item."Tariff No. (Sales)";
+                                    end else begin
+                                        CountryOfOrigin := '';
+                                        TariffNo := '';
+                                    end;
                                 end else begin
                                     CountryOfOrigin := '';
                                     TariffNo := '';
                                 end;
-                            end else begin
-                                CountryOfOrigin := '';
-                                TariffNo := '';
+
+                                TotalPieces := CalcTotalPieces;
                             end;
 
-                            // TotalPieces:= CalcTotalPieces;
+                            If RemoveFreight then begin
+                                If TempSalesLine."Gen. Prod. Posting Group" = 'FREIGHT' then begin
+                                    TempSalesLine."No." := '';
+                                    TempSalesLine.Description := '';
+                                    TempSalesLine."Description 2" := '';
+                                    TempSalesLine."Unit of Measure Code" := '';
+                                    Weight1Calc := 0;
+                                    Weight2Calc := 0;
+                                    QtyOrderedNo := 0;
+                                    UnitPriceToPrint := 0;
+                                    AmountExclInvDisc := 0;
+                                end;
+                            end;
+
+                            If RemoveDuty then begin
+                                If TempSalesLine."Gen. Prod. Posting Group" = 'DUTY' then begin
+                                    TempSalesLine."No." := '';
+                                    TempSalesLine.Description := '';
+                                    TempSalesLine."Description 2" := '';
+                                    TempSalesLine."Unit of Measure Code" := '';
+                                    Weight1Calc := 0;
+                                    Weight2Calc := 0;
+                                    QtyOrderedNo := 0;
+                                    UnitPriceToPrint := 0;
+                                    AmountExclInvDisc := 0;
+                                end;
+                            end;
+
+                            // If RemoveIFS then begin
+                            //     If TempSalesLine."Gen. Prod. Posting Group" = 'IFS' then begin
+                            //         TempSalesLine."No." := '';
+                            //         TempSalesLine.Description := '';
+                            //         TempSalesLine."Description 2" := '';
+                            //         TempSalesLine."Unit of Measure Code" := '';
+                            //         Weight1Calc := 0;
+                            //         Weight2Calc := 0;
+                            //         QtyOrderedNo := 0;
+                            //         UnitPriceToPrint := 0;
+                            //         AmountExclInvDisc := 0;
+                            //     end;
+                            // end;
                         end;
                     }
 
@@ -384,7 +587,7 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
             end;
         }
     }
-    Procedure CalcTotalPieces()
+    Procedure CalcTotalPieces(): Integer;
     var
         Item2: Record Item;
         ItemUOM: Record "Item Unit of Measure";
@@ -422,7 +625,7 @@ reportextension 50020 "ProFormaInvoiceSalesOrder" extends "Standard Sales - Pro 
                 Pieces += PerPallet / PerCase * QtyShippedPallet;
         end else
             Pieces := 0;
-        // Exit(Pieces);
+        Exit(Pieces);
     end;
 
     var

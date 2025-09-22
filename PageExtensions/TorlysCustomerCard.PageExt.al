@@ -288,11 +288,11 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     end;
                 }
 
-                field("TORLYS Club"; Rec."TORLYS Club")
+                field("Club"; Rec."Club")
                 {
                     ApplicationArea = All;
-                    CaptionClass = 'TORLYS Club';
-                    ToolTip = 'TORLYS Club';
+                    CaptionClass = 'Club';
+                    ToolTip = 'Club';
                     Visible = true;
                 }
 

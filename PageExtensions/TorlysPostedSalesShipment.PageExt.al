@@ -15,13 +15,6 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                 ApplicationArea = All;
             }
 
-            field("Rollout Order"; Rec."Roll out Order")
-            {
-                Caption = 'Rollout Order';
-                ToolTip = 'Rollout Order';
-                ApplicationArea = All;
-            }
-
             field("Temporary Hold"; Rec."Temporary Hold")
             {
                 Caption = 'Temporary Hold';
@@ -262,6 +255,61 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                 Caption = 'BoL No.';
                 ToolTip = 'BoL No.';
                 ApplicationArea = All;
+            }
+        }
+
+        addafter("Shipping and Billing")
+        {
+            group("Marketing")
+            {
+                Caption = 'Marketing';
+
+                field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
+                {
+                    Caption = 'Sample Allowance Exclusion';
+                    ToolTip = 'Sample Allowance Exclusion';
+                    ApplicationArea = All;
+                }
+
+                field("MK Required"; Rec."MKRequired")
+                {
+                    Caption = 'MK Required';
+                    ToolTip = 'MK Required';
+                    ApplicationArea = All;
+                }
+
+                field("Marketing Order Type"; Rec."Marketing Order Type")
+                {
+                    Caption = 'MK Required By';
+                    ToolTip = 'MK Required By';
+                    ApplicationArea = All;
+                }
+                field("MK Staged"; Rec."MKStaged_Location")
+                {
+                    Caption = 'MK Staged';
+                    ToolTip = 'MK Staged';
+                    ApplicationArea = All;
+                }
+                field("MK Staged By"; Rec."MKStaged_By")
+                {
+                    Caption = 'MK Staged By';
+                    ToolTip = 'MK Staged By';
+                    ApplicationArea = All;
+                }
+
+                field("MK Staged Date"; Rec."MKStaged_Date")
+                {
+                    Caption = 'MK Staged Date';
+                    ToolTip = 'MK Staged Date';
+                    ApplicationArea = All;
+                }
+
+                field("Marketing Shipment Transfer"; Rec."Marketing Shipment Transfer")
+                {
+                    Caption = 'Marketing Shipment or Transfer';
+                    ToolTip = 'Specifies if the order is a Shipment or a Transfer';
+                    ApplicationArea = All;
+                }
             }
         }
 

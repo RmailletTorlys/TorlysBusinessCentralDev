@@ -2,99 +2,50 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
 {
     layout
     {
-        movefirst(General; "Buy-from Vendor No.", "Buy-from Vendor Name", "Buy-from")
-        moveafter("Buy-from"; "Posting Date", "Order Date", "Document Date", "Vendor Order No.", "Vendor Invoice No.")
+        movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Order Date", "Document Date", "Expected Receipt Date")
 
-        addafter("Vendor Invoice No.")
+        addafter("Expected Receipt Date")
         {
-            field("Manufacturer Code"; Rec."Manufacturer Code")
-            {
-                Caption = 'Manufacturer Code';
-                ToolTip = 'Manufacturer Code';
-                ApplicationArea = All;
-            }
-
             field("Production Date"; Rec."Production Date")
             {
                 Caption = 'Production Date';
                 ToolTip = 'Production Date';
                 ApplicationArea = All;
             }
-
-            field("No. Printed"; Rec."No. Printed")
-            {
-                Caption = 'No. Printed';
-                ToolTip = 'No. Printed';
-                ApplicationArea = All;
-            }
         }
 
-        moveafter("No. Printed"; "Purchaser Code")
+        moveafter("Production Date"; "Vendor Order No.", "Vendor Shipment No.", "Vendor Invoice No.", "Purchaser Code", "No. of Archived Versions")
 
-        addafter("Purchaser Code")
+        addafter("No. of Archived Versions")
         {
             field("Last Archived Date"; Rec."Last Archived Date")
             {
                 Caption = 'Last Archived Date';
                 ToolTip = 'Last Archived Date';
                 ApplicationArea = All;
-            }
-        }
-
-        moveafter("Last Archived Date"; "No. of Archived Versions")
-
-        addafter("No. of Archived Versions")
-        {
-            field("Amount"; Rec.Amount)
-            {
-                Caption = 'Amount';
-                ToolTip = 'Amount';
-                ApplicationArea = All;
+                Importance = Additional;
             }
 
-            field("Inv. Discount Amount"; Rec."Invoice Discount Amount")
-            {
-                Caption = 'Invoice Discount Amount';
-                ToolTip = 'Invoice Discount Amount';
-                ApplicationArea = All;
-
-            }
-
-            field("Total"; Rec.Amount + Rec."Invoice Discount Amount")
-            {
-                Caption = 'Total';
-                ToolTip = 'Total';
-                ApplicationArea = All;
-
-            }
-
-            field("Tax Amount"; Rec."Amount Including VAT" - Rec.Amount)
-            {
-                Caption = 'Tax Amount';
-                ToolTip = 'Tax Amount';
-                ApplicationArea = All;
-            }
-
-            field("Total Incl. Tax"; Rec."Amount Including VAT")
-            {
-                Caption = 'Total Incl. Tax';
-                ToolTip = 'Total Incl. Tax';
-                ApplicationArea = All;
-            }
-
-
-
-        }
-
-        addafter("Total Incl. Tax")
-        {
             field(SystemCreatedBy; Rec.SystemCreatedBy)
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
                 ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+                Importance = Additional;
             }
         }
+
+
+
 
 
         addfirst("Invoice Details")
@@ -104,6 +55,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'Pay-to Vendor No.';
                 ToolTip = 'Pay-to Vendor No.';
                 ApplicationArea = All;
+                Importance = Additional;
             }
 
             field("Name"; Rec."Buy-from Vendor Name")
@@ -111,6 +63,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'Name';
                 ToolTip = 'Name';
                 ApplicationArea = All;
+                Importance = Additional;
 
             }
 
@@ -119,6 +72,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'Address';
                 ToolTip = 'Address';
                 ApplicationArea = All;
+                Importance = Additional;
             }
 
             field("Address 2"; Rec."Buy-from Address 2")
@@ -126,6 +80,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'Address 2';
                 ToolTip = 'Address 2';
                 ApplicationArea = All;
+                Importance = Additional;
             }
 
             field("City"; Rec."Buy-from City")
@@ -133,6 +88,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'City';
                 ToolTip = 'City';
                 ApplicationArea = All;
+                Importance = Additional;
             }
 
             field("County"; Rec."Buy-from County")
@@ -140,6 +96,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'County';
                 ToolTip = 'County';
                 ApplicationArea = All;
+                Importance = Additional;
             }
 
             field("Post Code"; Rec."Buy-from Post Code")
@@ -147,6 +104,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'Post Code';
                 ToolTip = 'Post Code';
                 ApplicationArea = All;
+                Importance = Additional;
             }
 
             field("Country"; Rec."Buy-from Country/Region Code")
@@ -154,6 +112,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Caption = 'Country';
                 ToolTip = 'Country';
                 ApplicationArea = All;
+                Importance = Additional;
             }
         }
         addfirst("Shipping and Payment")
@@ -170,14 +129,30 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
 
         movebefore("Ship-to Code"; "Sell-to Customer No.")
 
-        moveafter("Tax Exemption No."; "Location Code", "Shipment Method Code", "Requested Receipt Date", "Promised Receipt Date", "Expected Receipt Date")
+        moveafter("Tax Exemption No."; "Ship-to Contact")
 
         moveafter("Shipping and Payment"; "Foreign Trade")
+
+        modify("Posting Date")
+        {
+            Importance = Promoted;
+        }
+
+        modify("Order Date")
+        {
+            Importance = Promoted;
+        }
+
+        modify("Vendor Order No.")
+        {
+            Importance = Promoted;
+        }
 
         modify("Shipment Method Code")
         {
             Visible = true;
-            Caption = 'Incoterms';
+            Caption = 'Shipment Method Code';
+            Importance = Additional;
         }
 
         modify("Buy-from Vendor No.")
@@ -316,10 +291,89 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
 
         modify("Vendor Shipment No.")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Assigned User ID")
+        {
+            Visible = false;
+        }
+
+        modify("Sell-to Customer No.")
+        {
+            Importance = Additional;
+        }
+
+        modify(ShippingOptionWithLocation)
+        {
+            Importance = Additional;
+        }
+
+        modify("Ship-to Code")
+        {
+            Importance = Additional;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Importance = Promoted;
+        }
+        modify("Shortcut Dimension 2 Code")
+        {
+            Importance = Promoted;
+        }
+
+        modify("Payment Terms Code")
+        {
+            Importance = Additional;
+        }
+
+        modify("Payment Discount %")
+        {
+            Visible = false;
+        }
+
+        modify("Pmt. Discount Date")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Contact")
+        {
+            Importance = Additional;
+        }
+
+        modify("Currency Code")
+        {
+            Importance = Additional;
+        }
+
+        modify("Requested Receipt Date")
+        {
+            Importance = Additional;
+        }
+
+        modify("Promised Receipt Date")
+        {
+            Importance = Additional;
+        }
+
+        modify("Tax Liable")
+        {
+            Importance = Promoted;
+        }
+
+        modify("Tax Area Code")
+        {
+            Importance = Promoted;
+        }
+
+        modify("TPS CMG Transfer Order No.")
+        {
+            Visible = false;
+        }
+
+        modify(PurchaseOrderLinkedToEdoc)
         {
             Visible = false;
         }

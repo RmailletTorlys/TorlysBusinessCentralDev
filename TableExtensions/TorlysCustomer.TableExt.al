@@ -219,11 +219,11 @@ tableextension 50018 TorlysCustomer extends Customer
             end;
         }
 
-        field(50033; "TORLYS Club"; Option)
+        field(50033; "Club"; Option)
         {
-            Caption = 'TORLYS Club';
+            Caption = 'Club';
             InitValue = None;
-            ToolTip = 'Specifies the TORLYS Club that the customer is assigned to.';
+            ToolTip = 'Specifies the Club that the customer is assigned to.';
             DataClassification = CustomerContent;
             OptionMembers = None,"Power Up","Power Up National","Power Up Assurance","Power Up USA";
         }
@@ -313,7 +313,7 @@ tableextension 50018 TorlysCustomer extends Customer
 
     procedure GetOptionsTorlysClub(): Text[30]
     begin
-        exit(Format(Rec."TORLYS Club"));
+        exit(Format(Rec."Club"));
     end;
 
     procedure GetOptionsPowerUpLevel(): Text[30]

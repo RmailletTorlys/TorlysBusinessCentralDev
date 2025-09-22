@@ -327,6 +327,13 @@ table 55004 "Torlys Processed BOL Header"
             DataClassification = CustomerContent;
         }
 
+        field(53; "Freight Charges"; Option)
+        {
+            Caption = 'Freight Charges';
+            OptionMembers = "","Prepaid","Collect";
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys

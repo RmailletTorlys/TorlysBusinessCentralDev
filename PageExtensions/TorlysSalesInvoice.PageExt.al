@@ -15,10 +15,10 @@ pageextension 50043 TorlysSalesInvoice extends "Sales Invoice"
                 ApplicationArea = All;
             }
 
-            field("Rollout Order"; Rec."Roll out Order")
+            field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
             {
-                Caption = 'Rollout Order';
-                ToolTip = 'Rollout Order';
+                Caption = 'Sample Allowance Exclusion';
+                ToolTip = 'Sample Allowance Exclusion';
                 ApplicationArea = All;
             }
 

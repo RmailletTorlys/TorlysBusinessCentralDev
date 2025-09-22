@@ -127,9 +127,9 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             FieldClass = FlowField;
         }
 
-        field(50022; "Roll out Order"; Boolean)
+        field(50022; "Sample Allowance Exclusion"; Boolean)
         {
-            Caption = 'Roll out Order';
+            Caption = 'Sample Allowance Exclusion';
             DataClassification = CustomerContent;
         }
 
@@ -252,6 +252,66 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
+        }
+
+        field(50041; "MKRequired"; Boolean)
+        {
+            Caption = 'MKRequired';
+            DataClassification = CustomerContent;
+        }
+
+        field(50042; "Marketing Order Type"; Option)
+        {
+            Caption = 'Marketing Order Type';
+            DataClassification = CustomerContent;
+            OptionMembers = "","Plank","Swatch","Chainset","Custom";
+        }
+
+        field(50043; "MKStaged_Location"; Code[10])
+        {
+            Caption = 'MKStaged_Location';
+            TableRelation = Bin.Code;
+            DataClassification = CustomerContent;
+        }
+
+        field(50044; "MKStaged_Date"; Date)
+        {
+            Caption = 'MKStaged_Date';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+
+        field(50045; "MKStaged_By"; Text[50])
+        {
+            Caption = 'MKStaged_By';
+            TableRelation = "User Details";
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+        field(50046; "Marketing Shipment Transfer"; Option)
+        {
+            Caption = 'Marketing_Order_Type';
+            DataClassification = CustomerContent;
+            OptionMembers = "Shipment","Transfer";
+        }
+
+        field(50047; "Club"; Option)
+        {
+            Caption = 'Club';
+            FieldClass = FlowField;
+            CalcFormula = Lookup(Customer.Club WHERE("No." = FIELD("Sell-to Customer No.")));
+            OptionMembers = None,"Power Up","Power Up National","Power Up Assurance","Power Up USA";
+            Editable = false;
+
+        }
+
+        field(50048; "Powerup Level"; Option)
+        {
+            Caption = 'Club';
+            FieldClass = FlowField;
+            CalcFormula = Lookup(Customer."Power Up Level" WHERE("No." = FIELD("Sell-to Customer No.")));
+            OptionMembers = None,"Premier","Elite","Designer";
+            Editable = false;
         }
     }
 }

@@ -199,6 +199,35 @@ page 50999 "Torlys Sales Order Shipment"
 
                     end;
                 }
+                action("Post and Print Order(s)")
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Post and Print Order(s)';
+                    Image = Post;
+                    ToolTip = 'Post the selected sales order(s) as shipped.';
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        SalesShpHeader: Record "Sales Shipment Header";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if SelectedSalesHeader.FindSet() then
+                            repeat
+
+                                PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
+                                SalesShpHeader.FindLast();
+                                Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
+                                SalesShpHeader.PrintRecords(true);
+
+                            until SelectedSalesHeader.Next() = 0
+
+                    end;
+                }
             }
         }
     }
@@ -214,6 +243,28 @@ page 50999 "Torlys Sales Order Shipment"
             exit(SalespersonPurchaser.Name)
         else
             exit('Unknown');
+
+    end;
+
+    local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
+    var
+        SalesHeader: Record "Sales Header";
+        LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
+        DocumentIsScheduledForPosting: Boolean;
+        DocumentIsPosted: Boolean;
+
+
+    begin
+        LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(SelectedSalesHeader);
+        SelectedSalesHeader.SendToPosting(PostingCodeunitID);
+
+        DocumentIsScheduledForPosting := SelectedSalesHeader."Job Queue Status" = SelectedSalesHeader."Job Queue Status"::"Scheduled for Posting";
+        DocumentIsPosted := (not SalesHeader.Get(SelectedSalesHeader."Document Type", SelectedSalesHeader."No.")) or DocumentIsScheduledForPosting;
+
+        CurrPage.Update(False);
+
+        exit(DocumentIsPosted);
+
 
     end;
 }

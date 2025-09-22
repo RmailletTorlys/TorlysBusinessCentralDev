@@ -28,7 +28,7 @@ query 50002 CustInfoForTorlysDotCom
             column(County; County)
             {
             }
-            column(Power_Up; "TORLYS Club")
+            column(Power_Up; "Club")
             {
             }
             column(Power_Up_Level; "Power Up Level")

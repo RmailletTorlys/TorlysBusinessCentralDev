@@ -30,11 +30,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         OnChangeQuantityCase(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. Received Case', false, false)]
-    local procedure OnValidatePOReceivedCase(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
-    begin
-        OnChangeQuantityCase(Rec, xRec, 3);
-    end;
+
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
     local procedure OnValidatePOPallet(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
@@ -46,12 +42,6 @@ codeunit 50003 "Torlys PO Quantity Rounding"
     local procedure OnValidatePOToReceivePallet(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 2);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. Received Pallet', false, false)]
-    local procedure OnValidatePOReceivedPallet(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
-    begin
-        OnChangeQuantityPallet(Rec, xRec, 3);
     end;
 
     procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean
@@ -89,8 +79,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
                 HandleQuantity(Rec);
             2: // Qty. to Ship (Base)
                 HandleQtyToReceive(Rec);
-            3: // Qty. Received (Base)
-                HandleQtyReceived(Rec);
+
         end;
     end;
 
@@ -176,24 +165,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
             Rec."Qty. to Receive Case" := 0;
     end;
 
-    local procedure HandleQtyReceived(var Rec: Record "Purchase Line")
-    var
-        CaseQuantity: Integer;
-    begin
-        CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec."Quantity Received", CaseConst);
-        Rec."Quantity Received" := QuantityRoundingHelper.ValidateQty(Rec."Quantity Received", CaseConst, CaseQuantity);
 
-        if Rec."Quantity Received" >= PalletConst then
-            Rec."Qty. Received Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Quantity Received", PalletConst)
-        else
-            Rec."Qty. Received Pallet" := 0;
-
-        RemainingQuantity := Rec."Quantity Received" - PalletConst * Rec."Qty. Received Pallet";
-        if RemainingQuantity > 0 then
-            Rec."Qty. Received Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
-        else
-            Rec."Qty. Received Case" := 0;
-    end;
 
     local procedure HandleCaseQuantity(var Rec: Record "Purchase Line")
     begin

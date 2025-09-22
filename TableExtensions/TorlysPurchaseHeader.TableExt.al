@@ -2,11 +2,6 @@ tableextension 50038 TorlysPurchaseHeader extends "Purchase Header"
 {
     fields
     {
-        field(50007; "Manufacturer Code"; Code[20])
-        {
-            Caption = 'Manufacturer Code';
-            DataClassification = CustomerContent;
-        }
 
         field(50008; "Production Date"; Date)
         {
@@ -20,12 +15,6 @@ tableextension 50038 TorlysPurchaseHeader extends "Purchase Header"
             DataClassification = CustomerContent;
         }
 
-        field(50011; "Incoterms"; Code[20])
-        {
-            Caption = 'Incoterms';
-            DataClassification = CustomerContent;
-        }
-
         modify("Buy-from Vendor No.")
         {
             trigger OnAfterValidate()
@@ -33,6 +22,8 @@ tableextension 50038 TorlysPurchaseHeader extends "Purchase Header"
                 CopyCommentsFromVendCardToPurchaseHeader();
             end;
         }
+
+
     }
 
     trigger OnAfterInsert()

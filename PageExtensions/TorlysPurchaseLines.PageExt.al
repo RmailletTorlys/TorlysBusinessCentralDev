@@ -11,13 +11,7 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 ApplicationArea = All;
             }
 
-            field("Delivery Appointment Date"; Rec."Delivery Appointment Date")
-            {
-                Caption = 'Delivery Appointment Date';
-                ToolTip = 'Delivery Appointment Date';
-                ApplicationArea = All;
 
-            }
 
             field("Production Date"; Rec."Production Date")
             {
@@ -26,19 +20,7 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 ApplicationArea = All;
             }
 
-            field("Shipment Date"; Rec."Shipment Date")
-            {
-                Caption = 'Shipment Date';
-                ToolTip = 'Shipment Date';
-                ApplicationArea = All;
-            }
 
-            field("Whse Receipt Date"; Rec."Warehouse Receipt Date")
-            {
-                Caption = 'Warehouse Receipt Date';
-                ToolTip = 'Warehouse Receipt Date';
-                ApplicationArea = All;
-            }
 
             field("Requested Receipt Date"; Rec."Requested Receipt Date")
             {
@@ -50,16 +32,6 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
 
         moveafter("Requested Receipt Date"; "Expected Receipt Date")
 
-        addafter("Expected Receipt Date")
-        {
-
-            field("Previous ETA Date"; Rec."Previous ETA Date")
-            {
-                Caption = 'Previous ETA Date';
-                ToolTip = 'Previous ETA Date';
-                ApplicationArea = All;
-            }
-        }
 
         modify("Buy-from Vendor Name")
         {

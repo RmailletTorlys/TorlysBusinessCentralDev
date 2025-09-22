@@ -347,6 +347,13 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
+        field(53; "Freight Charges"; Option)
+        {
+            Caption = 'Freight Charges';
+            OptionMembers = "","Prepaid","Collect";
+            DataClassification = CustomerContent;
+        }
+
 
     }
 
@@ -486,6 +493,28 @@ table 55002 "Torlys BOL Header"
 
     end;
 
+    procedure UpdateFreightChartOnShipAgentCode(AgentCode: Code[20])
+    var
+        ShipAgent: Record "Shipping Agent";
+    begin
+
+        ShipAgent.Reset();
+        ShipAgent.SetRange("Code", AgentCode);
+        ShipAgent.FindFirst();
+        Rec."Freight Charges" := ShipAgent."Freight Charges";
+
+    end;
+
+    procedure PrintBoL(BoLNo: Code[20])
+    var
+        PrintBill: Codeunit "Print Bill of Lading Document";
+        Usage: Option "Bill of Lading Report";
+    begin
+        Rec.SetRange("No.", BoLNo);
+        if Rec.FindFirst() then
+            PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
+    end;
+
 
 
     [IntegrationEvent(false, false)]
@@ -498,55 +527,7 @@ table 55002 "Torlys BOL Header"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnUpdateNoOfSkids(NoofSkids: Integer; var IsHandled: Boolean)
-    begin
-    end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnUpdateNoOfSkids(NoofSkids: Integer)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnUpdateNoOfBoxes(NoofBoxes: Integer; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnUpdateNoOfBoxes(NoofBoxes: Integer)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnUpdateNoOfTubes(NoofTubes: Integer; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnUpdateNoOfTubes(NoofTubes: Integer)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnUpdateNoOfPackages(NoofPackages: Integer; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnUpdateNoOfPackages(NoofPackages: Integer)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnUpdateNoOfRolls(NoofRolls: Integer; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnUpdateNoOfRolls(NoofRolls: Integer)
-    begin
-    end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeAssistEdit(Rec: Record "Torlys BOL Header"; OldSalesHeader: Record "Torlys BOL Header"; var IsHandled: Boolean; var Result: Boolean)

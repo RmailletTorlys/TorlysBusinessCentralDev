@@ -12,17 +12,19 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        addafter("Vendor Reference No.")
+        moveafter("Vendor Reference No."; Description, "Location Code")
+        addafter("Location Code")
         {
-            field("Manufacturing Code"; Rec."Manufacturing Code")
+
+            field("Container No."; Rec."Container No.")
             {
-                Caption = 'Manufacturing Code';
-                ToolTip = 'Manufacturing Code';
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
                 ApplicationArea = All;
             }
         }
 
-        movebefore(Quantity; "Location Code", "Unit of Measure Code")
+        moveafter("Container No."; "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -51,83 +53,35 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                     OnValidatePallet(Rec, xRec);
                 end;
             }
-
-            field("Container No."; Rec."Container No.")
-            {
-                Caption = 'Container No.';
-                ToolTip = 'Container No.';
-                ApplicationArea = All;
-            }
-
-            field("SH BoL No."; Rec."SH BoL No.")
-            {
-                Caption = 'SH BoL No.';
-                ToolTip = 'SH BoL No.';
-                ApplicationArea = All;
-            }
-
-            field("Urgent"; Rec."Urgent")
-            {
-                Caption = 'Urgent';
-                ToolTip = 'Urgent';
-                ApplicationArea = All;
-            }
-
-            field("Strike"; Rec."Strike")
-            {
-                Caption = 'Strike';
-                ToolTip = 'Strike';
-                ApplicationArea = All;
-            }
-
-            field("Production Date"; Rec."Production Date")
-            {
-                Caption = 'Production Date';
-                ToolTip = 'Production Date';
-                ApplicationArea = All;
-            }
         }
 
-        moveafter("Production Date"; "Planned Receipt Date")
+        moveafter("Pallet Quantity"; "Expected Receipt Date", "Direct Unit Cost", "Indirect Cost %")
 
-        addafter("Planned Receipt Date")
+        addafter("Indirect Cost %")
         {
-            field("Shipment Date"; Rec."Shipment Date")
+            field("Unit Cost"; Rec."Unit Cost")
             {
-                Caption = 'Shipment Date';
-                ToolTip = 'Shipment Date';
-                ApplicationArea = All;
-            }
-
-            field("Previous ETA Date"; Rec."Previous ETA Date")
-            {
-                Caption = 'Previous ETA Date';
-                ToolTip = 'Previous ETA Date';
+                Caption = 'Unit Cost';
+                ToolTip = 'Unit Cost';
                 ApplicationArea = All;
             }
         }
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Line Amount")
 
-        moveafter("Previous ETA Date"; "Expected Receipt Date")
-
-        addafter("Expected Receipt Date")
+        addafter("Line Amount")
         {
-            field("Confirmation No."; Rec."Confirmation No.")
+            field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
-                Caption = 'Confirmation No.';
-                ToolTip = 'Confirmation No.';
+                Caption = 'Outstanding Quantity';
+                ToolTip = 'Outstanding Quantity';
                 ApplicationArea = All;
+                DecimalPlaces = 0 : 5;
+                Editable = false;
             }
-
-            field("Outstanding Qty."; Rec."Outstanding Qty.")
-            {
-                Caption = 'Outstanding Qty.';
-                ToolTip = 'Outstanding Qty.';
-                ApplicationArea = All;
-            }
-
         }
 
-        moveafter("Outstanding Qty."; "Qty. to Receive")
+        moveafter("Outstanding Quantity"; "Qty. to Receive")
+
 
         addafter("Qty. to Receive")
         {
@@ -156,134 +110,24 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 end;
 
             }
-            field("Special Price"; Rec."Special Price")
-            {
-                Caption = 'Special Price';
-                ToolTip = 'Special Price';
-                ApplicationArea = All;
-            }
 
-            field("Special Purchase Price"; Rec."Special Purchase Price")
-            {
-                Caption = 'Special Purchase Price';
-                ToolTip = 'Special Purchase Price';
-                ApplicationArea = All;
-            }
         }
 
-        moveafter("Special Purchase Price"; "Direct Unit Cost")
-
-        addafter("Direct Unit Cost")
-        {
-
-            field("Price Based On"; Rec."Price Based On")
-            {
-                Caption = 'Price Based On';
-                ToolTip = 'Price Based On';
-                ApplicationArea = All;
-            }
-
-            field("Price Confirmed"; Rec."Price Confirmed")
-            {
-                Caption = 'Price Confirmed';
-                ToolTip = 'Price Confirmed';
-                ApplicationArea = All;
-            }
-        }
-
-        moveafter("Price Confirmed"; "Indirect Cost %")
-
-        addafter("Indirect Cost %")
-        {
-            field("Landed Cost CDN"; Rec."Landed Cost CDN")
-            {
-                Caption = 'Landed Cost CDN';
-                ToolTip = 'Landed Cost CDN';
-                ApplicationArea = All;
-            }
-        }
-
-        moveafter("Landed Cost CDN"; "Line Amount", "Quantity Received")
+        moveafter("Qty. to Receive Pallet"; "Quantity Received")
 
         addafter("Quantity Received")
         {
-            field("Qty. Received Case"; Rec."Qty. Received Case")
+            field("Qty. Rcd. Not Invoiced"; Rec."Qty. Rcd. Not Invoiced")
             {
-                Caption = 'Qty. Received Case';
-                ToolTip = 'Qty. Received Case';
+                Caption = 'Qty. Rcd. Not Invoiced';
+                ToolTip = 'Qty. Rcd. Not Invoiced';
                 ApplicationArea = All;
-
-                trigger OnValidate()
-                begin
-                    OnValidateReceivedCase(Rec, xRec);
-                end;
-
-            }
-
-            field("Qty. Received Pallet"; Rec."Qty. Received Pallet")
-            {
-                Caption = 'Qty. Received Pallet';
-                ToolTip = 'Qty. Received Pallet';
-                ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    OnValidateReceivedPallet(Rec, xRec);
-                end;
+                Editable = false;
             }
         }
 
-        addafter("Qty. Received Pallet")
-        {
-            field("Amt. Rcd. not Invoiced"; Rec."Amt. Rcd. Not Invoiced")
-            {
-                Caption = 'Amt. Rcd. Not Invoiced';
-                ToolTip = 'Amt. Rcd. Not Invoiced';
-                ApplicationArea = All;
-                DecimalPlaces = 2;
-            }
+        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code")
 
-            field("Amt. Rcd. Not Invoiced ($)"; Rec."Amt. Rcd. Not Invoiced (LCY)")
-            {
-                Caption = 'Amt. Rcd. Not Invoiced ($)';
-                ToolTip = 'Amt. Rcd. Not Invoiced ($)';
-                ApplicationArea = All;
-                DecimalPlaces = 2;
-            }
-        }
-
-
-        moveafter("Amt. Rcd. Not Invoiced ($)"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Drop Shipment")
-
-        addafter("Drop Shipment")
-        {
-            field("Special Order"; Rec."Special Order")
-            {
-                Caption = 'Special Order';
-                ToolTip = 'Special Order';
-                ApplicationArea = All;
-            }
-
-            field("Department Code"; Rec."Department Code")
-            {
-                Caption = 'Department Code';
-                ToolTip = 'Department Code';
-                ApplicationArea = All;
-            }
-
-            field("Project Code"; Rec."Project Code")
-            {
-                Caption = 'Project Code';
-                ToolTip = 'Project Code';
-                ApplicationArea = All;
-            }
-
-            field("LOB Code"; Rec."LOB Code")
-            {
-                Caption = 'LOB Code';
-                ToolTip = 'LOB Code';
-                ApplicationArea = All;
-            }
-        }
 
         modify("Reserved Quantity")
         {
@@ -364,6 +208,52 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
         {
             Visible = false;
         }
+
+        modify("GST/HST")
+        {
+            Visible = false;
+        }
+
+        modify("Bin Code")
+        {
+            Visible = false;
+        }
+
+        modify("TPS CMG Container Qty")
+        {
+            Visible = false;
+        }
+
+        modify("Quantity Received")
+        {
+            Visible = true;
+        }
+
+        modify("Planned Receipt Date")
+        {
+            Visible = false;
+        }
+
+        modify("LAX Exclude From Performance")
+        {
+            Visible = false;
+        }
+
+        modify("Item Reference No.")
+        {
+            Visible = false;
+        }
+
+        modify("Unit Cost (LCY)")
+        {
+            Visible = true;
+        }
+
+        modify("Indirect Cost %")
+        {
+            Visible = true;
+        }
+
     }
 
 

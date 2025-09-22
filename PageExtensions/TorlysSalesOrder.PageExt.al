@@ -15,14 +15,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = All;
             }
 
-            field("Roll out Order"; Rec."Roll out Order")
-            {
-                Caption = 'Roll out Order';
-                ToolTip = 'Roll out Order';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
             field("Temporary Hold"; Rec."Temporary Hold")
             {
                 Caption = 'Temporary Hold';
@@ -182,36 +174,68 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             {
                 Caption = 'Marketing';
 
-                field("MK Required"; Rec."MKRequired")
+                field("Club"; Rec."Club")
+                {
+                    Caption = 'Club';
+                    ToolTip = 'Club';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+
+                field("Power Up Level"; Rec."Powerup Level")
+                {
+                    Caption = 'Power Up Level';
+                    ToolTip = 'Power Up Level';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+
+                field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
+                {
+                    Caption = 'Sample Allowance Exclusion';
+                    ToolTip = 'Sample Allowance Exclusion';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+
+
+                field("MK Required"; Rec."MK Required")
                 {
                     Caption = 'MK Required';
                     ToolTip = 'MK Required';
                     ApplicationArea = All;
                 }
 
-                field("MK Required By"; Rec."MKRequired By")
+                field("MK Required Type"; Rec."MK Required Type")
                 {
-                    Caption = 'MK Required By';
-                    ToolTip = 'MK Required By';
+                    Caption = 'MK Required Type';
+                    ToolTip = 'MK Required Type';
                     ApplicationArea = All;
                 }
-                field("MK Staged"; Rec."MKStaged_Location")
+                field("MK Staged"; Rec."MK Staged Location")
                 {
-                    Caption = 'MK Staged';
-                    ToolTip = 'MK Staged';
+                    Caption = 'MK Staged Location';
+                    ToolTip = 'MK Staged Location';
                     ApplicationArea = All;
                 }
-                field("MK Staged By"; Rec."MKStaged_By")
+                field("MK Staged By"; Rec."MK Staged By")
                 {
                     Caption = 'MK Staged By';
                     ToolTip = 'MK Staged By';
                     ApplicationArea = All;
                 }
 
-                field("MK Staged Date"; Rec."MKStaged_Date")
+                field("MK Staged Date"; Rec."MK Staged Date")
                 {
                     Caption = 'MK Staged Date';
                     ToolTip = 'MK Staged Date';
+                    ApplicationArea = All;
+                }
+
+                field("Marketing Shipment Transfer"; Rec."Marketing Shipment Transfer")
+                {
+                    Caption = 'Marketing Shipment or Transfer';
+                    ToolTip = 'Specifies if the order is a Shipment or a Transfer';
                     ApplicationArea = All;
                 }
             }
@@ -227,7 +251,9 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         {
             Caption = 'Ship-to Code';
             ToolTip = 'Ship-to Code';
+            Editable = true;
         }
+
 
         modify(Control1900201301)
         {

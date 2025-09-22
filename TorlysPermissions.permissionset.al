@@ -19,6 +19,7 @@ permissionset 50000 TorlysPermissions
         table "Torlys Sales Price Code" = X,
         codeunit "Price Asset - SalesPriceCode" = X,
         codeunit "Price Source - SalesPriceCode" = X,
+        codeunit "Print Bill of Lading Document" = X,
         codeunit "Quantity Rounding Helper" = X,
         codeunit "SL Price List Triggers" = X,
         codeunit "Torlys IJ Quantity Rounding" = X,

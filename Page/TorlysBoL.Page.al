@@ -75,6 +75,19 @@ page 51002 "Torlys BOL"
                     ToolTip = 'Specifies the code of the Carrier agent.';
                     Caption = 'Carrier Agent Code';
                     Importance = Promoted;
+
+                    trigger OnValidate()
+                    begin
+                        Rec.UpdateFreightChartOnShipAgentCode(Rec."Shipping Agent Code");
+                    end;
+                }
+
+                field("Freight Charges"; Rec."Freight Charges")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Tooltip = 'Specifies the type of Freight Charge';
+                    Caption = 'Freight Charges';
+                    Editable = false;
                 }
 
 
@@ -434,6 +447,21 @@ page 51002 "Torlys BOL"
                 end;
             }
 
+            action(PrintBoL)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print BoL';
+                Caption = 'Print BoL';
+                Image = Print;
+                Promoted = true;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                begin
+                    Rec.PrintBoL(Rec."No.");
+                end;
+            }
+
             action(PostBill)
             {
                 ApplicationArea = Basic, Suite;
@@ -490,7 +518,77 @@ page 51002 "Torlys BOL"
                 end;
 
             }
+            action(PostAndPrint)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Post BoL and Print';
+                Caption = 'Post BoL and Print';
+                Image = Print;
+
+                trigger OnAction()
+                var
+                    BoL: Record "Torlys BOL Header";
+                    BoLLine: Record "Torlys BOL Line";
+                    PBoL: Record "Torlys Processed BOL Header";
+                    PBoLLine: Record "Torlys Processed BOL Line";
+
+
+                begin
+                    BoL.Reset();
+                    BoLLine.Reset();
+                    PBoL.Reset();
+                    PBoLLine.Reset();
+
+                    BoL.SetRange("No.", Rec."No.");
+                    BoLLine.SetRange("BOL No.", Rec."No.");
+
+                    if BoL.FindFirst() then begin
+
+                        Rec.PrintBoL(Rec."No.");
+
+                        PBoL.Init();
+                        PBoL."No." := BoL."No.";
+                        PBoL."Transaction Type" := BoL."Transaction Type";
+                        PBoL.TransferFields(BoL, true);
+                        PBoL."Posted By" := FORMAT(UserId(), 30);
+                        PBoL."Posted Date" := CreateDateTime(Today(), 0T);
+                        PBoL.Insert();
+
+                        if BoLLine.FindSet() then begin
+                            repeat
+                                PBoLLine.Init();
+                                PBoLLine."Shipment No." := BoLLine."Shipment No.";
+                                PBoLLine.TransferFields(BoLLine, true);
+                                PBoLLine.Insert();
+                            until BoLLine.Next() = 0;
+                            BoLLine.DeleteAll();
+                        end
+                        else
+                            Message('%1 failed Posting Lines. Please Verify and try again', BoL."No.");
+
+                        BoL.Delete();
+                    end;
+
+                    Message('%1 Posted', BoL."No.");
+
+                end;
+
+            }
+
+            action(Print)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print';
+                Caption = 'Print';
+                Image = Print;
+
+                trigger OnAction()
+                begin
+                    Rec.PrintBoL(Rec."No.");
+                end;
+            }
         }
+
     }
 
 
@@ -666,6 +764,8 @@ page 51002 "Torlys BOL"
 
         OnAfterFindBoLEntries();
     end;
+
+
 
 
 

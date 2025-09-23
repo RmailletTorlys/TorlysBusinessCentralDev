@@ -400,6 +400,37 @@ page 51002 "Torlys BOL"
 
     actions
     {
+
+        area(Promoted)
+        {
+
+            actionref("Add Lines for Today"; AddBoLLinesToday)
+            {
+            }
+
+            actionref("Add Lines for Another Day"; AddBoLLinesSpecDate)
+            {
+            }
+
+            Group(PostPrint)
+            {
+                Caption = 'Post and Print';
+                Image = Document;
+
+                actionref("Post BoL"; PostBill)
+                {
+                }
+
+                actionref("Print BoL"; PrintBoL)
+                {
+                }
+
+                actionref("Post and Print"; PostAndPrint)
+                {
+                }
+            }
+
+        }
         area(Navigation)
         {
             action(AddBoLLinesToday)
@@ -408,8 +439,7 @@ page 51002 "Torlys BOL"
                 ToolTip = 'Add BoL Lines for Today';
                 Caption = 'Add BoL Lines for Today';
                 Image = Document;
-                Promoted = true;
-                PromotedIsBig = true;
+
 
 
 
@@ -426,8 +456,7 @@ page 51002 "Torlys BOL"
                 ToolTip = 'Add BoL Lines for Another Day';
                 Caption = 'Add BoL Lines for Another Day';
                 Image = Document;
-                Promoted = true;
-                PromotedIsBig = true;
+
 
 
 
@@ -453,8 +482,7 @@ page 51002 "Torlys BOL"
                 ToolTip = 'Print BoL';
                 Caption = 'Print BoL';
                 Image = Print;
-                Promoted = true;
-                PromotedIsBig = true;
+
 
                 trigger OnAction()
                 begin

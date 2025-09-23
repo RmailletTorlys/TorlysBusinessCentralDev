@@ -140,17 +140,41 @@ page 50999 "Torlys Sales Order Shipment"
     }
     actions
     {
+        area(Promoted)
+        {
+            actionref("Assign Pick"; "Assign Pick Ticket")
+            {
+            }
+
+            actionref("Assign Audit"; "Audit Picked Order")
+            {
+            }
+
+            actionref("Post and Print"; "Post and Print Order(s)")
+            {
+            }
+            actionref("Print Shipping Order"; "Print Order")
+            {
+            }
+
+            actionref("Print Label"; "Print Shipping Label")
+            {
+            }
+        }
         area(Navigation)
         {
             group(Process)
             {
                 Caption = 'Process';
+
                 action("Assign Pick Ticket")
                 {
                     ApplicationArea = All;
                     Caption = 'Assign Pick Ticket';
                     Image = PickLines;
                     ToolTip = 'Assign the pick ticket to a warehouse associate for picking the items for the sales order.';
+
+
 
                     trigger OnAction()
                     var
@@ -174,6 +198,8 @@ page 50999 "Torlys Sales Order Shipment"
                             CurrPage.Update();
                             Message('Order No %1 assigned to %2 for picking.', Rec."No.", SalespersonPurchaser.Name);
                         end;
+
+                        CurrPage.Update();
                     end;
                 }
 
@@ -183,6 +209,7 @@ page 50999 "Torlys Sales Order Shipment"
                     Caption = 'Check Shipment';
                     Image = CheckList;
                     ToolTip = 'Check the shipment for the sales order.';
+
 
                     trigger OnAction()
                     var
@@ -197,6 +224,8 @@ page 50999 "Torlys Sales Order Shipment"
                             Rec.Modify(true);
                         end;
 
+                        CurrPage.Update();
+
                     end;
                 }
                 action("Post and Print Order(s)")
@@ -205,13 +234,14 @@ page 50999 "Torlys Sales Order Shipment"
                     Caption = 'Post and Print Order(s)';
                     Image = Post;
                     ToolTip = 'Post the selected sales order(s) as shipped.';
-                    Promoted = true;
-                    PromotedIsBig = true;
+
 
                     trigger OnAction()
                     var
                         SelectedSalesHeader: Record "Sales Header";
                         SalesShpHeader: Record "Sales Shipment Header";
+                        PrintDoc: Codeunit "Torlys Print Document";
+                        Usage: Option "Sales Order Label";
                     begin
                         CurrPage.SetSelectionFilter(SelectedSalesHeader);
 
@@ -221,16 +251,62 @@ page 50999 "Torlys Sales Order Shipment"
                                 PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
                                 SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
                                 SalesShpHeader.FindLast();
-                                Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
                                 SalesShpHeader.PrintRecords(true);
+                                PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label");
 
                             until SelectedSalesHeader.Next() = 0
+
+                    end;
+                }
+
+                action("Print Order")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Print Order';
+                    Image = Print;
+                    ToolTip = 'Print the Sales Order.';
+                    trigger OnAction()
+                    var
+                        SalesShpHeader: Record "Sales Shipment Header";
+                    begin
+                        SalesShpHeader.SetRange("Order No.", Rec."No.");
+                        SalesShpHeader.FindLast();
+                        SalesShpHeader.PrintRecords(true);
+
+                    end;
+                }
+
+                action("Print Shipping Label")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Print Label';
+                    Image = Print;
+                    ToolTip = 'Print the Shipping Label.';
+                    trigger OnAction()
+                    var
+                        PrintDoc: Codeunit "Torlys Print Document";
+                        Usage: Option "Sales Order Label";
+                    begin
+
+                        PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label")
+
 
                     end;
                 }
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        if Rec."Warehouse Associate Picked By" <> '' then
+            Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Warehouse Associate Picked By");
+
+        if Rec."Warehouse Associate Checked By" <> '' then
+            Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Warehouse Associate Checked By");
+
+        CurrPage.Update();
+    end;
 
     local procedure GetWhseRepName(WarehouseAssociatePickedBy: Code[50]): Code[50]
     var

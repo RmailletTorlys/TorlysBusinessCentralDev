@@ -8,5 +8,12 @@ tableextension 50459 "Torlys Sales Receivables Setup" extends "Sales & Receivabl
             TableRelation = "No. Series";
             ToolTip = 'Specifies the code for the number series that will be used to assign numbers to Bills of Lading.';
         }
+
+        field(50002; "Claims Order Nos."; Code[20])
+        {
+            Caption = 'Bill of Lading Nos.';
+            TableRelation = "No. Series";
+            ToolTip = 'Specifies the code for the number series that will be used to assign numbers to Bills of Lading.';
+        }
     }
 }

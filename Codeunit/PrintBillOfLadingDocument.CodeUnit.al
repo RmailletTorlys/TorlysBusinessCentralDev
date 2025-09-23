@@ -10,6 +10,8 @@ codeunit 50100 "Print Bill of Lading Document"
 
     begin
 
+        BoLHeader.CopyFilters(BoLHeader);
+
         ReportSelection.PrintDocuments(BoLHeader, ReportUsage::"Bill of Lading Report", true);
 
     end;

@@ -8,6 +8,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(EncodedText; EncodedText)
+            {
+
+            }
             column(Tag_Name; "Tag Name")
             {
 

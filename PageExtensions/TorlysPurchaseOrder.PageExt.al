@@ -27,7 +27,7 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
                 Importance = Additional;
             }
 
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
+            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -378,4 +378,12 @@ pageextension 50051 "TorlysPurchaseOrder" extends "Purchase Order"
             Visible = false;
         }
     }
+
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
 }

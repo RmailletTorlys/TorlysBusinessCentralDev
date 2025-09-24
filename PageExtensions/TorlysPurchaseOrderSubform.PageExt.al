@@ -243,6 +243,21 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             Visible = true;
         }
 
+        modify(AmountBeforeDiscount)
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Discount Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Disc. Pct.")
+        {
+            Visible = false;
+        }
+
 
 
     }

@@ -25,6 +25,15 @@ pageextension 50031 TorlysItemList extends "Item List"
                 Visible = true;
             }
 
+            field("Gross Weight"; Rec."Gross Weight")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Gross Weight';
+                ToolTip = 'Gross Weight';
+                DecimalPlaces = 3;
+                Visible = false;
+            }
+
             field("Net Weight"; Rec."Net Weight")
             {
                 ApplicationArea = Dimensions;

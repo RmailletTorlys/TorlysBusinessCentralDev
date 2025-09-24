@@ -31,55 +31,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Tag Name"; "Shipment Date", "Requested Delivery Date", Status, "External Document No.", "Salesperson Code")
-
-        addafter("Salesperson Code")
-        {
-            field("Salesperson Commission"; Rec."Salesperson Commission")
-            {
-                Caption = 'Salesperson Commission';
-                ToolTip = 'Salesperson Commission';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Salesperson Code 2"; Rec."Salesperson Code 2")
-            {
-                Caption = 'Salesperson Code 2';
-                ToolTip = 'Salesperson Code 2';
-                ApplicationArea = All;
-                Importance = Additional;
-
-            }
-
-            field("Salesperson Commission 2"; Rec."Salesperson Commission 2")
-            {
-                Caption = 'Salesperson Commission 2';
-                ToolTip = 'Salesperson Commission 2';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Salesperson Code 3"; Rec."Salesperson Code 3")
-            {
-                Caption = 'Salesperson Code 3';
-                ToolTip = 'Salesperson Code 3';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Salesperson Commission 3"; Rec."Salesperson Commission 3")
-            {
-                Caption = 'Salesperson Commission 3';
-                ToolTip = 'Salesperson Commission 3';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-        }
+        moveafter("Tag Name"; "Your Reference", "Shipment Date", "Requested Delivery Date", Status, "External Document No.")
 
 
 
-        addafter("Salesperson Commission 3")
+        addafter("External Document No.")
         {
 
             field(ShortcutDimCode3; ShortcutDimCode[3])
@@ -138,9 +94,8 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         }
 
 
-        movefirst("Invoice Details"; BillToOptions, "Shortcut Dimension 1 Code", "Currency Code", "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Terms Code", "Due Date", "Tax Liable", "Tax Area Code")
+        addfirst("Invoice Details")
 
-        addafter(BilltoOptions)
         {
             field("On Hold"; Rec."On Hold")
             {
@@ -152,7 +107,89 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        movefirst("Shipping and Billing"; "Shipment Method", "Shipment Method Code", "Shipping Agent Code")
+        moveafter("On Hold"; "Currency Code")
+
+        addafter("Currency Code")
+        {
+            field("Currency Factor"; Rec."Currency Factor")
+            {
+                Caption = 'Currency Factor';
+                ToolTip = 'Currency Factor';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Currency Factor"; "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code")
+
+        addafter("Tax Area Code")
+        {
+            field("Tax Exemption No."; Rec."Tax Exemption No.")
+            {
+                Caption = 'Tax Exemption No.';
+                ToolTip = 'Tax Exemption No.';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Tax Exemption No."; "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Salesperson Code")
+
+        addafter("Salesperson Code")
+        {
+            field("Salesperson Commission"; Rec."Salesperson Commission")
+            {
+                Caption = 'Salesperson Commission';
+                ToolTip = 'Salesperson Commission';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field("Salesperson Code 2"; Rec."Salesperson Code 2")
+            {
+                Caption = 'Salesperson Code 2';
+                ToolTip = 'Salesperson Code 2';
+                ApplicationArea = All;
+                Importance = Additional;
+
+            }
+
+            field("Salesperson Commission 2"; Rec."Salesperson Commission 2")
+            {
+                Caption = 'Salesperson Commission 2';
+                ToolTip = 'Salesperson Commission 2';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field("Salesperson Code 3"; Rec."Salesperson Code 3")
+            {
+                Caption = 'Salesperson Code 3';
+                ToolTip = 'Salesperson Code 3';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field("Salesperson Commission 3"; Rec."Salesperson Commission 3")
+            {
+                Caption = 'Salesperson Commission 3';
+                ToolTip = 'Salesperson Commission 3';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        addafter(ShippingOptions)
+        {
+            field("Ship-to Code1"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Customer No.';
+                ToolTip = 'Ship-to Customer No.';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+        }
 
         addafter("Shipping Agent Code")
         {
@@ -161,12 +198,66 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Freight Zone Code';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
                 TableRelation = "Torlys Freight Zones";
             }
         }
 
         moveafter("Freight Zone Code"; "Location Code", "Shipping Advice")
+
+        addafter("Shipping Advice")
+        {
+            group("Pick Slip Info")
+            {
+                Caption = 'Pick Slip Info';
+                field("No. Pick Slips Printed"; Rec."No. Pick Lists Printed")
+                {
+                    Caption = 'No. Pick Slips Printed';
+                    ToolTip = 'No. Pick Slips Printed';
+                    ApplicationArea = All;
+                    Importance = Standard;
+                    Editable = false;
+                }
+                field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
+                {
+                    Caption = 'Pick Slip Printed By';
+                    ToolTip = 'Pick Slip Printed By';
+                    ApplicationArea = All;
+                    Importance = Standard;
+                    Editable = false;
+                }
+
+                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                {
+                    Caption = 'Pick Slip Printed Date';
+                    ToolTip = 'Pick Slip Printed Date';
+                    ApplicationArea = All;
+                    Importance = Standard;
+                    Editable = false;
+                }
+
+                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                {
+                    Caption = 'Pick Slip Printed Time';
+                    ToolTip = 'Pick Slip Printed Time';
+                    ApplicationArea = All;
+                    Importance = Standard;
+                    Editable = false;
+                }
+            }
+        }
+
+        addafter(BillToOptions)
+        {
+            field("Bill-to Customer No."; Rec."Bill-to Customer No.")
+            {
+                Caption = 'Bill-to Customer No.';
+                ToolTip = 'Bill-to Customer No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+
 
         addafter("Shipping and Billing")
         {
@@ -174,12 +265,27 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             {
                 Caption = 'Marketing';
 
+                field(ShortcutDimCode5; ShortcutDimCode[5])
+                {
+                    ApplicationArea = Dimensions;
+                    CaptionClass = '1,2,5';
+                    ToolTip = 'Global Dimension 5 Code';
+                    TableRelation = "Dimension Value".Code where("Global Dimension No." = const(5),
+                                                                  "Dimension Value Type" = const(Standard),
+                                                                  Blocked = const(false));
+                    Visible = true;
+
+                    trigger OnValidate()
+                    begin
+                        ValidateShortcutDimension(5);
+                    end;
+                }
                 field("Club"; Rec."Club")
                 {
                     Caption = 'Club';
                     ToolTip = 'Club';
                     ApplicationArea = All;
-                    Importance = Additional;
+                    Importance = Standard;
                 }
 
                 field("Power Up Level"; Rec."Powerup Level")
@@ -187,7 +293,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     Caption = 'Power Up Level';
                     ToolTip = 'Power Up Level';
                     ApplicationArea = All;
-                    Importance = Additional;
+                    Importance = Standard;
                 }
 
                 field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
@@ -195,7 +301,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     Caption = 'Sample Allowance Exclusion';
                     ToolTip = 'Sample Allowance Exclusion';
                     ApplicationArea = All;
-                    Importance = Additional;
+                    Importance = Standard;
                 }
 
 
@@ -247,11 +353,21 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = true;
         }
 
+        modify("Shipping Agent Code")
+        {
+            Importance = Standard;
+        }
+
         modify("Ship-to Code")
         {
             Caption = 'Ship-to Code';
             ToolTip = 'Ship-to Code';
             Editable = true;
+        }
+
+        modify("BillToOptions")
+        {
+            Visible = true;
         }
 
 
@@ -307,7 +423,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         modify("Salesperson Code")
         {
-            Importance = Additional;
+            Importance = Standard;
         }
 
         modify("Requested Delivery Date")
@@ -318,11 +434,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Payment Terms Code")
         {
             Importance = Promoted;
-        }
-
-        modify("Due Date")
-        {
-            Visible = false;
         }
 
         modify("Shipping Agent Service Code")
@@ -340,8 +451,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         }
         modify("Gen. Bus. Posting Group")
         {
-            Importance = Additional;
-            Editable = false;
+            visible = false;
         }
         modify("Customer Posting Group")
         {
@@ -349,11 +459,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         }
         modify("Tax Liable")
         {
-            Importance = Additional;
+            Importance = Standard;
         }
         modify("Tax Area Code")
         {
-            Importance = Additional;
+            Importance = Standard;
         }
 
         modify("Sell-to Contact")
@@ -442,27 +552,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = false;
         }
 
-        modify("Shortcut Dimension 2 Code")
-        {
-            Visible = false;
-        }
-
-        modify("Payment Discount %")
-        {
-            Visible = false;
-        }
-
         modify("Direct Debit Mandate ID")
-        {
-            Visible = false;
-        }
-
-        modify("Payment Method Code")
-        {
-            Visible = false;
-        }
-
-        modify("Pmt. Discount Date")
         {
             Visible = false;
         }
@@ -502,10 +592,78 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = false;
         }
 
-        modify(ShippingOptions)
+        modify("Bill-to Name")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to Address")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to Address 2")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to City")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to County")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to Post Code")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to Country/Region Code")
+        {
+            Editable = false;
+        }
+
+        modify("Bill-to Contact No.")
+        {
+            visible = false;
+        }
+
+        modify("Bill-to Contact")
+        {
+            visible = false;
+        }
+
+        modify(BillToContactPhoneNo)
+        {
+            visible = false;
+        }
+
+        modify(BillToContactMobilePhoneNo)
+        {
+            visible = false;
+        }
+
+        modify("No.")
         {
             Visible = false;
         }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            editable = false;
+            Importance = Additional;
+        }
+
+        modify("Payment Discount %")
+        {
+            Importance = Additional;
+        }
+
+
 
     }
 

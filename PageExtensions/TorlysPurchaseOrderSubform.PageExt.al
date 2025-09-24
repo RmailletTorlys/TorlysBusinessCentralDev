@@ -55,18 +55,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Pallet Quantity"; "Expected Receipt Date", "Direct Unit Cost", "Indirect Cost %")
-
-        addafter("Indirect Cost %")
-        {
-            field("Unit Cost"; Rec."Unit Cost")
-            {
-                Caption = 'Unit Cost';
-                ToolTip = 'Unit Cost';
-                ApplicationArea = All;
-            }
-        }
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Line Amount")
+        moveafter("Pallet Quantity"; "Expected Receipt Date", "Direct Unit Cost", "Indirect Cost %", "Unit Cost (LCY)", "Line Amount")
 
         addafter("Line Amount")
         {
@@ -126,7 +115,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code")
+        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code")
 
 
         modify("Reserved Quantity")
@@ -136,7 +125,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Qty. to Assign")
@@ -253,6 +242,8 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
         {
             Visible = true;
         }
+
+
 
     }
 

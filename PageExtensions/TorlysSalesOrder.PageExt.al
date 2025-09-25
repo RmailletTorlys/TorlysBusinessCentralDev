@@ -3,10 +3,9 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     layout
     {
         movefirst(General; "Sell-to Customer No.")
-        moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name")
-        moveafter("Sell-to Customer Name"; "Sell-to", "Order Date", "Posting Date")
+        moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
 
-        addafter("Posting Date")
+        addafter("Sell-to Country/Region Code")
         {
             field("Order Method"; Rec."Order Method")
             {
@@ -14,30 +13,18 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Order Method';
                 ApplicationArea = All;
             }
+        }
 
-            field("Temporary Hold"; Rec."Temporary Hold")
-            {
-                Caption = 'Temporary Hold';
-                ToolTip = 'Temporary Hold';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
+        moveafter("Order Method"; "Your Reference", "External Document No.")
 
+        addafter("External Document No.")
+        {
             field("Tag Name"; Rec."Tag Name")
             {
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
             }
-        }
-
-        moveafter("Tag Name"; "Your Reference", "Shipment Date", "Requested Delivery Date", Status, "External Document No.")
-
-
-
-        addafter("External Document No.")
-        {
-
             field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
@@ -53,8 +40,57 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     ValidateShortcutDimension(3);
                 end;
             }
+            field("Order Type"; Rec."Order Type")
+            {
+                Caption = 'Order Type';
+                ToolTip = 'Order Type';
+                ApplicationArea = All;
+            }
+            field("Temporary Hold"; Rec."Temporary Hold")
+            {
+                Caption = 'Temporary Hold';
+                ToolTip = 'Temporary Hold';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
 
+        moveafter("Temporary Hold"; "Posting Date", "Order Date")
 
+        addafter("Order Date")
+        {
+            field("Order Time"; Rec."Order Time")
+            {
+                Caption = 'Order Time';
+                ToolTip = 'Order Time';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Order Time"; "Requested Delivery Date", "Shipment Date")
+
+        addafter("Shipment Date")
+        {
+            field("Shipping Instructions"; Rec."Shipping Instructions")
+            {
+                Caption = 'Shipping Instructions';
+                ToolTip = 'Shipping Instructions';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+        moveafter("Shipping Comment"; Status)
+
+        addafter(Status)
+        {
             field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
                 Caption = 'System Created By';
@@ -353,6 +389,16 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = true;
         }
 
+        modify("Your Reference")
+        {
+            Importance = Standard;
+        }
+
+        modify("Sell-to")
+        {
+            Visible = false;
+        }
+
         modify("Shipping Agent Code")
         {
             Importance = Standard;
@@ -428,7 +474,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         modify("Requested Delivery Date")
         {
-            Importance = Additional;
+            Importance = Standard;
         }
 
         modify("Payment Terms Code")

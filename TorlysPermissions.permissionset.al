@@ -5,6 +5,8 @@ permissionset 50000 TorlysPermissions
     Assignable = true;
     Permissions = tabledata "Torlys BOL Header" = RIMD,
         tabledata "Torlys BOL Line" = RIMD,
+        tabledata "Claims Header" = RIMD,
+        tabledata "Claims Line" = RIMD,
         tabledata "Torlys Freight Zones" = RIMD,
         tabledata "Torlys Lookup Values" = RIMD,
         tabledata "Torlys Processed BOL Header" = RIMD,
@@ -17,6 +19,8 @@ permissionset 50000 TorlysPermissions
         table "Torlys Processed BOL Header" = X,
         table "Torlys Processed BOL Line" = X,
         table "Torlys Sales Price Code" = X,
+        table "Claims Line" = X,
+        table "Claims Header" = X,
         codeunit "Price Asset - SalesPriceCode" = X,
         codeunit "Price Source - SalesPriceCode" = X,
         codeunit "Print Bill of Lading Document" = X,

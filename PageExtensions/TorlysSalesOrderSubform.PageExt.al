@@ -78,7 +78,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
 
         }
-        moveafter("Qty. to Ship Pallet"; "Quantity Shipped")
+        moveafter("Qty. to Ship Pallet"; "Shipment Date", "Quantity Shipped")
         addafter("Quantity Shipped")
         {
             field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
@@ -87,7 +87,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Qty. Shipped Not Invoiced';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
         }
 
@@ -103,19 +103,18 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Visible = false;
             }
 
-            field("Default Price List Code"; Rec."Default Price List")
-            {
-                Caption = 'Default Price List';
-                ToolTip = 'Default Price List';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = false;
-            }
-
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+            field("Default Price List Code"; Rec."Default Price List")
+            {
+                Caption = 'Default Price List';
+                ToolTip = 'Default Price List';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = false;
@@ -127,7 +126,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Price List';
                 ApplicationArea = All;
                 Editable = false;
+                Visible = true;
             }
+
+
+
+
 
         }
 
@@ -140,12 +144,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
 
         }
 
-        moveafter("Unit Cost"; "Purchasing Code", "Drop Shipment")
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
         addafter("Drop Shipment")
         {
             field("Purchase Order No."; Rec."Purchase Order No.")
@@ -153,26 +157,26 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'PO Number';
                 ToolTip = 'Purchase Order No.';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
             field("Purch. Order Line No."; Rec."Purch. Order Line No.")
             {
                 Caption = 'PO Line No.';
                 ToolTip = 'Purch. Order Line No.';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
         }
 
         addafter("Purch. Order Line No.")
         {
-            field("System Created By"; Rec."SystemCreatedBy")
+            field("System Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
             {
                 Caption = 'System Created By';
                 ToolTip = 'System Created By';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
             field("System Created Date"; Rec."SystemCreatedAt")
             {
@@ -180,16 +184,16 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'System Created Date';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
 
-            field("System Last Modified By"; Rec."SystemModifiedBy")
+            field("System Last Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
             {
                 Caption = 'System Last Modified By';
                 ToolTip = 'System Last Modified By';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
 
             field("System Last Modified Date"; Rec."SystemModifiedAt")
@@ -198,7 +202,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'System Last Modified Date';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
 
         }
@@ -220,7 +224,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Quantity Shipped")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Quantity Invoiced")
@@ -235,12 +239,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Purchasing Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Drop Shipment")
         {
-            Visible = false;
+            Visible = true;
+            Editable = false;
         }
 
         modify("Line Discount %")
@@ -251,6 +256,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         modify("Unit Cost (LCY)")
         {
             Visible = true;
+            Editable = false;
         }
 
         modify("Special Order")
@@ -270,12 +276,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Tax Area Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Tax Group Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Amount Including VAT")
@@ -309,17 +315,17 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Shortcut Dimension 1 Code")
         {
-            Visible = true;
+            Visible = false;
         }
 
         modify("Shortcut Dimension 2 Code")
         {
-            Visible = true;
+            Visible = false;
         }
 
         modify(ShortcutDimCode3)
         {
-            Visible = true;
+            Visible = false;
         }
 
         modify(ShortcutDimCode4)
@@ -343,6 +349,21 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
 
         modify(ShortcutDimCode8)
+        {
+            Visible = false;
+        }
+
+        modify("TotalSalesLine.""Line Amount""")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Discount Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Disc. Pct.")
         {
             Visible = false;
         }
@@ -409,6 +430,14 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetRecordOnValidateUoM(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var UoMValid: Boolean)
     begin
+    end;
+
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
     end;
 }
 

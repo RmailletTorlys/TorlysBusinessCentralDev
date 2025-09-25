@@ -46,7 +46,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
             }
         }
 
-        moveafter("Compare Unit of Measure"; "Net Weight")
+        moveafter("Compare Unit of Measure"; "Gross Weight", "Net Weight")
 
         addafter("Net Weight")
         {

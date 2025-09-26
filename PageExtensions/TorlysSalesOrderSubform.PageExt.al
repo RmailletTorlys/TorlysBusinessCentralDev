@@ -111,7 +111,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = false;
             }
-            field("Default Price List Code"; Rec."Default Price List")
+            field("Default Price List"; Rec."Default Price List")
             {
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';

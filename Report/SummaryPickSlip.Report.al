@@ -187,7 +187,12 @@ report 50012 "Summary Pick Slip"
                         //         OrderStringToUse := 6;
 
                         // OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + "Document No." + '  ';
-                        OrderString += "Document No." + ' ';
+                        matchstring := OrderString.Contains("Document No.");
+                        If ("Document No." <> previosfieldvalue) and matchstring = false then begin
+                            OrderString += "Document No." + ' ';
+                            previosfieldvalue := "Document No.";
+                        end;
+                        previosfieldvalue := "Document No.";
                         TotalWeight += ("Net Weight" * "Qty. to Ship (Base)");
                         //     end;
                         // Until salesline.Next = 0;
@@ -270,4 +275,6 @@ report 50012 "Summary Pick Slip"
         DayOfWeek: Code[9];
         SalesLineFilter: Text;
         ParentBinLocationLabel: Text;
+        previosfieldvalue: Text;
+        matchstring: Boolean;
 }

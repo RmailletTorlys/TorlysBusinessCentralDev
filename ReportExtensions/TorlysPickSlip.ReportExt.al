@@ -381,6 +381,9 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     end;
                 end;
 
+                if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
+                    TotalPieces += "Qty. to Ship";
+
                 If ("Gen. Prod. Posting Group" = 'MOULDINGS') then begin
                     IF ("Item Category Code" <> 'ACC-86') AND (TempSalesLine."Item Category Code" <> 'ACC-107') AND
                     ("Item Category Code" <> 'ACC-108') THEN BEGIN

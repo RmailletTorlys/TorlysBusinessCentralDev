@@ -106,6 +106,24 @@ End Function
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>
+        <Field Name="ToShipCase">
+          <DataField>ToShipCase</DataField>
+        </Field>
+        <Field Name="ToShipCaseFormat">
+          <DataField>ToShipCaseFormat</DataField>
+        </Field>
+        <Field Name="ToShipSingle">
+          <DataField>ToShipSingle</DataField>
+        </Field>
+        <Field Name="ToShipSingleFormat">
+          <DataField>ToShipSingleFormat</DataField>
+        </Field>
+        <Field Name="ToShipPallet">
+          <DataField>ToShipPallet</DataField>
+        </Field>
+        <Field Name="ToShipPalletFormat">
+          <DataField>ToShipPalletFormat</DataField>
+        </Field>
         <Field Name="Description">
           <DataField>Description</DataField>
         </Field>
@@ -132,6 +150,9 @@ End Function
         </Field>
         <Field Name="Qty__to_Ship_PalletFormat">
           <DataField>Qty__to_Ship_PalletFormat</DataField>
+        </Field>
+        <Field Name="ParentBinLocationLabel">
+          <DataField>ParentBinLocationLabel</DataField>
         </Field>
         <Field Name="BinLocation">
           <DataField>BinLocation</DataField>

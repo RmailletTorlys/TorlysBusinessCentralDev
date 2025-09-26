@@ -149,7 +149,7 @@ report 50012 "Summary Pick Slip"
                             ToShipPallet := Abs("Qty. to Ship Pallet");
                         end;
 
-                        OrderString := '';
+                        // OrderString := '';
 
                         // OrderStringToUse := 1;
                         // OrderString[1] := '';
@@ -187,7 +187,7 @@ report 50012 "Summary Pick Slip"
                         //         OrderStringToUse := 6;
 
                         // OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + "Document No." + '  ';
-                        OrderString += "Document No." + '';
+                        OrderString += "Document No." + ' ';
                         TotalWeight += ("Net Weight" * "Qty. to Ship (Base)");
                         //     end;
                         // Until salesline.Next = 0;

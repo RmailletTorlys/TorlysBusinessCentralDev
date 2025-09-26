@@ -79,23 +79,8 @@ End Function
         <Field Name="TotalWeightFormat">
           <DataField>TotalWeightFormat</DataField>
         </Field>
-        <Field Name="OrderString1">
-          <DataField>OrderString1</DataField>
-        </Field>
-        <Field Name="OrderString2">
-          <DataField>OrderString2</DataField>
-        </Field>
-        <Field Name="OrderString3">
-          <DataField>OrderString3</DataField>
-        </Field>
-        <Field Name="OrderString4">
-          <DataField>OrderString4</DataField>
-        </Field>
-        <Field Name="OrderString5">
-          <DataField>OrderString5</DataField>
-        </Field>
-        <Field Name="OrderString6">
-          <DataField>OrderString6</DataField>
+        <Field Name="OrderString">
+          <DataField>OrderString</DataField>
         </Field>
         <Field Name="PrintDate">
           <DataField>PrintDate</DataField>

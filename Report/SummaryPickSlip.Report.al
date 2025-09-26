@@ -41,27 +41,31 @@ report 50012 "Summary Pick Slip"
                     {
 
                     }
-                    column(OrderString1; OrderString[1])
-                    {
+                    // column(OrderString1; OrderString[1])
+                    // {
 
-                    }
-                    column(OrderString2; OrderString[2])
-                    {
+                    // }
+                    // column(OrderString2; OrderString[2])
+                    // {
 
-                    }
-                    column(OrderString3; OrderString[3])
-                    {
+                    // }
+                    // column(OrderString3; OrderString[3])
+                    // {
 
-                    }
-                    column(OrderString4; OrderString[4])
-                    {
+                    // }
+                    // column(OrderString4; OrderString[4])
+                    // {
 
-                    }
-                    column(OrderString5; OrderString[5])
-                    {
+                    // }
+                    // column(OrderString5; OrderString[5])
+                    // {
 
-                    }
-                    column(OrderString6; OrderString[6])
+                    // }
+                    // column(OrderString6; OrderString[6])
+                    // {
+
+                    // }
+                    column(OrderString; OrderString)
                     {
 
                     }
@@ -145,13 +149,15 @@ report 50012 "Summary Pick Slip"
                             ToShipPallet := Abs("Qty. to Ship Pallet");
                         end;
 
-                        OrderStringToUse := 1;
-                        OrderString[1] := '';
-                        OrderString[2] := '';
-                        OrderString[3] := '';
-                        OrderString[4] := '';
-                        OrderString[5] := '';
-                        OrderString[6] := '';
+                        OrderString := '';
+
+                        // OrderStringToUse := 1;
+                        // OrderString[1] := '';
+                        // OrderString[2] := '';
+                        // OrderString[3] := '';
+                        // OrderString[4] := '';
+                        // OrderString[5] := '';
+                        // OrderString[6] := '';
 
                         TotalWeight := 0;
 
@@ -165,26 +171,27 @@ report 50012 "Summary Pick Slip"
                         salesline.SetRange("Shipping Agent Code", Sales_line."Shipping Agent Code");
                         salesline.SetFilter("Qty. to Ship (Base)", '>%1', 0);
                         //salesline.SetFilter(Released,'Yes');
-                        If salesline.Find('-') then begin
-                            repeat
+                        // If salesline.Find('-') then begin
+                        // repeat
 
-                                If StrPos(OrderString[OrderStringToUse], salesline."Document No.") = 0 then begin
-                                    If StrLen(OrderString[1]) > 90 then
-                                        OrderStringToUse := 2;
-                                    If StrLen(OrderString[2]) > 90 then
-                                        OrderStringToUse := 3;
-                                    If StrLen(OrderString[3]) > 90 then
-                                        OrderStringToUse := 4;
-                                    If StrLen(OrderString[4]) > 90 then
-                                        OrderStringToUse := 5;
-                                    If StrLen(OrderString[5]) > 90 then
-                                        OrderStringToUse := 6;
+                        //     If StrPos(OrderString, salesline."Document No.") = 0 then begin
+                        //     If StrLen(OrderString[1]) > 90 then
+                        //         OrderStringToUse := 2;
+                        //     If StrLen(OrderString[2]) > 90 then
+                        //         OrderStringToUse := 3;
+                        //     If StrLen(OrderString[3]) > 90 then
+                        //         OrderStringToUse := 4;
+                        //     If StrLen(OrderString[4]) > 90 then
+                        //         OrderStringToUse := 5;
+                        //     If StrLen(OrderString[5]) > 90 then
+                        //         OrderStringToUse := 6;
 
-                                    OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + "Document No." + '  ';
-                                    TotalWeight += ("Net Weight" * "Qty. to Ship (Base)");
-                                end;
-                            Until salesline.Next = 0;
-                        end;
+                        // OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + "Document No." + '  ';
+                        OrderString += "Document No." + '';
+                        TotalWeight += ("Net Weight" * "Qty. to Ship (Base)");
+                        //     end;
+                        // Until salesline.Next = 0;
+                        // end;
 
                         BinLocation := '';
                         BinContent.Reset();
@@ -240,7 +247,8 @@ report 50012 "Summary Pick Slip"
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";
         UOMMgt: Codeunit "Unit of Measure Management";
-        OrderString: array[6] of Text;
+        // OrderString: array[6] of Text;
+        OrderString: text[600];
         NoLoops: Integer;
         NoCopies: Integer;
         CopyNo: Integer;

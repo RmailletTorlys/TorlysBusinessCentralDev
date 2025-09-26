@@ -77,6 +77,18 @@ report 50012 "Summary Pick Slip"
                     {
 
                     }
+                    column(ToShipCase; ToShipCase)
+                    {
+
+                    }
+                    column(ToShipSingle; ToShipSingle)
+                    {
+
+                    }
+                    column(ToShipPallet; ToShipPallet)
+                    {
+
+                    }
                     column(Description; Description)
                     {
 
@@ -97,10 +109,15 @@ report 50012 "Summary Pick Slip"
                     {
 
                     }
+                    column(ParentBinLocationLabel; ParentBinLocationLabel)
+                    {
+
+                    }
                     column(BinLocation; BinLocation)
                     {
 
                     }
+
 
                     trigger OnPreDataItem()
                     begin
@@ -114,12 +131,19 @@ report 50012 "Summary Pick Slip"
 
                     trigger OnAfterGetRecord()
                     begin
-                        ItemCaseUOM.Get("No.", 'CASE');
-                        ItemPalletUOM.Get("No.", 'PALLET');
+                        If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then begin
+                            ToShipSingle := Abs("Qty. to Ship (Base)");
+                            ToShipCase := 0;
+                            ToShipPallet := 0;
+                        end;
 
-                        //ToShipSingle := Abs("Qty. to Ship");
-                        ToShipCase := Abs("Qty. to Ship Case");
-                        ToShipPallet := Abs("Qty. to Ship Pallet");
+                        If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
+                            ItemCaseUOM.Get("No.", 'CASE');
+                            ItemPalletUOM.Get("No.", 'PALLET');
+                            ToShipSingle := 0;
+                            ToShipCase := Abs("Qty. to Ship Case");
+                            ToShipPallet := Abs("Qty. to Ship Pallet");
+                        end;
 
                         OrderStringToUse := 1;
                         OrderString[1] := '';
@@ -156,8 +180,8 @@ report 50012 "Summary Pick Slip"
                                     If StrLen(OrderString[5]) > 90 then
                                         OrderStringToUse := 6;
 
-                                    OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + salesline."Document No." + '  ';
-                                    TotalWeight += (salesline."Net Weight" * salesline."Qty. to Ship (Base)");
+                                    OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + "Document No." + '  ';
+                                    TotalWeight += ("Net Weight" * "Qty. to Ship (Base)");
                                 end;
                             Until salesline.Next = 0;
                         end;
@@ -168,10 +192,10 @@ report 50012 "Summary Pick Slip"
                         BinContent.SetRange("Item No.", "No.");
                         If (BinContent.Find('-')) then begin
                             repeat
-                                If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
+                                If StrPos(BinLocation, BinContent."Bin Code") = 0 then
                                     BinLocation := BinLocation + ' ' + BinContent."Bin Code";
-                                end
                             Until BinContent.Next = 0;
+                            ParentBinLocationLabel := 'Bin Location: ';
                         end;
 
                         IF DATE2DWY("Shipment Date", 1) = 1 THEN
@@ -237,4 +261,5 @@ report 50012 "Summary Pick Slip"
         BinLocation: Code[100];
         DayOfWeek: Code[9];
         SalesLineFilter: Text;
+        ParentBinLocationLabel: Text;
 }

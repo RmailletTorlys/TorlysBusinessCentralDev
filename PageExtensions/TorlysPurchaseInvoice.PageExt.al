@@ -187,6 +187,12 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
             Visible = true;
         }
 
+        modify("Posting Date")
+        {
+            Editable = false;
+            Importance = Promoted;
+        }
+
     }
 
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]

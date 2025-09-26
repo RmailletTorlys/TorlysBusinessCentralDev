@@ -294,4 +294,11 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             Editable = false;
         }
     }
+
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        DimMgt: Codeunit "DimensionManagement";
+    begin
+        DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
 }

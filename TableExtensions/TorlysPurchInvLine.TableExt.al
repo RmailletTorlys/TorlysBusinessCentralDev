@@ -26,15 +26,14 @@ tableextension 50123 TorlysPurchInvLine extends "Purch. Inv. Line"
             DataClassification = CustomerContent;
         }
 
-        field(50005; "Qty. Received Case"; Integer)
+        field(50013; "Production Date"; Date)
         {
-            Caption = 'Case Quantity Received';
+            Caption = 'Production Date';
             DataClassification = CustomerContent;
         }
-
-        field(50006; "Qty. Received Pallet"; Integer)
+        field(50014; "Confirmation No."; Text[20])
         {
-            Caption = 'Pallet Quantity Received';
+            Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
     }

@@ -164,7 +164,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Importance = Additional;
             }
 
-            field("SystemCreatedBy"; Rec."SystemCreatedBy")
+            field("SystemCreatedBy"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
                 Caption = 'SystemCreatedBy';
@@ -182,6 +182,12 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Importance = Additional;
             }
 
+            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            {
+                Caption = 'SystemModifiedBy';
+                ToolTip = 'SystemModifiedBy';
+                ApplicationArea = All;
+            }
             field("SystemModifiedAt"; Rec."SystemModifiedAt")
             {
                 ApplicationArea = All;
@@ -191,14 +197,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Importance = Additional;
             }
 
-            field("LastDateModified"; Rec."Last Date Modified")
-            {
-                ApplicationArea = All;
-                Caption = 'LastDateModified';
-                Visible = true;
-                ToolTip = 'This field is the date the customer account was last modified.';
-                Importance = Additional;
-            }
+
 
         }
 
@@ -368,6 +367,22 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
 
         moveafter("Location Code"; "Reserve", "Shipping Advice")
 
+        addafter("Shipping Advice")
+        {
+            field("Shipping Instructions"; Rec."Shipping Instructions")
+            {
+                ApplicationArea = All;
+                Caption = 'Shipping Instructions';
+                ToolTip = 'Shipping Instructions';
+            }
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                ApplicationArea = All;
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+            }
+        }
+
         addafter("Shipping Agent Code")
         {
             field("Freight Zone"; Rec."Freight Zone")
@@ -384,6 +399,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
         {
             Importance = Additional;
         }
+
         modify("Country/Region Code")
         {
             Importance = Additional;
@@ -661,6 +677,12 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
 
-
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
 
 }

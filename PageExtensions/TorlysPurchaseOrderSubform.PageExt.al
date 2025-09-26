@@ -16,7 +16,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
         addafter("Location Code")
         {
 
-            field("Container No."; Rec."Container No.")
+            field("Confirmation No."; Rec."Confirmation No.")
             {
                 Caption = 'Container No.';
                 ToolTip = 'Container No.';
@@ -24,7 +24,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Container No."; "Unit of Measure Code", Quantity)
+        moveafter("Confirmation No."; "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {

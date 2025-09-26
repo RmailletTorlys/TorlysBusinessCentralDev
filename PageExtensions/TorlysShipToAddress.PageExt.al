@@ -5,11 +5,29 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
 
         moveafter(ShowMap; "Phone No.")
 
-        moveafter(Contact; "Fax No.", "E-Mail", "Location Code", "Shipment Method Code", "Shipping Agent Code", "Tax Liable", "Tax Area Code")
+        moveafter(Contact; "Fax No.", "E-Mail", "Location Code", "Shipment Method Code", "Shipping Agent Code")
+
+        addafter("Shipping Agent Code")
+        {
+            field("Shipping Instructions"; Rec."Shipping Instructions")
+            {
+                ApplicationArea = All;
+                Caption = 'Shipping Instructions';
+                ToolTip = 'Shipping Instructions';
+            }
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                ApplicationArea = All;
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+            }
+        }
+
+        moveafter("Shipping Comment"; "Tax Liable", "Tax Area Code")
 
         addafter("Tax Area Code")
         {
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
+            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
                 Caption = 'SystemCreatedBy';
                 ToolTip = 'SystemCreatedBy';
@@ -23,7 +41,7 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
                 ApplicationArea = All;
             }
 
-            field(SystemModifiedBy; Rec.SystemModifiedBy)
+            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
             {
                 Caption = 'SystemModifiedBy';
                 ToolTip = 'SystemModifiedBy';
@@ -114,4 +132,11 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
             Visible = false;
         }
     }
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
 }

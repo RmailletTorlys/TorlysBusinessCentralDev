@@ -126,6 +126,14 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Editable = false;
                 Importance = Additional;
             }
+            field("No. Printed"; Rec."No. Printed")
+            {
+                Caption = 'Quantity Printed';
+                ToolTip = 'Quantity Printed';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
 
         }
 
@@ -399,9 +407,16 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = false;
         }
 
+        modify("Shipment Method Code")
+        {
+            Importance = Standard;
+            Caption = 'Shipment Method Code';
+        }
+
         modify("Shipping Agent Code")
         {
             Importance = Standard;
+            Caption = 'Shipping Agent Code';
         }
 
         modify("Ship-to Code")

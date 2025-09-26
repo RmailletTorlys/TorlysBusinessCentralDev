@@ -254,7 +254,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             group("Pick Slip Info")
             {
                 Caption = 'Pick Slip Info';
-                field("No. Pick Slips Printed"; Rec."No. Pick Lists Printed")
+                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     Caption = 'No. Pick Slips Printed';
                     ToolTip = 'No. Pick Slips Printed';

@@ -162,11 +162,11 @@ page 52002 "Credit Hold"
                     ToolTip = 'Pick Slip Printed Time';
                 }
 
-                field("No. Pick Lists Printed"; Rec."No. Pick Lists Printed")
+                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     ApplicationArea = All;
-                    Caption = 'No. Pick Lists Printed';
-                    ToolTip = 'No. Pick Lists Printed';
+                    Caption = 'No. Pick Slips Printed';
+                    ToolTip = 'No. Pick LisSlipsts Printed';
                 }
 
                 field("Whse Associate Picked By"; Rec."Warehouse Associate Picked By")
@@ -470,7 +470,7 @@ page 52002 "Credit Hold"
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetFilter("On Hold", '<>%1', '');
-                        Rec.SetFilter("No. Pick Lists Printed", '=0');
+                        Rec.SetFilter("No. Pick Slips Printed", '=0');
                         Message('Filter applied for Orders where the Pickslip was not printed.');
                     end;
                 }
@@ -488,7 +488,7 @@ page 52002 "Credit Hold"
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetFilter("On Hold", '<>%1', '');
-                        Rec.SetFilter("No. Pick Lists Printed", '<>0');
+                        Rec.SetFilter("No. Pick Slips Printed", '<>0');
                         Rec.SetFilter("Posting Date", '');
                         Message('Filter applied for Orders where the Pickslip was printed but not posted.');
                     end;
@@ -507,7 +507,7 @@ page 52002 "Credit Hold"
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetFilter("On Hold", '<>%1', '');
-                        Rec.SetFilter("No. Pick Lists Printed", '<>0');
+                        Rec.SetFilter("No. Pick Slips Printed", '<>0');
                         Rec.SetFilter("Warehouse Associate Picked By", '');
                         Message('Filter applied for Orders where the PickSlip was printed but not yet assigned.')
                     end;

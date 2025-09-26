@@ -12,7 +12,7 @@ report 50006 "Orders to review pre-pick slip"
         dataitem(Header; "Sales Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "Location Code", "Shipment Date", "No. Pick Lists Printed", "Shipping Agent Code", "Released", "On Hold", SystemCreatedBy;
+            RequestFilterFields = "Location Code", "Shipment Date", "No. Pick Slips Printed", "Shipping Agent Code", "Released", "On Hold", SystemCreatedBy;
             RequestFilterHeading = 'Orders to review pre-pick slip';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
@@ -47,7 +47,7 @@ report 50006 "Orders to review pre-pick slip"
             {
 
             }
-            column(No__Pick_Lists_Printed; "No. Pick Lists Printed")
+            column(No__Pick_Slips_Printed; "No. Pick Slips Printed")
             {
 
             }
@@ -109,7 +109,7 @@ report 50006 "Orders to review pre-pick slip"
 
             trigger OnAfterGetRecord()
             begin
-                If "No. Pick Lists Printed" > 0 then begin
+                If "No. Pick Slips Printed" > 0 then begin
                     If "Pick Slip Printed Date" > "Popup Modify Date" then
                         ModifiedAfterPrint := False
                     else if "Pick Slip Printed Date" < "Popup Modify Date" then

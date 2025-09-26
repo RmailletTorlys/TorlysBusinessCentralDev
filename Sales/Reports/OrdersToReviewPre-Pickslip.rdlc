@@ -88,8 +88,8 @@ End Function
         <Field Name="Salesperson_Code">
           <DataField>Salesperson_Code</DataField>
         </Field>
-        <Field Name="No__Pick_Lists_Printed">
-          <DataField>No__Pick_Lists_Printed</DataField>
+        <Field Name="No__Pick_Slips_Printed">
+          <DataField>No__Pick_Slips_Printed</DataField>
         </Field>
         <Field Name="Pick_Slip_Printed_By">
           <DataField>Pick_Slip_Printed_By</DataField>

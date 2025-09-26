@@ -96,12 +96,12 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Specifies the code of the location from which the items are shipped.';
                     Caption = 'Location Code';
                 }
-                field("No. Pick Lists Printed"; Rec."No. Pick Lists Printed")
+                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Specifies the number of pick lists that have been printed for the sales order.';
-                    Caption = 'Pick Lists Printed';
+                    Caption = 'Pick Slips Printed';
                 }
                 field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
                 {

@@ -225,7 +225,7 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
             group("Pick Slip Info")
             {
                 Caption = 'Pick Slip Info';
-                field("No. Pick Slips Printed"; Rec."No. Pick Lists Printed")
+                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     Caption = 'No. Pick Slips Printed';
                     ToolTip = 'No. Pick Slips Printed';
@@ -262,6 +262,18 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
             }
         }
 
+        addbefore("Ship-to Name")
+        {
+            field("Ship-to Code1"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Customer No.';
+                ToolTip = 'Ship-to Customer No.';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+        }
+
         modify("No. Printed")
         {
             Importance = Standard;
@@ -275,6 +287,11 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
         modify("Sell-to")
         {
             visible = false;
+        }
+
+        modify("Sell-to Customer No.")
+        {
+            visible = true;
         }
 
         modify("Sell-to Contact No.")
@@ -367,6 +384,11 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
         modify("Package Tracking No.")
         {
             Visible = false;
+        }
+
+        modify("Location Code")
+        {
+            Importance = Standard;
         }
     }
 

@@ -12,7 +12,7 @@ report 50004 "Orders to Release TLY"
         dataitem(Header; "Sales Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Lists Printed", "Released", "On Hold";
+            RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Slips Printed", "Released", "On Hold";
             RequestFilterHeading = 'Orders To Release TLY';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
@@ -35,7 +35,7 @@ report 50004 "Orders to Release TLY"
             {
 
             }
-            column(No__Pick_Lists_Printed; "No. Pick Lists Printed")
+            column(No__Pick_Slips_Printed; "No. Pick Slips Printed")
             {
 
             }
@@ -80,7 +80,7 @@ report 50004 "Orders to Release TLY"
 
             trigger OnAfterGetRecord()
             begin
-                If "No. Pick Lists Printed" > 0 then begin
+                If "No. Pick Slips Printed" > 0 then begin
                     If "Pick Slip Printed Date" > "Popup Modify Date" then
                         ModifiedAfterPrint := False
                     else if "Pick Slip Printed Date" < "Popup Modify Date" then

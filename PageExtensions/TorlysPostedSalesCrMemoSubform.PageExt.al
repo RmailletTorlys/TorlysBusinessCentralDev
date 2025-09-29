@@ -147,14 +147,4 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
     local procedure OnValidatePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
     begin
     end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
-    begin
-    end;
 }

@@ -7,6 +7,8 @@ page 51006 "Torlys Processed BOL"
     SourceTable = "Torlys Processed BOL Header";
     UsageCategory = Documents;
     Editable = false;
+    ApplicationArea = Basic, Suite;
+
 
     layout
     {

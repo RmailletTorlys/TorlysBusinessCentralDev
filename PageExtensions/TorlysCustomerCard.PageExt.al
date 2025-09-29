@@ -164,7 +164,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Importance = Additional;
             }
 
-            field("SystemCreatedBy"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
+            field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
                 Caption = 'SystemCreatedBy';
@@ -182,7 +182,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 Importance = Additional;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'SystemModifiedBy';
                 ToolTip = 'SystemModifiedBy';
@@ -234,6 +234,8 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
             {
                 ApplicationArea = All;
+                CaptionClass = '1,2';
+                ToolTip = 'Global Dimension 1 Code';
             }
 
         }
@@ -664,6 +666,9 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
     protected var
         ShortcutDimCode: array[8] of Code[20];
 
+    var
+        LookupUserId: Codeunit "LookupUserID";
+
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
@@ -675,14 +680,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
     var
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 
 }

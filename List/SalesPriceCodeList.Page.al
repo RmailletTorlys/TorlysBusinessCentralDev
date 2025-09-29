@@ -57,6 +57,7 @@ page 52003 "Sales Price Code List"
                 Image = New;
                 Promoted = true;
                 PromotedCategory = New;
+                PromotedOnly = true;
                 trigger OnAction()
                 var
                     PriceCode: Record "Torlys Sales Price Code";

@@ -7,7 +7,7 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
 
         addafter(Status)
         {
-            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -22,7 +22,7 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
                 Importance = Additional;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
@@ -195,11 +195,6 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
 
     }
 
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
+        LookupUserId: Codeunit "LookupUserID";
 }

@@ -398,7 +398,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
     local procedure UpdateMKStagedDateAndByFields()
     begin
         "MK Staged Date" := Today();
-        "MK Staged By" := USERID;
+        "MK Staged By" := CopyStr(FORMAT(USERID), 1, 50);
     end;
 
 

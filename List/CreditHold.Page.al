@@ -78,19 +78,7 @@ page 52002 "Credit Hold"
                     ToolTip = 'Shipping Advice';
                 }
 
-                // field("SO Count"; Rec."SO Count")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'SO Count';
-                //     ToolTip = 'SO Count';
-                // }
 
-                // field("Reprint Requested"; Rec."Reprint Required")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Reprint Requested';
-                //     ToolTip = 'Reprint Requested';
-                // }
 
                 field("Fully Allocated"; isFullyAllocated(Rec."No."))
                 {
@@ -98,13 +86,6 @@ page 52002 "Credit Hold"
                     Caption = 'Fully Allocated';
                     ToolTip = 'Fully Allocated';
                 }
-
-                // field("Transfer Order No."; getTransferOrderNo(Rec."No."))
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Transfer Order No.';
-                //     ToolTip = 'Transfer Order No.';
-                // }
 
                 field("To Ship Qty."; SumSalesLines(Rec."No."))
                 {
@@ -213,20 +194,6 @@ page 52002 "Credit Hold"
                     ToolTip = 'Shipment Weight';
                 }
 
-                // field("BOL No."; Rec."BOL No.")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'BOL No.';
-                //     ToolTip = 'BOL No.';
-                // }
-
-                // field("BOL Processed Date"; Rec."BOL Processed Date")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Processed Date';
-                //     ToolTip = 'Processed Date';
-                // }
-
                 field("No. of Skids"; GetNoOfSkids(Rec."No."))
                 {
                     ApplicationArea = All;
@@ -262,6 +229,7 @@ page 52002 "Credit Hold"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
+                    PromotedOnly = true;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
 
                     trigger OnAction()

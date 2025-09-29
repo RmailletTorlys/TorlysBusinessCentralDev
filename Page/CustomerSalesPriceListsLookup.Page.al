@@ -6,6 +6,7 @@ page 51017 "CustomerSalesPriceListsLookup"
     Editable = false;
     Caption = 'Sales Price Lists';
     ApplicationArea = All;
+    UsageCategory = Administration;
 
     layout
     {

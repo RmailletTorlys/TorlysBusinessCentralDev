@@ -5,6 +5,7 @@ report 50019 "Pre-Receiving Report - Trans"
     WordMergeDataItem = "Transfer Line";
     RDLCLayout = './Sales/Reports/Pre-ReceivingReport-Trans.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {

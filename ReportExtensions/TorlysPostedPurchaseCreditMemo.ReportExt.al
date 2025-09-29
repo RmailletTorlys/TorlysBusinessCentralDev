@@ -6,11 +6,10 @@ reportextension 50900 "TorlysPostedPurchaseCreditMemo" extends "Purchase - Credi
         {
             trigger OnAfterAfterGetRecord()
             begin
-                If "Currency Code" = '' then begin
+                If "Currency Code" = '' then
                     CurrencyCode := 'CDN'
-                end else begin
+                else
                     CurrencyCode := "Currency Code"
-                end;
             end;
         }
 

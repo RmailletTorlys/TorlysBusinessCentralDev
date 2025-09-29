@@ -180,6 +180,9 @@ pageextension 50022 TorlysCustomerList extends "Customer List"
             field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
             {
                 ApplicationArea = All;
+                CaptionClass = '1,2';
+                ToolTip = 'Global Dimension 1 Code';
+
             }
         }
 

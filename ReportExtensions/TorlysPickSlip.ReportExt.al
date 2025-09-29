@@ -222,33 +222,33 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 Clear(BreakdownTitle);
                 Clear(BreakdownLabel);
                 Clear(BreakdownAmt);
-                TotalTaxLabel := Text008;
+                TotalTaxLabel := Text008Lbl;
                 TaxRegNo := '';
                 TaxRegLabel := '';
                 If "Tax Area Code" <> '' then begin
                     TaxArea.get("Tax Area Code");
                     Case TaxArea."Country/Region" of
                         TaxArea."Country/Region"::US:
-                            TotalTaxLabel := Text005;
+                            TotalTaxLabel := Text005Lbl;
                         TaxArea."Country/Region"::CA:
                             begin
-                                TotalTaxLabel := Text007;
+                                TotalTaxLabel := Text007Lbl;
                                 TaxRegNo := CompanyInformation."VAT Registration No.";
                                 TaxRegLabel := CompanyInformation.FieldCaption("VAT Registration No.");
                             end;
                     End;
-                    SalesTaxCalc.StartSalesTaxCalculation;
+                    SalesTaxCalc.StartSalesTaxCalculation();
                 end;
 
                 If "Posting Date" <> 0D then
                     UseDate := "Posting Date"
                 Else
-                    UseDate := WorkDate;
+                    UseDate := WorkDate();
 
                 //CurrReport.PageNo := 1;
 
                 If Not CurrReport.Preview then begin
-                    PickPrintComment := StrSubstNo('Pick Slip printed by %1 on %2 at %3', UserId, WorkDate, Time);
+                    PickPrintComment := StrSubstNo(Text009Lbl, UserId, WorkDate(), Time);
                     SalesCommentLine1.Reset();
                     SalesCommentLine1.SetCurrentKey("Document Type", "No.");
                     SalesCommentLine1.SetRange("Document Type", "Document Type");
@@ -258,17 +258,17 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     SalesCommentLine1."Document Type" := "Document Type";
                     SalesCommentLine1."No." := "No.";
                     SalesCommentLine1."Line No." := LineNo + 10000;
-                    SalesCommentLine1.Date := WorkDate;
+                    SalesCommentLine1.Date := WorkDate();
                     //SalesCommentLine1.SystemCreatedBy := UserId;
-                    SalesCommentLine1.Comment := PickPrintComment;
+                    SalesCommentLine1.Comment := CopyStr(PickPrintComment, 1, 80);
                     //SalesCommentLine1.Code := SalesCommentLine1.Code::"DOC-PRINT";
                     SalesCommentLine1.Insert();
-                    Modify;
+                    Modify();
                 end;
 
                 If Not CurrReport.Preview then begin
-                    "Pick Slip Printed By" := UserId();
-                    "Pick Slip Printed Date" := WorkDate;
+                    "Pick Slip Printed By" := Format(UserId());
+                    "Pick Slip Printed Date" := WorkDate();
                     "Pick Slip Printed Time" := Time;
                     "No. Pick Slips Printed" := "No. Pick Slips Printed" + 1;
                     Modify();
@@ -290,33 +290,35 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 Else
                     NotesMessages := '';
 
-                If Date2DWY("Shipment Date", 1) = 1 then
-                    DayofWeek := 'Monday'
-                Else If Date2DWY("Shipment Date", 1) = 2 then
-                    DayofWeek := 'Tuesday'
-                Else If Date2DWY("Shipment Date", 1) = 3 then
-                    DayofWeek := 'Wednesday'
-                Else If Date2DWY("Shipment Date", 1) = 4 then
-                    DayofWeek := 'Thursday'
-                Else If Date2DWY("Shipment Date", 1) = 5 then
-                    DayofWeek := 'Friday'
+                case Date2DWY("Shipment Date", 1) of
+                    1:
+                        DayofWeek := 'Monday';
+                    2:
+                        DayofWeek := 'Tuesday';
+                    3:
+                        DayofWeek := 'Wednesday';
+                    4:
+                        DayofWeek := 'Thursday';
+                    5:
+                        DayofWeek := 'Friday';
+                end;
             end;
         }
         modify("Sales Line")
         {
             trigger OnAfterPreDataItem()
             Begin
-                TempSalesLine.Reset;
-                TempSalesLine.DeleteAll;
+                TempSalesLine.Reset();
+                TempSalesLine.DeleteAll();
             End;
 
             trigger OnAfterAfterGetRecord()
             begin
                 If Type = Type::Item then
-                    If "Qty. to Ship" = 0 then begin
+                    If "Qty. to Ship" = 0 then
                         If (Quantity - "Quantity Shipped" = 0) then
                             CurrReport.Skip();
-                    end;
+
 
                 Clear(TempDesc3);
 
@@ -334,7 +336,8 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     "Line Amount" := 0;
                     "Inv. Discount Amount" := 0;
                     Quantity := 0;
-                end else if Type = Type::"G/L Account" then
+                end else
+                    if Type = Type::"G/L Account" then
                         "No." := '';
 
                 TaxAmount := "Amount Including VAT" - Amount;
@@ -372,26 +375,26 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 If "Gen. Prod. Posting Group" <> 'IFS' then
                     TotalWeight += "Net Weight" * "Qty. to Ship";
 
-                If "Qty. to Ship Pallet" > 0 then begin
+                If "Qty. to Ship Pallet" > 0 then
                     if Type = Type::Item then begin
                         Item.get("No.");
                         QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'Pallet');
                         QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'Case');
                         TotalPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
                     end;
-                end;
+
 
                 if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     TotalPieces += "Qty. to Ship";
 
-                If ("Gen. Prod. Posting Group" = 'MOULDINGS') then begin
+                If ("Gen. Prod. Posting Group" = 'MOULDINGS') then
                     IF ("Item Category Code" <> 'ACC-86') AND (TempSalesLine."Item Category Code" <> 'ACC-107') AND
                     ("Item Category Code" <> 'ACC-108') THEN BEGIN
                         //"To Ship - Singles" := 0;
                         "Qty. to Ship Case" := 0;
                         "Qty. to Ship Pallet" := 0
                     end;
-                end;
+
 
                 IF "Gen. Prod. Posting Group" = 'MQ MOULDINGS' THEN BEGIN
                     //"To Ship - Singles" := 0;
@@ -414,42 +417,19 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
                 ParentBinLocationLabel := '';
                 ParentBinLocation := '';
-                ParentBinContent.RESET;
+                ParentBinContent.RESET();
                 ParentBinContent.SETRANGE("Location Code", "Location Code");
                 ParentBinContent.SETRANGE("Item No.", "No.");
                 IF (ParentBinContent.FIND('-')) THEN BEGIN
                     REPEAT
-                        IF STRPOS(ParentBinLocation, ParentBinContent."Bin Code") = 0 THEN BEGIN
-                            ParentBinLocation := ParentBinLocation + '  ' + ParentBinContent."Bin Code";
-                        END;
-                    UNTIL ParentBinContent.NEXT = 0;
+                        IF STRPOS(ParentBinLocation, ParentBinContent."Bin Code") = 0 THEN
+                            ParentBinLocation := CopyStr(ParentBinLocation + '  ' + ParentBinContent."Bin Code", 1, 200);
+
+                    UNTIL ParentBinContent.NEXT() = 0;
                     ParentBinLocationLabel := 'Bin(s): ';
                 END;
             end;
 
-            // trigger OnAfterPostDataItem()
-            // begin
-            //     If "Sales Header"."Tax Area Code" <> '' then begin
-            //         SalesTaxCalc.EndSalesTaxCalculation(UseDate);
-            //         SalesTaxCalc.DistTaxOverSalesLines(TempSalesLine);
-            //         SalesTaxCalc.GetSummarizedSalesTaxTable(TempSalesTaxAmtLine);
-            //         BrkIdx := 0;
-            //         PrevPrintOrder := 0;
-            //         PrevTaxPercent := 0;
-            //         with TempSalesTaxAmtLine do begin
-            //             Reset();
-            //             SetCurrentKey("Print Order","Tax Area Code for Key","Tax Jurisdiction Code");
-            //             if Find('-') then
-            //             repeat
-            //             If ("Print Order" = 0) or
-            //                 ("Print Order" <> PrevPrintOrder) or
-            //                 ("Tax %" <> PrevTaxPercent)
-            //                 then begin
-            //                     BrkIdx := BrkIdx + 1
-            //                 end;
-            //         end;
-            //     end;
-            // end;
         }
 
 
@@ -519,13 +499,16 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         EncodedText: Text;
         TaxRegNo: Text;
         UseDate: Date;
-        Text000: Label 'COPY';
-        Text001: Label 'Transferred from page %1';
-        Text002: Label 'Transferred to page %1';
-        Text003: Label 'Sales tax Breakdown:';
-        Text004: Label 'Other Taxes';
-        Text005: Label 'Total Sales Tax:';
-        Text006: Label 'Tax Breakdown:';
-        Text007: Label 'Total Tax:';
-        Text008: Label 'Tax:';
+        Text000Lbl: Label 'COPY';
+#pragma warning disable AA0470
+        Text001Lbl: Label 'Transferred from page %1';
+        Text002Lbl: Label 'Transferred to page %1';
+        Text003Lbl: Label 'Sales tax Breakdown:';
+        Text004Lbl: Label 'Other Taxes';
+        Text005Lbl: Label 'Total Sales Tax:';
+        Text006Lbl: Label 'Tax Breakdown:';
+        Text007Lbl: Label 'Total Tax:';
+        Text008Lbl: Label 'Tax:';
+        Text009Lbl: Label 'Pick Slip printed by %1 on %2 at %3';
+#pragma warning restore AA0470
 }

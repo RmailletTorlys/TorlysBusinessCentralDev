@@ -83,19 +83,6 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                // field("SO Count"; Rec."SO Count")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'SO Count';
-                //     ToolTip = 'SO Count';
-                // }
-
-                // field("Reprint Requested"; Rec."Reprint Required")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Reprint Requested';
-                //     ToolTip = 'Reprint Requested';
-                // }
 
                 field("Fully Allocated"; isFullyAllocated(Rec."No."))
                 {
@@ -105,12 +92,6 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                // field("Transfer Order No."; getTransferOrderNo(Rec."No."))
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Transfer Order No.';
-                //     ToolTip = 'Transfer Order No.';
-                // }
 
                 field("To Ship Qty."; SumSalesLines(Rec."No."))
                 {
@@ -909,25 +890,6 @@ page 52001 "Orders To Be Shipped List"
 
     end;
 
-    // local procedure getTransferOrderNo(No: Code[20]) returnVar: Code[20]
-    // var
-    //     IsHandled: Boolean;
-    //     SalesHeader: Record "Sales Header";
-
-    // begin
-    //     OnBeforeGetTransferOrderNo(No, returnVar, IsHandled);
-    //     if IsHandled then
-    //         exit;
-    //     SalesHeader.Reset();
-    //     SalesHeader.SetRange("No.", No);
-    //     if SalesHeader.FindFirst() then
-    //         returnVar := SalesHeader."Transfer Order No."
-    //     else
-    //         returnVar := '';
-
-    //     OnAfterGetTransferOrderNo(No, returnVar);
-    // end;
-
     local procedure getOrderWeight(No: Code[20]) returnVar: Decimal
     var
         SalesHeader: Record "Sales Header";
@@ -1017,16 +979,6 @@ page 52001 "Orders To Be Shipped List"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterIsFullyAllocated(No: Code[20]; var returnVar: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeGetTransferOrderNo(No: Code[20]; var returnVar: Code[20]; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetTransferOrderNo(No: Code[20]; var returnVar: Code[20])
     begin
     end;
 

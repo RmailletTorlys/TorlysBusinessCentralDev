@@ -170,7 +170,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         addafter("Purch. Order Line No.")
         {
-            field("System Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
+            field("System Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'System Created By';
                 ToolTip = 'System Created By';
@@ -187,7 +187,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Visible = true;
             }
 
-            field("System Last Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
+            field("System Last Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
             {
                 Caption = 'System Last Modified By';
                 ToolTip = 'System Last Modified By';
@@ -385,6 +385,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
     }
 
+    var
+        LookupUserId: Codeunit "LookupUserID";
+
     trigger OnAfterGetRecord()
     begin
         if Rec."Type" <> Rec.Type::Item then
@@ -430,14 +433,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetRecordOnValidateUoM(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var UoMValid: Boolean)
     begin
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 }
 

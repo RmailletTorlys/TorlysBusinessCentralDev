@@ -5,6 +5,7 @@ report 50008 "Bill Of Lading"
     WordMergeDataItem = "BOL Header";
     RDLCLayout = './Sales/Reports/BOL.rdlc';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -299,10 +300,10 @@ report 50008 "Bill Of Lading"
                     ShipToAddress[6] := "Shipping Comment";
                     DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
-                end else begin
+                end else
                     //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
                     DestinationInstructions1 := "Shipping Comment";
-                end;
+
 
                 Location.Get("Location Code");
                 ShippingAgent.Get("Shipping Agent Code");
@@ -322,29 +323,20 @@ report 50008 "Bill Of Lading"
 
                 LoadClassArray();
 
-                // BOLLine.SetFilter("BOL No.", "Bol Header"."No.");
-                // If BOLLine.Find('-') then begin
-                //    repeat
-                //     //    IF BOLLine."Heated Service" = TRUE THEN
-                //     //    HeatRequiredMessage := 'HEAT REQUIRED';
-                //        IF BOLLine."Freight Charges" = BOLLine."Freight Charges"::Collect THEN
-                //        CollectMessage := '*'
-                //        ELSE
-                //        PrePaidMessage := '*';
-                // End;
+
 
                 Case
                     "Bol Header"."Transaction Type" Of
                     "Bol Header"."Transaction Type"::Shipment:
                         Begin
-                            SalesShipmentLine.Reset;
+                            SalesShipmentLine.Reset();
                             SalesShipmentLine.SetCurrentKey("Document No.", Type);
                             SalesShipmentLine.SetFilter("Document No.", BOLLine."Shipment No.");
                             SalesShipmentLine.SetFilter(Type, '=%1', SalesShipmentLine.Type::Item);
                             SalesShipmentLine.SETFILTER(Quantity, '>%1', 0);
-                            IF SalesShipmentLine.FIND('-') THEN begin
+                            IF SalesShipmentLine.FIND('-') THEN
                                 repeat
-                                    IF NoOrderString = FALSE THEN begin
+                                    IF NoOrderString = FALSE THEN
                                         IF STRPOS(OrderString[OrderStringToUse], BOLLine."Order No.") = 0 THEN begin
                                             IF STRLEN(OrderString[1]) > 75 THEN
                                                 OrderStringToUse := 2;
@@ -364,20 +356,20 @@ report 50008 "Bill Of Lading"
                                             SalesShipmentHeader.Get(SalesShipmentLine."Document No.");
                                             OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + BOLLine."Order No." + '-' + SalesShipmentHeader."External Document No." + ' ';
                                         end;
-                                    end; //don't display order string because too long   
+                                    //don't display order string because too long   
                                     If StrPos(LocationString, salesshipmentline."Location Code") = 0 then
                                         LocationString := LocationString + SalesShipmentLine."Location Code" + ' ';
-                                Until SalesShipmentLine.Next = 0;
-                            end;
-                        End;
+                                Until SalesShipmentLine.Next() = 0;
+
+                        end;
                     "BOL Header"."Transaction Type"::Transfer:
                         begin
-                            TransferShipmentLine.RESET;
+                            TransferShipmentLine.RESET();
                             TransferShipmentLine.SETFILTER("Document No.", BOLLine."Shipment No.");
                             TransferShipmentLine.SETFILTER(Quantity, '>%1', 0);
-                            IF TransferShipmentLine.FIND('-') then begin
+                            IF TransferShipmentLine.FIND('-') then
                                 repeat
-                                    IF NoOrderString = FALSE THEN begin //don't display order string because too long
+                                    IF NoOrderString = FALSE THEN  //don't display order string because too long
                                         IF STRPOS(OrderString[OrderStringToUse], BOLLine."Order No.") = 0 then begin
                                             IF STRLEN(OrderString[1]) > 75 THEN
                                                 OrderStringToUse := 2;
@@ -397,11 +389,10 @@ report 50008 "Bill Of Lading"
                                             TransferShipmentHeader.GET(TransferShipmentLine."Document No.");
                                             OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + BOLLine."Order No." + '-' + TransferShipmentHeader."External Document No." + ' ';
                                         end;
-                                    end;
                                     IF STRPOS(LocationString, TransferShipmentLine."Transfer-from Code") = 0 THEN
                                         LocationString := LocationString + TransferShipmentLine."Transfer-from Code" + ' ';
-                                until TransferShipmentLine.Next = 0;
-                            end;
+                                until TransferShipmentLine.Next() = 0;
+
                         end;
                 End;
                 //BOLLine.Printed := True;
@@ -412,9 +403,9 @@ report 50008 "Bill Of Lading"
                     "BOL Header"."No. Printed" := "BOL Header"."No. Printed" + 1;
                     //"BOL Header"."Last Print Date" := workdate;
                     "BOL Header"."Last Print Time" := TIME;
-                    "BOL Header"."Last Print By" := USERID;
+                    "BOL Header"."Last Print By" := FORMAT(USERID);
                     //"BOL Header"."Lines Deleted" := FALSE;
-                    "BOL Header".MODIFY;
+                    "BOL Header".MODIFY();
                 end;
             end;
         }
@@ -422,7 +413,7 @@ report 50008 "Bill Of Lading"
     procedure LoadClassArray()
     var
         Loop: Integer;
-        Found: Boolean;
+
     begin
         Loop := 1;
         If ("Bol Header"."Weight - Flooring" > 0) or ("Bol Header"."Cases - Flooring" > 0) then begin
@@ -458,9 +449,6 @@ report 50008 "Bill Of Lading"
         ShippingAgent: Record "Shipping Agent";
         Location: Record Location;
         BOLLine: Record "Torlys BOL Line";
-        Customer: Record Customer;
-        Item: Record Item;
-        ItemUnitOfMeasure: Record "Item Unit of Measure";
         SalesShipmentHeader: Record "Sales Shipment Header";
         SalesShipmentLine: Record "Sales Shipment Line";
         TransferShipmentHeader: Record "Transfer Shipment Header";
@@ -479,7 +467,5 @@ report 50008 "Bill Of Lading"
         DestinationInstructions2: Text;
         HeatRequiredMessage: Text;
         LocationString: Text;
-        CollectMessage: Text;
-        PrePaidMessage: Text;
         EncodedText: Text;
 }

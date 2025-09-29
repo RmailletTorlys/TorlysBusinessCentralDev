@@ -5,6 +5,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
     WordMergeDataItem = Transfer_Line;
     RDLCLayout = './Sales/Reports/SummaryPickSlipTransferTLY.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
 
     dataset
@@ -95,14 +96,13 @@ report 50007 "Summary Pick Slip Transfer TLY"
                 BinContent.Reset();
                 BinContent.SetRange("Location Code", "Transfer-from Code");
                 BinContent.SetRange("Item No.", "Item No.");
-                If (BinContent.Find('-')) then begin
+                If (BinContent.Find('-')) then
                     repeat
-                        if StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
-                            BinLocation := BinLocation + ' ' + BinContent."Bin Code";
-                        end;
-                    until BinContent.Next = 0;
-                end;
+                        if StrPos(BinLocation, BinContent."Bin Code") = 0 then
+                            BinLocation := BinLocation + ' ' + BinContent."Bin Code"
+                    until BinContent.Next() = 0;
             end;
+
         }
         dataitem(InventoryCommnetLine; "Inventory Comment Line")
         {
@@ -118,12 +118,10 @@ report 50007 "Summary Pick Slip Transfer TLY"
     }
 
     var
-        Transferline: Record "Sales Line";
+
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";
-        Item: Record Item;
-        UOMMgt: Codeunit "Unit of Measure Management";
         TransferLineFilter: Text;
         BinLocation: Text;
         ToShipSingles: Decimal;
@@ -132,11 +130,6 @@ report 50007 "Summary Pick Slip Transfer TLY"
         TotalWeight: Decimal;
         ToShipWeight: Decimal;
         ToReceiveWeight: Decimal;
-        QtyPerPallet: Decimal;
-        QtyPerCase: Decimal;
-        PalletQty: Decimal;
-        CaseQty: Decimal;
-        CalculatedCase: Decimal;
         PrintDate: Date;
         PrintTime: Time;
 }

@@ -30,20 +30,21 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
                     ShipToAddress[4] := ShippingAgent1."Pickup/Beyond Address 3";
                     ShipToAddress[5] := ShippingAgent1."Pickup/Beyond Address 4";
                     ShipToAddress[6] := ShippingAgent1."Pickup/Beyond Address 5";
-                end else begin
+                end else
                     FmtAddress.SalesShptShipTo(ShipToAddress, "Sales Shipment Header");
-                end;
 
-                if DayOfWeekNo = 1 then begin
-                    DayOfWeek := 'Monday';
-                end else if DayOfWeekNo = 2 then begin
-                    DayOfWeek := 'Tuesday';
-                end else if DayOfWeekNo = 3 then begin
-                    DayOfWeek := 'Wednesday';
-                end else if DayOfWeekNo = 4 then begin
-                    DayOfWeek := 'Thursday';
-                end else if DayOfWeekNo = 5 then begin
-                    DayOfWeek := 'Friday';
+
+                case DayOfWeekNo of
+                    1:
+                        DayOfWeek := 'Monday';
+                    2:
+                        DayOfWeek := 'Tuesday';
+                    3:
+                        DayOfWeek := 'Wednesday';
+                    4:
+                        DayOfWeek := 'Thursday';
+                    5:
+                        DayOfWeek := 'Friday';
                 end;
             end;
         }

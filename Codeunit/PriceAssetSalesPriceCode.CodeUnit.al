@@ -81,7 +81,6 @@ codeunit 57001 "Price Asset - SalesPriceCode" implements "Price Asset"
     begin
         PriceListLine.SetRange("Asset Type", PriceAsset."Asset Type");
         PriceListLine.SetRange("Asset No.", PriceAsset."Asset No.");
-        // Message('Filtered Price List Line: %1', PriceListLine);
     end;
 
     procedure PutRelatedAssetsToList(PriceAsset: Record "Price Asset"; var PriceAssetList: Codeunit "Price Asset List")

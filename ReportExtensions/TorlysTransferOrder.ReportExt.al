@@ -45,10 +45,6 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
-            column(TotalWeight; TotalWeight)
-            {
-
-            }
             column(Qty__to_Ship; "Qty. to Ship")
             {
 
@@ -69,7 +65,12 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
+            column(TotalWeight; TotalWeight)
+            {
+
+            }
         }
+
 
         modify("Transfer Header")
         {
@@ -99,6 +100,11 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
 
         modify("Transfer Line")
         {
+            trigger OnAfterPreDataItem()
+            begin
+                TotalWeight := 0;
+            end;
+
             trigger OnAfterAfterGetRecord()
             begin
                 If "Item No." = '' then
@@ -106,7 +112,7 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
                 else
                     Picked := '________';
 
-                TotalWeight += ("Net Weight" * Quantity);
+                TotalWeight := TotalWeight + ("Net Weight" * Quantity);
                 ToShipWeight += ("Net Weight" * "Qty. to Ship");
                 ToReceiveWeight += ("Net Weight" * "Qty. to Receive");
 

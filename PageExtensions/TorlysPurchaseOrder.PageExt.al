@@ -95,6 +95,7 @@ pageextension 50050 "TorlysPurchaseOrder" extends "Purchase Order"
         modify("Posting Date")
         {
             Importance = Promoted;
+            Editable = false;
         }
 
         modify("Order Date")

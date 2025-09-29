@@ -79,23 +79,8 @@ End Function
         <Field Name="TotalWeightFormat">
           <DataField>TotalWeightFormat</DataField>
         </Field>
-        <Field Name="OrderString1">
-          <DataField>OrderString1</DataField>
-        </Field>
-        <Field Name="OrderString2">
-          <DataField>OrderString2</DataField>
-        </Field>
-        <Field Name="OrderString3">
-          <DataField>OrderString3</DataField>
-        </Field>
-        <Field Name="OrderString4">
-          <DataField>OrderString4</DataField>
-        </Field>
-        <Field Name="OrderString5">
-          <DataField>OrderString5</DataField>
-        </Field>
-        <Field Name="OrderString6">
-          <DataField>OrderString6</DataField>
+        <Field Name="OrderString">
+          <DataField>OrderString</DataField>
         </Field>
         <Field Name="PrintDate">
           <DataField>PrintDate</DataField>
@@ -105,6 +90,24 @@ End Function
         </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
+        </Field>
+        <Field Name="ToShipCase">
+          <DataField>ToShipCase</DataField>
+        </Field>
+        <Field Name="ToShipCaseFormat">
+          <DataField>ToShipCaseFormat</DataField>
+        </Field>
+        <Field Name="ToShipSingle">
+          <DataField>ToShipSingle</DataField>
+        </Field>
+        <Field Name="ToShipSingleFormat">
+          <DataField>ToShipSingleFormat</DataField>
+        </Field>
+        <Field Name="ToShipPallet">
+          <DataField>ToShipPallet</DataField>
+        </Field>
+        <Field Name="ToShipPalletFormat">
+          <DataField>ToShipPalletFormat</DataField>
         </Field>
         <Field Name="Description">
           <DataField>Description</DataField>
@@ -132,6 +135,9 @@ End Function
         </Field>
         <Field Name="Qty__to_Ship_PalletFormat">
           <DataField>Qty__to_Ship_PalletFormat</DataField>
+        </Field>
+        <Field Name="ParentBinLocationLabel">
+          <DataField>ParentBinLocationLabel</DataField>
         </Field>
         <Field Name="BinLocation">
           <DataField>BinLocation</DataField>

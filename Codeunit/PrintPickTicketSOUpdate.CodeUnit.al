@@ -99,7 +99,7 @@ codeunit 50007 PrintPickTicketSOUpdate
 
 
         //NOTIFY that this is not the first pick slip to have been printed.
-        if SalesHeader."No. Pick Lists Printed" > 0 then
+        if SalesHeader."No. Pick Slips Printed" > 0 then
             Message('Order %1 Pick Ticket was last printed on %2.', SalesHeader."No.", SalesHeader."Pick Slip Printed Date");
 
         exit(True);

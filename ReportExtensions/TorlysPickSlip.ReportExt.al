@@ -52,7 +52,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(No__Pick_Lists_Printed; "No. Pick Lists Printed")
+            column(No__Pick_Slips_Printed; "No. Pick Slips Printed")
             {
 
             }
@@ -270,14 +270,14 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     "Pick Slip Printed By" := UserId();
                     "Pick Slip Printed Date" := WorkDate;
                     "Pick Slip Printed Time" := Time;
-                    "No. Pick Lists Printed" := "No. Pick Lists Printed" + 1;
+                    "No. Pick Slips Printed" := "No. Pick Slips Printed" + 1;
                     Modify();
                 end;
 
                 // TotalPieces := 0;
                 // TotalWeight := 0;
 
-                If "No. Pick Lists Printed" > 0 then
+                If "No. Pick Slips Printed" > 0 then
                     RePrintMessage := 'REPRINT'
                 else
                     RePrintMessage := '';
@@ -380,6 +380,9 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                         TotalPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
                     end;
                 end;
+
+                if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
+                    TotalPieces += "Qty. to Ship";
 
                 If ("Gen. Prod. Posting Group" = 'MOULDINGS') then begin
                     IF ("Item Category Code" <> 'ACC-86') AND (TempSalesLine."Item Category Code" <> 'ACC-107') AND

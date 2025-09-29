@@ -25,17 +25,16 @@ tableextension 50125 TorlysPurchCrMemoLine extends "Purch. Cr. Memo Line"
             Caption = 'Pallet Quantity to Receive';
             DataClassification = CustomerContent;
         }
-
-        field(50005; "Qty. Received Case"; Integer)
+        field(50013; "Production Date"; Date)
         {
-            Caption = 'Case Quantity Received';
+            Caption = 'Production Date';
+            DataClassification = CustomerContent;
+        }
+        field(50014; "Confirmation No."; Text[20])
+        {
+            Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
 
-        field(50006; "Qty. Received Pallet"; Integer)
-        {
-            Caption = 'Pallet Quantity Received';
-            DataClassification = CustomerContent;
-        }
     }
 }

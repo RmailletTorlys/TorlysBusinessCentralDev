@@ -62,9 +62,9 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50010; "No. Pick Lists Printed"; Integer)
+        field(50010; "No. Pick Slips Printed"; Integer)
         {
-            Caption = 'No. Pick Lists Printed';
+            Caption = 'No. Pick Slips Printed';
             DataClassification = CustomerContent;
         }
 
@@ -294,4 +294,11 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             Editable = false;
         }
     }
+
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        DimMgt: Codeunit "DimensionManagement";
+    begin
+        DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
 }

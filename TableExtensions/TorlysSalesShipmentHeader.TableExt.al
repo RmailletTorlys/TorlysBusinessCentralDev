@@ -62,9 +62,9 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50010; "No. Pick Lists Printed"; Integer)
+        field(50010; "No. Pick Slips Printed"; Integer)
         {
-            Caption = 'No. Pick Lists Printed';
+            Caption = 'No. Pick Slips Printed';
             DataClassification = CustomerContent;
         }
 

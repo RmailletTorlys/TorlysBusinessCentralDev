@@ -50,22 +50,36 @@ pageextension 50030 TorlysItemCard extends "Item Card"
 
         addafter("Net Weight")
         {
-            field("Created Date"; Rec."SystemCreatedAt")
+            field("SystemCreatedBy"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
             {
-                Caption = 'Created Date';
-                ToolTip = 'Specifies the date the item was created.';
                 ApplicationArea = All;
+                Caption = 'SystemCreatedBy';
                 Visible = true;
+                ToolTip = 'This field is the user who created the customer account.';
                 Importance = Additional;
-
+            }
+            field("SystemCreatedAt"; Rec."SystemCreatedAt")
+            {
+                ApplicationArea = All;
+                Caption = 'SystemCreatedAt';
+                Visible = true;
+                ToolTip = 'This field is the date the customer account was created.';
+                Importance = Additional;
             }
 
-            field("Modified Date"; Rec.SystemModifiedAt)
+            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
             {
-                Caption = 'Modified Date';
-                ToolTip = 'Specifiec the date the item was last modified';
+                Caption = 'SystemModifiedBy';
+                ToolTip = 'SystemModifiedBy';
                 ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("SystemModifiedAt"; Rec."SystemModifiedAt")
+            {
+                ApplicationArea = All;
+                Caption = 'SystemModifiedAt';
                 Visible = true;
+                ToolTip = 'This field is the date the customer account was last modified.';
                 Importance = Additional;
             }
 
@@ -116,7 +130,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                     Caption = 'Kit BOM No.';
                     ToolTip = 'The Item No. for the Kit Bill of Material';
                     ApplicationArea = All;
-                    Visible = true;
+                    Visible = false;
                     Importance = Additional;
                 }
 
@@ -358,6 +372,27 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         {
             Visible = true;
         }
+
+        modify(GTIN)
+        {
+            Visible = false;
+        }
+
+        modify(VariantMandatoryDefaultNo)
+        {
+            Visible = false;
+        }
+
+        modify(VariantMandatoryDefaultYes)
+        {
+            Visible = false;
+        }
+
+        modify("Common Item No.")
+        {
+            Visible = false;
+        }
+
         modify("Indirect Cost %")
         {
             Visible = false;
@@ -385,6 +420,21 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         modify("Lead Time Calculation")
         {
             Importance = Promoted;
+        }
+
+        modify("Item Disc. Group")
+        {
+            visible = false;
+        }
+
+        modify("Purchasing Code")
+        {
+            visible = false;
+        }
+
+        modify("Last Date Modified")
+        {
+            visible = false;
         }
 
         modify("Vendor No.")
@@ -471,4 +521,13 @@ pageextension 50030 TorlysItemCard extends "Item Card"
     begin
         exit(Item."Qty. on Purch. Order" - Item."Qty. on Sales Order")
     end;
+
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
+
 }

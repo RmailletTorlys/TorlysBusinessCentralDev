@@ -3,7 +3,7 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
     layout
     {
         movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date", "Document Date", "Invoice Received Date", "Vendor Invoice No.")
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date", "Document Date", "Vendor Invoice No.")
 
         addafter(Status)
         {
@@ -154,7 +154,7 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
 
         modify("Invoice Received Date")
         {
-            Importance = Standard;
+            visible = false;
         }
 
         modify("Status")
@@ -185,6 +185,12 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
         modify("Shortcut Dimension 2 Code")
         {
             Visible = true;
+        }
+
+        modify("Posting Date")
+        {
+            Editable = false;
+            Importance = Promoted;
         }
 
     }

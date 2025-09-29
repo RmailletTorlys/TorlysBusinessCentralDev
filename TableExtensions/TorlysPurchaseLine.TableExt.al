@@ -32,9 +32,9 @@ tableextension 50039 TorlysPurchaseLine extends "Purchase Line"
             DataClassification = CustomerContent;
         }
 
-        field(50014; "Container No."; Code[20])
+        field(50014; "Confirmation No."; Text[20])
         {
-            Caption = 'Container No.';
+            Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
 

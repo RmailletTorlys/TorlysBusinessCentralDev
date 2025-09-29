@@ -5,6 +5,7 @@ report 50010 "BOL Shipment Label"
     WordMergeDataItem = "BOL Header";
     RDLCLayout = './Sales/Reports/BOL Shipment Label.rdlc';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -109,9 +110,9 @@ report 50010 "BOL Shipment Label"
                 trigger OnAfterGetRecord()
                 begin
                     CurrReport.PageNo := 1;
-                    If CopyNo = NoLoops then begin
-                        CurrReport.Break();
-                    end else
+                    If CopyNo = NoLoops then
+                        CurrReport.Break()
+                    else
                         CopyNo := CopyNo + 1;
                 end;
             }
@@ -155,7 +156,6 @@ report 50010 "BOL Shipment Label"
         LocationAddress: array[8] of Text[50];
         ShipToAddress: array[8] of Text[50];
         POCount: Integer;
-        PONumbers: Text;
         NoCopies: Integer;
         NoLoops: Integer;
         CopyNo: Integer;

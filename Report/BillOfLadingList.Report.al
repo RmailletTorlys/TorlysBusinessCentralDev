@@ -5,6 +5,7 @@ report 50016 "Bill Of Lading List"
     WordMergeDataItem = "Shipping Agent";
     RDLCLayout = './Sales/Reports/BillOfLadingList.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -101,5 +102,4 @@ report 50016 "Bill Of Lading List"
     }
     var
         LastFieldNo: Integer;
-        FooterPrinted: Boolean;
 }

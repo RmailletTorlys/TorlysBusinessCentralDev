@@ -5,6 +5,7 @@ page 51010 "Sales Price Code Lookup"
     Editable = false;
     Caption = 'Sales Price Code';
     ApplicationArea = All;
+    UsageCategory = Administration;
 
 
     layout

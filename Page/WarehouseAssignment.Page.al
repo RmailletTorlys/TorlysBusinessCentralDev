@@ -3,6 +3,9 @@ page 50555 "Warehouse Assignment"
     Caption = 'Warehouse Picker Assignment';
     PageType = List;
     SourceTable = "Salesperson/Purchaser";
+    ApplicationArea = Basic, Suite;
+    UsageCategory = Administration;
+
 
 
 
@@ -41,6 +44,7 @@ page 50555 "Warehouse Assignment"
                 ApplicationArea = Basic, Suite;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 begin

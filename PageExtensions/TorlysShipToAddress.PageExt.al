@@ -27,7 +27,7 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
 
         addafter("Tax Area Code")
         {
-            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'SystemCreatedBy';
                 ToolTip = 'SystemCreatedBy';
@@ -41,7 +41,7 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
                 ApplicationArea = All;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'SystemModifiedBy';
                 ToolTip = 'SystemModifiedBy';
@@ -132,11 +132,8 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
             Visible = false;
         }
     }
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+
     var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
+        LookupUserId: Codeunit "LookupUserID";
+
 }

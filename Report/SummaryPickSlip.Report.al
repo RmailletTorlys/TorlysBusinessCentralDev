@@ -5,6 +5,7 @@ report 50012 "Summary Pick Slip"
     WordMergeDataItem = CopyLoop;
     RDLCLayout = './Sales/Reports/SummaryPickSlip.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -205,21 +206,23 @@ report 50012 "Summary Pick Slip"
                         If (BinContent.Find('-')) then begin
                             repeat
                                 If StrPos(BinLocation, BinContent."Bin Code") = 0 then
-                                    BinLocation := BinLocation + ' ' + BinContent."Bin Code";
-                            Until BinContent.Next = 0;
+                                    BinLocation := CopyStr(BinLocation + ' ' + BinContent."Bin Code", 1, 100);
+                            Until BinContent.Next() = 0;
                             ParentBinLocationLabel := 'Bin Location: ';
                         end;
 
-                        IF DATE2DWY("Shipment Date", 1) = 1 THEN
-                            DayOfWeek := 'Monday'
-                        ELSE IF DATE2DWY("Shipment Date", 1) = 2 THEN
-                            DayOfWeek := 'Tuesday'
-                        ELSE IF DATE2DWY("Shipment Date", 1) = 3 THEN
-                            DayOfWeek := 'Wednesday'
-                        ELSE IF DATE2DWY("Shipment Date", 1) = 4 THEN
-                            DayOfWeek := 'Thursday'
-                        ELSE IF DATE2DWY("Shipment Date", 1) = 5 THEN
-                            DayOfWeek := 'Friday'
+                        CASE DATE2DWY("Shipment Date", 1) OF
+                            1:
+                                DayOfWeek := 'Monday';
+                            2:
+                                DayOfWeek := 'Tuesday';
+                            3:
+                                DayOfWeek := 'Wednesday';
+                            4:
+                                DayOfWeek := 'Thursday';
+                            5:
+                                DayOfWeek := 'Friday';
+                        END;
                     end;
                 }
             }
@@ -236,9 +239,9 @@ report 50012 "Summary Pick Slip"
             begin
                 CurrReport.PageNo := 1;
 
-                If CopyNo = NoLoops then begin
-                    CurrReport.Break();
-                end else
+                If CopyNo = NoLoops then
+                    CurrReport.Break()
+                else
                     CopyNo := CopyNo + 1;
             end;
         }
@@ -246,31 +249,22 @@ report 50012 "Summary Pick Slip"
 
     var
         salesline: Record "Sales Line";
-        salesheader: Record "Sales Header";
-        Item: Record Item;
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";
-        UOMMgt: Codeunit "Unit of Measure Management";
-        // OrderString: array[6] of Text;
+
+
         OrderString: text[600];
         NoLoops: Integer;
         NoCopies: Integer;
         CopyNo: Integer;
-        OrderStringToUse: Integer;
         SalesOrderCount: Integer;
         PrintDate: Date;
         PrintTime: Time;
         ToShipSingle: Decimal;
         ToShipCase: Decimal;
         ToShipPallet: Decimal;
-        QtyPerPallet: Decimal;
-        QtyPerCase: Decimal;
-        TempQtyToShip: Decimal;
-        PalletQty: Decimal;
-        CalculatedCase: Decimal;
         TotalWeight: Decimal;
-        CaseQty: Decimal;
         BinLocation: Code[100];
         DayOfWeek: Code[9];
         SalesLineFilter: Text;

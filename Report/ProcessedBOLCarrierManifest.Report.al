@@ -5,6 +5,7 @@ report 50013 "Processed BOL Carrier Manifest"
     WordMergeDataItem = BOLHeader;
     RDLCLayout = './Sales/Reports/ProcessedBOLCarrierManifest.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -18,7 +19,7 @@ report 50013 "Processed BOL Carrier Manifest"
             {
 
             }
-            column(PrintDetail; PrintDetail)
+            column(PrintDetail; PrintDetailOption)
             {
 
             }
@@ -166,10 +167,11 @@ report 50013 "Processed BOL Carrier Manifest"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(PrintDetail; PrintDetail)
+                    field(PrintDetail; PrintDetailOption)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Print Detail';
+                        ToolTip = 'Print Detail';
                     }
                 }
             }
@@ -178,14 +180,12 @@ report 50013 "Processed BOL Carrier Manifest"
 
     var
         BOLCount: Integer;
-        LastFieldNo: Integer;
         TotalSkids: Integer;
         TotalBoxes: Integer;
         TotalTubes: Integer;
         TotalPackages: Integer;
         TotalRolls: Integer;
         TotalWeight: Decimal;
-        FooterPrinted: Boolean;
-        PrintDetail: Boolean;
+        PrintDetailOption: Boolean;
         FilterString: Text;
 }

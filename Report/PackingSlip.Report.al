@@ -3,6 +3,8 @@ report 50018 "Packing Slip"
     DefaultLayout = RDLC;
     RDLCLayout = './Local/Sales/History/PackingSlip.rdlc';
     Caption = 'Sales Shipment';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -55,7 +57,7 @@ report 50018 "Packing Slip"
                     TempSalesShipmentLineAsm.Insert();
                     HighestLineNo := "Line No.";
 
-                    SRSetup.GET;
+                    SRSetup.GET();
                 end;
 
                 trigger OnPreDataItem()
@@ -88,7 +90,7 @@ report 50018 "Packing Slip"
                             SpacePointer := SpacePointer - 1;
                         If SpacePointer = 1 then
                             SpacePointer := MaxStrLen(TempSalesShipmentLine.Description) + 1;
-                        TempSalesShipmentLine.Description := CopyStr(Comment, 1, SpacePointer - 1);
+                        TempSalesShipmentLine.Description := CopyStr(CopyStr(Comment, 1, SpacePointer - 1), 1, MaxStrLen(TempSalesShipmentLine.Description));
                         TempSalesShipmentLine."Description 2" := CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempSalesShipmentLine."Description 2"));
                         TempSalesShipmentLine.Insert();
                     end;
@@ -397,11 +399,11 @@ report 50018 "Packing Slip"
 
                             Clear(TempDesc3);
                             If (TempSalesShipmentLine."Item Reference No." <> '') then begin
-                                Clear(TempItem);
-                                TempItem.Get(TempSalesShipmentLine."No.");
+                                Clear(ItemBuffer);
+                                ItemBuffer.Get(TempSalesShipmentLine."No.");
                                 TempDesc3 := TempSalesShipmentLine.Description;
-                                TempSalesShipmentLine.Description := TempItem.Description;
-                                TempSalesShipmentLine.Modify;
+                                TempSalesShipmentLine.Description := ItemBuffer.Description;
+                                TempSalesShipmentLine.Modify();
                             end;
 
                             OrderedQuantity := 0;
@@ -434,9 +436,9 @@ report 50018 "Packing Slip"
 
                             PackageTrackingText := '';
                             if (TempSalesShipmentLine."Package Tracking No." <> "Sales Shipment Header"."Package Tracking No.") and
-                               (TempSalesShipmentLine."Package Tracking No." <> '') and PrintPackageTrackingNos
+                               (TempSalesShipmentLine."Package Tracking No." <> '') and PrintPackageTrackingNosVar
                             then
-                                PackageTrackingText := Text002 + ' ' + TempSalesShipmentLine."Package Tracking No.";
+                                PackageTrackingText := Text002Lbl + ' ' + TempSalesShipmentLine."Package Tracking No.";
 
                             if DisplayAssemblyInformation then
                                 if TempSalesShipmentLineAsm.Get(TempSalesShipmentLine."Document No.", TempSalesShipmentLine."Line No.") then begin
@@ -509,12 +511,12 @@ report 50018 "Packing Slip"
                     if CopyNo = 1 then // Original
                         Clear(CopyTxt)
                     else
-                        CopyTxt := Text000;
+                        CopyTxt := Text000Lbl;
                 end;
 
                 trigger OnPreDataItem()
                 begin
-                    NoLoops := 1 + Abs(NoCopies);
+                    NoLoops := 1 + Abs(NoCopiesVar);
                     if NoLoops <= 0 then
                         NoLoops := 1;
                     CopyNo := 0;
@@ -561,16 +563,16 @@ report 50018 "Packing Slip"
                 ShippingAgentCodeText := '';
                 PackageTrackingNoLabel := '';
                 PackageTrackingNoText := '';
-                if PrintPackageTrackingNos then begin
-                    ShippingAgentCodeLabel := Text003;
+                if PrintPackageTrackingNosVar then begin
+                    ShippingAgentCodeLabel := Text003Lbl;
                     ShippingAgentCodeText := "Sales Shipment Header"."Shipping Agent Code";
-                    PackageTrackingNoLabel := Text001;
+                    PackageTrackingNoLabel := Text001Lbl;
                     PackageTrackingNoText := "Sales Shipment Header"."Package Tracking No.";
                 end;
 
                 TotalPieces := 0.0;
 
-                if LogInteraction then
+                if LogInteractionVar then
                     if not CurrReport.Preview then
                         SegManagement.LogDocument(
                           5, "No.", 0, 0, DATABASE::Customer, "Sell-to Customer No.",
@@ -604,7 +606,7 @@ report 50018 "Packing Slip"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoCopies; NoCopies)
+                    field(NoCopies; NoCopiesVar)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Number of Copies';
@@ -616,13 +618,13 @@ report 50018 "Packing Slip"
                         Caption = 'Print Company Address';
                         ToolTip = 'Specifies if your company address is printed at the top of the sheet, because you do not use pre-printed paper. Leave this check box blank to omit your company''s address.';
                     }
-                    field(PrintPackageTrackingNos; PrintPackageTrackingNos)
+                    field(PrintPackageTrackingNos; PrintPackageTrackingNosVar)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Print Package Tracking Nos.';
                         ToolTip = 'Specifies if you want the individual package tracking numbers to be printed on each line.';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteraction; LogInteractionVar)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Log Interaction';
@@ -651,7 +653,7 @@ report 50018 "Packing Slip"
         trigger OnOpenPage()
         begin
             InitLogInteraction();
-            LogInteractionEnable := LogInteraction;
+            LogInteractionEnable := LogInteractionVar;
         end;
     }
 
@@ -717,11 +719,7 @@ report 50018 "Packing Slip"
     end;
 
     var
-        OrderedQuantity: Decimal;
-        TotalPieces: Decimal;
-        QtyPerPallet: Decimal;
-        QtyPerCase: Decimal;
-        BackOrderedQuantity: Decimal;
+
         ShipmentMethod: Record "Shipment Method";
         ReceiptLine: Record "Sales Shipment Line";
         OrderLine: Record "Sales Line";
@@ -735,7 +733,7 @@ report 50018 "Packing Slip"
         TaxArea: Record "Tax Area";
         Cust: Record Customer;
         Item: Record Item;
-        TempItem: Record Item;
+        ItemBuffer: Record Item;
         ShippingAgent: Record "Shipping Agent";
         PostedAsmHeader: Record "Posted Assembly Header";
         PostedAsmLine: Record "Posted Assembly Line";
@@ -752,28 +750,32 @@ report 50018 "Packing Slip"
         CopyTxt: Text;
         PrintCompany: Boolean;
         PrintFooter: Boolean;
-        NoCopies: Integer;
+        NoCopiesVar: Integer;
         NoLoops: Integer;
         CopyNo: Integer;
         SpacePointer: Integer;
         NumberOfLines: Integer;
         OnLineNumber: Integer;
         HighestLineNo: Integer;
+        OrderedQuantity: Decimal;
+        TotalPieces: Decimal;
+        QtyPerPallet: Decimal;
+        QtyPerCase: Decimal;
+        BackOrderedQuantity: Decimal;
         PackageTrackingText: Text;
-        PrintPackageTrackingNos: Boolean;
+        PrintPackageTrackingNosVar: Boolean;
         PackageTrackingNoText: Text;
         PackageTrackingNoLabel: Text;
         ShippingAgentCodeText: Text;
         ShippingAgentCodeLabel: Text;
         TempDesc3: Text;
-        LogInteraction: Boolean;
-        Text000: Label 'COPY';
-        Text001: Label 'Tracking No.';
-        Text002: Label 'Specific Tracking No.';
-        Text003: Label 'Shipping Agent';
+        LogInteractionVar: Boolean;
+        Text000Lbl: Label 'COPY';
+        Text001Lbl: Label 'Tracking No.';
+        Text002Lbl: Label 'Specific Tracking No.';
+        Text003Lbl: Label 'Shipping Agent';
         TaxRegNo: Text;
         TaxRegLabel: Text;
-        Text009: Label 'VOID SHIPMENT';
         LogInteractionEnable: Boolean;
         DisplayAssemblyInformation: Boolean;
         AsmHeaderExists: Boolean;
@@ -804,7 +806,7 @@ report 50018 "Packing Slip"
 
     procedure InitLogInteraction()
     begin
-        LogInteraction := SegManagement.FindInteractionTemplateCode("Interaction Log Entry Document Type"::"Sales Shpt. Note") <> '';
+        LogInteractionVar := SegManagement.FindInteractionTemplateCode("Interaction Log Entry Document Type"::"Sales Shpt. Note") <> '';
     end;
 
     procedure GetUnitOfMeasureDescr(UOMCode: Code[10]): Text[10]
@@ -813,7 +815,7 @@ report 50018 "Packing Slip"
     begin
         if not UnitOfMeasure.Get(UOMCode) then
             exit(UOMCode);
-        exit(UnitOfMeasure.Description);
+        exit(CopyStr(UnitOfMeasure.Description, 1, 10));
     end;
 
     procedure BlanksForIndent(): Text[10]

@@ -249,7 +249,6 @@ report 50012 "Summary Pick Slip"
 
     var
         salesline: Record "Sales Line";
-
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";

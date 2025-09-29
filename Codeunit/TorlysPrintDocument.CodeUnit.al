@@ -12,5 +12,13 @@ codeunit 50299 "Torlys Print Document"
     end;
 
 
+    procedure PrintSummaryPick(Usage: Option "Summary Pick"): Boolean
+    var
+        SummaryPick: Report "Summary Pick Slip";
+    begin
 
+        SummaryPick.UseRequestPage(true);
+        SummaryPick.Run();
+
+    end;
 }

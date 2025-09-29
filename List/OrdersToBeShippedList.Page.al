@@ -264,6 +264,9 @@ page 52001 "Orders To Be Shipped List"
                 { }
             }
 
+            actionref("Print Summary Pick Slip"; "Print Summary Pick Instruction")
+            { }
+
             actionref("Remove BoL"; "Clear BoL")
             { }
 
@@ -271,6 +274,8 @@ page 52001 "Orders To Be Shipped List"
             {
                 actionref("Print Pick Slip"; "Print Pick Instruction")
                 { }
+
+
 
                 actionref("Post & Print"; "Post and Print Order(s)")
                 { }
@@ -338,6 +343,24 @@ page 52001 "Orders To Be Shipped List"
                             until SelectedSalesHeader.Next() = 0;
                     end;
                 }
+
+                action("Print Summary Pick Instruction")
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Summary Pick Instruction';
+                    Image = Print;
+                    ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
+
+                    trigger OnAction()
+                    var
+                        Usage: Option "Summary Pick";
+                    begin
+
+                        TorlysDocPrint.PrintSummaryPick(Usage::"Summary Pick");
+
+                    end;
+                }
+
 
                 action("Post and Print Order(s)")
                 {
@@ -919,6 +942,8 @@ page 52001 "Orders To Be Shipped List"
 
     var
         DocPrint: Codeunit "Document-Print";
+        TorlysDocPrint: Codeunit "Torlys Print Document";
+
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
 
 

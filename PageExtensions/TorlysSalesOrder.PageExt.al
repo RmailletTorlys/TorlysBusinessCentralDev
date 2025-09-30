@@ -91,6 +91,14 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         addafter(Status)
         {
+            field("No. Printed"; Rec."No. Printed")
+            {
+                Caption = 'Quantity Printed';
+                ToolTip = 'Quantity Printed';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'System Created By';
@@ -126,15 +134,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Editable = false;
                 Importance = Additional;
             }
-            field("No. Printed"; Rec."No. Printed")
-            {
-                Caption = 'Quantity Printed';
-                ToolTip = 'Quantity Printed';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Standard;
-            }
-
         }
 
 

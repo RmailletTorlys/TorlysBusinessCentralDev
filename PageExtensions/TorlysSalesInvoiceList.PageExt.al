@@ -1,4 +1,4 @@
-pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
+pageextension 59301 TorlysSalesInvoiceList extends "Sales Invoice List"
 {
     layout
     {
@@ -22,7 +22,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Editable = false;
             }
         }
-        moveafter("Order Date"; "Shipment Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        moveafter("Order Date"; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {
@@ -79,7 +79,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Caption = 'Order Type';
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
             field("Temporary Hold"; Rec."Temporary Hold")
@@ -87,7 +87,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Caption = 'Temporary Hold';
                 ToolTip = 'Temporary Hold';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
         }
@@ -99,7 +99,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
@@ -107,12 +107,13 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
+
         }
 
-        moveafter("Shipping Comment"; Status, "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("Shipping Comment"; Status, Amount)
 
         addafter(Amount)
         {
@@ -162,31 +163,30 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             Visible = false;
         }
 
-        modify("Completely Shipped")
-        {
-            Visible = false;
-        }
-
         modify("Document Date")
         {
             Visible = false;
         }
 
-        modify("Amt. Ship. Not Inv. (LCY)")
+        modify("Sell-to Contact")
         {
             Visible = false;
         }
 
-        modify("Amount Including VAT")
+        modify("Due Date")
         {
             Visible = false;
         }
 
-        modify("Shipment Date")
+        modify("Ship-to Code")
         {
             Visible = true;
         }
 
+        modify("Status")
+        {
+            Visible = true;
+        }
     }
 
     actions
@@ -207,7 +207,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 }
             }
         }
-        addfirst("F&unctions")
+        addfirst("Request Approval")
         {
             action("Remove Credit Hold")
             {

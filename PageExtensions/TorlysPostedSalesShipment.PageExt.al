@@ -243,13 +243,6 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
 
         addafter("Location Code")
         {
-            field("Shipping Advice"; Rec."Shipping Advice")
-            {
-                Caption = 'Shipping Advice';
-                ToolTip = 'Shipping Advice';
-                ApplicationArea = All;
-            }
-
             field("BoL No."; Rec."BoL No.")
             {
                 Caption = 'BoL No.';

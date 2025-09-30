@@ -5,6 +5,7 @@ report 50005 "Sales Order Label"
     WordMergeDataItem = Header;
     RDLCLayout = './Sales/Reports/Sales Order Label.rdlc';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
 
     dataset
@@ -106,7 +107,7 @@ report 50005 "Sales Order Label"
                 If "Shipping Agent Code" = '' then
                     Clear(ShippingAgent)
                 else
-                ShippingAgent.Get("Shipping Agent Code");
+                    ShippingAgent.Get("Shipping Agent Code");
 
                 If Not Location.Get("Location Code") then
                     Clear(Location);

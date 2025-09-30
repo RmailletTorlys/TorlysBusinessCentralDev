@@ -47,7 +47,7 @@ tableextension 50038 TorlysPurchaseHeader extends "Purchase Header"
         CommentLine.SetRange("No.", Rec."Buy-from Vendor No.");
         CommentLine.SetRange("Copy to Purchase Order", true);
         if CommentLine.FindSet() then BEGIN
-            PurchaseCommentLine.RESET;
+            PurchaseCommentLine.RESET();
             PurchaseCommentLine.SETCURRENTKEY("Document Type", "No.");
             PurchaseCommentLine.SETRANGE("Document Type", "Document Type");
             PurchaseCommentLine.SETRANGE("No.", "No.");

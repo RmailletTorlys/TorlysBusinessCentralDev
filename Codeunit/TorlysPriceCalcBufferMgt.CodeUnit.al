@@ -80,7 +80,7 @@ codeunit 57005 "TorlysPriceCalcBufferMgt"
         PriceSourceList.Copy(NewPriceSourceList);
     end;
 
-    procedure Set(NewPriceCalculationBuffer: Record "Price Calculation Buffer"; var PriceSourceList: Codeunit "Price Source List")
+    procedure Set(NewPriceCalculationBuffer: Record "Price Calculation Buffer"; var NewPriceSourceList: Codeunit "Price Source List")
     begin
         OnBeforeSet(NewPriceCalculationBuffer);
         PriceCalculationBuffer := NewPriceCalculationBuffer;
@@ -89,7 +89,7 @@ codeunit 57005 "TorlysPriceCalcBufferMgt"
         PriceAssetList.Init();
         PriceAssetList.Add(PriceCalculationBuffer);
 
-        SetSources(PriceSourceList);
+        SetSources(NewPriceSourceList);
     end;
 
     local procedure CalcUnitAmountRoundingPrecision()

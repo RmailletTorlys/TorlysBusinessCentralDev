@@ -93,7 +93,7 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
                 ApplicationArea = All;
                 Visible = true;
             }
-            field("System Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
+            field("System Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'System Created By';
                 ToolTip = 'System Created By';
@@ -110,7 +110,7 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
                 Visible = true;
             }
 
-            field("System Last Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
+            field("System Last Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
             {
                 Caption = 'System Last Modified By';
                 ToolTip = 'System Last Modified By';
@@ -214,11 +214,7 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
 
     }
 
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
+        LookupUserId: Codeunit "LookupUserID";
+
 }

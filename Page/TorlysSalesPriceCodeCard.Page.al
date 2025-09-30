@@ -5,6 +5,7 @@ page 51011 "Torlys Sales Price Code Card"
     SourceTable = "Torlys Sales Price Code";
     Caption = 'Sales Price Code Card';
     Editable = true;
+    UsageCategory = Administration;
 
 
     layout
@@ -53,6 +54,7 @@ page 51011 "Torlys Sales Price Code Card"
                 ToolTip = 'Return to the previous page.';
                 RunObject = page "Sales Price Code List";
                 RunPageMode = Create;
+                Image = Navigate;
             }
         }
     }

@@ -211,6 +211,7 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
     local procedure OnValidatePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
     begin
     end;
+<<<<<<< HEAD
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateToReceiveCase(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
@@ -229,4 +230,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
         UserDetails.Get(UserGuid);
         exit(UserDetails."User Name");
     end;
+=======
+>>>>>>> 4cc420ec5187ee9b1dab84a614db7214de85610f
 }

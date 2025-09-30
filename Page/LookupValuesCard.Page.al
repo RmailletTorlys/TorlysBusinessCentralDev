@@ -2,6 +2,7 @@ page 51013 "Lookup Values Card"
 {
     PageType = Card;
     ApplicationArea = All;
+    UsageCategory = Lists;
     SourceTable = "Torlys Lookup Values";
     Caption = 'Lookup Values Card';
     Editable = true;
@@ -45,6 +46,7 @@ page 51013 "Lookup Values Card"
                 Caption = 'Back';
                 ToolTip = 'Return to the previous page.';
                 RunObject = page "Sales Price Code List";
+                Image = Navigate;
                 RunPageMode = Create;
             }
         }

@@ -5,6 +5,7 @@ report 50006 "Orders to review pre-pick slip"
     WordMergeDataItem = Header;
     rdlcLayout = './Sales/Reports/OrdersToReviewPre-Pickslip.rdlc';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
 
     dataset
@@ -109,17 +110,17 @@ report 50006 "Orders to review pre-pick slip"
 
             trigger OnAfterGetRecord()
             begin
-                If "No. Pick Slips Printed" > 0 then begin
+                If "No. Pick Slips Printed" > 0 then
                     If "Pick Slip Printed Date" > "Popup Modify Date" then
                         ModifiedAfterPrint := False
-                    else if "Pick Slip Printed Date" < "Popup Modify Date" then
-                        ModifiedAfterPrint := true
-                    else if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
-                        ModifiedAfterPrint := true
                     else
-                        ModifiedAfterPrint := false;
-                end;
-
+                        if "Pick Slip Printed Date" < "Popup Modify Date" then
+                            ModifiedAfterPrint := true
+                        else
+                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                                ModifiedAfterPrint := true
+                            else
+                                ModifiedAfterPrint := false;
                 If ModifiedAfterPrint then
                     RePrintPickSlip := 'Yes'
                 else
@@ -141,5 +142,4 @@ report 50006 "Orders to review pre-pick slip"
         RePrintPickSlip: Text;
         HeaderFilter: Text;
         LastFieldNo: Integer;
-        ContainerTransferNumber: code[25];
 }

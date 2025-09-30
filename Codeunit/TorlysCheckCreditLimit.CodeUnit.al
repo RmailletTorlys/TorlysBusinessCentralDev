@@ -42,7 +42,7 @@ codeunit 50343 TorlysCheckCreditLimit
             // If Sales Header is not inserted yet then consider the amount in credit limit calculation
             AssignDeltaAmount := true;
         if AssignDeltaAmount then
-            DeltaAmount := NewOrderAmountLCY;
+            DiffAmount := NewOrderAmountLCY;
 
 
         Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, OldOrderAmountLCY, true, SalesHeader."No.");
@@ -196,7 +196,7 @@ codeunit 50343 TorlysCheckCreditLimit
         Rec.CalcFields("Balance (LCY)", "Shipped Not Invoiced (LCY)");
         CalcReturnAmounts(OutstandingRetOrdersLCY, RcdNotInvdRetOrdersLCY);
 
-        OrderAmountTotalLCY := CalcTotalOutstandingAmt() - OutstandingRetOrdersLCY + DeltaAmount;
+        OrderAmountTotalLCY := CalcTotalOutstandingAmt() - OutstandingRetOrdersLCY + DiffAmount;
 
         CustCreditAmountLCY :=
           Rec."Balance (LCY)" + Rec."Shipped Not Invoiced (LCY)" - RcdNotInvdRetOrdersLCY +
@@ -269,7 +269,7 @@ codeunit 50343 TorlysCheckCreditLimit
         SecondHeading: Text[250];
         NotificationId: Guid;
         NewOrderAmountLCY: Decimal;
-        DeltaAmount: Decimal;
+        DiffAmount: Decimal;
         OrderAmountTotalLCY: Decimal;
         OldOrderAmountLCY: Decimal;
         OutstandingRetOrdersLCY: Decimal;

@@ -75,10 +75,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
                 end;
 
                 OrderedQuantity := 0;
-                if (Type = Type::Item) OR (Type = Type::"G/L Account") then begin
+                if (Type = Type::Item) OR (Type = Type::"G/L Account") then
                     if "Order No." = '' then
                         OrderedQuantity := Quantity
-                    else begin
+                    else
                         If OrderLine.Get(1, "Order No.", "Line No.") then
                             OrderedQuantity := OrderLine.Quantity
                         else begin
@@ -89,8 +89,8 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
                                 OrderedQuantity := OrderedQuantity + ShipLine.Quantity;
                             until 0 = ShipLine.Next();
                         end;
-                    end;
-                end;
+
+
 
                 AmountExclInvDisc := Amount + "Inv. Discount Amount";
 

@@ -2,6 +2,7 @@ page 51016 "Freight Zone Card"
 {
     PageType = Card;
     ApplicationArea = All;
+    UsageCategory = Lists;
     SourceTable = "Torlys Freight Zones";
     Editable = true;
     Caption = 'Freight Zone Card';

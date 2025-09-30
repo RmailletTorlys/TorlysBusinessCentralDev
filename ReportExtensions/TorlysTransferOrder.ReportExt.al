@@ -45,10 +45,6 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
-            column(TotalWeight; TotalWeight)
-            {
-
-            }
             column(Qty__to_Ship; "Qty. to Ship")
             {
 
@@ -69,7 +65,12 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
+            column(TotalWeight; TotalWeight)
+            {
+
+            }
         }
+
 
         modify("Transfer Header")
         {
@@ -99,6 +100,11 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
 
         modify("Transfer Line")
         {
+            trigger OnAfterPreDataItem()
+            begin
+                TotalWeight := 0;
+            end;
+
             trigger OnAfterAfterGetRecord()
             begin
                 If "Item No." = '' then
@@ -106,21 +112,21 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
                 else
                     Picked := '________';
 
-                TotalWeight += ("Net Weight" * Quantity);
+                TotalWeight := TotalWeight + ("Net Weight" * Quantity);
                 ToShipWeight += ("Net Weight" * "Qty. to Ship");
                 ToReceiveWeight += ("Net Weight" * "Qty. to Receive");
 
                 BinLocation := '';
                 BinLocationLabel := '';
-                BinContent.Reset;
+                BinContent.Reset();
                 BinContent.SetRange(BinContent."Location Code", "Transfer-from Code");
                 BinContent.SetRange(BinContent."Item No.", "Transfer Line"."Item No.");
                 If (BinContent.Find('-')) then begin
                     repeat
-                        If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
-                            BinLocation := BinLocation + ' ' + BinContent."Bin Code";
-                        end;
-                    Until BinContent.Next = 0;
+                        If StrPos(BinLocation, BinContent."Bin Code") = 0 then
+                            BinLocation := CopyStr(BinLocation + ' ' + BinContent."Bin Code", 1, 100);
+
+                    Until BinContent.Next() = 0;
                     BinLocationLabel := 'Bin(s): ';
                 end;
             end;

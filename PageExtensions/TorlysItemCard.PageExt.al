@@ -50,7 +50,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
 
         addafter("Net Weight")
         {
-            field("SystemCreatedBy"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
+            field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
                 Caption = 'SystemCreatedBy';
@@ -67,7 +67,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                 Importance = Additional;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'SystemModifiedBy';
                 ToolTip = 'SystemModifiedBy';
@@ -495,6 +495,8 @@ pageextension 50030 TorlysItemCard extends "Item Card"
 
         //Hidden Groups - End
     }
+    var
+        LookupUserId: Codeunit "LookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -520,14 +522,6 @@ pageextension 50030 TorlysItemCard extends "Item Card"
     procedure QuantityAvailable(Item: Record Item): Decimal
     begin
         exit(Item."Qty. on Purch. Order" - Item."Qty. on Sales Order")
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 
 }

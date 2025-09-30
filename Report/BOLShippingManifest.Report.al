@@ -5,6 +5,7 @@ report 50014 "BOL Shipping Manifest"
     WordMergeDataItem = BOLHeader;
     RDLCLayout = './Sales/Reports/BOLShippingManifest.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {

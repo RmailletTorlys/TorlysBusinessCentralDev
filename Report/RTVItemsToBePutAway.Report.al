@@ -5,6 +5,7 @@ report 50017 "RTV Items To Be Put Away"
     WordMergeDataItem = "Sales Header";
     RDLCLayout = './Sales/Reports/RTVItemsToPutAway.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {

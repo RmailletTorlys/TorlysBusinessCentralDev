@@ -99,7 +99,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 if (ParentBinCOntent.Find('-')) then begin
                     repeat
                         if StrPos(ParentBinLocation, ParentBinCOntent."Bin Code") = 0 then
-                            ParentBinLocation := ParentBinLocation + '  ' + ParentBinCOntent."Bin Code";
+                            ParentBinLocation := CopyStr(ParentBinLocation + '  ' + ParentBinCOntent."Bin Code", 1, 100);
                     Until ParentBinCOntent.Next() = 0;
                     ParentBinLocationLabel := 'Bin(s): ';
                 end;

@@ -283,14 +283,4 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateReceivedCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateReceivedPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    begin
-    end;
-
 }

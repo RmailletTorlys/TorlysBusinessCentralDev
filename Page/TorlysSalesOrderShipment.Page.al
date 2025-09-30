@@ -220,7 +220,7 @@ page 50999 "Torlys Sales Order Shipment"
                             exit;
                         end;
                         if PAGE.RunModal(PAGE::Users, User) = ACTION::OK then begin
-                            Rec."Warehouse Associate Checked By" := User."User Name";
+                            Rec."Warehouse Associate Checked By" := COPYSTR(User."User Name", 1, 20);
                             Rec.Modify(true);
                         end;
 

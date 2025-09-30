@@ -91,7 +91,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         addafter(Status)
         {
-            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'System Created By';
                 ToolTip = 'System Created By';
@@ -109,7 +109,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Importance = Additional;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'System Last Modified By';
                 ToolTip = 'System Last Modified By';
@@ -786,19 +786,13 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     }
 
     var
+        LookupUserId: Codeunit "LookupUserID";
         ShortcutDimCode: array[8] of Code[20];
+
 
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 
     local procedure ValidateShortcutDimension(DimIndex: Integer)

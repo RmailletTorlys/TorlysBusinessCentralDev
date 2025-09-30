@@ -15,10 +15,10 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
 
                 Clear(tempdesc3);
                 If ("Item Reference No." <> '') then begin
-                    Clear(tempitem);
-                    tempitem.get("No.");
+                    Clear(ItemTemp);
+                    ItemTemp.get("No.");
                     tempdesc3 := Description;
-                    Description := tempitem.Description;
+                    Description := ItemTemp.Description;
                     Modify();
                 end;
 
@@ -29,7 +29,8 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                     "Amount Including VAT" := 0;
                     "Inv. Discount Amount" := 0;
                     Quantity := 0;
-                End else if Type = Type::"G/L Account" then
+                End else
+                    if Type = Type::"G/L Account" then
                         "No." := '';
 
                 desctoprint := Description + '' + "Description 2";
@@ -70,7 +71,7 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
     }
 
     var
-        tempitem: Record Item;
+        ItemTemp: Record Item;
         quantity1: Decimal;
         unitpricetoprint: Decimal;
         AmountExclInvDisc: Decimal;

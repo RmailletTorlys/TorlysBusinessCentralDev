@@ -97,7 +97,7 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
         }
         addafter("Shipping Comment")
         {
-            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'System Created By';
                 ToolTip = 'System Created By';
@@ -115,7 +115,7 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
                 Importance = Additional;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'System Last Modified By';
                 ToolTip = 'System Last Modified By';
@@ -392,13 +392,10 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
         }
     }
 
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
+        LookupUserId: Codeunit "LookupUserID";
+
+
 
     var
         ShortcutDimCode: array[8] of Code[20];
@@ -407,10 +404,4 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
-    // local procedure ValidateShortcutDimension(DimIndex: Integer)
-    // var
-    // begin
-    //     Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
-    // end;
 }

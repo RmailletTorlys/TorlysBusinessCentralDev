@@ -93,7 +93,7 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
         addafter("Shortcut Dimension 2 Code")
         {
 
-            field(SystemCreatedBy; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'SystemCreatedBy';
                 ToolTip = 'SystemCreatedBy';
@@ -107,7 +107,7 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                 ApplicationArea = All;
             }
 
-            field(SystemModifiedBy; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'SystemModifiedBy';
                 ToolTip = 'SystemModifiedBy';
@@ -391,11 +391,6 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
 
     }
 
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
+        LookupUserId: Codeunit "LookupUserID";
 }

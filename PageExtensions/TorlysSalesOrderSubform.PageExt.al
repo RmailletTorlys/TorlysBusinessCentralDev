@@ -170,7 +170,11 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         addafter("Purch. Order Line No.")
         {
+<<<<<<< HEAD
             field("Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
+=======
+            field("System Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
+>>>>>>> 4cc420ec5187ee9b1dab84a614db7214de85610f
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -187,7 +191,11 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Visible = true;
             }
 
+<<<<<<< HEAD
             field("Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
+=======
+            field("System Last Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
+>>>>>>> 4cc420ec5187ee9b1dab84a614db7214de85610f
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
@@ -375,6 +383,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
     }
 
+    var
+        LookupUserId: Codeunit "LookupUserID";
+
     trigger OnAfterGetRecord()
     begin
         if Rec."Type" <> Rec.Type::Item then
@@ -420,14 +431,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetRecordOnValidateUoM(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var UoMValid: Boolean)
     begin
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 }
 

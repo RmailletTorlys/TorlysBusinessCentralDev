@@ -6,6 +6,7 @@ page 51002 "Torlys BOL"
     RefreshOnActivate = true;
     SourceTable = "Torlys BOL Header";
     UsageCategory = Documents;
+    ApplicationArea = Basic, Suite;
 
     layout
     {

@@ -5,6 +5,7 @@ report 50015 "Shipping Manifest"
     WordMergeDataItem = "Shipping Agent";
     RDLCLayout = './Sales/Reports/ShippingManifest.rdl';
     UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -156,5 +157,4 @@ report 50015 "Shipping Manifest"
         Printdate: date;
         ShippingAgentFilter: Text;
         ProcessedBOLFilter: Text;
-        ShipToAddress_Terminal: Option;
 }

@@ -506,8 +506,6 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
 
-
-
     local procedure ValidateShortcutDimension(DimIndex: Integer)
     var
     begin

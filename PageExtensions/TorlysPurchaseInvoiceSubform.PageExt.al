@@ -63,7 +63,7 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
 
         addafter(ShortcutDimCode8)
         {
-            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -77,7 +77,7 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
                 ApplicationArea = All;
             }
 
-            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
@@ -131,6 +131,9 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
 
     }
 
+    var
+        LookupUser: Codeunit "LookupUserID";
+
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
@@ -139,13 +142,5 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
     [IntegrationEvent(false, false)]
     local procedure OnValidatePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 }

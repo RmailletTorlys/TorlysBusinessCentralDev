@@ -1,6 +1,5 @@
 
 pageextension 50021 TorlysCustomerCard extends "Customer Card"
-
 {
 
     layout

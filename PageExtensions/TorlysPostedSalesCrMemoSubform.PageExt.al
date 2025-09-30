@@ -2,9 +2,9 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description, "Unit of Measure Code")
+        moveafter("No."; "Item Reference No.", Description)
 
-        addafter("Unit of Measure Code")
+        addafter(Description)
         {
             field("Location Code"; Rec."Location Code")
             {
@@ -15,36 +15,22 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
             }
         }
 
-        moveafter("Location Code"; "Quantity")
-
+        moveafter("Location Code"; "Unit of Measure Code", "Quantity")
 
         addafter(Quantity)
         {
-
-            field("Quantity CaseEnd;"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    OnValidateCase(Rec, xRec);
-                end;
             }
-
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    OnValidatePallet(Rec, xRec);
-                end;
             }
-
-
-
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
@@ -52,7 +38,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ApplicationArea = All;
                 Visible = true;
             }
-
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
@@ -60,7 +45,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ApplicationArea = All;
                 Visible = true;
             }
-
             field("Default Price List"; Rec."Default Price List")
             {
                 Caption = 'Default Price List';
@@ -68,7 +52,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ApplicationArea = All;
                 Visible = true;
             }
-
             field("Price List"; Rec."Price List")
             {
                 Caption = 'Price List';
@@ -90,7 +73,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 Visible = true;
             }
         }
-
         moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
 
         addafter("Tax Area Code")
@@ -126,7 +108,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ApplicationArea = All;
                 Visible = true;
             }
-
         }
 
         modify("Description 2")
@@ -201,26 +182,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
 
 
     }
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Cr.Memo Line"; xRec: Record "Sales Cr.Memo Line")
-    begin
-    end;
 
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var

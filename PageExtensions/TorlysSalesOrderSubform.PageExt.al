@@ -4,7 +4,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     layout
     {
         moveafter("No."; "Item Reference No.")
-        moveafter(Description; "Unit of Measure Code", "Location Code", Quantity)
+        moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
         addafter(Quantity)
         {
             field("Quantity Case;"; Rec."Quantity Case")
@@ -78,21 +78,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
 
         }
-        moveafter("Qty. to Ship Pallet"; "Shipment Date", "Quantity Shipped")
-        addafter("Quantity Shipped")
-        {
-            field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
-            {
-                Caption = 'Qty. Shipped Not Invoiced';
-                ToolTip = 'Qty. Shipped Not Invoiced';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-        }
+        moveafter("Qty. to Ship Pallet"; "Shipment Date")
 
-        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced")
-        addafter("Quantity Invoiced")
+        addafter("Shipment Date")
         {
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -128,11 +116,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = true;
             }
-
-
-
-
-
         }
 
         moveafter("Price List Code"; "Unit Price", "Line Amount")
@@ -149,7 +132,21 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         }
 
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Quantity Shipped")
+
+        addafter("Quantity Shipped")
+        {
+            field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
+            {
+                Caption = 'Qty. Shipped Not Invoiced';
+                ToolTip = 'Qty. Shipped Not Invoiced';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
+        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
         addafter("Drop Shipment")
         {
             field("Purchase Order No."; Rec."Purchase Order No.")

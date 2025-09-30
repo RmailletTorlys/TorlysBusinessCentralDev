@@ -2,7 +2,7 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description, "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -26,19 +26,7 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ToolTip = 'Outstanding Quantity';
                 ApplicationArea = All;
             }
-            field("Qty. to Invoice"; Rec."Qty. to Invoice")
-            {
-                Caption = 'Qty. to Invoice';
-                ToolTip = 'Qty. to Invoice';
-                ApplicationArea = All;
-            }
 
-            field("Quantity Invoiced"; Rec."Quantity Invoiced")
-            {
-                Caption = 'Quantity Invoiced';
-                ToolTip = 'Quantity Invoiced';
-                ApplicationArea = All;
-            }
 
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -69,6 +57,7 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
+                Visible = false;
             }
         }
 
@@ -85,9 +74,28 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
 
         }
 
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
+        moveafter("Unit Cost"; "Unit Cost (LCY)")
 
-        addafter("Tax Area Code")
+        addafter("Unit Cost (LCY)")
+        {
+            field("Qty. to Invoice"; Rec."Qty. to Invoice")
+            {
+                Caption = 'Qty. to Invoice';
+                ToolTip = 'Qty. to Invoice';
+                ApplicationArea = All;
+            }
+
+            field("Quantity Invoiced"; Rec."Quantity Invoiced")
+            {
+                Caption = 'Quantity Invoiced';
+                ToolTip = 'Quantity Invoiced';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode8)
+
+        addafter(ShortcutDimCode8)
         {
             field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
@@ -144,16 +152,6 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
             Visible = false;
         }
 
-        modify("Shortcut Dimension 1 Code")
-        {
-            Visible = false;
-        }
-
-        modify("Shortcut Dimension 2 Code")
-        {
-            Visible = false;
-        }
-
         modify(ShortcutDimCode3)
         {
             Visible = false;
@@ -164,22 +162,12 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
             Visible = false;
         }
 
-        modify(ShortcutDimCode5)
-        {
-            Visible = false;
-        }
-
         modify(ShortcutDimCode6)
         {
             Visible = false;
         }
 
         modify(ShortcutDimCode7)
-        {
-            Visible = false;
-        }
-
-        modify(ShortcutDimCode8)
         {
             Visible = false;
         }

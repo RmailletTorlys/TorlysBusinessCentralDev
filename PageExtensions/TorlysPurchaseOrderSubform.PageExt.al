@@ -116,6 +116,36 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
         moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code")
 
+        addafter("Tax Area Code")
+        {
+            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+
+            field("Created At"; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
+
+            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
+
+            field("Modified At"; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+            }
+        }
 
         modify("Reserved Quantity")
         {
@@ -282,4 +312,11 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
     begin
     end;
 
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
 }

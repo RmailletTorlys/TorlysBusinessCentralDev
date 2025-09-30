@@ -3,7 +3,7 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
     layout
     {
         moveafter("No."; "Item Reference No.")
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -31,6 +31,7 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
                 Caption = 'Item Category Code';
                 ToolTip = 'Item Category Code';
                 ApplicationArea = All;
+                Visible = true;
             }
 
             field("Sales Price Code"; Rec."Sales Price Code")

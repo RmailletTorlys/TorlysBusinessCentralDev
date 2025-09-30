@@ -2,7 +2,7 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description, "Unit of Measure Code", "Location Code", "Quantity")
+        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", "Quantity")
 
 
         addafter(Quantity)
@@ -13,7 +13,6 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
-
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -21,13 +20,10 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
-
             }
         }
 
-        moveafter("Quantity Pallet"; "Return Qty. Rcd. Not Invd.", "Quantity Invoiced")
-
-        addafter("Quantity Invoiced")
+        addafter("Quantity Pallet")
         {
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -42,7 +38,7 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Default Price List"; Rec."Default Price List")
@@ -50,7 +46,7 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Price List"; Rec."Price List")
@@ -58,7 +54,7 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
         }
 
@@ -69,7 +65,7 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Unit Price';
                 ToolTip = 'Unit Price';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Unit Cost"; Rec."Unit Cost")
@@ -77,7 +73,7 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
@@ -85,22 +81,27 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 Caption = 'Unit Cost (LCY)';
                 ToolTip = 'Unit Cost (LCY)';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
+        }
 
+        moveafter("Unit Cost (LCY)"; "Return Qty. Rcd. Not Invd.", "Quantity Invoiced")
+
+        addafter("Quantity Invoiced")
+        {
             field("Tax Group Code"; Rec."Tax Group Code")
             {
                 Caption = 'Tax Group Code';
                 ToolTip = 'Tax Group Code';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
             field("Tax Area Code"; Rec."Tax Area Code")
             {
                 Caption = 'Tax Area Code';
                 ToolTip = 'Tax Area Code';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
             field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
@@ -133,7 +134,6 @@ pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receip
                 ApplicationArea = All;
                 Visible = true;
             }
-
         }
 
         modify("Description 2")

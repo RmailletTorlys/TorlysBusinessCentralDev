@@ -2,7 +2,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description, "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -72,39 +72,6 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         }
         addafter("Return Qty. to Receive Pallet")
         {
-            field("Return Qty. Received"; Rec."Return Qty. Received")
-            {
-                Caption = 'Return Qty. Received';
-                ToolTip = 'Return Qty. Received';
-                ApplicationArea = All;
-                Visible = true;
-            }
-
-            field("Return Qty. Rcd. Not Invoiced"; Rec."Return Rcd. Not Invd.")
-            {
-                Caption = 'Return Qty. Rcd. Not Invoiced';
-                ToolTip = 'Return Qty. Rcd. Not Invoiced';
-                ApplicationArea = All;
-                Visible = true;
-            }
-        }
-        addafter("Return Qty. Rcd. Not Invoiced")
-        {
-            field("Qty. to Invoice"; Rec."Qty. to Invoice")
-            {
-                Caption = 'Qty. to Invoice';
-                ToolTip = 'Qty. to Invoice';
-                ApplicationArea = All;
-            }
-
-            field("Quantity Invoiced"; Rec."Quantity Invoiced")
-            {
-                Caption = 'Quantity Invoiced';
-                ToolTip = 'Quantity Invoiced';
-                ApplicationArea = All;
-                Visible = true;
-            }
-
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
@@ -156,7 +123,45 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
             }
         }
 
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
+        moveafter("Unit Cost"; "Unit Cost (LCY)")
+
+        addafter("Unit Cost (LCY)")
+        {
+            field("Return Qty. Received"; Rec."Return Qty. Received")
+            {
+                Caption = 'Return Qty. Received';
+                ToolTip = 'Return Qty. Received';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
+            field("Return Qty. Rcd. Not Invoiced"; Rec."Return Rcd. Not Invd.")
+            {
+                Caption = 'Return Qty. Rcd. Not Invoiced';
+                ToolTip = 'Return Qty. Rcd. Not Invoiced';
+                ApplicationArea = All;
+                Visible = true;
+            }
+        }
+        addafter("Return Qty. Rcd. Not Invoiced")
+        {
+            field("Qty. to Invoice"; Rec."Qty. to Invoice")
+            {
+                Caption = 'Qty. to Invoice';
+                ToolTip = 'Qty. to Invoice';
+                ApplicationArea = All;
+            }
+
+            field("Quantity Invoiced"; Rec."Quantity Invoiced")
+            {
+                Caption = 'Quantity Invoiced';
+                ToolTip = 'Quantity Invoiced';
+                ApplicationArea = All;
+                Visible = true;
+            }
+        }
+
+        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code")
 
         addafter("Tax Area Code")
         {

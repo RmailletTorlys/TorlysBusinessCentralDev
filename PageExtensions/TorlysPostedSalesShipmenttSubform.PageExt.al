@@ -2,7 +2,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", "Description", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", "Description", "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -21,9 +21,9 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
             }
         }
 
-        moveafter("Quantity Pallet"; "Shipment Date", "Qty. Shipped Not Invoiced", "Quantity Invoiced")
+        moveafter("Quantity Pallet"; "Shipment Date")
 
-        addafter("Quantity Invoiced")
+        addafter("Shipment Date")
         {
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -38,7 +38,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Default Price List"; Rec."Default Price List")
@@ -46,7 +46,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Price List"; Rec."Price List")
@@ -54,7 +54,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
 
             field("Unit Price"; Rec."Unit Price")
@@ -62,6 +62,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Unit Price';
                 ToolTip = 'Unit Price';
                 ApplicationArea = All;
+                Visible = false;
             }
 
             field("Line Amount"; Rec."Line Amount Excl. Tax")
@@ -69,6 +70,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Line Amount';
                 ToolTip = 'Line Amount';
                 ApplicationArea = All;
+                Visible = false;
             }
 
             field("Unit Cost"; Rec."Unit Cost")
@@ -76,6 +78,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
+                Visible = false;
             }
 
             field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
@@ -83,13 +86,20 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Unit Cost (LCY)';
                 ToolTip = 'Unit Cost (LCY)';
                 ApplicationArea = All;
+                Visible = false;
             }
+        }
 
+        moveafter("Unit Cost (LCY)"; "Qty. Shipped Not Invoiced", "Quantity Invoiced")
+
+        addafter("Quantity Invoiced")
+        {
             field("Tax Group Code"; Rec."Tax Group Code")
             {
                 Caption = 'Tax Group Code';
                 ToolTip = 'Tax Group Code';
                 ApplicationArea = All;
+                Visible = false;
             }
 
             field("Tax Area Code"; Rec."Tax Area Code")
@@ -97,6 +107,7 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Caption = 'Tax Area Code';
                 ToolTip = 'Tax Area Code';
                 ApplicationArea = All;
+                Visible = false;
             }
 
             field("Purchasing Code"; Rec."Purchasing Code")

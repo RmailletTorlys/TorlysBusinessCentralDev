@@ -3,7 +3,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
     layout
     {
 
-        moveafter("No."; "Item Reference No.", Description, "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -66,21 +66,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 end;
             }
         }
-        moveafter("Return Qty. to Receive Pallet"; "Return Qty. Received")
-
-        addafter("Return Qty. Received")
-        {
-
-            field("Return Qty. Rcd. Not Invoiced"; Rec."Return Rcd. Not Invd.")
-            {
-                Caption = 'Return Qty. Rcd. Not Invoiced';
-                ToolTip = 'Return Qty. Rcd. Not Invoiced';
-                ApplicationArea = All;
-            }
-        }
-        moveafter("Return Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced")
-
-        addafter("Quantity Invoiced")
+        addafter("Return Qty. to Receive Pallet")
         {
 
             field("Item Category Code"; Rec."Item Category Code")
@@ -123,7 +109,24 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ApplicationArea = All;
             }
         }
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
+
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Return Qty. Received")
+
+        addafter("Return Qty. Received")
+        {
+
+            field("Return Qty. Rcd. Not Invoiced"; Rec."Return Rcd. Not Invd.")
+            {
+                Caption = 'Return Qty. Rcd. Not Invoiced';
+                ToolTip = 'Return Qty. Rcd. Not Invoiced';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Return Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced")
+
+        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code")
+
         addafter("Tax Area Code")
         {
             field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))

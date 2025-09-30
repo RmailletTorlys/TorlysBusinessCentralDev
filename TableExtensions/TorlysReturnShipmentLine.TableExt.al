@@ -4,37 +4,31 @@ tableextension 56651 TorlysReturnShipmentLine extends "Return Shipment Line"
     {
         field(50001; "Quantity Case"; Integer)
         {
-            Caption = 'Case Quantity';
+            Caption = 'Quantity Case';
             DataClassification = CustomerContent;
         }
 
         field(50002; "Quantity Pallet"; Integer)
         {
-            Caption = 'Pallet Quantity';
+            Caption = 'Quantity Pallet';
             DataClassification = CustomerContent;
         }
 
         field(50003; "Qty. to Receive Case"; Integer)
         {
-            Caption = 'Case Quantity to Receive';
+            Caption = 'Qty. to Receive Case';
             DataClassification = CustomerContent;
         }
 
         field(50004; "Qty. to Receive Pallet"; Integer)
         {
-            Caption = 'Pallet Quantity to Receive';
+            Caption = 'Qty. to Receive Pallet';
             DataClassification = CustomerContent;
         }
 
-        field(50005; "Qty. Received Case"; Integer)
+        field(50014; "Confirmation No."; Text[20])
         {
-            Caption = 'Case Quantity Received';
-            DataClassification = CustomerContent;
-        }
-
-        field(50006; "Qty. Received Pallet"; Integer)
-        {
-            Caption = 'Pallet Quantity Received';
+            Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
     }

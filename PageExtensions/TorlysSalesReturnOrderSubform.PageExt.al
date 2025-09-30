@@ -3,15 +3,15 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
     layout
     {
 
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Unit of Measure Code", "Location Code", Quantity)
 
         addafter(Quantity)
         {
 
-            field("Case Quantity"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -19,10 +19,10 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 end;
             }
 
-            field("Pallet Quantity"; Rec."Quantity Pallet")
+            field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -42,10 +42,10 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
         addafter("Return Qty. to Receive")
         {
-            field("Return Qty. To Receive Case"; Rec."Qty. to Receive Case")
+            field("Return Qty. To Receive Case"; Rec."Return Qty. to Receive Case")
             {
-                Caption = 'Qty. to Receive Case';
-                ToolTip = 'Qty. to Receive Case';
+                Caption = 'Return Qty. to Receive Case';
+                ToolTip = 'Return Qty. to Receive Case';
                 ApplicationArea = All;
 
                 trigger OnValidate()
@@ -55,10 +55,10 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
             }
 
-            field("Return Qty. to Receive Pallet"; Rec."Qty. to Receive Pallet")
+            field("Return Qty. to Receive Pallet"; Rec."Return Qty. to Receive Pallet")
             {
-                Caption = 'Qty. to Receive Pallet';
-                ToolTip = 'Qty. to Receive Pallet';
+                Caption = 'Return Qty. to Receive Pallet';
+                ToolTip = 'Return Qty. to Receive Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -78,23 +78,18 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ApplicationArea = All;
             }
         }
-        moveafter("Return Qty. Rcd. Not Invoiced"; "Qty. to Invoice")
+        moveafter("Return Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced")
 
-        addafter("Qty. to Invoice")
+        addafter("Quantity Invoiced")
         {
-
-            field("Qty. Invoiced"; Rec."Quantity Invoiced")
-            {
-                Caption = 'Qty. Invoiced';
-                ToolTip = 'Qty. Invoiced';
-                ApplicationArea = All;
-            }
 
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
                 ToolTip = 'Item Category Code';
                 ApplicationArea = All;
+                Visible = false;
+                Editable = false;
             }
 
             field("Default Price List"; Rec."Default Price List")
@@ -102,27 +97,24 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
+                Visible = false;
+                Editable = false;
             }
 
-            field("Price List Code"; Rec."Price List")
+            field("Price List"; Rec."Price List")
             {
-                Caption = 'Price List Code';
-                ToolTip = 'Price List Code';
+                Caption = 'Price List';
+                ToolTip = 'Price List';
                 ApplicationArea = All;
+                visible = true;
+                Editable = false;
             }
         }
 
-        moveafter("Price List Code"; "Unit Price")
+        moveafter("Price List"; "Unit Price", "Line Amount")
 
-        addafter("Unit Price")
+        addafter("Line Amount")
         {
-
-            field("Line Amount Excl. Tax"; Rec.Amount)
-            {
-                Caption = 'Line Amount Excl. Tax';
-                ToolTip = 'Line Amount Excl. Tax';
-                ApplicationArea = All;
-            }
 
             field("Unit Cost"; Rec."Unit Cost")
             {
@@ -130,36 +122,124 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
             }
-
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
+        }
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
+        addafter("Tax Area Code")
+        {
+            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
-                Caption = 'SystemCreatedBy';
-                ToolTip = 'SystemCreatedBy';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
+                Visible = true;
             }
 
-            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            field("Created At"; Rec.SystemCreatedAt)
             {
-                Caption = 'SystemCreatedAt';
-                ToolTip = 'SystemCreatedAt';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 ApplicationArea = All;
+                Visible = true;
             }
 
-            field(SystemModifiedBy; Rec.SystemModifiedBy)
+            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
             {
-                Caption = 'SystemModifiedBy';
-                ToolTip = 'SystemModifiedBy';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
+                Visible = true;
             }
 
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
+            field("Modified At"; Rec.SystemModifiedAt)
             {
-                Caption = 'SystemModifiedAt';
-                ToolTip = 'SystemModifiedAt';
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 ApplicationArea = All;
+                Visible = true;
             }
 
 
+        }
+
+        modify("Unit Cost (LCY)")
+        {
+            Visible = true;
+            Editable = false;
+        }
+
+        modify("Line Discount %")
+        {
+            Visible = false;
+        }
+
+        modify("Return Reason Code")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. to Assign")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. Assigned")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode3)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode4)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode5)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode6)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode7)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode8)
+        {
+            Visible = false;
+        }
+
+        modify(SubtotalExclVAT)
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Discount Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Disc. Pct.")
+        {
+            Visible = false;
         }
     }
 
@@ -181,6 +261,14 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
     [IntegrationEvent(false, false)]
     local procedure OnValidateToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
+    end;
+
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
     end;
 
 }

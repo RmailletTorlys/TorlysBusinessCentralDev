@@ -1,36 +1,36 @@
-pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice Subform"
+pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. Subform"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.")
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", "Description", "Unit of Measure Code", "Location Code", Quantity)
 
         addafter(Quantity)
         {
-            field("Quantity Case;"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
             }
+
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
             }
-            field("Shipment Date"; Rec."Shipment Date")
-            {
-                Caption = 'Shipment Date';
-                ToolTip = 'Shipment Date';
-                ApplicationArea = All;
-            }
+        }
 
+        moveafter("Quantity Pallet"; "Shipment Date", "Qty. Shipped Not Invoiced", "Quantity Invoiced")
+
+        addafter("Quantity Invoiced")
+        {
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
                 ToolTip = 'Item Category Code';
                 ApplicationArea = All;
+                Visible = true;
             }
 
             field("Sales Price Code"; Rec."Sales Price Code")
@@ -38,15 +38,14 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
                 ApplicationArea = All;
-                Editable = false;
                 Visible = true;
             }
+
             field("Default Price List"; Rec."Default Price List")
             {
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
-                Editable = false;
                 Visible = true;
             }
 
@@ -55,110 +54,111 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
-                Editable = false;
                 Visible = true;
             }
-        }
 
-        moveafter("Price List"; "Unit Price", "Line Amount")
+            field("Unit Price"; Rec."Unit Price")
+            {
+                Caption = 'Unit Price';
+                ToolTip = 'Unit Price';
+                ApplicationArea = All;
+            }
 
-        addafter("Line Amount")
-        {
+            field("Line Amount"; Rec."Line Amount Excl. Tax")
+            {
+                Caption = 'Line Amount';
+                ToolTip = 'Line Amount';
+                ApplicationArea = All;
+            }
+
             field("Unit Cost"; Rec."Unit Cost")
             {
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
-                Editable = false;
-                Visible = true;
             }
 
-        }
+            field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
+            {
+                Caption = 'Unit Cost (LCY)';
+                ToolTip = 'Unit Cost (LCY)';
+                ApplicationArea = All;
+            }
 
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
+            field("Tax Group Code"; Rec."Tax Group Code")
+            {
+                Caption = 'Tax Group Code';
+                ToolTip = 'Tax Group Code';
+                ApplicationArea = All;
+            }
 
-        addafter("Tax Area Code")
-        {
+            field("Tax Area Code"; Rec."Tax Area Code")
+            {
+                Caption = 'Tax Area Code';
+                ToolTip = 'Tax Area Code';
+                ApplicationArea = All;
+            }
+
             field("Purchasing Code"; Rec."Purchasing Code")
             {
                 Caption = 'Purchasing Code';
                 ToolTip = 'Purchasing Code';
                 ApplicationArea = All;
-                Visible = true;
             }
+
             field("Drop Shipment"; Rec."Drop Shipment")
             {
                 Caption = 'Drop Shipment';
                 ToolTip = 'Drop Shipment';
                 ApplicationArea = All;
-                Visible = true;
-            }
-            field("System Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
-            {
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-            field("System Created Date"; Rec."SystemCreatedAt")
-            {
-                Caption = 'System Created Date';
-                ToolTip = 'System Created Date';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
             }
 
-            field("System Last Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
+            field("Purchase Order No."; Rec."Purchase Order No.")
             {
-                Caption = 'System Last Modified By';
-                ToolTip = 'System Last Modified By';
+                Caption = 'Purchase Order No.';
+                ToolTip = 'Purchase Order No.';
                 ApplicationArea = All;
-                Editable = false;
-                Visible = true;
             }
 
-            field("System Last Modified Date"; Rec."SystemModifiedAt")
+            field("Purchase Order Line No."; Rec."Purch. Order Line No.")
             {
-                Caption = 'System Last Modified Date';
-                ToolTip = 'System Last Modified Date';
+                Caption = 'Purchase Order Line No.';
+                ToolTip = 'Purchase Order Line No.';
                 ApplicationArea = All;
-                Editable = false;
-                Visible = true;
+            }
+
+            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+
+            field("Created At"; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
+
+            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
+
+            field("Modified At"; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
             }
         }
 
-
-
-        modify("Location Code")
+        modify("Qty. Shipped Not Invoiced")
         {
             Visible = true;
-        }
-
-        modify("Unit Cost (LCY)")
-        {
-            Visible = true;
-        }
-
-        modify("Tax Area Code")
-        {
-            Visible = true;
-        }
-
-        modify("Tax Group Code")
-        {
-            Visible = true;
-        }
-
-        modify("Line Discount %")
-        {
-            Visible = false;
-        }
-
-        modify("Deferral Code")
-        {
-            Visible = false;
         }
 
         modify("Shortcut Dimension 1 Code")
@@ -175,6 +175,7 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
         {
             Visible = false;
         }
+
 
         modify("ShortcutDimCode[4]")
         {
@@ -201,17 +202,15 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
             Visible = false;
         }
 
-        modify("Amount Including VAT")
+        modify("Planned Delivery Date")
         {
             Visible = false;
         }
 
-        modify("Invoice Discount Amount")
+        modify("Planned Shipment Date")
         {
             Visible = false;
         }
-
-
     }
 
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
@@ -221,4 +220,5 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
         UserDetails.Get(UserGuid);
         exit(UserDetails."User Name");
     end;
+
 }

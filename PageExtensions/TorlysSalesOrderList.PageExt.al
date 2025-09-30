@@ -2,7 +2,31 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 {
     layout
     {
-        moveafter("No."; "Shortcut Dimension 1 Code")
+        moveafter("No."; "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+
+        addafter("Sell-to Customer Name")
+        {
+            field("Ship-to Address"; Rec."Ship-to Address")
+            {
+                Caption = 'Ship-to Address';
+                ToolTip = 'Ship-to Address';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+            field("Ship-to City"; Rec."Ship-to City")
+            {
+                Caption = 'Ship-to City';
+                ToolTip = 'Ship-to City';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+
+        }
+
+        moveafter("Ship-to City"; "Shortcut Dimension 1 Code")
+
         addafter("Shortcut Dimension 1 Code")
         {
 

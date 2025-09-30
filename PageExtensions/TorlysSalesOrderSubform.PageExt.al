@@ -4,13 +4,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     layout
     {
         moveafter("No."; "Item Reference No.")
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter(Description; "Unit of Measure Code", "Location Code", Quantity)
         addafter(Quantity)
         {
             field("Quantity Case;"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = UoMValid;
 
@@ -24,8 +24,8 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = UoMValid;
 
@@ -170,36 +170,36 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         addafter("Purch. Order Line No.")
         {
-            field("System Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
+            field("Created By"; LookupUserIdWithGuid(Rec."SystemCreatedBy"))
             {
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
             }
-            field("System Created Date"; Rec."SystemCreatedAt")
+            field("Created At"; Rec."SystemCreatedAt")
             {
-                Caption = 'System Created Date';
-                ToolTip = 'System Created Date';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-
-            field("System Last Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
-            {
-                Caption = 'System Last Modified By';
-                ToolTip = 'System Last Modified By';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
             }
 
-            field("System Last Modified Date"; Rec."SystemModifiedAt")
+            field("Modified By"; LookupUserIdWithGuid(Rec."SystemModifiedBy"))
             {
-                Caption = 'System Last Modified Date';
-                ToolTip = 'System Last Modified Date';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
+            field("Modified At"; Rec."SystemModifiedAt")
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
@@ -209,17 +209,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Item Reference No.")
         {
-            Visible = false;
-        }
-
-        modify("Description 2")
-        {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Location Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Quantity Shipped")
@@ -229,12 +224,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Quantity Invoiced")
         {
-            Visible = false;
-        }
-
-        modify("Line Amount")
-        {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Purchasing Code")

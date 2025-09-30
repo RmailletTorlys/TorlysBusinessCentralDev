@@ -42,7 +42,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantityCase(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
     local procedure OnValidateROCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
@@ -68,14 +68,14 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantityPallet(Rec, xRec, 2);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
     local procedure OnValidateROPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 1);
     end;
 
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
     local procedure OnValidateCrMemoPallet(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 1);
@@ -246,19 +246,19 @@ codeunit 50002 "Torlys SL Quantity Rounding"
 
     local procedure HandleQtyToReceiveCase(var Rec: Record "Sales Line")
     begin
-        Rec."Return Qty. to Receive (Base)" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Return Qty. to Receive (Base)" := (CaseConst * Rec."Return Qty. to Receive Case") + (PalletConst * Rec."Return Qty. to Receive Pallet");
         Rec."Return Qty. to Receive" := Rec."Return Qty. to Receive (Base)";
 
 
         if Rec."Return Qty. to Receive (Base)" >= PalletConst then
-            Rec."Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Return Qty. to Receive (Base)", PalletConst);
+            Rec."Return Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Return Qty. to Receive (Base)", PalletConst);
 
-        RemainingQuantity := Rec."Return Qty. to Receive (Base)" - PalletConst * Rec."Qty. to Receive Pallet";
+        RemainingQuantity := Rec."Return Qty. to Receive (Base)" - PalletConst * Rec."Return Qty. to Receive Pallet";
 
         if RemainingQuantity > 0 then
-            Rec."Qty. to Receive Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
+            Rec."Return Qty. to Receive Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
-            Rec."Qty. to Receive Case" := 0;
+            Rec."Return Qty. to Receive Case" := 0;
 
         UpdateToInvoice(Rec);
     end;
@@ -285,7 +285,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
 
     local procedure HandleQtyToReceivePallet(var Rec: Record "Sales Line")
     begin
-        Rec."Return Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
+        Rec."Return Qty. to Receive" := (CaseConst * Rec."Return Qty. to Receive Case") + (PalletConst * Rec."Return Qty. to Receive Pallet");
         Rec."Return Qty. to Receive (Base)" := Rec."Return Qty. to Receive";
 
         UpdateToInvoice(Rec);
@@ -312,8 +312,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         Rec."Return Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Qty. to Invoice" := Rec.Quantity;
         Rec."Qty. to Invoice (Base)" := Rec.Quantity;
-        Rec."Qty. to Receive Case" := Rec."Quantity Case";
-        Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
+        Rec."Return Qty. to Receive Case" := Rec."Quantity Case";
+        Rec."Return Qty. to Receive Pallet" := Rec."Quantity Pallet";
     end;
 
     local procedure UpdateToInvoice(var Rec: Record "Sales Line")

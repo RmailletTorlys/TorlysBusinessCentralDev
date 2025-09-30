@@ -103,8 +103,8 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     "Quantity Case" := 0;
                     "Quantity Pallet" := 0;
                     "Return Qty. to Receive" := 0;
-                    "Qty. to Receive Case" := 0;
-                    "Qty. to Receive Pallet" := 0;
+                    "Return Qty. to Receive Case" := 0;
+                    "Return Qty. to Receive Pallet" := 0;
                 end;
 
                 If "Gen. Bus. Posting Group" = 'MQ MOULDINGS' then begin
@@ -112,8 +112,8 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     "Quantity Case" := 0;
                     "Quantity Pallet" := 0;
                     "Return Qty. to Receive" := 0;
-                    "Qty. to Receive Case" := 0;
-                    "Qty. to Receive Pallet" := 0;
+                    "Return Qty. to Receive Case" := 0;
+                    "Return Qty. to Receive Pallet" := 0;
                 end;
 
                 If "Gen. Bus. Posting Group" = 'SS MOULDINGS' then begin
@@ -121,8 +121,8 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     "Quantity Case" := 0;
                     "Quantity Pallet" := 0;
                     "Return Qty. to Receive" := 0;
-                    "Qty. to Receive Case" := 0;
-                    "Qty. to Receive Pallet" := 0;
+                    "Return Qty. to Receive Case" := 0;
+                    "Return Qty. to Receive Pallet" := 0;
                 end;
 
                 SRSetup.get;

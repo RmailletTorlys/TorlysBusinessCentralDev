@@ -165,7 +165,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 
         addafter("Tax Area Code")
         {
-            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -181,7 +181,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Visible = true;
             }
 
-            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
@@ -307,6 +307,20 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         }
     }
 
+    var
+        LookupUser: Codeunit "LookupUserID";
+        UserModifiedUnitPrice: Boolean;
+
+    procedure PrepareUserModifiedUnitPrice()
+    begin
+        if Rec.Type <> Rec.Type::Item then
+            exit;
+
+        UserModifiedUnitPrice := true;
+
+    end;
+
+
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
@@ -327,16 +341,4 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     begin
     end;
 
-    var
-        LookupUser: Codeunit "LookupUserID";
-        UserModifiedUnitPrice: Boolean;
-
-    procedure PrepareUserModifiedUnitPrice()
-    begin
-        if Rec.Type <> Rec.Type::Item then
-            exit;
-
-        UserModifiedUnitPrice := true;
-
-    end;
 }

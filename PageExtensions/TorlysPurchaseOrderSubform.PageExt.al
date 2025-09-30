@@ -118,7 +118,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
         addafter("Tax Area Code")
         {
-            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -132,7 +132,7 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
             }
 
-            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
@@ -291,6 +291,9 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
     }
 
+    var
+        LookupUser: Codeunit "LookupUserID";
+
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
@@ -310,13 +313,5 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
     [IntegrationEvent(false, false)]
     local procedure OnValidateToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
-    end;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
     end;
 }

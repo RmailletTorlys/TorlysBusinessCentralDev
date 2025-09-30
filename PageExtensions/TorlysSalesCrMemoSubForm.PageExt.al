@@ -160,7 +160,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 
         addafter("Tax Area Code")
         {
-            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -176,7 +176,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Visible = true;
             }
 
-            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
@@ -323,15 +323,8 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     end;
 
     var
+        LookupUser: Codeunit "LookupUserID";
         UserModifiedUnitPrice: Boolean;
-
-    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
 
     procedure PrepareUserModifiedUnitPrice()
     begin

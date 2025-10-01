@@ -2,15 +2,15 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description, "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
 
-            field("Case Quantity"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -18,10 +18,10 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 end;
             }
 
-            field("Pallet Quantity"; Rec."Quantity Pallet")
+            field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -46,10 +46,10 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 ApplicationArea = All;
             }
 
-            field("Return Qty. To Receive Case"; Rec."Qty. to Receive Case")
+            field("Return Qty. To Receive Case"; Rec."Return Qty. to Receive Case")
             {
-                Caption = 'Qty. to Receive Case';
-                ToolTip = 'Qty. to Receive Case';
+                Caption = 'Return Qty. to Receive Case';
+                ToolTip = 'Return Qty. to Receive Case';
                 ApplicationArea = All;
 
                 trigger OnValidate()
@@ -59,10 +59,10 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 
             }
 
-            field("Return Qty. to Receive Pallet"; Rec."Qty. to Receive Pallet")
+            field("Return Qty. to Receive Pallet"; Rec."Return Qty. to Receive Pallet")
             {
-                Caption = 'Qty. to Receive Pallet';
-                ToolTip = 'Qty. to Receive Pallet';
+                Caption = 'Return Qty. to Receive Pallet';
+                ToolTip = 'Return Qty. to Receive Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -72,12 +72,67 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         }
         addafter("Return Qty. to Receive Pallet")
         {
-            field("Return Qty. Received"; Rec."Return Qty. Received")
+            field("Item Category Code"; Rec."Item Category Code")
             {
-                Caption = 'Qty. Received';
-                ToolTip = 'Qty. Received';
+                Caption = 'Item Category Code';
+                ToolTip = 'Item Category Code';
                 ApplicationArea = All;
                 Visible = false;
+                Editable = false;
+            }
+
+            field("Sales Price Code"; Rec."Sales Price Code")
+            {
+                Caption = 'Sales Price Code';
+                ToolTip = 'Sales Price Code';
+                ApplicationArea = All;
+                Visible = false;
+                Editable = false;
+            }
+            field("Default Price List"; Rec."Default Price List")
+            {
+                Caption = 'Default Price List';
+                ToolTip = 'Default Price List';
+                ApplicationArea = All;
+                Visible = false;
+                Editable = false;
+            }
+
+            field("Price List"; Rec."Price List")
+            {
+                Caption = 'Price List Code';
+                ToolTip = 'Price List Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
+        moveafter("Price List"; "Unit Price", "Line Amount")
+
+        addafter("Line Amount")
+        {
+
+            field("Unit Cost"; Rec."Unit Cost")
+            {
+                Caption = 'Unit Cost';
+                ToolTip = 'Unit Cost';
+                ApplicationArea = All;
+                Visible = true;
+                editable = false;
+            }
+        }
+
+        moveafter("Unit Cost"; "Unit Cost (LCY)")
+
+        addafter("Unit Cost (LCY)")
+        {
+            field("Return Qty. Received"; Rec."Return Qty. Received")
+            {
+                Caption = 'Return Qty. Received';
+                ToolTip = 'Return Qty. Received';
+                ApplicationArea = All;
+                Visible = true;
             }
 
             field("Return Qty. Rcd. Not Invoiced"; Rec."Return Rcd. Not Invd.")
@@ -85,7 +140,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Caption = 'Return Qty. Rcd. Not Invoiced';
                 ToolTip = 'Return Qty. Rcd. Not Invoiced';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
         }
         addafter("Return Qty. Rcd. Not Invoiced")
@@ -97,109 +152,174 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 ApplicationArea = All;
             }
 
-            field("Qty. Invoiced"; Rec."Quantity Invoiced")
+            field("Quantity Invoiced"; Rec."Quantity Invoiced")
             {
-                Caption = 'Qty. Invoiced';
-                ToolTip = 'Qty. Invoiced';
+                Caption = 'Quantity Invoiced';
+                ToolTip = 'Quantity Invoiced';
                 ApplicationArea = All;
-                Visible = false;
-            }
-
-            field("Item Category Code"; Rec."Item Category Code")
-            {
-                Caption = 'Item Category Code';
-                ToolTip = 'Item Category Code';
-                ApplicationArea = All;
-                Visible = false;
-            }
-
-            field("Default Price List Code"; Rec."Default Price List")
-            {
-                Caption = 'Default Price List';
-                ToolTip = 'Default Price List';
-                ApplicationArea = All;
-                Visible = false;
-            }
-
-            field("Price List Code"; Rec."Price List")
-            {
-                Caption = 'Price List Code';
-                ToolTip = 'Price List Code';
-                ApplicationArea = All;
+                Visible = true;
             }
         }
 
-        moveafter("Price List Code"; "Unit Price")
+        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code")
 
-        addafter("Unit Price")
+        addafter("Tax Area Code")
         {
-
-            field("Line Amount Excl. Tax"; Rec.Amount)
+            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
             {
-                Caption = 'Line Amount Excl. Tax';
-                ToolTip = 'Line Amount Excl. Tax';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
 
-            field("Unit Cost"; Rec."Unit Cost")
+            field("Created At"; Rec.SystemCreatedAt)
             {
-                Caption = 'Unit Cost';
-                ToolTip = 'Unit Cost';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
 
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
+            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
             {
-                Caption = 'SystemCreatedBy';
-                ToolTip = 'SystemCreatedBy';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
 
-            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            field("Modified At"; Rec.SystemModifiedAt)
             {
-                Caption = 'SystemCreatedAt';
-                ToolTip = 'SystemCreatedAt';
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 ApplicationArea = All;
-                Visible = false;
-            }
-
-            field(SystemModifiedBy; Rec.SystemModifiedBy)
-            {
-                Caption = 'SystemModifiedBy';
-                ToolTip = 'SystemModifiedBy';
-                ApplicationArea = All;
-                Visible = false;
-            }
-
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
-            {
-                Caption = 'SystemModifiedAt';
-                ToolTip = 'SystemModifiedAt';
-                ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
 
         }
 
         modify("Item Reference No.")
         {
-            Visible = false;
-        }
-
-        modify("Description 2")
-        {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Location Code")
         {
+            Visible = true;
+        }
+
+        modify("Unit Cost (LCY)")
+        {
+            Visible = true;
+            Editable = false;
+        }
+
+        modify("Amount Including VAT")
+        {
             Visible = false;
         }
 
+        modify("Line Discount %")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. to Assign")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. Assigned")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode3)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode4)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode5)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode6)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode7)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode8)
+        {
+            Visible = false;
+        }
+
+        modify("TotalSalesLine.""Line Amount""")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Discount Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Disc. Pct.")
+        {
+            Visible = false;
+        }
+
+        modify("Unit Price")
+        {
+            trigger OnBeforeValidate()
+            begin
+                if Rec.Type <> Rec.Type::Item then
+                    exit;
+                PrepareUserModifiedUnitPrice();
+
+                if ((Rec."Unit Price") <> (xRec."Unit Price")) and (xRec."Unit Price" <> 0) and (UserModifiedUnitPrice) then begin
+                    Rec."Price List" := '';
+                    UserModifiedUnitPrice := false;
+                    CurrPage.Update();
+                end;
+            end;
+        }
     }
+
+    var
+        LookupUser: Codeunit "LookupUserID";
+        UserModifiedUnitPrice: Boolean;
+
+    procedure PrepareUserModifiedUnitPrice()
+    begin
+        if Rec.Type <> Rec.Type::Item then
+            exit;
+
+        UserModifiedUnitPrice := true;
+
+    end;
+
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
@@ -220,4 +340,5 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     local procedure OnValidateToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
     end;
+
 }

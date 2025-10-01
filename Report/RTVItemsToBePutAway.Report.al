@@ -32,11 +32,11 @@ report 50017 "RTV Items To Be Put Away"
                 {
 
                 }
-                column(Qty__to_Receive_Case; "Qty. to Receive Case")
+                column(Qty__to_Receive_Case; "Return Qty. to Receive Case")
                 {
 
                 }
-                column(Qty__to_Receive_Pallet; "Qty. to Receive Pallet")
+                column(Qty__to_Receive_Pallet; "Return Qty. to Receive Pallet")
                 {
 
                 }

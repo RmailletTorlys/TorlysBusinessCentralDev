@@ -4,13 +4,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     layout
     {
         moveafter("No."; "Item Reference No.")
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
         addafter(Quantity)
         {
             field("Quantity Case;"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = UoMValid;
 
@@ -24,8 +24,8 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = UoMValid;
 
@@ -78,21 +78,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
 
         }
-        moveafter("Qty. to Ship Pallet"; "Shipment Date", "Quantity Shipped")
-        addafter("Quantity Shipped")
-        {
-            field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
-            {
-                Caption = 'Qty. Shipped Not Invoiced';
-                ToolTip = 'Qty. Shipped Not Invoiced';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-        }
+        moveafter("Qty. to Ship Pallet"; "Shipment Date")
 
-        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced")
-        addafter("Quantity Invoiced")
+        addafter("Shipment Date")
         {
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -128,11 +116,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = true;
             }
-
-
-
-
-
         }
 
         moveafter("Price List Code"; "Unit Price", "Line Amount")
@@ -149,7 +132,21 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         }
 
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Quantity Shipped")
+
+        addafter("Quantity Shipped")
+        {
+            field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
+            {
+                Caption = 'Qty. Shipped Not Invoiced';
+                ToolTip = 'Qty. Shipped Not Invoiced';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
+        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
         addafter("Drop Shipment")
         {
             field("Purchase Order No."; Rec."Purchase Order No.")
@@ -170,36 +167,36 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         addafter("Purch. Order Line No.")
         {
-            field("System Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
+            field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
             }
-            field("System Created Date"; Rec."SystemCreatedAt")
+            field("Created At"; Rec."SystemCreatedAt")
             {
-                Caption = 'System Created Date';
-                ToolTip = 'System Created Date';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-
-            field("System Last Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
-            {
-                Caption = 'System Last Modified By';
-                ToolTip = 'System Last Modified By';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
             }
 
-            field("System Last Modified Date"; Rec."SystemModifiedAt")
+            field("Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
             {
-                Caption = 'System Last Modified Date';
-                ToolTip = 'System Last Modified Date';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
+            field("Modified At"; Rec."SystemModifiedAt")
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
@@ -209,17 +206,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Item Reference No.")
         {
-            Visible = false;
-        }
-
-        modify("Description 2")
-        {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Location Code")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Quantity Shipped")
@@ -229,12 +221,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         modify("Quantity Invoiced")
         {
-            Visible = false;
-        }
-
-        modify("Line Amount")
-        {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Purchasing Code")

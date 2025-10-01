@@ -1,12 +1,14 @@
-pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
+pageextension 56660 TorlPostedReturnReceiptSubform extends "Posted Return Receipt Subform"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", Quantity)
+        moveafter("No."; "Item Reference No.", Description, "Location Code", "Unit of Measure Code", "Quantity")
+
 
         addafter(Quantity)
         {
-            field("Quantity Case"; Rec."Quantity Case")
+
+            field("Quantity Case;"; Rec."Quantity Case")
             {
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
@@ -19,21 +21,16 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
             }
+        }
 
-            field("Outstanding Quantity"; Rec."Outstanding Quantity")
-            {
-                Caption = 'Outstanding Quantity';
-                ToolTip = 'Outstanding Quantity';
-                ApplicationArea = All;
-            }
-
-
+        addafter("Quantity Pallet")
+        {
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
                 ToolTip = 'Item Category Code';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
 
             field("Sales Price Code"; Rec."Sales Price Code")
@@ -61,47 +58,57 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
             }
         }
 
-        moveafter("Price List"; "Unit Price", "Line Amount")
-
-        addafter("Line Amount")
+        addafter("Price List")
         {
+            field("Unit Price"; Rec."Unit Price")
+            {
+                Caption = 'Unit Price';
+                ToolTip = 'Unit Price';
+                ApplicationArea = All;
+                Visible = false;
+            }
+
             field("Unit Cost"; Rec."Unit Cost")
             {
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
+                Visible = false;
             }
 
-        }
-
-        moveafter("Unit Cost"; "Unit Cost (LCY)")
-
-        addafter("Unit Cost (LCY)")
-        {
-            field("Qty. to Invoice"; Rec."Qty. to Invoice")
+            field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
             {
-                Caption = 'Qty. to Invoice';
-                ToolTip = 'Qty. to Invoice';
+                Caption = 'Unit Cost (LCY)';
+                ToolTip = 'Unit Cost (LCY)';
                 ApplicationArea = All;
-            }
-
-            field("Quantity Invoiced"; Rec."Quantity Invoiced")
-            {
-                Caption = 'Quantity Invoiced';
-                ToolTip = 'Quantity Invoiced';
-                ApplicationArea = All;
+                Visible = false;
             }
         }
 
-        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode8)
+        moveafter("Unit Cost (LCY)"; "Return Qty. Rcd. Not Invd.", "Quantity Invoiced")
 
-        addafter(ShortcutDimCode8)
+        addafter("Quantity Invoiced")
         {
-            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
+            field("Tax Group Code"; Rec."Tax Group Code")
+            {
+                Caption = 'Tax Group Code';
+                ToolTip = 'Tax Group Code';
+                ApplicationArea = All;
+                Visible = false;
+            }
+            field("Tax Area Code"; Rec."Tax Area Code")
+            {
+                Caption = 'Tax Area Code';
+                ToolTip = 'Tax Area Code';
+                ApplicationArea = All;
+                Visible = false;
+            }
+            field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
                 ApplicationArea = All;
+                Visible = true;
             }
 
             field("Created At"; Rec.SystemCreatedAt)
@@ -109,13 +116,15 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 Caption = 'Created At';
                 ToolTip = 'Created At';
                 ApplicationArea = All;
+                Visible = true;
             }
 
-            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
+                Visible = true;
             }
 
             field("Modified At"; Rec.SystemModifiedAt)
@@ -123,75 +132,44 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 Caption = 'Modified At';
                 ToolTip = 'Modified At';
                 ApplicationArea = All;
+                Visible = true;
             }
         }
 
-        modify("Unit Cost (LCY)")
-        {
-            Visible = true;
-            Editable = false;
-        }
-
-        modify("Line Discount %")
+        modify("Description 2")
         {
             Visible = false;
         }
 
-        modify("Amount Including VAT")
+        modify("Shortcut Dimension 1 Code")
         {
             Visible = false;
         }
 
-        modify("Qty. to Assign")
+        modify("Shortcut Dimension 2 Code")
         {
             Visible = false;
         }
 
-        modify("Qty. Assigned")
+
+        modify("Return Reason Code")
         {
             Visible = false;
         }
 
-        modify(ShortcutDimCode3)
+        modify("Shipment Date")
         {
             Visible = false;
         }
-
-        modify(ShortcutDimCode4)
-        {
-            Visible = false;
-        }
-
-        modify(ShortcutDimCode6)
-        {
-            Visible = false;
-        }
-
-        modify(ShortcutDimCode7)
-        {
-            Visible = false;
-        }
-
-        modify("TotalSalesLine.""Line Amount""")
-        {
-            Visible = false;
-        }
-
-        modify("Invoice Discount Amount")
-        {
-            Visible = false;
-        }
-
-        modify("Invoice Disc. Pct.")
-        {
-            Visible = false;
-        }
-
 
 
     }
 
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
-        LookupUser: Codeunit "LookupUserID";
-
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
 }

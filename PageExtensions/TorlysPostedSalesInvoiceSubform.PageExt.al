@@ -3,22 +3,37 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
     layout
     {
         moveafter("No."; "Item Reference No.")
-        moveafter(Description; "Description 2", "Unit of Measure Code", "Location Code", Quantity)
+        moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
             field("Quantity Case;"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
             }
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
             }
+            field("Shipment Date"; Rec."Shipment Date")
+            {
+                Caption = 'Shipment Date';
+                ToolTip = 'Shipment Date';
+                ApplicationArea = All;
+            }
+
+            field("Item Category Code"; Rec."Item Category Code")
+            {
+                Caption = 'Item Category Code';
+                ToolTip = 'Item Category Code';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
@@ -117,6 +132,11 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
 
 
 
+        modify("Location Code")
+        {
+            Visible = true;
+        }
+
         modify("Unit Cost (LCY)")
         {
             Visible = true;
@@ -183,6 +203,11 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
         }
 
         modify("Amount Including VAT")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Discount Amount")
         {
             Visible = false;
         }

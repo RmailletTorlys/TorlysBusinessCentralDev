@@ -1,21 +1,8 @@
-pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Memo Subform"
+pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. Subform"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.", Description)
-
-        addafter(Description)
-        {
-            field("Location Code"; Rec."Location Code")
-            {
-                Caption = 'Location Code';
-                ToolTip = 'Location Code';
-                ApplicationArea = All;
-                Visible = true;
-            }
-        }
-
-        moveafter("Location Code"; "Unit of Measure Code", "Quantity")
+        moveafter("No."; "Item Reference No.", "Description", "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -25,12 +12,19 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
             }
+
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
             }
+        }
+
+        moveafter("Quantity Pallet"; "Shipment Date")
+
+        addafter("Shipment Date")
+        {
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
@@ -38,51 +32,117 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ApplicationArea = All;
                 Visible = true;
             }
+
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
                 ToolTip = 'Sales Price Code';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
+
             field("Default Price List"; Rec."Default Price List")
             {
                 Caption = 'Default Price List';
                 ToolTip = 'Default Price List';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
+
             field("Price List"; Rec."Price List")
             {
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
             }
-        }
 
-        moveafter("Price List"; "Unit Price", "Line Amount")
+            field("Unit Price"; Rec."Unit Price")
+            {
+                Caption = 'Unit Price';
+                ToolTip = 'Unit Price';
+                ApplicationArea = All;
+                Visible = false;
+            }
 
-        addafter("Line Amount")
-        {
+            field("Line Amount"; Rec."Line Amount Excl. Tax")
+            {
+                Caption = 'Line Amount';
+                ToolTip = 'Line Amount';
+                ApplicationArea = All;
+                Visible = false;
+            }
+
             field("Unit Cost"; Rec."Unit Cost")
             {
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
+            }
+
+            field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
+            {
+                Caption = 'Unit Cost (LCY)';
+                ToolTip = 'Unit Cost (LCY)';
+                ApplicationArea = All;
+                Visible = false;
             }
         }
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
 
-        addafter("Tax Area Code")
+        moveafter("Unit Cost (LCY)"; "Qty. Shipped Not Invoiced", "Quantity Invoiced")
+
+        addafter("Quantity Invoiced")
         {
+            field("Tax Group Code"; Rec."Tax Group Code")
+            {
+                Caption = 'Tax Group Code';
+                ToolTip = 'Tax Group Code';
+                ApplicationArea = All;
+                Visible = false;
+            }
+
+            field("Tax Area Code"; Rec."Tax Area Code")
+            {
+                Caption = 'Tax Area Code';
+                ToolTip = 'Tax Area Code';
+                ApplicationArea = All;
+                Visible = false;
+            }
+
+            field("Purchasing Code"; Rec."Purchasing Code")
+            {
+                Caption = 'Purchasing Code';
+                ToolTip = 'Purchasing Code';
+                ApplicationArea = All;
+            }
+
+            field("Drop Shipment"; Rec."Drop Shipment")
+            {
+                Caption = 'Drop Shipment';
+                ToolTip = 'Drop Shipment';
+                ApplicationArea = All;
+            }
+
+            field("Purchase Order No."; Rec."Purchase Order No.")
+            {
+                Caption = 'Purchase Order No.';
+                ToolTip = 'Purchase Order No.';
+                ApplicationArea = All;
+            }
+
+            field("Purchase Order Line No."; Rec."Purch. Order Line No.")
+            {
+                Caption = 'Purchase Order Line No.';
+                ToolTip = 'Purchase Order Line No.';
+                ApplicationArea = All;
+            }
+
             field("Created By"; LookupUserIdWithGuid(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
                 ApplicationArea = All;
-                Visible = true;
             }
 
             field("Created At"; Rec.SystemCreatedAt)
@@ -90,7 +150,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 Caption = 'Created At';
                 ToolTip = 'Created At';
                 ApplicationArea = All;
-                Visible = true;
             }
 
             field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
@@ -98,7 +157,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
-                Visible = true;
             }
 
             field("Modified At"; Rec.SystemModifiedAt)
@@ -106,13 +164,12 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 Caption = 'Modified At';
                 ToolTip = 'Modified At';
                 ApplicationArea = All;
-                Visible = true;
             }
         }
 
-        modify("Description 2")
+        modify("Qty. Shipped Not Invoiced")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Shortcut Dimension 1 Code")
@@ -129,6 +186,7 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
         {
             Visible = false;
         }
+
 
         modify("ShortcutDimCode[4]")
         {
@@ -155,32 +213,15 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
             Visible = false;
         }
 
-        modify("Amount Including VAT")
+        modify("Planned Delivery Date")
         {
             Visible = false;
         }
 
-        modify("Invoice Discount Amount")
+        modify("Planned Shipment Date")
         {
             Visible = false;
         }
-
-        modify("Return Reason Code")
-        {
-            Visible = false;
-        }
-
-        modify("Deferral Code")
-        {
-            Visible = false;
-        }
-
-        modify("Line Discount %")
-        {
-            Visible = false;
-        }
-
-
     }
 
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
@@ -190,4 +231,5 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
         UserDetails.Get(UserGuid);
         exit(UserDetails."User Name");
     end;
+
 }

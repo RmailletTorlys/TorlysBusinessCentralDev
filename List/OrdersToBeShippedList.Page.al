@@ -798,10 +798,9 @@ page 52001 "Orders To Be Shipped List"
             SalesLine.SetRange("Document Type", SalesHeader."Document Type");
             SalesLine.SetRange("Document No.", SalesHeader."No.");
 
-            if SalesLine.FindSet() then
+            if not (SalesLine.IsEmpty()) then
                 repeat
                     TotalWeight += SalesLine."Net Weight" * SalesLine.Quantity;
-
                 until SalesHeader.Next() = 0;
 
             OnAfterGetShipmentWeight(No, returnVar);

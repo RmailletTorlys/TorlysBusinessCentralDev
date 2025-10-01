@@ -46,11 +46,11 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
         field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
-            TableRelation = "Torlys Lookup Values";
+            TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
             DataClassification = CustomerContent;
         }
 
-        field(50008; "Tag Name"; code[20])
+        field(50008; "Tag Name"; code[30])
         {
             Caption = 'Tag Name';
             DataClassification = CustomerContent;
@@ -190,7 +190,8 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values";
+            TableRelation = "Torlys Lookup Values".Code where(Type = const("Order Method"));
+            ;
         }
 
         field(50032; "Total Excl. Tax"; Decimal)
@@ -226,24 +227,28 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50037; "Shipping Advice"; Text[250])
-        {
-            Caption = 'Shipping Advice';
-            DataClassification = CustomerContent;
-        }
-
-        field(50038; "BoL No."; Code[20])
-        {
-            Caption = 'BoL No.';
-            TableRelation = "Torlys BOL Header";
-            DataClassification = CustomerContent;
-        }
-
-        field(50039; "Shipping Instructions"; Code[30])
+        field(50037; "Shipping Instructions"; Code[30])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+        }
+        field(50038; "Whse Assoc. Picked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Picked By';
+            DataClassification = CustomerContent;
+
+        }
+        field(50039; "Whse Assoc. Checked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Checked By';
+            DataClassification = CustomerContent;
+
+        }
+        field(50040; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
         }
 
         field(50041; "MKRequired"; Boolean)
@@ -307,6 +312,13 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             Editable = false;
         }
 
+        field(50049; "BoL No."; Code[20])
+        {
+            Caption = 'BoL No.';
+            TableRelation = "Torlys BOL Header";
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys
@@ -326,4 +338,10 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
 
         }
     }
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        DimMgt: Codeunit "DimensionManagement";
+    begin
+        DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
 }

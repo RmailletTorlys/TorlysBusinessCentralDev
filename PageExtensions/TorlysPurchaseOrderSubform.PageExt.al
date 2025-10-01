@@ -4,34 +4,22 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
     {
         addafter("No.")
         {
-            field("Vendor Reference No."; Rec."Vendor Item No.")
+            field("Vendor Item No."; Rec."Vendor Item No.")
             {
-                Caption = 'Vendor Reference No.';
-                ToolTip = 'Vendor Reference No.';
+                Caption = 'Vendor Item No.';
+                ToolTip = 'Vendor Item No.';
                 ApplicationArea = All;
             }
         }
 
-        moveafter("Vendor Reference No."; Description, "Location Code")
-        addafter("Location Code")
-        {
-
-            field("Confirmation No."; Rec."Confirmation No.")
-            {
-                Caption = 'Container No.';
-                ToolTip = 'Container No.';
-                ApplicationArea = All;
-            }
-        }
-
-        moveafter("Confirmation No."; "Unit of Measure Code", Quantity)
+        moveafter("Vendor Item No."; Description, "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
-            field("Case Quantity"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -41,10 +29,10 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 end;
             }
 
-            field("Pallet Quantity"; Rec."Quantity Pallet")
+            field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -55,9 +43,20 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Pallet Quantity"; "Expected Receipt Date", "Direct Unit Cost", "Indirect Cost %", "Unit Cost (LCY)", "Line Amount")
+        moveafter("Quantity Pallet"; "Direct Unit Cost", "Indirect Cost %", "Unit Cost (LCY)", "Line Amount")
 
         addafter("Line Amount")
+        {
+            field("Confirmation No."; Rec."Confirmation No.")
+            {
+                Caption = 'Confirmation No.';
+                ToolTip = 'Confirmation No.';
+                ApplicationArea = All;
+            }
+        }
+        moveafter("Confirmation No."; "Expected Receipt Date")
+
+        addafter("Expected Receipt Date")
         {
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
@@ -117,6 +116,36 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
         moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code")
 
+        addafter("Tax Area Code")
+        {
+            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+
+            field("Created At"; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
+
+            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
+
+            field("Modified At"; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+            }
+        }
 
         modify("Reserved Quantity")
         {
@@ -262,6 +291,9 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
     }
 
+    var
+        LookupUser: Codeunit "LookupUserID";
+
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
@@ -282,5 +314,4 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
     local procedure OnValidateToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
     end;
-
 }

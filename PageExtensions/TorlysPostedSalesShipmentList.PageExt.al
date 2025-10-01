@@ -1,17 +1,17 @@
-pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
+pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipments"
 {
     layout
     {
         addafter("No.")
         {
-            field("On Hold"; Rec."On Hold")
+
+            field("Order No."; Rec."Order No.")
             {
-                Caption = 'On Hold';
+                Caption = 'Order No.';
+                ToolTip = 'Order No.';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
-                ToolTip = 'Display if an order is currently on Credit Hold';
-
             }
             field("Order Date"; Rec."Order Date")
             {
@@ -22,7 +22,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Editable = false;
             }
         }
-        moveafter("Order Date"; "Shipment Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        moveafter("Order Date"; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {
@@ -87,7 +87,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 Caption = 'Temporary Hold';
                 ToolTip = 'Temporary Hold';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
         }
@@ -112,9 +112,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             }
         }
 
-        moveafter("Shipping Comment"; Status, "Amt. Ship. Not Inv. (LCY) Base", Amount)
-
-        addafter(Amount)
+        addafter("Shipping Comment")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
@@ -152,19 +150,24 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             }
         }
 
+        modify("No.")
+        {
+            Width = 12;
+        }
+
+        modify("Ship-to Code")
+        {
+            Visible = true;
+        }
+
         modify("Shortcut Dimension 1 Code")
         {
             Visible = true;
         }
 
-        modify("Assigned User ID")
+        modify("External Document No.")
         {
-            Visible = false;
-        }
-
-        modify("Completely Shipped")
-        {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Document Date")
@@ -172,92 +175,28 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             Visible = false;
         }
 
-        modify("Amt. Ship. Not Inv. (LCY)")
-        {
-            Visible = false;
-        }
-
-        modify("Amount Including VAT")
-        {
-            Visible = false;
-        }
-
-        modify("Shipment Date")
+        modify("Posting Date")
         {
             Visible = true;
         }
 
+        modify("Shipment Date")
+        {
+            Visible = false;
+        }
+
+        modify("Currency Code")
+        {
+            Visible = false;
+        }
+
+        modify("No. Printed")
+        {
+            Visible = false;
+        }
+
     }
 
-    actions
-    {
-        addbefore(Category_New)
-        {
-            group("Credit Hold")
-            {
-                Visible = true;
-                Caption = 'Credit Hold';
-
-                actionref("Remove from Hold"; "Remove Credit Hold")
-                {
-                }
-
-                actionref("Add to Hold"; "Place Credit Hold")
-                {
-                }
-            }
-        }
-        addfirst("F&unctions")
-        {
-            action("Remove Credit Hold")
-            {
-                ToolTip = 'Removes the Credit hold on an Order.';
-                Caption = 'Remove Credit Hold';
-                Image = Report;
-                ApplicationArea = All;
-
-
-                trigger OnAction()
-                var
-                    SelectedOrders: Record "Sales Header";
-                begin
-                    CurrPage.SetSelectionFilter(SelectedOrders);
-
-                    if SelectedOrders.FindSet() then
-                        repeat
-                            SelectedOrders."On Hold" := '';
-                            SelectedOrders.Modify(true);
-                        until SelectedOrders.Next() = 0;
-
-                    Message('Removed Order(s) from Credit Hold');
-                end;
-            }
-
-            action("Place Credit Hold")
-            {
-                ToolTip = 'Places selected Order(s) on Credit Hold.';
-                Caption = 'Place Credit Hold';
-                Image = Report;
-                ApplicationArea = All;
-
-
-                trigger OnAction()
-                var
-                    SelectedOrders: Record "Sales Header";
-                begin
-                    CurrPage.SetSelectionFilter(SelectedOrders);
-
-                    if SelectedOrders.FindSet() then
-                        repeat
-                            SelectedOrders."On Hold" := 'CR';
-                            SelectedOrders.Modify(true);
-                        until SelectedOrders.Next() = 0;
-
-                    Message('Placed Order(s) on Credit Hold');
-                end;
-            }
-        }
-    }
     var
         LookupUserId: Codeunit "LookupUserID";
 
@@ -268,4 +207,5 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
+
 }

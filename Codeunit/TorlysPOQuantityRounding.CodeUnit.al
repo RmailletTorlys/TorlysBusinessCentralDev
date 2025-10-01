@@ -18,7 +18,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         QuantityRoundingToCaseAndPallet(Rec, xRec, 3);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
     local procedure OnValidatePOCaseQuantity(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
@@ -32,7 +32,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
 
 
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
     local procedure OnValidatePOPallet(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 1);

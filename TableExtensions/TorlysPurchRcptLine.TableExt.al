@@ -4,25 +4,25 @@ tableextension 50121 TorlysPurchRcptLine extends "Purch. Rcpt. Line"
     {
         field(50001; "Quantity Case"; Integer)
         {
-            Caption = 'Case Quantity';
+            Caption = 'Quantity Case';
             DataClassification = CustomerContent;
         }
 
         field(50002; "Quantity Pallet"; Integer)
         {
-            Caption = 'Pallet Quantity';
+            Caption = 'Quantity Pallet';
             DataClassification = CustomerContent;
         }
 
         field(50003; "Qty. to Receive Case"; Integer)
         {
-            Caption = 'Case Quantity to Receive';
+            Caption = 'Qty. to Receive Case';
             DataClassification = CustomerContent;
         }
 
         field(50004; "Qty. to Receive Pallet"; Integer)
         {
-            Caption = 'Pallet Quantity to Receive';
+            Caption = 'Qty. to Receive Pallet';
             DataClassification = CustomerContent;
         }
 

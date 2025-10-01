@@ -239,7 +239,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
 
         }
-
         field(50039; "Whse Assoc. Checked By Name"; code[50])
         {
             Caption = 'Warehouse Associate Checked By';
@@ -317,6 +316,12 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             CalcFormula = Lookup(Customer."Power Up Level" WHERE("No." = FIELD("Sell-to Customer No.")));
             OptionMembers = None,"Premier","Elite","Designer";
             Editable = false;
+        }
+        field(50049; "BoL No."; Code[20])
+        {
+            Caption = 'BoL No.';
+            TableRelation = "Torlys BOL Header";
+            DataClassification = CustomerContent;
         }
 
         modify("Sell-to Customer No.")

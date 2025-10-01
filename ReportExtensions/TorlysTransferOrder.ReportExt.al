@@ -100,17 +100,14 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
 
         modify("Transfer Line")
         {
-            trigger OnAfterPreDataItem()
-            begin
-                TotalWeight := 0;
-            end;
-
             trigger OnAfterAfterGetRecord()
             begin
                 If "Item No." = '' then
                     Picked := ''
                 else
                     Picked := '________';
+
+                TotalWeight := 0;
 
                 TotalWeight := TotalWeight + ("Net Weight" * Quantity);
                 ToShipWeight += ("Net Weight" * "Qty. to Ship");

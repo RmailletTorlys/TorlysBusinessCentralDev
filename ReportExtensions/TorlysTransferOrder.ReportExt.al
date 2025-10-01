@@ -108,10 +108,12 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
                     Picked := '________';
 
                 TotalWeight := 0;
+                ToShipWeight := 0;
+                ToReceiveWeight := 0;
 
                 TotalWeight := TotalWeight + ("Net Weight" * Quantity);
-                ToShipWeight += ("Net Weight" * "Qty. to Ship");
-                ToReceiveWeight += ("Net Weight" * "Qty. to Receive");
+                ToShipWeight := ToShipWeight + ("Net Weight" * "Qty. to Ship");
+                ToReceiveWeight := ToReceiveWeight + ("Net Weight" * "Qty. to Receive");
 
                 BinLocation := '';
                 BinLocationLabel := '';

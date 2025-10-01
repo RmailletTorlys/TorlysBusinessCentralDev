@@ -99,19 +99,19 @@ page 51004 "Torlys BOL Subform"
                     Caption = 'Ship-to Country';
                 }
 
-                field("Ship-to Comment 1"; Rec."Destination Instruction 1")
+                field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the comment for the ship-to address.';
-                    Caption = 'Ship-to Comment 1';
+                    ToolTip = 'Specifies the first line of the shipping comment.';
+                    Caption = 'Shipping Comment';
                 }
 
-                field("Ship-to Comment 2"; Rec."Destination Instruction 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the comment for the ship-to address.';
-                    Caption = 'Ship-to Comment 2';
-                }
+                // field("Ship-to Comment 2"; Rec."Destination Instruction 2")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     ToolTip = 'Specifies the second line of the comment for the ship-to address.';
+                //     Caption = 'Ship-to Comment 2';
+                // }
 
                 field("Total Weight"; Rec."Total Weight")
                 {

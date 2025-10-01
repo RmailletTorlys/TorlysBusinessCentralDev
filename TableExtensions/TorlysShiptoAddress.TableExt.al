@@ -44,7 +44,7 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
         }
         field(50010; "Destination Instructions"; Text[50])
         {
-            Caption = 'Destination Instructions 1';
+            Caption = 'Destination Instructions';
             DataClassification = CustomerContent;
         }
 

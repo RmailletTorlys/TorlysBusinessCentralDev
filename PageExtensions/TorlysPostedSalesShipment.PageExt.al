@@ -264,33 +264,33 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                     ApplicationArea = All;
                 }
 
-                field("MK Required"; Rec."MKRequired")
+                field("MK Required"; Rec."MK Required")
                 {
                     Caption = 'MK Required';
                     ToolTip = 'MK Required';
                     ApplicationArea = All;
                 }
 
-                field("Marketing Order Type"; Rec."Marketing Order Type")
+                field("MK Required Type"; Rec."MK Required Type")
                 {
-                    Caption = 'MK Required By';
-                    ToolTip = 'MK Required By';
+                    Caption = 'MK Required Type';
+                    ToolTip = 'MK Required Type';
                     ApplicationArea = All;
                 }
-                field("MK Staged"; Rec."MKStaged_Location")
+                field("MK Staged Location"; Rec."MK Staged Location")
                 {
-                    Caption = 'MK Staged';
-                    ToolTip = 'MK Staged';
+                    Caption = 'MK Staged Location';
+                    ToolTip = 'MK Staged Location';
                     ApplicationArea = All;
                 }
-                field("MK Staged By"; Rec."MKStaged_By")
+                field("MK Staged By"; Rec."MK Staged By")
                 {
                     Caption = 'MK Staged By';
                     ToolTip = 'MK Staged By';
                     ApplicationArea = All;
                 }
 
-                field("MK Staged Date"; Rec."MKStaged_Date")
+                field("MK Staged Date"; Rec."MK Staged Date")
                 {
                     Caption = 'MK Staged Date';
                     ToolTip = 'MK Staged Date';

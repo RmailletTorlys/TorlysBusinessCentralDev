@@ -2,11 +2,6 @@ tableextension 50120 TorlysPurchRcptHeader extends "Purch. Rcpt. Header"
 {
     fields
     {
-        field(50007; "Manufacturer Code"; Code[20])
-        {
-            Caption = 'Manufacturer Code';
-            DataClassification = CustomerContent;
-        }
 
         field(50008; "Production Date"; Date)
         {
@@ -20,11 +15,7 @@ tableextension 50120 TorlysPurchRcptHeader extends "Purch. Rcpt. Header"
             DataClassification = CustomerContent;
         }
 
-        field(50011; "Incoterms"; Code[20])
-        {
-            Caption = 'Incoterms';
-            DataClassification = CustomerContent;
-        }
+
 
     }
 }

@@ -336,7 +336,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             Importance = Standard;
                         }
 
-                        field("Power Up Level"; Rec."Powerup Level")
+                        field("Power Up Level"; Rec."Power Up Level")
                         {
                             Caption = 'Power Up Level';
                             ToolTip = 'Power Up Level';

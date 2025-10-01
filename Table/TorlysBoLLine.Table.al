@@ -108,17 +108,17 @@ table 55003 "Torlys BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(17; "Destination Instruction 1"; Text[50])
-        {
-            Caption = 'Destination Instruction';
-            DataClassification = CustomerContent;
-        }
+        // field(17; "Destination Instruction 1"; Text[50])
+        // {
+        //     Caption = 'Destination Instruction';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(18; "Destination Instruction 2"; Text[50])
-        {
-            Caption = 'Destination Instruction 2';
-            DataClassification = CustomerContent;
-        }
+        // field(18; "Destination Instruction 2"; Text[50])
+        // {
+        //     Caption = 'Destination Instruction 2';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(19; "Total Cases"; Decimal)
         {

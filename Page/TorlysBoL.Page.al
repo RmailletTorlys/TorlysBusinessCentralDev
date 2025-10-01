@@ -168,8 +168,8 @@ page 51002 "Torlys BOL"
                         field("Shipping Comment"; Rec."Shipping Comment")
                         {
                             ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the first line of the destination instructions.';
-                            Caption = 'Destination Instructions 1';
+                            ToolTip = 'Specifies the first line of the shipping comment.';
+                            Caption = 'Shipping Comment';
                         }
 
                         field("Shipping Instructions 1"; Rec."Shipping Instructions 1")

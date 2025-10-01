@@ -214,55 +214,68 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DecimalPlaces = 2;
         }
 
-        field(50035; "To ship"; Boolean)
+        field(50035; "To Ship"; Boolean)
         {
             Caption = 'To ship';
             DataClassification = CustomerContent;
         }
 
-        field(50036; "Shipping Instructions"; Code[30])
+        field(50037; "Shipping Instructions"; Code[30])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
 
-        field(50037; "Shipping Comment"; Text[50])
+        field(50038; "Whse Assoc. Picked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Picked By';
+            DataClassification = CustomerContent;
+
+        }
+        field(50039; "Whse Assoc. Checked By Name"; code[50])
+        {
+            Caption = 'Warehouse Associate Checked By';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50040; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
 
-        field(50041; "MKRequired"; Boolean)
+        field(50041; "MK Required"; Boolean)
         {
-            Caption = 'MKRequired';
+            Caption = 'MK Required';
             DataClassification = CustomerContent;
         }
 
-        field(50042; "Marketing Order Type"; Option)
+        field(50042; "MK Required Type"; Option)
         {
-            Caption = 'Marketing Order Type';
+            Caption = 'MK Required Type';
             DataClassification = CustomerContent;
             OptionMembers = "","Plank","Swatch","Chainset","Custom";
         }
 
-        field(50043; "MKStaged_Location"; Code[10])
+        field(50043; "MK Staged Location"; Code[10])
         {
-            Caption = 'MKStaged_Location';
+            Caption = 'MK Staged Location';
             TableRelation = Bin.Code;
             DataClassification = CustomerContent;
         }
 
-        field(50044; "MKStaged_Date"; Date)
+        field(50044; "MK Staged Date"; Date)
         {
-            Caption = 'MKStaged_Date';
+            Caption = 'MK Staged Date';
             DataClassification = CustomerContent;
             Editable = false;
         }
 
-        field(50045; "MKStaged_By"; Text[50])
+        field(50045; "MK Staged By"; Text[50])
         {
-            Caption = 'MKStaged_By';
+            Caption = 'MK Staged By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
             Editable = false;
@@ -292,6 +305,13 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             CalcFormula = Lookup(Customer."Power Up Level" WHERE("No." = FIELD("Sell-to Customer No.")));
             OptionMembers = None,"Premier","Elite","Designer";
             Editable = false;
+        }
+
+        field(50049; "BOL No."; Code[20])
+        {
+            Caption = 'BOL No.';
+            TableRelation = "Torlys BOL Header";
+            DataClassification = CustomerContent;
         }
     }
 

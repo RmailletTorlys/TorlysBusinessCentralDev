@@ -26,6 +26,12 @@ tableextension 56651 TorlysReturnShipmentLine extends "Return Shipment Line"
             DataClassification = CustomerContent;
         }
 
+        field(50013; "Production Date"; Date)
+        {
+            Caption = 'Production Date';
+            DataClassification = CustomerContent;
+        }
+
         field(50014; "Confirmation No."; Text[20])
         {
             Caption = 'Confirmation No.';

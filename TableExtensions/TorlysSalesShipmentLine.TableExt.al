@@ -90,12 +90,6 @@ tableextension 50111 TorlysSalesShipmentLine extends "Sales Shipment Line"
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Line Amount Excl. Tax"; Decimal)
-        {
-            Caption = 'Line Amount Excl. Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
     }
 
     trigger OnModify()

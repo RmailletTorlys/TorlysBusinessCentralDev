@@ -113,9 +113,9 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50020; "Qty. To ship"; Decimal)
+        field(50020; "Qty. to ship"; Decimal)
         {
-            Caption = 'Qty. To ship';
+            Caption = 'Qty. to ship';
             CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }
@@ -215,9 +215,9 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DecimalPlaces = 2;
         }
 
-        field(50035; "To ship"; Boolean)
+        field(50035; "To Ship"; Boolean)
         {
-            Caption = 'To ship';
+            Caption = 'To Ship';
             DataClassification = CustomerContent;
         }
 
@@ -254,43 +254,43 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
 
-        field(50041; "MKRequired"; Boolean)
+        field(50041; "MK Required"; Boolean)
         {
-            Caption = 'MKRequired';
+            Caption = 'MK Required';
             DataClassification = CustomerContent;
         }
 
-        field(50042; "Marketing Order Type"; Option)
+        field(50042; "MK Required Type"; Option)
         {
-            Caption = 'Marketing Order Type';
+            Caption = 'MK Required Type';
             DataClassification = CustomerContent;
             OptionMembers = "","Plank","Swatch","Chainset","Custom";
         }
 
-        field(50043; "MKStaged_Location"; Code[10])
+        field(50043; "MK Staged Location"; Code[10])
         {
-            Caption = 'MKStaged_Location';
+            Caption = 'MK Staged Location';
             TableRelation = Bin.Code;
             DataClassification = CustomerContent;
         }
 
-        field(50044; "MKStaged_Date"; Date)
+        field(50044; "MK Staged Date"; Date)
         {
-            Caption = 'MKStaged_Date';
+            Caption = 'MK Staged Date';
             DataClassification = CustomerContent;
             Editable = false;
         }
 
-        field(50045; "MKStaged_By"; Text[50])
+        field(50045; "MK Staged By"; Text[50])
         {
-            Caption = 'MKStaged_By';
+            Caption = 'MK Staged By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
             Editable = false;
         }
         field(50046; "Marketing Shipment Transfer"; Option)
         {
-            Caption = 'Marketing_Order_Type';
+            Caption = 'Marketing Shipment Transfer';
             DataClassification = CustomerContent;
             OptionMembers = "Shipment","Transfer";
         }
@@ -312,6 +312,13 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             CalcFormula = Lookup(Customer."Power Up Level" WHERE("No." = FIELD("Sell-to Customer No.")));
             OptionMembers = None,"Premier","Elite","Designer";
             Editable = false;
+        }
+
+        field(50049; "BOL No."; Code[20])
+        {
+            Caption = 'BOL No.';
+            TableRelation = "Torlys BOL Header";
+            DataClassification = CustomerContent;
         }
     }
 }

@@ -112,9 +112,9 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50020; "Qty. To ship"; Decimal)
+        field(50020; "Qty. to Ship"; Decimal)
         {
-            Caption = 'Qty. To ship';
+            Caption = 'Qty. to ship';
             CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }
@@ -309,7 +309,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
 
         }
 
-        field(50048; "Powerup Level"; Option)
+        field(50048; "Power Up Level"; Option)
         {
             Caption = 'Club';
             FieldClass = FlowField;
@@ -317,9 +317,9 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             OptionMembers = None,"Premier","Elite","Designer";
             Editable = false;
         }
-        field(50049; "BoL No."; Code[20])
+        field(50049; "BOL No."; Code[20])
         {
-            Caption = 'BoL No.';
+            Caption = 'BOL No.';
             TableRelation = "Torlys BOL Header";
             DataClassification = CustomerContent;
         }

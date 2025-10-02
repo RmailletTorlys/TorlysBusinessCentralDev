@@ -2,11 +2,7 @@ tableextension 56650 TorlysReturnShipmentHeader extends "Return Shipment Header"
 {
     fields
     {
-        field(50007; "Manufacturer Code"; Code[20])
-        {
-            Caption = 'Manufacturer Code';
-            DataClassification = CustomerContent;
-        }
+
 
         field(50008; "Production Date"; Date)
         {
@@ -20,10 +16,6 @@ tableextension 56650 TorlysReturnShipmentHeader extends "Return Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50011; "Incoterms"; Code[20])
-        {
-            Caption = 'Incoterms';
-            DataClassification = CustomerContent;
-        }
+
     }
 }

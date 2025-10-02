@@ -251,36 +251,36 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50041; "MKRequired"; Boolean)
+        field(50041; "MK Required"; Boolean)
         {
             Caption = 'MKRequired';
             DataClassification = CustomerContent;
         }
 
-        field(50042; "Marketing Order Type"; Option)
+        field(50042; "MK Required Type"; Option)
         {
-            Caption = 'Marketing Order Type';
+            Caption = 'MK Required Type';
             DataClassification = CustomerContent;
             OptionMembers = "","Plank","Swatch","Chainset","Custom";
         }
 
-        field(50043; "MKStaged_Location"; Code[10])
+        field(50043; "MK Staged Location"; Code[10])
         {
-            Caption = 'MKStaged_Location';
+            Caption = 'MK Staged Location';
             TableRelation = Bin.Code;
             DataClassification = CustomerContent;
         }
 
-        field(50044; "MKStaged_Date"; Date)
+        field(50044; "MK Staged Date"; Date)
         {
-            Caption = 'MKStaged_Date';
+            Caption = 'MK Staged Date';
             DataClassification = CustomerContent;
             Editable = false;
         }
 
-        field(50045; "MKStaged_By"; Text[50])
+        field(50045; "MK Staged By"; Text[50])
         {
-            Caption = 'MKStaged_By';
+            Caption = 'MK Staged By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
             Editable = false;
@@ -288,7 +288,7 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
 
         field(50046; "Marketing Shipment Transfer"; Option)
         {
-            Caption = 'Marketing_Order_Type';
+            Caption = 'Marketing Shipment Transfer';
             DataClassification = CustomerContent;
             OptionMembers = "Shipment","Transfer";
         }
@@ -303,7 +303,7 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
 
         }
 
-        field(50048; "Powerup Level"; Option)
+        field(50048; "Power Up Level"; Option)
         {
             Caption = 'Club';
             FieldClass = FlowField;
@@ -312,9 +312,9 @@ tableextension 50110 TorlysSalesShipmentHeader extends "Sales Shipment Header"
             Editable = false;
         }
 
-        field(50049; "BoL No."; Code[20])
+        field(50049; "BOL No."; Code[20])
         {
-            Caption = 'BoL No.';
+            Caption = 'BOL No.';
             TableRelation = "Torlys BOL Header";
             DataClassification = CustomerContent;
         }

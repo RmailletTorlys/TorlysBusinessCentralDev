@@ -65,14 +65,6 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 Visible = false;
             }
 
-            field("Line Amount"; Rec."Line Amount Excl. Tax")
-            {
-                Caption = 'Line Amount';
-                ToolTip = 'Line Amount';
-                ApplicationArea = All;
-                Visible = false;
-            }
-
             field("Unit Cost"; Rec."Unit Cost")
             {
                 Caption = 'Unit Cost';

@@ -38,18 +38,6 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(50007; "Freigt Item"; Boolean)
-        {
-            Caption = 'Freigt Item';
-            DataClassification = CustomerContent;
-        }
-
-        field(50008; "Misc. Item"; Boolean)
-        {
-            Caption = 'Misc. Item';
-            DataClassification = CustomerContent;
-        }
-
         field(50009; "Critical Display Item"; Boolean)
         {
             Caption = 'Critical Display Item';
@@ -58,31 +46,13 @@ tableextension 50027 TorlysItem extends Item
 
         field(50010; "SC Review Item"; Boolean)
         {
-            Caption = 'sc Review Item';
+            Caption = 'SC Review Item';
             DataClassification = CustomerContent;
         }
 
         field(50011; "SC Review Date"; Date)
         {
             Caption = 'SC Review Date';
-            DataClassification = CustomerContent;
-        }
-
-        field(50012; "FOC Item"; Boolean)
-        {
-            Caption = 'FOC Item';
-            DataClassification = CustomerContent;
-        }
-
-        field(50013; "Phase Out Item"; Boolean)
-        {
-            Caption = 'Phase Out Item';
-            DataClassification = CustomerContent;
-        }
-
-        field(50014; "Phase Out Date"; Date)
-        {
-            Caption = 'Phase Out Date';
             DataClassification = CustomerContent;
         }
 
@@ -127,7 +97,6 @@ tableextension 50027 TorlysItem extends Item
             Caption = 'Quantity to Ship';
             FieldClass = FlowField;
             CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)");
-
         }
 
         field(50022; "Qty. to Ship (Transfer)"; Decimal)
@@ -205,42 +174,6 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(50034; "Qty. on Hand - TRAILER"; Decimal)
-        {
-            Caption = 'Quantity on Hand - TRAILER';
-            DataClassification = CustomerContent;
-        }
-
-        field(50035; "Qty. on Hand - XGS"; Decimal)
-        {
-            Caption = 'Quantity on Hand - XGS';
-            DataClassification = CustomerContent;
-        }
-
-        field(50036; "Qty. on Hand - Virtual"; Decimal)
-        {
-            Caption = 'Quantity on Hand - Virtual';
-            DataClassification = CustomerContent;
-        }
-
-        field(50037; "Qty. on Hand - UWL"; Decimal)
-        {
-            Caption = 'Quantity on Hand - UWL';
-            DataClassification = CustomerContent;
-        }
-
-        field(50038; "Qty. on Hand - WSL"; Decimal)
-        {
-            Caption = 'Quantity on Hand - WSL';
-            DataClassification = CustomerContent;
-        }
-
-        field(50039; "Qty. on Hand - KESTREL"; Decimal)
-        {
-            Caption = 'Quantity on Hand - KESTREL';
-            DataClassification = CustomerContent;
-        }
-
         field(50040; "Qty. on Hand - SCANGLOBAL"; Decimal)
         {
             Caption = 'Quantity on Hand - SCANGLOBAL';
@@ -250,12 +183,6 @@ tableextension 50027 TorlysItem extends Item
         field(50041; "Qty. on Hand - KRN"; Decimal)
         {
             Caption = 'Quantity on Hand - KRN';
-            DataClassification = CustomerContent;
-        }
-
-        field(50042; "Qty. on Hand - SHIPCURVE"; Decimal)
-        {
-            Caption = 'Quantity on Hand - SHIPCURVE';
             DataClassification = CustomerContent;
         }
 
@@ -316,29 +243,12 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(50052; "Assembly Components on SO"; Boolean)
+        field(50052; "Customs/Tarrif Note"; Text[50])
         {
-            Caption = 'Assembly Components on Sales Order';
+            Caption = 'Customs/Tarrif Note';
             DataClassification = CustomerContent;
         }
 
-        field(50053; "Assembly Components on Ship"; Boolean)
-        {
-            Caption = 'Assembly Components on Shipments';
-            DataClassification = CustomerContent;
-        }
-
-        field(50054; "Assembly Components on Inv"; Boolean)
-        {
-            Caption = 'Assembly Components on Invoices';
-            DataClassification = CustomerContent;
-        }
-
-        field(50055; "Assembly Components on Pick"; Boolean)
-        {
-            Caption = 'Assembly Components on Pick Tickets';
-            DataClassification = CustomerContent;
-        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

@@ -16,6 +16,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
@@ -27,6 +28,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
@@ -51,6 +53,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 trigger OnValidate()
                 begin
                     OnValidateToReceiveCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
 
             }
@@ -63,6 +66,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 trigger OnValidate()
                 begin
                     OnValidateToReceivePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
         }

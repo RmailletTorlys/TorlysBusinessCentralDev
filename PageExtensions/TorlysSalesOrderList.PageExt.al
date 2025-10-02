@@ -187,6 +187,11 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             Visible = true;
         }
 
+        modify("Ship-to Code")
+        {
+            Visible = true;
+        }
+
     }
 
     actions

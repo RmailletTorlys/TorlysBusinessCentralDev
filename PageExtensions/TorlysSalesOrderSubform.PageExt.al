@@ -13,13 +13,11 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = UoMValid;
-
-
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, Rec);
+                    CurrPage.Update(true);
                 end;
-
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -28,13 +26,11 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = UoMValid;
-
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, Rec);
+                    CurrPage.Update(true);
                 end;
-
-
             }
 
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
@@ -59,6 +55,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 trigger OnValidate()
                 begin
                     OnValidateToShipCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
 
             }
@@ -73,6 +70,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 trigger OnValidate()
                 begin
                     OnValidateToShipPallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
 
             }

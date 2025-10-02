@@ -6,29 +6,24 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
         {
             Caption = 'Quantity Case';
             DataClassification = CustomerContent;
-
-
         }
 
         field(50002; "Quantity Pallet"; Integer)
         {
             Caption = 'Quantity Pallet';
             DataClassification = CustomerContent;
-
         }
 
         field(50003; "Qty. to Ship Case"; Integer)
         {
             Caption = 'Qty. to Ship Case';
             DataClassification = CustomerContent;
-
         }
 
         field(50004; "Qty. to Ship Pallet"; Integer)
         {
             Caption = 'Qty. to Ship Pallet';
             DataClassification = CustomerContent;
-
         }
 
         field(50005; "Return Qty. to Receive Case"; Integer)
@@ -41,8 +36,14 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
         {
             Caption = 'Return Qty. to Receive Pallet';
             DataClassification = CustomerContent;
+        }
 
-
+        field(50007; "Ship-to Code"; Code[20])
+        {
+            Caption = 'Ship-to Code';
+            FieldClass = FlowField;
+            CalcFormula = Lookup("Sales Header"."Ship-to Code" WHERE("No." = FIELD("Document No.")));
+            Editable = false;
         }
 
         field(50009; "Sales Price Code"; Code[20])
@@ -64,14 +65,12 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             Caption = 'Price List';
             DataClassification = CustomerContent;
             Editable = false;
-
         }
 
         field(50012; "Override Unit Price"; Boolean)
         {
             Caption = 'Override Unit Price';
             DataClassification = CustomerContent;
-
         }
 
         field(50013; "OverrideSOUnitPriceModDate"; Date)

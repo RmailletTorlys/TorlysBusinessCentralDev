@@ -6,13 +6,13 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
         QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Case Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
     local procedure OnValidateIJCaseQuantity(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Pallet Quantity', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
     local procedure OnValidateIJPalletQuantity(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
     begin
         OnChangeQuantityPallet(Rec, xRec, 1);
@@ -21,9 +21,7 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     procedure ValidateUoM(var Rec: Record "Item Journal Line"): Boolean
     var
         Item: Record Item;
-
     begin
-
         if Rec."Item No." = '' then
             exit(true);
 
@@ -32,14 +30,11 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
 
         //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
         if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
-
         exit(true);
     end;
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; OrderType: Integer)
     begin
-
-
         if ValidateUoM(Rec) = false then
             exit;
 
@@ -84,6 +79,8 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
         Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
         Rec."Quantity (Base)" := Rec.Quantity;
+        Rec."Invoiced Quantity" := Rec.Quantity;
+        Rec."Invoiced Qty. (Base)" := Rec.Quantity;
 
         if Rec.Quantity = 0 then
             Rec."Quantity Case" := 0;
@@ -100,13 +97,15 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
             Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
-
     end;
 
     local procedure HandleCaseQuantity(var Rec: Record "Item Journal Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
         Rec."Quantity (Base)" := Rec.Quantity;
+        Rec."Invoiced Quantity" := Rec.Quantity;
+        Rec."Invoiced Qty. (Base)" := Rec.Quantity;
+
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
 
@@ -116,7 +115,6 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
             Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
-
     end;
 
 
@@ -124,6 +122,8 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
         Rec."Quantity (Base)" := Rec.Quantity;
+        Rec."Invoiced Quantity" := Rec.Quantity;
+        Rec."Invoiced Qty. (Base)" := Rec.Quantity;
     end;
 
 

@@ -7,7 +7,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
         addafter(Quantity)
         {
-            field("Quantity Case;"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';

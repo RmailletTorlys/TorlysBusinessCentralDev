@@ -13,7 +13,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantity(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnValidateCase', '', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
     local procedure OnValidateSOCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
@@ -51,7 +51,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantity(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnValidateCase', '', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
     local procedure OnValidateCrMemoCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
@@ -89,7 +89,7 @@ codeunit 50002 "Torlys SL Quantity Rounding"
         OnChangeQuantity(Rec, xRec, 1);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnValidateCase', '', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
     local procedure OnValidateROCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQuantityCase(Rec, xRec, 1);
@@ -370,8 +370,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
 
     local procedure UpdateToShip(var Rec: Record "Sales Line")
     begin
-        Rec."Qty. to Ship (Base)" := Rec.Quantity;
         Rec."Qty. to Ship" := Rec.Quantity;
+        Rec."Qty. to Ship (Base)" := Rec."Quantity";
         Rec."Qty. to Ship Case" := Rec."Quantity Case";
         Rec."Qty. to Ship Pallet" := Rec."Quantity Pallet";
         Rec."Qty. to Invoice" := Rec.Quantity;
@@ -380,8 +380,8 @@ codeunit 50002 "Torlys SL Quantity Rounding"
 
     local procedure UpdateToReceive(var Rec: Record "Sales Line")
     begin
-        Rec."Return Qty. to Receive (Base)" := Rec.Quantity;
         Rec."Return Qty. to Receive" := Rec.Quantity;
+        Rec."Return Qty. to Receive (Base)" := Rec."Quantity";
         Rec."Return Qty. to Receive Case" := Rec."Quantity Case";
         Rec."Return Qty. to Receive Pallet" := Rec."Quantity Pallet";
         Rec."Qty. to Invoice" := Rec.Quantity;
@@ -391,15 +391,14 @@ codeunit 50002 "Torlys SL Quantity Rounding"
     local procedure UpdateToInvoiceSO(var Rec: Record "Sales Line")
     begin
         Rec."Qty. to Invoice" := Rec."Qty. to Ship";
-        Rec."Qty. to Invoice (Base)" := Rec."Qty. to Ship (Base)";
+        Rec."Qty. to Invoice (Base)" := Rec."Qty. to Ship";
     end;
 
     local procedure UpdateToInvoiceRO(var Rec: Record "Sales Line")
     begin
         Rec."Qty. to Invoice" := Rec."Return Qty. to Receive";
-        Rec."Qty. to Invoice (Base)" := Rec."Return Qty. to Receive (Base)";
+        Rec."Qty. to Invoice (Base)" := Rec."Return Qty. to Receive";
     end;
-
 
     var
         QuantityRoundingHelper: Codeunit "Quantity Rounding Helper";

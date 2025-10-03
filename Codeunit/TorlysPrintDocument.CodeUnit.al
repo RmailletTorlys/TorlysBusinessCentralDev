@@ -25,20 +25,21 @@ codeunit 50299 "Torlys Print Document"
     procedure PrintSalesOrder(SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction")
     var
         ReportSelection: Record "Report Selections";
+        SalesOrder: Record "Sales Header";
         ReportUsage: Enum "Report Selection Usage";
 
     begin
 
-        if SalesHeader."Document Type" <> SalesHeader."Document Type"::Order then
-            exit;
+        SalesOrder.SetRange("Document Type", SalesHeader."Document Type");
+        SalesOrder.SetRange("No.", SalesHeader."No.");
 
         ReportUsage := GetSalesOrderUsage(Usage);
+        ReportSelection.SetRange(Usage, ReportUsage);
+        ReportSelection.Find('-');
 
-        SalesHeader.SetRecFilter();
-
-
-        ReportSelection.PrintWithDialogForCust(
-            ReportUsage, SalesHeader, false, SalesHeader.FieldNo("Bill-to Customer No."));
+        repeat
+            Report.RunModal(ReportSelection."Report ID", false, false, SalesOrder);
+        until ReportSelection.Next() = 0;
     end;
 
     procedure GetSalesOrderUsage(Usage: Option "Order Confirmation","Work Order","Pick Instruction") Result: Enum "Report Selection Usage"

@@ -56,11 +56,11 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(Order_Date; Format("Order Date", 0, '<month,2>/<day,2>/<year,4>'))
+            column(Order_Date; Format("Order Date", 0, '<month,2>/<day,2>/<year,2>'))
             {
 
             }
-            column(Shipment_Date; Format("Shipment Date", 0, '<month,2>/<day,2>/<year,4>'))
+            column(Shipment_Date; Format("Shipment Date", 0, '<month,2>/<day,2>/<year,2>'))
             {
 
             }

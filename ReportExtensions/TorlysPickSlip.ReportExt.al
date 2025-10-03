@@ -44,7 +44,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(Pick_Slip_Printed_Date; Format("Pick Slip Printed Date", 0, '<month,2>/<day,2>/<year,4>'))
+            column(Pick_Slip_Printed_Date; Format("Pick Slip Printed Date", 0, '<month,2>/<day,2>/<year,2>'))
             {
 
             }

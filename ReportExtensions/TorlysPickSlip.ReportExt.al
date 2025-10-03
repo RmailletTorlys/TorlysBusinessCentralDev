@@ -175,6 +175,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         }
         modify("Sales Header")
         {
+            RequestFilterFields = "Ship-to Code";
             trigger OnAfterAfterGetRecord()
             var
                 BarcodeSymbology: Enum "Barcode Symbology";

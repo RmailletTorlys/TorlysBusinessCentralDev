@@ -63,7 +63,35 @@ End Function
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
-      <Fields />
+      <Fields>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="TariffQuantity">
+          <DataField>TariffQuantity</DataField>
+        </Field>
+        <Field Name="TariffQuantityFormat">
+          <DataField>TariffQuantityFormat</DataField>
+        </Field>
+        <Field Name="TariffNetWeightKG">
+          <DataField>TariffNetWeightKG</DataField>
+        </Field>
+        <Field Name="TariffNetWeightKGFormat">
+          <DataField>TariffNetWeightKGFormat</DataField>
+        </Field>
+        <Field Name="TariffNetWeightLB">
+          <DataField>TariffNetWeightLB</DataField>
+        </Field>
+        <Field Name="TariffNetWeightLBFormat">
+          <DataField>TariffNetWeightLBFormat</DataField>
+        </Field>
+        <Field Name="TariffLineAmount">
+          <DataField>TariffLineAmount</DataField>
+        </Field>
+        <Field Name="TariffLineAmountFormat">
+          <DataField>TariffLineAmountFormat</DataField>
+        </Field>
+      </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>
         <CommandText />

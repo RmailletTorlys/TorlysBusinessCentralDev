@@ -91,6 +91,48 @@ End Function
         <Field Name="TariffLineAmountFormat">
           <DataField>TariffLineAmountFormat</DataField>
         </Field>
+        <Field Name="SystemId">
+          <DataField>SystemId</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="OrderQuantity">
+          <DataField>OrderQuantity</DataField>
+        </Field>
+        <Field Name="OrderQuantityFormat">
+          <DataField>OrderQuantityFormat</DataField>
+        </Field>
+        <Field Name="OrderUOM">
+          <DataField>OrderUOM</DataField>
+        </Field>
+        <Field Name="NetWeightLB">
+          <DataField>NetWeightLB</DataField>
+        </Field>
+        <Field Name="NetWeightLBFormat">
+          <DataField>NetWeightLBFormat</DataField>
+        </Field>
+        <Field Name="NetWeightKG">
+          <DataField>NetWeightKG</DataField>
+        </Field>
+        <Field Name="NetWeightKGFormat">
+          <DataField>NetWeightKGFormat</DataField>
+        </Field>
+        <Field Name="NetPrice">
+          <DataField>NetPrice</DataField>
+        </Field>
+        <Field Name="NetPriceFormat">
+          <DataField>NetPriceFormat</DataField>
+        </Field>
+        <Field Name="LineAmount">
+          <DataField>LineAmount</DataField>
+        </Field>
+        <Field Name="LineAmountFormat">
+          <DataField>LineAmountFormat</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

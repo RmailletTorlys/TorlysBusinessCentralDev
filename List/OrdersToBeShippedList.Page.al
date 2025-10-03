@@ -333,19 +333,37 @@ page 52001 "Orders To Be Shipped List"
                     trigger OnAction()
                     var
                         SelectedSalesHeader: Record "Sales Header";
+                        SalesHeader: Record "Sales Header";
+                        ReportSelection: Record "Report Selections";
 
                     begin
+
                         CurrPage.SetSelectionFilter(SelectedSalesHeader);
 
-                        if SelectedSalesHeader.FindSet() then
-                            repeat
-                                TorlysDocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
-                            until SelectedSalesHeader.Next() = 0;
+                        // if SelectedSalesHeader.FindSet() then
+                        //     repeat
+                        //         TorlysDocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
+                        //     until SelectedSalesHeader.Next() = 0;
 
                         // if SelectedSalesHeader.FindSet() then
                         //     repeat
                         //         DocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
                         //     until SelectedSalesHeader.Next() = 0;
+
+
+
+
+                        SalesHeader.SetRange("No.", SelectedSalesHeader."No.");
+                        // SalesHeader.SetRange("Sell-to Customer No.", SelectedSalesHeader."Sell-to Customer No."); //TLY-SD-03
+                        SalesHeader.SetRange("Ship-to Code", SelectedSalesHeader."Ship-to Code"); //TLY-SD-03
+                        // SalesHeader.SetRange("Shipment Date", SalesHeader."Shipment Date"); //TLY-SD-03
+                        // SalesHeader.SetRange("Shipping Agent Code", SelectedSalesHeader."Shipping Agent Code"); //TLY-SD-03
+
+                        ReportSelection.SETRANGE(Usage, ReportSelection.Usage::"S.Order Pick Instruction");
+                        ReportSelection.FIND('-');
+                        REPEAT
+                            ReportSelection.PrintReport(ReportSelection.Usage::"S.Order Pick Instruction", SalesHeader);
+                        UNTIL ReportSelection.NEXT() = 0;
                     end;
                 }
 

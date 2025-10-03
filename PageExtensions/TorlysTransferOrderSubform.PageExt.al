@@ -2,34 +2,36 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
 {
     layout
     {
-        movebefore(Quantity; "Unit of Measure Code")
+        moveafter("Item No."; Description, "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
-            field("Case Quantity"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
-            field("Pallet Quantity"; Rec."Quantity Pallet")
+            field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
         }
 
-        moveafter("Pallet Quantity"; "Qty. to Ship")
+        moveafter("Quantity Pallet"; "Qty. to Ship")
 
         addafter("Qty. to Ship")
         {
@@ -41,7 +43,8 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    OnValidateToShipCase(Rec, xRec)
+                    OnValidateToShipCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
@@ -52,11 +55,25 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    OnValidateToShipPallet(Rec, xRec)
+                    OnValidateToShipPallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
         }
-        moveafter("Qty. to Ship Pallet"; "Qty. to Receive")
+
+        moveafter("Qty. to Ship Pallet"; "Quantity Shipped")
+
+        addafter("Quantity Shipped")
+        {
+            field("Qty. in Transit"; Rec."Qty. in Transit")
+            {
+                Caption = 'Qty. in Transit';
+                ToolTip = 'Qty. in Transit';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Qty. in Transit"; "Qty. to Receive")
 
         addafter("Qty. to Receive")
         {
@@ -69,9 +86,9 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
                 trigger OnValidate()
                 begin
-                    OnValidateToReceiveCase(Rec, xRec)
+                    OnValidateToReceiveCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
-
             }
 
             field("Qty. to Receive Pallet"; Rec."Qty. to Receive Pallet")
@@ -82,20 +99,49 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
                 trigger OnValidate()
                 begin
-                    OnValidateToReceivePallet(Rec, xRec)
+                    OnValidateToReceivePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
-
             }
-
         }
 
-        addafter("Quantity Shipped")
+        moveafter("Qty. to Receive Pallet"; "Quantity Received")
+
+        addafter("Quantity Received")
         {
-            field("Quantity in Transit"; Rec."Qty. in Transit")
+            field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
-                Caption = 'Qty. in Transit';
-                ToolTip = 'Qty. in Transit';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Created At"; Rec."SystemCreatedAt")
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
+            field("Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
+            field("Modified At"; Rec."SystemModifiedAt")
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
             }
         }
 
@@ -129,6 +175,9 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
             Visible = false;
         }
     }
+
+    var
+        LookupUserId: Codeunit "LookupUserID";
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")

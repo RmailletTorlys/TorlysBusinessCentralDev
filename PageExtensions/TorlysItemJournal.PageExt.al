@@ -2,46 +2,36 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
 {
     layout
     {
-        moveafter("Posting Date"; EntryType, "Document No.", "External Document No.", "Item No.", Description, "Location Code")
-
-        addafter("Location Code")
-        {
-            field("Department Code"; Rec."Shortcut Dimension 2 Code")
-            {
-                Caption = 'Department Code';
-                ToolTip = 'Department Code';
-                ApplicationArea = All;
-            }
-        }
-
-        moveafter("Department Code"; "Quantity")
+        moveafter("Posting Date"; EntryType, "Document No.", "External Document No.", "Item No.", Description, "Location Code", "Unit of Measure Code", "Quantity")
 
         addafter(Quantity)
         {
-            field("Case Quantity"; Rec."Quantity Case")
+            field("Quantity Case"; Rec."Quantity Case")
             {
-                Caption = 'Case Quantity';
-                ToolTip = 'Case Quantity';
+                Caption = 'Quantity Case';
+                ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
-            field("Pallet Quantity"; Rec."Quantity Pallet")
+            field("Quantity Pallet"; Rec."Quantity Pallet")
             {
-                Caption = 'Pallet Quantity';
-                ToolTip = 'Pallet Quantity';
+                Caption = 'Quantity Pallet';
+                ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
         }
 
-        moveafter("Pallet Quantity"; "Unit of Measure Code", "Unit Amount", "Unit Cost", "Shortcut Dimension 2 Code", "Reason Code")
+        moveafter("Quantity Pallet"; "Unit Amount", "Unit Cost", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Reason Code")
 
         modify("Entry Type")
         {

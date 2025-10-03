@@ -15,6 +15,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
@@ -26,6 +27,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
@@ -55,6 +57,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 trigger OnValidate()
                 begin
                     OnValidateToReceiveCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
 
             }
@@ -67,6 +70,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 trigger OnValidate()
                 begin
                     OnValidateToReceivePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
         }

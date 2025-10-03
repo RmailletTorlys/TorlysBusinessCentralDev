@@ -3,19 +3,13 @@ codeunit 50003 "Torlys PO Quantity Rounding"
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
     local procedure OnValidatePOQuantity(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 1);
+        OnChangeQuantity(Rec, xRec, 1);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Qty. to Receive', false, false)]
     local procedure OnValidatePOToReceiveQuantity(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 2);
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity Received', false, false)]
-    local procedure OnValidatePOReceivedQuantity(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    begin
-        QuantityRoundingToCaseAndPallet(Rec, xRec, 3);
+        OnChangeQuantity(Rec, xRec, 2);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
@@ -29,8 +23,6 @@ codeunit 50003 "Torlys PO Quantity Rounding"
     begin
         OnChangeQuantityCase(Rec, xRec, 2);
     end;
-
-
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
     local procedure OnValidatePOPallet(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
@@ -47,9 +39,7 @@ codeunit 50003 "Torlys PO Quantity Rounding"
     procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean
     var
         Item: Record Item;
-
     begin
-
         if Rec."No." = '' then
             exit(true);
 
@@ -58,11 +48,10 @@ codeunit 50003 "Torlys PO Quantity Rounding"
 
         //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
         if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
-
         exit(true);
     end;
 
-    procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; OrderType: Integer)
+    procedure OnChangeQuantity(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; OrderType: Integer)
     begin
         if Rec.Type <> Rec.Type::Item then
             exit;
@@ -77,9 +66,8 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         case OrderType of
             1: // Quantity
                 HandleQuantity(Rec);
-            2: // Qty. to Ship (Base)
+            2: // Qty. to Receive
                 HandleQtyToReceive(Rec);
-
         end;
     end;
 
@@ -90,12 +78,10 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'PALLET');
 
         case OrderType of
-            1: // Case Quantity
-                HandleCaseQuantity(Rec);
-            2: // Qty. to Ship Case
+            1: // Quantity Case
+                HandleQuantityCase(Rec);
+            2: // Qty. to Receive Case
                 HandleQtyToReceiveCase(Rec);
-            3: // Qty. to Receive Case
-                HandleQtyReceivedCase(Rec);
         end;
     end;
 
@@ -106,12 +92,10 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         PalletConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'PALLET');
 
         case OrderType of
-            1: // Pallet Quantity
-                HandlePalletQuantity(Rec);
-            2: // Qty. to Ship Pallet
+            1: // Quantity Pallet
+                HandleQuantityPallet(Rec);
+            2: // Qty. to Receive Pallet
                 HandleQtyToReceivePallet(Rec);
-            3: // Qty. to Receive Pallet
-                HandleQtyReceivedPallet(Rec);
         end;
     end;
 
@@ -122,7 +106,8 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         CaseQuantity := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, CaseConst);
         Rec.Quantity := QuantityRoundingHelper.ValidateQty(Rec.Quantity, CaseConst, CaseQuantity);
         Rec."Quantity (Base)" := Rec.Quantity;
-
+        Rec."Outstanding Quantity" := Rec.Quantity;
+        Rec."Outstanding Qty. (Base)" := Rec."Quantity (Base)";
 
         if Rec.Quantity = 0 then
             Rec."Quantity Case" := 0;
@@ -140,8 +125,6 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         else
             Rec."Quantity Case" := 0;
 
-        UpdateOutstanding(Rec);
-        UpdateToInvoice(Rec);
         UpdateToReceive(Rec);
     end;
 
@@ -163,14 +146,16 @@ codeunit 50003 "Torlys PO Quantity Rounding"
             Rec."Qty. to Receive Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Qty. to Receive Case" := 0;
+
+        UpdateToInvoice(Rec);
     end;
 
-
-
-    local procedure HandleCaseQuantity(var Rec: Record "Purchase Line")
+    local procedure HandleQuantityCase(var Rec: Record "Purchase Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
         Rec."Quantity (Base)" := Rec.Quantity;
+        Rec."Outstanding Quantity" := Rec.Quantity;
+        Rec."Outstanding Qty. (Base)" := Rec."Quantity (Base)";
 
         if Rec.Quantity >= PalletConst then
             Rec."Quantity Pallet" := QuantityRoundingHelper.QuantityUoM(Rec.Quantity, PalletConst);
@@ -181,8 +166,6 @@ codeunit 50003 "Torlys PO Quantity Rounding"
             Rec."Quantity Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
         else
             Rec."Quantity Case" := 0;
-        UpdateOutstanding(Rec);
-        UpdateToInvoice(Rec);
         UpdateToReceive(Rec);
     end;
 
@@ -202,30 +185,15 @@ codeunit 50003 "Torlys PO Quantity Rounding"
             Rec."Qty. to Receive Case" := 0;
 
         UpdateToReceive(Rec);
+        UpdateToInvoice(Rec);
     end;
 
-    local procedure HandleQtyReceivedCase(var Rec: Record "Purchase Line")
-    begin
-        Rec."Quantity Received" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
-
-        if Rec."Quantity Received" >= PalletConst then
-            Rec."Qty. to Receive Pallet" := QuantityRoundingHelper.QuantityUoM(Rec."Quantity Received", PalletConst);
-
-        RemainingQuantity := Rec."Quantity Received" - PalletConst * Rec."Qty. to Receive Pallet";
-
-        if RemainingQuantity > 0 then
-            Rec."Qty. to Receive Case" := QuantityRoundingHelper.QuantityUoM(RemainingQuantity, CaseConst)
-        else
-            Rec."Qty. to Receive Case" := 0;
-
-    end;
-
-    local procedure HandlePalletQuantity(var Rec: Record "Purchase Line")
+    local procedure HandleQuantityPallet(var Rec: Record "Purchase Line")
     begin
         Rec.Quantity := (CaseConst * Rec."Quantity Case") + (PalletConst * Rec."Quantity Pallet");
         Rec."Quantity (Base)" := Rec."Quantity";
-        UpdateOutstanding(Rec);
-        UpdateToInvoice(Rec);
+        Rec."Outstanding Quantity" := Rec.Quantity;
+        Rec."Outstanding Qty. (Base)" := Rec."Quantity (Base)";
         UpdateToReceive(Rec);
     end;
 
@@ -233,23 +201,8 @@ codeunit 50003 "Torlys PO Quantity Rounding"
     begin
         Rec."Qty. to Receive" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
         Rec."Qty. to Receive (Base)" := Rec."Qty. to Receive";
-
         UpdateToReceive(Rec);
-    end;
-
-    local procedure HandleQtyReceivedPallet(var Rec: Record "Purchase Line")
-    begin
-        Rec."Quantity Received" := (CaseConst * Rec."Qty. to Receive Case") + (PalletConst * Rec."Qty. to Receive Pallet");
-
-    end;
-
-    local procedure UpdateOutstanding(var Rec: Record "Purchase Line")
-
-    begin
-
-        Rec."Outstanding Quantity" := Rec.Quantity - Rec."Quantity Received";
-        Rec."Outstanding Qty. (Base)" := Rec."Outstanding Quantity";
-
+        UpdateToInvoice(Rec);
     end;
 
     local procedure UpdateToReceive(var Rec: Record "Purchase Line")
@@ -261,27 +214,34 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         if (PurchSetup."Default Qty. to Receive" = PurchSetup."Default Qty. to Receive"::Remainder) or
         (Rec."Document Type" = Rec."Document Type"::Invoice) then begin
             Rec."Qty. to Receive" := Rec.Quantity;
-            Rec."Qty. to Receive (Base)" := Rec."Quantity (Base)";
+            Rec."Qty. to Receive (Base)" := Rec."Quantity";
             Rec."Qty. to Receive Case" := Rec."Quantity Case";
             Rec."Qty. to Receive Pallet" := Rec."Quantity Pallet";
+            Rec."Qty. to Invoice" := Rec."Quantity";
+            Rec."Qty. to Invoice (Base)" := Rec."Quantity (Base)";
         end else
-            if Rec."Qty. to Receive" <> 0 then begin
-                Rec."Qty. to Receive (Base)" := MaxQtyToReceiveBase(Rec, Rec."Qty. to Receive (Base)");
-                HandleQtyToReceive(Rec);
-            end;
+            // if Rec."Qty. to Receive" <> 0 then begin
+            //     Rec."Qty. to Receive (Base)" := MaxQtyToReceiveBase(Rec, Rec."Qty. to Receive (Base)");
+            //     HandleQtyToReceive(Rec);
+            // end;
+            Rec."Qty. to Receive" := 0;
+        Rec."Qty. to Receive (Base)" := 0;
+        Rec."Qty. to Receive Case" := 0;
+        Rec."Qty. to Receive Pallet" := 0;
+        Rec."Qty. to Invoice" := 0;
+        Rec."Qty. to Invoice (Base)" := 0;
     end;
 
     local procedure UpdateToInvoice(var Rec: Record "Purchase Line")
     begin
-        Rec."Qty. to Invoice" := Rec.Quantity;
-        Rec."Qty. to Invoice (Base)" := Rec."Quantity (Base)";
+        Rec."Qty. to Invoice" := Rec."Qty. to Receive";
+        Rec."Qty. to Invoice (Base)" := Rec."Qty. to Receive (Base)";
     end;
 
     procedure MaxQtyToReceiveBase(Rec: Record "Purchase Line"; QtyToReceiveBase: Decimal): Decimal
     begin
         if Abs(QtyToReceiveBase) > Abs(Rec."Outstanding Qty. (Base)") then
             exit(Rec."Outstanding Qty. (Base)");
-
         exit(QtyToReceiveBase);
     end;
 

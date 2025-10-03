@@ -4,13 +4,13 @@ tableextension 50083 TorlysItemJournalLine extends "Item Journal Line"
     {
         field(50001; "Quantity Case"; Integer)
         {
-            Caption = 'Case Quantity';
+            Caption = 'Quantity Case';
             DataClassification = CustomerContent;
         }
 
         field(50002; "Quantity Pallet"; Integer)
         {
-            Caption = 'Pallet Quantity';
+            Caption = 'Quantity Pallet';
             DataClassification = CustomerContent;
         }
     }

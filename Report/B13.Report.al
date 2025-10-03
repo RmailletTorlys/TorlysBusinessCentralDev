@@ -69,7 +69,6 @@ report 50020 "B13 Purchase"
         Item3: Record Item;
         ItemUOM: Record "Item Unit of Measure";
         SalesHeader: Record "Sales Header";
-        IFSline: Record "Sales Line";
         CostInsteadOfPrice: Boolean;
         UsePurchasesTariff: Boolean;
         RemoveFreight: Boolean;

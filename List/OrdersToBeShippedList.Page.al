@@ -339,8 +339,13 @@ page 52001 "Orders To Be Shipped List"
 
                         if SelectedSalesHeader.FindSet() then
                             repeat
-                                DocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
+                                TorlysDocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
                             until SelectedSalesHeader.Next() = 0;
+
+                        // if SelectedSalesHeader.FindSet() then
+                        //     repeat
+                        //         DocPrint.PrintSalesOrder(SelectedSalesHeader, Usage::"Pick Instruction");
+                        //     until SelectedSalesHeader.Next() = 0;
                     end;
                 }
 

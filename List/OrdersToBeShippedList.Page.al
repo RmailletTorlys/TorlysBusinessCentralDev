@@ -10,6 +10,7 @@ page 52001 "Orders To Be Shipped List"
     SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
     WHERE("Document Type" = CONST(Order),
           "Status" = Const(Released)
+
  );
 
 
@@ -93,11 +94,11 @@ page 52001 "Orders To Be Shipped List"
                 }
 
 
-                field("To Ship Qty."; SumSalesLines(Rec."No."))
+                field("Qty. to Ship."; Rec."Qty. to Ship"))
                 {
                     ApplicationArea = All;
-                    Caption = 'To Ship Qty.';
-                    ToolTip = 'To Ship Quantity';
+                    Caption = 'Qty. to Ship';
+                    ToolTip = 'Qty. to Ship';
                     Editable = false;
                 }
 
@@ -165,19 +166,19 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("Whse Associate Picked By"; Rec."Warehouse Associate Picked By")
+                field("Warehouse Associate Picked By"; Rec."Warehouse Associate Picked By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Whse Associate Picked By';
-                    ToolTip = 'Whse Associate Picked By';
+                    Caption = 'Warehouse Associate Picked By';
+                    ToolTip = 'Warehouse Associate Picked By';
 
                 }
 
-                field("Whse Associate Checked By"; Rec."Warehouse Associate Checked By")
+                field("Warehouse Associate Checked By"; Rec."Warehouse Associate Checked By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Whse Associate Checked By';
-                    ToolTip = 'Whse Associate Checked By';
+                    Caption = 'Warehouse Associate Checked By';
+                    ToolTip = 'Warehouse Associate Checked By';
 
 
                 }
@@ -714,6 +715,18 @@ page 52001 "Orders To Be Shipped List"
         Rec.SetFilter("Shipment Date", '%1', WorkDate());
     end;
 
+    trigger OnAfterGetRecord()
+    begin
+        //CALCFIELDS("Qty. to Ship");
+        IF "Qty. to Ship" = 0 THEN BEGIN
+            CurrPage."Warehouse Associate Picked By".EDITABLE := FALSE;
+            CurrPage."Warehouse Associate Checked By".EDITABLE := FALSE;
+        END ELSE BEGIN
+            CurrPage."Warehouse Associate Picked By".EDITABLE := TRUE;
+            CurrPage."Warehouse Associate Checked By".EDITABLE := TRUE;
+        END;
+    end;
+
     local procedure GetCollectorID(CustomerNo: Code[20]) returnVar: Code[20]
     var
         CustomerRec: Record Customer;
@@ -916,7 +929,7 @@ page 52001 "Orders To Be Shipped List"
     local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
     var
         SalesHeader: Record "Sales Header";
-        LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
+        //LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
         DocumentIsScheduledForPosting: Boolean;
         DocumentIsPosted: Boolean;
 

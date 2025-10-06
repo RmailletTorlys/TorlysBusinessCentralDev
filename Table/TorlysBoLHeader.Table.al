@@ -383,6 +383,8 @@ table 55002 "Torlys BOL Header"
         SalesSetup.FindFirst();
         if not SalesSetup.IsEmpty() then
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
+
+        "Pickup Date" := WorkDate() //auto-populate todays date when creating BOL
     end;
 
 

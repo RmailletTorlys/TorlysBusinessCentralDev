@@ -405,11 +405,7 @@ page 51002 "Torlys BOL"
         area(Promoted)
         {
 
-            actionref("Add Lines for Today"; AddBoLLinesToday)
-            {
-            }
-
-            actionref("Add Lines for Another Day"; AddBoLLinesSpecDate)
+            actionref("Add Shipments for Pickup Date"; AddShipments)
             {
             }
 
@@ -434,48 +430,20 @@ page 51002 "Torlys BOL"
         }
         area(Navigation)
         {
-            action(AddBoLLinesToday)
+            action(AddShipments)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Add BoL Lines for Today';
-                Caption = 'Add BoL Lines for Today';
+                ToolTip = 'Add Shipments for Pickup Date';
+                Caption = 'Add Shipments for Pickup Date';
                 Image = Document;
-
-
-
 
                 trigger OnAction()
                 begin
-                    Rec."Pickup Date" := WorkDate();
+                    // Rec."Pickup Date" := WorkDate();
                     GetShipments();
                 end;
             }
 
-            action(AddBoLLinesSpecDate)
-            {
-                ApplicationArea = Basic, Suite;
-                ToolTip = 'Add BoL Lines for Another Day';
-                Caption = 'Add BoL Lines for Another Day';
-                Image = Document;
-
-
-
-
-                trigger OnAction()
-                var
-                    datePicker: Page "Date-Time Dialog";
-                    newDate: Date;
-
-                begin
-                    datePicker.SetDate(WorkDate());
-
-                    if datePicker.RunModal() = Action::OK then begin
-                        newDate := datePicker.GetDate();
-                        Rec."Pickup Date" := newDate;
-                        GetShipments();
-                    end;
-                end;
-            }
 
             action(PrintBoL)
             {
@@ -619,7 +587,6 @@ page 51002 "Torlys BOL"
         }
 
     }
-
 
 
     internal procedure GetShipments()

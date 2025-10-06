@@ -507,7 +507,7 @@ table 55002 "Torlys BOL Header"
 
     end;
 
-    procedure PrintBoL(BoLNo: Code[20])
+    procedure PrintOpenBOL(BoLNo: Code[20])
     var
         PrintBill: Codeunit "Print Bill of Lading Document";
         Usage: Option "Bill of Lading Report";

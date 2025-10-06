@@ -244,6 +244,7 @@ page 51002 "Torlys BOL"
                 Enabled = true;
                 SubPageLink = "BOL No." = field("No.");
                 UpdatePropagation = Both;
+                Editable = false;
             }
 
             group(WeightsQuantities)
@@ -409,22 +410,16 @@ page 51002 "Torlys BOL"
             {
             }
 
-            Group(PostPrint)
+            actionref("Print Open BOL"; PrintOpenBOL)
             {
-                Caption = 'Post and Print';
-                Image = Document;
+            }
 
-                actionref("Post BoL"; PostBill)
-                {
-                }
+            actionref("Post BOL"; PostBOL)
+            {
+            }
 
-                actionref("Print BoL"; PrintBoL)
-                {
-                }
-
-                actionref("Post and Print"; PostAndPrint)
-                {
-                }
+            actionref("Post + Print BOL"; PostAndPrint)
+            {
             }
 
         }
@@ -444,28 +439,24 @@ page 51002 "Torlys BOL"
                 end;
             }
 
-
-            action(PrintBoL)
+            action(PrintOpenBOL)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Print BoL';
-                Caption = 'Print BoL';
+                ToolTip = 'Print Open BOL';
+                Caption = 'Print Open BOL';
                 Image = Print;
-
-
                 trigger OnAction()
                 begin
-                    Rec.PrintBoL(Rec."No.");
+                    Rec.PrintOpenBOL(Rec."No.");
                 end;
             }
 
-            action(PostBill)
+            action(PostBOL)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Post BoL';
-                Caption = 'Post BoL';
+                ToolTip = 'Post BOL';
+                Caption = 'Post BOL';
                 Image = Document;
-
 
                 trigger OnAction()
                 var
@@ -473,7 +464,6 @@ page 51002 "Torlys BOL"
                     BoLLine: Record "Torlys BOL Line";
                     PBoL: Record "Torlys Processed BOL Header";
                     PBoLLine: Record "Torlys Processed BOL Line";
-
 
                 begin
                     BoL.Reset();
@@ -541,7 +531,7 @@ page 51002 "Torlys BOL"
 
                     if BoL.FindFirst() then begin
 
-                        Rec.PrintBoL(Rec."No.");
+                        Rec.PrintOpenBOL(Rec."No.");
 
                         PBoL.Init();
                         PBoL."No." := BoL."No.";
@@ -569,7 +559,6 @@ page 51002 "Torlys BOL"
                     Message('%1 Posted', BoL."No.");
 
                 end;
-
             }
 
             action(Print)
@@ -578,16 +567,13 @@ page 51002 "Torlys BOL"
                 ToolTip = 'Print';
                 Caption = 'Print';
                 Image = Print;
-
                 trigger OnAction()
                 begin
-                    Rec.PrintBoL(Rec."No.");
+                    Rec.PrintOpenBOL(Rec."No.");
                 end;
             }
         }
-
     }
-
 
     internal procedure GetShipments()
     var

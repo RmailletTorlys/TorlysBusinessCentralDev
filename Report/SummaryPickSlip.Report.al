@@ -189,11 +189,12 @@ report 50012 "Summary Pick Slip"
 
                         // OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + "Document No." + '  ';
                         matchstring := OrderString.Contains("Document No.");
-                        If ("Document No." <> previosfieldvalue) and matchstring = false then begin
+                        If matchstring = false then begin
+                            // If ("Document No." <> previosfieldvalue) and matchstring = false then begin
                             OrderString += "Document No." + ' ';
-                            previosfieldvalue := "Document No.";
+                            // previosfieldvalue := "Document No.";
                         end;
-                        previosfieldvalue := "Document No.";
+                        // previosfieldvalue := "Document No.";
                         TotalWeight += ("Net Weight" * "Qty. to Ship (Base)");
                         //     end;
                         // Until salesline.Next = 0;

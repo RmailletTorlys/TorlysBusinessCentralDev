@@ -23,7 +23,7 @@ report 50012 "Summary Pick Slip"
                 {
                     DataItemTableView = sorting("Document Type", Type, "No.");
                     DataItemLinkReference = PageLoop;
-                    RequestFilterFields = "Sell-to Customer No.", "LAX Ship-to Code", "Shipment Date", "Location Code", "Shipping Agent Code";
+                    RequestFilterFields = "Sell-to Customer No.", "Ship-to Code", "Shipment Date", "Location Code", "Shipping Agent Code";
                     RequestFilterHeading = 'Summary Pick Slip';
 
                     column(DayOfWeek; DayOfWeek)

@@ -32,11 +32,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(TotalPieces; TotalPieces)
-            {
-
-            }
-            column(TotalWeight; TotalWeight)
+            column(RePrintMessage; RePrintMessage)
             {
 
             }
@@ -128,10 +124,22 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(TotalPieces; TotalPieces)
+            {
+
+            }
+            column(TotalWeight; TotalWeight)
+            {
+
+            }
         }
 
         add("sales Line")
         {
+            column(Document_No_; "Document No.")
+            {
+
+            }
             column(LocationCode; "Location Code")
             {
 
@@ -182,6 +190,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 BarcodeFontProvider: Interface "Barcode Font Provider";
                 BarcodeStrings: Code[20];
             begin
+                // "Sales Header".Reset();
                 // Declare the barcode provider using the barcode provider interface and enum
                 BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
 
@@ -246,7 +255,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 Else
                     UseDate := WorkDate();
 
-                //CurrReport.PageNo := 1;
+                CurrReport.PageNo := 1;
 
                 If Not CurrReport.Preview then begin
                     PickPrintComment := StrSubstNo(Text009Lbl, UserId, WorkDate(), Time);
@@ -275,8 +284,8 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     Modify();
                 end;
 
-                // TotalPieces := 0;
-                // TotalWeight := 0;
+                TotalPieces := 0;
+                TotalWeight := 0;
 
                 If "No. Pick Slips Printed" > 0 then
                     RePrintMessage := 'REPRINT'
@@ -384,7 +393,6 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                         TotalPieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
                     end;
 
-
                 if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     TotalPieces += "Qty. to Ship";
 
@@ -395,7 +403,6 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                         "Qty. to Ship Case" := 0;
                         "Qty. to Ship Pallet" := 0
                     end;
-
 
                 IF "Gen. Prod. Posting Group" = 'MQ MOULDINGS' THEN BEGIN
                     //"To Ship - Singles" := 0;

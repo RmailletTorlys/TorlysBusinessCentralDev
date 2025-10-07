@@ -390,6 +390,7 @@ page 52001 "Orders To Be Shipped List"
                     var
                         SelectedSalesHeader: Record "Sales Header";
                         SalesShpHeader: Record "Sales Shipment Header";
+                        ShipPostPrint: Codeunit "Ship-Post + Print";
                     begin
                         CurrPage.SetSelectionFilter(SelectedSalesHeader);
 
@@ -397,7 +398,8 @@ page 52001 "Orders To Be Shipped List"
                             repeat
 
                                 // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
-                                CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
+                                // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
+                                ShipPostPrint.Run(SelectedSalesHeader);
                                 SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
                                 SalesShpHeader.FindLast();
                                 Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
@@ -695,11 +697,12 @@ page 52001 "Orders To Be Shipped List"
     }
 
     var
+        SalesLine: Record "Sales Line";
+        LookupUserId: Codeunit "LookupUserID";
         WarehouseAssociateEditable: Boolean;
         FullyAllocated: Text[3];
         ToShipWeight: Decimal;
-        SalesLine: Record "Sales Line";
-        LookupUserId: Codeunit "LookupUserID";
+
 
     trigger OnOpenPage()
     begin
@@ -709,11 +712,11 @@ page 52001 "Orders To Be Shipped List"
     trigger OnAfterGetRecord()
     begin
 
-        IF Rec."Qty. to Ship" = 0 THEN BEGIN
-            WarehouseAssociateEditable := false;
-        END ELSE BEGIN
+        IF Rec."Qty. to Ship" = 0 THEN
+            WarehouseAssociateEditable := false
+        ELSE
             WarehouseAssociateEditable := true;
-        END;
+
 
         IF Rec."Outstanding Quantity" <> Rec."Qty. to Ship" THEN FullyAllocated := 'No' ELSE FullyAllocated := 'Yes';
 
@@ -721,11 +724,10 @@ page 52001 "Orders To Be Shipped List"
         SalesLine.SETRANGE("Document Type", Rec."Document Type");
         SalesLine.SETRANGE("Document No.", Rec."No.");
         SalesLine.SETFILTER("Qty. to Ship", '>0');
-        IF SalesLine.FIND('-') THEN BEGIN
+        IF SalesLine.FIND('-') THEN
             REPEAT
                 ToShipWeight := ToShipWeight + (SalesLine."Qty. to Ship" * SalesLine."Net Weight")
-            UNTIL SalesLine.NEXT = 0;
-        END;
+            UNTIL SalesLine.NEXT() = 0;
 
     end;
 
@@ -757,14 +759,14 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        ShipmentHeader.RESET;
+        ShipmentHeader.RESET();
         ShipmentHeader.SETRANGE("Order No.", Rec."No.");
         ShipmentHeader.SETRANGE("Shipment Date", Rec."Shipment Date");
-        IF ShipmentHeader.FIND('+') THEN BEGIN
-            ShipmentNo := ShipmentHeader."No.";
-        END ELSE BEGIN
+        IF ShipmentHeader.FIND('+') THEN
+            ShipmentNo := ShipmentHeader."No."
+        ELSE
             ShipmentNo := '';
-        END;
+
 
         OnAfterGetShipmentNo(OrderNo, returnVar);
 
@@ -782,13 +784,13 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        ShipmentLine.RESET;
+        ShipmentLine.RESET();
         ShipmentLine.SETRANGE("Document No.", GetShipmentNo(Rec."No."));
-        IF ShipmentLine.FIND('-') THEN BEGIN
+        IF ShipmentLine.FIND('-') THEN
             REPEAT
                 ShipmentWeight := ShipmentWeight + (ShipmentLine."Quantity" * ShipmentLine."Net Weight");
-            UNTIL ShipmentLine.NEXT = 0;
-        END;
+            UNTIL ShipmentLine.NEXT() = 0;
+
 
         OnAfterGetShipmentWeight(ShipmentNo, returnVar);
 
@@ -806,13 +808,13 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        ShipmentHeader.RESET;
+        ShipmentHeader.RESET();
         ShipmentHeader.SETRANGE("No.", GetShipmentNo(Rec."No."));
-        IF ShipmentHeader.FIND('-') THEN BEGIN
-            BOLNo := ShipmentHeader."BOL No.";
-        END ELSE BEGIN
+        IF ShipmentHeader.FIND('-') THEN
+            BOLNo := ShipmentHeader."BOL No."
+        ELSE
             BOLNo := '';
-        END;
+
 
         OnAfterGetBOLNo(ShipmentNo, returnVar);
 
@@ -829,13 +831,13 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        ProcessedBOLHeader.RESET;
+        ProcessedBOLHeader.RESET();
         ProcessedBOLHeader.SETRANGE("No.", GetBOLNo(GetShipmentNo(Rec."No.")));
-        IF ProcessedBOLHeader.FIND('-') THEN BEGIN
-            BOLProcessedDate := ProcessedBOLHeader.SystemCreatedAt;
-        END ELSE BEGIN
+        IF ProcessedBOLHeader.FIND('-') THEN
+            BOLProcessedDate := ProcessedBOLHeader.SystemCreatedAt
+        ELSE
             BOLProcessedDate := 0DT;
-        END;
+
 
         OnAfterGetBOLProcessedDate(BOLNo, returnVar);
 
@@ -844,7 +846,7 @@ page 52001 "Orders To Be Shipped List"
 
     local procedure GetNoOfSkids(No: Code[20]) returnVar: Integer
     var
-        SalesLine: Record "Sales Line";
+        CurrSalesLine: Record "Sales Line";
         IsHandled: Boolean;
         NoOfSkids: Integer;
 
@@ -853,7 +855,7 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        SalesLine.SetRange("Document No.", No);
+        CurrSalesLine.SetRange("Document No.", No);
         NoOfSkids := 0;
 
         if SalesLine.FindSet() then
@@ -869,7 +871,7 @@ page 52001 "Orders To Be Shipped List"
 
     local procedure GetNoOfCases(No: Code[20]) returnVar: Integer
     var
-        SalesLine: Record "Sales Line";
+        CurrSalesLine: Record "Sales Line";
         IsHandled: Boolean;
         NoOfCases: Integer;
 
@@ -878,7 +880,7 @@ page 52001 "Orders To Be Shipped List"
         if IsHandled then
             exit;
 
-        SalesLine.SetRange("Document No.", No);
+        CurrSalesLine.SetRange("Document No.", No);
         NoOfCases := 0;
 
         if SalesLine.FindSet() then

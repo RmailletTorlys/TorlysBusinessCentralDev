@@ -164,7 +164,7 @@ page 51001 "Torlys BOL List"
                 trigger OnAction()
                 var
                     BillOfLading: Record "Torlys BOL Header";
-                    BoLListPage: Page "Torlys Bols";
+                    BoLListPage: Page "Torlys BOL List";
 
                 begin
                     BoLListPage.SetTableView(BillOfLading);

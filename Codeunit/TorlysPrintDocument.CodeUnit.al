@@ -29,20 +29,21 @@ codeunit 50299 "Torlys Print Document"
         UNTIL ReportSelectionWhse.NEXT = 0;
     end;
 
-    procedure PrintSummaryPickSlip(SalesLine: Record "Sales Line"): Boolean
+    procedure PrintSummaryPickSlip(SalesHeader: Record "Sales Header"): Boolean
     var
         ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
-        SalesLine.SETRANGE("Sell-to Customer No.", SalesLine."Sell-to Customer No.");
-        SalesLine.SETRANGE("Ship-to Code", SalesLine."Ship-to Code");
-        SalesLine.SETRANGE("Shipment Date", SalesLine."Shipment Date");
-        SalesLine.SETRANGE("Location Code", SalesLine."Location Code");
-        SalesLine.SETRANGE("Shipping Agent Code", SalesLine."Shipping Agent Code");
+        SalesHeader.SETRANGE("Sell-to Customer No.", SalesHeader."Sell-to Customer No.");
+        SalesHeader.SETRANGE("Ship-to Code", SalesHeader."Ship-to Code");
+        SalesHeader.SETRANGE("Shipment Date", SalesHeader."Shipment Date");
+        SalesHeader.SETRANGE("Location Code", SalesHeader."Location Code");
+        SalesHeader.SETRANGE("Shipping Agent Code", SalesHeader."Shipping Agent Code");
+        // SalesHeader.SETRANGE("No. Pick Slips Printed", 0);
         ReportSelectionWhse.SETRANGE(Usage, ReportSelectionWhse.Usage::"Summary Pick Slip");
         ReportSelectionWhse.SETFILTER("Report ID", '<>0');
         ReportSelectionWhse.FIND('-');
         REPEAT
-            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesLine)
+            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
         UNTIL ReportSelectionWhse.NEXT = 0;
     end;
 

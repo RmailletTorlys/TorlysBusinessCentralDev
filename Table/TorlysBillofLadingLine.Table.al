@@ -2,8 +2,8 @@ table 55003 "Torlys BOL Line"
 {
     DataClassification = CustomerContent;
     Caption = 'Torlys BOL Line';
-    DrillDownPageId = "Torlys BOL Line";
-    LookupPageId = "Torlys BOL Line";
+    DrillDownPageId = "Torlys BOL List";
+    LookupPageId = "Torlys BOL List";
 
 
     fields

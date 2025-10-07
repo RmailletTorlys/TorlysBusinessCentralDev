@@ -366,6 +366,7 @@ table 55002 "Torlys BOL Header"
     }
 
     var
+        UserSetup: Record "User Setup";
         PieceCount: Text[260];
         SkidCount: Text[50];
         BoxCount: Text[50];
@@ -384,7 +385,8 @@ table 55002 "Torlys BOL Header"
         if not SalesSetup.IsEmpty() then
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
 
-        "Pickup Date" := WorkDate() //auto-populate todays date when creating BOL
+        IF UserSetup.GET(USERID) THEN "Location Code" := UserSetup."Default Location Code";
+        "Pickup Date" := WorkDate(); //auto-populate todays date when creating BOL
     end;
 
 

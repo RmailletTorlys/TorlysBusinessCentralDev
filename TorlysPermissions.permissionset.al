@@ -40,8 +40,8 @@ permissionset 50000 TorlysPermissions
         page "Sales Price Code Lookup" = X,
         page "Torlys BOL" = X,
         page "Torlys BOL Subform" = X,
-        page "Torlys BOLs" = X,
-        page "Torlys Process BOL" = X,
+        page "Torlys BOL List" = X,
+        page "Torlys Processed BOL" = X,
         page "Orders To Be Shipped List" = X,
         query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;

@@ -2,7 +2,7 @@ page 51003 "Torlys BOL Lines"
 {
     ApplicationArea = Basic, Suite;
     Caption = 'Bill of Lading Lines';
-    Editable = true;
+    Editable = false;
     LinksAllowed = false;
     PageType = List;
     SourceTable = "Torlys BOL Line";

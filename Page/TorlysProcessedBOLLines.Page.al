@@ -1,8 +1,8 @@
 page 51009 "Torlys Processed BOL Lines"
 {
     ApplicationArea = Basic, Suite;
-    Caption = 'Processed BOL Lines';
-    Editable = true;
+    Caption = 'Processed Bill of Lading Lines';
+    Editable = false;
     LinksAllowed = false;
     PageType = List;
     SourceTable = "Torlys Processed BOL Line";

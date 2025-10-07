@@ -598,7 +598,7 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
                     trigger OnAction()
                     begin
-                        TorlysDocPrint.PrintSummaryPickSlip(SalesLine);
+                        TorlysDocPrint.PrintSummaryPickSlip(Rec);
                     end;
                 }
 

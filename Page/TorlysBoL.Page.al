@@ -70,30 +70,13 @@ page 51002 "Torlys BOL"
                     Importance = Promoted;
                 }
 
-                field("Carrier Agent Code"; Rec."Shipping Agent Code")
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the Carrier agent.';
-                    Caption = 'Carrier Agent Code';
+                    ToolTip = 'Specifies the code of the shipping agent.';
+                    Caption = 'Shipping Agent Code';
                     Importance = Promoted;
-
-                    trigger OnValidate()
-                    begin
-                        Rec.UpdateFreightChartOnShipAgentCode(Rec."Shipping Agent Code");
-                    end;
                 }
-
-                field("Freight Charges"; Rec."Freight Charges")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Tooltip = 'Specifies the type of Freight Charge';
-                    Caption = 'Freight Charges';
-                    Editable = false;
-                }
-
-
-
-
             }
 
             group(Shipping)
@@ -446,8 +429,12 @@ page 51002 "Torlys BOL"
                 Caption = 'Print Open BOL';
                 Image = Print;
                 trigger OnAction()
+                var
+                    BOLHeader: Record "Torlys BOL Header";
                 begin
-                    Rec.PrintOpenBOL(Rec."No.");
+                    // Rec.PrintOpenBOL(Rec."No.");
+                    BOLHeader.SETRANGE(BOLHeader."No.", Rec."No.");
+                    REPORT.RUNMODAL(REPORT::"Bill of Lading", TRUE, FALSE, BOLHeader);
                 end;
             }
 
@@ -564,8 +551,8 @@ page 51002 "Torlys BOL"
             action(Print)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Print';
-                Caption = 'Print';
+                ToolTip = 'Print Open BOL';
+                Caption = 'Print Open BOL';
                 Image = Print;
                 trigger OnAction()
                 begin

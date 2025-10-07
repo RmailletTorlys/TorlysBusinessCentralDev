@@ -402,7 +402,8 @@ page 52001 "Orders To Be Shipped List"
                         if SelectedSalesHeader.FindSet() then
                             repeat
 
-                                PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
                                 SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
                                 SalesShpHeader.FindLast();
                                 Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
@@ -427,8 +428,8 @@ page 52001 "Orders To Be Shipped List"
                     begin
                         ShipmentHeader.Reset();
                         ShipmentHeader.SetRange("No.", GetShipmentNo(Rec."No."));
-                        ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
-                        if ShipmentHeader.Find('+') then
+                        // ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
+                        if ShipmentHeader.Find('-') then
                             ShipmentHeader."BOL No." := '';
                     end;
                 }

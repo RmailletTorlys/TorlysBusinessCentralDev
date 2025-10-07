@@ -384,7 +384,7 @@ page 52001 "Orders To Be Shipped List"
                         SalesLine.SETRANGE(SalesLine."Shipment Date", Rec."Shipment Date");
                         SalesLine.SETRANGE(SalesLine."Location Code", Rec."Location Code");
                         SalesLine.SETRANGE(SalesLine."Shipping Agent Code", Rec."Shipping Agent Code");
-                        REPORT.RUNMODAL(REPORT::"Summary Pick Slip", TRUE, FALSE, SalesLine);
+                        REPORT.RUNMODAL(REPORT::"Summary Pick Slip", true, false, SalesLine);
                     end;
                 }
 
@@ -435,7 +435,7 @@ page 52001 "Orders To Be Shipped List"
                         ShipmentHeader.Reset();
                         ShipmentHeader.SetRange("No.", GetShipmentNo(Rec."No."));
                         // ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
-                        if ShipmentHeader.Find('-') then
+                        if ShipmentHeader.FindFirst() then
                             ShipmentHeader."BOL No." := '';
                     end;
                 }
@@ -772,7 +772,7 @@ page 52001 "Orders To Be Shipped List"
         ShipmentHeader.RESET();
         ShipmentHeader.SETRANGE("Order No.", Rec."No.");
         ShipmentHeader.SETRANGE("Shipment Date", Rec."Shipment Date");
-        IF ShipmentHeader.FIND('+') THEN
+        IF ShipmentHeader.FindLast() THEN
             ShipmentNo := ShipmentHeader."No."
         ELSE
             ShipmentNo := '';
@@ -820,7 +820,7 @@ page 52001 "Orders To Be Shipped List"
 
         ShipmentHeader.RESET();
         ShipmentHeader.SETRANGE("No.", GetShipmentNo(Rec."No."));
-        IF ShipmentHeader.FIND('-') THEN
+        IF ShipmentHeader.FindFirst() THEN
             BOLNo := ShipmentHeader."BOL No."
         ELSE
             BOLNo := '';
@@ -843,7 +843,7 @@ page 52001 "Orders To Be Shipped List"
 
         ProcessedBOLHeader.RESET();
         ProcessedBOLHeader.SETRANGE("No.", GetBOLNo(GetShipmentNo(Rec."No.")));
-        IF ProcessedBOLHeader.FIND('-') THEN
+        IF ProcessedBOLHeader.FindFirst() THEN
             BOLProcessedDate := ProcessedBOLHeader.SystemCreatedAt
         ELSE
             BOLProcessedDate := 0DT;

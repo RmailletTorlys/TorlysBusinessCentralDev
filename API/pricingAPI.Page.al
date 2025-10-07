@@ -31,12 +31,12 @@ page 56000 "Pricing API"
                     Caption = 'Assign-to No.';
                 }
 
-                field(producttype; Rec."Source Type")
+                field(producttype; Rec."Asset Type")
                 {
                     Caption = 'Source Type';
                 }
 
-                field(productno; Rec."Source No.")
+                field(productno; Rec."Product No.")
                 {
                     Caption = 'Source No.';
                 }

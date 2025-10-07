@@ -132,6 +132,7 @@ page 50999 "Torlys Sales Order Shipment"
                 {
                     ApplicationArea = All;
                     SubPageLink = "Document No." = field("No.");
+                    SubPageView = where("Outstanding Quantity" = filter(<> 0));
                     Caption = 'Sales Lines';
                     Editable = false;
                 }
@@ -235,11 +236,8 @@ page 50999 "Torlys Sales Order Shipment"
                     Image = Print;
                     ToolTip = 'Print Pick Slip';
                     trigger OnAction()
-                    var
-                        SalesHeader: Record "Sales Header";
                     begin
-                        SalesHeader.SETRANGE(SalesHeader."No.", Rec."No.");
-                        REPORT.RUNMODAL(REPORT::"Pick Instruction", TRUE, FALSE, SalesHeader);
+                        TorlysDocPrint.PrintPickSlip(Rec);
                     end;
                 }
                 // action("Print Shipping Label")
@@ -262,7 +260,7 @@ page 50999 "Torlys Sales Order Shipment"
                 action(PostAndPrint)
                 {
                     ApplicationArea = Warehouse;
-                    Caption = 'Post and Print Order(s)';
+                    Caption = 'Post and Print';
                     Image = Post;
                     ToolTip = 'Post the selected sales order(s) as shipped.';
 
@@ -353,4 +351,7 @@ page 50999 "Torlys Sales Order Shipment"
 
 
     end;
+
+    var
+        TorlysDocPrint: Codeunit "Torlys Print Document";
 }

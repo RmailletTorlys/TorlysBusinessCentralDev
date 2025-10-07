@@ -1,8 +1,8 @@
-page 51005 "Torlys Processed BOLs"
+page 51005 "Torlys Processed BOL List"
 {
     ApplicationArea = Basic, Suite, Assembly;
     UsageCategory = Lists;
-    Caption = 'Processed BoLs';
+    Caption = 'Processed Bill of Lading List';
     CardPageId = "Torlys Processed BOL";
     DataCaptionFields = "No.";
     Editable = false;

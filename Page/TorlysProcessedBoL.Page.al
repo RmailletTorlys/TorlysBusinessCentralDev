@@ -73,10 +73,6 @@ page 51006 "Torlys Processed BOL"
                     Caption = 'Carrier Agent Code';
                     Importance = Promoted;
                 }
-
-
-
-
             }
 
             group(Shipping)
@@ -130,14 +126,11 @@ page 51006 "Torlys Processed BOL"
                             Importance = Additional;
                         }
 
-
-
                         field("Tracking No."; Rec."Carrier Tracking No.")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the tracking number of the carrier.';
                             Caption = 'Carrier Tracking No.';
-
                         }
 
                         field("Whse Associate Loaded"; Rec."Warehouse Associate Loaded by")
@@ -145,7 +138,6 @@ page 51006 "Torlys Processed BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
                             Caption = 'Whse Associate Loaded By';
-
                         }
 
                         field("Shipping Comment"; Rec."Shipping Comment")
@@ -221,7 +213,7 @@ page 51006 "Torlys Processed BOL"
                 }
             }
 
-            part(BoLLine; "Torlys BOL Subform")
+            part(BOLLine; "Torlys Processed BOL Subform")
             {
                 ApplicationArea = All;
                 Editable = false;
@@ -381,4 +373,30 @@ page 51006 "Torlys Processed BOL"
             }
         }
     }
+        actions
+    {
+        area(Promoted)
+        {
+            actionref("Print BOL"; PrintBOL)
+            {
+            }
+        }
+        area(Navigation)
+        {
+            action(PrintBOL)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print BOL';
+                Caption = 'Print BOL';
+                Image = Print;
+                trigger OnAction()
+                var
+                begin
+                    TorlysDocPrint.PrintProcessedBillOfLading(Rec);
+                end;
+            }
+        }
+    }
+    var
+        TorlysDocPrint: Codeunit "Torlys Print Document";
 }

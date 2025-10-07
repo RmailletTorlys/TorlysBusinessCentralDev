@@ -495,15 +495,15 @@ table 55002 "Torlys BOL Header"
 
     end;
 
-    procedure PrintOpenBOL(BOLNo: Code[20])
-    var
-        PrintBill: Codeunit "Print Bill of Lading Document";
-        Usage: Option "Bill of Lading Report";
-    begin
-        Rec.SetRange("No.", BOLNo);
-        if Rec.FindFirst() then
-            PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
-    end;
+    // procedure PrintOpenBOL(BOLNo: Code[20])
+    // var
+    //     PrintBill: Codeunit "Print Bill of Lading Document";
+    //     Usage: Option "Bill of Lading Report";
+    // begin
+    //     Rec.SetRange("No.", BOLNo);
+    //     if Rec.FindFirst() then
+    //         PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
+    // end;
 
 
 

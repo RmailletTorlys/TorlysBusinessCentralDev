@@ -255,35 +255,9 @@ page 52001 "Orders To Be Shipped List"
     {
         area(Promoted)
         {
-            group("Assign Orders")
+            group("Change View")
             {
-                actionref("Assign a Picker"; "Assign Picker")
-                { }
-
-                actionref("Assign a Checker"; "Assign Checker")
-                { }
-            }
-
-            actionref("Print Summary Pick Slip"; "Print Summary Pick Instruction")
-            { }
-
-            actionref("Remove BOL"; "Clear BOL")
-            { }
-
-            group("Posting & Printing")
-            {
-                actionref("Print Pick Slip"; "Print Pick Instruction")
-                { }
-
-
-
-                actionref("Post & Print"; "Post and Print Order(s)")
-                { }
-            }
-
-            group("Default Views")
-            {
-                actionref("Show Pickups"; "PickupOnly")
+                actionref("Pickups Only"; "PickupOnly")
                 { }
 
                 actionref("Show Shipments"; "OnlyShipments")
@@ -311,216 +285,31 @@ page 52001 "Orders To Be Shipped List"
                 { }
 
             }
+            group("Assign Orders")
+            {
+                actionref("Assign Picker"; AssignPicker)
+                { }
 
+                actionref("Assign Auditor"; AssignAuditor)
+                { }
+            }
+
+            actionref("Print Pick Slip"; PrintPickSlip)
+            { }
+
+            actionref("Print Summary Pick Slip"; PrintSummaryPickSlip)
+            { }
+
+            actionref("Post and Print"; PostAndPrint)
+            { }
+
+            actionref("Remove BOL from SH"; RemoveBOL)
+            { }
         }
 
 
         area(Processing)
         {
-            group("Post and Print")
-            {
-                Caption = 'Print';
-                Image = Print;
-
-                action("Print Pick Instruction")
-                {
-                    ApplicationArea = Warehouse;
-                    Caption = 'Pick Instruction';
-                    Image = Print;
-                    ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
-
-
-                    trigger OnAction()
-                    var
-                        SelectedSalesHeader: Record "Sales Header";
-                        SalesHeader: Record "Sales Header";
-                        ReportSelection: Record "Report Selections";
-                        FilterDate: Date;
-
-                    begin
-
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
-
-                        if SelectedSalesHeader.FindSet() then
-                            repeat
-                                FilterDate := SelectedSalesHeader."Shipment Date";
-
-                                SalesHeader.SetRange("No.", SelectedSalesHeader."No.");
-                                SalesHeader.SetRange("Sell-to Customer No.", SelectedSalesHeader."Sell-to Customer No."); //TLY-SD-03
-                                SalesHeader.SetRange("Ship-to Code", SelectedSalesHeader."Ship-to Code"); //TLY-SD-03
-                                SalesHeader.SetRange("Shipment Date", FilterDate); //TLY-SD-03
-                                SalesHeader.SetRange("Shipping Agent Code", SelectedSalesHeader."Shipping Agent Code"); //TLY-SD-03
-
-                                ReportSelection.SETRANGE(Usage, ReportSelection.Usage::"S.Order Pick Instruction");
-                                ReportSelection.FIND('-');
-                                REPEAT
-                                    ReportSelection.PrintReport(ReportSelection.Usage::"S.Order Pick Instruction", SalesHeader);
-                                UNTIL ReportSelection.NEXT() = 0;
-
-                            until SelectedSalesHeader.Next() = 0;
-                    end;
-                }
-
-                action("Print Summary Pick Instruction")
-                {
-                    ApplicationArea = Warehouse;
-                    Caption = 'Summary Pick Instruction';
-                    Image = Print;
-                    ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
-
-                    // trigger OnAction()
-                    // var
-                    //     Usage: Option "Summary Pick";
-                    // begin
-                    //     TorlysDocPrint.PrintSummaryPick(Usage::"Summary Pick");
-                    // end;
-                    trigger OnAction()
-                    var
-                        SalesLine: Record "Sales Line";
-                    begin
-                        // Rec.PrintOpenBOL(Rec."No.");
-                        SalesLine.SETRANGE(SalesLine."Sell-to Customer No.", Rec."Sell-to Customer No.");
-                        SalesLine.SETRANGE(SalesLine."Ship-to Code", Rec."Ship-to Code");
-                        SalesLine.SETRANGE(SalesLine."Shipment Date", Rec."Shipment Date");
-                        SalesLine.SETRANGE(SalesLine."Location Code", Rec."Location Code");
-                        SalesLine.SETRANGE(SalesLine."Shipping Agent Code", Rec."Shipping Agent Code");
-                        REPORT.RUNMODAL(REPORT::"Summary Pick Slip", TRUE, FALSE, SalesLine);
-                    end;
-                }
-
-
-                action("Post and Print Order(s)")
-                {
-                    ApplicationArea = Warehouse;
-                    Caption = 'Post and Print Order(s)';
-                    Image = Post;
-                    ToolTip = 'Post the selected sales order(s) as shipped.';
-
-                    trigger OnAction()
-                    var
-                        SelectedSalesHeader: Record "Sales Header";
-                        SalesShpHeader: Record "Sales Shipment Header";
-                        ShipPostPrint: Codeunit "Ship-Post + Print";
-                    begin
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
-
-                        if SelectedSalesHeader.FindSet() then
-                            repeat
-
-                                // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
-                                // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
-                                ShipPostPrint.Run(SelectedSalesHeader);
-                                SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
-                                SalesShpHeader.FindLast();
-                                Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
-                                SalesShpHeader.PrintRecords(true);
-
-                            until SelectedSalesHeader.Next() = 0
-
-                    end;
-                }
-
-                action("Clear BOL")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Clear BOL';
-                    Image = CheckList;
-                    ToolTip = 'Clear the BOL # from the current line.';
-
-                    trigger OnAction()
-                    var
-                        ShipmentHeader: Record "Sales Shipment Header";
-
-                    begin
-                        ShipmentHeader.Reset();
-                        ShipmentHeader.SetRange("No.", GetShipmentNo(Rec."No."));
-                        // ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
-                        if ShipmentHeader.Find('-') then
-                            ShipmentHeader."BOL No." := '';
-                    end;
-                }
-            }
-
-            group(Assignment)
-            {
-                action("Assign Picker")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Assign Picker';
-                    Image = CheckList;
-                    ToolTip = 'Assign a warehouse employee to the Picker field of selected Order(s).';
-
-
-                    trigger OnAction()
-                    var
-                        SelectedSalesHeader: Record "Sales Header";
-                        WhseAssoc: Record "Salesperson/Purchaser";
-                        WarehouseAssignment: Page "Warehouse Assignment";
-                    begin
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
-
-                        if not SelectedSalesHeader.FindSet() then
-                            Message('No Orders have been selected. Please check your selection and try again.');
-
-                        WarehouseAssignment.LookupMode(true);
-                        if SelectedSalesHeader.FindSet() then begin
-
-                            if WarehouseAssignment.RunModal() = Action::LookupOK then
-                                WarehouseAssignment.GetRecord(WhseAssoc);
-                            repeat
-                                SelectedSalesHeader."Warehouse Associate Picked By" := WhseAssoc.Code;
-                                SelectedSalesheader.Modify();
-                            until SelectedSalesHeader.Next() = 0;
-
-                        end;
-                    end;
-                }
-
-                action("Assign Checker")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Assign Auditor';
-                    Image = CheckList;
-                    ToolTip = 'Assign a warehouse employee to the Auditor field of selected Order(s).';
-
-
-                    trigger OnAction()
-                    var
-                        SelectedSalesHeader: Record "Sales Header";
-                        WhseAssoc: Record "Salesperson/Purchaser";
-                        WarehouseAssignment: Page "Warehouse Assignment";
-                    begin
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
-                        WarehouseAssignment.LookupMode(true);
-
-                        if not SelectedSalesHeader.FindSet() then
-                            Message('No Orders have been selected. Please check your selection and try again.');
-
-                        if SelectedSalesHeader.FindSet() then begin
-
-                            if WarehouseAssignment.RunModal() = Action::LookupOK then
-                                WarehouseAssignment.GetRecord(WhseAssoc);
-                            repeat
-                                if SelectedSalesHeader."Warehouse Associate Picked By" = '' then begin
-                                    Message('You must assign a picker before you can assign a checker on Order %1.', SelectedSalesHeader."No.");
-                                    continue;
-                                end;
-
-                                if SelectedSalesHeader."Warehouse Associate Picked By" = WhseAssoc."Code" then begin
-                                    Message('You cannot assign the same person for picker and checker on an Order. Check Order %1 and retry.', SelectedSalesHeader."No.");
-                                    continue;
-                                end;
-
-                                SelectedSalesHeader."Warehouse Associate Checked By" := WhseAssoc.Code;
-                                SelectedSalesheader.Modify();
-                            until SelectedSalesHeader.Next() = 0;
-                        end;
-
-
-                        CurrPage.Update(false);
-                    end;
-                }
-            }
             group(Views)
             {
                 Caption = 'Views';
@@ -537,8 +326,8 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
-                        Rec.SetRange("Shipment Method Code", 'PICKUP');
-                        Message('Filter applied for Shipment Method Code: %1', 'PICKUP');
+                        Rec.SetRange("Shipping Agent Code", 'PICKUP');
+                        Message('Filter applied for Shipment Agent Code: %1', 'PICKUP');
                     end;
                 }
 
@@ -700,6 +489,179 @@ page 52001 "Orders To Be Shipped List"
                         Rec.SetFilter("Warehouse Associate Picked By", '<>%1', '');
                         Rec.SetFilter("Posting Date", '');
                         Message('Filter applied for Orders Assigned to A Warehouse associate but not yet posted.')
+                    end;
+                }
+            }
+            group(Assignment)
+            {
+                action(AssignPicker)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Assign Picker';
+                    Image = CheckList;
+                    ToolTip = 'Assign a warehouse employee to the Picker field of selected Order(s).';
+
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        WhseAssoc: Record "Salesperson/Purchaser";
+                        WarehouseAssignment: Page "Warehouse Assignment";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if not SelectedSalesHeader.FindSet() then
+                            Message('No Orders have been selected. Please check your selection and try again.');
+
+                        WarehouseAssignment.LookupMode(true);
+                        if SelectedSalesHeader.FindSet() then begin
+
+                            if WarehouseAssignment.RunModal() = Action::LookupOK then
+                                WarehouseAssignment.GetRecord(WhseAssoc);
+                            repeat
+                                SelectedSalesHeader."Warehouse Associate Picked By" := WhseAssoc.Code;
+                                SelectedSalesheader.Modify();
+                            until SelectedSalesHeader.Next() = 0;
+
+                        end;
+                    end;
+                }
+
+                action(AssignAuditor)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Assign Auditor';
+                    Image = CheckList;
+                    ToolTip = 'Assign a warehouse employee to the Auditor field of selected Order(s).';
+
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        WhseAssoc: Record "Salesperson/Purchaser";
+                        WarehouseAssignment: Page "Warehouse Assignment";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+                        WarehouseAssignment.LookupMode(true);
+
+                        if not SelectedSalesHeader.FindSet() then
+                            Message('No Orders have been selected. Please check your selection and try again.');
+
+                        if SelectedSalesHeader.FindSet() then begin
+
+                            if WarehouseAssignment.RunModal() = Action::LookupOK then
+                                WarehouseAssignment.GetRecord(WhseAssoc);
+                            repeat
+                                if SelectedSalesHeader."Warehouse Associate Picked By" = '' then begin
+                                    Message('You must assign a picker before you can assign a checker on Order %1.', SelectedSalesHeader."No.");
+                                    continue;
+                                end;
+
+                                if SelectedSalesHeader."Warehouse Associate Picked By" = WhseAssoc."Code" then begin
+                                    Message('You cannot assign the same person for picker and checker on an Order. Check Order %1 and retry.', SelectedSalesHeader."No.");
+                                    continue;
+                                end;
+
+                                SelectedSalesHeader."Warehouse Associate Checked By" := WhseAssoc.Code;
+                                SelectedSalesheader.Modify();
+                            until SelectedSalesHeader.Next() = 0;
+                        end;
+
+
+                        CurrPage.Update(false);
+                    end;
+                }
+            }
+            group("Post + Print")
+            {
+                Caption = 'Print';
+                Image = Print;
+
+                action(PrintPickSlip)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Print Pick Slip';
+                    Image = Print;
+                    ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
+
+                    trigger OnAction()
+                    begin
+                        TorlysDocPrint.PrintPickSlip(Rec);
+                    end;
+                }
+
+                action(PrintSummaryPickSlip)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Print Summary Pick Slip';
+                    Image = Print;
+                    ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
+                    trigger OnAction()
+                    begin
+                        TorlysDocPrint.PrintSummaryPickSlip(SalesLine);
+                    end;
+                }
+
+                action(PostAndPrint)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Post and Print';
+                    Image = Post;
+                    ToolTip = 'Post the selected sales order(s) as shipped.';
+
+                    trigger OnAction()
+                    var
+                        SelectedSalesHeader: Record "Sales Header";
+                        SalesShpHeader: Record "Sales Shipment Header";
+                        ShipPostPrint: Codeunit "Ship-Post + Print";
+                    begin
+                        IF Rec."No. Pick Slips Printed" = 0 THEN
+                            ERROR('You cannot ship this order as no pick slips have been printed!');
+
+                        IF Rec."Warehouse Associate Picked By" = '' THEN
+                            ERROR('The Warehouse Associate Picked By field cannot be blank!');
+
+                        IF Rec."Warehouse Associate Checked By" = '' THEN
+                            ERROR('The Warehouse Associate Checked By field cannot be blank!');
+
+                        IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
+                            ERROR('The Picked By and the Checked By Associate cannot be the same!');
+
+                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        if SelectedSalesHeader.FindSet() then
+                            repeat
+
+                                // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
+                                ShipPostPrint.Run(SelectedSalesHeader);
+                                SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
+                                SalesShpHeader.FindLast();
+                                Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
+                                SalesShpHeader.PrintRecords(true);
+
+                            until SelectedSalesHeader.Next() = 0
+                    end;
+                }
+
+                action(RemoveBOL)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Remove BOL from SH';
+                    Image = CheckList;
+                    ToolTip = 'Clear the BOL # from the current line.';
+
+                    trigger OnAction()
+                    var
+                        ShipmentHeader: Record "Sales Shipment Header";
+                    begin
+                        ShipmentHeader.Reset();
+                        ShipmentHeader.SetRange("No.", GetShipmentNo(Rec."No."));
+                        if ShipmentHeader.Find('-') then begin
+                            MESSAGE('%1', ShipmentHeader."No.");
+                            ShipmentHeader."BOL No." := '';
+                            ShipmentHeader.Modify();
+                        end;
                     end;
                 }
             }

@@ -1,7 +1,7 @@
-page 51008 "Torlys Proc BOL Subform"
+page 51008 "Torlys Processed BOL Subform"
 {
     AutoSplitKey = true;
-    Caption = 'Processed BoL Lines';
+    Caption = 'Processed Bill of Lading Subform';
     DelayedInsert = true;
     LinksAllowed = false;
     MultipleNewLines = true;

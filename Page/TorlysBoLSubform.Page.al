@@ -1,17 +1,12 @@
 page 51004 "Torlys BOL Subform"
 {
     AutoSplitKey = true;
-    Caption = 'BoL Lines';
+    Caption = 'Bill of Lading Subform';
     DelayedInsert = true;
     LinksAllowed = false;
     MultipleNewLines = true;
     PageType = ListPart;
     SourceTable = "Torlys BOL Line";
-
-
-
-
-
 
     layout
     {

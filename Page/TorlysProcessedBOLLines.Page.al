@@ -1,7 +1,7 @@
-page 51009 "Torlys Proc BoL Line"
+page 51009 "Torlys Processed BOL Lines"
 {
     ApplicationArea = Basic, Suite;
-    Caption = 'Processed BoL Lines';
+    Caption = 'Processed BOL Lines';
     Editable = true;
     LinksAllowed = false;
     PageType = List;

@@ -3,12 +3,6 @@ tableextension 50038 TorlysPurchaseHeader extends "Purchase Header"
     fields
     {
 
-        field(50008; "Production Date"; Date)
-        {
-            Caption = 'Production Date';
-            DataClassification = CustomerContent;
-        }
-
         field(50010; "Last Archived Date"; Date)
         {
             Caption = 'Last Archived Date';

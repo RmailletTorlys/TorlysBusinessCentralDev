@@ -383,6 +383,8 @@ table 55002 "Torlys BOL Header"
         SalesSetup.FindFirst();
         if not SalesSetup.IsEmpty() then
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
+
+        "Pickup Date" := WorkDate() //auto-populate todays date when creating BOL
     end;
 
 
@@ -493,24 +495,12 @@ table 55002 "Torlys BOL Header"
 
     end;
 
-    procedure UpdateFreightChartOnShipAgentCode(AgentCode: Code[20])
-    var
-        ShipAgent: Record "Shipping Agent";
-    begin
-
-        ShipAgent.Reset();
-        ShipAgent.SetRange("Code", AgentCode);
-        ShipAgent.FindFirst();
-        Rec."Freight Charges" := ShipAgent."Freight Charges";
-
-    end;
-
-    procedure PrintBoL(BoLNo: Code[20])
+    procedure PrintOpenBOL(BOLNo: Code[20])
     var
         PrintBill: Codeunit "Print Bill of Lading Document";
         Usage: Option "Bill of Lading Report";
     begin
-        Rec.SetRange("No.", BoLNo);
+        Rec.SetRange("No.", BOLNo);
         if Rec.FindFirst() then
             PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
     end;

@@ -9,10 +9,7 @@ page 52001 "Orders To Be Shipped List"
     SourceTable = "Sales Header";
     SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
     WHERE("Document Type" = CONST(Order),
-          "Status" = Const(Released)
- );
-
-
+          "Status" = Const(Released));
 
     layout
     {
@@ -24,7 +21,7 @@ page 52001 "Orders To Be Shipped List"
                 {
                     ApplicationArea = All;
                     Caption = 'Order No.';
-                    ToolTip = 'Order Number';
+                    ToolTip = 'Order No.';
                     Editable = false;
                 }
 
@@ -43,7 +40,7 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("Collector ID"; GetCollectorID(Rec."Bill-to Customer No."))
+                field("Collector ID"; GetCollectorID(Rec."Sell-to Customer No."))
                 {
                     ApplicationArea = All;
                     Caption = 'Collector ID';
@@ -75,6 +72,14 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
+                field("Fully Allocated"; FullyAllocated)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Fully Allocated';
+                    ToolTip = 'Fully Allocated';
+                    Editable = false;
+                }
+
                 field("Shipping Advice"; Rec."Shipping Advice")
                 {
                     ApplicationArea = All;
@@ -83,25 +88,23 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-
-                field("Fully Allocated"; isFullyAllocated(Rec."No."))
+                field("Outstanding Quantity"; Rec."Outstanding Quantity")
                 {
                     ApplicationArea = All;
-                    Caption = 'Fully Allocated';
-                    ToolTip = 'Fully Allocated';
+                    Caption = 'Outstanding Quantity';
+                    ToolTip = 'Outstanding Quantity';
+                    Editable = false;
+                    Width = 1;
+                }
+                field("Qty. to Ship."; Rec."Qty. to Ship")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Qty. to Ship';
+                    ToolTip = 'Qty. to Ship';
                     Editable = false;
                 }
 
-
-                field("To Ship Qty."; SumSalesLines(Rec."No."))
-                {
-                    ApplicationArea = All;
-                    Caption = 'To Ship Qty.';
-                    ToolTip = 'To Ship Quantity';
-                    Editable = false;
-                }
-
-                field("To Ship Weight"; getOrderWeight(Rec."No."))
+                field("To Ship Weight"; ToShipWeight)
                 {
                     ApplicationArea = All;
                     Caption = 'To Ship Weight';
@@ -165,41 +168,38 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("Whse Associate Picked By"; Rec."Warehouse Associate Picked By")
+                field("Warehouse Associate Picked By"; Rec."Warehouse Associate Picked By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Whse Associate Picked By';
-                    ToolTip = 'Whse Associate Picked By';
-
+                    Caption = 'Warehouse Associate Picked By';
+                    ToolTip = 'Warehouse Associate Picked By';
+                    Editable = WarehouseAssociateEditable;
                 }
 
-                field("Whse Associate Checked By"; Rec."Warehouse Associate Checked By")
+                field("Warehouse Associate Checked By"; Rec."Warehouse Associate Checked By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Whse Associate Checked By';
-                    ToolTip = 'Whse Associate Checked By';
-
-
+                    Caption = 'Warehouse Associate Checked By';
+                    ToolTip = 'Warehouse Associate Checked By';
+                    Editable = WarehouseAssociateEditable;
                 }
-
-                field("Last Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
+                field("Modified By"; LookupUserId.UserId(Rec.SystemModifiedBy))
                 {
                     ApplicationArea = All;
-                    Caption = 'Last Modified By';
-                    ToolTip = 'Last Modified By';
-                    Editable = false;
-
-                }
-
-                field("Last Modified Date"; Rec.SystemModifiedAt)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Last Modified Date';
-                    ToolTip = 'Last Modified Date';
+                    Caption = 'Modified By';
+                    ToolTip = 'Modified By';
                     Editable = false;
                 }
 
-                field("Shipment No."; Rec."Shipping No.")
+                field("Modified At"; Rec.SystemModifiedAt)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Modified At';
+                    ToolTip = 'Modified At';
+                    Editable = false;
+                }
+
+                field("Shipment No."; GetShipmentNo(Rec."No."))
                 {
                     ApplicationArea = All;
                     Caption = 'Shipment No.';
@@ -207,7 +207,7 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("Shipment Weight"; GetShipmentWeight(Rec."No."))
+                field("Shipment Weight"; GetShipmentWeight(GetShipmentNo(Rec."No.")))
                 {
                     ApplicationArea = All;
                     Caption = 'Shipment Weight';
@@ -215,7 +215,7 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("BOL No."; GetBoLNo(Rec."No."))
+                field("BOL No."; GetBOLNo(GetShipmentNo(Rec."No.")))
                 {
                     ApplicationArea = All;
                     Caption = 'BOL No.';
@@ -223,7 +223,7 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("BOL Processed Date"; GetBoLDate(Rec."No."))
+                field("BOL Processed Date"; GetBOLProcessedDate(GetBOLNo(GetShipmentNo(Rec."No."))))
                 {
                     ApplicationArea = All;
                     Caption = 'Processed Date';
@@ -267,7 +267,7 @@ page 52001 "Orders To Be Shipped List"
             actionref("Print Summary Pick Slip"; "Print Summary Pick Instruction")
             { }
 
-            actionref("Remove BoL"; "Clear BoL")
+            actionref("Remove BOL"; "Clear BOL")
             { }
 
             group("Posting & Printing")
@@ -396,7 +396,8 @@ page 52001 "Orders To Be Shipped List"
                         if SelectedSalesHeader.FindSet() then
                             repeat
 
-                                PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                                CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
                                 SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
                                 SalesShpHeader.FindLast();
                                 Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
@@ -407,33 +408,23 @@ page 52001 "Orders To Be Shipped List"
                     end;
                 }
 
-                action("Clear BoL")
+                action("Clear BOL")
                 {
                     ApplicationArea = All;
-                    Caption = 'Clear BoL';
+                    Caption = 'Clear BOL';
                     Image = CheckList;
-                    ToolTip = 'Remove the BoL # from the current line.';
-
+                    ToolTip = 'Clear the BOL # from the current line.';
 
                     trigger OnAction()
                     var
-                        SalesShipmentHeader: Record "Sales Shipment Header";
-                        SelectedSalesHeader: Record "Sales Header";
-                        UpdateBoL: Codeunit UpdateBillOfLadingOnShipHeader;
-
+                        ShipmentHeader: Record "Sales Shipment Header";
 
                     begin
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
-
-                        if SelectedSalesHeader.FindSet() then
-                            repeat
-                                SalesShipmentHeader.Reset();
-                                SalesShipmentHeader.SetRange("Ship-to Code", SelectedSalesHeader."Ship-to Code");
-                                SalesShipmentHeader.SetRange("Shipment Date", SelectedSalesHeader."Shipment Date");
-                                if SalesShipmentHeader.FindLast() then
-                                    UpdateBoL.DeleteBolNumber(SalesShipmentHeader."No.", SalesShipmentHeader."BoL No.");
-
-                            until SelectedSalesHeader.Next() = 0
+                        ShipmentHeader.Reset();
+                        ShipmentHeader.SetRange("No.", GetShipmentNo(Rec."No."));
+                        // ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
+                        if ShipmentHeader.Find('-') then
+                            ShipmentHeader."BOL No." := '';
                     end;
                 }
             }
@@ -704,130 +695,152 @@ page 52001 "Orders To Be Shipped List"
     }
 
     var
-        LookupUser: Codeunit LookupUserID;
+        WarehouseAssociateEditable: Boolean;
+        FullyAllocated: Text[3];
+        ToShipWeight: Decimal;
+        SalesLine: Record "Sales Line";
+        LookupUserId: Codeunit "LookupUserID";
 
     trigger OnOpenPage()
     begin
         Rec.SetFilter("Shipment Date", '%1', WorkDate());
     end;
 
+    trigger OnAfterGetRecord()
+    begin
+
+        IF Rec."Qty. to Ship" = 0 THEN BEGIN
+            WarehouseAssociateEditable := false;
+        END ELSE BEGIN
+            WarehouseAssociateEditable := true;
+        END;
+
+        IF Rec."Outstanding Quantity" <> Rec."Qty. to Ship" THEN FullyAllocated := 'No' ELSE FullyAllocated := 'Yes';
+
+        CLEAR(ToShipWeight);
+        SalesLine.SETRANGE("Document Type", Rec."Document Type");
+        SalesLine.SETRANGE("Document No.", Rec."No.");
+        SalesLine.SETFILTER("Qty. to Ship", '>0');
+        IF SalesLine.FIND('-') THEN BEGIN
+            REPEAT
+                ToShipWeight := ToShipWeight + (SalesLine."Qty. to Ship" * SalesLine."Net Weight")
+            UNTIL SalesLine.NEXT = 0;
+        END;
+
+    end;
+
     local procedure GetCollectorID(CustomerNo: Code[20]) returnVar: Code[20]
     var
         CustomerRec: Record Customer;
-        CollectorId: Code[20];
+        CollectorID: Code[20];
         IsHandled: Boolean;
-
     begin
         OnBeforeGetCollectorID(CustomerNo, returnVar, IsHandled);
         if IsHandled then
             exit;
-
         if (CustomerRec.Get(CustomerNo)) then
-            CollectorId := CustomerRec."Collector ID"
+            CollectorID := CustomerRec."Collector ID"
         else
-            CollectorId := '';
-
+            CollectorID := '';
         OnAfterGetCollectorID(CustomerNo, returnVar);
-
-        exit(CollectorId);
+        exit(CollectorID);
     end;
 
-    local procedure GetBoLNo(No: Code[20]): Code[20]
+    local procedure GetShipmentNo(OrderNo: Code[20]) returnVar: Code[20]
     var
-        SalesShipment: Record "Sales Shipment Header";
+        ShipmentHeader: Record "Sales Shipment Header";
+        ShipmentNo: Code[20];
         IsHandled: Boolean;
-
     begin
-        OnBeforeGetBoLNo(No, IsHandled);
-        if IsHandled then
-            exit;
-        SalesShipment.Reset();
-        SalesShipment.SetRange("Order No.", No);
+        OnBeforeGetShipmentNo(OrderNo, returnVar, IsHandled);
 
-        if not SalesShipment.IsEmpty() then begin
-            SalesShipment.FindLast();
-            exit(SalesShipment."BoL No.");
-        end;
-
-
-        OnAfterGetBoLNo(No);
-    end;
-
-    local procedure GetBoLDate(No: Code[20]): DateTime
-    var
-        BoLRec: Record "Torlys Processed BOL Header";
-        IsHandled: Boolean;
-        BoLNo: Code[20];
-
-
-
-    begin
-        OnBeforeGetBoLDate(No, IsHandled);
         if IsHandled then
             exit;
 
-        BoLNo := GetBoLNo(No);
-        BoLRec.Reset();
-        BoLRec.SetRange("No.", BoLNo);
+        ShipmentHeader.RESET;
+        ShipmentHeader.SETRANGE("Order No.", Rec."No.");
+        ShipmentHeader.SETRANGE("Shipment Date", Rec."Shipment Date");
+        IF ShipmentHeader.FIND('+') THEN BEGIN
+            ShipmentNo := ShipmentHeader."No.";
+        END ELSE BEGIN
+            ShipmentNo := '';
+        END;
 
-        if not BoLRec.IsEmpty() then
-            exit(BoLRec."Posted Date");
+        OnAfterGetShipmentNo(OrderNo, returnVar);
 
-        OnAfterGetBoLDate(No);
+        exit(ShipmentNo);
     end;
 
-    procedure SumSalesLines(No: Code[20]) returnVar: Decimal
+    local procedure GetShipmentWeight(ShipmentNo: Code[20]) returnVar: Decimal
     var
-        SalesLines: Record "Sales Line";
-        TotalQuantity: Decimal;
+        ShipmentLine: Record "Sales Shipment Line";
+        ShipmentWeight: Decimal;
         IsHandled: Boolean;
     begin
-        OnBeforeSumSalesLines(No, returnVar, IsHandled);
-        if IsHandled then
-            exit;
-        TotalQuantity := 0;
+        OnBeforeGetShipmentWeight(ShipmentNo, returnVar, IsHandled);
 
-        SalesLines.SetRange("Document Type", SalesLines."Document Type"::Order);
-        SalesLines.SetRange("Document No.", No);
-
-        if SalesLines.FindSet() then
-            repeat
-                TotalQuantity += SalesLines.Quantity;
-            until SalesLines.Next() = 0;
-
-        OnAfterSumSalesLines(No, returnVar);
-
-        exit(TotalQuantity);
-    end;
-
-    local procedure GetShipmentWeight(No: Code[20]) returnVar: Decimal
-    var
-        SalesHeader: Record "Sales Header";
-        SalesLine: Record "Sales Line";
-        TotalWeight: Decimal;
-        IsHandled: Boolean;
-    begin
-        OnBeforeGetShipmentWeight(No, returnVar, IsHandled);
         if IsHandled then
             exit;
 
-        TotalWeight := 0;
-        SalesHeader.Reset();
-        SalesHeader.SetRange("No.", No);
-        if SalesHeader.FindSet() then begin
-            SalesLine.SetRange("Document Type", SalesHeader."Document Type");
-            SalesLine.SetRange("Document No.", SalesHeader."No.");
+        ShipmentLine.RESET;
+        ShipmentLine.SETRANGE("Document No.", GetShipmentNo(Rec."No."));
+        IF ShipmentLine.FIND('-') THEN BEGIN
+            REPEAT
+                ShipmentWeight := ShipmentWeight + (ShipmentLine."Quantity" * ShipmentLine."Net Weight");
+            UNTIL ShipmentLine.NEXT = 0;
+        END;
 
-            if not (SalesLine.IsEmpty()) then
-                repeat
-                    TotalWeight += SalesLine."Net Weight" * SalesLine.Quantity;
-                until SalesHeader.Next() = 0;
+        OnAfterGetShipmentWeight(ShipmentNo, returnVar);
 
-            OnAfterGetShipmentWeight(No, returnVar);
-            exit(TotalWeight);
-        end;
+        exit(ShipmentWeight);
     end;
 
+    local procedure GetBOLNo(ShipmentNo: Code[20]) returnvar: Code[20]
+    var
+        ShipmentHeader: Record "Sales Shipment Header";
+        BOLNo: Code[20];
+        IsHandled: Boolean;
+    begin
+        OnBeforeGetBOLNo(ShipmentNo, returnVar, IsHandled);
+
+        if IsHandled then
+            exit;
+
+        ShipmentHeader.RESET;
+        ShipmentHeader.SETRANGE("No.", GetShipmentNo(Rec."No."));
+        IF ShipmentHeader.FIND('-') THEN BEGIN
+            BOLNo := ShipmentHeader."BOL No.";
+        END ELSE BEGIN
+            BOLNo := '';
+        END;
+
+        OnAfterGetBOLNo(ShipmentNo, returnVar);
+
+        exit(BOLNo);
+    end;
+
+    local procedure GetBOLProcessedDate(BOLNo: Code[20]) returnvar: DateTime
+    var
+        ProcessedBOLHeader: Record "Torlys Processed BOL Header";
+        BOLProcessedDate: DateTime;
+        IsHandled: Boolean;
+    begin
+        OnBeforeGetBOLProcessedDate(BOLNo, returnvar, IsHandled);
+        if IsHandled then
+            exit;
+
+        ProcessedBOLHeader.RESET;
+        ProcessedBOLHeader.SETRANGE("No.", GetBOLNo(GetShipmentNo(Rec."No.")));
+        IF ProcessedBOLHeader.FIND('-') THEN BEGIN
+            BOLProcessedDate := ProcessedBOLHeader.SystemCreatedAt;
+        END ELSE BEGIN
+            BOLProcessedDate := 0DT;
+        END;
+
+        OnAfterGetBOLProcessedDate(BOLNo, returnVar);
+
+        exit(BOLProcessedDate);
+    end;
 
     local procedure GetNoOfSkids(No: Code[20]) returnVar: Integer
     var
@@ -879,36 +892,33 @@ page 52001 "Orders To Be Shipped List"
 
     end;
 
-    local procedure isFullyAllocated(No: Code[20]) isComplete: Boolean
-    var
-        SalesLines: Record "Sales Line";
-        QtyAllocated: Decimal;
-        IsHandled: Boolean;
+    // procedure SumSalesLines(No: Code[20]) returnVar: Decimal
+    // var
+    //     SalesLines: Record "Sales Line";
+    //     TotalQuantity: Decimal;
+    //     IsHandled: Boolean;
+    // begin
+    //     OnBeforeSumSalesLines(No, returnVar, IsHandled);
+    //     if IsHandled then
+    //         exit;
+    //     TotalQuantity := 0;
+
+    //     SalesLines.SetRange("Document Type", SalesLines."Document Type"::Order);
+    //     SalesLines.SetRange("Document No.", No);
+
+    //     if SalesLines.FindSet() then
+    //         repeat
+    //             TotalQuantity += SalesLines.Quantity;
+    //         until SalesLines.Next() = 0;
+
+    //     OnAfterSumSalesLines(No, returnVar);
+
+    //     exit(TotalQuantity);
+    // end;
 
 
-    begin
-        OnBeforeIsFullyAllocated(No, isComplete, IsHandled);
-        if IsHandled then
-            exit;
 
-        isComplete := False;
 
-        SalesLines.SetRange("Document No.", No);
-
-        if (SalesLines.FindSet()) then begin
-            QtyAllocated := 0;
-            repeat
-                QtyAllocated += SalesLines.Quantity;
-            until SalesLines.Next() = 0;
-
-            if (QtyAllocated = SalesLines.Quantity) then isComplete := True;
-
-        end;
-
-        OnAfterIsFullyAllocated(No, isComplete);
-
-        exit(isComplete);
-    end;
 
     local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
     var
@@ -931,33 +941,6 @@ page 52001 "Orders To Be Shipped List"
 
 
     end;
-
-    local procedure getOrderWeight(No: Code[20]) returnVar: Decimal
-    var
-        SalesHeader: Record "Sales Header";
-        IsHandled: Boolean;
-        TotalWeight: Decimal;
-
-    begin
-        OnBeforeGetOrderWeight(No, returnVar, IsHandled);
-        if IsHandled then
-            exit;
-
-        SalesHeader.SetFilter("No.", No);
-        TotalWeight := 0;
-
-        if SalesHeader.Find() then
-            repeat
-            // TotalWeight += SalesHeader."To Ship Weight";
-            until SalesHeader.Next() = 0;
-
-        OnAfterGetOrderWeight(No, returnVar);
-
-        exit(TotalWeight);
-
-    end;
-
-
 
     var
         DocPrint: Codeunit "Document-Print";
@@ -987,12 +970,42 @@ page 52001 "Orders To Be Shipped List"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeGetShipmentWeight(No: Code[20]; var returnVar: Decimal; var IsHandled: Boolean)
+    local procedure OnBeforeGetShipmentNo(OrderNo: Code[20]; var returnVar: Code[20]; var IsHandled: Boolean)
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnAfterGetShipmentWeight(No: Code[20]; var returnVar: Decimal)
+    local procedure OnAfterGetShipmentNo(OrderNo: Code[20]; var returnVar: Code[20])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeGetShipmentWeight(ShipmentNo: Code[20]; var returnVar: Decimal; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetShipmentWeight(ShipmentNo: Code[20]; var returnVar: Decimal)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeGetBOLNo(ShipmentNo: Code[20]; var returnVar: Code[20]; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetBOLNo(ShipmentNo: Code[20]; var returnVar: Code[20])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeGetBOLProcessedDate(BOLNo: Code[20]; var returnVar: DateTime; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetBOLProcessedDate(BOLNo: Code[20]; var returnVar: DateTime)
     begin
     end;
 
@@ -1013,36 +1026,6 @@ page 52001 "Orders To Be Shipped List"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetNoOfCases(No: Code[20]; var returnVar: Integer)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeIsFullyAllocated(No: Code[20]; var returnVar: Boolean; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterIsFullyAllocated(No: Code[20]; var returnVar: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeGetOrderWeight(No: Code[20]; var returnVar: Decimal; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetOrderWeight(No: Code[20]; var returnVar: Decimal)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeGetBoLNo(No: Code[20]; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetBoLNo(No: Code[20])
     begin
     end;
 

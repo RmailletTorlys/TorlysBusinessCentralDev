@@ -35,6 +35,10 @@ report 50020 "B13 Purchase"
             {
 
             }
+            column(SystemId; LookupUserIdWithGuid(SystemId))
+            {
+
+            }
 
             dataitem("Sales Line"; "Sales Line")
             {
@@ -42,6 +46,39 @@ report 50020 "B13 Purchase"
                 DataItemLinkReference = Item;
                 RequestFilterFields = "Document No.", "Sell-to Customer No.", "Shipment Date";
                 RequestFilterHeading = 'Sales Line';
+
+                column(No_; "No.")
+                {
+
+                }
+                column(Description; Description)
+                {
+
+                }
+                column(OrderQuantity; OrderQuantity)
+                {
+
+                }
+                column(OrderUOM; OrderUOM)
+                {
+
+                }
+                column(NetWeightLB; NetWeightLB)
+                {
+
+                }
+                column(NetWeightKG; NetWeightKG)
+                {
+
+                }
+                column(NetPrice; NetPrice)
+                {
+
+                }
+                column(LineAmount; LineAmount)
+                {
+
+                }
 
                 trigger OnAfterGetRecord()
                 begin
@@ -213,6 +250,14 @@ report 50020 "B13 Purchase"
         }
     }
 
+    procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
+    var
+        UserDetails: Record "User";
+    begin
+        UserDetails.Get(UserGuid);
+        exit(UserDetails."User Name");
+    end;
+
     var
         SalesLine: Record "Sales Line";
         Item3: Record Item;
@@ -225,7 +270,6 @@ report 50020 "B13 Purchase"
         RemoveDuty: Boolean;
         BackoutDuty: Boolean;
         IgnoreBackorder: Boolean;
-        RemoveIFS: Boolean;
         LastFieldNo: Integer;
         TariffQuantity: Decimal;
         TariffNetWeightLB: Decimal;
@@ -236,7 +280,6 @@ report 50020 "B13 Purchase"
         OrderQuantity: Decimal;
         NetWeightLB: Decimal;
         NetWeightKG: Decimal;
-        IFSAmount: Decimal;
         CaseLength: Decimal;
         CaseWidth: Decimal;
         CaseHeight: Decimal;

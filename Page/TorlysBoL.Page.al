@@ -70,30 +70,13 @@ page 51002 "Torlys BOL"
                     Importance = Promoted;
                 }
 
-                field("Carrier Agent Code"; Rec."Shipping Agent Code")
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the Carrier agent.';
-                    Caption = 'Carrier Agent Code';
+                    ToolTip = 'Specifies the code of the shipping agent.';
+                    Caption = 'Shipping Agent Code';
                     Importance = Promoted;
-
-                    trigger OnValidate()
-                    begin
-                        Rec.UpdateFreightChartOnShipAgentCode(Rec."Shipping Agent Code");
-                    end;
                 }
-
-                field("Freight Charges"; Rec."Freight Charges")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Tooltip = 'Specifies the type of Freight Charge';
-                    Caption = 'Freight Charges';
-                    Editable = false;
-                }
-
-
-
-
             }
 
             group(Shipping)
@@ -244,6 +227,7 @@ page 51002 "Torlys BOL"
                 Enabled = true;
                 SubPageLink = "BOL No." = field("No.");
                 UpdatePropagation = Both;
+                Editable = false;
             }
 
             group(WeightsQuantities)
@@ -405,99 +389,61 @@ page 51002 "Torlys BOL"
         area(Promoted)
         {
 
-            actionref("Add Lines for Today"; AddBoLLinesToday)
+            actionref("Add Shipments for Pickup Date"; AddShipments)
             {
             }
 
-            actionref("Add Lines for Another Day"; AddBoLLinesSpecDate)
+            actionref("Print Open BOL"; PrintOpenBOL)
             {
             }
 
-            Group(PostPrint)
+            actionref("Post BOL"; PostBOL)
             {
-                Caption = 'Post and Print';
-                Image = Document;
+            }
 
-                actionref("Post BoL"; PostBill)
-                {
-                }
-
-                actionref("Print BoL"; PrintBoL)
-                {
-                }
-
-                actionref("Post and Print"; PostAndPrint)
-                {
-                }
+            actionref("Post + Print BOL"; PostAndPrint)
+            {
             }
 
         }
         area(Navigation)
         {
-            action(AddBoLLinesToday)
+            action(AddShipments)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Add BoL Lines for Today';
-                Caption = 'Add BoL Lines for Today';
+                ToolTip = 'Add Shipments for Pickup Date';
+                Caption = 'Add Shipments for Pickup Date';
                 Image = Document;
-
-
-
 
                 trigger OnAction()
                 begin
-                    Rec."Pickup Date" := WorkDate();
+                    // Rec."Pickup Date" := WorkDate();
                     GetShipments();
                 end;
             }
 
-            action(AddBoLLinesSpecDate)
+            action(PrintOpenBOL)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Add BoL Lines for Another Day';
-                Caption = 'Add BoL Lines for Another Day';
-                Image = Document;
-
-
-
-
+                ToolTip = 'Print Open BOL';
+                Caption = 'Print Open BOL';
+                Image = Print;
                 trigger OnAction()
                 var
-                    datePicker: Page "Date-Time Dialog";
-                    newDate: Date;
-
+                    BOLHeader: Record "Torlys BOL Header";
                 begin
-                    datePicker.SetDate(WorkDate());
-
-                    if datePicker.RunModal() = Action::OK then begin
-                        newDate := datePicker.GetDate();
-                        Rec."Pickup Date" := newDate;
-                        GetShipments();
-                    end;
+                    // Rec.PrintOpenBOL(Rec."No.");
+                    BOLHeader.SETRANGE(BOLHeader."No.", Rec."No.");
+                    REPORT.RUNMODAL(REPORT::"Bill of Lading", TRUE, FALSE, BOLHeader);
                 end;
             }
 
-            action(PrintBoL)
+            action(PostBOL)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Print BoL';
-                Caption = 'Print BoL';
-                Image = Print;
-
-
-                trigger OnAction()
-                begin
-                    Rec.PrintBoL(Rec."No.");
-                end;
-            }
-
-            action(PostBill)
-            {
-                ApplicationArea = Basic, Suite;
-                ToolTip = 'Post BoL';
-                Caption = 'Post BoL';
+                ToolTip = 'Post BOL';
+                Caption = 'Post BOL';
                 Image = Document;
-
 
                 trigger OnAction()
                 var
@@ -505,7 +451,6 @@ page 51002 "Torlys BOL"
                     BoLLine: Record "Torlys BOL Line";
                     PBoL: Record "Torlys Processed BOL Header";
                     PBoLLine: Record "Torlys Processed BOL Line";
-
 
                 begin
                     BoL.Reset();
@@ -573,7 +518,7 @@ page 51002 "Torlys BOL"
 
                     if BoL.FindFirst() then begin
 
-                        Rec.PrintBoL(Rec."No.");
+                        Rec.PrintOpenBOL(Rec."No.");
 
                         PBoL.Init();
                         PBoL."No." := BoL."No.";
@@ -601,26 +546,21 @@ page 51002 "Torlys BOL"
                     Message('%1 Posted', BoL."No.");
 
                 end;
-
             }
 
             action(Print)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Print';
-                Caption = 'Print';
+                ToolTip = 'Print Open BOL';
+                Caption = 'Print Open BOL';
                 Image = Print;
-
                 trigger OnAction()
                 begin
-                    Rec.PrintBoL(Rec."No.");
+                    Rec.PrintOpenBOL(Rec."No.");
                 end;
             }
         }
-
     }
-
-
 
     internal procedure GetShipments()
     var

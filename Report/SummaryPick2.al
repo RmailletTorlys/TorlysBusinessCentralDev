@@ -1,6 +1,6 @@
-report 50021 "Summary Pick Slip 2"
+report 50021 "Summary PickSlip"
 {
-    Caption = 'Summary Pick Slip 2';
+    Caption = 'Summary Pick Slip';
     PreviewMode = PrintLayout;
     WordMergeDataItem = CopyLoop;
     RDLCLayout = './Sales/Reports/SummaryPickSlip.rdl';
@@ -23,7 +23,7 @@ report 50021 "Summary Pick Slip 2"
                 {
                     // DataItemTableView = sorting("No.", "Document Type");
                     DataItemLinkReference = PageLoop;
-                    RequestFilterFields = "Sell-to Customer No.", "Ship-to Code", "Shipment Date", "Location Code", "Shipping Agent Code";
+                    RequestFilterFields = "Sell-to Customer No.", "Ship-to Code", "Shipment Date", "Location Code", "Shipping Agent Code", "No. Pick Slips Printed";
                     RequestFilterHeading = 'Summary Pick Slip';
 
                     column(SalesHeaderFilter; SalesHeaderFilter)

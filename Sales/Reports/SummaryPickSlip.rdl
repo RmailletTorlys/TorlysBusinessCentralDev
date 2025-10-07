@@ -64,29 +64,29 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="DayOfWeek">
-          <DataField>DayOfWeek</DataField>
-        </Field>
-        <Field Name="SalesOrderCount">
-          <DataField>SalesOrderCount</DataField>
-        </Field>
-        <Field Name="SalesLineFilter">
-          <DataField>SalesLineFilter</DataField>
-        </Field>
-        <Field Name="TotalWeight">
-          <DataField>TotalWeight</DataField>
-        </Field>
-        <Field Name="TotalWeightFormat">
-          <DataField>TotalWeightFormat</DataField>
-        </Field>
-        <Field Name="OrderString">
-          <DataField>OrderString</DataField>
+        <Field Name="SalesHeaderFilter">
+          <DataField>SalesHeaderFilter</DataField>
         </Field>
         <Field Name="PrintDate">
           <DataField>PrintDate</DataField>
         </Field>
         <Field Name="PrintTime">
           <DataField>PrintTime</DataField>
+        </Field>
+        <Field Name="DayOfWeek">
+          <DataField>DayOfWeek</DataField>
+        </Field>
+        <Field Name="SalesOrderCount">
+          <DataField>SalesOrderCount</DataField>
+        </Field>
+        <Field Name="OrderString">
+          <DataField>OrderString</DataField>
+        </Field>
+        <Field Name="TotalWeight">
+          <DataField>TotalWeight</DataField>
+        </Field>
+        <Field Name="TotalWeightFormat">
+          <DataField>TotalWeightFormat</DataField>
         </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
@@ -141,6 +141,9 @@ End Function
         </Field>
         <Field Name="BinLocation">
           <DataField>BinLocation</DataField>
+        </Field>
+        <Field Name="ItemNoCount">
+          <DataField>ItemNoCount</DataField>
         </Field>
       </Fields>
       <Query>

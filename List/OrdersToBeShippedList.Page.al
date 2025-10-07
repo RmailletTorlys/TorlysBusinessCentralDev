@@ -384,7 +384,7 @@ page 52001 "Orders To Be Shipped List"
                         SalesLine.SETRANGE(SalesLine."Shipment Date", Rec."Shipment Date");
                         SalesLine.SETRANGE(SalesLine."Location Code", Rec."Location Code");
                         SalesLine.SETRANGE(SalesLine."Shipping Agent Code", Rec."Shipping Agent Code");
-                        REPORT.RUNMODAL(REPORT::"Summary Pick Slip", TRUE, FALSE, SalesLine);
+                        REPORT.RUNMODAL(REPORT::"Summary PickSlip", TRUE, FALSE, SalesLine);
                     end;
                 }
 

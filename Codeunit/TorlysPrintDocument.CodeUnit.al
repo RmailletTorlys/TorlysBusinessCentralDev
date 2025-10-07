@@ -14,7 +14,7 @@ codeunit 50299 "Torlys Print Document"
 
     procedure PrintSummaryPick(Usage: Option "Summary Pick"): Boolean
     var
-        SummaryPick: Report "Summary Pick Slip";
+        SummaryPick: Report "Summary PickSlip";
     begin
 
         SummaryPick.UseRequestPage(true);

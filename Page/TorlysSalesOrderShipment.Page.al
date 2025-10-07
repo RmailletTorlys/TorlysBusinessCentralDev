@@ -142,22 +142,21 @@ page 50999 "Torlys Sales Order Shipment"
     {
         area(Promoted)
         {
-            actionref("Assign Pick"; "Assign Pick Ticket")
-            {
-            }
+            // actionref("Assign Picker"; AssignPicker)
+            // {
+            // }
 
-            actionref("Assign Audit"; "Audit Picked Order")
-            {
-            }
+            // actionref("Assign Auditor"; AssignAuditor)
+            // {
+            // }
 
-            actionref("Post and Print"; "Post and Print Order(s)")
+            actionref("Print Pick Slip"; PrintPickSlip)
             {
             }
-            actionref("Print Shipping Order"; "Print Order")
-            {
-            }
-
-            actionref("Print Label"; "Print Shipping Label")
+            // actionref("Print Label"; "Print Shipping Label")
+            // {
+            // }            
+            actionref("Post and Print"; PostAndPrint)
             {
             }
         }
@@ -167,68 +166,100 @@ page 50999 "Torlys Sales Order Shipment"
             {
                 Caption = 'Process';
 
-                action("Assign Pick Ticket")
+                // action(AssignPicker)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Assign Picker';
+                //     Image = PickLines;
+                //     ToolTip = 'Assign the pick ticket to a warehouse associate for picking the items for the sales order.';
+
+
+
+                //     trigger OnAction()
+                //     var
+                //         SalespersonPurchaser: Record "Salesperson/Purchaser";
+                //         SalespersonPurchaserPage: Page "Salespersons/Purchasers";
+
+                //     begin
+                //         SalespersonPurchaserPage.SetRecord(SalespersonPurchaser);
+                //         SalespersonPurchaserPage.LookupMode(true);
+
+                //         if Rec."Warehouse Associate Picked By" <> '' then begin
+                //             Message('This order has already been assigned to %1 for picking.', Rec."Warehouse Associate Picked By");
+                //             exit;
+                //         end;
+                //         Message('Order No %1', Rec."No.");
+
+                //         if SalespersonPurchaserPage.RunModal() = ACTION::OK then begin
+                //             SalespersonPurchaserPage.GetRecord(SalespersonPurchaser);
+                //             Rec.Validate("Warehouse Associate Picked By", SalespersonPurchaser.Code);
+                //             Rec.Modify(true);
+                //             CurrPage.Update();
+                //             Message('Order No %1 assigned to %2 for picking.', Rec."No.", SalespersonPurchaser.Name);
+                //         end;
+
+                //         CurrPage.Update();
+                //     end;
+                // }
+
+                // action(AssignAuditor)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Check Shipment';
+                //     Image = CheckList;
+                //     ToolTip = 'Check the shipment for the sales order.';
+
+
+                //     trigger OnAction()
+                //     var
+                //         User: Record User;
+                //     begin
+                //         if Rec."Warehouse Associate Checked By" <> '' then begin
+                //             Message('This order has already been audited by %1.', Rec."Warehouse Associate Checked By");
+                //             exit;
+                //         end;
+                //         if PAGE.RunModal(PAGE::Users, User) = ACTION::OK then begin
+                //             Rec."Warehouse Associate Checked By" := COPYSTR(User."User Name", 1, 20);
+                //             Rec.Modify(true);
+                //         end;
+
+                //         CurrPage.Update();
+
+                //     end;
+                // }
+
+                action(PrintPickSlip)
                 {
                     ApplicationArea = All;
-                    Caption = 'Assign Pick Ticket';
-                    Image = PickLines;
-                    ToolTip = 'Assign the pick ticket to a warehouse associate for picking the items for the sales order.';
-
-
-
+                    Caption = 'Print Pick Slip';
+                    Image = Print;
+                    ToolTip = 'Print Pick Slip';
                     trigger OnAction()
                     var
-                        SalespersonPurchaser: Record "Salesperson/Purchaser";
-                        SalespersonPurchaserPage: Page "Salespersons/Purchasers";
-
+                        SalesHeader: Record "Sales Header";
                     begin
-                        SalespersonPurchaserPage.SetRecord(SalespersonPurchaser);
-                        SalespersonPurchaserPage.LookupMode(true);
-
-                        if Rec."Warehouse Associate Picked By" <> '' then begin
-                            Message('This order has already been assigned to %1 for picking.', Rec."Warehouse Associate Picked By");
-                            exit;
-                        end;
-                        Message('Order No %1', Rec."No.");
-
-                        if SalespersonPurchaserPage.RunModal() = ACTION::OK then begin
-                            SalespersonPurchaserPage.GetRecord(SalespersonPurchaser);
-                            Rec.Validate("Warehouse Associate Picked By", SalespersonPurchaser.Code);
-                            Rec.Modify(true);
-                            CurrPage.Update();
-                            Message('Order No %1 assigned to %2 for picking.', Rec."No.", SalespersonPurchaser.Name);
-                        end;
-
-                        CurrPage.Update();
+                        SalesHeader.SETRANGE(SalesHeader."No.", Rec."No.");
+                        REPORT.RUNMODAL(REPORT::"Pick Instruction", TRUE, FALSE, SalesHeader);
                     end;
                 }
+                // action("Print Shipping Label")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Print Label';
+                //     Image = Print;
+                //     ToolTip = 'Print the Shipping Label.';
+                //     trigger OnAction()
+                //     var
+                //         PrintDoc: Codeunit "Torlys Print Document";
+                //         Usage: Option "Sales Order Label";
+                //     begin
 
-                action("Audit Picked Order")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Check Shipment';
-                    Image = CheckList;
-                    ToolTip = 'Check the shipment for the sales order.';
+                //         PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label")
 
 
-                    trigger OnAction()
-                    var
-                        User: Record User;
-                    begin
-                        if Rec."Warehouse Associate Checked By" <> '' then begin
-                            Message('This order has already been audited by %1.', Rec."Warehouse Associate Checked By");
-                            exit;
-                        end;
-                        if PAGE.RunModal(PAGE::Users, User) = ACTION::OK then begin
-                            Rec."Warehouse Associate Checked By" := COPYSTR(User."User Name", 1, 20);
-                            Rec.Modify(true);
-                        end;
-
-                        CurrPage.Update();
-
-                    end;
-                }
-                action("Post and Print Order(s)")
+                //     end;
+                // }                          
+                action(PostAndPrint)
                 {
                     ApplicationArea = Warehouse;
                     Caption = 'Post and Print Order(s)';
@@ -237,59 +268,38 @@ page 50999 "Torlys Sales Order Shipment"
 
 
                     trigger OnAction()
-                    var
-                        SelectedSalesHeader: Record "Sales Header";
-                        SalesShpHeader: Record "Sales Shipment Header";
-                        PrintDoc: Codeunit "Torlys Print Document";
-                        Usage: Option "Sales Order Label";
-                    begin
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
-
-                        if SelectedSalesHeader.FindSet() then
-                            repeat
-
-                                PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
-                                SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
-                                SalesShpHeader.FindLast();
-                                SalesShpHeader.PrintRecords(true);
-                                PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label");
-
-                            until SelectedSalesHeader.Next() = 0
-
-                    end;
-                }
-
-                action("Print Order")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Print Order';
-                    Image = Print;
-                    ToolTip = 'Print the Sales Order.';
-                    trigger OnAction()
-                    var
-                        SalesShpHeader: Record "Sales Shipment Header";
-                    begin
-                        SalesShpHeader.SetRange("Order No.", Rec."No.");
-                        SalesShpHeader.FindLast();
-                        SalesShpHeader.PrintRecords(true);
-
-                    end;
-                }
-
-                action("Print Shipping Label")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Print Label';
-                    Image = Print;
-                    ToolTip = 'Print the Shipping Label.';
-                    trigger OnAction()
-                    var
-                        PrintDoc: Codeunit "Torlys Print Document";
-                        Usage: Option "Sales Order Label";
+                    // var
+                    // SelectedSalesHeader: Record "Sales Header";
+                    // SalesShpHeader: Record "Sales Shipment Header";
+                    // PrintDoc: Codeunit "Torlys Print Document";
+                    // Usage: Option "Sales Order Label";
                     begin
 
-                        PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label")
+                        IF Rec."No. Pick Slips Printed" = 0 THEN
+                            ERROR('You cannot ship this order as no pick slips have been printed!');
 
+                        IF Rec."Warehouse Associate Picked By" = '' THEN
+                            ERROR('The Warehouse Associate Picked By field cannot be blank!');
+
+                        IF Rec."Warehouse Associate Checked By" = '' THEN
+                            ERROR('The Warehouse Associate Checked By field cannot be blank!');
+
+                        IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
+                            ERROR('The Picked By and the Checked By Associate cannot be the same!');
+
+                        // CurrPage.SetSelectionFilter(SelectedSalesHeader);
+
+                        // if SelectedSalesHeader.FindSet() then
+                        // repeat
+
+                        // PostOrder(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
+                        CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
+                        // SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
+                        // SalesShpHeader.FindLast();
+                        // SalesShpHeader.PrintRecords(true);
+                        // PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label");
+
+                        // until SelectedSalesHeader.Next() = 0
 
                     end;
                 }

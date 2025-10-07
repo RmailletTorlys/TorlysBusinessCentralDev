@@ -43,8 +43,7 @@ tableextension 50113 TorlysSalesInvoiceLine extends "Sales Invoice Line"
         field(50007; "Ship-to Code"; Code[20])
         {
             Caption = 'Ship-to Code';
-            FieldClass = FlowField;
-            CalcFormula = Lookup("Sales Header"."Ship-to Code" WHERE("No." = FIELD("Document No.")));
+            DataClassification = CustomerContent;
             Editable = false;
         }
 

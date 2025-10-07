@@ -374,13 +374,23 @@ page 52001 "Orders To Be Shipped List"
                     Image = Print;
                     ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
 
+                    // trigger OnAction()
+                    // var
+                    //     Usage: Option "Summary Pick";
+                    // begin
+                    //     TorlysDocPrint.PrintSummaryPick(Usage::"Summary Pick");
+                    // end;
                     trigger OnAction()
                     var
-                        Usage: Option "Summary Pick";
+                        SalesLine: Record "Sales Line";
                     begin
-
-                        TorlysDocPrint.PrintSummaryPick(Usage::"Summary Pick");
-
+                        // Rec.PrintOpenBOL(Rec."No.");
+                        SalesLine.SETRANGE(SalesLine."Sell-to Customer No.", Rec."Sell-to Customer No.");
+                        SalesLine.SETRANGE(SalesLine."Ship-to Code", Rec."Ship-to Code");
+                        SalesLine.SETRANGE(SalesLine."Shipment Date", Rec."Shipment Date");
+                        SalesLine.SETRANGE(SalesLine."Location Code", Rec."Location Code");
+                        SalesLine.SETRANGE(SalesLine."Shipping Agent Code", Rec."Shipping Agent Code");
+                        REPORT.RUNMODAL(REPORT::"Summary Pick Slip", TRUE, FALSE, SalesLine);
                     end;
                 }
 

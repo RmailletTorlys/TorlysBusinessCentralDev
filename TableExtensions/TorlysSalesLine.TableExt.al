@@ -41,8 +41,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
         field(50007; "Ship-to Code"; Code[20])
         {
             Caption = 'Ship-to Code';
-            FieldClass = FlowField;
-            CalcFormula = Lookup("Sales Header"."Ship-to Code" WHERE("No." = FIELD("Document No.")));
+            DataClassification = CustomerContent;
             Editable = false;
         }
 
@@ -111,4 +110,6 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
     procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
     begin
     end;
+
+
 }

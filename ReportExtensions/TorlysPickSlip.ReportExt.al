@@ -394,7 +394,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     end;
 
                 if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
-                    TotalPieces += "Qty. to Ship";
+                    TotalPieces := TotalPieces + "Qty. to Ship";
 
                 If ("Gen. Prod. Posting Group" = 'MOULDINGS') then
                     IF ("Item Category Code" <> 'ACC-86') AND (TempSalesLine."Item Category Code" <> 'ACC-107') AND
@@ -442,6 +442,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
 
     }
+
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
         UserDetails: Record "User";

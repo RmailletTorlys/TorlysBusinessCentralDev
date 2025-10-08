@@ -7,12 +7,4 @@ codeunit 50010 "LookupUserID"
         UserDetails.Get(UserGuid);
         exit(UserDetails."User Name");
     end;
-
-    procedure GuidId(UserGuid: Guid): Code[50]
-    var
-        UserDetails: Record "User";
-    begin
-        UserDetails.Get(UserGuid);
-        exit(UserDetails."User Name");
-    end;
 }

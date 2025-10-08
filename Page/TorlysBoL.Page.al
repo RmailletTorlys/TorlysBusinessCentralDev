@@ -430,11 +430,8 @@ page 51002 "Torlys BOL"
                 Image = Print;
                 trigger OnAction()
                 var
-                    BOLHeader: Record "Torlys BOL Header";
                 begin
-                    // Rec.PrintOpenBOL(Rec."No.");
-                    BOLHeader.SETRANGE(BOLHeader."No.", Rec."No.");
-                    REPORT.RUNMODAL(REPORT::"Bill of Lading", TRUE, FALSE, BOLHeader);
+                    TorlysDocPrint.PrintBillOfLading(Rec);
                 end;
             }
 
@@ -518,7 +515,7 @@ page 51002 "Torlys BOL"
 
                     if BoL.FindFirst() then begin
 
-                        Rec.PrintOpenBOL(Rec."No.");
+                        // Rec.PrintOpenBOL(Rec."No.");
 
                         PBoL.Init();
                         PBoL."No." := BoL."No.";
@@ -556,7 +553,7 @@ page 51002 "Torlys BOL"
                 Image = Print;
                 trigger OnAction()
                 begin
-                    Rec.PrintOpenBOL(Rec."No.");
+                    // Rec.PrintOpenBOL(Rec."No.");
                 end;
             }
         }
@@ -747,4 +744,7 @@ page 51002 "Torlys BOL"
     local procedure OnAfterFindBoLEntries()
     begin
     end;
+
+    var
+        TorlysDocPrint: Codeunit "Torlys Print Document";
 }

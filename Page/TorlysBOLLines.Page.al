@@ -1,8 +1,8 @@
-page 51003 "Torlys BoL Line"
+page 51003 "Torlys BOL Lines"
 {
     ApplicationArea = Basic, Suite;
-    Caption = 'BoL Lines';
-    Editable = true;
+    Caption = 'Bill of Lading Lines';
+    Editable = false;
     LinksAllowed = false;
     PageType = List;
     SourceTable = "Torlys BOL Line";

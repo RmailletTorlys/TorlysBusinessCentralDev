@@ -1,9 +1,9 @@
-table 55005 "Torlys Processed BOL Line"
+table 55003 "Torlys BOL Line"
 {
     DataClassification = CustomerContent;
-    Caption = 'Torlys Processed BOL Line';
-    DrillDownPageId = "Torlys Proc BoL Line";
-    LookupPageId = "Torlys Proc BoL Line";
+    Caption = 'Torlys BOL Line';
+    DrillDownPageId = "Torlys BOL List";
+    LookupPageId = "Torlys BOL List";
 
 
     fields
@@ -108,17 +108,17 @@ table 55005 "Torlys Processed BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(17; "Destination Instruction 1"; Text[50])
-        {
-            Caption = 'Destination Instruction';
-            DataClassification = CustomerContent;
-        }
+        // field(17; "Destination Instruction 1"; Text[50])
+        // {
+        //     Caption = 'Destination Instruction';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(18; "Destination Instruction 2"; Text[50])
-        {
-            Caption = 'Destination Instruction 2';
-            DataClassification = CustomerContent;
-        }
+        // field(18; "Destination Instruction 2"; Text[50])
+        // {
+        //     Caption = 'Destination Instruction 2';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(19; "Total Cases"; Decimal)
         {

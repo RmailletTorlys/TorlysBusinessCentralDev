@@ -1,8 +1,8 @@
-page 51001 "Torlys BOLs"
+page 51001 "Torlys BOL List"
 {
     ApplicationArea = Basic, Suite, Assembly;
     UsageCategory = Lists;
-    Caption = 'BoLs';
+    Caption = 'Bill of Lading List';
     CardPageId = "Torlys BOL";
     DataCaptionFields = "No.";
     Editable = false;
@@ -164,7 +164,7 @@ page 51001 "Torlys BOLs"
                 trigger OnAction()
                 var
                     BillOfLading: Record "Torlys BOL Header";
-                    BoLListPage: Page "Torlys Bols";
+                    BoLListPage: Page "Torlys BOL List";
 
                 begin
                     BoLListPage.SetTableView(BillOfLading);

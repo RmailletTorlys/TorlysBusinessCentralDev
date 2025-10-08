@@ -366,6 +366,7 @@ table 55002 "Torlys BOL Header"
     }
 
     var
+        UserSetup: Record "User Setup";
         PieceCount: Text[260];
         SkidCount: Text[50];
         BoxCount: Text[50];
@@ -384,7 +385,8 @@ table 55002 "Torlys BOL Header"
         if not SalesSetup.IsEmpty() then
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
 
-        "Pickup Date" := WorkDate() //auto-populate todays date when creating BOL
+        IF UserSetup.GET(USERID) THEN "Location Code" := UserSetup."Default Location Code";
+        "Pickup Date" := WorkDate(); //auto-populate todays date when creating BOL
     end;
 
 
@@ -495,15 +497,15 @@ table 55002 "Torlys BOL Header"
 
     end;
 
-    procedure PrintOpenBOL(BOLNo: Code[20])
-    var
-        PrintBill: Codeunit "Print Bill of Lading Document";
-        Usage: Option "Bill of Lading Report";
-    begin
-        Rec.SetRange("No.", BOLNo);
-        if Rec.FindFirst() then
-            PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
-    end;
+    // procedure PrintOpenBOL(BOLNo: Code[20])
+    // var
+    //     PrintBill: Codeunit "Print Bill of Lading Document";
+    //     Usage: Option "Bill of Lading Report";
+    // begin
+    //     Rec.SetRange("No.", BOLNo);
+    //     if Rec.FindFirst() then
+    //         PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
+    // end;
 
 
 

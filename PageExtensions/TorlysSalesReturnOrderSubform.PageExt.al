@@ -133,7 +133,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
         addafter("Tax Area Code")
         {
-            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -149,7 +149,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Visible = true;
             }
 
-            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';

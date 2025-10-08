@@ -204,7 +204,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
 
         addafter("Phone No.")
         {
-            field("Website"; Rec.Website)
+            field("Website"; Rec."Home Page")
             {
                 ApplicationArea = All;
                 Caption = 'Website';

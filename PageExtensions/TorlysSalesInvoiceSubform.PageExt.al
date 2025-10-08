@@ -97,7 +97,7 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
 
         addafter(ShortcutDimCode8)
         {
-            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -111,7 +111,7 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ApplicationArea = All;
             }
 
-            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';

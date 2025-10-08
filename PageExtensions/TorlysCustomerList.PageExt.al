@@ -131,7 +131,20 @@ pageextension 50022 TorlysCustomerList extends "Customer List"
             }
         }
 
-        moveafter("State/Province"; "Country/Region Code", "Post Code", "Phone No.", "Language Code")
+        moveafter("State/Province"; "Country/Region Code", "Post Code", "Phone No.")
+
+        addafter("Phone No.")
+        {
+            field("Website"; Rec."Home Page")
+            {
+                ApplicationArea = All;
+                Caption = 'Website';
+                ToolTip = 'Website';
+                Visible = false;
+            }
+        }
+
+        moveafter(Website; "Language Code")
 
         addafter("Language Code")
         {

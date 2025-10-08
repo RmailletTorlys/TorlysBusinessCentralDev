@@ -61,7 +61,7 @@ page 51018 "Claims Order Form"
 
         SalesSetup.FindFirst();
         if not SalesSetup.IsEmpty() then
-            Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Order Nos.");
+            Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
 
         exit(true);
     end;

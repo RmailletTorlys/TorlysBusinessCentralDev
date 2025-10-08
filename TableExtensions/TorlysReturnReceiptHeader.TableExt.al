@@ -321,4 +321,10 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
             DataClassification = CustomerContent;
         }
     }
+    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    var
+        DimMgt: Codeunit "DimensionManagement";
+    begin
+        DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
 }

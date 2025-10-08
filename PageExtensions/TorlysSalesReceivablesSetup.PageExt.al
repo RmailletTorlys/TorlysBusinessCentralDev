@@ -4,9 +4,14 @@ pageextension 50459 "TorlysSalesReceivablesSetup" extends "Sales & Receivables S
     {
         addafter("Price List Nos.")
         {
-            field("BoL No."; Rec."Bill of Lading Nos.")
+            field("Bill of Lading No."; Rec."Bill of Lading Nos.")
             {
                 Caption = 'Bill of Lading Nos.';
+                ApplicationArea = All;
+            }
+            field("Claims Tracking No."; Rec."Claims Tracking Nos.")
+            {
+                Caption = 'Claims Tracking Nos.';
                 ApplicationArea = All;
             }
         }

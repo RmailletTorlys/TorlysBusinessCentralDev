@@ -53,11 +53,44 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Confirmation No.';
                 ApplicationArea = All;
             }
+
+            field("Production Date"; Rec."Production Date")
+            {
+                Caption = 'Production Date';
+                ToolTip = 'Production Date';
+                ApplicationArea = All;
+            }
+            field("Possible Loading Date"; Rec."Possible Loading Date")
+            {
+                Caption = 'Possible Loading Date';
+                ToolTip = 'Possible Loading Date';
+                ApplicationArea = All;
+            }
+            field("Shipment Date"; Rec."Shipment Date")
+            {
+                Caption = 'Shipment Date';
+                ToolTip = 'Shipment Date';
+                ApplicationArea = All;
+            }
+            field("Expected Departure Date"; Rec."Expected Departure Date")
+            {
+                Caption = 'Expected Departure Date';
+                ToolTip = 'Expected Departure Date';
+                ApplicationArea = All;
+            }
         }
-        moveafter("Confirmation No."; "Expected Receipt Date")
+
+        moveafter("Expected Departure Date"; "Expected Receipt Date")
 
         addafter("Expected Receipt Date")
         {
+            field("Previous ETA"; Rec."Previous ETA")
+            {
+                Caption = 'Previous ETA';
+                ToolTip = 'Previous ETA';
+                ApplicationArea = All;
+                Editable = true;
+            }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 Caption = 'Outstanding Quantity';

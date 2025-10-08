@@ -401,7 +401,7 @@ page 51002 "Torlys BOL"
             {
             }
 
-            actionref("Post + Print BOL"; PostAndPrint)
+            actionref("Post and Print BOL"; PostAndPrint)
             {
             }
 
@@ -492,8 +492,8 @@ page 51002 "Torlys BOL"
             action(PostAndPrint)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Post BoL and Print';
-                Caption = 'Post BoL and Print';
+                ToolTip = 'Post and Print BOL';
+                Caption = 'Post and Print BOL';
                 Image = Print;
 
                 trigger OnAction()

@@ -26,6 +26,30 @@ tableextension 50123 TorlysPurchInvLine extends "Purch. Inv. Line"
             DataClassification = CustomerContent;
         }
 
+        field(50009; "Previous ETA"; Date)
+        {
+            Caption = 'Previous ETA';
+            DataClassification = CustomerContent;
+        }
+
+        field(50010; "Possible Loading Date"; Date)
+        {
+            Caption = 'Possible Loading Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50011; "Expected Departure Date"; Date)
+        {
+            Caption = 'Expected Departure Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50012; "Shipment Date"; Date)
+        {
+            Caption = 'Shipment Date';
+            DataClassification = CustomerContent;
+        }
+
         field(50013; "Production Date"; Date)
         {
             Caption = 'Production Date';

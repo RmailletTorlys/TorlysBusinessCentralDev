@@ -257,6 +257,15 @@ pageextension 50516 TorlysSalesLines extends "Sales Lines"
             Visible = false;
         }
 
+        modify("Reserve")
+        {
+            Visible = false;
+        }
+
+        modify("Reserved Qty. (Base)")
+        {
+            Visible = false;
+        }
     }
 
     var

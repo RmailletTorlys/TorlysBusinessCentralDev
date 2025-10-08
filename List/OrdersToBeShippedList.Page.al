@@ -9,7 +9,8 @@ page 52001 "Orders To Be Shipped List"
     SourceTable = "Sales Header";
     SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
     WHERE("Document Type" = CONST(Order),
-          "Status" = Const(Released));
+          "Status" = Const(Released),
+          "Temporary Hold" = Filter(0));
 
     layout
     {
@@ -298,6 +299,8 @@ page 52001 "Orders To Be Shipped List"
             { }
 
             actionref("Print Summary Pick Slip"; PrintSummaryPickSlip)
+            { }
+            actionref("Print Label"; PrintLabel)
             { }
 
             actionref("Post and Print"; PostAndPrint)
@@ -601,6 +604,17 @@ page 52001 "Orders To Be Shipped List"
                         TorlysDocPrint.PrintSummaryPickSlip(Rec);
                     end;
                 }
+                action(PrintLabel)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Print Label';
+                    Image = Print;
+                    ToolTip = 'Print label for the sales order.';
+                    trigger OnAction()
+                    begin
+                        TorlysDocPrint.PrintSalesOrderLabel(Rec);
+                    end;
+                }
 
                 action(PostAndPrint)
                 {
@@ -678,6 +692,12 @@ page 52001 "Orders To Be Shipped List"
 
     trigger OnOpenPage()
     begin
+        UserSetup.GET(USERID);
+        IF UserSetup."Default Location Code" = 'TOR' THEN
+            Rec.SETFILTER("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR')
+        ELSE IF UserSetup."Default Location Code" = 'CAL' THEN
+            Rec.SETFILTER("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
+
         Rec.SetFilter("Shipment Date", '%1', WorkDate());
     end;
 
@@ -734,7 +754,7 @@ page 52001 "Orders To Be Shipped List"
         ShipmentHeader.RESET();
         ShipmentHeader.SETRANGE("Order No.", Rec."No.");
         ShipmentHeader.SETRANGE("Shipment Date", Rec."Shipment Date");
-        IF ShipmentHeader.FIND('+') THEN
+        IF ShipmentHeader.FindLast() THEN
             ShipmentNo := ShipmentHeader."No."
         ELSE
             ShipmentNo := '';
@@ -782,7 +802,7 @@ page 52001 "Orders To Be Shipped List"
 
         ShipmentHeader.RESET();
         ShipmentHeader.SETRANGE("No.", GetShipmentNo(Rec."No."));
-        IF ShipmentHeader.FIND('-') THEN
+        IF ShipmentHeader.FindFirst() THEN
             BOLNo := ShipmentHeader."BOL No."
         ELSE
             BOLNo := '';
@@ -805,7 +825,7 @@ page 52001 "Orders To Be Shipped List"
 
         ProcessedBOLHeader.RESET();
         ProcessedBOLHeader.SETRANGE("No.", GetBOLNo(GetShipmentNo(Rec."No.")));
-        IF ProcessedBOLHeader.FIND('-') THEN
+        IF ProcessedBOLHeader.FindFirst() THEN
             BOLProcessedDate := ProcessedBOLHeader.SystemCreatedAt
         ELSE
             BOLProcessedDate := 0DT;
@@ -917,6 +937,7 @@ page 52001 "Orders To Be Shipped List"
     end;
 
     var
+        UserSetup: Record "User Setup";
         DocPrint: Codeunit "Document-Print";
         TorlysDocPrint: Codeunit "Torlys Print Document";
 

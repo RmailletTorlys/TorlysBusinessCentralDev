@@ -21,12 +21,12 @@ codeunit 50299 "Torlys Print Document"
         SalesHeader.SetRange("Shipment Date", SalesHeader."Shipment Date");
         SalesHeader.SetRange("Shipping Agent Code", SalesHeader."Shipping Agent Code");
         SalesHeader.SetRange("No. Pick Slips Printed", 0);
-        ReportSelectionWhse.SETRANGE(Usage, ReportSelectionWhse.Usage::"Pick Slip");
+        ReportSelectionWhse.SETRANGE(Usage, ReportSelectionWhse.Usage::Pick);
         ReportSelectionWhse.SETFILTER("Report ID", '<>0');
         ReportSelectionWhse.FIND('-');
         REPEAT
             REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
-        UNTIL ReportSelectionWhse.NEXT = 0;
+        UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
     procedure PrintSummaryPickSlip(SalesHeader: Record "Sales Header"): Boolean
@@ -44,6 +44,19 @@ codeunit 50299 "Torlys Print Document"
         ReportSelectionWhse.FIND('-');
         REPEAT
             REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
+        UNTIL ReportSelectionWhse.NEXT() = 0;
+    end;
+
+    procedure PrintSalesOrderLabel(SalesHeader: Record "Sales Header"): Boolean
+    var
+        ReportSelectionWhse: Record "Report Selection Warehouse";
+    begin
+        SalesHeader.SetRange("No.", SalesHeader."No.");
+        ReportSelectionWhse.SETRANGE(Usage, ReportSelectionWhse.Usage::"Sales Order Label");
+        ReportSelectionWhse.SETFILTER("Report ID", '<>0');
+        ReportSelectionWhse.FIND('-');
+        REPEAT
+            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
         UNTIL ReportSelectionWhse.NEXT = 0;
     end;
 
@@ -57,7 +70,7 @@ codeunit 50299 "Torlys Print Document"
         ReportSelectionWhse.FIND('-');
         REPEAT
             REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, BOLHeader);
-        UNTIL ReportSelectionWhse.NEXT = 0;
+        UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
     procedure PrintProcessedBillOfLading(ProcessedBOLHeader: Record "Torlys Processed BOL Header"): Boolean
@@ -70,7 +83,7 @@ codeunit 50299 "Torlys Print Document"
         ReportSelectionWhse.FIND('-');
         REPEAT
             REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, ProcessedBOLHeader);
-        UNTIL ReportSelectionWhse.NEXT = 0;
+        UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
     // procedure PrintSalesOrder(SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction")

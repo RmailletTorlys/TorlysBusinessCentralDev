@@ -202,7 +202,17 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
         {
             Visible = true;
         }
+
+        modify("Reserved Qty. (Base)")
+        {
+            Visible = false;
+        }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetFilter("Document Type", 'Order');
+    end;
 
     var
         LookupUser: Codeunit "LookupUserID";

@@ -334,8 +334,8 @@ report 50009 "Processed Bill Of Lading"
                 //        PrePaidMessage := '*';
                 //End;
 
-                Case "Transaction Type" of
-                    "Transaction Type"::Shipment:
+                Case "Processed Bol Header"."Transaction Type" of
+                    "Processed Bol Header"."Transaction Type"::Shipment:
                         begin
                             SalesShipmentLine.Reset();
                             SalesShipmentLine.SetCurrentKey("Document No.", Type);
@@ -368,7 +368,7 @@ report 50009 "Processed Bill Of Lading"
                                 Until SalesShipmentLine.Next() = 0;
 
                         end;
-                    "Transaction Type"::Transfer:
+                    "Processed Bol Header"."Transaction Type"::Transfer:
                         begin
                             TransferShipmentLine.RESET();
                             TransferShipmentLine.SETFILTER("Document No.", ProcessedBOLLine."Shipment No.");
@@ -401,7 +401,7 @@ report 50009 "Processed Bill Of Lading"
                 End;
                 //UNTIL ProcessedBOLLine.NEXT = 0;
 
-                CalcFields("Processed Bol Header"."Cases - Total", "Processed Bol Header"."Weight - Total");
+                // CalcFields("Processed Bol Header"."Cases - Total", "Processed Bol Header"."Weight - Total");
 
                 If not CurrReport.Preview then begin
                     "Processed Bol Header"."No. Printed" := "Processed Bol Header"."No. Printed" + 1;
@@ -457,10 +457,10 @@ report 50009 "Processed Bill Of Lading"
         FormatAddress: Codeunit "Format Address";
         ShipToAddress: array[8] of Text[50];
         LocationAddress: array[8] of Text[50];
-        OrderString: array[6] of Text[100];
-        CategoryArray: array[1] of Text[30];
-        NumberofPackagesArray: array[1] of Decimal;
-        WeightArray: array[1] of Decimal;
+        OrderString: array[8] of Text[100];
+        CategoryArray: array[8] of Text[30];
+        NumberofPackagesArray: array[8] of Decimal;
+        WeightArray: array[8] of Decimal;
         LastFieldNo: Integer;
         OrderStringToUse: Integer;
         NoOrderString: Boolean;

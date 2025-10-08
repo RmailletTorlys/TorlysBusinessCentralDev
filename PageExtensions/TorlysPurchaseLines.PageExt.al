@@ -152,7 +152,7 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 Editable = false;
             }
 
-            field("Created By"; LookupUser.GuidId(Rec.SystemCreatedBy))
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
@@ -166,7 +166,7 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 ApplicationArea = All;
             }
 
-            field("Modified By"; LookupUser.GuidId(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';

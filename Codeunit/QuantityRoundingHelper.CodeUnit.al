@@ -78,35 +78,35 @@ CodeUnit 50005 "Quantity Rounding Helper"
 
     end;
 
-    procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
-    var
-        iuom: Record "Item Unit of Measure";
+    // procedure InvalidCompareUnitOfMeasure(Rec: Record "Item"): Boolean
+    // var
+    //     iuom: Record "Item Unit of Measure";
 
-    begin
-        //Return True IF Item does NOT have a Compare Unit of Measure
-        if Rec."Compare Unit of Measure" = '' then
-            exit(true);
+    // begin
+    //     //Return True IF Item does NOT have a Compare Unit of Measure
+    //     // if Rec."Compare Unit of Measure" = '' then
+    //     //     exit(true);
 
-        iuom.SetRange("Item No.", Rec."No.");
-        iuom.SetRange("Code", Rec."Compare Unit of Measure");
-        if iuom.IsEmpty then begin
-            Message('%1 does not have a matching %2 Item Unit of Measure. Please contact Purchasing for support.', Rec."No.", Rec."Compare Unit of Measure");
-            exit(true);
-        end;
-
-
-
-        if Rec."Compare Unit of Measure" = 'CASE' then begin
-            iuom.SetRange("Code", 'PALLET');
-            if iuom.IsEmpty() then begin
-                Message('%1 does not have a matching Pallet Item Unit of Measure. Please contact Purchasing for support.', Rec."No.");
-                exit(true);
-            end
-        end;
+    //     // iuom.SetRange("Item No.", Rec."No.");
+    //     // iuom.SetRange("Code", Rec."Compare Unit of Measure");
+    //     // if iuom.IsEmpty then begin
+    //     //     Message('%1 does not have a matching %2 Item Unit of Measure. Please contact Purchasing for support.', Rec."No.", Rec."Compare Unit of Measure");
+    //     //     exit(true);
+    //     // end;
 
 
-        exit(false);
-    end;
+
+    //     // if Rec."Compare Unit of Measure" = 'CASE' then begin
+    //     //     iuom.SetRange("Code", 'PALLET');
+    //     //     if iuom.IsEmpty() then begin
+    //     //         Message('%1 does not have a matching Pallet Item Unit of Measure. Please contact Purchasing for support.', Rec."No.");
+    //     //         exit(true);
+    //     //     end
+    //     // end;
+
+
+    //     exit(false);
+    // end;
 
 
 

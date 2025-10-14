@@ -64,7 +64,7 @@ codeunit 50001 "Torlys TL Quantity Rounding"
         Item.SetRange("No.", Rec."Item No.");
         Item.FindFirst();
 
-        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+        // if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
 
         exit(true);
     end;

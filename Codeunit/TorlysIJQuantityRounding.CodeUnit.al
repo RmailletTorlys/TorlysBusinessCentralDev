@@ -18,25 +18,25 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
         OnChangeQuantityPallet(Rec, xRec, 1);
     end;
 
-    procedure ValidateUoM(var Rec: Record "Item Journal Line"): Boolean
-    var
-        Item: Record Item;
-    begin
-        if Rec."Item No." = '' then
-            exit(true);
+    // procedure ValidateUoM(var Rec: Record "Item Journal Line"): Boolean
+    // var
+    //     Item: Record Item;
+    // begin
+    //     if Rec."Item No." = '' then
+    //         exit(true);
 
-        Item.SetRange("No.", Rec."Item No.");
-        Item.FindFirst();
+    //     Item.SetRange("No.", Rec."Item No.");
+    //     Item.FindFirst();
 
-        //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
-        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
-        exit(true);
-    end;
+    //     //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
+    //     if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+    //     exit(true);
+    // end;
 
     procedure QuantityRoundingToCaseAndPallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; OrderType: Integer)
     begin
-        if ValidateUoM(Rec) = false then
-            exit;
+        // if ValidateUoM(Rec) = false then
+        //     exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
         CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."Item No.", 'CASE');

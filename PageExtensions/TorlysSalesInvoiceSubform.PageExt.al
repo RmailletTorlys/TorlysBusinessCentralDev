@@ -11,6 +11,12 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
+                trigger OnValidate()
+                begin
+                    OnValidateCase(Rec, Rec);
+                    CurrPage.Update(true);
+                end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -18,6 +24,12 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
+                trigger OnValidate()
+                begin
+                    OnValidatePallet(Rec, Rec);
+                    CurrPage.Update(true);
+                end;
             }
 
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
@@ -193,5 +205,25 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
 
     var
         LookupUser: Codeunit "LookupUserID";
+        EditCasePallet: Boolean;
 
+    trigger OnAfterGetRecord()
+    begin
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+    end;
 }

@@ -13,6 +13,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
@@ -25,6 +26,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, xRec);
@@ -49,7 +51,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Return Qty. to Receive Case';
                 ToolTip = 'Return Qty. to Receive Case';
                 ApplicationArea = All;
-
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateToReceiveCase(Rec, xRec);
@@ -63,6 +65,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 Caption = 'Return Qty. to Receive Pallet';
                 ToolTip = 'Return Qty. to Receive Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateToReceivePallet(Rec, xRec);
@@ -252,6 +255,17 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
     var
         LookupUser: Codeunit "LookupUserID";
+        EditCasePallet: Boolean;
+
+    trigger OnAfterGetRecord()
+    begin
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    begin
+    end;
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")

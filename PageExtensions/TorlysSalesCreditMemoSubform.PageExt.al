@@ -12,6 +12,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
@@ -24,6 +25,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, xRec);
@@ -53,7 +55,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Caption = 'Return Qty. to Receive Case';
                 ToolTip = 'Return Qty. to Receive Case';
                 ApplicationArea = All;
-
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateToReceiveCase(Rec, xRec);
@@ -67,6 +69,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Caption = 'Return Qty. to Receive Pallet';
                 ToolTip = 'Return Qty. to Receive Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateToReceivePallet(Rec, xRec);
@@ -314,6 +317,12 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     var
         LookupUser: Codeunit "LookupUserID";
         UserModifiedUnitPrice: Boolean;
+        EditCasePallet: Boolean;
+
+    trigger OnAfterGetRecord()
+    begin
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+    end;
 
     procedure PrepareUserModifiedUnitPrice()
     begin
@@ -324,6 +333,10 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    begin
+    end;
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")

@@ -4,7 +4,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     layout
     {
         moveafter("No."; "Item Reference No.")
+
         moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
+
         addafter(Quantity)
         {
             field("Quantity Case"; Rec."Quantity Case")
@@ -12,27 +14,25 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
-                Editable = UoMValid;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, Rec);
                     CurrPage.Update(true);
                 end;
             }
-
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
-                Editable = UoMValid;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidatePallet(Rec, Rec);
                     CurrPage.Update(true);
                 end;
             }
-
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 Caption = 'Outstanding Quantity';
@@ -41,8 +41,8 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
         }
 
-
         moveafter("Outstanding Quantity"; "Qty. to Ship")
+
         addafter("Qty. to Ship")
         {
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
@@ -50,31 +50,25 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Case';
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
-                Editable = UoMValid;
-
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateToShipCase(Rec, xRec);
                     CurrPage.Update(true);
                 end;
-
             }
-
             field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
             {
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
-                Editable = UoMValid;
-
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateToShipPallet(Rec, xRec);
                     CurrPage.Update(true);
                 end;
-
             }
-
         }
         moveafter("Qty. to Ship Pallet"; "Shipment Date")
 
@@ -88,7 +82,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = false;
             }
-
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
@@ -105,7 +98,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = false;
             }
-
             field("Price List Code"; Rec."Price List")
             {
                 Caption = 'Price List';
@@ -117,6 +109,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
 
         moveafter("Price List Code"; "Unit Price", "Line Amount")
+
         addafter("Line Amount")
         {
             field("Unit Cost"; Rec."Unit Cost")
@@ -127,7 +120,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = true;
             }
-
         }
 
         moveafter("Unit Cost"; "Unit Cost (LCY)", "Quantity Shipped")
@@ -145,6 +137,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
 
         moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
+
         addafter("Drop Shipment")
         {
             field("Purchase Order No."; Rec."Purchase Order No.")
@@ -181,7 +174,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = true;
             }
-
             field("Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
             {
                 Caption = 'Modified By';
@@ -190,7 +182,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = true;
             }
-
             field("Modified At"; Rec."SystemModifiedAt")
             {
                 Caption = 'Modified At';
@@ -199,7 +190,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Editable = false;
                 Visible = true;
             }
-
         }
 
         modify("Item Reference No.")
@@ -372,18 +362,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
     var
         LookupUserId: Codeunit "LookupUserID";
+        UserModifiedUnitPrice: Boolean;
+        EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()
     begin
-        if Rec."Type" <> Rec.Type::Item then
-            exit;
-        OnAfterGetRecordOnValidateUoM(Rec, xRec, UoMValid);
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
     end;
-
-    var
-        UserModifiedUnitPrice: Boolean;
-        UoMValid: Boolean;
-
 
     procedure PrepareUserModifiedUnitPrice()
     begin
@@ -391,9 +376,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             exit;
 
         UserModifiedUnitPrice := true;
-
     end;
 
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    begin
+    end;
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
@@ -415,10 +404,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetRecordOnValidateUoM(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var UoMValid: Boolean)
-    begin
-    end;
+
 }
 
 

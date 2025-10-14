@@ -209,7 +209,7 @@ tableextension 50027 TorlysItem extends Item
         {
             Caption = 'Compare Unit of Measure';
             DataClassification = CustomerContent;
-            TableRelation = "Unit of Measure";
+            TableRelation = "Item Unit of Measure".Code WHERE("Item No." = FIELD("No."));
         }
 
         field(50047; "Sales Price Code"; Code[20])

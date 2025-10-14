@@ -36,28 +36,28 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         OnChangeQuantityPallet(Rec, xRec, 2);
     end;
 
-    procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean
-    var
-        Item: Record Item;
-    begin
-        if Rec."No." = '' then
-            exit(true);
+    // procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean
+    // var
+    //     Item: Record Item;
+    // begin
+    //     if Rec."No." = '' then
+    //         exit(true);
 
-        Item.SetRange("No.", Rec."No.");
-        Item.FindFirst();
+    //     Item.SetRange("No.", Rec."No.");
+    //     Item.FindFirst();
 
-        //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
-        if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
-        exit(true);
-    end;
+    //     //Returns FALSE if InvalidCompareUnitOfMeasure is TRUE
+    //     if QuantityRoundingHelper.InvalidCompareUnitOfMeasure(Item) then exit(false);
+    //     exit(true);
+    // end;
 
     procedure OnChangeQuantity(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; OrderType: Integer)
     begin
         if Rec.Type <> Rec.Type::Item then
             exit;
 
-        if ValidateUoM(Rec) = false then
-            exit;
+        // if ValidateUoM(Rec) = false then
+        //     exit;
 
         // Get the Case and Pallet quantities per Unit of Measure
         CaseConst := QuantityRoundingHelper.GetQuantityUoM(Rec."No.", 'CASE');

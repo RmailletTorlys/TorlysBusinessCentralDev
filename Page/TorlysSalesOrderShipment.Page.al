@@ -154,9 +154,12 @@ page 50999 "Torlys Sales Order Shipment"
             actionref("Print Pick Slip"; PrintPickSlip)
             {
             }
-            // actionref("Print Label"; "Print Shipping Label")
-            // {
-            // }            
+            actionref("Print Summary Pick Slip"; PrintSummaryPickSlip)
+            {
+            }
+            actionref("Print Label"; PrintLabel)
+            {
+            }
             actionref("Post and Print"; PostAndPrint)
             {
             }
@@ -240,23 +243,29 @@ page 50999 "Torlys Sales Order Shipment"
                         TorlysDocPrint.PrintPickSlip(Rec);
                     end;
                 }
-                // action("Print Shipping Label")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Print Label';
-                //     Image = Print;
-                //     ToolTip = 'Print the Shipping Label.';
-                //     trigger OnAction()
-                //     var
-                //         PrintDoc: Codeunit "Torlys Print Document";
-                //         Usage: Option "Sales Order Label";
-                //     begin
+                action(PrintSummaryPickSlip)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Print Summary Pick Slip';
+                    Image = Print;
+                    ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
+                    trigger OnAction()
+                    begin
+                        TorlysDocPrint.PrintSummaryPickSlip(Rec);
+                    end;
+                }
+                action(PrintLabel)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Print Label';
+                    Image = Print;
+                    ToolTip = 'Print label for the sales order.';
+                    trigger OnAction()
+                    begin
+                        TorlysDocPrint.PrintSalesOrderLabel(Rec);
+                    end;
+                }
 
-                //         PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label")
-
-
-                //     end;
-                // }                          
                 action(PostAndPrint)
                 {
                     ApplicationArea = Warehouse;

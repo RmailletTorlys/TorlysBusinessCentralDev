@@ -47,6 +47,19 @@ codeunit 50299 "Torlys Print Document"
         UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
+    procedure PrintSalesOrderLabel(SalesHeader: Record "Sales Header"): Boolean
+    var
+        ReportSelectionWhse: Record "Report Selection Warehouse";
+    begin
+        SalesHeader.SetRange("No.", SalesHeader."No.");
+        ReportSelectionWhse.SETRANGE(Usage, ReportSelectionWhse.Usage::"Sales Order Label");
+        ReportSelectionWhse.SETFILTER("Report ID", '<>0');
+        ReportSelectionWhse.FIND('-');
+        REPEAT
+            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
+        UNTIL ReportSelectionWhse.NEXT = 0;
+    end;
+
     procedure PrintBillOfLading(BOLHeader: Record "Torlys BOL Header"): Boolean
     var
         ReportSelectionWhse: Record "Report Selection Warehouse";

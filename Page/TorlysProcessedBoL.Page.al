@@ -373,7 +373,7 @@ page 51006 "Torlys Processed BOL"
             }
         }
     }
-        actions
+    actions
     {
         area(Promoted)
         {
@@ -398,5 +398,5 @@ page 51006 "Torlys Processed BOL"
         }
     }
     var
-        TorlysDocPrint: Codeunit "Torlys Print Document";
+        TorlysDocPrint: Codeunit "Torlys Document-Print";
 }

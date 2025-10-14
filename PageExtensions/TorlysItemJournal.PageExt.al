@@ -11,6 +11,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     OnValidateCase(Rec, xRec);
@@ -22,6 +23,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
             {
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
+                Editable = EditCasePallet;
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -105,6 +107,19 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
             Visible = false;
         }
     }
+
+    var
+        EditCasePallet: Boolean;
+
+    trigger OnAfterGetRecord()
+    begin
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; var EditCasePallet: Boolean)
+    begin
+    end;
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")

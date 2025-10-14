@@ -21,11 +21,11 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    if Rec.Type <> Rec.Type::Item then
-                        exit;
-                    OnValidateCase(Rec, xRec);
+                    OnValidateQuantityCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
 
@@ -34,11 +34,13 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
                     if Rec.Type <> Rec.Type::Item then
                         exit;
-                    OnValidatePallet(Rec, xRec);
+                    OnValidateQuantityPallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
             }
         }
@@ -111,10 +113,11 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 Caption = 'Qty. to Receive Case';
                 ToolTip = 'Qty. to Receive Case';
                 ApplicationArea = All;
-
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    OnValidateToReceiveCase(Rec, xRec);
+                    OnValidateQtyToReceiveCase(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
 
             }
@@ -124,10 +127,11 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
                 Caption = 'Qty. to Receive Pallet';
                 ToolTip = 'Qty. to Receive Pallet';
                 ApplicationArea = All;
-
+                Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    OnValidateToReceivePallet(Rec, xRec);
+                    OnValidateQtyToReceivePallet(Rec, xRec);
+                    CurrPage.Update(true);
                 end;
 
             }
@@ -326,25 +330,36 @@ pageextension 50054 TorlysPurchaseOrderSubform extends "Purchase Order Subform"
 
     var
         LookupUser: Codeunit "LookupUserID";
+        EditCasePallet: Boolean;
+
+    trigger OnAfterGetRecord()
+    begin
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+    end;
 
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    local procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceiveCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    local procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    local procedure OnValidateQtyToReceiveCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateQtyToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
     begin
     end;
 }

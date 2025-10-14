@@ -2,6 +2,12 @@ codeunit 50011 "TorlysInitQtyToReceive"
 {
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeInitQtyToReceive', '', false, false)]
     local procedure OnBeforeInitQtyToReceive(var SalesLine: Record "Sales Line"; FieldNo: Integer; var IsHandled: Boolean)
+    var
+        Item: Record "Item";
+        QtyPerCase: Integer;
+        QtyPerPallet: Integer;
+        TempQuantity: Decimal;
+        UOMMgt: Codeunit "Unit of Measure Management";
     begin
         IsHandled := true;
 
@@ -34,11 +40,4 @@ codeunit 50011 "TorlysInitQtyToReceive"
 
         SalesLine.InitQtyToInvoice();
     end;
-
-    var
-        Item: Record "Item";
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
-        TempQuantity: Decimal;
-        UOMMgt: Codeunit "Unit of Measure Management";
 }

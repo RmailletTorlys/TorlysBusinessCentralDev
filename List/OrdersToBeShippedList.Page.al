@@ -586,10 +586,10 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Print Pick Slip';
                     Image = Print;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
-
                     trigger OnAction()
                     begin
-                        TorlysDocPrint.PrintPickSlip(Rec);
+                        // TorlysDocPrint.PrintPickSlip(Rec);
+                        DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
                     end;
                 }
 
@@ -939,8 +939,7 @@ page 52001 "Orders To Be Shipped List"
     var
         UserSetup: Record "User Setup";
         DocPrint: Codeunit "Document-Print";
-        TorlysDocPrint: Codeunit "Torlys Print Document";
-
+        TorlysDocPrint: Codeunit "Torlys Document-Print";
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
 
 

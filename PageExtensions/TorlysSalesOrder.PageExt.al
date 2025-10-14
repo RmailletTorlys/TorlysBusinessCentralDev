@@ -3,6 +3,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     layout
     {
         movefirst(General; "Sell-to Customer No.")
+
         moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
 
         addafter("Sell-to Country/Region Code")
@@ -34,7 +35,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
-
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(3);
@@ -107,7 +107,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Editable = false;
                 Importance = Additional;
             }
-
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
                 Caption = 'System Created Date';
@@ -116,7 +115,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Editable = false;
                 Importance = Additional;
             }
-
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'System Last Modified By';
@@ -125,7 +123,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Editable = false;
                 Importance = Additional;
             }
-
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
                 Caption = 'System Last Modified Date';
@@ -136,9 +133,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-
         addfirst("Invoice Details")
-
         {
             field("On Hold"; Rec."On Hold")
             {
@@ -187,16 +182,13 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Importance = Additional;
             }
-
             field("Salesperson Code 2"; Rec."Salesperson Code 2")
             {
                 Caption = 'Salesperson Code 2';
                 ToolTip = 'Salesperson Code 2';
                 ApplicationArea = All;
                 Importance = Additional;
-
             }
-
             field("Salesperson Commission 2"; Rec."Salesperson Commission 2")
             {
                 Caption = 'Salesperson Commission 2';
@@ -204,7 +196,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Importance = Additional;
             }
-
             field("Salesperson Code 3"; Rec."Salesperson Code 3")
             {
                 Caption = 'Salesperson Code 3';
@@ -212,7 +203,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Importance = Additional;
             }
-
             field("Salesperson Commission 3"; Rec."Salesperson Commission 3")
             {
                 Caption = 'Salesperson Commission 3';
@@ -269,7 +259,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     Importance = Standard;
                     Editable = false;
                 }
-
                 field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
                 {
                     Caption = 'Pick Slip Printed Date';
@@ -278,7 +267,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     Importance = Standard;
                     Editable = false;
                 }
-
                 field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
                 {
                     Caption = 'Pick Slip Printed Time';
@@ -301,7 +289,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-
         addafter("Shipping and Billing")
         {
             group("Marketing")
@@ -312,7 +299,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     group(Details)
                     {
                         ShowCaption = false;
-
                         field(ShortcutDimCode5; ShortcutDimCode[5])
                         {
                             ApplicationArea = Dimensions;
@@ -322,7 +308,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                             Visible = true;
-
                             trigger OnValidate()
                             begin
                                 ValidateShortcutDimension(5);
@@ -335,7 +320,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             ApplicationArea = All;
                             Importance = Standard;
                         }
-
                         field("Power Up Level"; Rec."Power Up Level")
                         {
                             Caption = 'Power Up Level';
@@ -343,7 +327,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             ApplicationArea = All;
                             Importance = Standard;
                         }
-
                         field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
                         {
                             Caption = 'Sample Allowance Exclusion';
@@ -355,7 +338,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 }
                 grid(ManufacturingGrid)
                 {
-
                     group(Manufacturing)
                     {
                         field("MK Required"; Rec."MK Required")
@@ -364,7 +346,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             ToolTip = 'MK Required';
                             ApplicationArea = All;
                         }
-
                         field("MK Required Type"; Rec."MK Required Type")
                         {
                             Caption = 'MK Required Type';
@@ -383,14 +364,12 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             ToolTip = 'MK Staged By';
                             ApplicationArea = All;
                         }
-
                         field("MK Staged Date"; Rec."MK Staged Date")
                         {
                             Caption = 'MK Staged Date';
                             ToolTip = 'MK Staged Date';
                             ApplicationArea = All;
                         }
-
                         field("Marketing Shipment Transfer"; Rec."Marketing Shipment Transfer")
                         {
                             Caption = 'Marketing Shipment or Transfer';
@@ -734,9 +713,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         {
             Importance = Additional;
         }
-
-
-
     }
 
     actions
@@ -765,31 +741,23 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Remove Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
-
-
                 trigger OnAction()
                 begin
-
                     Rec."On Hold" := '';
                     Rec.Modify(true);
-
                     Message('Removed Order from Credit Hold');
                 end;
             }
-
             action("Place Credit Hold")
             {
                 ToolTip = 'Places selected Order(s) on Credit Hold.';
                 Caption = 'Place Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
-
-
                 trigger OnAction()
                 begin
                     Rec."On Hold" := 'CR';
                     Rec.Modify(true);
-
                     Message('Placed Order on Credit Hold');
                 end;
             }
@@ -799,7 +767,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     var
         LookupUserId: Codeunit "LookupUserID";
         ShortcutDimCode: array[8] of Code[20];
-
 
     trigger OnAfterGetRecord()
     begin

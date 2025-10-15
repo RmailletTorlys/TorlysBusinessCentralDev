@@ -3,7 +3,7 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
     layout
     {
         movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date", "Order Date", "Document Date", "Expected Receipt Date", "Vendor Order No.", "Vendor Shipment No.", "Vendor Invoice No.")
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date", "Order Date", "Document Date", "Vendor Order No.", "Vendor Shipment No.", "Vendor Invoice No.")
 
         addafter("Vendor Invoice No.")
         {
@@ -313,6 +313,11 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
         modify("Payment Method Code")
         {
             Importance = Standard;
+        }
+
+        modify("Expected Receipt Date")
+        {
+            Visible = false;
         }
 
     }

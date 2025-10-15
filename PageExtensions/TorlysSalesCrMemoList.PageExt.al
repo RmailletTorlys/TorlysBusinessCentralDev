@@ -2,7 +2,9 @@ pageextension 59302 TorlysSalesCrMemoList extends "Sales Credit Memos"
 {
     layout
     {
-        addafter("No.")
+        moveafter("No."; "Status")
+
+        addafter("Status")
         {
             field("Order Date"; Rec."Order Date")
             {
@@ -104,7 +106,7 @@ pageextension 59302 TorlysSalesCrMemoList extends "Sales Credit Memos"
 
         }
 
-        moveafter("Shipping Comment"; Status, Amount)
+        moveafter("Shipping Comment"; Amount)
 
         addafter(Amount)
         {

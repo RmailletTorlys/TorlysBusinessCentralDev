@@ -2,7 +2,9 @@ pageextension 59301 TorlysSalesInvoiceList extends "Sales Invoice List"
 {
     layout
     {
-        addafter("No.")
+        moveafter("No."; "Status")
+
+        addafter("Status")
         {
             field("On Hold"; Rec."On Hold")
             {
@@ -113,7 +115,7 @@ pageextension 59301 TorlysSalesInvoiceList extends "Sales Invoice List"
 
         }
 
-        moveafter("Shipping Comment"; Status, Amount)
+        moveafter("Shipping Comment"; Amount)
 
         addafter(Amount)
         {

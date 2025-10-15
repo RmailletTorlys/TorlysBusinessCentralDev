@@ -133,6 +133,12 @@ End Function
         <Field Name="LineAmountFormat">
           <DataField>LineAmountFormat</DataField>
         </Field>
+        <Field Name="Gross_Weight">
+          <DataField>Gross_Weight</DataField>
+        </Field>
+        <Field Name="Gross_WeightFormat">
+          <DataField>Gross_WeightFormat</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

@@ -92,8 +92,6 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
             }
         }
 
-
-
         modify("Item Reference No.")
         {
             Visible = false;

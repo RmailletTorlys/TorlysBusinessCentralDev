@@ -1,12 +1,12 @@
 codeunit 50299 "Torlys Document-Print"
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Print", 'OnBeforeProcessPrintSalesOrder', '', false, false)]
-    procedure OnBeforeProcessPrintSalesOrder(var SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction"; var IsHandled: Boolean)
+    local procedure OnBeforeProcessPrintSalesOrder(var SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction"; var IsHandled: Boolean)
     var
         SalesLine: Record "Sales Line";
         Item: Record "Item";
         ReportSelection: Record "Report Selections";
-        ReportUsage: Enum "Report Selection Usage";
+
     begin
         IsHandled := true;
         if Usage = 2 then begin
@@ -30,7 +30,7 @@ codeunit 50299 "Torlys Document-Print"
                 ERROR('Order must not be on credit hold!');
 
             //shipment date must not be in past
-            IF SalesHeader."Shipment Date" < WORKDATE THEN
+            IF SalesHeader."Shipment Date" < WORKDATE() THEN
                 ERROR('Shipment date must not be in the past!');
 
             //shipment date must not be on weekend
@@ -38,10 +38,11 @@ codeunit 50299 "Torlys Document-Print"
                 ERROR('Shipment date must not be on the weekend!');
 
             //shipment date must not be too far in the future   
-            IF (DATE2DWY(WORKDATE, 1) < 5) AND (SalesHeader."Shipment Date" - WORKDATE > 1) THEN //weekday print 1 day in advance
+            IF (DATE2DWY(WORKDATE(), 1) < 5) AND (SalesHeader."Shipment Date" - WORKDATE() > 1) THEN //weekday print 1 day in advance
                 ERROR('Shipment date is too far in the future!')
-            ELSE IF (DATE2DWY(WORKDATE, 1) = 5) AND (SalesHeader."Shipment Date" - WORKDATE > 3) THEN //Friday print 3 days in advance
-                ERROR('Shipment date is too far in the future!');
+            ELSE
+                IF (DATE2DWY(WORKDATE(), 1) = 5) AND (SalesHeader."Shipment Date" - WORKDATE() > 3) THEN //Friday print 3 days in advance
+                    ERROR('Shipment date is too far in the future!');
 
             //must have something allocated
             SalesHeader.CALCFIELDS("Qty. to Ship");
@@ -54,34 +55,33 @@ codeunit 50299 "Torlys Document-Print"
                 ERROR('Order is not fully allocated and not marked partial!');
 
             //must have inventory before printing
-            SalesLine.RESET;
+            SalesLine.RESET();
             SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
             SalesLine.SETRANGE("Document No.", SalesHeader."No.");
             SalesLine.SETFILTER(Type, 'Item');
             SalesLine.SETFILTER("Qty. to Ship", '>0');
-            IF SalesLine.FIND('-') THEN BEGIN
+            IF SalesLine.FIND('-') THEN
                 REPEAT
-                    Item.RESET;
+                    Item.RESET();
                     Item.GET(SalesLine."No.");
                     Item.SETFILTER("Location Filter", SalesLine."Location Code");
                     Item.CALCFIELDS(Inventory);
                     IF SalesLine."Qty. to Ship" > Item.Inventory THEN
                         ERROR('There is not enough inventory of %1 in %2.\Allocated quantity = %3.\NAV on hand = %4.\Please contact purchasing!',
                                 Item."No.", SalesLine."Location Code", SalesLine."Qty. to Ship", Item.Inventory);
-                UNTIL SalesLine.NEXT = 0;
-            END;
+                UNTIL SalesLine.NEXT() = 0;
 
             //location code on header must be same on all lines
-            SalesLine.RESET;
+            SalesLine.RESET();
             SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
             SalesLine.SETRANGE("Document No.", SalesHeader."No.");
             SalesLine.SETFILTER("Qty. to Ship", '>0');
-            IF SalesLine.FIND('-') THEN BEGIN
+            IF SalesLine.FIND('-') THEN
                 REPEAT
                     IF SalesLine."Location Code" <> SalesHeader."Location Code" THEN
                         ERROR('Location on header (%1) is differnet than a line (%2, %3)!', SalesHeader."Location Code", SalesLine."Location Code", SalesLine."No.");
-                UNTIL SalesLine.NEXT = 0;
-            END;
+                UNTIL SalesLine.NEXT() = 0;
+
 
             //pass parameters and print
             SalesHeader.SetRange("No.", SalesHeader."No.");
@@ -135,7 +135,7 @@ codeunit 50299 "Torlys Document-Print"
         ReportSelectionWhse.FIND('-');
         REPEAT
             REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
-        UNTIL ReportSelectionWhse.NEXT = 0;
+        UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
     procedure PrintBillOfLading(BOLHeader: Record "Torlys BOL Header"): Boolean

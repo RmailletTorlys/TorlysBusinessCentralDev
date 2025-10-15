@@ -666,7 +666,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
         ShortcutDimCode: array[8] of Code[20];
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     trigger OnAfterGetRecord()
     begin

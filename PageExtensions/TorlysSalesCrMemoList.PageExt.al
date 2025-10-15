@@ -1,18 +1,9 @@
-pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipments"
+pageextension 59302 TorlysSalesCrMemoList extends "Sales Credit Memos"
 {
     layout
     {
         addafter("No.")
         {
-
-            field("Order No."; Rec."Order No.")
-            {
-                Caption = 'Order No.';
-                ToolTip = 'Order No.';
-                ApplicationArea = All;
-                Visible = true;
-                Editable = false;
-            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';
@@ -79,7 +70,7 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
                 Caption = 'Order Type';
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
             field("Temporary Hold"; Rec."Temporary Hold")
@@ -99,7 +90,7 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
@@ -107,12 +98,15 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
+
         }
 
-        addafter("Shipping Comment")
+        moveafter("Shipping Comment"; Status, Amount)
+
+        addafter(Amount)
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
@@ -150,12 +144,7 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
             }
         }
 
-        modify("No.")
-        {
-            Width = 12;
-        }
-
-        modify("Ship-to Code")
+        modify("Posting Date")
         {
             Visible = true;
         }
@@ -165,9 +154,9 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
             Visible = true;
         }
 
-        modify("External Document No.")
+        modify("Assigned User ID")
         {
-            Visible = true;
+            Visible = false;
         }
 
         modify("Document Date")
@@ -175,30 +164,30 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
             Visible = false;
         }
 
-        modify("Posting Date")
+        modify("Sell-to Contact")
+        {
+            Visible = false;
+        }
+
+        modify("Due Date")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Code")
         {
             Visible = true;
         }
 
-        modify("Shipment Date")
+        modify("Status")
         {
-            Visible = false;
-        }
-
-        modify("Currency Code")
-        {
-            Visible = false;
-        }
-
-        modify("No. Printed")
-        {
-            Visible = false;
+            Visible = true;
         }
 
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -207,5 +196,4 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
 }

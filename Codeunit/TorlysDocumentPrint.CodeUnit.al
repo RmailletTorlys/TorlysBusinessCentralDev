@@ -1,4 +1,4 @@
-codeunit 50299 "Torlys Document-Print"
+codeunit 50299 TorlysDocumentPrint
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Print", 'OnBeforeProcessPrintSalesOrder', '', false, false)]
     local procedure OnBeforeProcessPrintSalesOrder(var SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction"; var IsHandled: Boolean)

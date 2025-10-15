@@ -1,4 +1,4 @@
-codeunit 50010 "LookupUserID"
+codeunit 50010 "TorlysLookupUserID"
 {
     procedure UserId(var UserGuid: Guid): Code[50]
     var

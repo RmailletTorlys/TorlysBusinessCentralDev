@@ -1,4 +1,4 @@
-pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
+pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
 {
     layout
     {
@@ -393,7 +393,7 @@ pageextension 50132 TorlysPostedSalesInvoice extends "Posted Sales Invoice"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
 
 

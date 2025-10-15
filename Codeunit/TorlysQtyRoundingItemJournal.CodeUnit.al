@@ -1,4 +1,4 @@
-codeunit 50004 "Torlys IJ Quantity Rounding"
+codeunit 50004 "TorlysQtyRoundingItemJournal"
 {
     [EventSubscriber(ObjectType::Page, Page::"Item Journal", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
     local procedure OnValidateItem(Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; var EditCasePallet: Boolean)
@@ -76,10 +76,10 @@ codeunit 50004 "Torlys IJ Quantity Rounding"
     var
         Item: Record "Item";
         UOMMgt: Codeunit "Unit of Measure Management";
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
         TempQuantity: Decimal;
-        CaseQuantity: Integer;
+        CaseQuantity: Decimal;
 
     // procedure ValidateUoM(var Rec: Record "Item Journal Line"): Boolean
     // var

@@ -496,7 +496,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         //Hidden Groups - End
     }
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

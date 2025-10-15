@@ -1,4 +1,4 @@
-codeunit 50002 "Torlys Qty Rounding Sales Line"
+codeunit 50002 "TorlysQtyRoundingSalesLine"
 {
     // Sales Order - start
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
@@ -303,10 +303,10 @@ codeunit 50002 "Torlys Qty Rounding Sales Line"
     var
         Item: Record "Item";
         UOMMgt: Codeunit "Unit of Measure Management";
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
         TempQuantity: Decimal;
-        CaseQuantity: Integer;
+        CaseQuantity: Decimal;
 
 
 

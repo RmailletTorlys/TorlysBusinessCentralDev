@@ -254,7 +254,7 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
     }
 
     var
-        LookupUser: Codeunit "LookupUserID";
+        LookupUser: Codeunit "TorlysLookupUserID";
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

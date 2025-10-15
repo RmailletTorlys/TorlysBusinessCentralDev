@@ -1,4 +1,4 @@
-pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
+pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
 {
     layout
     {
@@ -21,6 +21,12 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
+                trigger OnValidate()
+                begin
+                    OnValidateQuantityCase(Rec, xRec);
+                    CurrPage.Update(true);
+                end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -28,6 +34,14 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
+                trigger OnValidate()
+                begin
+                    if Rec.Type <> Rec.Type::Item then
+                        exit;
+                    OnValidateQuantityPallet(Rec, xRec);
+                    CurrPage.Update(true);
+                end;
             }
         }
 
@@ -79,26 +93,33 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 ApplicationArea = All;
                 Editable = true;
             }
-        }
-
-        moveafter("Previous ETA"; "Outstanding Quantity")
-
-        addafter("Outstanding Quantity")
-        {
-            field("Qty. to Receive"; Rec."Qty. to Receive")
+            field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
-                Caption = 'Qty. to Receive';
-                ToolTip = 'Qty. to Receive';
+                Caption = 'Outstanding Quantity';
+                ToolTip = 'Outstanding Quantity';
                 ApplicationArea = All;
                 DecimalPlaces = 0 : 5;
                 Editable = false;
             }
+        }
 
+        moveafter("Outstanding Quantity"; "Qty. to Receive")
+
+
+        addafter("Qty. to Receive")
+        {
             field("Qty. to Receive Case"; Rec."Qty. to Receive Case")
             {
                 Caption = 'Qty. to Receive Case';
                 ToolTip = 'Qty. to Receive Case';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
+                trigger OnValidate()
+                begin
+                    OnValidateQtyToReceiveCase(Rec, xRec);
+                    CurrPage.Update(true);
+                end;
+
             }
 
             field("Qty. to Receive Pallet"; Rec."Qty. to Receive Pallet")
@@ -106,14 +127,21 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 Caption = 'Qty. to Receive Pallet';
                 ToolTip = 'Qty. to Receive Pallet';
                 ApplicationArea = All;
+                Editable = EditCasePallet;
+                trigger OnValidate()
+                begin
+                    OnValidateQtyToReceivePallet(Rec, xRec);
+                    CurrPage.Update(true);
+                end;
+
             }
-            field("Quantity Received"; Rec."Quantity Received")
-            {
-                Caption = 'Quantity Received';
-                ToolTip = 'Quantity Received';
-                ApplicationArea = All;
-                Editable = false;
-            }
+
+        }
+
+        moveafter("Qty. to Receive Pallet"; "Quantity Received")
+
+        addafter("Quantity Received")
+        {
             field("Qty. Rcd. Not Invoiced"; Rec."Qty. Rcd. Not Invoiced")
             {
                 Caption = 'Qty. Rcd. Not Invoiced';
@@ -121,37 +149,12 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
                 ApplicationArea = All;
                 Editable = false;
             }
+        }
 
-            field("Qty. to Invoice"; Rec."Qty. to Invoice")
-            {
-                Caption = 'Qty. to Invoice';
-                ToolTip = 'Qty. to Invoice';
-                ApplicationArea = All;
-                Editable = false;
-            }
-            field("Quantity Invoiced"; Rec."Quantity Invoiced")
-            {
-                Caption = 'Quantity Invoiced';
-                ToolTip = 'Quantity Invoiced';
-                ApplicationArea = All;
-                Editable = false;
-            }
+        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code")
 
-            field("Tax Group Code"; Rec."Tax Group Code")
-            {
-                Caption = 'Tax Group Code';
-                ToolTip = 'Tax Group Code';
-                ApplicationArea = All;
-                Editable = false;
-            }
-            field("Tax Area Code"; Rec."Tax Area Code")
-            {
-                Caption = 'Tax Area Code';
-                ToolTip = 'Tax Area Code';
-                ApplicationArea = All;
-                Editable = false;
-            }
-
+        addafter("Tax Area Code")
+        {
             field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -181,7 +184,45 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
             }
         }
 
+        modify("Reserved Quantity")
+        {
+            Visible = false;
+        }
 
+        modify("Tax Area Code")
+        {
+            Visible = true;
+        }
+
+        modify("Qty. to Assign")
+        {
+            Visible = false;
+        }
+
+        modify("Item Charge Qty. to Handle")
+        {
+            Visible = false;
+        }
+
+        modify("Qty. Assigned")
+        {
+            Visible = false;
+        }
+
+        modify("Promised Receipt Date")
+        {
+            Visible = false;
+        }
+
+        modify("Over-Receipt Code")
+        {
+            Visible = false;
+        }
+
+        modify("Over-Receipt Quantity")
+        {
+            Visible = false;
+        }
 
         modify("Shortcut Dimension 1 Code")
         {
@@ -189,6 +230,71 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
         }
 
         modify("Shortcut Dimension 2 Code")
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode3)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode4)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode5)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode6)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode7)
+        {
+            Visible = false;
+        }
+
+        modify(ShortcutDimCode8)
+        {
+            Visible = false;
+        }
+
+        modify("GST/HST")
+        {
+            Visible = false;
+        }
+
+        modify("Bin Code")
+        {
+            Visible = false;
+        }
+
+        modify("TPS CMG Container Qty")
+        {
+            Visible = false;
+        }
+
+        modify("Quantity Received")
+        {
+            Visible = true;
+        }
+
+        modify("Planned Receipt Date")
+        {
+            Visible = false;
+        }
+
+        modify("LAX Exclude From Performance")
+        {
+            Visible = false;
+        }
+
+        modify("Item Reference No.")
         {
             Visible = false;
         }
@@ -203,17 +309,57 @@ pageextension 50518 TorlysPurchaseLines extends "Purchase Lines"
             Visible = true;
         }
 
-        modify("Reserved Qty. (Base)")
+        modify(AmountBeforeDiscount)
         {
             Visible = false;
         }
+
+        modify("Invoice Discount Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Invoice Disc. Pct.")
+        {
+            Visible = false;
+        }
+
+
+
     }
 
-    trigger OnOpenPage()
+    var
+        LookupUser: Codeunit "TorlysLookupUserID";
+        EditCasePallet: Boolean;
+
+    trigger OnAfterGetRecord()
     begin
-        Rec.SetFilter("Document Type", 'Order');
+        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
     end;
 
-    var
-        LookupUser: Codeunit "LookupUserID";
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateQtyToReceiveCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnValidateQtyToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+    end;
 }

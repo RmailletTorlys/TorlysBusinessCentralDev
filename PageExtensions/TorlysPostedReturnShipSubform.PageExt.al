@@ -1,4 +1,4 @@
-pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt. Subform"
+pageextension 56651 TorlysPostedReturnShipSubform extends "Posted Return Shipment Subform"
 {
     layout
     {
@@ -38,6 +38,7 @@ pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt
                 Caption = 'Confirmation No.';
                 ToolTip = 'Confirmation No.';
                 ApplicationArea = All;
+                Visible = false;
             }
 
             field("Production Date"; Rec."Production Date")
@@ -45,30 +46,32 @@ pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt
                 Caption = 'Production Date';
                 ToolTip = 'Production Date';
                 ApplicationArea = All;
+                Visible = false;
             }
             field("Possible Loading Date"; Rec."Possible Loading Date")
             {
                 Caption = 'Possible Loading Date';
                 ToolTip = 'Possible Loading Date';
                 ApplicationArea = All;
+                Visible = false;
             }
             field("Shipment Date"; Rec."Shipment Date")
             {
                 Caption = 'Shipment Date';
                 ToolTip = 'Shipment Date';
                 ApplicationArea = All;
+                Visible = false;
             }
             field("Expected Departure Date"; Rec."Expected Departure Date")
             {
                 Caption = 'Expected Departure Date';
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
+                Visible = false;
             }
         }
 
-        moveafter("Expected Departure Date"; "Expected Receipt Date")
-
-        addafter("Expected Receipt Date")
+        addafter("Expected Departure Date")
         {
             field("Previous ETA"; Rec."Previous ETA")
             {
@@ -76,10 +79,11 @@ pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt
                 ToolTip = 'Previous ETA';
                 ApplicationArea = All;
                 Editable = true;
+                Visible = false;
             }
         }
 
-        moveafter("Previous ETA"; "Qty. Rcd. Not Invoiced", "Quantity Invoiced")
+        moveafter("Previous ETA"; "Return Qty. Shipped Not Invd.", "Quantity Invoiced")
 
         addafter("Quantity Invoiced")
         {
@@ -112,7 +116,17 @@ pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt
             }
         }
 
-        modify("Promised Receipt Date")
+        modify("Unit of Measure Code")
+        {
+            Visible = false;
+        }
+
+        modify("Return Qty. Shipped Not Invd.")
+        {
+            Visible = true;
+        }
+
+        modify("Direct Unit Cost")
         {
             Visible = false;
         }
@@ -127,47 +141,7 @@ pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt
             Visible = false;
         }
 
-        modify("ShortcutDimCode[3]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[4]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[5]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[6]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[7]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[8]")
-        {
-            Visible = false;
-        }
-
         modify("Bin Code")
-        {
-            Visible = false;
-        }
-
-        modify("Planned Receipt Date")
-        {
-            Visible = false;
-        }
-
-        modify("LAX Exclude From Performance")
         {
             Visible = false;
         }
@@ -177,17 +151,13 @@ pageextension 50136 TorlysPostedPurchaseReceiptSub extends "Posted Purchase Rcpt
             Visible = false;
         }
 
-        modify("Qty. Rcd. Not Invoiced")
+        modify("Return Reason Code")
         {
-            visible = true;
-        }
-        modify("Order Date")
-        {
-            visible = false;
+            Visible = false;
         }
     }
 
     var
-        LookupUser: Codeunit "LookupUserID";
+        LookupUser: Codeunit "TorlysLookupUserID";
 
 }

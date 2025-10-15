@@ -106,12 +106,6 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
 
-        field(50017; "Released"; Boolean)
-        {
-            Caption = 'Released';
-            DataClassification = CustomerContent;
-        }
-
         field(50020; "Qty. To ship"; Decimal)
         {
             Caption = 'Qty. To ship';
@@ -191,33 +185,6 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             Caption = 'Order Method';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values";
-        }
-
-        field(50032; "Total Excl. Tax"; Decimal)
-        {
-            Caption = 'Total Excl. Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
-
-        field(50033; "Total Tax"; Decimal)
-        {
-            Caption = 'Total Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
-
-        field(50034; "Total Incl. Tax"; Decimal)
-        {
-            Caption = 'Total Incl. Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
-
-        field(50035; "To Ship"; Boolean)
-        {
-            Caption = 'To ship';
-            DataClassification = CustomerContent;
         }
 
         field(50037; "Shipping Instructions"; Code[30])

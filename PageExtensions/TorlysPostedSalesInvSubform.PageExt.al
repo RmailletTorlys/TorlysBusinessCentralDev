@@ -1,4 +1,4 @@
-pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice Subform"
+pageextension 50133 TorlysPostedSalesInvSubform extends "Posted Sales Invoice Subform"
 {
     layout
     {
@@ -216,6 +216,6 @@ pageextension 50133 TorlysPostedSalesInvoiceSubfor extends "Posted Sales Invoice
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
 }

@@ -1,4 +1,4 @@
-pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
+pageextension 50141 "TorlysPostedPurchCrMemoSubform" extends "Posted Purch. Cr. Memo Subform"
 {
     layout
     {
@@ -14,7 +14,7 @@ pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
 
         moveafter("Vendor Item No."; Description)
 
-        addafter("Description")
+        addafter(Description)
         {
             field("Location Code"; Rec."Location Code")
             {
@@ -52,6 +52,7 @@ pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
                 Caption = 'Confirmation No.';
                 ToolTip = 'Confirmation No.';
                 ApplicationArea = All;
+                visible = false;
             }
 
             field("Production Date"; Rec."Production Date")
@@ -59,24 +60,28 @@ pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
                 Caption = 'Production Date';
                 ToolTip = 'Production Date';
                 ApplicationArea = All;
+                visible = false;
             }
             field("Possible Loading Date"; Rec."Possible Loading Date")
             {
                 Caption = 'Possible Loading Date';
                 ToolTip = 'Possible Loading Date';
                 ApplicationArea = All;
+                visible = false;
             }
             field("Shipment Date"; Rec."Shipment Date")
             {
                 Caption = 'Shipment Date';
                 ToolTip = 'Shipment Date';
                 ApplicationArea = All;
+                visible = false;
             }
             field("Expected Departure Date"; Rec."Expected Departure Date")
             {
                 Caption = 'Expected Departure Date';
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
+                visible = false;
             }
         }
 
@@ -88,6 +93,7 @@ pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
                 ToolTip = 'Expected Receipt Date';
                 ApplicationArea = All;
                 Editable = true;
+                visible = false;
             }
             field("Previous ETA"; Rec."Previous ETA")
             {
@@ -95,56 +101,92 @@ pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
                 ToolTip = 'Previous ETA';
                 ApplicationArea = All;
                 Editable = true;
+                visible = false;
             }
         }
 
-        moveafter("Previous ETA"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")//, ShortcutDimCode[5], ShortcutDimCode[6], ShortcutDimCode[7], ShortcutDimCode[8])
+        moveafter("Previous ETA"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
 
-        // addafter("ShortcutDimCode[8]")
-        // {
-        //     field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
-        //     {
-        //         Caption = 'Created By';
-        //         ToolTip = 'Created By';
-        //         ApplicationArea = All;
-        //     }
+        addafter("ShortcutDimCode[8]")
+        {
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
 
-        //     field("Created At"; Rec.SystemCreatedAt)
-        //     {
-        //         Caption = 'Created At';
-        //         ToolTip = 'Created At';
-        //         ApplicationArea = All;
-        //     }
+            field("Created At"; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
 
-        //     field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
-        //     {
-        //         Caption = 'Modified By';
-        //         ToolTip = 'Modified By';
-        //         ApplicationArea = All;
-        //     }
+            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
 
-        //     field("Modified At"; Rec.SystemModifiedAt)
-        //     {
-        //         Caption = 'Modified At';
-        //         ToolTip = 'Modified At';
-        //         ApplicationArea = All;
-        //     }
-        // }
+            field("Modified At"; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+            }
+        }
 
         modify("Tax Area Code")
         {
             Visible = true;
         }
 
-        // modify(ShortcutDimCode[3])
-        // {
-        //     Visible = false;
-        // }
+        modify("Line Discount %")
+        {
+            Visible = false;
+        }
 
-        // modify(ShortcutDimCode[4])
-        // {
-        //     Visible = false;
-        // }
+        modify("Line Discount Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = true;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = true;
+        }
+
+        modify("ShortcutDimCode[3]")
+        {
+            Visible = false;
+        }
+
+        modify("ShortcutDimCode[4]")
+        {
+            Visible = false;
+        }
+
+        modify("Return Reason Code")
+        {
+            Visible = false;
+        }
+
+        modify("Unit Price (LCY)")
+        {
+            Visible = false;
+        }
+
+        modify("Deferral Code")
+        {
+            Visible = false;
+        }
 
         modify("Item Reference No.")
         {
@@ -165,7 +207,9 @@ pageextension 50138 PostedPurchaseInv extends "Posted Purch. Invoice Subform"
         {
             Visible = false;
         }
-
     }
+
+    var
+        LookupUser: Codeunit "TorlysLookupUserID";
 
 }

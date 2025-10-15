@@ -259,7 +259,7 @@ pageextension 59301 TorlysSalesInvoiceList extends "Sales Invoice List"
         }
     }
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

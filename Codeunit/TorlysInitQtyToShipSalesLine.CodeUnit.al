@@ -6,8 +6,8 @@ codeunit 50009 "TorlysInitQtyToShipSalesLine"
         Item: Record "Item";
         UOMMgt: Codeunit "Unit of Measure Management";
         OkToAllocate: Boolean;
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
         TempQuantity: Decimal;
 
     begin

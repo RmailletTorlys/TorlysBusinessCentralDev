@@ -1,11 +1,18 @@
-pageextension 50143 TorlysPostedSalesInvoices extends "Posted Sales Invoices"
+pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipments"
 {
     layout
     {
-        moveafter("No."; "Order No.")
-
-        addafter("Order No.")
+        addafter("No.")
         {
+
+            field("Order No."; Rec."Order No.")
+            {
+                Caption = 'Order No.';
+                ToolTip = 'Order No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';
@@ -105,9 +112,7 @@ pageextension 50143 TorlysPostedSalesInvoices extends "Posted Sales Invoices"
             }
         }
 
-        moveafter("Shipping Comment"; "Amount")
-
-        addafter("Amount")
+        addafter("Shipping Comment")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
@@ -155,11 +160,6 @@ pageextension 50143 TorlysPostedSalesInvoices extends "Posted Sales Invoices"
             Visible = true;
         }
 
-        modify("Order No.")
-        {
-            Visible = true;
-        }
-
         modify("Shortcut Dimension 1 Code")
         {
             Visible = true;
@@ -168,36 +168,6 @@ pageextension 50143 TorlysPostedSalesInvoices extends "Posted Sales Invoices"
         modify("External Document No.")
         {
             Visible = true;
-        }
-
-        modify(Closed)
-        {
-            Visible = false;
-        }
-
-        modify(Cancelled)
-        {
-            Visible = false;
-        }
-
-        modify(Corrective)
-        {
-            Visible = false;
-        }
-
-        modify("Amount Including VAT")
-        {
-            Visible = false;
-        }
-
-        modify("Remaining Amount")
-        {
-            Visible = false;
-        }
-
-        modify("Due Date")
-        {
-            Visible = false;
         }
 
         modify("Document Date")
@@ -228,7 +198,7 @@ pageextension 50143 TorlysPostedSalesInvoices extends "Posted Sales Invoices"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -237,6 +207,5 @@ pageextension 50143 TorlysPostedSalesInvoices extends "Posted Sales Invoices"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
 
 }

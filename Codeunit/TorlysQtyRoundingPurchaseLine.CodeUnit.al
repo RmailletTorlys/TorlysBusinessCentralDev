@@ -1,5 +1,6 @@
-codeunit 50003 "Torlys PO Quantity Rounding"
+codeunit 50003 "TorlysQtyRoundingPurchaseLine"
 {
+    //Purchase Order - start
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
     local procedure OnValidateItemPO(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
     begin
@@ -41,6 +42,77 @@ codeunit 50003 "Torlys PO Quantity Rounding"
     begin
         OnChangeQtyToReceivePallet(Rec, xRec);
     end;
+    //Purchase Order - end
+
+    //Purchase Credit Memo - start
+    [EventSubscriber(ObjectType::Page, Page::"Purch. Cr. Memo Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
+    local procedure OnValidateItemCM(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
+    begin
+        EditCasePallet := CheckEditCasePallet(Rec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purch. Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    local procedure OnValidateQuantityCM(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+        OnChangeQuantity(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purch. Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
+    local procedure OnValidateQuantityCaseCM(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
+    begin
+        OnChangeQuantityCase(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purch. Cr. Memo Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
+    local procedure OnValidateQuantityPalletCM(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec);
+    end;
+    //Purchase Credit Memo - end
+
+    //Purchase Return Order - start
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
+    local procedure OnValidateItemRO(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
+    begin
+        EditCasePallet := CheckEditCasePallet(Rec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    local procedure OnValidateQuantityRO(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+        OnChangeQuantity(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeValidateEvent', 'Quantity Case', false, false)]
+    local procedure OnValidateQuantityCaseRO(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
+    begin
+        OnChangeQuantityCase(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeValidateEvent', 'Quantity Pallet', false, false)]
+    local procedure OnValidateQuantityPalletRO(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
+    begin
+        OnChangeQuantityPallet(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeValidateEvent', 'Return Qty. to Ship', false, false)]
+    local procedure OnValidateQtyToShipRO(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+        OnChangeQtyToShip(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeValidateEvent', 'Return Qty. to Ship Case', false, false)]
+    local procedure OnValidateQtyToShipCaseRO(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
+    begin
+        OnChangeQtyToShipCase(Rec, xRec);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeValidateEvent', 'Return Qty. to Ship Pallet', false, false)]
+    local procedure OnValidateQtyToShipPalletRO(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line")
+    begin
+        OnChangeQtyToShipPallet(Rec, xRec);
+    end;
+    //Purchase Return Order - end
 
     procedure CheckEditCasePallet(var Rec: Record "Purchase Line"): Boolean
     var
@@ -151,13 +223,65 @@ codeunit 50003 "Torlys PO Quantity Rounding"
         end;
     end;
 
+    procedure OnChangeQtyToShip(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+        if Rec.Type = Rec.Type::Item THEN BEGIN //only run check for items
+            Item.GET(Rec."No."); //get the item record
+            if Item."Compare Unit of Measure" <> '' then begin
+                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
+                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
+                TempQuantity := Rec."Return Qty. to Ship"; //store entered quantity in variable
+                Rec."Return Qty. to Ship Pallet" := 0; //go back to 0 for when quantity is changed
+                if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
+                    while TempQuantity >= QtyPerPallet do begin
+                        Rec."Return Qty. to Ship Pallet" := Rec."Return Qty. to Ship Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
+                        TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
+                    end;
+                Rec."Return Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                Rec."Return Qty. to Ship" := ((QtyPerPallet * Rec."Return Qty. to Ship Pallet") + (QtyPerCase * Rec."Return Qty. to Ship Case")) / Rec."Qty. per Unit of Measure";
+                Rec."Return Qty. to Ship (Base)" := Rec.CalcBaseQty(Rec."Return Qty. to Ship", Rec.FieldCaption(Rec."Return Qty. to Ship"), Rec.FieldCaption(Rec."Return Qty. to Ship (Base)"));
+                Rec.InitQtyToInvoice();
+                IF (Rec."Return Qty. to Ship" * Rec.Quantity < 0) OR (ABS(Rec."Return Qty. to Ship") > ABS(Rec."Outstanding Quantity"))
+                    OR (Rec.Quantity * Rec."Outstanding Quantity" < 0) THEN
+                    ERROR('You cannot receive more than %1 units.', Rec."Outstanding Quantity");
+            end;
+        end;
+    end;
+
+    procedure OnChangeQtyToShipCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+        if Rec.Type = Rec.Type::Item then begin //only run check for items
+            Item.GET(Rec."No."); //get the item record
+            QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
+            QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
+            CaseQuantity := Rec."Return Qty. to Ship Case" * QtyPerCase; //how many SF make up the case quantity entered
+            if CaseQuantity >= QtyPerPallet then  //check if the entered quantity is more than a full pallet
+                while CaseQuantity >= QtyPerPallet do begin
+                    Rec."Return Qty. to Ship Pallet" := Rec."Return Qty. to Ship Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
+                    CaseQuantity := CaseQuantity - QtyPerPallet; //how much left after applying to pallets
+                end;
+            Rec."Return Qty. to Ship Case" := ROUND((CaseQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases            
+            Rec.VALIDATE(Rec."Return Qty. to Ship", ((QtyPerPallet * Rec."Return Qty. to Ship Pallet") + (QtyPerCase * Rec."Return Qty. to Ship Case")) / Rec."Qty. per Unit of Measure");
+        end;
+    end;
+
+    procedure OnChangeQtyToShipPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    begin
+        if Rec.Type = Rec.Type::Item then begin //only run check for items
+            Item.GET(Rec."No."); //get the item record
+            QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
+            QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
+            Rec.VALIDATE(Rec."Return Qty. to Ship", ((QtyPerPallet * Rec."Return Qty. to Ship Pallet") + (QtyPerCase * Rec."Return Qty. to Ship Case")) / Rec."Qty. per Unit of Measure");
+        end;
+    end;
+
     var
         Item: Record "Item";
         UOMMgt: Codeunit "Unit of Measure Management";
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
         TempQuantity: Decimal;
-        CaseQuantity: Integer;
+        CaseQuantity: Decimal;
 
 
     // procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean

@@ -1,4 +1,4 @@
-pageextension 50124 "Torlys Comment Sheet" extends "Comment Sheet"
+pageextension 50124 TorlysCommentSheet extends "Comment Sheet"
 {
     layout
     {

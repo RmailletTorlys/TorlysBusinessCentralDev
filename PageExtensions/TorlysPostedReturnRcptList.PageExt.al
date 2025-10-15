@@ -1,8 +1,19 @@
-pageextension 50144 TorlysPostedSalesCreditMemoLis extends "Posted Sales Credit Memos"
+pageextension 56662 TorlysPostedReturnRcptList extends "Posted Return Receipts"
 {
     layout
     {
-        moveafter("No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        addafter("No.")
+        {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+        }
+        moveafter("Order Date"; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {
@@ -99,12 +110,6 @@ pageextension 50144 TorlysPostedSalesCreditMemoLis extends "Posted Sales Credit 
                 Editable = false;
             }
 
-        }
-
-        moveafter("Shipping Comment"; Amount)
-
-        addafter(Amount)
-        {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';
@@ -141,11 +146,6 @@ pageextension 50144 TorlysPostedSalesCreditMemoLis extends "Posted Sales Credit 
             }
         }
 
-        modify("Posting Date")
-        {
-            Visible = true;
-        }
-
         modify("Shortcut Dimension 1 Code")
         {
             Visible = true;
@@ -161,11 +161,6 @@ pageextension 50144 TorlysPostedSalesCreditMemoLis extends "Posted Sales Credit 
             Visible = false;
         }
 
-        modify("Due Date")
-        {
-            Visible = false;
-        }
-
         modify("Ship-to Code")
         {
             Visible = true;
@@ -176,39 +171,15 @@ pageextension 50144 TorlysPostedSalesCreditMemoLis extends "Posted Sales Credit 
             Visible = false;
         }
 
-        modify("Amount Including VAT")
-        {
-            Visible = false;
-        }
-
-        modify("Remaining Amount")
-        {
-            Visible = false;
-        }
-
-        modify("Paid")
-        {
-            Visible = false;
-        }
-
-        modify("Cancelled")
-        {
-            Visible = false;
-        }
-
-        modify("Corrective")
-        {
-            Visible = false;
-        }
-
         modify("No. Printed")
         {
             Visible = false;
         }
+
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

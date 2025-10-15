@@ -1,4 +1,4 @@
-pageextension 50050 "TorlysPurchaseOrder" extends "Purchase Order"
+pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
 {
     layout
     {
@@ -318,5 +318,5 @@ pageextension 50050 "TorlysPurchaseOrder" extends "Purchase Order"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 }

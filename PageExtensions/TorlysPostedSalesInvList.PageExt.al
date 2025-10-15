@@ -1,8 +1,10 @@
-pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipts"
+pageextension 50143 TorlysPostedSalesInvList extends "Posted Sales Invoices"
 {
     layout
     {
-        addafter("No.")
+        moveafter("No."; "Order No.")
+
+        addafter("Order No.")
         {
             field("Order Date"; Rec."Order Date")
             {
@@ -42,18 +44,10 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code")
+        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 
-        addafter("Location Code")
+        addafter("External Document No.")
         {
-            field("External Document No."; Rec."External Document No.")
-            {
-                Caption = 'External Document No.';
-                ToolTip = 'External Document No.';
-                ApplicationArea = All;
-                Visible = true;
-                Editable = false;
-            }
             field("Tag Name"; Rec."Tag Name")
             {
                 Caption = 'Tag Name';
@@ -78,7 +72,7 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
                 Caption = 'Order Type';
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
                 Editable = false;
             }
             field("Temporary Hold"; Rec."Temporary Hold")
@@ -109,7 +103,12 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
                 Visible = true;
                 Editable = false;
             }
+        }
 
+        moveafter("Shipping Comment"; "Amount")
+
+        addafter("Amount")
+        {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';
@@ -146,9 +145,59 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
             }
         }
 
+        modify("No.")
+        {
+            Width = 12;
+        }
+
+        modify("Ship-to Code")
+        {
+            Visible = true;
+        }
+
+        modify("Order No.")
+        {
+            Visible = true;
+        }
+
         modify("Shortcut Dimension 1 Code")
         {
             Visible = true;
+        }
+
+        modify("External Document No.")
+        {
+            Visible = true;
+        }
+
+        modify(Closed)
+        {
+            Visible = false;
+        }
+
+        modify(Cancelled)
+        {
+            Visible = false;
+        }
+
+        modify(Corrective)
+        {
+            Visible = false;
+        }
+
+        modify("Amount Including VAT")
+        {
+            Visible = false;
+        }
+
+        modify("Remaining Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Due Date")
+        {
+            Visible = false;
         }
 
         modify("Document Date")
@@ -156,14 +205,14 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
             Visible = false;
         }
 
-        modify("Sell-to Contact")
-        {
-            Visible = false;
-        }
-
-        modify("Ship-to Code")
+        modify("Posting Date")
         {
             Visible = true;
+        }
+
+        modify("Shipment Date")
+        {
+            Visible = false;
         }
 
         modify("Currency Code")
@@ -179,7 +228,7 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -188,5 +237,6 @@ pageextension 56662 TorlysPostedReturnReceiptList extends "Posted Return Receipt
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
+
 
 }

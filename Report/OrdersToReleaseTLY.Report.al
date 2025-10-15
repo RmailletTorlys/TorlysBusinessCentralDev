@@ -13,7 +13,7 @@ report 50004 "Orders to Release TLY"
         dataitem(Header; "Sales Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Slips Printed", "Released", "On Hold";
+            RequestFilterFields = "Location Code", "Shipment Date", "Shipping Agent Code", "No. Pick Slips Printed", "Status", "On Hold";
             RequestFilterHeading = 'Orders To Release TLY';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
@@ -32,7 +32,7 @@ report 50004 "Orders to Release TLY"
             {
 
             }
-            column(Released; Released)
+            column(Status; "Status")
             {
 
             }

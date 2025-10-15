@@ -684,7 +684,7 @@ page 52001 "Orders To Be Shipped List"
 
     var
         SalesLine: Record "Sales Line";
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
         WarehouseAssociateEditable: Boolean;
         FullyAllocated: Text[3];
         ToShipWeight: Decimal;
@@ -939,7 +939,7 @@ page 52001 "Orders To Be Shipped List"
     var
         UserSetup: Record "User Setup";
         DocPrint: Codeunit "Document-Print";
-        TorlysDocPrint: Codeunit "Torlys Document-Print";
+        TorlysDocPrint: Codeunit "TorlysDocumentPrint";
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
 
 

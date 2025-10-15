@@ -44,7 +44,6 @@ codeunit 50003 "Torlys PO Quantity Rounding"
 
     procedure CheckEditCasePallet(var Rec: Record "Purchase Line"): Boolean
     var
-        Item: Record Item;
     begin
         if Rec.Type <> Rec.Type::Item then exit(false);
         if Rec."No." = '' then exit(false);
@@ -62,12 +61,11 @@ codeunit 50003 "Torlys PO Quantity Rounding"
                 QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
                 TempQuantity := Rec.Quantity; //store entered quantity in variable
                 Rec."Quantity Pallet" := 0; //go back to 0 for when quantity is changed
-                if TempQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+                if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                     while TempQuantity >= QtyPerPallet do begin
                         Rec."Quantity Pallet" := Rec."Quantity Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                         TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                     end;
-                end;
                 Rec."Quantity Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                 Rec.VALIDATE(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
             end;
@@ -81,12 +79,11 @@ codeunit 50003 "Torlys PO Quantity Rounding"
             QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
             QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
             CaseQuantity := Rec."Quantity Case" * QtyPerCase; //how many SF make up the case quantity entered
-            if CaseQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+            if CaseQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                 while CaseQuantity >= QtyPerPallet do begin
                     Rec."Quantity Pallet" := Rec."Quantity Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                     CaseQuantity := CaseQuantity - QtyPerPallet; //how much left after applying to pallets
                 end;
-            end;
             Rec."Quantity Case" := ROUND((CaseQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases            
             Rec.VALIDATE(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
         end;
@@ -111,12 +108,11 @@ codeunit 50003 "Torlys PO Quantity Rounding"
                 QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
                 TempQuantity := Rec."Qty. to Receive"; //store entered quantity in variable
                 Rec."Qty. to Receive Pallet" := 0; //go back to 0 for when quantity is changed
-                if TempQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+                if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                     while TempQuantity >= QtyPerPallet do begin
                         Rec."Qty. to Receive Pallet" := Rec."Qty. to Receive Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                         TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                     end;
-                end;
                 Rec."Qty. to Receive Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                 Rec."Qty. to Receive" := ((QtyPerPallet * Rec."Qty. to Receive Pallet") + (QtyPerCase * Rec."Qty. to Receive Case")) / Rec."Qty. per Unit of Measure";
                 Rec."Qty. to Receive (Base)" := Rec.CalcBaseQty(Rec."Qty. to Receive", Rec.FieldCaption(Rec."Qty. to Receive"), Rec.FieldCaption(Rec."Qty. to Receive (Base)"));
@@ -135,12 +131,11 @@ codeunit 50003 "Torlys PO Quantity Rounding"
             QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
             QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
             CaseQuantity := Rec."Qty. to Receive Case" * QtyPerCase; //how many SF make up the case quantity entered
-            if CaseQuantity >= QtyPerPallet then begin  //check if the entered quantity is more than a full pallet
+            if CaseQuantity >= QtyPerPallet then  //check if the entered quantity is more than a full pallet
                 while CaseQuantity >= QtyPerPallet do begin
                     Rec."Qty. to Receive Pallet" := Rec."Qty. to Receive Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                     CaseQuantity := CaseQuantity - QtyPerPallet; //how much left after applying to pallets
                 end;
-            end;
             Rec."Qty. to Receive Case" := ROUND((CaseQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases            
             Rec.VALIDATE(Rec."Qty. to Receive", ((QtyPerPallet * Rec."Qty. to Receive Pallet") + (QtyPerCase * Rec."Qty. to Receive Case")) / Rec."Qty. per Unit of Measure");
         end;
@@ -158,13 +153,12 @@ codeunit 50003 "Torlys PO Quantity Rounding"
 
     var
         Item: Record "Item";
-        ItemUOM: Record "Item Unit of Measure";
+        UOMMgt: Codeunit "Unit of Measure Management";
         QtyPerCase: Integer;
         QtyPerPallet: Integer;
         TempQuantity: Decimal;
-        CalculatedCase: Decimal;
         CaseQuantity: Integer;
-        UOMMgt: Codeunit "Unit of Measure Management";
+
 
     // procedure ValidateUoM(var Rec: Record "Purchase Line"): Boolean
     // var

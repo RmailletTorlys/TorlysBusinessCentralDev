@@ -1,14 +1,15 @@
-codeunit 50009 "TorlysInitQtyToShip"
+codeunit 50009 "TorlysInitQtyToShipSalesLine"
 {
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeInitQtyToShip', '', false, false)]
     local procedure OnBeforeInitQtyToShip(var SalesLine: Record "Sales Line"; FieldNo: Integer; var IsHandled: Boolean)
     var
-        OkToAllocate: Boolean;
         Item: Record "Item";
+        UOMMgt: Codeunit "Unit of Measure Management";
+        OkToAllocate: Boolean;
         QtyPerCase: Integer;
         QtyPerPallet: Integer;
         TempQuantity: Decimal;
-        UOMMgt: Codeunit "Unit of Measure Management";
+
     begin
         IsHandled := true;
         if SalesLine.Type = SalesLine.Type::Item then begin
@@ -17,14 +18,13 @@ codeunit 50009 "TorlysInitQtyToShip"
                 Item.Get(SalesLine."No.");
                 if NOT Item."Automatically Allocate" then begin
                     OkToAllocate := true;
-                    if (SalesLine."Shipment Date" >= WORKDATE) then begin
-                        if ((SalesLine."Shipment Date" - WORKDATE) <= 45) then
+                    if (SalesLine."Shipment Date" >= WORKDATE()) then begin
+                        if ((SalesLine."Shipment Date" - WORKDATE()) <= 45) then
                             OkToAllocate := true
                         else
                             OkToAllocate := false;
-                    end else begin
-                        OkToAllocate := false
-                    end;
+                    end else
+                        OkToAllocate := false;
 
                     Item.Get(SalesLine."No.");
                     Item.SetFilter("Location Filter", SalesLine."Location Code");
@@ -48,12 +48,11 @@ codeunit 50009 "TorlysInitQtyToShip"
                         QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
                         TempQuantity := SalesLine."Qty. to Ship"; //store entered quantity in variable
                         SalesLine."Qty. to Ship Pallet" := 0; //go back to 0 for when quantity is changed
-                        if TempQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+                        if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                             while TempQuantity >= QtyPerPallet do begin
                                 SalesLine."Qty. to Ship Pallet" := SalesLine."Qty. to Ship Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                                 TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                             end;
-                        end;
                         SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                     end;
                 end else begin
@@ -65,12 +64,11 @@ codeunit 50009 "TorlysInitQtyToShip"
                         QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
                         TempQuantity := SalesLine."Qty. to Ship"; //store entered quantity in variable
                         SalesLine."Qty. to Ship Pallet" := 0; //go back to 0 for when quantity is changed
-                        if TempQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+                        if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                             while TempQuantity >= QtyPerPallet do begin
                                 SalesLine."Qty. to Ship Pallet" := SalesLine."Qty. to Ship Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                                 TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                             end;
-                        end;
                         SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                     end;
                 end;
@@ -83,19 +81,18 @@ codeunit 50009 "TorlysInitQtyToShip"
                     QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
                     TempQuantity := SalesLine."Qty. to Ship"; //store entered quantity in variable
                     SalesLine."Qty. to Ship Pallet" := 0; //go back to 0 for when quantity is changed
-                    if TempQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+                    if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                         while TempQuantity >= QtyPerPallet do begin
                             SalesLine."Qty. to Ship Pallet" := SalesLine."Qty. to Ship Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                             TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                         end;
-                    end;
                     SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                 end;
             end;
         end else begin
             SalesLine."Qty. to Ship" := SalesLine."Outstanding Quantity";
             SalesLine."Qty. to Ship (Base)" := SalesLine."Outstanding Qty. (Base)";
-            SalesLine.CheckServItemCreation;
+            SalesLine.CheckServItemCreation();
         end;
 
         SalesLine.InitQtyToInvoice();

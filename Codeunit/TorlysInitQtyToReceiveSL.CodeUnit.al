@@ -1,13 +1,14 @@
-codeunit 50011 "TorlysInitQtyToReceive"
+codeunit 50011 "TorlysInitQtyToReceiveSL"
 {
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeInitQtyToReceive', '', false, false)]
     local procedure OnBeforeInitQtyToReceive(var SalesLine: Record "Sales Line"; FieldNo: Integer; var IsHandled: Boolean)
     var
         Item: Record "Item";
+        UOMMgt: Codeunit "Unit of Measure Management";
         QtyPerCase: Integer;
         QtyPerPallet: Integer;
         TempQuantity: Decimal;
-        UOMMgt: Codeunit "Unit of Measure Management";
+
     begin
         IsHandled := true;
 
@@ -24,12 +25,11 @@ codeunit 50011 "TorlysInitQtyToReceive"
                     QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
                     TempQuantity := SalesLine."Return Qty. to Receive"; //store entered quantity in variable
                     SalesLine."Return Qty. to Receive Pallet" := 0; //go back to 0 for when quantity is changed
-                    if TempQuantity >= QtyPerPallet then begin //check if the entered quantity is more than a full pallet
+                    if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
                         while TempQuantity >= QtyPerPallet do begin
                             SalesLine."Return Qty. to Receive Pallet" := SalesLine."Return Qty. to Receive Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                             TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                         end;
-                    end;
                     SalesLine."Return Qty. to Receive Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                 end;
             end;

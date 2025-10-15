@@ -79,6 +79,10 @@ report 50023 "B13 Sale"
                 {
 
                 }
+                column(Gross_Weight; "Gross Weight")
+                {
+
+                }
 
                 trigger OnAfterGetRecord()
                 begin

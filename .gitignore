@@ -2,4 +2,5 @@
 /.snapshots
 /.alcache
 /.vscode
+debug.log
 *.app

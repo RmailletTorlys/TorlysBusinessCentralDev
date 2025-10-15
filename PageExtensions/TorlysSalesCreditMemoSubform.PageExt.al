@@ -15,7 +15,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    OnValidateCase(Rec, xRec);
+                    OnValidateQuantityCase(Rec, xRec);
                     CurrPage.Update(true);
                 end;
             }
@@ -28,7 +28,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    OnValidatePallet(Rec, xRec);
+                    OnValidateQuantityPallet(Rec, xRec);
                     CurrPage.Update(true);
                 end;
             }
@@ -58,7 +58,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    OnValidateToReceiveCase(Rec, xRec);
+                    OnValidateQtyToReceiveCase(Rec, xRec);
                     CurrPage.Update(true);
                 end;
 
@@ -72,7 +72,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
                 Editable = EditCasePallet;
                 trigger OnValidate()
                 begin
-                    OnValidateToReceivePallet(Rec, xRec);
+                    OnValidateQtyToReceivePallet(Rec, xRec);
                     CurrPage.Update(true);
                 end;
             }
@@ -339,22 +339,22 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateQtyToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnValidateToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    local procedure OnValidateQtyToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
     end;
 

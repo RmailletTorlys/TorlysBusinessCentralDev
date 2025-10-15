@@ -746,5 +746,5 @@ page 51002 "Torlys BOL"
     end;
 
     var
-        TorlysDocPrint: Codeunit "Torlys Print Document";
+        TorlysDocPrint: Codeunit "Torlys Document-Print";
 }

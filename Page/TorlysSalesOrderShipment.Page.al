@@ -240,7 +240,8 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Print Pick Slip';
                     trigger OnAction()
                     begin
-                        TorlysDocPrint.PrintPickSlip(Rec);
+                        // TorlysDocPrint.PrintPickSlip(Rec);
+                        DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
                     end;
                 }
                 action(PrintSummaryPickSlip)
@@ -362,5 +363,7 @@ page 50999 "Torlys Sales Order Shipment"
     end;
 
     var
-        TorlysDocPrint: Codeunit "Torlys Print Document";
+        TorlysDocPrint: Codeunit "Torlys Document-Print";
+        DocPrint: Codeunit "Document-Print";
+        Usage: Option "Order Confirmation","Work Order","Pick Instruction";
 }

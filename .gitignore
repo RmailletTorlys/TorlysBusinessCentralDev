@@ -2,5 +2,9 @@
 /.snapshots
 /.alcache
 /.vscode
+<<<<<<< HEAD
 debug.log
 *.app
+=======
+*.app
+>>>>>>> 5bad5c9d18cfcd1a3a73a4a4121b1db761739d5b

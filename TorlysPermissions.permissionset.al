@@ -28,7 +28,7 @@ permissionset 50000 TorlysPermissions
         codeunit "Torlys IJ Quantity Rounding" = X,
         codeunit "Torlys PO Quantity Rounding" = X,
         codeunit "Torlys Sales Line - Price" = X,
-        codeunit "Torlys SL Quantity Rounding" = X,
+        codeunit "Torlys Qty Rounding Sales Line" = X,
         codeunit "Torlys TL Quantity Rounding" = X,
         codeunit TorlysPriceCalcBufferMgt = X,
         codeunit TorlysPriceCodeSourcePriceCalc = X,

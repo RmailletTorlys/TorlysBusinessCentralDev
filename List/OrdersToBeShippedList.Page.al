@@ -695,8 +695,9 @@ page 52001 "Orders To Be Shipped List"
         UserSetup.GET(USERID);
         IF UserSetup."Default Location Code" = 'TOR' THEN
             Rec.SETFILTER("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR')
-        ELSE IF UserSetup."Default Location Code" = 'CAL' THEN
-            Rec.SETFILTER("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
+        ELSE
+            IF UserSetup."Default Location Code" = 'CAL' THEN
+                Rec.SETFILTER("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
 
         Rec.SetFilter("Shipment Date", '%1', WorkDate());
     end;

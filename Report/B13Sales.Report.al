@@ -44,6 +44,7 @@ report 50023 "B13 Sale"
             {
                 DataItemTableView = where(Type = filter(Item), Quantity = filter(<> 0));
                 DataItemLinkReference = Item;
+                DataItemLink = "No." = field("No.");
                 RequestFilterFields = "Document No.", "Sell-to Customer No.", "Shipment Date";
                 RequestFilterHeading = 'Sales Line';
 

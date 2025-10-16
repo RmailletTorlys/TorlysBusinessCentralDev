@@ -76,9 +76,6 @@ End Function
         <Field Name="Shipment_Date">
           <DataField>Shipment_Date</DataField>
         </Field>
-        <Field Name="Released">
-          <DataField>Released</DataField>
-        </Field>
         <Field Name="Shipping_Advice">
           <DataField>Shipping_Advice</DataField>
         </Field>

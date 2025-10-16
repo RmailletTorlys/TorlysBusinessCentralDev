@@ -1,4 +1,4 @@
-pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
+pageextension 50051 TorlysPurchInvoice extends "Purchase Invoice"
 {
     layout
     {
@@ -196,5 +196,5 @@ pageextension 50051 TorlysPurchaseInvoice extends "Purchase Invoice"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 }

@@ -1,4 +1,4 @@
-codeunit 50001 "Torlys TL Quantity Rounding"
+codeunit 50001 "TorlysQtyRoundingTransferLine"
 {
     [EventSubscriber(ObjectType::Page, Page::"Transfer Order Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
     local procedure OnValidateItem(Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; var EditCasePallet: Boolean)
@@ -202,10 +202,10 @@ codeunit 50001 "Torlys TL Quantity Rounding"
     var
         Item: Record "Item";
         UOMMgt: Codeunit "Unit of Measure Management";
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
         TempQuantity: Decimal;
-        CaseQuantity: Integer;
+        CaseQuantity: Decimal;
 
 
     // procedure ValidateUoM(var Rec: Record "Transfer Line"): Boolean

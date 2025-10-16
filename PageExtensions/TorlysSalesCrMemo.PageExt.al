@@ -1,4 +1,4 @@
-pageextension 50044 TorlysSalesCreditMemo extends "Sales Credit Memo"
+pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
 {
     layout
     {

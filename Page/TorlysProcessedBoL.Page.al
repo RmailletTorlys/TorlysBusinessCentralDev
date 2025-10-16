@@ -398,5 +398,5 @@ page 51006 "Torlys Processed BOL"
         }
     }
     var
-        TorlysDocPrint: Codeunit "Torlys Document-Print";
+        TorlysDocPrint: Codeunit "TorlysDocumentPrint";
 }

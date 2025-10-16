@@ -134,37 +134,6 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                     ApplicationArea = All;
                 }
 
-                field("Total Excl. Tax"; Rec."Total Excl. Tax")
-                {
-                    Caption = 'Total Excl. Tax';
-                    ToolTip = 'Total Excl. Tax';
-                    ApplicationArea = All;
-                    DecimalPlaces = 2;
-                }
-
-                field("Total Tax"; Rec."Total Tax")
-                {
-                    Caption = 'Total Tax';
-                    ToolTip = 'Total Tax';
-                    ApplicationArea = All;
-                    DecimalPlaces = 2;
-                }
-
-                field("Total Incl. Tax"; Rec."Total Incl. Tax")
-                {
-                    Caption = 'Total Incl. Tax';
-                    ToolTip = 'Total Incl. Tax';
-                    ApplicationArea = All;
-                    DecimalPlaces = 2;
-                }
-
-                field("Region Code"; Rec."Region Code")
-                {
-                    Caption = 'Region Code';
-                    ToolTip = 'Region Code';
-                    ApplicationArea = All;
-                }
-
                 field("Currency Code"; Rec."Currency Code")
                 {
                     Caption = 'Currency Code';
@@ -385,5 +354,5 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 }

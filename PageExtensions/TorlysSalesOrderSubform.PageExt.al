@@ -361,7 +361,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
         UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
 

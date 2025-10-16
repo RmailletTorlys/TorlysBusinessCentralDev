@@ -1,12 +1,10 @@
-namespace TorlysBusinessCentralDev.TorlysBusinessCentralDev;
-
-using Microsoft.Sales.Document;
-
 pageextension 59304 TorlysSalesReturnOrderList extends "Sales Return Order List"
 {
     layout
     {
-        addafter("No.")
+        moveafter("No."; "Status")
+
+        addafter("Status")
         {
             field("Order Date"; Rec."Order Date")
             {
@@ -108,7 +106,7 @@ pageextension 59304 TorlysSalesReturnOrderList extends "Sales Return Order List"
 
         }
 
-        moveafter("Shipping Comment"; Status, Amount)
+        moveafter("Shipping Comment"; Amount)
 
         addafter(Amount)
         {
@@ -190,7 +188,7 @@ pageextension 59304 TorlysSalesReturnOrderList extends "Sales Return Order List"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

@@ -106,12 +106,6 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
             DataClassification = CustomerContent;
         }
 
-        field(50017; "Released"; Boolean)
-        {
-            Caption = 'Released';
-            DataClassification = CustomerContent;
-        }
-
         field(50020; "Qty. to ship"; Decimal)
         {
             Caption = 'Qty. to ship';
@@ -191,39 +185,6 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
             Caption = 'Order Method';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Lookup Values";
-        }
-
-        field(50032; "Total Excl. Tax"; Decimal)
-        {
-            Caption = 'Total Excl. Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
-
-        field(50033; "Total Tax"; Decimal)
-        {
-            Caption = 'Total Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
-
-        field(50034; "Total Incl. Tax"; Decimal)
-        {
-            Caption = 'Total Incl. Tax';
-            DataClassification = CustomerContent;
-            DecimalPlaces = 2;
-        }
-
-        field(50035; "To ship"; Boolean)
-        {
-            Caption = 'To ship';
-            DataClassification = CustomerContent;
-        }
-
-        field(50036; "Region Code"; Code[10])
-        {
-            Caption = 'Region Code';
-            DataClassification = CustomerContent;
         }
 
         field(50037; "Shipping Instructions"; Code[30])

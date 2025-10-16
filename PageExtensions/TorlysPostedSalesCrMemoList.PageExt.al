@@ -1,19 +1,8 @@
-pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
+pageextension 50144 TorlysPostedSalesCrMemoList extends "Posted Sales Credit Memos"
 {
     layout
     {
-        addafter("No.")
-        {
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Visible = true;
-                Editable = false;
-            }
-        }
-        moveafter("Order Date"; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        moveafter("No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {
@@ -42,10 +31,18 @@ pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code")
 
-        addafter("External Document No.")
+        addafter("Location Code")
         {
+            field("External Document No."; Rec."External Document No.")
+            {
+                Caption = 'External Document No.';
+                ToolTip = 'External Document No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
             field("Tag Name"; Rec."Tag Name")
             {
                 Caption = 'Tag Name';
@@ -90,7 +87,7 @@ pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
                 Editable = false;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
@@ -98,13 +95,13 @@ pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
                 Editable = false;
             }
 
         }
 
-        moveafter("Shipping Comment"; Status, Amount)
+        moveafter("Shipping Comment"; Amount)
 
         addafter(Amount)
         {
@@ -154,11 +151,6 @@ pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
             Visible = true;
         }
 
-        modify("Assigned User ID")
-        {
-            Visible = false;
-        }
-
         modify("Document Date")
         {
             Visible = false;
@@ -179,15 +171,44 @@ pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
             Visible = true;
         }
 
-        modify("Status")
+        modify("Currency Code")
         {
-            Visible = true;
+            Visible = false;
         }
 
+        modify("Amount Including VAT")
+        {
+            Visible = false;
+        }
+
+        modify("Remaining Amount")
+        {
+            Visible = false;
+        }
+
+        modify("Paid")
+        {
+            Visible = false;
+        }
+
+        modify("Cancelled")
+        {
+            Visible = false;
+        }
+
+        modify("Corrective")
+        {
+            Visible = false;
+        }
+
+        modify("No. Printed")
+        {
+            Visible = false;
+        }
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -196,4 +217,5 @@ pageextension 59302 TorlysSalesCreditMemoList extends "Sales Credit Memos"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
+
 }

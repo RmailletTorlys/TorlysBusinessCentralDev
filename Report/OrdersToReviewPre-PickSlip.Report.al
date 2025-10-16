@@ -13,7 +13,7 @@ report 50006 "Orders to review pre-pick slip"
         dataitem(Header; "Sales Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "Location Code", "Shipment Date", "No. Pick Slips Printed", "Shipping Agent Code", "Released", "On Hold", SystemCreatedBy;
+            RequestFilterFields = "Location Code", "Shipment Date", "No. Pick Slips Printed", "Shipping Agent Code", "Status", "On Hold", SystemCreatedBy;
             RequestFilterHeading = 'Orders to review pre-pick slip';
 
             column(Sell_to_Customer_No_; "Sell-to Customer No.")
@@ -32,10 +32,10 @@ report 50006 "Orders to review pre-pick slip"
             {
 
             }
-            column(Released; Released)
-            {
+            // column(Released; Released)
+            // {
 
-            }
+            // }
             column(Shipping_Advice; "Shipping Advice")
             {
 

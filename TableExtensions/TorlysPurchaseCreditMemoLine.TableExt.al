@@ -26,6 +26,18 @@ tableextension 50125 TorlysPurchCrMemoLine extends "Purch. Cr. Memo Line"
             DataClassification = CustomerContent;
         }
 
+        field(50005; "Return Qty. to Ship Case"; Integer)
+        {
+            Caption = 'Return Qty. to Ship Case';
+            DataClassification = CustomerContent;
+        }
+
+        field(50006; "Return Qty. to Ship Pallet"; Integer)
+        {
+            Caption = 'Return Qty. to Ship Pallet';
+            DataClassification = CustomerContent;
+        }
+
         field(50009; "Previous ETA"; Date)
         {
             Caption = 'Previous ETA';

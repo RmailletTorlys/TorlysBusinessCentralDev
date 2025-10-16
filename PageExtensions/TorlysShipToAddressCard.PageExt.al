@@ -1,4 +1,4 @@
-pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
+pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
 {
     layout
     {
@@ -134,6 +134,6 @@ pageextension 50300 TorlysShipToAddress extends "Ship-to Address"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
 }

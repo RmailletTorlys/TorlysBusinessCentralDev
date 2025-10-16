@@ -1,12 +1,12 @@
-codeunit 50013 "TorlysInitQtyToShipTL"
+codeunit 50013 TorlysInitQtyToShipTransLine
 {
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterInitQtyToShip', '', false, false)]
     local procedure OnAfterInitQtyToReceive(var TransferLine: Record "Transfer Line"; CurrentFieldNo: Integer)
     var
         Item: Record "Item";
         UOMMgt: Codeunit "Unit of Measure Management";
-        QtyPerCase: Integer;
-        QtyPerPallet: Integer;
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
         TempQuantity: Decimal;
 
     begin

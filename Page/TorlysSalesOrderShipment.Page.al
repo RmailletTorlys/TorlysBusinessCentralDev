@@ -363,7 +363,7 @@ page 50999 "Torlys Sales Order Shipment"
     end;
 
     var
-        TorlysDocPrint: Codeunit "Torlys Document-Print";
+        TorlysDocPrint: Codeunit "TorlysDocumentPrint";
         DocPrint: Codeunit "Document-Print";
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
 }

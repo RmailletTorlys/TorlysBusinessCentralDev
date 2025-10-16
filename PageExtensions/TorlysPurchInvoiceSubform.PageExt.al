@@ -1,4 +1,4 @@
-pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform"
+pageextension 50055 TorlysPurchInvoiceSubform extends "Purch. Invoice Subform"
 {
     layout
     {
@@ -92,8 +92,6 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
             }
         }
 
-
-
         modify("Item Reference No.")
         {
             Visible = false;
@@ -132,7 +130,7 @@ pageextension 50055 TorlysPurchaseInvoiceSubform extends "Purch. Invoice Subform
     }
 
     var
-        LookupUser: Codeunit "LookupUserID";
+        LookupUser: Codeunit "TorlysLookupUserID";
 
     [IntegrationEvent(false, false)]
     local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")

@@ -1,4 +1,4 @@
-codeunit 50012 "TorlysInitQtyToReceiveTL"
+codeunit 50012 TorlysInitQtyToRecTransferLine
 {
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterInitQtyToReceive', '', false, false)]
     local procedure OnAfterInitQtyToReceive(var TransferLine: Record "Transfer Line"; CurrentFieldNo: Integer)

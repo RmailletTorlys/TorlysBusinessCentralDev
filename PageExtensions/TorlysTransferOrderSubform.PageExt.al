@@ -181,7 +181,7 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
     }
 
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

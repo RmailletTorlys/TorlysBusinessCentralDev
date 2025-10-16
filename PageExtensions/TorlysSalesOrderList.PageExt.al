@@ -2,7 +2,9 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 {
     layout
     {
-        addafter("No.")
+        moveafter("No."; "Status")
+
+        addafter("Status")
         {
             field("On Hold"; Rec."On Hold")
             {
@@ -110,7 +112,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             }
         }
 
-        moveafter("Shipping Comment"; Status, "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("Shipping Comment"; "Amt. Ship. Not Inv. (LCY) Base", Amount)
 
         addafter(Amount)
         {
@@ -250,7 +252,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
         }
     }
     var
-        LookupUserId: Codeunit "LookupUserID";
+        LookupUserId: Codeunit "TorlysLookupUserID";
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

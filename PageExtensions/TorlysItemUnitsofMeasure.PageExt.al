@@ -1,4 +1,4 @@
-pageextension 55404 TorlysItemUnitsofMeasure extends "Item Units of Measure"
+pageextension 55404 TorlysItemUnitsOfMeasure extends "Item Units of Measure"
 {
     layout
     {

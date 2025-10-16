@@ -1,40 +1,20 @@
-pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
+pageextension 56652 TorlysPostedReturnShipList extends "Posted Return Shipments"
 {
     layout
     {
-        moveafter("No."; "Status", "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
-
-        moveafter("Document Date"; "Vendor Cr. Memo No.", "Currency Code")
-
-        addafter("Currency Code")
+        addafter("No.")
         {
-            field("Currency Factor"; Rec."Currency Factor")
+            field("Return Order No."; Rec."Return Order No.")
             {
-                Caption = 'Currency Factor';
-                ToolTip = 'Currency Factor';
+                Caption = 'Return Order No.';
+                ToolTip = 'Return Order No.';
                 ApplicationArea = All;
             }
         }
 
-        addafter("Currency Factor")
-        {
-            field("Tax Liable"; Rec."Tax Liable")
-            {
-                Caption = 'Tax Liable';
-                ToolTip = 'Tax Liable';
-                ApplicationArea = All;
-            }
-            field("Tax Area Code"; Rec."Tax Area Code")
-            {
-                Caption = 'Tax Area Code';
-                ToolTip = 'Tax Area Code';
-                ApplicationArea = All;
-            }
-        }
+        moveafter("Return Order No."; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
 
-        moveafter("Tax Area Code"; "Amount")
-
-        addafter("Amount")
+        addafter("Document Date")
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
@@ -92,24 +72,9 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
             Visible = true;
         }
 
-        modify(Status)
-        {
-            Visible = true;
-        }
-
         modify("Location Code")
         {
             visible = true;
-        }
-
-        modify("Assigned User ID")
-        {
-            visible = false;
-        }
-
-        modify("Vendor Authorization No.")
-        {
-            visible = false;
         }
 
         modify("Document Date")
@@ -117,7 +82,7 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
             visible = true;
         }
 
-        modify("Due Date")
+        modify("No. Printed")
         {
             visible = false;
         }
@@ -125,6 +90,5 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
-
 
 }

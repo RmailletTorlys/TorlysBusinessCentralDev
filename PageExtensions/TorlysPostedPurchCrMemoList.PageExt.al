@@ -1,10 +1,30 @@
-pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
+pageextension 50147 TorlysPostedPurchCrMemoList extends "Posted Purchase Credit Memos"
 {
     layout
     {
-        moveafter("No."; "Status", "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
+        addafter("No.")
+        {
+            field("Return Order No."; Rec."Return Order No.")
+            {
+                Caption = 'Return Order No.';
+                ToolTip = 'Return Order No.';
+                ApplicationArea = All;
+            }
+        }
 
-        moveafter("Document Date"; "Vendor Cr. Memo No.", "Currency Code")
+        moveafter("Return Order No."; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
+
+        addafter("Document Date")
+        {
+            field("Vendor Cr. Memo No."; Rec."Vendor Cr. Memo No.")
+            {
+                Caption = 'Vendor Cr. Memo No.';
+                ToolTip = 'Vendor Cr. Memo No.';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Vendor Cr. Memo No."; "Currency Code")
 
         addafter("Currency Code")
         {
@@ -92,24 +112,9 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
             Visible = true;
         }
 
-        modify(Status)
-        {
-            Visible = true;
-        }
-
         modify("Location Code")
         {
             visible = true;
-        }
-
-        modify("Assigned User ID")
-        {
-            visible = false;
-        }
-
-        modify("Vendor Authorization No.")
-        {
-            visible = false;
         }
 
         modify("Document Date")
@@ -121,10 +126,38 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
         {
             visible = false;
         }
+
+        modify("Amount Including VAT")
+        {
+            visible = false;
+        }
+
+        modify("Remaining Amount")
+        {
+            visible = false;
+        }
+
+        modify("Paid")
+        {
+            visible = false;
+        }
+
+        modify("Cancelled")
+        {
+            visible = false;
+        }
+
+        modify("Corrective")
+        {
+            visible = false;
+        }
+
+        modify("No. Printed")
+        {
+            visible = false;
+        }
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
-
-
 }

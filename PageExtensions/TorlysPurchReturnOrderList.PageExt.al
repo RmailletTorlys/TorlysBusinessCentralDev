@@ -1,10 +1,20 @@
-pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
+pageextension 59311 TorlysPurchReturnOrderList extends "Purchase Return Order List"
 {
     layout
     {
         moveafter("No."; "Status", "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
 
-        moveafter("Document Date"; "Vendor Cr. Memo No.", "Currency Code")
+        addafter("Document Date")
+        {
+            field("Vendor Cr. Memo No."; Rec."Vendor Cr. Memo No.")
+            {
+                Caption = 'Vendor Cr. Memo No.';
+                ToolTip = 'Vendor Cr. Memo No.';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Vendor Cr. Memo No."; "Currency Code")
 
         addafter("Currency Code")
         {
@@ -121,10 +131,16 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
         {
             visible = false;
         }
+
+        modify("Amount")
+        {
+            visible = true;
+        }
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
+
 
 
 }

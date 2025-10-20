@@ -10,7 +10,7 @@ query 50002 CustInfoForTorlysDotCom
             column(No; "No.")
             {
             }
-            column(Name; Name)
+            column(Name; "Name 2")
             {
             }
             column(Address; Address)

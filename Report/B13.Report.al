@@ -35,7 +35,15 @@ report 50020 "B13 Purchase"
             {
 
             }
-            column(SystemId; LookupUserIdWithGuid(SystemId))
+            // column(SystemId; LookupUserIdWithGuid(SystemId))
+            // {
+
+            // }
+            column(Country_Region_of_Origin_Code; "Country/Region of Origin Code")
+            {
+
+            }
+            column(Tariff_No_; "Tariff No.")
             {
 
             }
@@ -44,6 +52,7 @@ report 50020 "B13 Purchase"
             {
                 DataItemTableView = where(Type = filter(Item), Quantity = filter(<> 0));
                 DataItemLinkReference = Item;
+                DataItemLink = "No." = field("No.");
                 RequestFilterFields = "Document No.", "Sell-to Customer No.", "Shipment Date";
                 RequestFilterHeading = 'Sales Line';
 

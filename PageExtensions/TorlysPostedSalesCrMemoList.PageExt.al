@@ -2,7 +2,20 @@ pageextension 50144 TorlysPostedSalesCrMemoList extends "Posted Sales Credit Mem
 {
     layout
     {
-        moveafter("No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        addafter("No.")
+        {
+            field("Return Order No."; Rec."Return Order No.")
+            {
+                Caption = 'Return Order No.';
+                ToolTip = 'Return Order No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+
+        }
+
+        moveafter("Return Order No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {

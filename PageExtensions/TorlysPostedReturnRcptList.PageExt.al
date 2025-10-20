@@ -4,6 +4,14 @@ pageextension 56662 TorlysPostedReturnRcptList extends "Posted Return Receipts"
     {
         addafter("No.")
         {
+            field("Return Order No."; Rec."Return Order No.")
+            {
+                Caption = 'Return Order No.';
+                ToolTip = 'Return Order No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';

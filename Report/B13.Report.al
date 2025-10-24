@@ -60,6 +60,10 @@ report 50020 "B13 Purchase"
                 {
 
                 }
+                column(FilterString1; FilterString)
+                {
+
+                }
                 column(Description; Description)
                 {
 
@@ -91,6 +95,11 @@ report 50020 "B13 Purchase"
 
                 trigger OnAfterGetRecord()
                 begin
+                    TariffQuantity := 0;
+                    TariffNetWeightLB := 0;
+                    TariffNetWeightKG := 0;
+                    TariffLineAmount := 0;
+
                     item3.get("No.");
                     // TariffNote := item."Customs/Tariff Note";
                     If CostInsteadOfPrice then
@@ -117,13 +126,15 @@ report 50020 "B13 Purchase"
                             OrderUOM := 'M3';
                         end;
 
+
+
                         NetWeightLB := "Quantity Shipped" * "Net Weight";
                         NetWeightKG := "Quantity Shipped" * "Net Weight" * 0.453592;
                         LineAmount := "Quantity Shipped" * NetPrice;
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight");
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight" * 0.453592);
+                        TariffLineAmount += LineAmount;
                     end else begin
                         If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                             OrderQuantity := ("Qty. to Ship" / 10.764);
@@ -145,8 +156,8 @@ report 50020 "B13 Purchase"
                         LineAmount := "Qty. to Ship" * NetPrice;
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Qty. to Ship" * "Sales Line"."Net Weight");
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Qty. to Ship" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Qty. to Ship" * "Sales Line"."Net Weight" * 0.453592);
+                        TariffLineAmount += LineAmount;
                     end;
 
                     If "Document Type" = "Document Type"::"Return Order" then begin
@@ -170,8 +181,8 @@ report 50020 "B13 Purchase"
                         LineAmount := "Quantity" * NetPrice;
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity" * "Sales Line"."Net Weight");
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity" * "Sales Line"."Net Weight" * 0.453592);
+                        TariffLineAmount += LineAmount;
                     end;
 
                     If RemoveFreight then begin

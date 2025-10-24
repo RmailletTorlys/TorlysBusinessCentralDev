@@ -286,17 +286,17 @@ tableextension 50018 TorlysCustomer extends Customer
                         ShortcutDimCode[1] := Dimension."Dimension Value Code";
                     'DEPARTMENT':
                         ShortcutDimCode[2] := Dimension."Dimension Value Code";
-                    'PRODUCT':
-                        ShortcutDimCode[3] := Dimension."Dimension Value Code";
                     'CHANNEL':
+                        ShortcutDimCode[3] := Dimension."Dimension Value Code";
+                    'PRODUCT':
                         ShortcutDimCode[4] := Dimension."Dimension Value Code";
                     'BUYING GROUP':
                         ShortcutDimCode[5] := Dimension."Dimension Value Code";
-                    '6':
-                        ShortcutDimCode[6] := Dimension."Dimension Value Code";
                     'PROJECT':
+                        ShortcutDimCode[6] := Dimension."Dimension Value Code";
+                    'AUTOMOTIVE':
                         ShortcutDimCode[7] := Dimension."Dimension Value Code";
-                    '8':
+                    'REBATE GROUP':
                         ShortcutDimCode[8] := Dimension."Dimension Value Code";
                 end;
             until Dimension.Next() = 0;

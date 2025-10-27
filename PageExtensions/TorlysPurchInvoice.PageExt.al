@@ -3,10 +3,17 @@ pageextension 50051 TorlysPurchInvoice extends "Purchase Invoice"
     layout
     {
         movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date", "Document Date", "Vendor Invoice No.")
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Invoice No.", Status)
 
         addafter(Status)
         {
+            field("No. Printed"; Rec."No. Printed")
+            {
+                Caption = 'Quantity Printed';
+                ToolTip = 'Quantity Printed';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -159,7 +166,8 @@ pageextension 50051 TorlysPurchInvoice extends "Purchase Invoice"
 
         modify("Status")
         {
-            Importance = Additional;
+            Importance = Standard;
+            Visible = true;
         }
 
         modify("Vendor Posting Group")

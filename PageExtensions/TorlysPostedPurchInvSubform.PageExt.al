@@ -1,4 +1,4 @@
-pageextension 50138 TorlysPostedPurchInvSubform extends "Posted Purch. Invoice Subform"
+pageextension 50139 TorlysPostedPurchInvSubform extends "Posted Purch. Invoice Subform"
 {
     layout
     {

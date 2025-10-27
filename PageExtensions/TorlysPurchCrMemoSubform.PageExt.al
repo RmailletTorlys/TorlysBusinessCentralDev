@@ -1,4 +1,4 @@
-pageextension 50052 TorlysPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
+pageextension 50098 TorlysPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
 {
     layout
     {

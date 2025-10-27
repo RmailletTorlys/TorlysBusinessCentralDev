@@ -1,4 +1,4 @@
-pageextension 50136 TorlysPostedPurchRcptSubform extends "Posted Purchase Rcpt. Subform"
+pageextension 50137 TorlysPostedPurchRcptSubform extends "Posted Purchase Rcpt. Subform"
 {
     layout
     {

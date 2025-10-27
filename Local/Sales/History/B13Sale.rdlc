@@ -91,8 +91,11 @@ End Function
         <Field Name="TariffLineAmountFormat">
           <DataField>TariffLineAmountFormat</DataField>
         </Field>
-        <Field Name="SystemId">
-          <DataField>SystemId</DataField>
+        <Field Name="Country_Region_of_Origin_Code">
+          <DataField>Country_Region_of_Origin_Code</DataField>
+        </Field>
+        <Field Name="Tariff_No_">
+          <DataField>Tariff_No_</DataField>
         </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
@@ -132,12 +135,6 @@ End Function
         </Field>
         <Field Name="LineAmountFormat">
           <DataField>LineAmountFormat</DataField>
-        </Field>
-        <Field Name="Gross_Weight">
-          <DataField>Gross_Weight</DataField>
-        </Field>
-        <Field Name="Gross_WeightFormat">
-          <DataField>Gross_WeightFormat</DataField>
         </Field>
       </Fields>
       <Query>

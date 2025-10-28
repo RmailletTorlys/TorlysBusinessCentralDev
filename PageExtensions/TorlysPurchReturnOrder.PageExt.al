@@ -1,4 +1,4 @@
-pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
+pageextension 56640 TorlysPurchReturnOrder extends "Purchase Return Order"
 {
     layout
     {
@@ -56,7 +56,7 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             }
         }
 
-        moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Tax Liable", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
         modify("Posting Date")
         {
@@ -154,11 +154,6 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             Importance = Standard;
         }
 
-        modify("Payment Discount %")
-        {
-            Visible = true;
-        }
-
         modify("Currency Code")
         {
             Importance = Standard;
@@ -190,16 +185,6 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             Visible = false;
         }
 
-        modify("Pmt. Discount Date")
-        {
-            Importance = Standard;
-        }
-
-        modify("Due Date")
-        {
-            Importance = Standard;
-        }
-
         modify("Payment Method Code")
         {
             Importance = Standard;
@@ -220,17 +205,38 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             Visible = false;
         }
 
-        modify(Correction)
+        modify("Document Date")
+        {
+            Importance = Standard;
+        }
+
+        modify("Order Date")
         {
             Visible = false;
         }
 
-        modify("Document Date")
+        modify("No. of Archived Versions")
         {
-            Importance = Standard;
+            Visible = false;
+        }
+
+        modify("Applies-to Doc. Type")
+        {
+            Visible = false;
+        }
+
+        modify("Applies-to Doc. No.")
+        {
+            Visible = false;
+        }
+
+        modify("Applies-to ID")
+        {
+            Visible = false;
         }
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
+
 }

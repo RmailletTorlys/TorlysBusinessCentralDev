@@ -1,20 +1,26 @@
-pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
+pageextension 50140 TorlysPostedPurchCrMemo extends "Posted Purchase Credit Memo"
 {
     layout
     {
         movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
 
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Cr. Memo No.", Status)
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Cr. Memo No.")
 
-        addafter(Status)
+        addafter("Vendor Cr. Memo No.")
         {
-            field("No. Printed"; Rec."No. Printed")
+            field("Return Order No."; Rec."Return Order No.")
             {
-                Caption = 'Quantity Printed';
-                ToolTip = 'Quantity Printed';
+                Caption = 'Return Order No.';
+                ToolTip = 'Return Order No.';
                 ApplicationArea = All;
                 Importance = Additional;
             }
+        }
+
+        moveafter("Return Order No."; "No. Printed")
+
+        addafter("No. Printed")
+        {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -56,7 +62,45 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             }
         }
 
-        moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        moveafter("Currency Factor"; "Vendor Posting Group")
+
+        addafter("Vendor Posting Group")
+        {
+            field("Payment Method Code"; Rec."Payment Method Code")
+            {
+                Caption = 'Payment Method Code';
+                ToolTip = 'Payment Method Code';
+                ApplicationArea = All;
+                Importance = Standard;
+                Visible = true;
+            }
+            field("Payment Terms Code"; Rec."Payment Terms Code")
+            {
+                Caption = 'Payment Terms Code';
+                ToolTip = 'Payment Terms Code';
+                ApplicationArea = All;
+                Importance = Standard;
+                Visible = true;
+            }
+            field("Due Date"; Rec."Due Date")
+            {
+                Caption = 'Due Date';
+                ToolTip = 'Due Date';
+                ApplicationArea = All;
+                Importance = Standard;
+                Visible = true;
+            }
+            field("Pmt. Discount Date"; Rec."Pmt. Discount Date")
+            {
+                Caption = 'Pmt. Discount Date';
+                ToolTip = 'Pmt. Discount Date';
+                ApplicationArea = All;
+                Importance = Standard;
+                Visible = true;
+            }
+        }
+
+        moveafter("Pmt. Discount Date"; "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
         modify("Posting Date")
         {
@@ -107,18 +151,7 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             Visible = false;
         }
 
-        modify(Status)
-        {
-            Visible = true;
-            Importance = Standard;
-        }
-
         modify("Ship-to Phone No.")
-        {
-            Visible = false;
-        }
-
-        modify("VAT Bus. Posting Group")
         {
             Visible = false;
         }
@@ -134,11 +167,6 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             Importance = Standard;
         }
 
-        modify("Assigned User ID")
-        {
-            Visible = false;
-        }
-
         modify("Shortcut Dimension 1 Code")
         {
             Importance = Promoted;
@@ -146,17 +174,6 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
         modify("Shortcut Dimension 2 Code")
         {
             Importance = Promoted;
-        }
-
-        modify("Payment Terms Code")
-        {
-            Visible = true;
-            Importance = Standard;
-        }
-
-        modify("Payment Discount %")
-        {
-            Visible = true;
         }
 
         modify("Currency Code")
@@ -190,36 +207,6 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
             Visible = false;
         }
 
-        modify("Pmt. Discount Date")
-        {
-            Importance = Standard;
-        }
-
-        modify("Due Date")
-        {
-            Importance = Standard;
-        }
-
-        modify("Payment Method Code")
-        {
-            Importance = Standard;
-        }
-
-        modify("Expected Receipt Date")
-        {
-            Visible = false;
-        }
-
-        modify("Vendor Authorization No.")
-        {
-            Visible = false;
-        }
-
-        modify("Campaign No.")
-        {
-            Visible = false;
-        }
-
         modify(Correction)
         {
             Visible = false;
@@ -229,8 +216,10 @@ pageextension 50052 TorlysPurchCrMemo extends "Purchase Credit Memo"
         {
             Importance = Standard;
         }
+
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
+
 }

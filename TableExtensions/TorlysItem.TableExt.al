@@ -38,21 +38,21 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(50009; "Critical Display Item"; Boolean)
+        field(50007; "Inactive Current Item"; Boolean)
         {
-            Caption = 'Critical Display Item';
+            Caption = 'Inactive Current Item';
             DataClassification = CustomerContent;
         }
 
-        field(50010; "SC Review Item"; Boolean)
+        field(50010; "Sunset Item"; Boolean)
         {
-            Caption = 'SC Review Item';
+            Caption = 'Sunset Item';
             DataClassification = CustomerContent;
         }
 
-        field(50011; "SC Review Date"; Date)
+        field(50011; "Sunset Date"; Date)
         {
-            Caption = 'SC Review Date';
+            Caption = 'Sunset Date';
             DataClassification = CustomerContent;
         }
 
@@ -74,12 +74,6 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(50018; "Focus Item"; Boolean)
-        {
-            Caption = 'Focus Item';
-            DataClassification = CustomerContent;
-        }
-
         field(50019; "In Catalogue"; Boolean)
         {
             Caption = 'In Catalogue';
@@ -96,42 +90,42 @@ tableextension 50027 TorlysItem extends Item
         {
             Caption = 'Quantity to Ship';
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)");
+            CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)" where("No." = field("No.")));
         }
 
         field(50022; "Qty. to Ship (Transfer)"; Decimal)
         {
             Caption = 'Quantity to Ship (Transfer)';
             FieldClass = FlowField;
-            CalcFormula = Sum("Transfer Line"."Qty. to Ship (Base)");
+            CalcFormula = Sum("Transfer Line"."Qty. to Ship (Base)" where("Item No." = field("No.")));
         }
 
         field(50023; "Qty. to Receive (Transfer)"; Decimal)
         {
             Caption = 'Quantity to Receive (Transfer)';
             FieldClass = FlowField;
-            CalcFormula = Sum("Transfer Line"."Qty. to Receive (Base)");
+            CalcFormula = Sum("Transfer Line"."Qty. to Receive (Base)" where("Item No." = field("No.")));
         }
 
-        field(50024; "Qty. on Hand - TOR"; Decimal)
+        field(50024; "Qty. on Hand (TOR)"; Decimal)
         {
-            Caption = 'Quantity on Hand - TOR';
+            Caption = 'Quantity on Hand (TOR)';
             DataClassification = CustomerContent;
         }
 
-        field(50025; "Qty. on Sales Order - TOR"; Decimal)
+        field(50025; "Qty. on Sales Order (TOR)"; Decimal)
         {
             Caption = 'Quantity on Sales Order - TOR';
             DataClassification = CustomerContent;
         }
 
-        field(50026; "Qty. on Hand - QUATOR"; Decimal)
+        field(50026; "Qty. on Hand (QUATOR)"; Decimal)
         {
             Caption = 'Quantity on Hand - QUATOR';
             DataClassification = CustomerContent;
         }
 
-        field(50027; "Qty. on Sales Order - CAL"; Decimal)
+        field(50027; "Qty. on Sales Order (CAL)"; Decimal)
         {
             Caption = 'Quantity on Sales Order - CAL';
             DataClassification = CustomerContent;
@@ -150,37 +144,37 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
-        field(50030; "Qty. on Hand - CAL"; Decimal)
+        field(50030; "Qty. on Hand (CAL)"; Decimal)
         {
             Caption = 'Quantity on Hand - CAL';
             DataClassification = CustomerContent;
         }
 
-        field(50031; "Qty. on Hand - QUACAL"; Decimal)
+        field(50031; "Qty. on Hand (QUACAL)"; Decimal)
         {
             Caption = 'Quantity on Hand - QUACAL';
             DataClassification = CustomerContent;
         }
 
-        field(50032; "Qty. on Hand - CLAIMSTOR"; Decimal)
+        field(50032; "Qty. on Hand (CLAIMSTOR)"; Decimal)
         {
-            Caption = 'Quantity on Hand - CLAIMSTOR';
+            Caption = 'Quantity on Hand (CLAIMSTOR))';
             DataClassification = CustomerContent;
         }
 
-        field(50033; "Qty. on Hand - CLAIMSCAL:"; Decimal)
+        field(50033; "Qty. on Hand (CLAIMSCAL)):"; Decimal)
         {
-            Caption = 'Quantity on Hand - CLAIMSCAL';
+            Caption = 'Quantity on Hand (CLAIMSCAL)';
             DataClassification = CustomerContent;
         }
 
-        field(50040; "Qty. on Hand - SCANGLOBAL"; Decimal)
+        field(50040; "Qty. on Hand (SCANGLOBAL)"; Decimal)
         {
             Caption = 'Quantity on Hand - SCANGLOBAL';
             DataClassification = CustomerContent;
         }
 
-        field(50041; "Qty. on Hand - KRN"; Decimal)
+        field(50041; "Qty. on Hand (KRN))"; Decimal)
         {
             Caption = 'Quantity on Hand - KRN';
             DataClassification = CustomerContent;
@@ -196,7 +190,7 @@ tableextension 50027 TorlysItem extends Item
         {
             Caption = 'Quantity on Transfer Order';
             FieldClass = FlowField;
-            CalcFormula = Sum("Transfer Line"."Quantity (Base)");
+            CalcFormula = Sum("Transfer Line"."Quantity (Base)" where("Item No." = field("No.")));
         }
 
         field(50045; "Incoming ROs"; Decimal)
@@ -267,22 +261,29 @@ tableextension 50027 TorlysItem extends Item
                         ShortcutDimCode[1] := Dimension."Dimension Value Code";
                     'DEPARTMENT':
                         ShortcutDimCode[2] := Dimension."Dimension Value Code";
-                    'PRODUCT':
-                        ShortcutDimCode[3] := Dimension."Dimension Value Code";
                     'CHANNEL':
+                        ShortcutDimCode[3] := Dimension."Dimension Value Code";
+                    'PRODUCT':
                         ShortcutDimCode[4] := Dimension."Dimension Value Code";
                     'BUYING GROUP':
                         ShortcutDimCode[5] := Dimension."Dimension Value Code";
-                    'TORLYS CLUB':
-                        ShortcutDimCode[6] := Dimension."Dimension Value Code";
                     'PROJECT':
+                        ShortcutDimCode[6] := Dimension."Dimension Value Code";
+                    'AUTOMOTIVE':
                         ShortcutDimCode[7] := Dimension."Dimension Value Code";
-                    '8':
+                    'REBATE GROUP':
                         ShortcutDimCode[8] := Dimension."Dimension Value Code";
                 end;
             until Dimension.Next() = 0;
 
     end;
+
+    // procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    // var
+    //     DimMgt: Codeunit "DimensionManagement";
+    // begin
+    //     DimMgt.defa("")("Dimension Set ID", ShortcutDimCode);
+    // end;
 
     local procedure ClearShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var

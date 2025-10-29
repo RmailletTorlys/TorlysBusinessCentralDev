@@ -35,7 +35,15 @@ report 50023 "B13 Sale"
             {
 
             }
-            column(SystemId; LookupUserIdWithGuid(SystemId))
+            // column(SystemId; LookupUserIdWithGuid(SystemId))
+            // {
+
+            // }
+            column(Country_Region_of_Origin_Code; "Country/Region of Origin Code")
+            {
+
+            }
+            column(Tariff_No_; "Tariff No.")
             {
 
             }
@@ -77,10 +85,6 @@ report 50023 "B13 Sale"
 
                 }
                 column(LineAmount; LineAmount)
-                {
-
-                }
-                column(Gross_Weight; "Gross Weight")
                 {
 
                 }

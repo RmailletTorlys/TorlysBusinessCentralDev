@@ -233,10 +233,8 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
             {
                 ApplicationArea = All;
-                CaptionClass = '1,2';
                 ToolTip = 'Global Dimension 1 Code';
             }
-
         }
 
         addfirst(PricesandDiscounts)

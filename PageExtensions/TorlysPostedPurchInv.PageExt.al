@@ -1,35 +1,26 @@
-pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
+pageextension 50138 TorlysPostedPurchInv extends "Posted Purchase Invoice"
 {
     layout
     {
         movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
 
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date", "Order Date", "Document Date", "Vendor Order No.", "Vendor Shipment No.", "Vendor Invoice No.", Status)
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code")
 
-        addafter(Status)
+        addafter("Posting Date")
         {
-            field("No. Printed"; Rec."No. Printed")
+            field("Order Date"; Rec."Order Date")
             {
-                Caption = 'Quantity Printed';
-                ToolTip = 'Quantity Printed';
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
             }
         }
 
-        moveafter("No. Printed"; "No. of Archived Versions")
+        moveafter("Order Date"; "Order No.", "Document Date", "Vendor Order No.", "Vendor Invoice No.", "No. Printed")
 
-        addafter("No. of Archived Versions")
+        addafter("No. Printed")
         {
-            field("Last Archived Date"; Rec."Last Archived Date")
-            {
-                Caption = 'Last Archived Date';
-                ToolTip = 'Last Archived Date';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -74,22 +65,25 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             }
         }
 
-        moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
+        moveafter("Currency Factor"; "Vendor Posting Group")
 
-        modify(ShippingOptionWithLocation)
+        addafter("Vendor Posting Group")
         {
-            importance = Standard;
+            field("Payment Method Code"; Rec."Payment Method Code")
+            {
+                Caption = 'Payment Method Code';
+                ToolTip = 'Payment Method Code';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
+
+        moveafter("Payment Method Code"; "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
         modify("Posting Date")
         {
             Importance = Promoted;
             Editable = false;
-        }
-
-        modify("Order Date")
-        {
-            Importance = Promoted;
         }
 
         modify("Vendor Order No.")
@@ -145,23 +139,7 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Visible = false;
         }
 
-        modify(Status)
-        {
-            Visible = true;
-            Importance = Standard;
-        }
-
         modify("Ship-to Phone No.")
-        {
-            Visible = false;
-        }
-
-        modify(Prepayment)
-        {
-            Visible = false;
-        }
-
-        modify("VAT Bus. Posting Group")
         {
             Visible = false;
         }
@@ -181,64 +159,9 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Visible = false;
         }
 
-        modify("On Hold")
-        {
-            Visible = false;
-        }
-
         modify("Remit-to Code")
         {
             Visible = false;
-        }
-
-        modify("Vendor Posting Group")
-        {
-            Visible = true;
-            Importance = Standard;
-        }
-
-        modify("Inbound Whse. Handling Time")
-        {
-            Visible = false;
-        }
-
-        modify("Lead Time Calculation")
-        {
-            Visible = false;
-        }
-
-        modify("Invoice Received Date")
-        {
-            Visible = false;
-        }
-
-        modify("Your Reference")
-        {
-            Visible = false;
-        }
-
-        modify("Vendor Shipment No.")
-        {
-            Visible = true;
-        }
-
-        modify("Assigned User ID")
-        {
-            Visible = false;
-        }
-
-        modify("Sell-to Customer No.")
-        {
-            Importance = Additional;
-        }
-
-        modify("Shortcut Dimension 1 Code")
-        {
-            Importance = Promoted;
-        }
-        modify("Shortcut Dimension 2 Code")
-        {
-            Importance = Promoted;
         }
 
         modify("Payment Terms Code")
@@ -257,16 +180,6 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Importance = Standard;
         }
 
-        modify("Requested Receipt Date")
-        {
-            visible = false;
-        }
-
-        modify("Promised Receipt Date")
-        {
-            visible = false;
-        }
-
         modify("Tax Liable")
         {
             Importance = Promoted;
@@ -277,19 +190,9 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Importance = Promoted;
         }
 
-        modify("TPS CMG Transfer Order No.")
-        {
-            Visible = false;
-        }
-
-        modify(PurchaseOrderLinkedToEdoc)
-        {
-            Visible = false;
-        }
-
         modify("Location Code")
         {
-            Editable = true;
+            Importance = Standard;
         }
 
         modify("Purchaser Code")
@@ -302,17 +205,7 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Visible = false;
         }
 
-        modify("Pmt. Discount Date")
-        {
-            Importance = Standard;
-        }
-
         modify("Due Date")
-        {
-            Importance = Standard;
-        }
-
-        modify("Payment Method Code")
         {
             Importance = Standard;
         }
@@ -322,8 +215,51 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Visible = false;
         }
 
-    }
+        modify("Pre-Assigned No.")
+        {
+            Visible = false;
+        }
 
+        modify(Cancelled)
+        {
+            Visible = false;
+        }
+
+        modify(Corrective)
+        {
+            Visible = false;
+        }
+
+        modify("Vendor Posting Group")
+        {
+            Importance = Standard;
+        }
+
+        modify("Pmt. Discount Date")
+        {
+            Importance = Standard;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = true;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = true;
+        }
+
+        modify("Shipment Method Code")
+        {
+            Importance = Standard;
+        }
+
+        modify("Document Date")
+        {
+            Importance = Standard;
+        }
+    }
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
 }

@@ -295,9 +295,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
 
     }
 
-
-
-
     trigger OnAfterInsert()
     begin
         CopyCommentsFromCustCardToSalesHeader();

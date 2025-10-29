@@ -100,6 +100,9 @@ End Function
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>
+        <Field Name="FilterString1">
+          <DataField>FilterString1</DataField>
+        </Field>
         <Field Name="Description">
           <DataField>Description</DataField>
         </Field>

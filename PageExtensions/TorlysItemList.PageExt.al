@@ -2,18 +2,7 @@ pageextension 50031 TorlysItemList extends "Item List"
 {
     layout
     {
-        addafter("No.")
-        {
-            field("No. 2"; Rec."No. 2")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Item No. 2';
-                ToolTip = 'Item No. 2';
-                Visible = true;
-            }
-        }
-
-        moveafter("No. 2"; Description, "Description 2", "Item Category Code", "Base Unit of Measure")
+        moveafter("No."; Description, "Item Category Code", "Base Unit of Measure")
 
         addafter("Base Unit of Measure")
         {
@@ -43,14 +32,6 @@ pageextension 50031 TorlysItemList extends "Item List"
                 Visible = false;
             }
 
-            field("Launch Date"; Rec."Launch Date")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Launch Date';
-                ToolTip = 'Launch Date';
-                Visible = false;
-            }
-
             field("New Item"; Rec."New Item")
             {
                 ApplicationArea = Dimensions;
@@ -67,11 +48,19 @@ pageextension 50031 TorlysItemList extends "Item List"
                 Visible = true;
             }
 
-            field("SC Review Item"; Rec."SC Review Item")
+            field("Inactive Current Item"; Rec."Inactive Current Item")
             {
                 ApplicationArea = Dimensions;
-                Caption = 'SC Review Item';
-                ToolTip = 'SC Review Item';
+                Caption = 'Inactive Current Item';
+                ToolTip = 'Inactive Current Item';
+                Visible = true;
+            }
+
+            field("Sunset Item"; Rec."Sunset Item")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Sunset Item';
+                ToolTip = 'Sunset Item';
                 Visible = true;
             }
             field("Discontinued Item"; Rec."Discontinued Item")
@@ -80,13 +69,6 @@ pageextension 50031 TorlysItemList extends "Item List"
                 Caption = 'Discontinued Item';
                 ToolTip = 'Discontinued Item';
                 Visible = true;
-            }
-            field("Discontinued Date"; Rec."Discontinued Date")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Discontinued Date';
-                ToolTip = 'Discontinued Date';
-                Visible = false;
             }
 
             field("Special Item"; Rec."Special Item")
@@ -122,9 +104,9 @@ pageextension 50031 TorlysItemList extends "Item List"
             }
         }
 
-        moveafter("Purchasing Blocked"; "Blocked", InventoryField)
+        moveafter("Purchasing Blocked"; "Blocked", InventoryField, "Unit Cost")
 
-        addafter(InventoryField)
+        addafter("Unit Cost")
         {
             field("Inventory Value"; Rec."Unit Cost" * Rec.Inventory)
             {
@@ -204,41 +186,26 @@ pageextension 50031 TorlysItemList extends "Item List"
                 Visible = true;
             }
 
-            field("Inventory Value Zero"; Rec."Inventory Value Zero")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Inventory Value Zero';
-                ToolTip = 'Inventory Value Zero';
-                Editable = false;
-                Visible = false;
-            }
         }
 
-        moveafter("Inventory Value Zero"; "Costing Method", "Standard Cost", "Unit Cost", "Gen. Prod. Posting Group", "Inventory Posting Group")
+        moveafter("Sales Price Code"; "Costing Method", "Gen. Prod. Posting Group", "Inventory Posting Group")
 
 
         addafter("Inventory Posting Group")
         {
             field(ShortcutDimCode4; ShortcutDimCode[4])
             {
+                ApplicationArea = Dimensions;
                 CaptionClass = '1,2,4';
                 ToolTip = 'Global Dimension 4 Code';
-                ApplicationArea = Dimensions;
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4),
-                                                                "Dimension Value Type" = const(Standard),
+                                                                  "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
-                trigger OnValidate()
-                begin
-                    ValidateShortcutDimension(4);
-                end;
-            }
-            field("Tax Group Code"; Rec."Tax Group Code")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Tax Group Code';
-                ToolTip = 'Tax Group Code';
-                Visible = false;
+                // trigger OnValidate()
+                // begin
+                //     ValidateShortcutDimension(4);
+                // end;
             }
 
             field("Country/Region of Origin"; Rec."Country/Region of Origin Code")
@@ -261,47 +228,42 @@ pageextension 50031 TorlysItemList extends "Item List"
             }
         }
 
-        moveafter("Tariff No. (Sales)"; "Replenishment System", "Vendor No.", "Vendor Item No.")
+        moveafter("Tariff No. (Sales)"; "Vendor No.", "Vendor Item No.")
 
         addafter("Vendor Item No.")
         {
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 ApplicationArea = Dimensions;
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 Editable = false;
                 Visible = true;
             }
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
                 ApplicationArea = Dimensions;
-                Caption = 'System Created At';
-                ToolTip = 'System Created At';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 Editable = false;
                 Visible = true;
             }
-            field(SystemModifiedBy; Rec.SystemModifiedBy)
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 ApplicationArea = Dimensions;
-                Caption = 'System Modified By';
-                ToolTip = 'System Modified By';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 Editable = false;
                 Visible = true;
             }
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
                 ApplicationArea = Dimensions;
-                Caption = 'System Modified At';
-                ToolTip = 'System Modified At';
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 Editable = false;
                 Visible = true;
             }
-        }
-
-        modify("Description 2")
-        {
-            Visible = true;
         }
 
         modify("Item Category Code")
@@ -381,15 +343,14 @@ pageextension 50031 TorlysItemList extends "Item List"
     }
 
 
-    protected var
+    var
+        LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
-
 
     local procedure ValidateShortcutDimension(DimIndex: Integer)
     var

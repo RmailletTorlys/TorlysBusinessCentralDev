@@ -2,7 +2,11 @@
     "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
+<<<<<<< HEAD
     "version": "1.0.11.12",
+=======
+    "version": "1.0.11.13",
+>>>>>>> 299b249c3476936a6cd7c6688d7b1db49c900a59
     "brief": "",
     "description": "",
     "privacyStatement": "",

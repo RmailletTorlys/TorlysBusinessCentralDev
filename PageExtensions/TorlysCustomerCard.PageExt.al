@@ -325,10 +325,10 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
                 }
 
-                field("Add to Dealer Finder"; Rec."Add to Dealer Finder")
+                field("Add to Dealer Locator"; Rec."Add to Dealer Locator")
                 {
                     ApplicationArea = All;
-                    Caption = 'Add to Dealer Finder';
+                    Caption = 'Add to Dealer Locator';
                     ToolTip = 'Specifies whether the customer is added to the dealer finder.';
                 }
             }

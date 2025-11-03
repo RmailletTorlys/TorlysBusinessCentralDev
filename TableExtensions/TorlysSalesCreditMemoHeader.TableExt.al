@@ -265,7 +265,7 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
 
         }
 
-        field(50048; "Powerup Level"; Option)
+        field(50048; "Power Up Level"; Option)
         {
             Caption = 'Club';
             FieldClass = FlowField;

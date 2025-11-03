@@ -1,4 +1,4 @@
-pageextension 56660 TorlysPostedReturnRcptSubform extends "Posted Return Receipt Subform"
+pageextension 56661 TorlysPostedReturnRcptSubform extends "Posted Return Receipt Subform"
 {
     layout
     {

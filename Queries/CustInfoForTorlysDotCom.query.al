@@ -40,7 +40,7 @@ query 50002 CustInfoForTorlysDotCom
             column(website; Website)
             {
             }
-            column(Add_to_Dealer_Finder; "Add to Dealer Finder")
+            column(Add_to_Dealer_Locator; "Add to Dealer Locator")
             {
             }
 

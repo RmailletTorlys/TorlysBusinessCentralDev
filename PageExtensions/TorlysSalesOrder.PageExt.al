@@ -65,10 +65,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Order Time';
                 ApplicationArea = All;
                 Importance = Additional;
+                Editable = false;
             }
         }
 
-        moveafter("Order Time"; "Requested Delivery Date", "Shipment Date")
+        moveafter("Order Time"; "Location Code", "Requested Delivery Date", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -97,36 +98,36 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Quantity Printed';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Standard;
+                Importance = Additional;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
-                Caption = 'System Created Date';
-                ToolTip = 'System Created Date';
+                Caption = 'Created Date';
+                ToolTip = 'Created Date';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
-                Caption = 'System Last Modified By';
-                ToolTip = 'System Last Modified By';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
-                Caption = 'System Last Modified Date';
-                ToolTip = 'System Last Modified Date';
+                Caption = 'Modified Date';
+                ToolTip = 'Modified Date';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
@@ -216,8 +217,8 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         {
             field("Ship-to Code1"; Rec."Ship-to Code")
             {
-                Caption = 'Ship-to Customer No.';
-                ToolTip = 'Ship-to Customer No.';
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
                 ApplicationArea = All;
                 Importance = Standard;
                 Editable = false;
@@ -236,9 +237,20 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Freight Zone Code"; "Location Code", "Shipping Advice")
+        moveafter("Freight Zone Code"; "Shipping Advice")
 
-        addafter("Shipping Advice")
+        addafter(BillToOptions)
+        {
+            field("Bill-to Customer No."; Rec."Bill-to Customer No.")
+            {
+                Caption = 'Bill-to Customer No.';
+                ToolTip = 'Bill-to Customer No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+
+        addafter(Control82)
         {
             group("Pick Slip Info")
             {
@@ -278,17 +290,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        addafter(BillToOptions)
-        {
-            field("Bill-to Customer No."; Rec."Bill-to Customer No.")
-            {
-                Caption = 'Bill-to Customer No.';
-                ToolTip = 'Bill-to Customer No.';
-                ApplicationArea = All;
-                Importance = Standard;
-            }
-        }
-
         addafter("Shipping and Billing")
         {
             group("Marketing")
@@ -298,7 +299,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 {
                     group(Details)
                     {
-                        ShowCaption = false;
                         field(ShortcutDimCode5; ShortcutDimCode[5])
                         {
                             ApplicationArea = Dimensions;
@@ -352,7 +352,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             ToolTip = 'MK Required Type';
                             ApplicationArea = All;
                         }
-                        field("MK Staged"; Rec."MK Staged Location")
+                        field("MK Staged Location"; Rec."MK Staged Location")
                         {
                             Caption = 'MK Staged Location';
                             ToolTip = 'MK Staged Location';
@@ -537,6 +537,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             Visible = false;
         }
 
+        modify(BillToContactEmail)
+        {
+            Visible = false;
+        }
+
         modify("Sell-to Contact No.")
         {
             Visible = false;
@@ -555,12 +560,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Promised Delivery Date")
         {
             Visible = false;
-        }
-
-        modify("External Document No.")
-        {
-            Visible = true;
-            Importance = Standard;
         }
 
         modify("Campaign No.")
@@ -712,6 +711,21 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Payment Discount %")
         {
             Importance = Additional;
+        }
+
+        modify("Ship-to Country/Region Code")
+        {
+            Importance = Standard;
+        }
+
+        modify("Shipping Advice")
+        {
+            Importance = Standard;
+        }
+
+        modify("External Document No.")
+        {
+            Importance = Standard;
         }
     }
 

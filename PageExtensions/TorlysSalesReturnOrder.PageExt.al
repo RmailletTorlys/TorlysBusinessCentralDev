@@ -1,9 +1,7 @@
-pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
+pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
 {
     layout
     {
-        movefirst(General; "Sell-to Customer No.")
-
         addafter("Sell-to Customer No.")
         {
             field("Ship-to Code"; Rec."Ship-to Code")
@@ -50,27 +48,25 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                     ValidateShortcutDimension(3);
                 end;
             }
+            field("Reason Code"; Rec."Reason Code")
+            {
+                Caption = 'Reason Code';
+                ToolTip = 'Reason Code';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter(ShortcutDimCode3; "Reason Code", "Posting Date")
+        moveafter("Reason Code"; "Posting Date", "Order Date")
 
-        addafter("Posting Date")
+        addafter("Order Date")
         {
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
             field("Order Time"; Rec."Order Time")
             {
                 Caption = 'Order Time';
                 ToolTip = 'Order Time';
                 ApplicationArea = All;
-                Importance = Additional;
                 Editable = false;
+                Importance = Additional;
             }
         }
 
@@ -185,7 +181,18 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             }
         }
 
-        moveafter("Salesperson Commission 3"; Correction, "Applies-to Doc. Type", "Applies-to Doc. No.")
+        moveafter("Salesperson Commission 3"; "Applies-to Doc. Type", "Applies-to Doc. No.", "Applies-to ID")
+
+        addbefore("Ship-to Name")
+        {
+            field("Ship-to Code1"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
 
         addbefore("Bill-to Name")
         {
@@ -198,7 +205,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             }
         }
 
-        addafter(Billing)
+        addafter("Shipping and Billing")
         {
             group("Marketing")
             {
@@ -257,6 +264,12 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Visible = false;
         }
 
+        modify("Shipping Agent Code")
+        {
+            Importance = Standard;
+            Caption = 'Shipping Agent Code';
+        }
+
         modify("Sell-to Address")
         {
             Importance = Additional;
@@ -287,6 +300,11 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Importance = Additional;
         }
 
+        modify("Order Date")
+        {
+            Importance = Additional;
+        }
+
         modify("Posting Date")
         {
             Importance = Additional;
@@ -297,32 +315,52 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Importance = Standard;
         }
 
+        modify("Payment Terms Code")
+        {
+            Visible = false;
+        }
+
+        modify("Shipping Agent Service Code")
+        {
+            Visible = false;
+        }
+
         modify("Shortcut Dimension 1 Code")
         {
             Importance = Promoted;
         }
+
         modify("Currency Code")
         {
             Importance = Additional;
         }
+
         modify("Gen. Bus. Posting Group")
         {
             visible = false;
         }
+
         modify("Customer Posting Group")
         {
             Importance = Additional;
         }
+
         modify("Tax Liable")
         {
             Importance = Standard;
         }
+
         modify("Tax Area Code")
         {
             Importance = Standard;
         }
 
         modify("Sell-to Contact")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Contact")
         {
             Visible = false;
         }
@@ -338,6 +376,11 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         }
 
         modify("Sell-to Contact No.")
+        {
+            Visible = false;
+        }
+
+        modify("No. of Archived Versions")
         {
             Visible = false;
         }
@@ -368,17 +411,22 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Visible = false;
         }
 
-        modify("Work Description")
-        {
-            Visible = false;
-        }
-
         modify("Company Bank Account Code")
         {
             Visible = false;
         }
 
         modify("VAT Bus. Posting Group")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Phone No.")
+        {
+            Visible = false;
+        }
+
+        modify("Package Tracking No.")
         {
             Visible = false;
         }
@@ -449,43 +497,12 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Importance = Additional;
         }
 
-        modify("Location Code")
+        modify("Ship-to Country/Region Code")
         {
             Importance = Standard;
-        }
-
-        modify("Reason Code")
-        {
-            Visible = true;
-            Importance = Standard;
-        }
-
-        modify("Shipment Date")
-        {
-            Visible = false;
-        }
-
-        modify("Due Date")
-        {
-            Visible = false;
         }
 
         modify("Payment Method Code")
-        {
-            Visible = false;
-        }
-
-        modify("Payment Terms Code")
-        {
-            Visible = false;
-        }
-
-        modify("Pmt. Discount Date")
-        {
-            Visible = false;
-        }
-
-        modify("Payment Discount %")
         {
             Visible = false;
         }
@@ -504,6 +521,22 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         {
             Importance = Standard;
         }
+
+        modify("Shipment Date")
+        {
+            Visible = false;
+        }
+
+        modify("EU 3-Party Trade")
+        {
+            Visible = false;
+        }
+
+        modify("Shipment Method")
+        {
+            Visible = true;
+        }
+
     }
 
     var

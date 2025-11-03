@@ -3,6 +3,7 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
     layout
     {
         movefirst(General; "Sell-to Customer No.")
+
         moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
 
         addafter("Sell-to Country/Region Code")
@@ -35,11 +36,6 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                                                                   Blocked = const(false));
                 Visible = true;
                 Editable = false;
-
-                // trigger OnValidate()
-                // begin
-                //     ValidateShortcutDimension(3);
-                // end;
             }
             field("Order Type"; Rec."Order Type")
             {
@@ -47,16 +43,9 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
             }
-            field("Temporary Hold"; Rec."Temporary Hold")
-            {
-                Caption = 'Temporary Hold';
-                ToolTip = 'Temporary Hold';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
         }
 
-        moveafter("Temporary Hold"; "Posting Date")
+        moveafter("Order Type"; "Posting Date")
 
         addafter("Posting Date")
         {
@@ -65,7 +54,8 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                 Caption = 'Order Date';
                 ToolTip = 'Order Date';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
+                Editable = false;
             }
             field("Order Time"; Rec."Order Time")
             {
@@ -73,10 +63,11 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                 ToolTip = 'Order Time';
                 ApplicationArea = All;
                 Importance = Additional;
+                Editable = false;
             }
         }
 
-        moveafter("Order Time"; "Shipment Date")
+        moveafter("Order Time"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -95,46 +86,43 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                 Importance = Standard;
             }
         }
-        addafter("Shipping Comment")
+        moveafter("Shipping Comment"; "Order No.", "No. Printed")
+
+        addafter("No. Printed")
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
-
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
-                Caption = 'System Created Date';
-                ToolTip = 'System Created Date';
+                Caption = 'Created Date';
+                ToolTip = 'Created Date';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
-
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
-                Caption = 'System Last Modified By';
-                ToolTip = 'System Last Modified By';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
-
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
-                Caption = 'System Last Modified Date';
-                ToolTip = 'System Last Modified Date';
+                Caption = 'Modified Date';
+                ToolTip = 'Modified Date';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
             }
         }
-
-        moveafter(SystemModifiedAt; "No. Printed", "Order No.")
 
         addafter("Currency Code")
         {
@@ -143,11 +131,11 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                 Caption = 'Currency Factor';
                 ToolTip = 'Currency Factor';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
             }
         }
 
-        moveafter("Currency Factor"; "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Promised Pay Date", "Dispute Status", "Closed", "Cancelled", "Corrective", "Tax Liable", "Tax Area Code")
+        moveafter("Currency Factor"; "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code")
 
         addafter("Tax Area Code")
         {
@@ -206,6 +194,18 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
             }
         }
 
+        addbefore("Ship-to Name")
+        {
+            field("Ship-to Code1"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+        }
+
         addafter("Shipping Agent Code")
         {
             field("Freight Zone Code"; Rec."Freight Zone Code")
@@ -218,65 +218,15 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
             }
         }
 
-        moveafter("Freight Zone Code"; "Location Code")
-
-        addafter("Location Code")
+        addbefore("Bill-to Name")
         {
-            group("Pick Slip Info")
+            field("Bill-to Customer No."; Rec."Bill-to Customer No.")
             {
-                Caption = 'Pick Slip Info';
-                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
-                {
-                    Caption = 'No. Pick Slips Printed';
-                    ToolTip = 'No. Pick Slips Printed';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-                field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
-                {
-                    Caption = 'Pick Slip Printed By';
-                    ToolTip = 'Pick Slip Printed By';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
-                {
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    Caption = 'Pick Slip Printed Time';
-                    ToolTip = 'Pick Slip Printed Time';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-            }
-        }
-
-        addbefore("Ship-to Name")
-        {
-            field("Ship-to Code1"; Rec."Ship-to Code")
-            {
-                Caption = 'Ship-to Customer No.';
-                ToolTip = 'Ship-to Customer No.';
+                Caption = 'Bill-to Customer No.';
+                ToolTip = 'Bill-to Customer No.';
                 ApplicationArea = All;
                 Importance = Standard;
-                Editable = false;
             }
-        }
-
-        modify("No. Printed")
-        {
-            Importance = Standard;
         }
 
         modify("No.")
@@ -359,11 +309,6 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
             visible = false;
         }
 
-        modify(Corrective)
-        {
-            Importance = Standard;
-        }
-
         modify("Shipment Method Code")
         {
             Importance = Standard;
@@ -389,6 +334,86 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
         modify("Location Code")
         {
             Importance = Standard;
+        }
+
+        modify("Salesperson Code")
+        {
+            Importance = Standard;
+        }
+
+        modify("Payment Discount %")
+        {
+            Importance = Additional;
+        }
+
+        modify(Cancelled)
+        {
+            Visible = false;
+        }
+
+        modify(Corrective)
+        {
+            Visible = false;
+        }
+
+        modify(Closed)
+        {
+            Visible = false;
+        }
+
+        modify("Dispute Status")
+        {
+            Visible = false;
+        }
+
+        modify("Your Reference")
+        {
+            Importance = Standard;
+        }
+
+        modify("External Document No.")
+        {
+            Importance = Standard;
+        }
+
+        modify("Promised Pay Date")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Phone No.")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Contact")
+        {
+            Visible = false;
+        }
+
+        modify("Bill-to Contact")
+        {
+            Visible = false;
+        }
+
+        modify("Bill-to Contact No.")
+        {
+            Visible = false;
+        }
+
+        modify(BillToContactMobilePhoneNo)
+        {
+            Visible = false;
+        }
+
+        modify(BillToContactEmail)
+        {
+            Visible = false;
+        }
+
+        modify(BillToContactPhoneNo)
+        {
+            Visible = false;
         }
     }
 

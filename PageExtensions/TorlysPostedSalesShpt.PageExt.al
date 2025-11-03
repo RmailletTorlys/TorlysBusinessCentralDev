@@ -4,37 +4,19 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
     {
         movefirst(General; "Sell-to Customer No.")
 
-        moveafter("Sell-to Customer No."; "Ship-to Code")
+        moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
 
-        addafter("Sell-to")
+        addafter("Sell-to Country/Region Code")
         {
-            field("Order Date"; Rec."Order Date")
+            field("Order Method"; Rec."Order Method")
             {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-            }
-
-            field("Temporary Hold"; Rec."Temporary Hold")
-            {
-                Caption = 'Temporary Hold';
-                ToolTip = 'Temporary Hold';
-                ApplicationArea = All;
-            }
-
-            field("Tag Name"; Rec."Tag Name")
-            {
-                Caption = 'Tag Name';
-                ToolTip = 'Tag Name';
+                Caption = 'Order Method';
+                ToolTip = 'Order Method';
                 ApplicationArea = All;
             }
         }
 
-        moveafter("Order Date"; "Posting Date")
-
-        moveafter("Tag Name"; "Shipment Date", "Requested Delivery Date")
-
-        addafter("Requested Delivery Date")
+        addafter("Order Method")
         {
             field("Your Reference"; Rec."Your Reference")
             {
@@ -44,159 +26,132 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             }
         }
 
-        moveafter("Your Reference"; "Salesperson Code")
+        moveafter("Your Reference"; "External Document No.")
 
-        addafter("Salesperson Code")
+        addafter("External Document No.")
         {
-
-            field("Salesperson Commission"; Rec."Salesperson Commission")
+            field("Tag Name"; Rec."Tag Name")
             {
-                Caption = 'Salesperson Commission';
-                ToolTip = 'Salesperson Commission';
-                ApplicationArea = All;
-                DecimalPlaces = 2;
-            }
-
-            field("Salesperson Code 2"; Rec."Salesperson Code 2")
-            {
-                Caption = 'Salesperson Code 2';
-                ToolTip = 'Salesperson Code 2';
+                Caption = 'Tag Name';
+                ToolTip = 'Tag Name';
                 ApplicationArea = All;
             }
-
-            field("Salesperson Commission 2"; Rec."Salesperson Commission 2")
+            field(ShortcutDimCode3; ShortcutDimCode[3])
             {
-                Caption = 'Salesperson Commission 2';
-                ToolTip = 'Salesperson Commission 2';
-                ApplicationArea = All;
-                DecimalPlaces = 2;
+                ApplicationArea = Dimensions;
+                CaptionClass = '1,2,3';
+                ToolTip = 'Global Dimension 3 Code';
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                                                                  "Dimension Value Type" = const(Standard),
+                                                                  Blocked = const(false));
+                Visible = true;
+                Editable = false;
             }
-
-            field("Salesperson Code 3"; Rec."Salesperson Code 3")
+            field("Order Type"; Rec."Order Type")
             {
-                Caption = 'Salesperson Code 3';
-                ToolTip = 'Salesperson Code 3';
+                Caption = 'Order Type';
+                ToolTip = 'Order Type';
                 ApplicationArea = All;
             }
-
-            field("Salesperson Commission 3"; Rec."Salesperson Commission 3")
+            field("Temporary Hold"; Rec."Temporary Hold")
             {
-                Caption = 'Salesperson Commission 3';
-                ToolTip = 'Salesperson Commission 3';
+                Caption = 'Temporary Hold';
+                ToolTip = 'Temporary Hold';
                 ApplicationArea = All;
-                DecimalPlaces = 2;
+                Importance = Additional;
             }
         }
 
-        moveafter("Salesperson Commission 3"; "Shortcut Dimension 2 Code")
+        moveafter("Temporary Hold"; "Posting Date")
 
-        addafter("Shortcut Dimension 2 Code")
+        addafter("Posting Date")
         {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+            field("Order Time"; Rec."Order Time")
+            {
+                Caption = 'Order Time';
+                ToolTip = 'Order Time';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+        }
 
+        moveafter("Order Time"; "Location Code", "Requested Delivery Date", "Shipment Date")
+
+        addafter("Shipment Date")
+        {
+            field("Shipping Instructions"; Rec."Shipping Instructions")
+            {
+                Caption = 'Shipping Instructions';
+                ToolTip = 'Shipping Instructions';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+        moveafter("Shipping Comment"; "Order No.", "No. Printed")
+
+        addafter("No. Printed")
+        {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
-                Caption = 'SystemCreatedBy';
-                ToolTip = 'SystemCreatedBy';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
             }
-
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
-                Caption = 'SystemCreatedAtd';
-                ToolTip = 'SystemCreatedAtd';
+                Caption = 'Created Date';
+                ToolTip = 'Created Date';
                 ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
             }
-
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
-                Caption = 'SystemModifiedBy';
-                ToolTip = 'SystemModifiedBy';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
             }
-
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
-                Caption = 'SystemModifiedAt';
-                ToolTip = 'SystemModifiedAt';
+                Caption = 'Modified Date';
+                ToolTip = 'Modified Date';
                 ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
             }
         }
 
-        addafter(SalesShipmLines)
+        addfirst(Shipping)
         {
-            group("Invoice Details")
+            field("Ship-to Code1"; Rec."Ship-to Code")
             {
-                Caption = 'Invoice Details';
-                field("Bill-to"; Rec."Bill-to Customer No.")
-                {
-                    Caption = 'Bill-to Customer No.';
-                    ToolTip = 'Bill-to Customer No.';
-                    ApplicationArea = All;
-                }
-
-                field("Currency Code"; Rec."Currency Code")
-                {
-                    Caption = 'Currency Code';
-                    ToolTip = 'Currency Code';
-                    ApplicationArea = All;
-                }
-
-                field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
-                {
-                    Caption = 'Gen. Bus. Posting Group';
-                    ToolTip = 'Gen. Bus. Posting Group';
-                    ApplicationArea = All;
-                }
-
-                field("Customer Posting Group"; Rec."Customer Posting Group")
-                {
-                    Caption = 'Customer Posting Group';
-                    ToolTip = 'Customer Posting Group';
-                    ApplicationArea = All;
-                }
-
-                field("Payment Terms Code"; Rec."Payment Terms Code")
-                {
-                    Caption = 'Payment Terms Code';
-                    ToolTip = 'Payment Terms Code';
-                    ApplicationArea = All;
-                }
-
-                field("Due Date"; Rec."Due Date")
-                {
-                    Caption = 'Due Date';
-                    ToolTip = 'Due Date';
-                    ApplicationArea = All;
-                }
-
-                field("Tax Liable"; Rec."Tax Liable")
-                {
-                    Caption = 'Tax Liable';
-                    ToolTip = 'Tax Liable';
-                    ApplicationArea = All;
-                }
-
-                field("Tax Area Code"; Rec."Tax Area Code")
-                {
-                    Caption = 'Tax Area Code';
-                    ToolTip = 'Tax Area Code';
-                    ApplicationArea = All;
-                }
-
-
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
             }
         }
-
-        addafter("Invoice Details")
-        {
-            group("Shipping and Billing")
-            {
-                Caption = 'Shipping and Billing';
-
-            }
-        }
-
-        movefirst("Shipping and Billing"; "Shipment Method")
 
         addafter("Shipping Agent Code")
         {
@@ -205,75 +160,107 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Freight Zone Code';
                 ApplicationArea = All;
+                Importance = Standard;
+                TableRelation = "Torlys Freight Zones";
             }
         }
 
-        moveafter("Freight Zone Code"; "Location Code")
+        moveafter("Shortcut Dimension 2 Code"; "Salesperson Code")
 
-        addafter("Location Code")
+        addafter("Salesperson Code")
         {
-            field("BoL No."; Rec."BoL No.")
+            field("Salesperson Commission"; Rec."Salesperson Commission")
             {
-                Caption = 'BoL No.';
-                ToolTip = 'BoL No.';
+                Caption = 'Salesperson Commission';
+                ToolTip = 'Salesperson Commission';
                 ApplicationArea = All;
+                Importance = Additional;
             }
-        }
-
-        addafter("Shipping and Billing")
-        {
-            group("Marketing")
+            field("Salesperson Code 2"; Rec."Salesperson Code 2")
             {
-                Caption = 'Marketing';
-
-                field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
-                {
-                    Caption = 'Sample Allowance Exclusion';
-                    ToolTip = 'Sample Allowance Exclusion';
-                    ApplicationArea = All;
-                }
-
-                field("MK Required"; Rec."MK Required")
-                {
-                    Caption = 'MK Required';
-                    ToolTip = 'MK Required';
-                    ApplicationArea = All;
-                }
-
-                field("MK Required Type"; Rec."MK Required Type")
-                {
-                    Caption = 'MK Required Type';
-                    ToolTip = 'MK Required Type';
-                    ApplicationArea = All;
-                }
-                field("MK Staged Location"; Rec."MK Staged Location")
-                {
-                    Caption = 'MK Staged Location';
-                    ToolTip = 'MK Staged Location';
-                    ApplicationArea = All;
-                }
-                field("MK Staged By"; Rec."MK Staged By")
-                {
-                    Caption = 'MK Staged By';
-                    ToolTip = 'MK Staged By';
-                    ApplicationArea = All;
-                }
-
-                field("MK Staged Date"; Rec."MK Staged Date")
-                {
-                    Caption = 'MK Staged Date';
-                    ToolTip = 'MK Staged Date';
-                    ApplicationArea = All;
-                }
-
-                field("Marketing Shipment Transfer"; Rec."Marketing Shipment Transfer")
-                {
-                    Caption = 'Marketing Shipment or Transfer';
-                    ToolTip = 'Specifies if the order is a Shipment or a Transfer';
-                    ApplicationArea = All;
-                }
+                Caption = 'Salesperson Code 2';
+                ToolTip = 'Salesperson Code 2';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("Salesperson Commission 2"; Rec."Salesperson Commission 2")
+            {
+                Caption = 'Salesperson Commission 2';
+                ToolTip = 'Salesperson Commission 2';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("Salesperson Code 3"; Rec."Salesperson Code 3")
+            {
+                Caption = 'Salesperson Code 3';
+                ToolTip = 'Salesperson Code 3';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("Salesperson Commission 3"; Rec."Salesperson Commission 3")
+            {
+                Caption = 'Salesperson Commission 3';
+                ToolTip = 'Salesperson Commission 3';
+                ApplicationArea = All;
+                Importance = Additional;
             }
         }
+
+
+        // addafter("Billing")
+        // {
+        //     group("Marketing")
+        //     {
+        //         Caption = 'Marketing';
+
+        //         field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
+        //         {
+        //             Caption = 'Sample Allowance Exclusion';
+        //             ToolTip = 'Sample Allowance Exclusion';
+        //             ApplicationArea = All;
+        //         }
+
+        //         field("MK Required"; Rec."MK Required")
+        //         {
+        //             Caption = 'MK Required';
+        //             ToolTip = 'MK Required';
+        //             ApplicationArea = All;
+        //         }
+
+        //         field("MK Required Type"; Rec."MK Required Type")
+        //         {
+        //             Caption = 'MK Required Type';
+        //             ToolTip = 'MK Required Type';
+        //             ApplicationArea = All;
+        //         }
+        //         field("MK Staged Location"; Rec."MK Staged Location")
+        //         {
+        //             Caption = 'MK Staged Location';
+        //             ToolTip = 'MK Staged Location';
+        //             ApplicationArea = All;
+        //         }
+        //         field("MK Staged By"; Rec."MK Staged By")
+        //         {
+        //             Caption = 'MK Staged By';
+        //             ToolTip = 'MK Staged By';
+        //             ApplicationArea = All;
+        //         }
+
+        //         field("MK Staged Date"; Rec."MK Staged Date")
+        //         {
+        //             Caption = 'MK Staged Date';
+        //             ToolTip = 'MK Staged Date';
+        //             ApplicationArea = All;
+        //         }
+
+        //         field("Marketing Shipment Transfer"; Rec."Marketing Shipment Transfer")
+        //         {
+        //             Caption = 'Marketing Shipment or Transfer';
+        //             ToolTip = 'Specifies if the order is a Shipment or a Transfer';
+        //             ApplicationArea = All;
+        //         }
+        //     }
+        // }
 
         modify("No.")
         {
@@ -301,17 +288,17 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             Visible = false;
         }
 
-        modify(Shipping)
+        modify("Sell-to")
         {
             Visible = false;
         }
 
-        modify(Billing)
+        modify("Sell-to Contact No.")
         {
             Visible = false;
         }
 
-        modify("No. Printed")
+        modify(SellToPhoneNo)
         {
             Visible = false;
         }
@@ -331,16 +318,6 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             Visible = false;
         }
 
-        modify("Order No.")
-        {
-            Visible = false;
-        }
-
-        modify("External Document No.")
-        {
-            Visible = false;
-        }
-
         modify("Responsibility Center")
         {
             Visible = false;
@@ -351,8 +328,79 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             Visible = false;
         }
 
+        modify("Ship-to Phone No.")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Contact")
+        {
+            Visible = false;
+        }
+
+        modify("Outbound Whse. Handling Time")
+        {
+            Visible = false;
+        }
+
+        modify("Shipping Time")
+        {
+            Visible = false;
+        }
+
+        modify("Shipping Agent Code")
+        {
+            Importance = Standard;
+        }
+
+        modify("Shipping Agent Service Code")
+        {
+            Visible = false;
+        }
+
+        modify("Package Tracking No.")
+        {
+            Importance = Standard;
+        }
+
+        modify(BillToContactPhoneNo)
+        {
+            Visible = false;
+        }
+
+        modify(BillToContactMobilePhoneNo)
+        {
+            Visible = false;
+        }
+
+        modify("Bill-to Contact No.")
+        {
+            Visible = false;
+        }
+
+        modify(BillToContactEmail)
+        {
+            Visible = false;
+        }
+
+        modify("Bill-to Contact")
+        {
+            Visible = false;
+        }
+
+        modify("External Document No.")
+        {
+            Importance = Standard;
+        }
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
+        ShortcutDimCode: array[8] of Code[20];
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.ShowShortcutDimCode(ShortcutDimCode);
+    end;
+
 }

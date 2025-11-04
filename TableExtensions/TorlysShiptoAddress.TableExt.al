@@ -60,11 +60,11 @@ tableextension 50222 "TorlysShiptoAddress" extends "Ship-to Address"
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
-
-        field(50014; "Add to Dealer Locator"; Boolean)
+        field(50014; "Dealer Locator Participant"; Boolean)
         {
-            Caption = 'Add to Dealer Locator';
-            DataClassification = CustomerContent;
+            Caption = 'Dealer Locator Participant';
+
+
         }
     }
 

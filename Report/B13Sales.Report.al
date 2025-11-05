@@ -1,8 +1,8 @@
-report 50023 "B13 Sale"
+report 50023 "B13 Sales"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/B13Sale.rdlc';
-    Caption = 'B13 Sale';
+    RDLCLayout = './Local/Sales/History/B13Sales.rdlc';
+    Caption = 'B13 Sales    ';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -43,7 +43,7 @@ report 50023 "B13 Sale"
             {
 
             }
-            column(Tariff_No_; "Tariff No.")
+            column(Tariff_No_; "Tariff No. (Sales)")
             {
 
             }
@@ -57,6 +57,10 @@ report 50023 "B13 Sale"
                 RequestFilterHeading = 'Sales Line';
 
                 column(No_; "No.")
+                {
+
+                }
+                column(FilterString1; SalesLineFilter)
                 {
 
                 }
@@ -91,6 +95,11 @@ report 50023 "B13 Sale"
 
                 trigger OnAfterGetRecord()
                 begin
+                    TariffQuantity := 0;
+                    TariffNetWeightLB := 0;
+                    TariffNetWeightKG := 0;
+                    TariffLineAmount := 0;
+
                     item3.get("No.");
                     // TariffNote := item."Customs/Tariff Note";
                     If CostInsteadOfPrice then
@@ -117,13 +126,15 @@ report 50023 "B13 Sale"
                             OrderUOM := 'M3';
                         end;
 
+
+
                         NetWeightLB := "Quantity Shipped" * "Net Weight";
                         NetWeightKG := "Quantity Shipped" * "Net Weight" * 0.453592;
                         LineAmount := "Quantity Shipped" * NetPrice;
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight");
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight" * 0.453592);
+                        TariffLineAmount += LineAmount;
                     end else begin
                         If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                             OrderQuantity := ("Qty. to Ship" / 10.764);
@@ -145,8 +156,8 @@ report 50023 "B13 Sale"
                         LineAmount := "Qty. to Ship" * NetPrice;
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Qty. to Ship" * "Sales Line"."Net Weight");
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Qty. to Ship" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Qty. to Ship" * "Sales Line"."Net Weight" * 0.453592);
+                        TariffLineAmount += LineAmount;
                     end;
 
                     If "Document Type" = "Document Type"::"Return Order" then begin
@@ -170,8 +181,8 @@ report 50023 "B13 Sale"
                         LineAmount := "Quantity" * NetPrice;
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity" * "Sales Line"."Net Weight");
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity" * "Sales Line"."Net Weight" * 0.453592);
+                        TariffLineAmount += LineAmount;
                     end;
 
                     If RemoveFreight then begin
@@ -210,6 +221,8 @@ report 50023 "B13 Sale"
 
             trigger OnPreDataItem()
             begin
+                SalesLineFilter := "Sales Line".GetFilters;
+
                 LastFieldNo := FieldNo("Tariff No.");
 
                 CurrReport.CreateTotals(TariffQuantity, TariffNetWeightLB, TariffNetWeightKG, TariffLineAmount);
@@ -295,6 +308,7 @@ report 50023 "B13 Sale"
         FilterString: Text;
         TariffNo: Text;
         TariffNote: Text;
+        SalesLineFilter: Text;
         OrderUOM: Code[10];
         HTSCode: Code[20];
 }

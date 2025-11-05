@@ -33,7 +33,7 @@ query 50003 CustInfoForTorlysDotComV2
             column(Phone_No_; "Phone No.")
             {
             }
-            column(website; "E-Mail")
+            column(website; "Home Page")
             {
             }
 

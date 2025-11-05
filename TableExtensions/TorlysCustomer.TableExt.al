@@ -256,9 +256,9 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50038; "Add to Dealer Finder"; Boolean)
+        field(50038; "Add to Dealer Locator"; Boolean)
         {
-            Caption = 'Add to Dealer Finder';
+            Caption = 'Add to Dealer Locator';
             DataClassification = CustomerContent;
         }
 

@@ -21,6 +21,13 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
             }
+
+            field("Dealer Locator Participant"; Rec."Dealer Locator Participant")
+            {
+                ApplicationArea = All;
+                Caption = 'Dealer Locator Participant';
+                ToolTip = 'Dealer Locator Participant';
+            }
         }
 
         moveafter("Shipping Comment"; "Tax Liable", "Tax Area Code")

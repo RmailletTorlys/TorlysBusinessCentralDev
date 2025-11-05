@@ -292,11 +292,11 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
                 CopyCommentsFromCustCardToSalesHeader();
             end;
         }
-
     }
 
     trigger OnAfterInsert()
     begin
+        "Order Time" := Time;
         CopyCommentsFromCustCardToSalesHeader();
     end;
 

@@ -1,13 +1,15 @@
-query 50002 CustInfoForTorlysDotCom
+query 50003 CustInfoForTorlysDotComV2
 {
     Caption = 'CustInforTorlysDotCom';
     QueryType = Normal;
 
     elements
     {
-        dataitem(Customer; Customer)
+        dataitem(Ship_to_Address; "Ship-to Address")
         {
-            column(No; "No.")
+            DataItemTableFilter = "Dealer Locator Participant" = filter(true);
+
+            column(No; Code)
             {
             }
             column(Name; "Name 2")
@@ -28,27 +30,13 @@ query 50002 CustInfoForTorlysDotCom
             column(County; County)
             {
             }
-            column(Power_Up; "Club")
-            {
-            }
-            column(Power_Up_Level; "Power Up Level")
-            {
-            }
             column(Phone_No_; "Phone No.")
             {
             }
-            column(website; Website)
-            {
-            }
-            column(Add_to_Dealer_Locator; "Add to Dealer Locator")
+            column(website; "E-Mail")
             {
             }
 
         }
     }
-
-    trigger OnBeforeOpen()
-    begin
-
-    end;
 }

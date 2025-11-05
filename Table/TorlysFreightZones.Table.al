@@ -13,7 +13,7 @@ table 55001 "Torlys Freight Zones"
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; "Description"; Text[50])
+        field(2; "Description"; Text[150])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;

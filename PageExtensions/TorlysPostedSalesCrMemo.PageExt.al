@@ -1,4 +1,4 @@
-pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
+pageextension 50134 TorlysPostedSalesCrMemo extends "Posted Sales Credit Memo"
 {
     layout
     {
@@ -45,47 +45,38 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
-                trigger OnValidate()
-                begin
-                    ValidateShortcutDimension(3);
-                end;
-            }
-        }
-
-        moveafter(ShortcutDimCode3; "Reason Code", "Posting Date")
-
-        addafter("Posting Date")
-        {
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Additional;
                 Editable = false;
             }
         }
 
-        moveafter("Order Time"; "Location Code", Status)
-
-        addafter(Status)
+        addafter(ShortcutDimCode3)
         {
-            field("No. Printed"; Rec."No. Printed")
+            field("Reason Code"; Rec."Reason Code")
             {
-                Caption = 'Quantity Printed';
-                ToolTip = 'Quantity Printed';
+                Caption = 'Reason Code';
+                ToolTip = 'Reason Code';
                 ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
+                Importance = Standard;
             }
+        }
+
+        moveafter("Reason Code"; "Posting Date", "Location Code")
+
+        addafter("Location Code")
+        {
+            field("Return Order No."; Rec."Return Order No.")
+            {
+                Caption = 'Return Order No.';
+                ToolTip = 'Return Order No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+
+        moveafter("Return Order No."; "No. Printed")
+
+        addafter("No. Printed")
+        {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -198,7 +189,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             }
         }
 
-        addafter(Billing)
+        addafter("Shipping and Billing")
         {
             group("Marketing")
             {
@@ -212,10 +203,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                                                             "Dimension Value Type" = const(Standard),
                                                             Blocked = const(false));
                     Visible = true;
-                    trigger OnValidate()
-                    begin
-                        ValidateShortcutDimension(5);
-                    end;
+                    Editable = false;
                 }
                 field("Club"; Rec."Club")
                 {
@@ -289,7 +277,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
 
         modify("Posting Date")
         {
-            Importance = Additional;
+            Importance = Standard;
         }
 
         modify("Salesperson Code")
@@ -305,10 +293,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         {
             Importance = Additional;
         }
-        modify("Gen. Bus. Posting Group")
-        {
-            visible = false;
-        }
+
         modify("Customer Posting Group")
         {
             Importance = Additional;
@@ -353,17 +338,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Importance = Standard;
         }
 
-        modify("Campaign No.")
-        {
-            Visible = false;
-        }
-
         modify("Responsibility Center")
-        {
-            Visible = false;
-        }
-
-        modify("Assigned User ID")
         {
             Visible = false;
         }
@@ -374,11 +349,6 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         }
 
         modify("Company Bank Account Code")
-        {
-            Visible = false;
-        }
-
-        modify("VAT Bus. Posting Group")
         {
             Visible = false;
         }
@@ -454,38 +424,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Importance = Standard;
         }
 
-        modify("Reason Code")
-        {
-            Visible = true;
-            Importance = Standard;
-        }
-
-        modify("Shipment Date")
-        {
-            Visible = false;
-        }
-
-        modify("Due Date")
-        {
-            Visible = false;
-        }
-
         modify("Payment Method Code")
-        {
-            Visible = false;
-        }
-
-        modify("Payment Terms Code")
-        {
-            Visible = false;
-        }
-
-        modify("Pmt. Discount Date")
-        {
-            Visible = false;
-        }
-
-        modify("Payment Discount %")
         {
             Visible = false;
         }
@@ -500,10 +439,56 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
             Importance = Standard;
         }
 
-        modify("Applies-to ID")
+        modify("Pre-Assigned No.")
+        {
+            Visible = false;
+        }
+
+        modify(Cancelled)
+        {
+            Visible = false;
+        }
+
+        modify(Corrective)
+        {
+            Visible = false;
+        }
+
+        modify(Correction)
+        {
+            Visible = false;
+        }
+
+        modify("Package Tracking No.")
+        {
+            Visible = false;
+        }
+
+        modify("Shipping Agent Service Code")
+        {
+            Visible = false;
+        }
+
+        modify("Shipment Method Code")
         {
             Importance = Standard;
         }
+
+        modify("Shipping Agent Code")
+        {
+            Importance = Standard;
+        }
+
+        modify("Ship-to Phone No.")
+        {
+            Visible = false;
+        }
+
+        modify("Ship-to Contact")
+        {
+            Visible = false;
+        }
+
     }
 
     var
@@ -513,11 +498,5 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
-    end;
-
-    local procedure ValidateShortcutDimension(DimIndex: Integer)
-    var
-    begin
-        Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
 }

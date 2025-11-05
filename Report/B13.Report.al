@@ -60,7 +60,7 @@ report 50020 "B13 Purchase"
                 {
 
                 }
-                column(FilterString1; FilterString)
+                column(FilterString1; SalesLineFilter)
                 {
 
                 }
@@ -221,6 +221,8 @@ report 50020 "B13 Purchase"
 
             trigger OnPreDataItem()
             begin
+                SalesLineFilter := "Sales Line".GetFilters;
+
                 LastFieldNo := FieldNo("Tariff No.");
 
                 CurrReport.CreateTotals(TariffQuantity, TariffNetWeightLB, TariffNetWeightKG, TariffLineAmount);
@@ -306,6 +308,7 @@ report 50020 "B13 Purchase"
         FilterString: Text;
         TariffNo: Text;
         TariffNote: Text;
+        SalesLineFilter: Text;
         OrderUOM: Code[10];
         HTSCode: Code[20];
 }

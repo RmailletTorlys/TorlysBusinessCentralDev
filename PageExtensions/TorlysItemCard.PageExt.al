@@ -37,7 +37,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
             field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
-                Caption = ' Created By';
+                Caption = 'Created By';
                 Visible = true;
                 ToolTip = 'This field is the user who created the customer account.';
                 Importance = Additional;

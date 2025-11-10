@@ -3,7 +3,7 @@ report 50004 "Orders to Release TLY"
     Caption = 'Orders to Release TLY';
     PreviewMode = PrintLayout;
     WordMergeDataItem = Header;
-    WordLayout = './Sales/Reports/OrderstoReleaseTLY.docx';
+    RDLCLayout = './Sales/Reports/OrderstoReleaseTLY.rdl';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -69,6 +69,10 @@ report 50004 "Orders to Release TLY"
 
             }
             column(Assigned_User_ID; "Assigned User ID")
+            {
+
+            }
+            column(HeaderFilter; HeaderFilter)
             {
 
             }

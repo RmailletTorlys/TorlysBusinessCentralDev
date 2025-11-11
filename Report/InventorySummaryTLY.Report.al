@@ -126,6 +126,8 @@ report 50022 "Inventory Summary TLY"
 
                 If GenProdPostGrp.Get("Item Ledger Entry"."Shortcut Dimension 4 Code") then
                     ClassDesc := GenProdPostGrp.Description;
+
+                ItemFilter := "Item ledger entry".GetFilters;
             end;
         }
     }

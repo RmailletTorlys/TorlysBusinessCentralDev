@@ -8,7 +8,7 @@ using Microsoft.Foundation.Reporting;
 using Microsoft.Sales.Document;
 using Microsoft.Sales.History;
 
-codeunit 50012 "Ship-Post + Print"
+codeunit 50012 "TorlysShip-Post+Print"
 {
     TableNo = "Sales Header";
 
@@ -28,6 +28,7 @@ codeunit 50012 "Ship-Post + Print"
         ReportSelection: Record "Report Selections";
         SalesPost: Codeunit "Sales-Post";
         Text1020001: Label 'Do you want to ship and print the %1?';
+        InsertFreightLine: Codeunit "TorlysInsertFreightLine";
 
     local procedure "Code"()
     begin
@@ -38,6 +39,9 @@ codeunit 50012 "Ship-Post + Print"
             end;
             SalesHeader.Ship := true;
             SalesHeader.Invoice := false;
+
+            InsertFreightLine.SHposting(SalesHeader);
+
             SalesPost.Run(SalesHeader);
 
             SalesShptHeader."No." := SalesHeader."Last Shipping No.";
@@ -65,11 +69,5 @@ codeunit 50012 "Ship-Post + Print"
             end;
         until ReportSelection.Next() = 0;
     end;
-
-    // local procedure InsertFreightLine()
-    // begin
-    //     var
-
-    // end;
 }
 

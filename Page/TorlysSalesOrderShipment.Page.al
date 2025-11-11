@@ -301,7 +301,7 @@ page 50999 "Torlys Sales Order Shipment"
                         // out of the box codeunit below
                         // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
                         // our codeunit below
-                        // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
+                        CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", Rec);
                     end;
                 }
             }

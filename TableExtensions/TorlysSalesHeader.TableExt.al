@@ -46,7 +46,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
-            TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
+            TableRelation = "Torlys Order Type";
             DataClassification = CustomerContent;
         }
 
@@ -164,7 +164,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             Caption = 'Freight Zone Code';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Freight Zones";
-
         }
 
         field(50029; "CM Approved By"; code[20])
@@ -184,14 +183,14 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values".Code where(Type = const("Order Method"));
+            TableRelation = "Torlys Order Method";
         }
 
         field(50037; "Shipping Instructions"; Code[30])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+            TableRelation = "Torlys Shipping Instructions";
         }
 
         field(50038; "Whse Assoc. Picked By Name"; code[50])
@@ -267,7 +266,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             CalcFormula = Lookup(Customer.Club WHERE("No." = FIELD("Sell-to Customer No.")));
             OptionMembers = None,"Power Up","Power Up National","Power Up Assurance","Power Up USA";
             Editable = false;
-
         }
 
         field(50048; "Power Up Level"; Option)

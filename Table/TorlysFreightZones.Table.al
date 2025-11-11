@@ -3,7 +3,7 @@ table 55001 "Torlys Freight Zones"
     DrillDownPageID = "Freight Zone List";
     LookupPageID = "Freight Zone Lookup";
     DataClassification = CustomerContent;
-    Caption = 'Torlys Freight Zones';
+    Caption = 'Freight Zones';
 
 
     fields

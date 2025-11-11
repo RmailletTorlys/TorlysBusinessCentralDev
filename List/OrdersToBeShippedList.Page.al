@@ -627,7 +627,7 @@ page 52001 "Orders To Be Shipped List"
                     var
                         SelectedSalesHeader: Record "Sales Header";
                         SalesShpHeader: Record "Sales Shipment Header";
-                        ShipPostPrint: Codeunit "Ship-Post + Print";
+                    // ShipPostPrint: Codeunit "Ship-Post + Print";
                     begin
                         IF Rec."No. Pick Slips Printed" = 0 THEN
                             ERROR('You cannot ship this order as no pick slips have been printed!');
@@ -648,7 +648,7 @@ page 52001 "Orders To Be Shipped List"
 
                                 // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
                                 // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
-                                ShipPostPrint.Run(SelectedSalesHeader);
+                                // ShipPostPrint.Run(SelectedSalesHeader);
                                 SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
                                 SalesShpHeader.FindLast();
                                 Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");

@@ -7,7 +7,7 @@ tableextension 50044 TorlysSalesCommentLine extends "Sales Comment Line"
             DataClassification = CustomerContent;
             Caption = 'Type';
             ToolTip = 'Specifies the type of comment.';
-            TableRelation = "Torlys Lookup Values".Code where(Type = const("Comment Type"));
+            TableRelation = "Torlys Comment Type";
         }
 
 

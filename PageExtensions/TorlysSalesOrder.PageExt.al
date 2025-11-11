@@ -785,6 +785,14 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 }
             }
         }
+
+        addafter("Credit Hold")
+        {
+            actionref("AddFreight"; "Add Freight")
+            {
+            }
+        }
+
         addfirst("F&unctions")
         {
             action("Remove Credit Hold")
@@ -813,14 +821,23 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     Message('Placed Order on Credit Hold');
                 end;
             }
+            action("Add Freight")
+            {
+                ToolTip = 'Add Freight';
+                Caption = 'Add Freight';
+                Image = PickLines;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    InsertFreightLine.SOscreens(Rec);
+                end;
+            }
         }
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
-        DocPrint1: Codeunit TorlysDocumentPrint;
-        Usage1: Option "B13 Sales","B13 Purchase";
 
     trigger OnAfterGetRecord()
     begin
@@ -832,4 +849,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
+
+
 }

@@ -48,6 +48,10 @@ report 50024 "Inventory Detail TLY"
                 {
 
                 }
+                column(Costingmethod; Item."costing Method")
+                {
+
+                }
 
 
                 trigger OnPreDataItem()

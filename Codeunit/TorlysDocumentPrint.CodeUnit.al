@@ -164,6 +164,20 @@ codeunit 50299 TorlysDocumentPrint
         UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
+    // procedure PrintB13Sales(SalesLine: Record "Sales Line"): Boolean
+    // var
+    //     ReportSelection: Record "Report Selections";
+    // begin
+    //     SalesLine.SETRANGE("Document No.", SalesLine."Document No.");
+    //     // SalesHeader.SETRANGE("No. Pick Slips Printed", 0);
+    //     // ReportSelection.SETRANGE(Usage, ReportSelection.Usage::"B13 Sales");
+    //     // ReportSelection.SETFILTER("Report ID", '<>0');
+    //     // ReportSelection.FIND('-');
+    //     // REPEAT
+    //     REPORT.RUNMODAL(50023, TRUE, FALSE, SalesLine)
+    //     // UNTIL ReportSelection.NEXT() = 0;
+    // end;
+
     // procedure PrintSalesOrder(SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction")
     // var
     //     ReportSelection: Record "Report Selections";

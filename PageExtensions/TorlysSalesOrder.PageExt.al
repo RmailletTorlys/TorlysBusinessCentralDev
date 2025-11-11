@@ -838,6 +838,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
+        InsertFreightLine: Codeunit "TorlysInsertFreightLine";
 
     trigger OnAfterGetRecord()
     begin

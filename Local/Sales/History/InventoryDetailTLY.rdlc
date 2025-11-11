@@ -91,6 +91,12 @@ End Function
         <Field Name="InventoryValueFormat">
           <DataField>InventoryValueFormat</DataField>
         </Field>
+<<<<<<< HEAD
+=======
+        <Field Name="Costingmethod">
+          <DataField>Costingmethod</DataField>
+        </Field>
+>>>>>>> 459f162d74bcb34df81481e635ff025c8297f8fc
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

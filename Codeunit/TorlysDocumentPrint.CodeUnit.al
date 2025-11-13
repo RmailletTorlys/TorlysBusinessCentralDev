@@ -10,7 +10,7 @@ codeunit 50299 TorlysDocumentPrint
     begin
         IsHandled := true;
         if Usage = 2 then begin
-            Message('this is the custom codeunit');
+            // Message('this is the custom codeunit');
             // not allowed to print from 3 outside and receiving computers in warehouse
             // IF(ENVIRON(('COMPUTERNAME'))) = 'TOR-11WHSE01-DT' THEN
             // ERROR('Pick slip printing not allowed from this computer!');

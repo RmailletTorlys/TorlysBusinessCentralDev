@@ -27,19 +27,23 @@ codeunit 50012 "TorlysShip-Post+Print"
         ReturnRcptHeader: Record "Return Receipt Header";
         ReportSelection: Record "Report Selections";
         SalesPost: Codeunit "Sales-Post";
-        Text1020001: Label 'Do you want to ship and print the %1?';
+        Text1020001: Label 'Do you want to ship and print the %1 %2?';
         InsertFreightLine: Codeunit "TorlysInsertFreightLine";
 
     local procedure "Code"()
     begin
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
-            if not Confirm(Text1020001, false, SalesHeader."Document Type") then begin
+            if not Confirm(Text1020001, false, SalesHeader."Document Type", SalesHeader."No.") then begin
                 SalesHeader."Shipping No." := '-1';
                 exit;
             end;
             SalesHeader.Ship := true;
             SalesHeader.Invoice := false;
 
+            // need to open order to add freight line
+            SalesHeader.Status := SalesHeader.Status::Open;
+            SalesHeader.Modify();
+            // codeunit to add freight line
             InsertFreightLine.SHposting(SalesHeader);
 
             SalesPost.Run(SalesHeader);

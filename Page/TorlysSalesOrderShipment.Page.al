@@ -96,6 +96,14 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Specifies the code of the location from which the items are shipped.';
                     Caption = 'Location Code';
                 }
+
+                field("Status"; Rec."Status")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Status';
+                    Caption = 'Status';
+                }
                 field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     ApplicationArea = All;
@@ -277,12 +285,12 @@ page 50999 "Torlys Sales Order Shipment"
 
                     trigger OnAction()
                     var
-                        // SelectedSalesHeader: Record "Sales Header";
-                        // SalesShpHeader: Record "Sales Shipment Header";
-                        // PrintDoc: Codeunit "Torlys Print Document";
-                        // Usage: Option "Sales Order Label";
-                        SalesHeader: Record "Sales Header";
-                        Text1020001: Label 'Do you want to ship and print the %1?';
+                    // SelectedSalesHeader: Record "Sales Header";
+                    // SalesShpHeader: Record "Sales Shipment Header";
+                    // PrintDoc: Codeunit "Torlys Print Document";
+                    // Usage: Option "Sales Order Label";
+                    // SalesHeader: Record "Sales Header";
+                    // Text1020001: Label 'Do you want to ship and print the %1?';
                     begin
 
                         IF Rec."No. Pick Slips Printed" = 0 THEN

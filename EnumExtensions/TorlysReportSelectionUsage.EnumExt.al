@@ -1,4 +1,5 @@
-// enumextension 50005 "Torlys Report Selection Usage" extends "Report Selection Usage"
+// enumextension 50005 "TorlysReportSelectUsage" extends "Report Selection Usage"
 // {
-//     value(134; "Pick Instruction") { Caption = 'Pick Instruction'; }
+//     value(134; "B13 Sales") { Caption = 'B13 Sales'; }
+//     value(135; "B13 Purchase") { Caption = 'B13 Purchase'; }
 // }

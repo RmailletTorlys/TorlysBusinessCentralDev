@@ -731,6 +731,44 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
     actions
     {
+        addlast(Action96)
+        {
+            action("B13 Sales")
+            {
+                Caption = 'Print B13 Sales';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    salesline: Record "Sales Line";
+                begin
+                    salesline.SetFilter("Document No.", Rec."No.");
+                    REPORT.RUNMODAL(50023, TRUE, FALSE, SalesLine);
+                end;
+            }
+            action("B13 Purchase")
+            {
+                Caption = 'Print B13 Purchase';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    salesline: Record "Sales Line";
+                begin
+                    salesline.SetFilter("Document No.", Rec."No.");
+                    REPORT.RUNMODAL(50020, TRUE, FALSE, SalesLine);
+                end;
+            }
+        }
+        addlast(Category_Category11)
+        {
+            actionref(B13_Sales; "B13 Sales")
+            {
+            }
+            actionref(B13_Purchase; "B13 Purchase")
+            {
+            }
+        }
         addbefore(Category_New)
         {
             group("Credit Hold")
@@ -747,6 +785,14 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 }
             }
         }
+
+        addafter("Credit Hold")
+        {
+            actionref("AddFreight"; "Add Freight")
+            {
+            }
+        }
+
         addfirst("F&unctions")
         {
             action("Remove Credit Hold")
@@ -775,12 +821,24 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     Message('Placed Order on Credit Hold');
                 end;
             }
+            action("Add Freight")
+            {
+                ToolTip = 'Add Freight';
+                Caption = 'Add Freight';
+                Image = PickLines;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    InsertFreightLine.SOscreens(Rec);
+                end;
+            }
         }
     }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
+        InsertFreightLine: Codeunit "TorlysInsertFreightLine";
 
     trigger OnAfterGetRecord()
     begin
@@ -792,4 +850,6 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
+
+
 }

@@ -96,6 +96,14 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Specifies the code of the location from which the items are shipped.';
                     Caption = 'Location Code';
                 }
+
+                field("Status"; Rec."Status")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Status';
+                    Caption = 'Status';
+                }
                 field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     ApplicationArea = All;
@@ -276,11 +284,13 @@ page 50999 "Torlys Sales Order Shipment"
 
 
                     trigger OnAction()
-                    // var
+                    var
                     // SelectedSalesHeader: Record "Sales Header";
                     // SalesShpHeader: Record "Sales Shipment Header";
                     // PrintDoc: Codeunit "Torlys Print Document";
                     // Usage: Option "Sales Order Label";
+                    // SalesHeader: Record "Sales Header";
+                    // Text1020001: Label 'Do you want to ship and print the %1?';
                     begin
 
                         IF Rec."No. Pick Slips Printed" = 0 THEN
@@ -295,20 +305,11 @@ page 50999 "Torlys Sales Order Shipment"
                         IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
                             ERROR('The Picked By and the Checked By Associate cannot be the same!');
 
-                        // CurrPage.SetSelectionFilter(SelectedSalesHeader);
-
-                        // if SelectedSalesHeader.FindSet() then
-                        // repeat
-
-                        // PostOrder(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
-                        CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
-                        // SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
-                        // SalesShpHeader.FindLast();
-                        // SalesShpHeader.PrintRecords(true);
-                        // PrintDoc.PrintShippingLabel(Rec, Usage::"Sales Order Label");
-
-                        // until SelectedSalesHeader.Next() = 0
-
+                        // since we can't inject to add freight, we will just call our own codeunit
+                        // out of the box codeunit below
+                        // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
+                        // our codeunit below
+                        CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", Rec);
                     end;
                 }
             }

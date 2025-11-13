@@ -10,7 +10,7 @@ codeunit 50299 TorlysDocumentPrint
     begin
         IsHandled := true;
         if Usage = 2 then begin
-            Message('this is the custom codeunit');
+            // Message('this is the custom codeunit');
             // not allowed to print from 3 outside and receiving computers in warehouse
             // IF(ENVIRON(('COMPUTERNAME'))) = 'TOR-11WHSE01-DT' THEN
             // ERROR('Pick slip printing not allowed from this computer!');
@@ -163,6 +163,20 @@ codeunit 50299 TorlysDocumentPrint
             REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, ProcessedBOLHeader);
         UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
+
+    // procedure PrintB13Sales(SalesLine: Record "Sales Line"): Boolean
+    // var
+    //     ReportSelection: Record "Report Selections";
+    // begin
+    //     SalesLine.SETRANGE("Document No.", SalesLine."Document No.");
+    //     // SalesHeader.SETRANGE("No. Pick Slips Printed", 0);
+    //     // ReportSelection.SETRANGE(Usage, ReportSelection.Usage::"B13 Sales");
+    //     // ReportSelection.SETFILTER("Report ID", '<>0');
+    //     // ReportSelection.FIND('-');
+    //     // REPEAT
+    //     REPORT.RUNMODAL(50023, TRUE, FALSE, SalesLine)
+    //     // UNTIL ReportSelection.NEXT() = 0;
+    // end;
 
     // procedure PrintSalesOrder(SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction")
     // var

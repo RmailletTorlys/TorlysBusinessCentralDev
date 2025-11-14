@@ -11,14 +11,14 @@ tableextension 50291 "Torlys Shipping Agent" extends "Shipping Agent"
         field(50002; "Freight Charges"; Option)
         {
             Caption = 'Freight Charges';
-            OptionMembers = "Prepaid","Collect";
+            OptionMembers = " ","Prepaid","Collect";
             DataClassification = CustomerContent;
         }
 
         field(50003; "Pro Bill Type"; Option)
         {
             Caption = 'Pro Bill Type';
-            OptionMembers = "Single","Master";
+            OptionMembers = " ","Single","Master";
         }
 
         field(50004; "Master Pro Bill"; Code[20])

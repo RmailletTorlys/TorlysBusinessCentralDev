@@ -38,12 +38,12 @@ page 51005 "Torlys Processed BOL List"
                     Caption = 'Customer No.';
                 }
 
-                field("Customer Name"; GetCustomerName(Rec."Customer No."))
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the name of the customer.';
-                    Caption = 'Customer Name';
-                }
+                // field("Customer Name"; GetCustomerName(Rec."Customer No."))
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     ToolTip = 'Specifies the name of the customer.';
+                //     Caption = 'Customer Name';
+                // }
 
                 field("Ship-to Code"; Rec."Ship-to Code")
                 {
@@ -164,16 +164,16 @@ page 51005 "Torlys Processed BOL List"
         }
     }
 
-    local procedure GetCustomerName(CustomerNo: Code[10]): Text[100]
-    var
-        Customer: Record "Customer";
-        CustomerName: Text[100];
+    // local procedure GetCustomerName(CustomerNo: Code[10]): Text[100]
+    // var
+    //     Customer: Record "Customer";
+    //     CustomerName: Text[100];
 
-    begin
-        Customer.Reset();
-        Customer.SetRange("No.", CustomerNo);
-        Customer.FindFirst();
-        CustomerName := Customer.Name;
-        exit(CustomerName);
-    end;
+    // begin
+    //     Customer.Reset();
+    //     Customer.SetRange("No.", CustomerNo);
+    //     Customer.FindFirst();
+    //     CustomerName := Customer.Name;
+    //     exit(CustomerName);
+    // end;
 }

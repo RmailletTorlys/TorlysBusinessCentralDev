@@ -1,7 +1,7 @@
 report 50024 "Inventory Detail TLY"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/InventoryDetailTLY.rdlc';
+    // RDLCLayout = './Local/Sales/History/InventoryDetailTLY.rdlc';
     Caption = 'Inventory Detail TLY';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

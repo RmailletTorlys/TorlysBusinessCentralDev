@@ -92,23 +92,35 @@ tableextension 50115 TorlysSalesCrMemoLine extends "Sales Cr.Memo Line"
             DataClassification = CustomerContent;
         }
 
+        field(50016; "Discontinued Item"; Boolean)
+        {
+            Caption = 'Discontinued Item';
+            DataClassification = CustomerContent;
+        }
+
+        field(50017; "Clearance Item"; Boolean)
+        {
+            Caption = 'Clearance Item';
+            DataClassification = CustomerContent;
+        }
+
     }
 
-    trigger OnModify()
-    begin
-        if ((Rec.Quantity) <> (xRec.Quantity)) then
-            Rec.Validate(Quantity);
+    // trigger OnModify()
+    // begin
+    //     if ((Rec.Quantity) <> (xRec.Quantity)) then
+    //         Rec.Validate(Quantity);
 
-    end;
+    // end;
 
 
-    [IntegrationEvent(false, false)]
-    procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    // begin
+    // end;
 }

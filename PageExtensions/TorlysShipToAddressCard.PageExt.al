@@ -3,12 +3,28 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
     layout
     {
 
-        moveafter(ShowMap; "Phone No.")
+        moveafter(ShowMap; "Phone No.", "Fax No.", "E-Mail")
 
-        moveafter(Contact; "Fax No.", "E-Mail", "Location Code", "Shipment Method Code", "Shipping Agent Code")
+        addafter("E-Mail")
+        {
+            field("Dealer Locator Participant"; Rec."Dealer Locator Participant")
+            {
+                ApplicationArea = All;
+                Caption = 'Dealer Locator Participant';
+                ToolTip = 'Dealer Locator Participant';
+            }
+        }
+
+        moveafter("Location Code"; "Shipment Method Code", "Shipping Agent Code")
 
         addafter("Shipping Agent Code")
         {
+            field("Freight Zone Code"; Rec."Freight Zone Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Freight Zone Code';
+                ToolTip = 'Freight Zone Code';
+            }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 ApplicationArea = All;
@@ -21,13 +37,6 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
             }
-
-            field("Dealer Locator Participant"; Rec."Dealer Locator Participant")
-            {
-                ApplicationArea = All;
-                Caption = 'Dealer Locator Participant';
-                ToolTip = 'Dealer Locator Participant';
-            }
         }
 
         moveafter("Shipping Comment"; "Tax Liable", "Tax Area Code")
@@ -36,29 +45,29 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
-                Caption = 'SystemCreatedBy';
-                ToolTip = 'SystemCreatedBy';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
             }
 
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
-                Caption = 'SystemCreatedAt';
-                ToolTip = 'SystemCreatedAt';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 ApplicationArea = All;
             }
 
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
-                Caption = 'SystemModifiedBy';
-                ToolTip = 'SystemModifiedBy';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
             }
 
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
-                Caption = 'SystemModifiedAt';
-                ToolTip = 'SystemModifiedAt';
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 ApplicationArea = All;
             }
         }
@@ -111,13 +120,8 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
                     ToolTip = 'Forklift Available';
                     ApplicationArea = All;
                 }
-
-
             }
         }
-
-
-
 
         modify(GLN)
         {
@@ -138,7 +142,28 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
         {
             Visible = false;
         }
+
+        modify(Contact)
+        {
+            Visible = false;
+        }
     }
+
+    trigger OnNewRecord(BelowxRec: Boolean)
+    var
+        Customer: Record Customer;
+    begin
+        if not Customer.Get(Rec.GetFilterCustNo()) then
+            exit;
+        Rec.Validate("Location Code", Customer."Location Code");
+        Rec.Validate("Shipment Method Code", Customer."Shipment Method Code");
+        Rec.Validate("Shipping Agent Code", Customer."Shipping Agent Code");
+        Rec.Validate("Freight Zone Code", Customer."Freight Zone Code");
+        Rec.Validate("Shipping Instructions", Customer."Shipping Instructions");
+        Rec.Validate("Shipping Comment", Customer."Shipping Comment");
+        Rec.Validate("Tax Liable", Customer."Tax Liable");
+        Rec.Validate("Tax Area Code", Customer."Tax Area Code");
+    end;
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";

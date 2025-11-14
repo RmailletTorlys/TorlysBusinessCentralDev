@@ -1,7 +1,7 @@
 report 50024 "Inventory Detail TLY"
 {
     DefaultLayout = RDLC;
-    // RDLCLayout = './Local/Sales/History/InventoryDetailTLY.rdlc';
+    RDLCLayout = './Local/Sales/History/InventoryDetTLY.rdlc';
     Caption = 'Inventory Detail TLY';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -85,14 +85,6 @@ report 50024 "Inventory Detail TLY"
     var
         Cost: Decimal;
         InventoryValue: Decimal;
-        ItemRec: Record Item;
-        ItemLedgerEntry2: Record "Item Ledger Entry";
-        CompanyInformation: Record "Company Information";
         ItemFilter: Text;
-        TotalInventoryValue: Decimal;
-        CostACY: Decimal;
-        TotalInvoicedQty: Decimal;
-        Desc: Text;
         BaseUnit: Text;
-        CostMethod: Text;
 }

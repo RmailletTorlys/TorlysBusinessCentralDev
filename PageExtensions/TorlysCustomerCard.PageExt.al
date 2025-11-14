@@ -166,7 +166,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
-                Caption = 'SystemCreatedBy';
+                Caption = 'Created By';
                 Visible = true;
                 ToolTip = 'This field is the user who created the customer account.';
                 Importance = Additional;
@@ -175,7 +175,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             field("SystemCreatedAt"; Rec."SystemCreatedAt")
             {
                 ApplicationArea = All;
-                Caption = 'SystemCreatedAt';
+                Caption = 'Created At';
                 Visible = true;
                 ToolTip = 'This field is the date the customer account was created.';
                 Importance = Additional;
@@ -183,14 +183,14 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
 
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
-                Caption = 'SystemModifiedBy';
-                ToolTip = 'SystemModifiedBy';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 ApplicationArea = All;
             }
             field("SystemModifiedAt"; Rec."SystemModifiedAt")
             {
                 ApplicationArea = All;
-                Caption = 'SystemModifiedAt';
+                Caption = 'Modified At';
                 Visible = true;
                 ToolTip = 'This field is the date the customer account was last modified.';
                 Importance = Additional;
@@ -324,13 +324,6 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                     DecimalPlaces = 2 : 1;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
                 }
-
-                field("Add to Dealer Locator"; Rec."Add to Dealer Locator")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Add to Dealer Locator';
-                    ToolTip = 'Specifies whether the customer is added to the dealer finder.';
-                }
             }
 
         }
@@ -364,10 +357,16 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             }
         }
 
-        moveafter("Location Code"; "Reserve", "Shipping Advice")
+        moveafter("Ship-to Code"; "Location Code", "Reserve", "Shipping Advice")
 
-        addafter("Shipping Advice")
+        addafter("Shipping Agent Code")
         {
+            field("Freight Zone Code"; Rec."Freight Zone Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Freight Zone Code';
+                ToolTip = 'Specifies the freight zone that the customer is assigned to.';
+            }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 ApplicationArea = All;
@@ -382,17 +381,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
             }
         }
 
-        addafter("Shipping Agent Code")
-        {
-            field("Freight Zone"; Rec."Freight Zone")
-            {
-                ApplicationArea = All;
-                Caption = 'Freight Zone';
-                ToolTip = 'Specifies the freight zone that the customer is assigned to.';
-            }
-        }
-
-        moveafter("Freight Zone"; "Shipping Time")
+        moveafter("Shipping Comment"; "Shipping Time")
 
         modify(Blocked)
         {

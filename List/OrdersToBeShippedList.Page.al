@@ -9,7 +9,7 @@ page 52001 "Orders To Be Shipped List"
     SourceTable = "Sales Header";
     SourceTableView = SORTING("No.", "Document Type") ORDER(Ascending)
     WHERE("Document Type" = CONST(Order),
-          //   "Status" = Const(Released),
+            "Status" = Const(Released),
           "Temporary Hold" = Filter(0));
 
     layout

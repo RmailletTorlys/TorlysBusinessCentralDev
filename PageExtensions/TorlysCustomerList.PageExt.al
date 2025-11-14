@@ -320,11 +320,11 @@ pageextension 50022 TorlysCustomerList extends "Customer List"
 
         addafter("Shipping Agent Code")
         {
-            field("Freight Zone"; Rec."Freight Zone")
+            field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 ApplicationArea = All;
-                Caption = 'Freight Zone';
-                ToolTip = 'Freight Zone';
+                Caption = 'Freight Zone Code';
+                ToolTip = 'Freight Zone Code';
                 Visible = false;
             }
 

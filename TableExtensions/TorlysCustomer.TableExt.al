@@ -146,10 +146,10 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50023; "Power Up Level"; Option)
         {
             Caption = 'Power Up Level';
-            InitValue = None;
+            InitValue = " ";
             ToolTip = 'Specifies the Power Up level that the customer is assigned to.';
             DataClassification = CustomerContent;
-            OptionMembers = None,Premier,Elite,Designer;
+            OptionMembers = " ",Premier,Elite,Designer;
         }
 
         field(50024; "Power Up Start Date"; Date)
@@ -222,15 +222,15 @@ tableextension 50018 TorlysCustomer extends Customer
         field(50033; "Club"; Option)
         {
             Caption = 'Club';
-            InitValue = None;
+            InitValue = " ";
             ToolTip = 'Specifies the Club that the customer is assigned to.';
             DataClassification = CustomerContent;
-            OptionMembers = None,"Power Up","Power Up National","Power Up Assurance","Power Up USA";
+            OptionMembers = " ","Power Up","Power Up National","Power Up Assurance","Power Up USA";
         }
 
-        field(50034; "Freight Zone"; Code[20])
+        field(50034; "Freight Zone Code"; Code[20])
         {
-            Caption = 'Freight Zone';
+            Caption = 'Freight Zone Code';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Freight Zones";
             ToolTip = 'Specifies the freight zone that the customer is assigned to.';
@@ -243,16 +243,16 @@ tableextension 50018 TorlysCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50036; "Shipping Instructions"; Code[30])
+        field(50036; "Shipping Instructions"; Code[20])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+            TableRelation = "Torlys Shipping Instructions";
         }
 
         field(50037; "Website"; text[50])
         {
-            Caption = 'website';
+            Caption = 'Website';
             DataClassification = CustomerContent;
         }
 
@@ -311,15 +311,15 @@ tableextension 50018 TorlysCustomer extends Customer
             ShortcutDimCode[i] := '';
     end;
 
-    procedure GetOptionsTorlysClub(): Text[30]
-    begin
-        exit(Format(Rec."Club"));
-    end;
+    // procedure GetOptionsTorlysClub(): Text[30]
+    // begin
+    //     exit(Format(Rec."Club"));
+    // end;
 
-    procedure GetOptionsPowerUpLevel(): Text[30]
-    begin
-        exit(Format(Rec."Power Up Level"));
-    end;
+    // procedure GetOptionsPowerUpLevel(): Text[30]
+    // begin
+    //     exit(Format(Rec."Power Up Level"));
+    // end;
 }
 
 

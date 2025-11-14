@@ -90,6 +90,18 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             DataClassification = CustomerContent;
         }
 
+        field(50016; "Discontinued Item"; Boolean)
+        {
+            Caption = 'Discontinued Item';
+            DataClassification = CustomerContent;
+        }
+
+        field(50017; "Clearance Item"; Boolean)
+        {
+            Caption = 'Clearance Item';
+            DataClassification = CustomerContent;
+        }
+
 
     }
 

@@ -298,7 +298,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         CopyCommentsFromCustCardToSalesHeader();
     end;
 
-
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var
         DimMgt: Codeunit "DimensionManagement";
@@ -361,8 +360,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         "MK Staged Date" := Today();
         "MK Staged By" := CopyStr(FORMAT(USERID), 1, 50);
     end;
-
-
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeCopyCommentsFromCustCardToSalesHeader(var IsHandled: Boolean)

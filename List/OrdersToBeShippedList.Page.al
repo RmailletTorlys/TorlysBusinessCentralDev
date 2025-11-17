@@ -625,36 +625,42 @@ page 52001 "Orders To Be Shipped List"
 
                     trigger OnAction()
                     var
-                        SelectedSalesHeader: Record "Sales Header";
-                        SalesShpHeader: Record "Sales Shipment Header";
+                    // SelectedSalesHeader: Record "Sales Header";
+                    // SalesShpHeader: Record "Sales Shipment Header";
                     // ShipPostPrint: Codeunit "Ship-Post + Print";
                     begin
-                        IF Rec."No. Pick Slips Printed" = 0 THEN
-                            ERROR('You cannot ship this order as no pick slips have been printed!');
+                        // IF Rec."No. Pick Slips Printed" = 0 THEN
+                        //     ERROR('You cannot ship this order as no pick slips have been printed!');
 
-                        IF Rec."Warehouse Associate Picked By" = '' THEN
-                            ERROR('The Warehouse Associate Picked By field cannot be blank!');
+                        // IF Rec."Warehouse Associate Picked By" = '' THEN
+                        //     ERROR('The Warehouse Associate Picked By field cannot be blank!');
 
-                        IF Rec."Warehouse Associate Checked By" = '' THEN
-                            ERROR('The Warehouse Associate Checked By field cannot be blank!');
+                        // IF Rec."Warehouse Associate Checked By" = '' THEN
+                        //     ERROR('The Warehouse Associate Checked By field cannot be blank!');
 
-                        IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
-                            ERROR('The Picked By and the Checked By Associate cannot be the same!');
+                        // IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
+                        //     ERROR('The Picked By and the Checked By Associate cannot be the same!');
 
-                        CurrPage.SetSelectionFilter(SelectedSalesHeader);
+                        // since we can't inject to add freight, we will just call our own codeunit
+                        // out of the box codeunit below
+                        // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
+                        // our codeunit below
+                        CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", Rec);
 
-                        if SelectedSalesHeader.FindSet() then
-                            repeat
+                        // CurrPage.SetSelectionFilter(SelectedSalesHeader);
 
-                                // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
-                                // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
-                                // ShipPostPrint.Run(SelectedSalesHeader);
-                                SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
-                                SalesShpHeader.FindLast();
-                                Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
-                                SalesShpHeader.PrintRecords(true);
+                        // if SelectedSalesHeader.FindSet() then
+                        // repeat
 
-                            until SelectedSalesHeader.Next() = 0
+                        // PostOrder(CODEUNIT::"Sales-Post (Yes/No)", SelectedSalesHeader);
+                        // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", SelectedSalesHeader);
+                        // ShipPostPrint.Run(SelectedSalesHeader);
+                        // SalesShpHeader.SetRange("Order No.", SelectedSalesHeader."No.");
+                        // SalesShpHeader.FindLast();
+                        // Message('Order %1 has been posted as shipped with Shipment No %2.', SelectedSalesHeader."No.", SalesShpHeader."No.");
+                        // SalesShpHeader.PrintRecords(true);
+
+                        // until SelectedSalesHeader.Next() = 0
                     end;
                 }
 

@@ -4,7 +4,7 @@ codeunit 50414 TorlysInsertFreightLine
     // 1 for adding from SO related screens
     // 1 for adding when posting SH
 
-    // this is for adding freight when initiated from a sales order or related screen directly
+    // this is for adding freight when initiated from a sales order or related screen by clicking a button
     // main difference here is respecting minimum charge
     procedure SOscreens(Rec: Record "Sales Header")
 
@@ -25,6 +25,10 @@ codeunit 50414 TorlysInsertFreightLine
         UOMMgt: Codeunit "Unit of Measure Management";
         SalesLine: Record "Sales Line";
     begin
+        // don't process if meet these criteria
+        if Rec."Shipping Agent Code" = 'PU' then Error('Order is for pickup, therefore no freight charge.');
+        if Rec."Order Type" = 'CLAIM REPLACEMENT' then Error('Order is a claim replacement, therefore no freight charge');
+        if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding.');
 
         // clear variables, get, and set values to 0
         Clear(FreightZones);
@@ -209,6 +213,10 @@ codeunit 50414 TorlysInsertFreightLine
         UOMMgt: Codeunit "Unit of Measure Management";
         SalesLine: Record "Sales Line";
     begin
+        // don't process if meet these criteria
+        if Rec."Shipping Agent Code" = 'PU' then exit;
+        if Rec."Order Type" = 'CLAIM REPLACEMENT' then exit;
+        if Rec."Freight Zone Code" = '' then exit;
 
         // clear variables, get, and set values to 0
         Clear(FreightZones);

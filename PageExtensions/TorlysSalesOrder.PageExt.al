@@ -776,11 +776,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Visible = true;
                 Caption = 'Credit Hold';
 
-                actionref("Remove from Hold"; "Remove Credit Hold")
+                actionref("RemoveCreditHold"; "Remove Credit Hold")
                 {
                 }
 
-                actionref("Add to Hold"; "Place Credit Hold")
+                actionref("PlaceOnCreditHold"; "Place On Credit Hold")
                 {
                 }
             }
@@ -803,22 +803,18 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec."On Hold" := '';
-                    Rec.Modify(true);
-                    Message('Removed Order from Credit Hold');
+                    TorlysCreditHold.RemoveCreditHold(Rec, xRec);
                 end;
             }
-            action("Place Credit Hold")
+            action("Place On Credit Hold")
             {
                 ToolTip = 'Places selected Order(s) on Credit Hold.';
-                Caption = 'Place Credit Hold';
+                Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec."On Hold" := 'CR';
-                    Rec.Modify(true);
-                    Message('Placed Order on Credit Hold');
+                    TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
                 end;
             }
             action("Add Freight")
@@ -839,6 +835,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
         InsertFreightLine: Codeunit "TorlysInsertFreightLine";
+        TorlysCreditHold: Codeunit TorlysCreditHold;
 
     trigger OnAfterGetRecord()
     begin
@@ -850,6 +847,4 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
-
-
 }

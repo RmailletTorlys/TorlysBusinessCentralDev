@@ -9,6 +9,9 @@ query 50003 CustInfoForTorlysDotComV2
         {
             DataItemTableFilter = "Dealer Locator Participant" = filter(true);
 
+            column(Cust_No; "Customer No.")
+            {
+            }
             column(No; Code)
             {
             }
@@ -34,6 +37,9 @@ query 50003 CustInfoForTorlysDotComV2
             {
             }
             column(website; "Home Page")
+            {
+            }
+            column(Dealer_Locator_Participant; "Dealer Locator Participant")
             {
             }
 

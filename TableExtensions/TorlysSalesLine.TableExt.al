@@ -101,8 +101,6 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             Caption = 'Clearance Item';
             DataClassification = CustomerContent;
         }
-
-
     }
 
     trigger OnModify()

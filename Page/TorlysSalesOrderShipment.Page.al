@@ -88,6 +88,7 @@ page 50999 "Torlys Sales Order Shipment"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the items are shipped.';
                     Caption = 'Shipment Date';
+                    Editable = Rec."Shipping Agent Code" = 'PU';
                 }
                 field("Location Code"; Rec."Location Code")
                 {
@@ -293,17 +294,17 @@ page 50999 "Torlys Sales Order Shipment"
                     // Text1020001: Label 'Do you want to ship and print the %1?';
                     begin
 
-                        IF Rec."No. Pick Slips Printed" = 0 THEN
-                            ERROR('You cannot ship this order as no pick slips have been printed!');
+                        // IF Rec."No. Pick Slips Printed" = 0 THEN
+                        //     ERROR('You cannot ship this order as no pick slips have been printed!');
 
-                        IF Rec."Warehouse Associate Picked By" = '' THEN
-                            ERROR('The Warehouse Associate Picked By field cannot be blank!');
+                        // IF Rec."Warehouse Associate Picked By" = '' THEN
+                        //     ERROR('The Warehouse Associate Picked By field cannot be blank!');
 
-                        IF Rec."Warehouse Associate Checked By" = '' THEN
-                            ERROR('The Warehouse Associate Checked By field cannot be blank!');
+                        // IF Rec."Warehouse Associate Checked By" = '' THEN
+                        //     ERROR('The Warehouse Associate Checked By field cannot be blank!');
 
-                        IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
-                            ERROR('The Picked By and the Checked By Associate cannot be the same!');
+                        // IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
+                        //     ERROR('The Picked By and the Checked By Associate cannot be the same!');
 
                         // since we can't inject to add freight, we will just call our own codeunit
                         // out of the box codeunit below

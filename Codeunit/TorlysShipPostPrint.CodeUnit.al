@@ -22,6 +22,20 @@ codeunit 50012 "TorlysShip-Post+Print"
 
     local procedure "Code"()
     begin
+        // custom to us - start
+        if SalesHeader."No. Pick Slips Printed" = 0 then
+            Error('You cannot ship this order as no pick slips have been printed!');
+
+        if SalesHeader."Warehouse Associate Picked By" = '' then
+            Error('The Warehouse Associate Picked By field cannot be blank!');
+
+        if SalesHeader."Warehouse Associate Checked By" = '' then
+            Error('The Warehouse Associate Checked By field cannot be blank!');
+
+        if SalesHeader."Warehouse Associate Picked By" = SalesHeader."Warehouse Associate Checked By" THEN
+            Error('The Picked By and the Checked By Associate cannot be the same!');
+        // custom to us - end
+
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
             if not Confirm(Text1020001, false, SalesHeader."Document Type", SalesHeader."No.") then begin
                 SalesHeader."Shipping No." := '-1';
@@ -30,11 +44,13 @@ codeunit 50012 "TorlysShip-Post+Print"
             SalesHeader.Ship := true;
             SalesHeader.Invoice := false;
 
+            // custom to us - start
             // need to open order to add freight line
             SalesHeader.Status := SalesHeader.Status::Open;
             SalesHeader.Modify();
             // codeunit to add freight line
             InsertFreightLine.SHposting(SalesHeader);
+            // custom to us - end
 
             SalesPost.Run(SalesHeader);
 

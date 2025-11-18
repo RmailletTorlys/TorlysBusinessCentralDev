@@ -202,7 +202,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                 actionref("Remove from Hold"; "Remove Credit Hold")
                 {
                 }
-                actionref("Add to Hold"; "Place Credit Hold")
+                actionref("Add to Hold"; "Place On Credit Hold")
                 {
                 }
             }
@@ -223,16 +223,14 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 
                     if SelectedOrders.FindSet() then
                         repeat
-                            SelectedOrders."On Hold" := '';
-                            SelectedOrders.Modify(true);
+                            TorlysCreditHold.RemoveCreditHold(SelectedOrders, SelectedOrders)
                         until SelectedOrders.Next() = 0;
-                    Message('Removed Order(s) from Credit Hold');
                 end;
             }
-            action("Place Credit Hold")
+            action("Place On Credit Hold")
             {
                 ToolTip = 'Places selected Order(s) on Credit Hold.';
-                Caption = 'Place Credit Hold';
+                Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
                 trigger OnAction()
@@ -243,16 +241,15 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 
                     if SelectedOrders.FindSet() then
                         repeat
-                            SelectedOrders."On Hold" := 'CR';
-                            SelectedOrders.Modify(true);
+                            TorlysCreditHold.PlaceOnCreditHold(SelectedOrders, SelectedOrders)
                         until SelectedOrders.Next() = 0;
-                    Message('Placed Order(s) on Credit Hold');
                 end;
             }
         }
     }
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
+        TorlysCreditHold: Codeunit TorlysCreditHold;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

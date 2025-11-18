@@ -18,16 +18,34 @@ Page 51024 "Customer Display Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer number.';
+
+                    trigger onValidate()
+                    begin
+                        Rec.GetDisplayHeaderInfo(Rec);
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("Customer Location"; Rec."CustLocationCode")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer code.';
+
+                    trigger onValidate()
+                    begin
+                        Rec.GetShipToAddressInfo(Rec);
+                        CurrPage.Update(true);
+                    end;
                 }
-                field("Power Up"; Rec."PowerUp")
+                field("Power Up Member"; Rec."PowerUp")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the PowerUp ID.';
+                }
+
+                field("Power Up Level"; Rec."PowerUpLevel")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the PowerUp Level.';
                 }
 
             }
@@ -38,6 +56,7 @@ Page 51024 "Customer Display Card"
                 part(DisplayLinesPart; "Customer Display Lines Part")
                 {
                     ApplicationArea = All;
+                    UpdatePropagation = Both;
                     SubPageLink = "CustNo." = field("CustNo."),
                                   "CustLocationCode" = field("CustLocationCode");
                 }

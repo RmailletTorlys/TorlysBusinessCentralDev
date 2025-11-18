@@ -11,9 +11,8 @@ Page 51023 "Customer Displays List"
     {
         area(Content)
         {
-            group(General)
+            repeater(General)
             {
-                Caption = 'General';
 
                 field("Customer No."; Rec."CustNo.")
                 {
@@ -25,7 +24,13 @@ Page 51023 "Customer Displays List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer  code.';
                 }
-                field("Power Up"; Rec."PowerUp")
+
+                field("Power Up Member"; Rec.PowerUp)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the PowerUp ID.';
+                }
+                field("Power Up Level"; Rec."PowerUpLevel")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the PowerUp ID.';

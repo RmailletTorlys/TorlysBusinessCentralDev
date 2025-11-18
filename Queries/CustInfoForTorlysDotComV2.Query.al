@@ -43,6 +43,19 @@ query 50003 CustInfoForTorlysDotComV2
             {
             }
 
+            dataitem(Customer; Customer)
+            {
+                DataItemLink = "No." = Ship_to_Address."Customer No.";
+
+                column(Power_Up_Club; "Club")
+                {
+                }
+
+                column(Power_Up_Level; "Power Up Level")
+                {
+                }
+
+            }
         }
     }
 }

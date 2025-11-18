@@ -225,7 +225,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
                         repeat
                             // SelectedOrders."On Hold" := '';
                             // SelectedOrders.Modify(true);
-                            TorlysCreditHold.RemoveCreditHoldMultiple(SelectedOrders, SelectedOrders)
+                            TorlysCreditHold.RemoveCreditHold(SelectedOrders, SelectedOrders)
                         until SelectedOrders.Next() = 0;
                     // Message('Removed Order(s) from Credit Hold');
                 end;

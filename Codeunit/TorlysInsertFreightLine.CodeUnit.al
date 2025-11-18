@@ -188,6 +188,7 @@ codeunit 50414 TorlysInsertFreightLine
             SalesLine.Validate("No.", '61600');
             SalesLine.Validate(Description, 'Freight charge');
             SalesLine.Validate(Quantity, 1);
+            SalesLine.Validate("Qty. to Ship", 1);
             SalesLine.Validate("Unit Price", FreightAmount);
             SalesLine.Insert;
         end;
@@ -361,6 +362,7 @@ codeunit 50414 TorlysInsertFreightLine
             SalesLine.Validate("No.", '61600');
             SalesLine.Validate(Description, 'Freight charge');
             SalesLine.Validate(Quantity, 1);
+            SalesLine.Validate("Qty. to Ship", 1);
             SalesLine.Validate("Unit Price", FreightAmount);
             SalesLine.Insert;
         end;

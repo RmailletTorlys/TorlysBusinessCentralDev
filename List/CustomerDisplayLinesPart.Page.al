@@ -4,6 +4,7 @@ Page 51025 "Customer Display Lines Part"
     PageType = ListPart;
     SourceTable = "Display Line";
     ApplicationArea = All;
+    PopulateAllFields = true;
 
     layout
     {
@@ -37,6 +38,12 @@ Page 51025 "Customer Display Lines Part"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the program number.';
+
+                    trigger OnValidate()
+                    begin
+                        Rec.PopulateDescription(Rec);
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("Description"; Rec.Description)
                 {
@@ -50,9 +57,5 @@ Page 51025 "Customer Display Lines Part"
                 }
             }
         }
-    }
-
-    actions
-    {
     }
 }

@@ -247,7 +247,6 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'No. of Packages';
                     Editable = false;
                 }
-
             }
         }
     }
@@ -260,54 +259,47 @@ page 52001 "Orders To Be Shipped List"
             {
                 actionref("Pickups Only"; "PickupOnly")
                 { }
-
                 actionref("Show Shipments"; "OnlyShipments")
                 { }
-
                 actionref("Shipments for Tomorrow"; "TomorrowOnly")
                 { }
-
                 actionref("Rock City Shipments for Tomorrow"; "TomorrowRockCity")
                 { }
-
                 actionref("Orders Not Shipped"; "NotShippedOnly")
                 { }
-
                 actionref("Pick Slip not yet Printed"; "PickNotPrinted")
                 { }
-
                 actionref("Picked Printed but not Posted"; "PickPrintedButNotPosted")
                 { }
-
                 actionref("Pick Slip Printed but Not assigned"; "PrintedNotAssigned")
                 { }
-
                 actionref("Assigned to a Picker but not Posted"; "AssignedNotPosted")
                 { }
-
             }
             group("Assign Orders")
             {
                 actionref("Assign Picker"; AssignPicker)
                 { }
-
                 actionref("Assign Auditor"; AssignAuditor)
                 { }
             }
-
             actionref("Print Pick Slip"; PrintPickSlip)
             { }
-
             actionref("Print Summary Pick Slip"; PrintSummaryPickSlip)
             { }
             actionref("Print Label"; PrintLabel)
             { }
-
             actionref("Post and Print"; PostAndPrint)
             { }
-
-            actionref("Remove BOL from SH"; RemoveBOL)
-            { }
+            group("Posted Documents")
+            {
+                actionref("View Shipments"; ViewShipments)
+                { }
+                actionref("Remove BOL from SH"; RemoveBOL)
+                { }
+                actionref("View Invoices"; ViewInvoices)
+                { }
+            }
         }
 
 
@@ -323,7 +315,6 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Filters the list to show only pickup shipments.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -333,14 +324,12 @@ page 52001 "Orders To Be Shipped List"
                         Message('Filter applied for Shipment Agent Code: %1', 'PICKUP');
                     end;
                 }
-
                 action("OnlyShipments")
                 {
                     Caption = 'Show only Shipments';
                     ToolTip = 'Filters the list to show only shipments.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -349,7 +338,6 @@ page 52001 "Orders To Be Shipped List"
                         Rec.SetRange("Shipment Method Code", '<>%1', 'PICKUP');
                         Message('Filter applied for Shipment Method Code: %1', 'SHIPMENT');
                     end;
-
                 }
                 action("TomorrowOnly")
                 {
@@ -357,7 +345,6 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Filters the list to show sales orders with a shipment date of tomorrow.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -367,14 +354,12 @@ page 52001 "Orders To Be Shipped List"
                         Message('Filter applied for Shipment Date: %1', CalcDate('<+1D>', WorkDate()));
                     end;
                 }
-
                 action("TomorrowRockCity")
                 {
                     Caption = 'Show Shipments for Tomorrow in Rock City';
                     ToolTip = 'Filter the list to show sales orders with a shipment date of tomorrow and use ROCKCITY.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -382,7 +367,6 @@ page 52001 "Orders To Be Shipped List"
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetRange("Shipment Date", CalcDate('<+1D>', WorkDate()));
                         Rec.SetRange("Shipment Method Code", 'ROCKCITY');
-
                         Message('Filter appled for Shipment Date: %1, and Shipment Method Code: %2', CalcDate('<+1D>', WorkDate()), 'ROCKCITY');
                     end;
                 }
@@ -393,7 +377,6 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Filters the list to show shipments that have not yet been shipped.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     var
                         SalesHeader: Record "Sales Header";
@@ -410,7 +393,6 @@ page 52001 "Orders To Be Shipped List"
                                 if SalesLine.Quantity < 1 then
                                     OrdersToExclude.Add(SalesHeader."No.");
                             until SalesHeader.Next() = 0;
-
                         if OrdersToExclude.Count > 0 then begin
                             foreach OrderNo in OrdersToExclude do
                                 if FilterText <> '' then
@@ -430,7 +412,6 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Orders where the Pickslip was not printed.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -440,14 +421,12 @@ page 52001 "Orders To Be Shipped List"
                         Message('Filter applied for Orders where the Pickslip was not printed.');
                     end;
                 }
-
                 action("PickPrintedButNotPosted")
                 {
                     Caption = 'Orders where the Pickslip was printed but not posted.';
                     ToolTip = 'Orders where the Pickslip was printed';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -458,14 +437,12 @@ page 52001 "Orders To Be Shipped List"
                         Message('Filter applied for Orders where the Pickslip was printed but not posted.');
                     end;
                 }
-
                 action("PrintedNotAssigned")
                 {
                     Caption = 'Orders where the Pickslip was printed but not Assigned.';
                     ToolTip = 'Orders where the Pickslip was printed but not Assigned.';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -483,7 +460,6 @@ page 52001 "Orders To Be Shipped List"
                     ToolTip = 'Orders Assigned to A Warehouse associate but not yet posted';
                     ApplicationArea = All;
                     Image = Filter;
-
                     trigger OnAction()
                     begin
                         Rec.Reset();
@@ -503,8 +479,6 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Assign Picker';
                     Image = CheckList;
                     ToolTip = 'Assign a warehouse employee to the Picker field of selected Order(s).';
-
-
                     trigger OnAction()
                     var
                         SelectedSalesHeader: Record "Sales Header";
@@ -525,7 +499,6 @@ page 52001 "Orders To Be Shipped List"
                                 SelectedSalesHeader."Warehouse Associate Picked By" := WhseAssoc.Code;
                                 SelectedSalesheader.Modify();
                             until SelectedSalesHeader.Next() = 0;
-
                         end;
                     end;
                 }
@@ -536,8 +509,6 @@ page 52001 "Orders To Be Shipped List"
                     Caption = 'Assign Auditor';
                     Image = CheckList;
                     ToolTip = 'Assign a warehouse employee to the Auditor field of selected Order(s).';
-
-
                     trigger OnAction()
                     var
                         SelectedSalesHeader: Record "Sales Header";
@@ -569,8 +540,6 @@ page 52001 "Orders To Be Shipped List"
                                 SelectedSalesheader.Modify();
                             until SelectedSalesHeader.Next() = 0;
                         end;
-
-
                         CurrPage.Update(false);
                     end;
                 }
@@ -579,7 +548,6 @@ page 52001 "Orders To Be Shipped List"
             {
                 Caption = 'Print';
                 Image = Print;
-
                 action(PrintPickSlip)
                 {
                     ApplicationArea = Warehouse;
@@ -592,7 +560,6 @@ page 52001 "Orders To Be Shipped List"
                         DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
                     end;
                 }
-
                 action(PrintSummaryPickSlip)
                 {
                     ApplicationArea = Warehouse;
@@ -615,7 +582,6 @@ page 52001 "Orders To Be Shipped List"
                         TorlysDocPrint.PrintSalesOrderLabel(Rec);
                     end;
                 }
-
                 action(PostAndPrint)
                 {
                     ApplicationArea = Warehouse;
@@ -625,27 +591,18 @@ page 52001 "Orders To Be Shipped List"
 
                     trigger OnAction()
                     var
-                    // SelectedSalesHeader: Record "Sales Header";
-                    // SalesShpHeader: Record "Sales Shipment Header";
-                    // ShipPostPrint: Codeunit "Ship-Post + Print";
+                        SelectedOrders: Record "Sales Header";
                     begin
-                        // IF Rec."No. Pick Slips Printed" = 0 THEN
-                        //     ERROR('You cannot ship this order as no pick slips have been printed!');
-
-                        // IF Rec."Warehouse Associate Picked By" = '' THEN
-                        //     ERROR('The Warehouse Associate Picked By field cannot be blank!');
-
-                        // IF Rec."Warehouse Associate Checked By" = '' THEN
-                        //     ERROR('The Warehouse Associate Checked By field cannot be blank!');
-
-                        // IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
-                        //     ERROR('The Picked By and the Checked By Associate cannot be the same!');
 
                         // since we can't inject to add freight, we will just call our own codeunit
                         // out of the box codeunit below
                         // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
                         // our codeunit below
-                        CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", Rec);
+                        CurrPage.SetSelectionFilter(SelectedOrders);
+                        if SelectedOrders.FindSet() then
+                            repeat
+                                CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", SelectedOrders);
+                            until SelectedOrders.Next() = 0;
 
                         // CurrPage.SetSelectionFilter(SelectedSalesHeader);
 
@@ -663,7 +620,21 @@ page 52001 "Orders To Be Shipped List"
                         // until SelectedSalesHeader.Next() = 0
                     end;
                 }
-
+            }
+            group("Documents")
+            {
+                Caption = 'Posted Documents';
+                Image = Documents;
+                action(ViewShipments)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'S&hipments';
+                    Image = Shipment;
+                    RunObject = Page "Posted Sales Shipments";
+                    RunPageLink = "Order No." = field("No.");
+                    RunPageView = sorting("Order No.");
+                    ToolTip = 'View related posted sales shipments.';
+                }
                 action(RemoveBOL)
                 {
                     ApplicationArea = All;
@@ -678,10 +649,29 @@ page 52001 "Orders To Be Shipped List"
                         ShipmentHeader.Reset();
                         ShipmentHeader.SetRange("No.", GetShipmentNo(Rec."No."));
                         if ShipmentHeader.Find('-') then begin
-                            MESSAGE('%1', ShipmentHeader."No.");
+                            Message('%1', ShipmentHeader."No.");
                             ShipmentHeader."BOL No." := '';
                             ShipmentHeader.Modify();
                         end;
+                    end;
+                }
+                action(ViewInvoices)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Invoices';
+                    Image = Invoice;
+                    ToolTip = 'View a list of ongoing sales invoices for the order.';
+
+                    AboutTitle = 'What has been invoiced?';
+                    AboutText = 'Here you can look up what has already been invoiced on an order.';
+
+                    trigger OnAction()
+                    var
+                        TempSalesInvoiceHeader: Record "Sales Invoice Header" temporary;
+                        SalesGetShipment: Codeunit "Sales-Get Shipment";
+                    begin
+                        SalesGetShipment.GetSalesOrderInvoices(TempSalesInvoiceHeader, Rec."No.");
+                        Page.Run(Page::"Posted Sales Invoices", TempSalesInvoiceHeader);
                     end;
                 }
             }
@@ -918,30 +908,23 @@ page 52001 "Orders To Be Shipped List"
     // end;
 
 
+    // local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
+    // var
+    //     SalesHeader: Record "Sales Header";
+    //     LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
+    //     DocumentIsScheduledForPosting: Boolean;
+    //     DocumentIsPosted: Boolean;
+    // begin
+    //     LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(SelectedSalesHeader);
+    //     SelectedSalesHeader.SendToPosting(PostingCodeunitID);
 
+    //     DocumentIsScheduledForPosting := SelectedSalesHeader."Job Queue Status" = SelectedSalesHeader."Job Queue Status"::"Scheduled for Posting";
+    //     DocumentIsPosted := (not SalesHeader.Get(SelectedSalesHeader."Document Type", SelectedSalesHeader."No.")) or DocumentIsScheduledForPosting;
 
+    //     CurrPage.Update(False);
 
-    local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
-    var
-        SalesHeader: Record "Sales Header";
-        LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
-        DocumentIsScheduledForPosting: Boolean;
-        DocumentIsPosted: Boolean;
-
-
-    begin
-        LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(SelectedSalesHeader);
-        SelectedSalesHeader.SendToPosting(PostingCodeunitID);
-
-        DocumentIsScheduledForPosting := SelectedSalesHeader."Job Queue Status" = SelectedSalesHeader."Job Queue Status"::"Scheduled for Posting";
-        DocumentIsPosted := (not SalesHeader.Get(SelectedSalesHeader."Document Type", SelectedSalesHeader."No.")) or DocumentIsScheduledForPosting;
-
-        CurrPage.Update(False);
-
-        exit(DocumentIsPosted);
-
-
-    end;
+    //     exit(DocumentIsPosted);
+    // end;
 
     var
         UserSetup: Record "User Setup";

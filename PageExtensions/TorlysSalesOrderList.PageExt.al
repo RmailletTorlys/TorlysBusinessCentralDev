@@ -223,11 +223,8 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 
                     if SelectedOrders.FindSet() then
                         repeat
-                            // SelectedOrders."On Hold" := '';
-                            // SelectedOrders.Modify(true);
-                            TorlysCreditHold.RemoveCreditHoldMultiple(SelectedOrders, SelectedOrders)
+                            TorlysCreditHold.RemoveCreditHold(SelectedOrders, SelectedOrders)
                         until SelectedOrders.Next() = 0;
-                    // Message('Removed Order(s) from Credit Hold');
                 end;
             }
             action("Place On Credit Hold")
@@ -244,11 +241,8 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
 
                     if SelectedOrders.FindSet() then
                         repeat
-                            // SelectedOrders."On Hold" := 'CR';
-                            // SelectedOrders.Modify(true);
                             TorlysCreditHold.PlaceOnCreditHold(SelectedOrders, SelectedOrders)
                         until SelectedOrders.Next() = 0;
-                    // Message('Placed Order(s) on Credit Hold');
                 end;
             }
         }

@@ -142,21 +142,36 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         {
             field("Purchase Order No."; Rec."Purchase Order No.")
             {
-                Caption = 'PO Number';
+                Caption = 'Purchase Order No.';
                 ToolTip = 'Purchase Order No.';
                 ApplicationArea = All;
                 Visible = true;
             }
             field("Purch. Order Line No."; Rec."Purch. Order Line No.")
             {
-                Caption = 'PO Line No.';
+                Caption = 'Purch. Order Line No.';
                 ToolTip = 'Purch. Order Line No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
+            field("Transfer Order No."; Rec."Transfer Order No.")
+            {
+                Caption = 'Transfer Order No.';
+                ToolTip = 'Transfer Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Transfer Order Line No."; Rec."Transfer Order Line No.")
+            {
+                Caption = 'Transfer Line Order No.';
+                ToolTip = 'Transfer Line Order No.';
                 ApplicationArea = All;
                 Visible = true;
             }
         }
 
-        addafter("Purch. Order Line No.")
+        addafter("Transfer Order Line No.")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
@@ -360,6 +375,36 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         }
     }
 
+    actions
+    {
+        addfirst("F&unctions")
+        {
+            action("Link To Transfer Order")
+            {
+                ToolTip = 'Link To Transfer Order';
+                Caption = 'Link To Transfer Order';
+                Image = OrderTracking;
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    TorlysLinkSalesLineToTransLine: Codeunit TorlysLinkSalesLineToTransLine;
+                    SelectedLines: Record "Sales Line";
+                    TransferOrderNumber: Code[20];
+                begin
+                    CurrPage.SetSelectionFilter(SelectedLines);
+                    if SelectedLines.FindSet() then begin
+                        TorlysLinkSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
+                    end;
+                    if TransferOrderNumber <> '' then begin
+                        repeat
+                            TorlysLinkSalesLineToTransLine.LinkSalesLineToTransLine(SelectedLines, TransferOrderNumber);
+                        until SelectedLines.Next() = 0;
+                    end;
+                end;
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
         UserModifiedUnitPrice: Boolean;
@@ -377,7 +422,6 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         UserModifiedUnitPrice := true;
     end;
-
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
@@ -403,8 +447,4 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     local procedure OnValidateQtyToShipPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
     end;
-
-
 }
-
-

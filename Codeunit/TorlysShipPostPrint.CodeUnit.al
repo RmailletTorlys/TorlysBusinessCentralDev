@@ -17,7 +17,7 @@ codeunit 50012 "TorlysShip-Post+Print"
         ReturnRcptHeader: Record "Return Receipt Header";
         ReportSelection: Record "Report Selections";
         SalesPost: Codeunit "Sales-Post";
-        Text1020001: Label 'Do you want to ship and print the %1 %2?';
+        Text1020001: Label 'Do you want to ship and print %1 for customer %2?';
         InsertFreightLine: Codeunit "TorlysInsertFreightLine";
 
     local procedure "Code"()
@@ -37,7 +37,7 @@ codeunit 50012 "TorlysShip-Post+Print"
         // custom to us - end
 
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
-            if not Confirm(Text1020001, false, SalesHeader."Document Type", SalesHeader."No.") then begin
+            if not Confirm(Text1020001, false, SalesHeader."No.", SalesHeader."Sell-to Customer No.") then begin
                 SalesHeader."Shipping No." := '-1';
                 exit;
             end;
@@ -80,4 +80,3 @@ codeunit 50012 "TorlysShip-Post+Print"
         until ReportSelection.Next() = 0;
     end;
 }
-

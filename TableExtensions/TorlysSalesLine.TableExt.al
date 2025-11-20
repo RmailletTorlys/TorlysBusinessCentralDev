@@ -101,13 +101,27 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             Caption = 'Clearance Item';
             DataClassification = CustomerContent;
         }
+
+        field(50018; "Transfer Order No."; Code[20])
+        {
+            Caption = 'Transfer Order No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Transfer Header";
+        }
+        field(50019; "Transfer Order Line No."; Integer)
+        {
+            Caption = 'Transfer Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
+        }
     }
 
     trigger OnModify()
     begin
         if ((Rec.Quantity) <> (xRec.Quantity)) then
             Rec.Validate(Quantity);
-
     end;
 
 

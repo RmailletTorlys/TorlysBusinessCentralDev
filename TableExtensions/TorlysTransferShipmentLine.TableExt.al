@@ -37,5 +37,21 @@ tableextension 55745 TorlysTransferShipmentLine extends "Transfer Shipment Line"
             Caption = 'Qty. to Receive Pallet';
             DataClassification = CustomerContent;
         }
+
+        field(50007; "Sales Order No."; Code[20])
+        {
+            Caption = 'Sales Order No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Sales Header"."No." where("Document Type" = const(Order));
+        }
+
+        field(50008; "Sales Order Line No."; Integer)
+        {
+            Caption = 'Sales Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Sales Line"."Line No." where("Document No." = field("Sales Order No."));
+        }
     }
 }

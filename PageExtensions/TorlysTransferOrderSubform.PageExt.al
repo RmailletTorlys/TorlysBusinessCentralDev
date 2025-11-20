@@ -113,6 +113,20 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
 
         addafter("Quantity Received")
         {
+            field("Sales Order No."; Rec."Sales Order No.")
+            {
+                Caption = 'Sales Order No.';
+                ToolTip = 'Sales Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Sales Order Line No."; Rec."Sales Order Line No.")
+            {
+                Caption = 'Sales Order Line No.';
+                ToolTip = 'Sales Order Line No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';

@@ -108,6 +108,21 @@ tableextension 56661 TorlysReturnReceiptLine extends "Return Receipt Line"
             DataClassification = CustomerContent;
         }
 
+        field(50018; "Transfer Order No."; Code[20])
+        {
+            Caption = 'Transfer Order No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Transfer Header";
+        }
+        field(50019; "Transfer Order Line No."; Integer)
+        {
+            Caption = 'Transfer Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
+        }
+
     }
 
     // trigger OnModify()

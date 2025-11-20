@@ -4,27 +4,27 @@ Table 51057 "Display Header"
     {
         field(1; "CustNo."; Code[10])
         {
-            Caption = 'No.';
+            Caption = 'Customer No.';
             TableRelation = Customer;
         }
         field(2; "CustName"; Text[100])
         {
-            Caption = 'Name';
-            TableRelation = Customer.Name where("No." = field("CustNo."));
+            Caption = 'Customer Name';
+
         }
         field(3; "CustLocationCode"; Code[10])
         {
-            Caption = 'Location';
+            Caption = 'Location Code';
             TableRelation = "Ship-to Address".Code where("Customer No." = field("CustNo."));
         }
         field(4; "CustAddress"; Code[100])
         {
-            Caption = 'No.';
-            TableRelation = "Ship-to Address".Address where("Customer No." = field("CustNo."));
+            Caption = 'Location Address';
+
         }
         field(5; "PowerUp"; Text[20])
         {
-            Caption = 'PowerUp ID';
+            Caption = 'Power Up Member';
         }
         field(6; "PowerUpLevel"; Text[20])
         {

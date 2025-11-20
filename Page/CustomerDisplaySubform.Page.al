@@ -1,10 +1,12 @@
-Page 51025 "Customer Display Lines Part"
+Page 51025 "Customer Display Subform"
 {
-    Caption = 'Customer Display Lines Part';
+    Caption = 'Customer Display Lines';
     PageType = ListPart;
     SourceTable = "Display Line";
     ApplicationArea = All;
     PopulateAllFields = true;
+    DelayedInsert = true;
+    LinksAllowed = false;
 
     layout
     {
@@ -16,17 +18,20 @@ Page 51025 "Customer Display Lines Part"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the line number.';
+                    Visible = false;
                 }
                 field("Customer No."; Rec."CustNo.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer number.';
+                    Visible = false;
                 }
 
                 field("Customer Location"; Rec."CustLocationCode")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer location code.';
+                    Visible = false;
                 }
 
                 field("Display Type"; Rec."Display Type")
@@ -34,7 +39,7 @@ Page 51025 "Customer Display Lines Part"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the display type.';
                 }
-                field("Program No."; Rec."Program No.")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the program number.';
@@ -58,4 +63,8 @@ Page 51025 "Customer Display Lines Part"
             }
         }
     }
+    trigger onInit()
+    begin
+
+    end;
 }

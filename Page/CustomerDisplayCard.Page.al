@@ -25,6 +25,11 @@ Page 51024 "Customer Display Card"
                         CurrPage.Update(true);
                     end;
                 }
+                field("Customer Name"; Rec.CustName)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer name.';
+                }
                 field("Customer Location"; Rec."CustLocationCode")
                 {
                     ApplicationArea = All;
@@ -35,6 +40,11 @@ Page 51024 "Customer Display Card"
                         Rec.GetShipToAddressInfo(Rec);
                         CurrPage.Update(true);
                     end;
+                }
+                field("Customer Address"; Rec.CustAddress)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer address.';
                 }
                 field("Power Up Member"; Rec."PowerUp")
                 {
@@ -53,7 +63,7 @@ Page 51024 "Customer Display Card"
             {
                 Caption = 'Display Lines';
 
-                part(DisplayLinesPart; "Customer Display Lines Part")
+                part(DisplayLinesPart; "Customer Display Subform")
                 {
                     ApplicationArea = All;
                     UpdatePropagation = Both;

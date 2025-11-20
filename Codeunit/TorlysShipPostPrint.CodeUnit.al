@@ -26,13 +26,13 @@ codeunit 50012 "TorlysShip-Post+Print"
         if SalesHeader."No. Pick Slips Printed" = 0 then
             Error('You cannot ship this order as no pick slips have been printed!');
 
-        if SalesHeader."Warehouse Associate Picked By" = '' then
+        if SalesHeader."Picked By" = '' then
             Error('The Warehouse Associate Picked By field cannot be blank!');
 
-        if SalesHeader."Warehouse Associate Checked By" = '' then
+        if SalesHeader."Audited By" = '' then
             Error('The Warehouse Associate Checked By field cannot be blank!');
 
-        if SalesHeader."Warehouse Associate Picked By" = SalesHeader."Warehouse Associate Checked By" THEN
+        if SalesHeader."Picked By" = SalesHeader."Audited By" THEN
             Error('The Picked By and the Checked By Associate cannot be the same!');
         // custom to us - end
 

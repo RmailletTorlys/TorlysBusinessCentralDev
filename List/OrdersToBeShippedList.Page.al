@@ -169,15 +169,15 @@ page 52001 "Orders To Be Shipped List"
                     Editable = false;
                 }
 
-                field("Warehouse Associate Picked By"; Rec."Warehouse Associate Picked By")
+                field("Picked By"; Rec."Picked By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Warehouse Associate Picked By';
-                    ToolTip = 'Warehouse Associate Picked By';
+                    Caption = 'Picked By';
+                    ToolTip = 'Picked By';
                     Editable = WarehouseAssociateEditable;
                 }
 
-                field("Warehouse Associate Checked By"; Rec."Warehouse Associate Checked By")
+                field("Audited By"; Rec."Audited By")
                 {
                     ApplicationArea = All;
                     Caption = 'Warehouse Associate Checked By';
@@ -449,7 +449,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
-                        Rec.SetFilter("Warehouse Associate Picked By", '');
+                        Rec.SetFilter("Picked By", '');
                         Message('Filter applied for Orders where the PickSlip was printed but not yet assigned.')
                     end;
                 }
@@ -465,7 +465,7 @@ page 52001 "Orders To Be Shipped List"
                         Rec.Reset();
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
-                        Rec.SetFilter("Warehouse Associate Picked By", '<>%1', '');
+                        Rec.SetFilter("Picked By", '<>%1', '');
                         Rec.SetFilter("Posting Date", '');
                         Message('Filter applied for Orders Assigned to A Warehouse associate but not yet posted.')
                     end;
@@ -496,7 +496,7 @@ page 52001 "Orders To Be Shipped List"
                             if WarehouseAssignment.RunModal() = Action::LookupOK then
                                 WarehouseAssignment.GetRecord(WhseAssoc);
                             repeat
-                                SelectedSalesHeader."Warehouse Associate Picked By" := WhseAssoc.Code;
+                                SelectedSalesHeader."Picked By" := WhseAssoc.Code;
                                 SelectedSalesheader.Modify();
                             until SelectedSalesHeader.Next() = 0;
                         end;
@@ -526,17 +526,17 @@ page 52001 "Orders To Be Shipped List"
                             if WarehouseAssignment.RunModal() = Action::LookupOK then
                                 WarehouseAssignment.GetRecord(WhseAssoc);
                             repeat
-                                if SelectedSalesHeader."Warehouse Associate Picked By" = '' then begin
+                                if SelectedSalesHeader."Picked By" = '' then begin
                                     Message('You must assign a picker before you can assign a checker on Order %1.', SelectedSalesHeader."No.");
                                     continue;
                                 end;
 
-                                if SelectedSalesHeader."Warehouse Associate Picked By" = WhseAssoc."Code" then begin
+                                if SelectedSalesHeader."Picked By" = WhseAssoc."Code" then begin
                                     Message('You cannot assign the same person for picker and checker on an Order. Check Order %1 and retry.', SelectedSalesHeader."No.");
                                     continue;
                                 end;
 
-                                SelectedSalesHeader."Warehouse Associate Checked By" := WhseAssoc.Code;
+                                SelectedSalesHeader."Audited By" := WhseAssoc.Code;
                                 SelectedSalesheader.Modify();
                             until SelectedSalesHeader.Next() = 0;
                         end;

@@ -21,7 +21,7 @@ page 50999 "Torlys Sales Order Shipment"
                     Caption = 'Order No.';
                 }
 
-                field("Whse Associate Picked By"; Rec."Warehouse Associate Picked By")
+                field("Picked By"; Rec."Picked By")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the name of the warehouse associate who picked the items for the sales order.';
@@ -29,7 +29,7 @@ page 50999 "Torlys Sales Order Shipment"
 
                     trigger OnValidate()
                     begin
-                        Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Warehouse Associate Picked By");
+                        Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Picked By");
                     end;
                 }
 
@@ -41,7 +41,7 @@ page 50999 "Torlys Sales Order Shipment"
                     Caption = 'Picked By Name';
                 }
 
-                field("Whse Associate Shipped By"; Rec."Warehouse Associate Checked By")
+                field("Audited By"; Rec."Audited By")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the name of the warehouse associate who shipped the items for the sales order.';
@@ -49,7 +49,7 @@ page 50999 "Torlys Sales Order Shipment"
 
                     trigger OnValidate()
                     begin
-                        Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Warehouse Associate Checked By");
+                        Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Audited By");
                     end;
                 }
 
@@ -319,11 +319,11 @@ page 50999 "Torlys Sales Order Shipment"
 
     trigger OnOpenPage()
     begin
-        if Rec."Warehouse Associate Picked By" <> '' then
-            Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Warehouse Associate Picked By");
+        if Rec."Picked By" <> '' then
+            Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Picked By");
 
-        if Rec."Warehouse Associate Checked By" <> '' then
-            Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Warehouse Associate Checked By");
+        if Rec."Audited By" <> '' then
+            Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Audited By");
 
         CurrPage.Update();
     end;

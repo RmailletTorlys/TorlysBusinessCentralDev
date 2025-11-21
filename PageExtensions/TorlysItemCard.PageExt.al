@@ -77,14 +77,14 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                 Caption = 'Attributes';
                 Visible = IsInventoriable;
 
-                field("Assembly BOM"; Rec."Assembly BOM")
-                {
-                    Caption = 'Kit BOM No.';
-                    ToolTip = 'The Item No. for the Kit Bill of Material';
-                    ApplicationArea = All;
-                    Visible = false;
-                    Importance = Additional;
-                }
+                // field("Assembly BOM"; Rec."Assembly BOM")
+                // {
+                //     Caption = 'Kit BOM No.';
+                //     ToolTip = 'The Item No. for the Kit Bill of Material';
+                //     ApplicationArea = All;
+                //     Visible = false;
+                //     Importance = Additional;
+                // }
                 field("New Item"; Rec."New Item")
                 {
                     ApplicationArea = All;
@@ -155,6 +155,15 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'Clearance Item';
                     ToolTip = 'Specifies if this item is no longer being actively replenished and no longer marketed but the stock level is above 10,000 Sq. Ft.';
+                    Importance = Additional;
+                }
+
+                field("Production Date Required"; Rec."Production Date Required")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'Production Date Required';
+                    ToolTip = 'Production Date Required';
                     Importance = Additional;
                 }
             }

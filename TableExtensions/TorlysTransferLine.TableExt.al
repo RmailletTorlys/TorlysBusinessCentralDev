@@ -51,8 +51,9 @@ tableextension 55741 TorlysTransferLine extends "Transfer Line"
             Caption = 'Sales Order Line No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Sales Line"."Line No." where("Document No." = field("Sales Order No."));
+            TableRelation = "Sales Line"."Line No." where("Document Type" = const(Order), "Document No." = field("Sales Order No."));
         }
+
     }
 
     [IntegrationEvent(false, false)]

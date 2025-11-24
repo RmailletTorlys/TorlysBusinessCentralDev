@@ -1,6 +1,6 @@
-page 50557 TorlysLinkedSOtoTO
+page 50557 TorlysJoinedSOtoTO
 {
-    Caption = 'View and Fill Linked SO';
+    Caption = 'View and Fill Joined SO';
     PageType = List;
     SourceTable = "Sales Line";
     SourceTableView = sorting(Type, "No.", "Variant Code", "Drop Shipment", "Location Code", "Document Type", "Shipment Date") order(ascending);

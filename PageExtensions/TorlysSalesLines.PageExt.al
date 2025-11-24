@@ -197,9 +197,54 @@ pageextension 50516 TorlysSalesLines extends "Sales Lines"
                 ApplicationArea = All;
                 Visible = true;
             }
+
+            field("Transfer Order No."; Rec."Transfer Order No.")
+            {
+                Caption = 'Transfer Order No.';
+                ToolTip = 'Transfer Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Transfer Order Line No."; Rec."Transfer Order Line No.")
+            {
+                Caption = 'Transfer Line Order No.';
+                ToolTip = 'Transfer Line Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
+            field("Linked Purchase Order No."; Rec."Linked Purchase Order No.")
+            {
+                Caption = 'Linked Purchase Order No.';
+                ToolTip = 'Linked Purchase Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Linked Purch. Order Line No."; Rec."Linked Purch. Order Line No.")
+            {
+                Caption = 'Linked Purch. Order Line No.';
+                ToolTip = 'Linked Purch. Order Line No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
+            field("Linked Transfer Order No."; Rec."Linked Transfer Order No.")
+            {
+                Caption = 'Linked Transfer Order No.';
+                ToolTip = 'Linked Transfer Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Linked Transfer Order Line No."; Rec."Linked Transfer Order Line No.")
+            {
+                Caption = 'Linked Transfer Line Order No.';
+                ToolTip = 'Linked Transfer Line Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
         }
 
-        addafter("Purch. Order Line No.")
+        addafter("Linked Transfer Order Line No.")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {

@@ -45,7 +45,7 @@ codeunit 50002 "TorlysQtyRoundingSalesLine"
     // Sales Order - end
 
     // View and Fill Linked SO - start
-    [EventSubscriber(ObjectType::Page, Page::TorlysLinkedSOtoTO, 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
+    [EventSubscriber(ObjectType::Page, Page::TorlysJoinedSOtoTO, 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
     local procedure OnValidateQtyToShipSOtoTO(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
     begin
         OnChangeQtyToShip(Rec, xRec);

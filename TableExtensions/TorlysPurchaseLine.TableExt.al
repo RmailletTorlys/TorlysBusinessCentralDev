@@ -73,7 +73,6 @@ tableextension 50039 TorlysPurchaseLine extends "Purchase Line"
             Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
-
     }
 
     [IntegrationEvent(false, false)]

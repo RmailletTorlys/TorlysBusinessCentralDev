@@ -19,20 +19,20 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
     {
         addlast(Category_Category6)
         {
-            actionref(SOLink; "View and Fill Linked SO")
+            actionref(SOJoin; "View and Fill Joined SO")
             {
             }
         }
 
         addlast(Documents)
         {
-            action("View and Fill Linked SO")
+            action("View and Fill Joined SO")
             {
                 ApplicationArea = Location;
-                Caption = 'View and Fill Linked SO';
-                ToolTip = 'View and Fill Linked SO';
+                Caption = 'View and Fill Joined SO';
+                ToolTip = 'View and Fill Joined SO';
                 Image = Order;
-                RunObject = Page TorlysLinkedSOtoTO;
+                RunObject = Page TorlysJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
             }
         }

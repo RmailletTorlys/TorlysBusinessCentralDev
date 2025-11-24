@@ -133,9 +133,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
                     OnValidateQtyToReceivePallet(Rec, xRec);
                     CurrPage.Update(true);
                 end;
-
             }
-
         }
 
         moveafter("Qty. to Receive Pallet"; "Quantity Received")
@@ -151,10 +149,24 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code")
+        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Drop Shipment")
 
-        addafter("Tax Area Code")
+        addafter("Drop Shipment")
         {
+            field("Sales Order No."; Rec."Sales Order No.")
+            {
+                Caption = 'Sales Order No.';
+                ToolTip = 'Sales Order No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Sales Order Line No."; Rec."Sales Order Line No.")
+            {
+                Caption = 'Sales Order Line No.';
+                ToolTip = 'Sales Order Line No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -324,8 +336,10 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
             Visible = false;
         }
 
-
-
+        modify("Drop Shipment")
+        {
+            Visible = true;
+        }
     }
 
     var

@@ -112,14 +112,43 @@ tableextension 50111 TorlysSalesShipmentLine extends "Sales Shipment Line"
             Caption = 'Transfer Order No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Transfer Header";
+            // TableRelation = "Transfer Header";
         }
         field(50019; "Transfer Order Line No."; Integer)
         {
             Caption = 'Transfer Order Line No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
+            // TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
+        }
+
+        field(50020; "Linked Purchase Order No."; Code[20])
+        {
+            Caption = 'Linked Purchase Order No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            // TableRelation = "Purchase Header"."No." where("Document Type" = const(Order));
+        }
+        field(50021; "Linked Purch. Order Line No."; Integer)
+        {
+            Caption = 'Linked Purch. Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            // TableRelation = "Purchase Line"."Line No." where("Document Type" = const(Order),"Document No." = field("Purchase Order No."));
+        }
+        field(50022; "Linked Transfer Order No."; Code[20])
+        {
+            Caption = 'Linked Transfer Order No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            // TableRelation = "Transfer Header";
+        }
+        field(50023; "Linked Transfer Order Line No."; Integer)
+        {
+            Caption = 'Linked Transfer Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            // TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
         }
 
     }

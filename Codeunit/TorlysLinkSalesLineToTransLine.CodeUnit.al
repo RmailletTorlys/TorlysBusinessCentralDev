@@ -8,7 +8,7 @@ codeunit 50020 TorlysLinkSalesLineToTransLine
         SalesLine.Reset;
         SalesLine.SetRange("Document No.", TransferLine."Sales Order No.");
         SalesLine.SetRange("Line No.", TransferLine."Sales Order Line No.");
-        if SalesLine.Find('-') then begin
+        if SalesLine.Find('-') then
             if TransferLine."Item No." <> '' then begin
                 Message('Item %1 from Transfer Order %2 with a quantity of %3.\Link will be broken with Order %4 on Line %5.', TransferLine."Item No.", TransferLine."Document No.", TransferLine.Quantity, TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
                 SalesLine.Validate(SalesLine."Transfer Order No.", '');
@@ -20,7 +20,6 @@ codeunit 50020 TorlysLinkSalesLineToTransLine
                 SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
                 SalesLine.Modify(true);
             end;
-        end;
     end;
 
     procedure PresentModal(Rec: Record "Sales Line"; var TransferOrderNumber: Code[20])

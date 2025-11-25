@@ -145,16 +145,16 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50026; "Warehouse Associate Picked By"; code[20])
+        field(50026; "Picked By"; code[20])
         {
-            Caption = 'Warehouse Associate Picked By';
+            Caption = 'Picked By';
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser";
         }
 
-        field(50027; "Warehouse Associate Checked By"; code[20])
+        field(50027; "Audited By"; code[20])
         {
-            Caption = 'Warehouse Associate Checked By';
+            Caption = 'Audited By';
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser";
         }

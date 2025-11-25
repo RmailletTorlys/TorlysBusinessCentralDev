@@ -44,6 +44,12 @@ tableextension 50027 TorlysItem extends Item
             DataClassification = CustomerContent;
         }
 
+        field(50008; "Production Date Required"; Boolean)
+        {
+            Caption = 'Production Date Required';
+            DataClassification = CustomerContent;
+        }
+
         field(50010; "Sunset Item"; Boolean)
         {
             Caption = 'Sunset Item';

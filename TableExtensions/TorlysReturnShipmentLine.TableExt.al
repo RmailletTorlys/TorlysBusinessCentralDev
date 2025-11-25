@@ -73,6 +73,7 @@ tableextension 56651 TorlysReturnShipmentLine extends "Return Shipment Line"
             Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
+
     }
 
 }

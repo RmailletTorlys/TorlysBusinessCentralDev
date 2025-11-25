@@ -43,7 +43,7 @@ tableextension 55745 TorlysTransferShipmentLine extends "Transfer Shipment Line"
             Caption = 'Sales Order No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Sales Header"."No." where("Document Type" = const(Order));
+            // TableRelation = "Sales Header"."No." where("Document Type" = const(Order));
         }
 
         field(50008; "Sales Order Line No."; Integer)
@@ -51,7 +51,8 @@ tableextension 55745 TorlysTransferShipmentLine extends "Transfer Shipment Line"
             Caption = 'Sales Order Line No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Sales Line"."Line No." where("Document No." = field("Sales Order No."));
+            // TableRelation = "Sales Line"."Line No." where("Document Type" = const(Order), "Document No." = field("Sales Order No."));
         }
+
     }
 }

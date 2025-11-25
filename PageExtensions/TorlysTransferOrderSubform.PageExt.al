@@ -127,6 +127,7 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 Visible = true;
             }
+
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';

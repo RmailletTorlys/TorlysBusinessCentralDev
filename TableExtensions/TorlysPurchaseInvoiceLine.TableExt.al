@@ -72,5 +72,6 @@ tableextension 50123 TorlysPurchInvLine extends "Purch. Inv. Line"
             Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
+
     }
 }

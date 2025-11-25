@@ -150,18 +150,18 @@ page 52002 "Credit Hold"
                     ToolTip = 'No. Pick LisSlipsts Printed';
                 }
 
-                field("Whse Associate Picked By"; Rec."Warehouse Associate Picked By")
+                field("Picked By"; Rec."Picked By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Whse Associate Picked By';
-                    ToolTip = 'Whse Associate Picked By';
+                    Caption = ' Picked By';
+                    ToolTip = ' Picked By';
                 }
 
-                field("Whse Associate Checked By"; Rec."Warehouse Associate Checked By")
+                field("Checked By"; Rec."Audited By")
                 {
                     ApplicationArea = All;
-                    Caption = 'Whse Associate Checked By';
-                    ToolTip = 'Whse Associate Checked By';
+                    Caption = 'Audited By';
+                    ToolTip = 'Audited By';
 
                 }
 
@@ -476,7 +476,7 @@ page 52002 "Credit Hold"
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetFilter("On Hold", '<>%1', '');
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
-                        Rec.SetFilter("Warehouse Associate Picked By", '');
+                        Rec.SetFilter("Picked By", '');
                         Message('Filter applied for Orders where the PickSlip was printed but not yet assigned.')
                     end;
                 }
@@ -494,7 +494,7 @@ page 52002 "Credit Hold"
                         Rec.SetRange("Document Type", Rec."Document Type"::Order);
                         Rec.SetRange("Status", Rec.Status::Released);
                         Rec.SetFilter("On Hold", '<>%1', '');
-                        Rec.SetFilter("Warehouse Associate Picked By", '<>%1', '');
+                        Rec.SetFilter("Picked By", '<>%1', '');
                         Rec.SetFilter("Posting Date", '');
                         Message('Filter applied for Orders Assigned to A Warehouse associate but not yet posted.')
                     end;

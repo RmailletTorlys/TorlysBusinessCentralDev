@@ -7,5 +7,33 @@ tableextension 55740 TorlysTransferHeader extends "Transfer Header"
             Caption = 'Transfer Type';
             DataClassification = CustomerContent;
         }
+
+        field(50002; "Picked By"; Code[20])
+        {
+            Caption = 'Picked By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
+        }
+
+        field(50003; "Audited By"; Code[20])
+        {
+            Caption = 'Audited By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
+        }
+
+        field(50004; "Recevied By"; Code[20])
+        {
+            Caption = 'Recevied By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
+        }
+
+        field(50005; "Put Away By"; Code[20])
+        {
+            Caption = 'Put Away By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
+        }
     }
 }

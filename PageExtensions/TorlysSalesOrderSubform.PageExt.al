@@ -169,9 +169,38 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
                 Visible = true;
             }
+            field("Linked Purchase Order No."; Rec."Linked Purchase Order No.")
+            {
+                Caption = 'Linked Purchase Order No.';
+                ToolTip = 'Linked Purchase Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Linked Purch. Order Line No."; Rec."Linked Purch. Order Line No.")
+            {
+                Caption = 'Linked Purch. Order Line No.';
+                ToolTip = 'Linked Purch. Order Line No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
+            field("Linked Transfer Order No."; Rec."Linked Transfer Order No.")
+            {
+                Caption = 'Linked Transfer Order No.';
+                ToolTip = 'Linked Transfer Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Linked Transfer Order Line No."; Rec."Linked Transfer Order Line No.")
+            {
+                Caption = 'Linked Transfer Line Order No.';
+                ToolTip = 'Linked Transfer Line Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
         }
 
-        addafter("Transfer Order Line No.")
+        addafter("Linked Transfer Order Line No.")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
@@ -379,25 +408,25 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     {
         addfirst("F&unctions")
         {
-            action("Link To Transfer Order")
+            action("Join To Transfer Order")
             {
-                ToolTip = 'Link To Transfer Order';
-                Caption = 'Link To Transfer Order';
+                ToolTip = 'Join To Transfer Order';
+                Caption = 'Join To Transfer Order';
                 Image = OrderTracking;
                 ApplicationArea = All;
                 trigger OnAction()
                 var
-                    TorlysLinkSalesLineToTransLine: Codeunit TorlysLinkSalesLineToTransLine;
+                    TorlysJoinSalesLineToTransLine: Codeunit TorlysJoinSalesLineToTransLine;
                     SelectedLines: Record "Sales Line";
                     TransferOrderNumber: Code[20];
                 begin
                     CurrPage.SetSelectionFilter(SelectedLines);
                     if SelectedLines.FindSet() then begin
-                        TorlysLinkSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
+                        TorlysJoinSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
                     end;
                     if TransferOrderNumber <> '' then begin
                         repeat
-                            TorlysLinkSalesLineToTransLine.LinkSalesLineToTransLine(SelectedLines, TransferOrderNumber);
+                            TorlysJoinSalesLineToTransLine.JoinSalesLineToTransLine(SelectedLines, TransferOrderNumber);
                         until SelectedLines.Next() = 0;
                     end;
                 end;

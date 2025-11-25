@@ -42,7 +42,15 @@ codeunit 50002 "TorlysQtyRoundingSalesLine"
     begin
         OnChangeQtyToShipPallet(Rec, xRec);
     end;
-    //Sales Order - end
+    // Sales Order - end
+
+    // View and Fill Linked SO - start
+    [EventSubscriber(ObjectType::Page, Page::TorlysJoinedSOtoTO, 'OnBeforeValidateEvent', 'Qty. to Ship', false, false)]
+    local procedure OnValidateQtyToShipSOtoTO(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    begin
+        OnChangeQtyToShip(Rec, xRec);
+    end;
+    // View and Fill Linked SO - end
 
     // Sales Invoice - start
     [EventSubscriber(ObjectType::Page, Page::"Sales Invoice Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
@@ -68,9 +76,9 @@ codeunit 50002 "TorlysQtyRoundingSalesLine"
     begin
         OnChangeQuantityPallet(Rec, xRec);
     end;
-    //Sales Invoice - end    
+    // Sales Invoice - end    
 
-    //Credit Memo - start
+    // Credit Memo - start
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
     local procedure OnValidateItemCM(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
     begin
@@ -94,9 +102,9 @@ codeunit 50002 "TorlysQtyRoundingSalesLine"
     begin
         OnChangeQuantityPallet(Rec, xRec);
     end;
-    //Credit Memo - end  
+    // Credit Memo - end  
 
-    //Return Order - start
+    // Return Order - start
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterGetRecordCheckEditCasePallet', '', false, false)]
     local procedure OnValidateItemRO(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
     begin
@@ -138,7 +146,7 @@ codeunit 50002 "TorlysQtyRoundingSalesLine"
     begin
         OnChangeQtyToReceivePallet(Rec, xRec);
     end;
-    //Return Order - end  
+    // Return Order - end  
 
     procedure CheckEditCasePallet(var Rec: Record "Sales Line"): Boolean
     begin

@@ -1,5 +1,9 @@
 Table 51058 "Display Line"
 {
+    DataClassification = CustomerContent;
+    Caption = 'Display Line';
+    DrillDownPageId = "Customer Display Subform";
+    LookupPageId = "Customer Display Subform";
     Fields
     {
         field(1; "LineNo."; Integer)
@@ -44,19 +48,6 @@ Table 51058 "Display Line"
         }
     }
 
-    trigger OnInsert()
-    var
-        LastLineNo: Integer;
-    begin
-        if "LineNo." = 0 then begin
-
-            if Rec.FindLast() then
-                LastLineNo := Rec."LineNo.";
-
-
-            "LineNo." := LastLineNo + 10000;
-        end;
-    end;
 
     procedure PopulateDescription(DisplayRec: Record "Display Line")
     var
@@ -66,5 +57,19 @@ Table 51058 "Display Line"
         if ItemCategory.Get(DisplayRec."Item Category Code") then
             Rec.Description := ItemCategory.Description;
 
+    end;
+
+    procedure GetNextLineNo(CustNo: Code[10]; LocationCode: Code[10]): Integer
+    var
+        DisplayLine: Record "Display Line";
+        NextLineNo: Integer;
+    begin
+        DisplayLine.SetRange("CustNo.", "CustNo");
+        DisplayLine.SetRange("CustLocationCode", LocationCode);
+        if "DisplayLine".FindLast() then
+            NextLineNo := DisplayLine."LineNo.";
+
+        NextLineNo += 10000;
+        exit(NextLineNo);
     end;
 }

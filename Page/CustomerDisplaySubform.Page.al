@@ -3,10 +3,14 @@ Page 51025 "Customer Display Subform"
     Caption = 'Customer Display Lines';
     PageType = ListPart;
     SourceTable = "Display Line";
+    SourceTableView = sorting("Display Type", "Item Category Code") order(ascending);
     ApplicationArea = All;
     PopulateAllFields = true;
     DelayedInsert = true;
     LinksAllowed = false;
+    DeleteAllowed = true;
+    InsertAllowed = true;
+    ModifyAllowed = true;
 
     layout
     {
@@ -14,12 +18,6 @@ Page 51025 "Customer Display Subform"
         {
             repeater(DisplayLines)
             {
-                field("Line No."; Rec."LineNo.")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the line number.';
-                    Visible = false;
-                }
                 field("Customer No."; Rec."CustNo.")
                 {
                     ApplicationArea = All;
@@ -63,8 +61,4 @@ Page 51025 "Customer Display Subform"
             }
         }
     }
-    trigger onInit()
-    begin
-
-    end;
 }

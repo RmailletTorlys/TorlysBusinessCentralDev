@@ -2,10 +2,11 @@ Page 51023 "Customer Displays List"
 {
     Caption = 'Customer Displays';
     PageType = List;
+    DataCaptionFields = CustLocationCode;
     SourceTable = "Display Header";
     CardPageId = "Customer Display Card";
-    ApplicationArea = All;
-    UsageCategory = Lists;
+    Editable = false;
+
 
     layout
     {
@@ -23,6 +24,12 @@ Page 51023 "Customer Displays List"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer  code.';
+                }
+
+                field("Customer Address"; Rec.CustAddress)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer address.';
                 }
 
                 field("Power Up Member"; Rec.PowerUp)

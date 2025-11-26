@@ -1,4 +1,3 @@
-
 pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 {
     layout
@@ -412,7 +411,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             {
                 ToolTip = 'Join To Transfer Order';
                 Caption = 'Join To Transfer Order';
-                Image = OrderTracking;
+                Image = TransferToLines;
                 ApplicationArea = All;
                 trigger OnAction()
                 var
@@ -428,6 +427,67 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                         repeat
                             TorlysJoinSalesLineToTransLine.JoinSalesLineToTransLine(SelectedLines, TransferOrderNumber);
                         until SelectedLines.Next() = 0;
+                    end;
+                end;
+            }
+            action("Remove Link To Purchase Order")
+            {
+                ToolTip = 'Remove Link To Purchase Order';
+                Caption = 'Remove Link To Purchase Order';
+                Image = RemoveLine;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    Rec."Linked Purchase Order No." := '';
+                    Rec."Linked Purch. Order Line No." := 0;
+                    Rec.Modify(true);
+                end;
+            }
+            action("Link To Purchase Order")
+            {
+                ToolTip = 'Link To Purchase Order';
+                Caption = 'Link To Purchase Order';
+                Image = Purchase;
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                    SalesLine: Record "Sales Line";
+                begin
+                    CurrPage.SetSelectionFilter(SalesLine);
+                    if SalesLine.FindSet() then begin
+                        TorlysLinkSalesLine.LinkSalesLineToPurchaseLine(SalesLine);
+                    end;
+                end;
+            }
+            action("Remove Link To Transfer Order")
+            {
+                ToolTip = 'Remove Link To Transfer Order';
+                Caption = 'Remove Link To Transfer Order';
+                Image = RemoveLine;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    Rec."Linked Transfer Order No." := '';
+                    Rec."Linked Transfer Order Line No." := 0;
+                    Rec.Modify(true);
+                end;
+            }
+
+            action("Link To Transfer Order")
+            {
+                ToolTip = 'Link To Transfer Order';
+                Caption = 'Link To Transfer Order';
+                Image = TransferOrder;
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                    SalesLine: Record "Sales Line";
+                begin
+                    CurrPage.SetSelectionFilter(SalesLine);
+                    if SalesLine.FindSet() then begin
+                        TorlysLinkSalesLine.LinkSalesLineToTransferLine(SalesLine);
                     end;
                 end;
             }

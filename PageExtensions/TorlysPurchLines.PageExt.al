@@ -152,6 +152,36 @@ pageextension 50518 TorlysPurchLines extends "Purchase Lines"
                 Editable = false;
             }
 
+            field("Drop Shipment"; Rec."Drop Shipment")
+            {
+                Caption = 'Drop Shipment';
+                ToolTip = 'Drop Shipment';
+                ApplicationArea = All;
+                Editable = false;
+            }
+
+            field("Sales Order No."; Rec."Sales Order No.")
+            {
+                Caption = 'Sales Order No.';
+                ToolTip = 'Sales Order No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Sales Order Line No."; Rec."Sales Order Line No.")
+            {
+                Caption = 'Sales Order Line No.';
+                ToolTip = 'Sales Order Line No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
+
+            field("Quantity Linked"; Rec."Quantity Linked")
+            {
+                Caption = 'Quantity Linked';
+                ToolTip = 'Quantity Linked';
+                ApplicationArea = All;
+            }
+
             field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

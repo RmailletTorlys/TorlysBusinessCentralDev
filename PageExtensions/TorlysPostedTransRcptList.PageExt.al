@@ -1,11 +1,24 @@
-pageextension 55742 TorlysTransferOrders extends "Transfer Orders"
+pageextension 55753 TorlysPostedTransRcptList extends "Posted Transfer Receipts"
 {
     layout
     {
-        moveafter("No."; Status)
 
-        addafter("Status")
+        addafter("No.")
         {
+            field("Transfer Order No."; Rec."Transfer Order No.")
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Transfer Order No.';
+                Caption = 'Transfer Order No.';
+                Visible = true;
+            }
+            field("Transfer Order Date"; Rec."Transfer Order Date")
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Transfer Order Date';
+                Caption = 'Transfer Order Date';
+                Visible = true;
+            }
             field("Transfer Type"; Rec."Transfer Type")
             {
                 ApplicationArea = Basic, Suite;
@@ -13,19 +26,26 @@ pageextension 55742 TorlysTransferOrders extends "Transfer Orders"
                 Caption = 'Transfer Type';
             }
         }
-        moveafter("Transfer Type"; "Transfer-from Code", "Transfer-to Code", "Direct Transfer", "In-Transit Code")
+        moveafter("Transfer Type"; "Transfer-from Code", "Transfer-to Code")
 
-        addafter("In-Transit Code")
+        addafter("Transfer-to Code")
         {
-            field("Posting Date"; Rec."Posting Date")
+            field("Direct Transfer"; Rec."Direct Transfer")
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Posting Date';
-                Caption = 'Posting Date';
+                ToolTip = 'Direct Transfer';
+                Caption = 'Direct Transfer';
+            }
+
+            field("In-Transit Code"; Rec."In-Transit Code")
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'In-Transit Code';
+                Caption = 'In-Transit Code';
             }
         }
 
-        moveafter("Posting Date"; "Shipment Date", "Receipt Date", "Shipping Agent Code")
+        moveafter("In-Transit Code"; "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code")
 
         addafter("Shipping Agent Code")
         {

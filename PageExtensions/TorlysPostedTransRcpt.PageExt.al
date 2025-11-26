@@ -1,4 +1,4 @@
-pageextension 55740 TorlysTransferOrder extends "Transfer Order"
+pageextension 55745 TorlysPostedTransRcpt extends "Posted Transfer Receipt"
 {
     layout
     {
@@ -9,12 +9,13 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Caption = 'Transfer Type';
                 ToolTip = 'Transfer Type';
                 ApplicationArea = All;
+                Editable = false;
             }
         }
 
-        moveafter("Transfer-from Code"; "Transfer-to Code", "Direct Transfer", "In-Transit Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code")
+        moveafter("Transfer-from Code"; "Transfer-to Code", "Direct Transfer", "In-Transit Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code", "Transfer Order No.", "Transfer Order Date")
 
-        addafter("Shipping Agent Code")
+        addafter("Transfer Order Date")
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
@@ -48,27 +49,28 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Editable = false;
                 Importance = Additional;
             }
-        }
 
-        modify("Assigned User ID")
+        }
+        modify("Shortcut Dimension 1 Code")
         {
-            Visible = false;
+            Visible = true;
+        }
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = true;
         }
     }
 
     actions
     {
-        addlast(Category_Category6)
+        addlast(Category_Category4)
         {
-            actionref(JoinedSO; "View and Fill Joined SO")
-            {
-            }
-            actionref(LinkededSO; "View and Fill Linked SO")
+            actionref(SOJoin; "View and Fill Joined SO")
             {
             }
         }
 
-        addlast(Documents)
+        addlast("&Receipt")
         {
             action("View and Fill Joined SO")
             {
@@ -78,15 +80,6 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Image = Order;
                 RunObject = Page TorlysJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
-            }
-            action("View and Fill Linked SO")
-            {
-                ApplicationArea = Location;
-                Caption = 'View and Fill Linked SO';
-                ToolTip = 'View and Fill Linked SO';
-                Image = OrderTracking;
-                RunObject = Page TorlysLinkedSOtoTO;
-                RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item);
             }
         }
     }

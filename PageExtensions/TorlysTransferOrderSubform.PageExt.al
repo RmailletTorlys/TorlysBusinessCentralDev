@@ -128,6 +128,20 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
                 Visible = true;
             }
 
+            field("Quantity Linked"; Rec."Quantity Linked")
+            {
+                Caption = 'Quantity Linked';
+                ToolTip = 'Quantity Linked';
+                ApplicationArea = All;
+            }
+
+            field("Qty. to Ship Linked"; Rec."Qty. to Ship Linked")
+            {
+                Caption = 'Qty. to Ship Linked';
+                ToolTip = 'Qty. to Ship Linked';
+                ApplicationArea = All;
+            }
+
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';

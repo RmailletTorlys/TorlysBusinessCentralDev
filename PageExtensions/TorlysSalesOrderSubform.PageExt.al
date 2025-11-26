@@ -430,6 +430,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     end;
                 end;
             }
+            separator("Separator1")
+            {
+            }
             action("Remove Link To Purchase Order")
             {
                 ToolTip = 'Remove Link To Purchase Order';
@@ -438,9 +441,14 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec."Linked Purchase Order No." := '';
-                    Rec."Linked Purch. Order Line No." := 0;
-                    Rec.Modify(true);
+                    if Rec."Linked Purchase Order No." = '' then begin
+                        Error('ERROR!\This line is not linked to a purchase order');
+                    end else begin
+                        Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Purchase Order No.", Rec."Linked Purch. Order Line No.");
+                        Rec."Linked Purchase Order No." := '';
+                        Rec."Linked Purch. Order Line No." := 0;
+                        Rec.Modify(true);
+                    end;
                 end;
             }
             action("Link To Purchase Order")
@@ -460,6 +468,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     end;
                 end;
             }
+            separator("Separator2")
+            {
+            }
             action("Remove Link To Transfer Order")
             {
                 ToolTip = 'Remove Link To Transfer Order';
@@ -468,9 +479,14 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec."Linked Transfer Order No." := '';
-                    Rec."Linked Transfer Order Line No." := 0;
-                    Rec.Modify(true);
+                    if Rec."Linked Transfer Order No." = '' then begin
+                        Error('ERROR!\This line is not linked to a transfer order');
+                    end else begin
+                        Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Transfer Order No.", Rec."Linked Transfer Order Line No.");
+                        Rec."Linked Transfer Order No." := '';
+                        Rec."Linked Transfer Order Line No." := 0;
+                        Rec.Modify(true);
+                    end;
                 end;
             }
 
@@ -490,6 +506,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                         TorlysLinkSalesLine.LinkSalesLineToTransferLine(SalesLine);
                     end;
                 end;
+            }
+            separator("Separator3")
+            {
             }
         }
     }

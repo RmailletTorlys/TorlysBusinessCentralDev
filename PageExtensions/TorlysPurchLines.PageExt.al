@@ -181,6 +181,12 @@ pageextension 50518 TorlysPurchLines extends "Purchase Lines"
                 ToolTip = 'Quantity Linked';
                 ApplicationArea = All;
             }
+            field("Qty. to Ship Linked"; Rec."Qty. to Ship Linked")
+            {
+                Caption = 'Qty. to Ship Linked';
+                ToolTip = 'Qty. to Ship Linked';
+                ApplicationArea = All;
+            }
 
             field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
             {

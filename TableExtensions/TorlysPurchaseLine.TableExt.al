@@ -78,14 +78,14 @@ tableextension 50039 TorlysPurchaseLine extends "Purchase Line"
             Caption = 'Quantity Linked';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Quantity" where("Linked Transfer Order No." = field("Document No."), "Linked Transfer Order Line No." = field("Line No.")));
+            CalcFormula = Sum("Sales Line"."Quantity" where("Linked Purchase Order No." = field("Document No."), "Linked Purch. Order Line No." = field("Line No.")));
         }
         field(50016; "Qty. to Ship Linked"; Decimal)
         {
             Caption = 'Qty. to Ship Linked';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Transfer Order No." = field("Document No."), "Linked Transfer Order Line No." = field("Line No.")));
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Purchase Order No." = field("Document No."), "Linked Purch. Order Line No." = field("Line No.")));
         }
     }
 

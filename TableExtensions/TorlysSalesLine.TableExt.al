@@ -129,7 +129,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             Caption = 'Linked Purch. Order Line No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Purchase Line"."Line No." where("Document Type" = const(Order), "Document No." = field("Purchase Order No."));
+            TableRelation = "Purchase Line"."Line No." where("Document Type" = const(Order), "Document No." = field("Linked Purchase Order No."));
         }
         field(50022; "Linked Transfer Order No."; Code[20])
         {

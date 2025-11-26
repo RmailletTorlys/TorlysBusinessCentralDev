@@ -15,8 +15,8 @@ enum 50010 "Torlys Display Types"
         Caption = 'Olympic Display';
     }
 
-    value(3; LegacyDisplay)
+    value(3; SignatureDisplay)
     {
-        Caption = 'Legacy Display';
+        Caption = 'Signature Display';
     }
 }

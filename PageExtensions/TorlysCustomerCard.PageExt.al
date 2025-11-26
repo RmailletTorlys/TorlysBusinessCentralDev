@@ -641,6 +641,29 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
         {
             Importance = Additional;
         }
+    }
+
+    actions
+    {
+        addafter(ShipToAddresses)
+        {
+            action(Displays)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Customer Displays';
+                Image = Database;
+                RunObject = Page "Customer Displays List";
+                RunPageLink = "CustNo." = field("No.");
+                ToolTip = 'View or edit customer display programs for this customer.';
+            }
+        }
+
+        addafter(ShipToAddresses_Promoted)
+        {
+            actionref(Displays_Promoted; Displays) { }
+        }
+
+
 
 
 

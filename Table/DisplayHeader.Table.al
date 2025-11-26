@@ -1,5 +1,7 @@
 Table 51057 "Display Header"
 {
+    DataClassification = CustomerContent;
+    Caption = 'Display Header';
     Fields
     {
         field(1; "CustNo."; Code[10])

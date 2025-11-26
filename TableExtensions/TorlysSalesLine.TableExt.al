@@ -143,7 +143,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             Caption = 'Linked Transfer Order Line No.';
             DataClassification = CustomerContent;
             Editable = false;
-            TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
+            TableRelation = "Transfer Line"."Line No." where("Document No." = field("Linked Transfer Order No."));
         }
     }
 

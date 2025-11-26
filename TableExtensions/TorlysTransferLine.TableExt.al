@@ -54,6 +54,21 @@ tableextension 55741 TorlysTransferLine extends "Transfer Line"
             TableRelation = "Sales Line"."Line No." where("Document Type" = const(Order), "Document No." = field("Sales Order No."));
         }
 
+        field(50009; "Quantity Linked"; Decimal)
+        {
+            Caption = 'Quantity Linked';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Quantity" where("Linked Transfer Order No." = field("Document No."), "Linked Transfer Order Line No." = field("Line No.")));
+        }
+        field(50010; "Qty. to Ship Linked"; Decimal)
+        {
+            Caption = 'Qty. to Ship Linked';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Transfer Order No." = field("Document No."), "Linked Transfer Order Line No." = field("Line No.")));
+        }
+
     }
 
     [IntegrationEvent(false, false)]

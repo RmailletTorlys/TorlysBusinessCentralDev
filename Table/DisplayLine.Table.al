@@ -5,6 +5,7 @@ Table 51058 "Display Line"
         field(1; "LineNo."; Integer)
         {
             Caption = 'Line No.';
+
         }
         field(2; "CustNo."; Code[10])
         {
@@ -20,9 +21,9 @@ Table 51058 "Display Line"
         {
             Caption = 'Display Type';
         }
-        field(5; "Program No."; Code[20])
+        field(5; "Item Category Code"; Code[20])
         {
-            Caption = 'Program No.';
+            Caption = 'Item Category Code';
             TableRelation = "Item Category".Code;
         }
         field(6; "Description"; Text[100])
@@ -37,17 +38,33 @@ Table 51058 "Display Line"
 
     Keys
     {
-        key(Key1; "Display Type", "Program No.")
+        key(Key1; "LineNo.", "CustNo.", CustLocationCode, "Display Type", "Item Category Code")
         {
             Clustered = true;
         }
     }
 
+    trigger OnInsert()
+    var
+        LastLineNo: Integer;
+    begin
+        if "LineNo." = 0 then begin
+
+            if Rec.FindLast() then
+                LastLineNo := Rec."LineNo.";
+
+
+            "LineNo." := LastLineNo + 10000;
+        end;
+    end;
+
     procedure PopulateDescription(DisplayRec: Record "Display Line")
     var
         ItemCategory: Record "Item Category";
     begin
-        if ItemCategory.Get(DisplayRec."Program No.") then
-            DisplayRec.Description := ItemCategory.Description;
+        Rec := DisplayRec;
+        if ItemCategory.Get(DisplayRec."Item Category Code") then
+            Rec.Description := ItemCategory.Description;
+
     end;
 }

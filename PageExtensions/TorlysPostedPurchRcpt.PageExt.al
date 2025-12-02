@@ -104,6 +104,28 @@ pageextension 50136 TorlysPostedPurchRcpt extends "Posted Purchase Receipt"
         }
 
     }
+    actions
+    {
+        addlast(Category_Category4)
+        {
+            actionref(LinkededSO; "View and Fill Linked SO")
+            {
+            }
+        }
+
+        addlast("&Receipt")
+        {
+            action("View and Fill Linked SO")
+            {
+                ApplicationArea = Location;
+                Caption = 'View and Fill Linked SO';
+                ToolTip = 'View and Fill Linked SO';
+                Image = OrderTracking;
+                RunObject = Page TorlysLinkedSOtoPO;
+                RunPageLink = "Linked Purchase Order No." = field("No."), Type = const(Item);
+            }
+        }
+    }
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
 }

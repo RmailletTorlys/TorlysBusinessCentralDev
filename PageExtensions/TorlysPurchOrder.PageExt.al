@@ -323,6 +323,28 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
         }
 
     }
+    actions
+    {
+        addlast(Category_Category8)
+        {
+            actionref(LinkededSO; "View and Fill Linked SO")
+            {
+            }
+        }
+
+        addlast(Documents)
+        {
+            action("View and Fill Linked SO")
+            {
+                ApplicationArea = Location;
+                Caption = 'View and Fill Linked SO';
+                ToolTip = 'View and Fill Linked SO';
+                Image = OrderTracking;
+                RunObject = Page TorlysLinkedSOtoPO;
+                RunPageLink = "Linked Purchase Order No." = field("No."), Type = const(Item);
+            }
+        }
+    }
 
     var
         LookupUserId: Codeunit "TorlysLookupUserID";

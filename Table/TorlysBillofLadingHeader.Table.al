@@ -2,6 +2,7 @@ table 55002 "Torlys BOL Header"
 {
     DataClassification = CustomerContent;
     Caption = 'Torlys BOL Header';
+    Permissions = tabledata "Sales Shipment Header" = rm;
 
     fields
     {
@@ -190,11 +191,11 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(26; "Warehouse Associate Loaded by"; Code[20])
+        field(26; "Loaded by"; Code[20])
         {
-            Caption = 'Warehouse Associate Loaded by';
+            Caption = 'Loaded by';
             DataClassification = CustomerContent;
-            TableRelation = "Salesperson/Purchaser";
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
 
         field(27; "Carrier Tracking No."; Code[15])

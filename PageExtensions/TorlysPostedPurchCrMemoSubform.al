@@ -122,20 +122,6 @@ pageextension 50141 "TorlysPostedPurchCrMemoSubform" extends "Posted Purch. Cr. 
                 ToolTip = 'Created At';
                 ApplicationArea = All;
             }
-
-            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-            }
-
-            field("Modified At"; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-            }
         }
 
         modify("Tax Area Code")

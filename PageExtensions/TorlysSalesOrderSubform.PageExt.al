@@ -125,7 +125,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
         addafter("Quantity Shipped")
         {
-            field("Qty. Shipped Not Invoiced"; Rec."Shipped Not Invoiced")
+            field("Qty. Shipped Not Invoiced"; Rec."Qty. Shipped Not Invoiced")
             {
                 Caption = 'Qty. Shipped Not Invoiced';
                 ToolTip = 'Qty. Shipped Not Invoiced';

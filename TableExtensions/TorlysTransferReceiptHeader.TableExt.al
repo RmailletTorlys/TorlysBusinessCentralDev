@@ -35,5 +35,10 @@ tableextension 55746 TorlysTransferReceiptHeader extends "Transfer Receipt Heade
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser";
         }
+        field(50006; "BOL No."; Code[20])
+        {
+            Caption = 'BOL No.';
+            DataClassification = CustomerContent;
+        }
     }
 }

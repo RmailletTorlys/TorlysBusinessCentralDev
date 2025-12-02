@@ -8,7 +8,7 @@ page 51001 "Torlys BOL List"
     Editable = false;
     PageType = List;
     SourceTable = "Torlys BOL Header";
-    AdditionalSearchTerms = 'Bill of Lading, Bill of Lading, BOL, BOLs, Bills of Lading';
+    AdditionalSearchTerms = 'Bill of Lading, BOL';
 
     layout
     {
@@ -150,60 +150,57 @@ page 51001 "Torlys BOL List"
             }
         }
     }
-    actions
-    {
-        area(Processing)
-        {
-            action(FindBill)
-            {
-                ApplicationArea = Basic, Suite;
-                ToolTip = 'Find BoL';
-                Caption = 'Find BoL';
-                Image = Document;
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action(FindBill)
+    //         {
+    //             ApplicationArea = Basic, Suite;
+    //             ToolTip = 'Find BoL';
+    //             Caption = 'Find BoL';
+    //             Image = Document;
 
-                trigger OnAction()
-                var
-                    BillOfLading: Record "Torlys BOL Header";
-                    BoLListPage: Page "Torlys BOL List";
+    //             trigger OnAction()
+    //             var
+    //                 BillOfLading: Record "Torlys BOL Header";
+    //                 BoLListPage: Page "Torlys BOL List";
 
-                begin
-                    BoLListPage.SetTableView(BillOfLading);
-                    BoLListPage.SetRecord(BillOfLading);
-                    BoLListPage.LookupMode := true;
-                    if BoLListPage.RunModal() = Action::LookupOK then begin
-                        BoLListPage.GetRecord(BillOfLading);
-                        Rec.Get(BillOfLading."No.");
-                    end;
-                end;
+    //             begin
+    //                 BoLListPage.SetTableView(BillOfLading);
+    //                 BoLListPage.SetRecord(BillOfLading);
+    //                 BoLListPage.LookupMode := true;
+    //                 if BoLListPage.RunModal() = Action::LookupOK then begin
+    //                     BoLListPage.GetRecord(BillOfLading);
+    //                     Rec.Get(BillOfLading."No.");
+    //                 end;
+    //             end;
 
-            }
-        }
-        area(navigation)
-        {
-            group("&Line")
-            {
-                Caption = '&Line';
-                Image = Line;
-                action("Show Order")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Show BoL';
-                    Image = ViewOrder;
-                    RunObject = Page "Torlys BoL";
-                    RunPageLink = "No." = field("No.");
-                    ToolTip = 'View the selected bill of lading.';
-                }
-            }
-        }
-    }
+    //         }
+    //     }
+    //     area(navigation)
+    //     {
+    //         group("&Line")
+    //         {
+    //             Caption = '&Line';
+    //             Image = Line;
+    //             action("Show Order")
+    //             {
+    //                 ApplicationArea = Basic, Suite;
+    //                 Caption = 'Show BoL';
+    //                 Image = ViewOrder;
+    //                 RunObject = Page "Torlys BoL";
+    //                 RunPageLink = "No." = field("No.");
+    //                 ToolTip = 'View the selected bill of lading.';
+    //             }
+    //         }
+    //     }
+    // }
 
 
     procedure OnGetShipToCode(ShipToCode: Code[10]; CustomerNo: Code[10])
     var
-
         Customer: Record Customer;
-
-
     begin
 
         if CustomerNo = '' then

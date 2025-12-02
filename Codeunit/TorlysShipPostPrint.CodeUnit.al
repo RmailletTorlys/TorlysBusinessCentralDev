@@ -73,7 +73,8 @@ codeunit 50012 "TorlysShip-Post+Print"
                 ReportSelection.Usage::"S.Cr.Memo":
                     REPORT.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
                 ReportSelection.Usage::"S.Shipment":
-                    REPORT.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
+                    // REPORT.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
+                    REPORT.Run(ReportSelection."Report ID", true, false, SalesShptHeader); //changed to true so dont have to buy print management
                 ReportSelection.Usage::"S.Ret.Rcpt.":
                     REPORT.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
             end;

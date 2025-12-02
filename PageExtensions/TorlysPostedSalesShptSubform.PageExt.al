@@ -187,20 +187,6 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 ToolTip = 'Created At';
                 ApplicationArea = All;
             }
-
-            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-            }
-
-            field("Modified At"; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-            }
         }
 
         modify("Qty. Shipped Not Invoiced")

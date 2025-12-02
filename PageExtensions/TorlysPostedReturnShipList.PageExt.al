@@ -28,18 +28,6 @@ pageextension 56652 TorlysPostedReturnShipList extends "Posted Return Shipments"
                 ToolTip = 'Created At';
                 ApplicationArea = All;
             }
-            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-            }
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-            }
         }
 
         modify("Buy-from Vendor No.")

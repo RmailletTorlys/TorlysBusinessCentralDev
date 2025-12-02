@@ -149,14 +149,14 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         {
             Caption = 'Picked By';
             DataClassification = CustomerContent;
-            TableRelation = "Salesperson/Purchaser";
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
 
         field(50027; "Audited By"; code[20])
         {
             Caption = 'Audited By';
             DataClassification = CustomerContent;
-            TableRelation = "Salesperson/Purchaser";
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
 
         field(50028; "Freight Zone Code"; Code[20])
@@ -191,19 +191,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = "Torlys Shipping Instructions";
-        }
-
-        field(50038; "Whse Assoc. Picked By Name"; code[50])
-        {
-            Caption = 'Warehouse Associate Picked By';
-            DataClassification = CustomerContent;
-
-        }
-        field(50039; "Whse Assoc. Checked By Name"; code[50])
-        {
-            Caption = 'Warehouse Associate Checked By';
-            DataClassification = CustomerContent;
-
         }
 
         field(50040; "Shipping Comment"; Text[50])

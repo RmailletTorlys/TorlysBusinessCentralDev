@@ -7,6 +7,10 @@ page 51004 "Torlys BOL Subform"
     MultipleNewLines = true;
     PageType = ListPart;
     SourceTable = "Torlys BOL Line";
+    DeleteAllowed = true;
+    ModifyAllowed = false;
+    InsertAllowed = false;
+
 
     layout
     {
@@ -20,6 +24,7 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the bill of lading.';
                     Caption = 'BOL No.';
+                    Editable = false;
                 }
 
                 field("Order No."; Rec."Order No.")
@@ -27,6 +32,7 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the order that is being shipped.';
                     Caption = 'Order No.';
+                    Editable = false;
                 }
 
                 field("Shipment No."; Rec."Shipment No.")
@@ -34,6 +40,7 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the shipment that is being shipped.';
                     Caption = 'Shipment No.';
+                    Editable = false;
                 }
 
                 field("Shipment Date"; Rec."Shipment Date")
@@ -41,31 +48,35 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the date of the shipment.';
                     Caption = 'Shipment Date';
+                    Editable = false;
                 }
 
                 field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated customer';
+                    Editable = false;
                 }
 
                 field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to code';
+                    Editable = false;
                 }
 
                 field("Ship-to Name"; Rec."Ship-to Name")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to name';
+                    Editable = false;
                 }
 
                 field("Ship-to Address"; Rec."Ship-to Address")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to address';
-
+                    Editable = false;
                 }
 
                 field("Ship-to Address 2"; Rec."Ship-to Address 2")
@@ -73,12 +84,14 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the second line of the address of the ship-to address.';
                     Caption = 'Ship-to Address 2';
+                    Editable = false;
                 }
 
                 field("Ship-to City"; Rec."Ship-to City")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to city';
+                    Editable = false;
                 }
 
                 field("Ship-to State"; Rec."Ship-to County")
@@ -86,12 +99,14 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the state of the ship-to address.';
                     Caption = 'Ship-to State';
+                    Editable = false;
                 }
                 field("Ship-to Country"; Rec."Ship-to Country/Region Code")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the country of the ship-to address.';
                     Caption = 'Ship-to Country';
+                    Editable = false;
                 }
 
                 field("Shipping Comment"; Rec."Shipping Comment")
@@ -99,6 +114,7 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the first line of the shipping comment.';
                     Caption = 'Shipping Comment';
+                    Editable = false;
                 }
 
                 // field("Ship-to Comment 2"; Rec."Destination Instruction 2")
@@ -113,6 +129,7 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the total weight of the shipment.';
                     Caption = 'Total Weight';
+                    Editable = false;
                 }
 
                 field("Total Cases"; Rec."Total Cases")
@@ -120,6 +137,7 @@ page 51004 "Torlys BOL Subform"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the total number of cases in the shipment.';
                     Caption = 'Total Cases';
+                    Editable = false;
                 }
             }
         }

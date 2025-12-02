@@ -100,20 +100,6 @@ pageextension 56651 TorlysPostedReturnShipSubform extends "Posted Return Shipmen
                 ToolTip = 'Created At';
                 ApplicationArea = All;
             }
-
-            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-            }
-
-            field("Modified At"; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-            }
         }
 
         modify("Unit of Measure Code")

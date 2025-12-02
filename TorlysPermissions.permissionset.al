@@ -1,9 +1,11 @@
 namespace TORLYS;
+using Microsoft.Sales.History;
 
 permissionset 50000 TorlysPermissions
 {
     Assignable = true;
-    Permissions = tabledata "Torlys BOL Header" = RIMD,
+    Permissions =
+        tabledata "Torlys BOL Header" = RIMD,
         tabledata "Torlys BOL Line" = RIMD,
         tabledata "Claims Header" = RIMD,
         tabledata "Claims Line" = RIMD,
@@ -53,7 +55,7 @@ permissionset 50000 TorlysPermissions
         page "Torlys BOL Subform" = X,
         page "Torlys BOL List" = X,
         page "Torlys Processed BOL" = X,
-        page "Orders To Be Shipped List" = X,
+        page TorlysOrdersToBeShippedList = X,
         query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;
 }

@@ -96,20 +96,6 @@ pageextension 50137 TorlysPostedPurchRcptSubform extends "Posted Purchase Rcpt. 
                 ToolTip = 'Created At';
                 ApplicationArea = All;
             }
-
-            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-            }
-
-            field("Modified At"; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-            }
         }
 
         modify("Promised Receipt Date")

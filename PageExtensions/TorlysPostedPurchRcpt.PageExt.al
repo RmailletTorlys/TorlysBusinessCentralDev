@@ -36,22 +36,6 @@ pageextension 50136 TorlysPostedPurchRcpt extends "Posted Purchase Receipt"
                 ApplicationArea = All;
                 Importance = Additional;
             }
-
-            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
         }
 
         modify("Buy-from")

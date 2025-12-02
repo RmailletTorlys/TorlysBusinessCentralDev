@@ -33,23 +33,6 @@ pageextension 55745 TorlysPostedTransRcpt extends "Posted Transfer Receipt"
                 Editable = false;
                 Importance = Additional;
             }
-            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified Date';
-                ToolTip = 'Modified Date';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
-
         }
         modify("Shortcut Dimension 1 Code")
         {

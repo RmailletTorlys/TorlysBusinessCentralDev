@@ -35,5 +35,10 @@ tableextension 55744 TorlysTransferShipmentHeader extends "Transfer Shipment Hea
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser";
         }
+        field(50006; "BOL No."; Code[20])
+        {
+            Caption = 'BOL No.';
+            DataClassification = CustomerContent;
+        }
     }
 }

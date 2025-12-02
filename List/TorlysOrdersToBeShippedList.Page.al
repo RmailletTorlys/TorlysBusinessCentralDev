@@ -829,8 +829,14 @@ page 52001 TorlysOrdersToBeShippedList
                     Image = Print;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
                     trigger OnAction()
+                    var
+                        SalesHeader: Record "Sales Header";
                     begin
-                        DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.Count > 1 then
+                            Error('You cannot print multiple pick slips this way, choose 1 order.')
+                        else
+                            DocPrint.PrintSalesOrder(Rec, Usage::"Pick Instruction");
                     end;
                 }
                 action(PrintSummaryPickSlip)
@@ -840,8 +846,14 @@ page 52001 TorlysOrdersToBeShippedList
                     Image = Print;
                     ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
                     trigger OnAction()
+                    var
+                        SalesHeader: Record "Sales Header";
                     begin
-                        TorlysDocPrint.PrintSummaryPickSlip(Rec);
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.Count > 1 then
+                            Error('You cannot print summary pick slips this way, choose 1 order.')
+                        else
+                            TorlysDocPrint.PrintSummaryPickSlip(Rec);
                     end;
                 }
                 action(PrintLabel)
@@ -851,8 +863,14 @@ page 52001 TorlysOrdersToBeShippedList
                     Image = Print;
                     ToolTip = 'Print label for the sales order.';
                     trigger OnAction()
+                    var
+                        SalesHeader: Record "Sales Header";
                     begin
-                        TorlysDocPrint.PrintSalesOrderLabel(Rec);
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.Count > 1 then
+                            Error('You cannot print multiple labels this way, choose 1 order.')
+                        else
+                            TorlysDocPrint.PrintSalesOrderLabel(Rec);
                     end;
                 }
                 action(PostAndPrint)
@@ -863,17 +881,81 @@ page 52001 TorlysOrdersToBeShippedList
                     ToolTip = 'Post the selected sales order(s) as shipped.';
                     trigger OnAction()
                     var
-                        SelectedOrders: Record "Sales Header";
+                        SalesHeader: Record "Sales Header";
+                        FirstCustomerNo: Code[20];
+                        CurrentCustomerNo: Code[20];
+                        IsSameCustomer: Boolean;
+                        FirstShipTo: Code[10];
+                        CurrentShipTo: Code[10];
+                        IsSameShipTo: Boolean;
+                        FirstShipmentDate: Date;
+                        CurrentShipmentDate: Date;
+                        IsSameShipmentDate: Boolean;
+                        FirstShippingAgent: Code[10];
+                        CurrentShippingAgent: Code[10];
+                        IsSameShippingAgent: Boolean;
                     begin
-                        CurrPage.SetSelectionFilter(SelectedOrders);
-                        if SelectedOrders.FindSet() then
+                        // check if all selected customers match
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.FindSet() then begin
+                            FirstCustomerNo := SalesHeader."Sell-to Customer No.";
+                            repeat
+                                CurrentCustomerNo := SalesHeader."Sell-to Customer No.";
+                                if CurrentCustomerNo <> FirstCustomerNo then begin
+                                    IsSameCustomer := false;
+                                    Error('When posting multiple orders must be for same customer.')
+                                end;
+                            until SalesHeader.Next() = 0;
+                        end;
+
+                        // check if all selected ship-to match
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.FindSet() then begin
+                            FirstShipTo := SalesHeader."Ship-to Code";
+                            repeat
+                                CurrentShipTo := SalesHeader."Ship-to Code";
+                                if CurrentShipTo <> FirstShipTo then begin
+                                    IsSameShipTo := false;
+                                    Error('When posting multiple orders must be for same ship-to.')
+                                end;
+                            until SalesHeader.Next() = 0;
+                        end;
+
+                        // check if all selected shipment date match
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.FindSet() then begin
+                            FirstShipmentDate := SalesHeader."Shipment Date";
+                            repeat
+                                CurrentShipmentDate := SalesHeader."Shipment Date";
+                                if CurrentShipmentDate <> FirstShipmentDate then begin
+                                    IsSameShipmentDate := false;
+                                    Error('When posting multiple orders must be for same shipment date.')
+                                end;
+                            until SalesHeader.Next() = 0;
+                        end;
+
+                        // check if all selected shipping agent match
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.FindSet() then begin
+                            FirstShippingAgent := SalesHeader."Shipping Agent Code";
+                            repeat
+                                CurrentShippingAgent := SalesHeader."Shipping Agent Code";
+                                if CurrentShippingAgent <> FirstShippingAgent then begin
+                                    IsSameShippingAgent := false;
+                                    Error('When posting multiple orders must be for same shipping agent.')
+                                end;
+                            until SalesHeader.Next() = 0;
+                        end;
+
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.FindSet() then
                             repeat
                                 // since we can't inject to add freight, we will just call our own codeunit
                                 // out of the box codeunit below
                                 // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
                                 // our codeunit below
-                                CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", SelectedOrders);
-                            until SelectedOrders.Next() = 0;
+                                CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", SalesHeader);
+                            until SalesHeader.Next() = 0;
                     end;
                 }
             }
@@ -903,21 +985,26 @@ page 52001 TorlysOrdersToBeShippedList
                         ShipmentHeader: Record "Sales Shipment Header";
                         SalesHeader: Record "Sales Header";
                     begin
-                        RemoveBOL := Dialog.Confirm('This will just remove the BOL # from the SH and the OR, the BOL line will still be populated. Proceed?');
-                        if RemoveBOL then begin
-                            ShipmentHeader.Reset();
-                            ShipmentHeader.SetRange("No.", ShipmentNo);
-                            if ShipmentHeader.Find('-') then begin
-                                ShipmentHeader."BOL No." := '';
-                                ShipmentHeader.Modify(true);
-                                Message('BOL # removed from %1.', ShipmentNo);
-                            end;
-                            SalesHeader.Reset();
-                            SalesHeader.SetRange("No.", Rec."No.");
-                            if SalesHeader.Find('-') then begin
-                                SalesHeader."BOL No." := '';
-                                SalesHeader.Modify(true);
-                                Message('BOL # removed from %1.', Rec."No.");
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.Count > 1 then begin
+                            Error('You cannot remove BOL # this way, choose 1 order.')
+                        end else begin
+                            RemoveBOL := Dialog.Confirm('This will just remove the BOL # from the SH and the OR, the BOL line will still be populated. Proceed?');
+                            if RemoveBOL then begin
+                                ShipmentHeader.Reset();
+                                ShipmentHeader.SetRange("No.", ShipmentNo);
+                                if ShipmentHeader.Find('-') then begin
+                                    ShipmentHeader."BOL No." := '';
+                                    ShipmentHeader.Modify(true);
+                                    Message('BOL # removed from %1.', ShipmentNo);
+                                end;
+                                SalesHeader.Reset();
+                                SalesHeader.SetRange("No.", Rec."No.");
+                                if SalesHeader.Find('-') then begin
+                                    SalesHeader."BOL No." := '';
+                                    SalesHeader.Modify(true);
+                                    Message('BOL # removed from %1.', Rec."No.");
+                                end;
                             end;
                         end;
                     end;

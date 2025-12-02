@@ -4,7 +4,7 @@ table 55003 "Torlys BOL Line"
     Caption = 'Torlys BOL Line';
     DrillDownPageId = "Torlys BOL List";
     LookupPageId = "Torlys BOL List";
-
+    Permissions = tabledata "Sales Shipment Header" = rm;
 
     fields
     {
@@ -160,4 +160,53 @@ table 55003 "Torlys BOL Line"
             Clustered = true;
         }
     }
+
+    var
+        SalesHeader: Record "Sales Header";
+        SalesShipmentHeader: Record "Sales Shipment Header";
+        TransferHeader: Record "Transfer Header";
+        TransferShipmentHeader: Record "Transfer Shipment Header";
+        BOLHeader: Record "Torlys BOL Header";
+
+    trigger OnInsert()
+    begin
+        BOLHeader.Get("BOL No.");
+        if BOLHeader."No. Printed" > 0 then
+            Message('Bill of Lading has been printed prior to adding new lines, Print and Replace BOL on floor!');
+    end;
+
+    trigger OnDelete()
+    begin
+
+        // when deleting line on BOL remove BOL # from sales header
+        if SalesHeader.Get(1, Rec."Order No.") then begin
+            SalesHeader."BOL No." := '';
+            SalesHeader.Modify(true);
+        end;
+
+        // when deleting line on BOL remove BOL # from sales shipment header
+        if SalesShipmentHeader.Get(Rec."Shipment No.") then begin
+            SalesShipmentHeader."BOL No." := '';
+            SalesShipmentHeader.Modify(true);
+        end;
+
+        // when deleting line on BOL remove BOL # from transfer header
+        if TransferHeader.Get(Rec."Order No.") then begin
+            TransferHeader."BOL No." := '';
+            TransferHeader.Modify(true);
+        end;
+
+        // when deleting line on BOL remove BOL # from transfer shipment header
+        if TransferShipmentHeader.Get(Rec."Shipment No.") then begin
+            TransferShipmentHeader."BOL No." := '';
+            TransferShipmentHeader.Modify(true);
+        end;
+
+        //warn that you are modifying a printed BOL
+        BOLHeader.Get("BOL No.");
+        if BOLHeader."No. Printed" > 0 then
+            Message('BOL has been printed prior to deleting lines, print and replace BOL on floor!');
+
+    end;
+
 }

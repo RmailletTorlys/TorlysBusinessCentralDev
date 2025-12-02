@@ -142,13 +142,13 @@ codeunit 50299 TorlysDocumentPrint
     var
         ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
-        BOLHeader.SETRANGE("No.", BOLHeader."No.");
-        ReportSelectionWhse.SETRANGE(Usage, ReportSelectionWhse.Usage::"Bill of Lading");
-        ReportSelectionWhse.SETFILTER("Report ID", '<>0');
-        ReportSelectionWhse.FIND('-');
-        REPEAT
-            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, BOLHeader);
-        UNTIL ReportSelectionWhse.NEXT() = 0;
+        BOLHeader.SetRange("No.", BOLHeader."No.");
+        ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Bill of Lading");
+        ReportSelectionWhse.SetFilter("Report ID", '<>0');
+        ReportSelectionWhse.Find('-');
+        repeat
+            Report.RunModal(ReportSelectionWhse."Report ID", true, false, BOLHeader);
+        until ReportSelectionWhse.NEXT() = 0;
     end;
 
     procedure PrintProcessedBillOfLading(ProcessedBOLHeader: Record "Torlys Processed BOL Header"): Boolean

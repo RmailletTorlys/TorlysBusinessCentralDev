@@ -44,6 +44,10 @@ codeunit 50012 "TorlysShip-Post+Print"
             SalesHeader.Ship := true;
             SalesHeader.Invoice := false;
 
+            // have to add this because out of the box doesn't update posting date to today when posting
+            SalesHeader."Posting Date" := WorkDate();
+            SalesHeader.Modify();
+
             // custom to us - start
             // need to open order to add freight line
             SalesHeader.Status := SalesHeader.Status::Open;
@@ -73,7 +77,8 @@ codeunit 50012 "TorlysShip-Post+Print"
                 ReportSelection.Usage::"S.Cr.Memo":
                     REPORT.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
                 ReportSelection.Usage::"S.Shipment":
-                    REPORT.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
+                    // REPORT.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
+                    REPORT.Run(ReportSelection."Report ID", true, false, SalesShptHeader); //changed to true so dont have to buy print management
                 ReportSelection.Usage::"S.Ret.Rcpt.":
                     REPORT.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
             end;

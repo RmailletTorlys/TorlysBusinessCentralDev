@@ -92,22 +92,6 @@ pageextension 50135 TorlysPostedSalesCrMemoSubform extends "Posted Sales Cr. Mem
                 ApplicationArea = All;
                 Visible = true;
             }
-
-            field("Modified By"; LookupUserIdWithGuid(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-                Visible = true;
-            }
-
-            field("Modified At"; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-                Visible = true;
-            }
         }
 
         modify("Description 2")

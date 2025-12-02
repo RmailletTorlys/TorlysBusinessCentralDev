@@ -8,7 +8,7 @@ page 51005 "Torlys Processed BOL List"
     Editable = false;
     PageType = List;
     SourceTable = "Torlys Processed BOL Header";
-    AdditionalSearchTerms = 'Bill of Lading, Bill of Lading, BOL, BOLs, Bills of Lading';
+    AdditionalSearchTerms = 'Bill of Lading, BOL';
 
     layout
     {

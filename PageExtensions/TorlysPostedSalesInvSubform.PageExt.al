@@ -94,36 +94,18 @@ pageextension 50133 TorlysPostedSalesInvSubform extends "Posted Sales Invoice Su
                 ApplicationArea = All;
                 Visible = true;
             }
-            field("System Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
+            field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
             }
-            field("System Created Date"; Rec."SystemCreatedAt")
+            field("Created Date"; Rec."SystemCreatedAt")
             {
-                Caption = 'System Created Date';
-                ToolTip = 'System Created Date';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-
-            field("System Last Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
-            {
-                Caption = 'System Last Modified By';
-                ToolTip = 'System Last Modified By';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-
-            field("System Last Modified Date"; Rec."SystemModifiedAt")
-            {
-                Caption = 'System Last Modified Date';
-                ToolTip = 'System Last Modified Date';
+                Caption = 'Created Date';
+                ToolTip = 'Created Date';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;

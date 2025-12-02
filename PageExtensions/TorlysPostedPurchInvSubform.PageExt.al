@@ -115,20 +115,6 @@ pageextension 50139 TorlysPostedPurchInvSubform extends "Posted Purch. Invoice S
                 ToolTip = 'Created At';
                 ApplicationArea = All;
             }
-
-            field("Modified By"; LookupUser.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-            }
-
-            field("Modified At"; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-            }
         }
 
         modify("Line Discount %")

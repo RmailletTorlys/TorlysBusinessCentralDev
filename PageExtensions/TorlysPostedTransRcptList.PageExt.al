@@ -65,22 +65,6 @@ pageextension 55753 TorlysPostedTransRcptList extends "Posted Transfer Receipts"
                 Editable = false;
                 Importance = Additional;
             }
-            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified Date';
-                ToolTip = 'Modified Date';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
         }
 
         modify("Shipment Date")

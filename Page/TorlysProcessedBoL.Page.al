@@ -1,6 +1,6 @@
 page 51006 "Torlys Processed BOL"
 {
-    AdditionalSearchTerms = 'Bill of Lading, BOL, BoL';
+    AdditionalSearchTerms = 'Bill of Lading, BOL';
     Caption = 'Processed Bill of Lading';
     PageType = Document;
     RefreshOnActivate = true;
@@ -66,12 +66,28 @@ page 51006 "Torlys Processed BOL"
                     Importance = Promoted;
                 }
 
-                field("Carrier Agent Code"; Rec."Shipping Agent Code")
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the code of the Carrier agent.';
-                    Caption = 'Carrier Agent Code';
+                    Caption = 'Shipping Agent Code';
                     Importance = Promoted;
+                }
+                field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+                {
+                    Caption = 'Created By';
+                    ToolTip = 'Created By';
+                    ApplicationArea = All;
+                    Editable = false;
+                    Importance = Additional;
+                }
+                field(SystemCreatedAt; Rec.SystemCreatedAt)
+                {
+                    Caption = 'Created Date';
+                    ToolTip = 'Created Date';
+                    ApplicationArea = All;
+                    Editable = false;
+                    Importance = Additional;
                 }
             }
 
@@ -133,11 +149,11 @@ page 51006 "Torlys Processed BOL"
                             Caption = 'Carrier Tracking No.';
                         }
 
-                        field("Whse Associate Loaded"; Rec."Warehouse Associate Loaded by")
+                        field("Loaded By"; Rec."Loaded by")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
-                            Caption = 'Whse Associate Loaded By';
+                            Caption = 'Loaded By';
                         }
 
                         field("Shipping Comment"; Rec."Shipping Comment")
@@ -378,8 +394,7 @@ page 51006 "Torlys Processed BOL"
         area(Promoted)
         {
             actionref("Print BOL"; PrintBOL)
-            {
-            }
+            { }
         }
         area(Navigation)
         {
@@ -399,4 +414,5 @@ page 51006 "Torlys Processed BOL"
     }
     var
         TorlysDocPrint: Codeunit "TorlysDocumentPrint";
+        LookupUserId: Codeunit TorlysLookupUserID;
 }

@@ -194,19 +194,6 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
             TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
         }
 
-        field(50038; "Whse Assoc. Picked By Name"; code[50])
-        {
-            Caption = 'Warehouse Associate Picked By';
-            DataClassification = CustomerContent;
-
-        }
-        field(50039; "Whse Assoc. Checked By Name"; code[50])
-        {
-            Caption = 'Warehouse Associate Checked By';
-            DataClassification = CustomerContent;
-
-        }
-
         field(50040; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';

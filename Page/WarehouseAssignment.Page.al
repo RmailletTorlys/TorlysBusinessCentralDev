@@ -3,6 +3,7 @@ page 50555 "Warehouse Assignment"
     Caption = 'Warehouse Picker Assignment';
     PageType = List;
     SourceTable = "Salesperson/Purchaser";
+    SourceTableView = where("Job Title" = filter('Warehouse Associate'));
     ApplicationArea = Basic, Suite;
     UsageCategory = Administration;
 

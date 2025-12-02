@@ -79,7 +79,7 @@ report 50013 "Processed BOL Carrier Manifest"
             {
 
             }
-            column(Warehouse_Associate_Loaded_by; "Warehouse Associate Loaded by")
+            column(Warehouse_Associate_Loaded_by; "Loaded By")
             {
 
             }

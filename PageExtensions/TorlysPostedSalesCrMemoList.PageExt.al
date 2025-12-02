@@ -134,24 +134,6 @@ pageextension 50144 TorlysPostedSalesCrMemoList extends "Posted Sales Credit Mem
                 Editable = false;
                 Visible = true;
             }
-
-            field("Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
-
-            field("Modified At"; Rec."SystemModifiedAt")
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-                Editable = false;
-                Visible = true;
-            }
         }
 
         modify("Posting Date")

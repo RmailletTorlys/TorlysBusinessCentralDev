@@ -1,12 +1,16 @@
-page 50999 "Torlys Sales Order Shipment"
+page 50999 TorlysSalesOrderShipment
 {
     Caption = 'Sales Order Shipment';
     PageType = Card;
     SourceTable = "Sales Header";
-    ApplicationArea = All;
-    UsageCategory = Administration;
+    ApplicationArea = Basic, Suite;
+    UsageCategory = Documents;
+    InsertAllowed = false;
+    DeleteAllowed = false;
+    ModifyAllowed = false;
+    RefreshOnActivate = true;
 
-    Layout
+    layout
     {
         area(Content)
         {
@@ -20,54 +24,17 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Specifies the unique number that identifies the sales order. The number is assigned when the sales order is created.';
                     Caption = 'Order No.';
                 }
-
                 field("Picked By"; Rec."Picked By")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the name of the warehouse associate who picked the items for the sales order.';
                     Caption = 'Picked By';
-
-                    trigger OnValidate()
-                    begin
-                        Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Picked By");
-                    end;
                 }
-
-                field("Whse Associate Picked By Name"; Rec."Whse Assoc. Picked By Name")
-                {
-                    ApplicationArea = All;
-
-                    ToolTip = 'Specifies the name of the warehouse associate who picked the items for the sales order.';
-                    Caption = 'Picked By Name';
-                }
-
                 field("Audited By"; Rec."Audited By")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the name of the warehouse associate who shipped the items for the sales order.';
-                    Caption = 'Checked By';
-
-                    trigger OnValidate()
-                    begin
-                        Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Audited By");
-                    end;
-                }
-
-                field("Whse Associate Shipped By Name"; Rec."Whse Assoc. Checked By Name")
-                {
-                    ApplicationArea = All;
-
-                    ToolTip = 'Specifies the name of the warehouse associate who shipped the items for the sales order.';
-                    Caption = 'Checked By Name';
-                }
-
-
-                field("Document Type"; Rec."Document Type")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the type of sales document, such as a quote, order, or invoice.';
-                    Caption = 'Document Type';
+                    ToolTip = 'Specifies the name of the warehouse associate who audited the items for the sales order.';
+                    Caption = 'Audited By';
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
@@ -76,19 +43,19 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Specifies the customer number of the customer to whom the sales document is being sold.';
                     Caption = 'Customer No.';
                 }
+                field("Ship-to Code"; Rec."Ship-to Code")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Ship-to Code';
+                    Caption = 'Ship-to Code';
+                }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Specifies the name of the customer to whom the sales document is being sold.';
                     Caption = 'Customer Name';
-                }
-                field("Shipment Date"; Rec."Shipment Date")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the date when the items are shipped.';
-                    Caption = 'Shipment Date';
-                    Editable = Rec."Shipping Agent Code" = 'PU';
                 }
                 field("Location Code"; Rec."Location Code")
                 {
@@ -97,20 +64,42 @@ page 50999 "Torlys Sales Order Shipment"
                     ToolTip = 'Specifies the code of the location from which the items are shipped.';
                     Caption = 'Location Code';
                 }
-
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Shipping Agent Code';
+                    Caption = 'Shipping Agent Code';
+                }
+                field("Shipment Date"; Rec."Shipment Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the date when the items are shipped.';
+                    Caption = 'Shipment Date';
+                    // Editable = Rec."Shipping Agent Code" = 'PU';
+                    Editable = false;
+                }
+                field("Shipping Advice"; Rec."Shipping Advice")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Shipping Advice';
+                    Caption = 'Shipping Advice';
+                    Editable = false;
+                }
                 field("Status"; Rec."Status")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Status';
                     Caption = 'Status';
+                    // StyleExpr = StatusStyleTxt;
                 }
                 field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Specifies the number of pick lists that have been printed for the sales order.';
-                    Caption = 'Pick Slips Printed';
+                    Caption = 'No. Pick Slips Printed';
                 }
                 field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
                 {
@@ -137,7 +126,7 @@ page 50999 "Torlys Sales Order Shipment"
             group(Lines)
             {
                 Caption = 'Lines';
-                part("Sales Lines"; "Sales Order Subform")
+                part(SalesLines; "Sales Order Subform")
                 {
                     ApplicationArea = All;
                     SubPageLink = "Document No." = field("No.");
@@ -152,95 +141,65 @@ page 50999 "Torlys Sales Order Shipment"
     {
         area(Promoted)
         {
-            // actionref("Assign Picker"; AssignPicker)
-            // {
-            // }
-
-            // actionref("Assign Auditor"; AssignAuditor)
-            // {
-            // }
-
+            group("Change Shipment Date")
+            {
+                actionref("Today"; ChangeShipmentDateToday)
+                { }
+                actionref("Next Business Day"; ChangeShipmentDateTomorrow)
+                { }
+                actionref("2 Business Days"; ChangeShipmentDate2days)
+                { }
+            }
             actionref("Print Pick Slip"; PrintPickSlip)
-            {
-            }
+            { }
             actionref("Print Summary Pick Slip"; PrintSummaryPickSlip)
-            {
-            }
+            { }
             actionref("Print Label"; PrintLabel)
-            {
-            }
+            { }
             actionref("Post and Print"; PostAndPrint)
-            {
-            }
+            { }
         }
         area(Navigation)
         {
+            group(ShipmentDate)
+            {
+                action(ChangeShipmentDateToday)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Change To Today';
+                    Image = ChangeDate;
+                    ToolTip = 'Change To Today';
+                    trigger OnAction()
+                    begin
+                        TorlysChangeShipmentDate.ChangeToToday(Rec, xRec);
+                    end;
+                }
+                action(ChangeShipmentDateTomorrow)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Change To Next Business Day';
+                    Image = ChangeDate;
+                    ToolTip = 'Change To Next Business Day';
+                    trigger OnAction()
+                    begin
+                        TorlysChangeShipmentDate.ChangeToNextBusinessDay(Rec, xRec);
+                    end;
+                }
+                action(ChangeShipmentDate2days)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Change To 2 Business Days Ahead';
+                    Image = ChangeDate;
+                    ToolTip = 'Change To 2 Business Days Ahead';
+                    trigger OnAction()
+                    begin
+                        TorlysChangeShipmentDate.ChangeTo2BusinessDays(Rec, xRec);
+                    end;
+                }
+            }
             group(Process)
             {
                 Caption = 'Process';
-
-                // action(AssignPicker)
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Assign Picker';
-                //     Image = PickLines;
-                //     ToolTip = 'Assign the pick ticket to a warehouse associate for picking the items for the sales order.';
-
-
-
-                //     trigger OnAction()
-                //     var
-                //         SalespersonPurchaser: Record "Salesperson/Purchaser";
-                //         SalespersonPurchaserPage: Page "Salespersons/Purchasers";
-
-                //     begin
-                //         SalespersonPurchaserPage.SetRecord(SalespersonPurchaser);
-                //         SalespersonPurchaserPage.LookupMode(true);
-
-                //         if Rec."Warehouse Associate Picked By" <> '' then begin
-                //             Message('This order has already been assigned to %1 for picking.', Rec."Warehouse Associate Picked By");
-                //             exit;
-                //         end;
-                //         Message('Order No %1', Rec."No.");
-
-                //         if SalespersonPurchaserPage.RunModal() = ACTION::OK then begin
-                //             SalespersonPurchaserPage.GetRecord(SalespersonPurchaser);
-                //             Rec.Validate("Warehouse Associate Picked By", SalespersonPurchaser.Code);
-                //             Rec.Modify(true);
-                //             CurrPage.Update();
-                //             Message('Order No %1 assigned to %2 for picking.', Rec."No.", SalespersonPurchaser.Name);
-                //         end;
-
-                //         CurrPage.Update();
-                //     end;
-                // }
-
-                // action(AssignAuditor)
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Check Shipment';
-                //     Image = CheckList;
-                //     ToolTip = 'Check the shipment for the sales order.';
-
-
-                //     trigger OnAction()
-                //     var
-                //         User: Record User;
-                //     begin
-                //         if Rec."Warehouse Associate Checked By" <> '' then begin
-                //             Message('This order has already been audited by %1.', Rec."Warehouse Associate Checked By");
-                //             exit;
-                //         end;
-                //         if PAGE.RunModal(PAGE::Users, User) = ACTION::OK then begin
-                //             Rec."Warehouse Associate Checked By" := COPYSTR(User."User Name", 1, 20);
-                //             Rec.Modify(true);
-                //         end;
-
-                //         CurrPage.Update();
-
-                //     end;
-                // }
-
                 action(PrintPickSlip)
                 {
                     ApplicationArea = All;
@@ -275,42 +234,15 @@ page 50999 "Torlys Sales Order Shipment"
                         TorlysDocPrint.PrintSalesOrderLabel(Rec);
                     end;
                 }
-
                 action(PostAndPrint)
                 {
                     ApplicationArea = Warehouse;
                     Caption = 'Post and Print';
                     Image = Post;
                     ToolTip = 'Post the selected sales order(s) as shipped.';
-
-
                     trigger OnAction()
-                    var
-                    // SelectedSalesHeader: Record "Sales Header";
-                    // SalesShpHeader: Record "Sales Shipment Header";
-                    // PrintDoc: Codeunit "Torlys Print Document";
-                    // Usage: Option "Sales Order Label";
-                    // SalesHeader: Record "Sales Header";
-                    // Text1020001: Label 'Do you want to ship and print the %1?';
                     begin
-
-                        // IF Rec."No. Pick Slips Printed" = 0 THEN
-                        //     ERROR('You cannot ship this order as no pick slips have been printed!');
-
-                        // IF Rec."Warehouse Associate Picked By" = '' THEN
-                        //     ERROR('The Warehouse Associate Picked By field cannot be blank!');
-
-                        // IF Rec."Warehouse Associate Checked By" = '' THEN
-                        //     ERROR('The Warehouse Associate Checked By field cannot be blank!');
-
-                        // IF Rec."Warehouse Associate Picked By" = Rec."Warehouse Associate Checked By" THEN
-                        //     ERROR('The Picked By and the Checked By Associate cannot be the same!');
-
-                        // since we can't inject to add freight, we will just call our own codeunit
-                        // out of the box codeunit below
-                        // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
-                        // our codeunit below
-                        CODEUNIT.RUN(CODEUNIT::"TorlysShip-Post+Print", Rec);
+                        Codeunit.Run(Codeunit::"TorlysShip-Post+Print", Rec);
                     end;
                 }
             }
@@ -319,53 +251,12 @@ page 50999 "Torlys Sales Order Shipment"
 
     trigger OnOpenPage()
     begin
-        if Rec."Picked By" <> '' then
-            Rec."Whse Assoc. Picked By Name" := GetWhseRepName(Rec."Picked By");
-
-        if Rec."Audited By" <> '' then
-            Rec."Whse Assoc. Checked By Name" := GetWhseRepName(Rec."Audited By");
-
-        CurrPage.Update();
-    end;
-
-    local procedure GetWhseRepName(WarehouseAssociatePickedBy: Code[50]): Code[50]
-    var
-        SalespersonPurchaser: Record "Salesperson/Purchaser";
-    begin
-        if WarehouseAssociatePickedBy = '' then
-            exit('');
-
-        if SalespersonPurchaser.Get(WarehouseAssociatePickedBy) then
-            exit(SalespersonPurchaser.Name)
-        else
-            exit('Unknown');
-
-    end;
-
-    local procedure PostOrder(PostingCodeunitID: Integer; SelectedSalesheader: Record "Sales Header"): Boolean
-    var
-        SalesHeader: Record "Sales Header";
-        LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
-        DocumentIsScheduledForPosting: Boolean;
-        DocumentIsPosted: Boolean;
-
-
-    begin
-        LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(SelectedSalesHeader);
-        SelectedSalesHeader.SendToPosting(PostingCodeunitID);
-
-        DocumentIsScheduledForPosting := SelectedSalesHeader."Job Queue Status" = SelectedSalesHeader."Job Queue Status"::"Scheduled for Posting";
-        DocumentIsPosted := (not SalesHeader.Get(SelectedSalesHeader."Document Type", SelectedSalesHeader."No.")) or DocumentIsScheduledForPosting;
-
-        CurrPage.Update(False);
-
-        exit(DocumentIsPosted);
-
-
+        Rec.SetRange("Shipment Date");
     end;
 
     var
         TorlysDocPrint: Codeunit "TorlysDocumentPrint";
         DocPrint: Codeunit "Document-Print";
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
+        TorlysChangeShipmentDate: Codeunit TorlysChangeShipmentDate;
 }

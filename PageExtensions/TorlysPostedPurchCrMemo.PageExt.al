@@ -35,20 +35,6 @@ pageextension 50140 TorlysPostedPurchCrMemo extends "Posted Purchase Credit Memo
                 ApplicationArea = All;
                 Importance = Additional;
             }
-            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
-            {
-                Caption = 'Modified By';
-                ToolTip = 'Modified By';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-            field(SystemModifiedAt; Rec.SystemModifiedAt)
-            {
-                Caption = 'Modified At';
-                ToolTip = 'Modified At';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
         }
 
         addafter("Currency Code")

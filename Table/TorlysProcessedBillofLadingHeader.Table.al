@@ -164,9 +164,9 @@ table 55004 "Torlys Processed BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(26; "Warehouse Associate Loaded by"; Code[20])
+        field(26; "Loaded by"; Code[20])
         {
-            Caption = 'Warehouse Associate Loaded by';
+            Caption = 'Loaded by';
             DataClassification = CustomerContent;
 
         }

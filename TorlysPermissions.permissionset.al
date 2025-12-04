@@ -1,5 +1,4 @@
 namespace TORLYS;
-using Microsoft.Sales.History;
 
 permissionset 50000 TorlysPermissions
 {

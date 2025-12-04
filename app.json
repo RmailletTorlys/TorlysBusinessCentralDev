@@ -2,7 +2,7 @@
     "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
-    "version": "1.0.11.25",
+    "version": "1.0.11.26",
     "brief": "",
     "description": "",
     "privacyStatement": "",
@@ -40,7 +40,20 @@
             "name": "Lanham Demand Planning",
             "version": "25.3.6.11",
             "publisher": "Lanham Associates"
+        },
+                {
+            "id": "bd6ded48-b30c-48b3-b0a2-7e561d3c0d19",
+            "name": "Shipping Connector",
+            "version": "4.5.6.4",
+            "publisher": "Software Grotto"
+        },
+        {
+            "id": "9f5a78d6-7644-413a-92e5-588c20a191e0",
+            "name": "Shipping Connector Documentation Library",
+            "version": "4.5.6.4",
+            "publisher": "Software Grotto"
         }
+
     ],
     "screenshots": [],
     "platform": "1.0.0.0",

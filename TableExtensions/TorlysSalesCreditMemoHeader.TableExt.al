@@ -46,7 +46,7 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
         field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
-            TableRelation = "Torlys Lookup Values";
+            TableRelation = "Torlys Order Type";
             DataClassification = CustomerContent;
         }
 
@@ -184,14 +184,14 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values";
+            TableRelation = "Torlys Order Method";
         }
 
         field(50037; "Shipping Instructions"; Code[30])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+            TableRelation = "Torlys Shipping Instructions";
         }
 
         field(50040; "Shipping Comment"; Text[50])

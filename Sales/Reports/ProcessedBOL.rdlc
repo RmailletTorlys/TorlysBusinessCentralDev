@@ -295,9 +295,6 @@ End Function
         <Field Name="EncodedText">
           <DataField>EncodedText</DataField>
         </Field>
-        <Field Name="Last_Print_Time">
-          <DataField>Last_Print_Time</DataField>
-        </Field>
         <Field Name="Last_Print_Date">
           <DataField>Last_Print_Date</DataField>
         </Field>

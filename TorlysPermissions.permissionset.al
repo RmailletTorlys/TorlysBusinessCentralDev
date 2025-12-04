@@ -1,5 +1,4 @@
 namespace TORLYS;
-using Microsoft.Sales.History;
 
 permissionset 50000 TorlysPermissions
 {
@@ -10,7 +9,7 @@ permissionset 50000 TorlysPermissions
         tabledata "Claims Header" = RIMD,
         tabledata "Claims Line" = RIMD,
         tabledata "Torlys Freight Zones" = RIMD,
-        tabledata "Torlys Lookup Values" = RIMD,
+        // tabledata "Torlys Lookup Values" = RIMD,
         tabledata "Torlys Processed BOL Header" = RIMD,
         tabledata "Torlys Processed BOL Line" = RIMD,
         tabledata "Torlys Sales Price Code" = RIMD,
@@ -23,7 +22,7 @@ permissionset 50000 TorlysPermissions
         table "Torlys BOL Header" = X,
         table "Torlys BOL Line" = X,
         table "Torlys Freight Zones" = X,
-        table "Torlys Lookup Values" = X,
+        // table "Torlys Lookup Values" = X,
         table "Torlys Processed BOL Header" = X,
         table "Torlys Processed BOL Line" = X,
         table "Torlys Sales Price Code" = X,

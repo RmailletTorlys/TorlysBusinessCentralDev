@@ -30,8 +30,38 @@ table 55002 "Torlys BOL Header"
         field(4; "Customer No."; Code[10])
         {
             Caption = 'Customer No.';
-            TableRelation = "Customer";
+            TableRelation = if ("Transaction Type" = const(Shipment)) Customer else if ("Transaction Type" = const(Transfer)) Location;
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                Location: Record Location;
+            begin
+                if Rec."Transaction Type" = Rec."Transaction Type"::Shipment then begin
+                    Rec."Ship-to Code" := '';
+                    Rec."Ship-to Name" := '';
+                    Rec."Ship-to Address" := '';
+                    Rec."Ship-to Address 2" := '';
+                    Rec."Ship-to City" := '';
+                    Rec."Ship-to County" := '';
+                    Rec."Ship-to Post Code" := '';
+                    Rec."Ship-to Country/Region Code" := '';
+                end else if Rec."Transaction Type" = Rec."Transaction Type"::Transfer then begin
+                    Rec.SetFilter("Customer No.", "Customer No.");
+                    if Rec.Find('-') then begin
+                        Error('%1 already exists for this location.', Rec."No.");
+                    end else begin
+                        if Location.Get("Customer No.") then begin
+                            "Ship-to Name" := Location.Name;
+                            "Ship-to Address" := Location.Address;
+                            "Ship-to Address 2" := Location."Address 2";
+                            "Ship-to City" := Location.City;
+                            "Ship-to County" := Location.County;
+                            "Ship-to Post Code" := Location."Post Code";
+                            "Ship-to Country/Region Code" := Location."Country/Region Code";
+                        end;
+                    end;
+                end;
+            end;
         }
 
         field(5; "Ship-to Code"; Code[10])
@@ -39,10 +69,29 @@ table 55002 "Torlys BOL Header"
             Caption = 'Ship-to Code';
             TableRelation = "Ship-to Address".Code where("Customer No." = field("Customer No."));
             DataClassification = CustomerContent;
-
             trigger OnValidate()
+            var
+                BOLHeader: Record "Torlys BOL Header";
+                ShipTo: Record "Ship-to Address";
             begin
-                OnAfterLookupOnSetShipToInfo("Ship-to Code");
+                if ("Transaction Type" = "Transaction Type"::Shipment) then begin
+                    BOLHeader.SetFilter("Customer No.", "Customer No.");
+                    BOLHeader.SetFilter("Ship-to Code", "Ship-to Code");
+                    BOLHeader.SetFilter("Location Code", "Location Code");
+                    if BOLHeader.Find('-') then begin
+                        Error('%1 already exists for this customer/ship-to.', BOLHeader."No.");
+                    end else begin
+                        if ShipTo.Get("Customer No.", "Ship-to Code") then begin
+                            "Ship-to Name" := ShipTo.Name;
+                            "Ship-to Address" := ShipTo.Address;
+                            "Ship-to Address 2" := ShipTo."Address 2";
+                            "Ship-to City" := ShipTo.City;
+                            "Ship-to County" := ShipTo.County;
+                            "Ship-to Post Code" := ShipTo."Post Code";
+                            "Ship-to Country/Region Code" := ShipTo."Country/Region Code";
+                        end;
+                    end;
+                end;
             end;
         }
 
@@ -70,283 +119,278 @@ table 55002 "Torlys BOL Header"
             DataClassification = CustomerContent;
         }
 
-        field(10; "Ship-to Post Code"; Code[20])
+        field(10; "Ship-to County"; Text[30])
+        {
+            Caption = 'Ship-to City';
+            DataClassification = CustomerContent;
+        }
+
+        field(11; "Ship-to Post Code"; Code[20])
         {
             Caption = 'Ship-to Post Code';
             DataClassification = CustomerContent;
         }
 
-        field(11; "Ship-to Country/Region Code"; Code[10])
+        field(12; "Ship-to Country/Region Code"; Code[10])
         {
             Caption = 'Ship-to Country/Region Code';
             DataClassification = CustomerContent;
         }
 
-        field(12; "Location Code"; Code[20])
+        field(13; "Location Code"; Code[20])
         {
             Caption = 'Location Code';
             DataClassification = CustomerContent;
         }
 
-        field(13; "Shipping Agent Code"; Code[20])
+        field(14; "Shipping Agent Code"; Code[20])
         {
             Caption = 'Shipping Agent Code';
             DataClassification = CustomerContent;
             TableRelation = "Shipping Agent";
         }
 
-        field(14; "Freight Type"; Option)
+        field(15; "Freight Type"; Option)
         {
             Caption = 'Freight Type';
             OptionMembers = "Prepaid","Collect";
             DataClassification = CustomerContent;
         }
 
-        field(15; "Pickup Date"; Date)
+        field(16; "Pickup Date"; Date)
         {
             Caption = 'Pickup Date';
             DataClassification = CustomerContent;
         }
 
-        field(16; "Shipping Instructions 1"; Text[50])
+        field(17; "Shipping Instructions 1"; Text[50])
         {
             Caption = 'Shipping Instructions 1';
             DataClassification = CustomerContent;
         }
 
-        field(17; "Shipping Instructions 2"; Text[50])
+        field(18; "Shipping Instructions 2"; Text[50])
         {
             Caption = 'Shipping Instructions 2';
             DataClassification = CustomerContent;
         }
-        field(18; "Shipping Instructions 3"; Text[50])
+        field(19; "Shipping Instructions 3"; Text[50])
         {
             Caption = 'Shipping Instructions 3';
             DataClassification = CustomerContent;
         }
-        field(19; "Shipping Instructions 4"; Text[50])
+        field(20; "Shipping Instructions 4"; Text[50])
         {
             Caption = 'Shipping Instructions 4';
             DataClassification = CustomerContent;
         }
-
-        field(20; "No. of Skids"; Integer)
+        field(21; "No. of Skids"; Integer)
         {
             Caption = 'No. of Skids';
             DataClassification = CustomerContent;
-
             trigger OnValidate()
             begin
                 UpdatePieceCount();
             end;
         }
-
-        field(21; "No. of Boxes"; Integer)
+        field(22; "No. of Boxes"; Integer)
         {
             Caption = 'No. of Boxes';
             DataClassification = CustomerContent;
-
             trigger OnValidate()
             begin
                 UpdatePieceCount();
             end;
         }
-
-        field(22; "No. of Tubes"; Integer)
+        field(23; "No. of Tubes"; Integer)
         {
             Caption = 'No. of Tubes';
             DataClassification = CustomerContent;
-
             trigger OnValidate()
             begin
                 UpdatePieceCount();
             end;
         }
-
-        field(23; "No. of Packages"; Integer)
+        field(24; "No. of Packages"; Integer)
         {
             Caption = 'No. of Packages';
             DataClassification = CustomerContent;
-
             trigger OnValidate()
             begin
                 UpdatePieceCount();
             end;
         }
-
-        field(24; "No. of Rolls"; Integer)
+        field(25; "No. of Rolls"; Integer)
         {
             Caption = 'No. of Rolls';
             DataClassification = CustomerContent;
-
             trigger OnValidate()
             begin
                 UpdatePieceCount();
             end;
         }
-
-        field(25; "Piece Count"; text[260])
+        field(26; "Piece Count"; text[260])
         {
             Caption = 'Piece Count';
             DataClassification = CustomerContent;
         }
 
-        field(26; "Loaded by"; Code[20])
+        field(27; "Loaded by"; Code[20])
         {
             Caption = 'Loaded by';
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
-
-        field(27; "Carrier Tracking No."; Code[15])
+        field(28; "Package Tracking No."; Text[50])
         {
-            Caption = 'Carrier Tracking No.';
+            Caption = 'Package Tracking No.';
+            DataClassification = CustomerContent;
+        }
+        field(29; "Weight - Total"; Decimal)
+        {
+            Caption = 'Weight - Total';
+            FieldClass = FlowField;
+            CalcFormula = sum("Torlys BOL Line"."Total Weight" where("BOL No." = field("No.")));
+        }
+
+        field(30; "Weight - Other"; Decimal)
+        {
+            Caption = 'Weight - Other';
             DataClassification = CustomerContent;
         }
 
-        field(28; "Weight - Total"; Decimal)
-        {
-            Caption = 'Weight-Total';
-            DataClassification = CustomerContent;
-        }
-
-        field(29; "Weight - Other"; Decimal)
-        {
-            Caption = 'Weight-Other';
-            DataClassification = CustomerContent;
-        }
-
-        field(30; "Weight - Flooring"; Decimal)
+        field(31; "Weight - Flooring"; Decimal)
         {
             Caption = 'Weight - Flooring';
             DataClassification = CustomerContent;
         }
 
-        field(31; "Weight - Underlayment Rolls"; Decimal)
+        field(32; "Weight - Underlayment Rolls"; Decimal)
         {
             Caption = 'Weight - Underlayment Rolls';
             DataClassification = CustomerContent;
         }
 
-        field(32; "Weight - Mouldings"; Decimal)
+        field(33; "Weight - Mouldings"; Decimal)
         {
             Caption = 'Weight - Mouldings';
             DataClassification = CustomerContent;
         }
 
-        field(33; "Cases - Total"; Decimal)
+        field(34; "Cases - Total"; Decimal)
         {
             Caption = 'Cases - Total';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = sum("Torlys BOL Line"."Total Cases" where("BOL No." = field("No.")));
         }
 
-        field(34; "Cases - Other"; Decimal)
+        field(35; "Cases - Other"; Decimal)
         {
             Caption = 'Cases - Other';
             DataClassification = CustomerContent;
         }
 
-        field(35; "Cases - Flooring"; Decimal)
+        field(36; "Cases - Flooring"; Decimal)
         {
             Caption = 'Cases - Flooring';
             DataClassification = CustomerContent;
         }
 
-        field(36; "Cases - Underlayment Rolls"; Decimal)
+        field(37; "Cases - Underlayment Rolls"; Decimal)
         {
             Caption = 'Cases - Underlayment Rolls';
             DataClassification = CustomerContent;
         }
 
-        field(37; "Cases - Mouldings"; Decimal)
+        field(38; "Cases - Mouldings"; Decimal)
         {
             Caption = 'Cases - Mouldings';
             DataClassification = CustomerContent;
         }
 
-        field(38; "Base Quantity - Total"; Decimal)
-        {
-            Caption = 'Base Quantity - Total';
-            DataClassification = CustomerContent;
-        }
+        // field(39; "Base Quantity - Total"; Decimal)
+        // {
+        //     Caption = 'Base Quantity - Total';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(39; "Base Quantity - Other"; Decimal)
-        {
-            Caption = 'Base Quantity - Other';
-            DataClassification = CustomerContent;
-        }
+        // field(40; "Base Quantity - Other"; Decimal)
+        // {
+        //     Caption = 'Base Quantity - Other';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(40; "Base Quantity - Flooring"; Decimal)
-        {
-            Caption = 'Base Quantity - Flooring';
-            DataClassification = CustomerContent;
-        }
+        // field(41; "Base Quantity - Flooring"; Decimal)
+        // {
+        //     Caption = 'Base Quantity - Flooring';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(41; "Base Qty. - Underlayment Rolls"; Decimal)
-        {
-            Caption = 'Base Quantity - Underlayment Rolls';
-            DataClassification = CustomerContent;
-        }
+        // field(42; "Base Qty. - Underlayment Rolls"; Decimal)
+        // {
+        //     Caption = 'Base Quantity - Underlayment Rolls';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(42; "Base Quantity - Mouldings"; Decimal)
-        {
-            Caption = 'Base Quantity - Mouldings';
-            DataClassification = CustomerContent;
-        }
+        // field(43; "Base Quantity - Mouldings"; Decimal)
+        // {
+        //     Caption = 'Base Quantity - Mouldings';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(43; "No. Printed"; Integer)
+        field(44; "No. Printed"; Integer)
         {
             Caption = 'No. Printed';
             DataClassification = CustomerContent;
         }
 
-        field(44; "Created By"; Code[20])
-        {
-            Caption = 'Created By';
-            DataClassification = CustomerContent;
-        }
+        // field(45; "Created By"; Code[20])
+        // {
+        //     Caption = 'Created By';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(45; "Created Date"; DateTime)
-        {
-            Caption = 'Created Date';
-            DataClassification = CustomerContent;
-        }
+        // field(46; "Created Date"; DateTime)
+        // {
+        //     Caption = 'Created Date';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(46; "Created Time"; Time)
-        {
-            Caption = 'Created Time';
-            DataClassification = CustomerContent;
-        }
+        // field(47; "Created Time"; Time)
+        // {
+        //     Caption = 'Created Time';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(47; "Last Print By"; Code[20])
-        {
-            Caption = 'Last Print By';
-            DataClassification = CustomerContent;
-        }
+        // field(48; "Last Print By"; Code[20])
+        // {
+        //     Caption = 'Last Print By';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(48; "Last Print Date"; DateTime)
+        field(49; "Last Print Date"; DateTime)
         {
             Caption = 'Last Print Date';
             DataClassification = CustomerContent;
         }
 
-        field(49; "Last Print Time"; Time)
-        {
-            Caption = 'Last Print Time';
-            DataClassification = CustomerContent;
-        }
+        // field(50; "Last Print Time"; Time)
+        // {
+        //     Caption = 'Last Print Time';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(50; "Shipping Comment"; Text[50])
+        field(51; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
 
-        field(51; "Posted Date"; DateTime)
-        {
-            Caption = 'Posted Date';
-            DataClassification = CustomerContent;
-        }
+        // field(52; "Posted Date"; DateTime)
+        // {
+        //     Caption = 'Posted Date';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(53; "Freight Charges"; Option)
         {
@@ -354,8 +398,6 @@ table 55002 "Torlys BOL Header"
             OptionMembers = "","Prepaid","Collect";
             DataClassification = CustomerContent;
         }
-
-
     }
 
     keys
@@ -379,94 +421,60 @@ table 55002 "Torlys BOL Header"
     var
         SalesSetup: Record "Sales & Receivables Setup";
         NoSeries: Codeunit "No. Series";
-
     begin
-
         SalesSetup.FindFirst();
         if not SalesSetup.IsEmpty() then
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
 
-        IF UserSetup.GET(USERID) THEN "Location Code" := UserSetup."Default Location Code";
+        if UserSetup.Get(UserId) then "Location Code" := UserSetup."Default Location Code";
         "Pickup Date" := WorkDate(); //auto-populate todays date when creating BOL
     end;
 
+    trigger OnDelete()
+    var
+        BOLLine: Record "Torlys BOL Line";
+        SalesShipmentHeader: Record "Sales Shipment Header";
+        SalesHeader: Record "Sales Header";
+    begin
+        BOLLine.LockTable();
+
+        BOLLine.SetRange("BOL No.", "No.");
+        if BOLLine.Find('-') then begin
+            repeat
+                if SalesShipmentHeader.Get(BOLLine."Shipment No.") then begin
+                    SalesShipmentHeader."BOL No." := '';
+                    SalesShipmentHeader.Modify();
+                end;
+                if SalesHeader.Get(1, BOLLine."Order No.") then begin
+                    SalesHeader."BOL No." := '';
+                    SalesHeader.Modify();
+                end;
+            until BOLLine.Next = 0;
+        end;
+
+        BOLLine.DeleteAll(true);
+    end;
 
     procedure AssistEdit(OldBoLHeader: Record "Torlys BoL Header") Result: Boolean
     var
         SalesSetup: Record "Sales & Receivables Setup";
         NoSeries: Codeunit "No. Series";
-        IsHandled: Boolean;
-
     begin
-        IsHandled := false;
-        OnBeforeAssistEdit(Rec, OldBoLHeader, IsHandled, Result);
-        if IsHandled then
-            exit;
-
         SalesSetup.FindFirst();
         if not SalesSetup.IsEmpty() then
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Bill of Lading Nos.");
-
         exit(true);
     end;
-
-
-    local procedure OnAfterLookupOnSetShipToInfo(ShipToCode: Code[10])
-    var
-        ShipTo: Record "Ship-to Address";
-        IsHandled: Boolean;
-
-    begin
-        OnBeforeOnAfterLookupOnSetShipToInfo(ShipToCode, IsHandled);
-        if IsHandled then
-            exit;
-
-        if Rec."Ship-to Code" = '' then begin
-            Rec."Ship-to Name" := '';
-            Rec."Ship-to Address" := '';
-            Rec."Ship-to Address 2" := '';
-            Rec."Ship-to City" := '';
-            Rec."Ship-to Post Code" := '';
-            exit;
-        end;
-
-        ShipTo.Reset();
-        ShipTo.SetRange("Customer No.", Rec."Customer No.");
-        ShipTo.SetRange(Code, Rec."Ship-to Code");
-
-
-        if ShipTo.FindFirst() then begin
-            Rec."Ship-to Name" := ShipTo."Name";
-            Rec."Ship-to Address" := ShipTo."Address";
-            Rec."Ship-to Address 2" := ShipTo."Address 2";
-            Rec."Ship-to City" := ShipTo."City";
-            Rec."Ship-to Post Code" := ShipTo."Post Code";
-            //Rec."Destination Instructions" := ShipTo."Destination Instructions"; //Change to come from the order
-
-
-
-        end else
-            Message('No ship-to address found for the selected Ship-to Code. Please verify and try again');
-
-        OnAfterOnAfterLookupOnSetShipToInfo(ShipToCode);
-
-    end;
-
-
-
-
 
     local procedure UpdatePieceCount()
     begin
         //Create a Message that only displays the content item if gt 0
-
 
         if Rec."No. of Skids" > 0 then begin
             SkidCount := Rec."No. of Skids".ToText() + ' Skid /';
             if Rec."No. of Skids" > 1 then
                 SkidCount := Rec."No. of Skids".ToText() + ' Skids /';
         end;
-
 
         if Rec."No. of Boxes" > 0 then begin
             BoxCount := Rec."No. of Boxes".ToText() + ' Box /';
@@ -496,35 +504,6 @@ table 55002 "Torlys BOL Header"
 
         Rec."Piece Count" := PieceCount;
 
-    end;
-
-    // procedure PrintOpenBOL(BOLNo: Code[20])
-    // var
-    //     PrintBill: Codeunit "Print Bill of Lading Document";
-    //     Usage: Option "Bill of Lading Report";
-    // begin
-    //     Rec.SetRange("No.", BOLNo);
-    //     if Rec.FindFirst() then
-    //         PrintBill.PrintBoLOrder(Rec, Usage::"Bill of Lading Report");
-    // end;
-
-
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnAfterLookupOnSetShipToInfo(ShipToCode: Code[10]; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterOnAfterLookupOnSetShipToInfo(ShipToCode: Code[10])
-    begin
-    end;
-
-
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeAssistEdit(Rec: Record "Torlys BOL Header"; OldSalesHeader: Record "Torlys BOL Header"; var IsHandled: Boolean; var Result: Boolean)
-    begin
     end;
 
 }

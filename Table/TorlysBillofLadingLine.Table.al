@@ -142,7 +142,7 @@ table 55003 "Torlys BOL Line"
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+            TableRelation = "Torlys Shipping Instructions";
         }
 
         field(23; "Shipping Comment"; Text[50])
@@ -178,6 +178,11 @@ table 55003 "Torlys BOL Line"
     trigger OnDelete()
     begin
 
+        //warn that you are modifying a printed BOL
+        BOLHeader.Get("BOL No.");
+        if BOLHeader."No. Printed" > 0 then
+            Message('BOL has been printed prior to deleting lines, print and replace BOL on floor!');
+
         // when deleting line on BOL remove BOL # from sales header
         if SalesHeader.Get(1, Rec."Order No.") then begin
             SalesHeader."BOL No." := '';
@@ -201,11 +206,6 @@ table 55003 "Torlys BOL Line"
             TransferShipmentHeader."BOL No." := '';
             TransferShipmentHeader.Modify(true);
         end;
-
-        //warn that you are modifying a printed BOL
-        BOLHeader.Get("BOL No.");
-        if BOLHeader."No. Printed" > 0 then
-            Message('BOL has been printed prior to deleting lines, print and replace BOL on floor!');
 
     end;
 

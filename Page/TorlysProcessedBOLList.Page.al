@@ -66,11 +66,11 @@ page 51005 "Torlys Processed BOL List"
                     Caption = 'Carrier Code';
                 }
 
-                field("Carrier Tracking No."; Rec."Carrier Tracking No.")
+                field("Package Tracking No."; Rec."Package Tracking No.")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the tracking number of the carrier.';
-                    Caption = 'Carrier Tracking No.';
+                    Caption = 'Package Tracking No.';
                 }
 
                 field("Pickup Date"; Rec."Pickup Date")
@@ -130,16 +130,12 @@ page 51005 "Torlys Processed BOL List"
                     Caption = 'Total Cases';
                 }
 
-                field("Total Base Qty"; Rec."Base Quantity - Total")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the total base quantity.';
-                    Caption = 'Total Base Qty';
-                }
-
-
-
-
+                // field("Total Base Qty"; Rec."Base Quantity - Total")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     ToolTip = 'Specifies the total base quantity.';
+                //     Caption = 'Total Base Qty';
+                // }
             }
         }
     }

@@ -16,6 +16,22 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
 
         addafter("Shipping Agent Code")
         {
+            field("BOL No."; Rec."BOL No.")
+            {
+                Caption = 'BOL No.';
+                ToolTip = 'BOL No.';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+            field("Package Tracking No."; Rec."Package Tracking No.")
+            {
+                Caption = 'Package Tracking No.';
+                ToolTip = 'Package Tracking No.';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

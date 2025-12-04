@@ -24,6 +24,7 @@ page 51002 "Torlys BOL"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
                     Caption = 'No.';
+                    Editable = false;
                     trigger OnAssistEdit()
                     begin
                         if Rec.AssistEdit(xRec) then
@@ -35,6 +36,7 @@ page 51002 "Torlys BOL"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the type of transaction that is being posted for this bill of lading.';
                     Caption = 'Transaction Type';
+                    Editable = (Rec."Customer No." = '');
                 }
                 field("Customer No."; Rec."Customer No.")
                 {
@@ -49,6 +51,7 @@ page 51002 "Torlys BOL"
                     ToolTip = 'Specifies the code of the ship-to address.';
                     Caption = 'Ship-to Code';
                     Importance = Promoted;
+                    Editable = (Rec."Transaction Type" = Rec."Transaction Type"::Shipment);
                 }
                 field("Location Code"; Rec."Location Code")
                 {
@@ -70,6 +73,22 @@ page 51002 "Torlys BOL"
                     ToolTip = 'Specifies the code of the shipping agent.';
                     Caption = 'Shipping Agent Code';
                     Importance = Promoted;
+                }
+                field("No. Printed"; Rec."No. Printed")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'No. Printed';
+                    Caption = 'No. Printed';
+                    Importance = Additional;
+                    Editable = false;
+                }
+                field("Last Print Date"; Rec."Last Print Date")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Last Print Date';
+                    Caption = 'Last Print Date';
+                    Importance = Additional;
+                    Editable = false;
                 }
                 field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
                 {
@@ -97,7 +116,6 @@ page 51002 "Torlys BOL"
                     group(ShipmentInfo)
                     {
                         ShowCaption = false;
-
                         field("Ship-to Name"; Rec."Ship-to Name")
                         {
                             ApplicationArea = Basic, Suite;
@@ -126,6 +144,13 @@ page 51002 "Torlys BOL"
                             Caption = 'Ship-to City';
                             Importance = Additional;
                         }
+                        field("Ship-to County"; Rec."Ship-to County")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the County of the ship-to address.';
+                            Caption = 'Ship-to County';
+                            Importance = Additional;
+                        }
                         field("Ship-to Post Code"; Rec."Ship-to Post Code")
                         {
                             ApplicationArea = Basic, Suite;
@@ -133,11 +158,18 @@ page 51002 "Torlys BOL"
                             Caption = 'Ship-to Post Code';
                             Importance = Additional;
                         }
-                        field("Tracking No."; Rec."Carrier Tracking No.")
+                        field("Ship-to Country/Region Code"; Rec."Ship-to Country/Region Code")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the Country of the ship-to address.';
+                            Caption = 'Ship-to Country/Region Code';
+                            Importance = Additional;
+                        }
+                        field("Package Tracking No."; Rec."Package Tracking No.")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the tracking number of the carrier.';
-                            Caption = 'Carrier Tracking No.';
+                            Caption = 'Package Tracking No.';
                         }
                         field("Loaded By"; Rec."Loaded by")
                         {
@@ -224,7 +256,6 @@ page 51002 "Torlys BOL"
                     group(Weights)
                     {
                         Caption = 'Weights';
-
                         field("Weight - Flooring"; Rec."Weight - Flooring")
                         {
                             ApplicationArea = Basic, Suite;
@@ -253,19 +284,28 @@ page 51002 "Torlys BOL"
                             Caption = 'Other';
                             Editable = false;
                         }
-                        field("Weight - Total"; Rec."Weight - Total")
+
+                        field("Weight - Total"; Rec."Weight - Flooring" + Rec."Weight - Underlayment Rolls" + Rec."Weight - Mouldings" + Rec."Weight - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the weight of other items in the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                            Style = Strong;
+                        }
+                        field("Calc Weight"; Rec."Weight - Total")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the total weight of the shipment.';
-                            Caption = 'Total';
+                            Caption = 'Calc Total';
                             Editable = false;
+                            Style = Strong;
                         }
                     }
 
                     group(Quantity)
                     {
-                        Caption = 'Quantity(CASE)';
-
+                        Caption = 'Case Quantity';
                         field("Cases - Flooring"; Rec."Cases - Flooring")
                         {
                             ApplicationArea = Basic, Suite;
@@ -294,55 +334,64 @@ page 51002 "Torlys BOL"
                             Caption = 'Other';
                             Editable = false;
                         }
-                        field("Cases - Total"; Rec."Cases - Total")
+                        field("Cases - Total"; Rec."Cases - Flooring" + Rec."Cases - Underlayment Rolls" + Rec."Cases - Mouldings" + Rec."Cases - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the quantity of other items in the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                            Style = Strong;
+                        }
+                        field("Calc Cases"; Rec."Cases - Total")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the total quantity of the shipment.';
-                            Caption = 'Total';
+                            Caption = 'Calc Total';
                             Editable = false;
+                            Style = Strong;
                         }
                     }
 
-                    group(Quantity2)
-                    {
-                        Caption = 'Quantity(BASE)';
+                    // group(Quantity2)
+                    // {
+                    //     Caption = 'Quantity(BASE)';
 
-                        field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
-                            Caption = 'Flooring';
-                            Editable = false;
-                        }
-                        field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
-                            Caption = 'Underlayment Rolls';
-                            Editable = false;
-                        }
-                        field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
-                            Caption = 'Mouldings';
-                            Editable = false;
-                        }
-                        field("Base Quantity - Other"; Rec."Base Quantity - Other")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of other items in the shipment.';
-                            Caption = 'Other';
-                            Editable = false;
-                        }
-                        field("Base Quantity - Total"; Rec."Base Quantity - Total")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the total base quantity of the shipment.';
-                            Caption = 'Total';
-                            Editable = false;
-                        }
-                    }
+                    // field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
+                    //     Caption = 'Flooring';
+                    //     Editable = false;
+                    // }
+                    // field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
+                    //     Caption = 'Underlayment Rolls';
+                    //     Editable = false;
+                    // }
+                    // field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
+                    //     Caption = 'Mouldings';
+                    //     Editable = false;
+                    // }
+                    // field("Base Quantity - Other"; Rec."Base Quantity - Other")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     ToolTip = 'Specifies the base quantity of other items in the shipment.';
+                    //     Caption = 'Other';
+                    //     Editable = false;
+                    // }
+                    // field("Base Quantity - Total"; Rec."Base Quantity - Total")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     ToolTip = 'Specifies the total base quantity of the shipment.';
+                    //     Caption = 'Total';
+                    //     Editable = false;
+                    // }
+                    // }
                 }
             }
         }
@@ -352,16 +401,14 @@ page 51002 "Torlys BOL"
     {
         area(Promoted)
         {
-            // actionref("New"; New1)
-            // { }
-            // actionref("Delete"; Delete1)
-            // { }
             actionref("Add Shipments for Pickup Date"; AddShipments)
             { }
-            actionref("Print Open BOL"; PrintOpenBOL)
+            actionref("Clear Weight and Quantities"; ClearWeightsAndQuantities)
             { }
-            actionref("Post BOL"; PostBOL)
+            actionref("Print BOL"; PrintBOL)
             { }
+            // actionref("Post BOL"; PostBOL)
+            // { }
             actionref("Post and Print BOL"; PostAndPrint)
             { }
         }
@@ -373,18 +420,35 @@ page 51002 "Torlys BOL"
                 ToolTip = 'Add Shipments for Pickup Date';
                 Caption = 'Add Shipments for Pickup Date';
                 Image = Document;
-
                 trigger OnAction()
                 begin
-                    // Rec."Pickup Date" := WorkDate();
-                    GetShipments();
+                    GetShipment();
                 end;
             }
-            action(PrintOpenBOL)
+            action(ClearWeightsAndQuantities)
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Print Open BOL';
-                Caption = 'Print Open BOL';
+                ToolTip = 'Clear Weight and Quantities';
+                Caption = 'Clear Weight and Quantities';
+                Image = ClearLog;
+                trigger OnAction()
+                begin
+                    Rec."Weight - Flooring" := 0;
+                    Rec."Weight - Underlayment Rolls" := 0;
+                    Rec."Weight - Mouldings" := 0;
+                    Rec."Weight - Other" := 0;
+                    Rec."Cases - Flooring" := 0;
+                    Rec."Cases - Underlayment Rolls" := 0;
+                    Rec."Cases - Mouldings" := 0;
+                    Rec."Cases - Other" := 0;
+                    Rec.Modify(true);
+                end;
+            }
+            action(PrintBOL)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print BOL';
+                Caption = 'Print BOL';
                 Image = Print;
                 trigger OnAction()
                 var
@@ -392,38 +456,20 @@ page 51002 "Torlys BOL"
                     TorlysDocPrint.PrintBillOfLading(Rec);
                 end;
             }
-            action(PostBOL)
-            {
-                ApplicationArea = Basic, Suite;
-                ToolTip = 'Post BOL';
-                Caption = 'Post BOL';
-                Image = Document;
+            // action(PostBOL)
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     ToolTip = 'Post BOL';
+            //     Caption = 'Post BOL';
+            //     Image = Document;
 
-                trigger OnAction()
-                var
-                    ProcessedBOLHeader: Record "Torlys Processed BOL Header";
-                    BOLLine: Record "Torlys BOL Line";
-                    ProcessedBOLLine: Record "Torlys Processed BOL Line";
-                begin
-                    ProcessedBOLHeader.TransferFields(Rec);
-                    ProcessedBOLHeader.Insert();
+            //     trigger OnAction()
+            //     var
 
-                    BOLLine.Reset;
-                    BOLLine.SetFilter("BOL No.", Rec."No.");
-                    if BOLLine.Find('-') then begin
-                        repeat
-                            ProcessedBOLLine.TransferFields(BOLLine);
-                            ProcessedBOLLine.Insert();
-                        until BOLLine.Next = 0;
-                    end;
+            //     begin
 
-                    Message('%1 has been posted.', Rec."No.");
-                    Commit();
-
-                    BOLLine.DeleteAll();
-                    Rec.Delete();
-                end;
-            }
+            //     end;
+            // }
             action(PostAndPrint)
             {
                 ApplicationArea = Basic, Suite;
@@ -436,7 +482,14 @@ page 51002 "Torlys BOL"
                     ProcessedBOLHeader: Record "Torlys Processed BOL Header";
                     BOLLine: Record "Torlys BOL Line";
                     ProcessedBOLLine: Record "Torlys Processed BOL Line";
+                    SalesShipmentHeader: Record "Sales Shipment Header";
+                    SalesHeader: Record "Sales Header";
                 begin
+                    if Rec."Package Tracking No." = '' then
+                        Error('Need to input tracking number before posting.');
+                    if Rec."No. Printed" = 0 then
+                        Error('Cannot post until it has first been printed.');
+
                     ProcessedBOLHeader.TransferFields(Rec);
                     ProcessedBOLHeader.Insert();
 
@@ -446,197 +499,234 @@ page 51002 "Torlys BOL"
                         repeat
                             ProcessedBOLLine.TransferFields(BOLLine);
                             ProcessedBOLLine.Insert();
+                            if SalesShipmentHeader.Get(BOLLine."Shipment No.") then begin
+                                SalesShipmentHeader."Package Tracking No." := Rec."Package Tracking No.";
+                                SalesShipmentHeader.Modify(true);
+                            end;
+                            if SalesHeader.Get(1, BOLLine."Order No.") then begin
+                                SalesHeader."Package Tracking No." := Rec."Package Tracking No.";
+                                SalesHeader.Modify(true);
+                            end;
                         until BOLLine.Next = 0;
                     end;
 
                     Message('%1 has been posted.', Rec."No.");
-                    Commit();
-                    TorlysDocPrint.PrintBillOfLading(Rec);
-
                     BOLLine.DeleteAll();
+                    CurrPage.Update();
                     Rec.Delete();
+                    Commit();
+                    TorlysDocPrint.PrintProcessedBillOfLading(ProcessedBOLHeader);
                 end;
             }
         }
     }
 
-    internal procedure GetShipments()
+    internal procedure GetShipment()
     var
-        PostedShipments: Record "Sales Shipment Header";
-        PostedShipmentLines: Record "Sales Shipment Line";
-        BoLLines: Record "Torlys BOL Line";
-        // UpdateBoL: Codeunit UpdateBillOfLadingOnShipHeader;
-        CurrentLocationCode: Code[10];
-        CurrentLine: Integer;
-        PostedShipmentCases: Integer;
-        PostedShipmentPallets: Integer;
-        PostedShipmentWeight: Decimal;
-        WeightFloor: Decimal;
-        WeightUL: Decimal;
-        WeightMould: Decimal;
-        WeightOther: Decimal;
-        CaseFloor: Decimal;
-        CaseUL: Decimal;
-        CaseMould: Decimal;
-        CaseOther: Decimal;
-        BaseFloor: Decimal;
-        BaseUL: Decimal;
-        BaseMould: Decimal;
-        BaseOther: Decimal;
+        SalesShipmentHeader: Record "Sales Shipment Header";
+        SalesShipmentLine: Record "Sales Shipment Line";
+        BOLLine: Record "Torlys BOL Line";
+        NextLineNo: Integer;
+        TotalWeight: Decimal;
+        // TotalCases: Integer;
+        TotalCases: Decimal;
         SalesHeader: Record "Sales Header";
-
+        TransferShipmentHeader: Record "Transfer Shipment Header";
+        TransferShipmentLine: Record "Transfer Shipment Line";
+        TransferHeader: Record "Transfer Header";
     begin
-        PostedShipments.Reset();
-        PostedShipmentLines.Reset();
-        PostedShipmentWeight := 0;
-        PostedShipmentCases := 0;
-        PostedShipmentPallets := 0;
-        WeightFloor := 0;
-        WeightUL := 0;
-        WeightMould := 0;
-        WeightOther := 0;
-        CaseFloor := 0;
-        CaseUL := 0;
-        CaseMould := 0;
-        CaseOther := 0;
-        BaseFloor := 0;
-        BaseUL := 0;
-        BaseMould := 0;
-        BaseOther := 0;
+        SalesShipmentHeader.Reset();
+        SalesShipmentLine.Reset();
+        BOLLine.Reset();
+        NextLineNo := 0;
+        TotalWeight := 0;
+        TotalCases := 0;
+        SalesHeader.Reset();
+        TransferShipmentHeader.Reset();
+        TransferShipmentLine.Reset();
+        TransferHeader.Reset();
 
-        BoLLines.Reset();
+        BOLLine.SetRange("BOL No.", Rec."No.");
+        if BOLLine.Find('+') then
+            NextLineNo := BOLLine."BOL Line No." + 10000
+        else
+            NextLineNo := 10000;
 
-        if BoLLines.FindLast() then
-            CurrentLine := BoLLines."BOL Line No.";
-
-        CurrentLocationCode := FORMAT(Rec."Location Code");
-
-        PostedShipments.SetCurrentKey("Shipping Agent Code", "Shipment Date", "BoL No.");
-        PostedShipments.SetRange("Location Code", CurrentLocationCode);
-        PostedShipments.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        PostedShipments.SetRange("Shipment Date", Rec."Pickup Date");
-
-        if Rec."Customer No." <> '' then begin
-            PostedShipments.SetRange("BoL No.", '');
-            PostedShipments.SetRange("Sell-to Customer No.", Rec."Customer No.");
-            PostedShipments.SetRange("Ship-to Code", Rec."Ship-to Code");
-        end;
-
-        if PostedShipments.IsEmpty then begin
-            Message('No Shipments were found. Please verify the information in the Bill of Lading and try again.');
-            exit;
-        end;
-
-        if PostedShipments.FindSet() then
-            repeat
-
-                PostedShipmentWeight := 0;
-                PostedShipmentCases := 0;
-                PostedShipmentPallets := 0;
-                PostedShipmentLines.Reset();
-                PostedShipmentLines.SetRange("Document No.", PostedShipments."No.");
-                PostedShipmentLines.SetRange(Type, Enum::"Sales Line Type"::Item);
-
-                BoLLines.Init();
-                BoLLines."BOL Line No." := CurrentLine;
-                BoLLines."BOL No." := Rec."No.";
-                BoLLines."Order No." := PostedShipments."Order No.";
-                BoLLines."Shipment No." := PostedShipments."No.";
-                BoLLines."Shipment Date" := PostedShipments."Shipment Date";
-                BoLLines."Customer No." := PostedShipments."Sell-to Customer No.";
-                BoLLines."Ship-to Code" := PostedShipments."Ship-to Code";
-                BoLLines."Ship-to Name" := PostedShipments."Ship-to Name";
-                BoLLines."Ship-to Address" := PostedShipments."Ship-to Address";
-                BoLLines."Ship-to Address 2" := PostedShipments."Ship-to Address 2";
-                BoLLines."Ship-to City" := PostedShipments."Ship-to City";
-                BoLLines."Ship-to Post Code" := PostedShipments."Ship-to Post Code";
-                BoLLines."Ship-to County" := PostedShipments."Ship-to County";
-                BoLLines."Ship-to Country/Region Code" := PostedShipments."Ship-to Country/Region Code";
-                BoLLines."Shipping Agent Code" := Rec."Shipping Agent Code";
-                BoLLines."Total Cases" := 0;
-                BoLLines."Total Weight" := 0;
-                BoLLines."Total Pallet" := 0;
-                BoLLines."Shipping Comment" := Rec."Shipping Comment";
-
-                if PostedShipmentLines.FindSet() then
-                    repeat
-                        PostedShipmentWeight := PostedShipmentWeight + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
-                        PostedShipmentCases := PostedShipmentCases + PostedShipmentLines."Qty. to Ship Case";
-                        PostedShipmentPallets := PostedShipmentPallets + PostedShipmentLines."Qty. to Ship Pallet";
-
-                        case PostedShipmentLines."Gen. Prod. Posting Group" of
-                            'ACCESSORIES':
-                                begin
-                                    WeightMould := WeightMould + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
-                                    CaseMould := CaseMould + PostedShipmentLines."Qty. to Ship Case";
-                                    BaseMould := BaseMould + PostedShipmentLines."Quantity (Base)";
-                                end;
-                            'UNDERLAYMENT':
-                                begin
-                                    WeightUL := WeightUL + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
-                                    CaseUL := CaseUL + PostedShipmentLines."Qty. to Ship Case";
-                                    BaseUL := BaseUL + PostedShipmentLines."Quantity (Base)";
-                                end;
-                            'FLOORING':
-                                begin
-                                    WeightFloor := WeightFloor + (PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)");
-                                    CaseFloor := CaseFloor + PostedShipmentLines."Qty. to Ship Case";
-                                    BaseFloor := BaseFloor + PostedShipmentLines."Quantity (Base)";
-                                end;
-                            else begin
-                                WeightOther := WeightOther + PostedShipmentLines."Net Weight" * PostedShipmentLines."Quantity (Base)";
-                                CaseOther := CaseOther + PostedShipmentLines."Qty. to Ship Case";
-                                BaseOther := BaseOther + PostedShipmentLines."Quantity (Base)";
+        if Rec."Transaction Type" = Rec."Transaction Type"::Shipment then begin
+            SalesShipmentHeader.SetRange("Sell-to Customer No.", Rec."Customer No.");
+            SalesShipmentHeader.SetRange("Ship-to Code", Rec."Ship-to Code");
+            SalesShipmentHeader.SetRange("Location Code", Rec."Location Code");
+            SalesShipmentHeader.SetRange("Shipment Date", Rec."Pickup Date");
+            SalesShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
+            SalesShipmentHeader.SetRange("BOL No.", '');
+            if SalesShipmentHeader.IsEmpty then begin
+                Error('No shipments were found. Please verify the information and try again.');
+            end;
+            if SalesShipmentHeader.FindSet() then begin
+                repeat
+                    BOLLine.Init();
+                    BOLLine."BOL Line No." := NextLineNo;
+                    BOLLine."BOL No." := Rec."No.";
+                    BOLLine."Order No." := SalesShipmentHeader."Order No.";
+                    BOLLine."Shipment No." := SalesShipmentHeader."No.";
+                    BOLLine."Shipment Date" := SalesShipmentHeader."Shipment Date";
+                    BOLLine."Customer No." := SalesShipmentHeader."Sell-to Customer No.";
+                    BOLLine."Ship-to Code" := SalesShipmentHeader."Ship-to Code";
+                    BOLLine."Ship-to Name" := SalesShipmentHeader."Ship-to Name";
+                    BOLLine."Ship-to Address" := SalesShipmentHeader."Ship-to Address";
+                    BOLLine."Ship-to Address 2" := SalesShipmentHeader."Ship-to Address 2";
+                    BOLLine."Ship-to City" := SalesShipmentHeader."Ship-to City";
+                    BOLLine."Ship-to County" := SalesShipmentHeader."Ship-to County";
+                    BOLLine."Ship-to Post Code" := SalesShipmentHeader."Ship-to Post Code";
+                    BOLLine."Ship-to Country/Region Code" := SalesShipmentHeader."Ship-to Country/Region Code";
+                    BOLLine."External Document No." := SalesShipmentHeader."External Document No.";
+                    BOLLine."Shipping Agent Code" := SalesShipmentHeader."Shipping Agent Code";
+                    BOLLine."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
+                    BOLLine."Total Weight" := 0;
+                    BOLLine."Total Cases" := 0;
+                    SalesShipmentLine.Reset();
+                    SalesShipmentLine.SetRange("Document No.", SalesShipmentHeader."No.");
+                    SalesShipmentLine.SetFilter(Type, 'Item');
+                    if SalesShipmentLine.FindSet() then begin
+                        repeat
+                            if (SalesShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
+                                Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + SalesShipmentLine."Quantity";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" = 'ROLL') then begin
+                                Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + SalesShipmentLine."Quantity";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
+                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case";
+                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'VINYL') then begin
+                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case";
+                            end else begin
+                                Rec."Weight - Other" := Rec."Weight - Other" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                Rec."Cases - Other" := Rec."Cases - Other" + SalesShipmentLine."Quantity";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
                             end;
-                        end;
-                    until PostedShipmentLines.Next() = 0;
-                BoLLines."Total Cases" := PostedShipmentCases;
-                BoLLines."Total Pallet" := PostedShipmentPallets;
-                BoLLines."Total Weight" := PostedShipmentWeight;
-                BoLLines.Insert();
-
-                CurrentLine += 10000;
-            until PostedShipments.Next() = 0;
-
-
-        // put BOL # on shipment header
-        if PostedShipments.Find('-') then begin
-            PostedShipments.ModifyAll(PostedShipments."BOL No.", Rec."No.");
-        end;
-
-        // put BOL # on sales header
-        BOLLines.Reset();
-        BOLLines.SetRange("BOL No.", Rec."No.");
-        if BOLLines.Find('-') then begin
-            repeat
-                SalesHeader.Reset();
-                SalesHeader.SetRange("No.", BOLLines."Order No.");
-                if SalesHeader.Find('-') then begin
-                    repeat
-                        SalesHeader."BOL No." := BOLLines."BOL No.";
-                        SalesHeader.Modify(true);
-                    until SalesHeader.Next() = 0;
+                        until SalesShipmentLine.Next() = 0;
+                    end;
+                    BOLLine.Insert();
+                    NextLineNo += 10000;
+                until SalesShipmentHeader.Next() = 0;
+                // write BOL # on shipment header
+                if SalesShipmentHeader.Find('-') then begin
+                    SalesShipmentHeader.ModifyAll(SalesShipmentHeader."BOL No.", Rec."No.");
                 end;
-            until BOLLines.Next() = 0;
+                // write BOL # on sales header
+                BOLLine.Reset();
+                BOLLine.SetRange("BOL No.", Rec."No.");
+                if BOLLine.Find('-') then begin
+                    repeat
+                        SalesHeader.Reset();
+                        SalesHeader.SetRange("No.", BOLLine."Order No.");
+                        if SalesHeader.Find('-') then begin
+                            repeat
+                                SalesHeader."BOL No." := BOLLine."BOL No.";
+                                SalesHeader.Modify(true);
+                            until SalesHeader.Next() = 0;
+                        end;
+                    until BOLLine.Next() = 0;
+                end;
+            end;
+        end else if Rec."Transaction Type" = Rec."Transaction Type"::Transfer then begin
+            TransferShipmentHeader.SetRange("Transfer-to Code", Rec."Customer No.");
+            TransferShipmentHeader.SetRange("Transfer-from Code", Rec."Location Code");
+            TransferShipmentHeader.SetRange("Shipment Date", Rec."Pickup Date");
+            TransferShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
+            TransferShipmentHeader.SetRange("BOL No.", '');
+            if TransferShipmentHeader.IsEmpty then begin
+                Error('No transfers were found. Please verify the information and try again.');
+            end;
+            if TransferShipmentHeader.FindSet() then begin
+                repeat
+                    BOLLine.Init();
+                    BOLLine."BOL Line No." := NextLineNo;
+                    BOLLine."BOL No." := Rec."No.";
+                    BOLLine."Order No." := TransferShipmentHeader."Transfer Order No.";
+                    BOLLine."Shipment No." := TransferShipmentHeader."No.";
+                    BOLLine."Shipment Date" := TransferShipmentHeader."Shipment Date";
+                    BOLLine."Customer No." := TransferShipmentHeader."Transfer-to Code";
+                    BOLLine."Ship-to Code" := TransferShipmentHeader."Transfer-to Code";
+                    BOLLine."Ship-to Name" := TransferShipmentHeader."Transfer-to Name";
+                    BOLLine."Ship-to Address" := TransferShipmentHeader."Transfer-to Address";
+                    BOLLine."Ship-to Address 2" := TransferShipmentHeader."Transfer-to Address 2";
+                    BOLLine."Ship-to City" := TransferShipmentHeader."Transfer-to City";
+                    BOLLine."Ship-to County" := TransferShipmentHeader."Transfer-to County";
+                    BOLLine."Ship-to Post Code" := TransferShipmentHeader."Transfer-to Post Code";
+                    BOLLine."Ship-to Country/Region Code" := TransferShipmentHeader."Trsf.-to Country/Region Code";
+                    BOLLine."External Document No." := TransferShipmentHeader."External Document No.";
+                    BOLLine."Shipping Agent Code" := TransferShipmentHeader."Shipping Agent Code";
+                    // BOLLine."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
+                    BOLLine."Total Weight" := 0;
+                    BOLLine."Total Cases" := 0;
+                    TransferShipmentLine.Reset();
+                    TransferShipmentLine.SetRange("Document No.", TransferShipmentHeader."No.");
+                    if TransferShipmentLine.FindSet() then begin
+                        repeat
+                            if (TransferShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
+                                Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + TransferShipmentLine."Quantity";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" = 'ROLL') then begin
+                                Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + TransferShipmentLine."Quantity";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
+                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case";
+                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'VINYL') then begin
+                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case";
+                            end else begin
+                                Rec."Weight - Other" := Rec."Weight - Other" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                Rec."Cases - Other" := Rec."Cases - Other" + TransferShipmentLine."Quantity";
+                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+                            end;
+                        until TransferShipmentLine.Next() = 0;
+                    end;
+                    BOLLine.Insert();
+                    NextLineNo += 10000;
+                until TransferShipmentHeader.Next() = 0;
+                // write BOL # on shipment header
+                if TransferShipmentHeader.Find('-') then begin
+                    TransferShipmentHeader.ModifyAll(TransferShipmentHeader."BOL No.", Rec."No.");
+                end;
+                // write BOL # on sales header
+                BOLLine.Reset();
+                BOLLine.SetRange("BOL No.", Rec."No.");
+                if BOLLine.Find('-') then begin
+                    repeat
+                        TransferHeader.Reset();
+                        TransferHeader.SetRange("No.", BOLLine."Order No.");
+                        if TransferHeader.Find('-') then begin
+                            repeat
+                                TransferHeader."BOL No." := BOLLine."BOL No.";
+                                TransferHeader.Modify(true);
+                            until TransferHeader.Next() = 0;
+                        end;
+                    until BOLLine.Next() = 0;
+                end;
+            end;
         end;
-
-        // Rec."Weight - Flooring" := WeightFloor;
-        // Rec."Weight - Underlayment Rolls" := WeightUL;
-        // Rec."Weight - Mouldings" := WeightMould;
-        // Rec."Weight - Other" := WeightOther;
-        // Rec."Weight - Total" := WeightFloor + WeightUL + WeightMould + WeightOther;
-
-        // Rec."Cases - Flooring" := CaseFloor;
-        // Rec."Cases - Underlayment Rolls" := CaseUL;
-        // Rec."Cases - Mouldings" := CaseMould;
-        // Rec."Cases - Other" := CaseOther;
-        // Rec."Cases - Total" := CaseFloor + CaseUL + CaseMould + CaseOther;
-
-        // Rec."Base Qty. - Underlayment Rolls" := BaseUL;
-        // Rec."Base Quantity - Flooring" := BaseFloor;
-        // Rec."Base Quantity - Mouldings" := BaseMould;
-        // Rec."Base Quantity - Other" := BaseOther;
-        // Rec."Base Quantity - Total" := BaseFloor + BaseUL + BaseMould + BaseOther;
 
     end;
 

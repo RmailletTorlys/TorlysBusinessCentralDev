@@ -40,5 +40,10 @@ tableextension 55746 TorlysTransferReceiptHeader extends "Transfer Receipt Heade
             Caption = 'BOL No.';
             DataClassification = CustomerContent;
         }
+        field(50007; "Package Tracking No."; Text[50])
+        {
+            Caption = 'Package Tracking No.';
+            DataClassification = CustomerContent;
+        }
     }
 }

@@ -63,7 +63,7 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            column(Carrier_Tracking_No_; "Carrier Tracking No.")
+            column(Carrier_Tracking_No_; "Package Tracking No.")
             {
 
             }
@@ -251,10 +251,10 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            column(Last_Print_Time; "Last Print Time")
-            {
+            // column(Last_Print_Time; "Last Print Time")
+            // {
 
-            }
+            // }
             column(Last_Print_Date; "Last Print Date")
             {
 
@@ -405,9 +405,9 @@ report 50009 "Processed Bill Of Lading"
 
                 If not CurrReport.Preview then begin
                     "Processed Bol Header"."No. Printed" := "Processed Bol Header"."No. Printed" + 1;
-                    //"Processed Bol Header"."Last Print Date" := WorkDate;
-                    "Processed Bol Header"."Last Print Time" := Time;
-                    "Processed Bol Header"."Last Print By" := COPYSTR(FORMAT(UserId), 1, 20);
+                    "Processed Bol Header"."Last Print Date" := CurrentDateTime;
+                    // "Processed Bol Header"."Last Print Time" := Time;
+                    // "Processed Bol Header"."Last Print By" := COPYSTR(FORMAT(UserId), 1, 20);
                     //"Processed Bol Header"."Lines Deleted" := False;
                     "Processed Bol Header".Modify();
                 end;

@@ -293,6 +293,8 @@ page 52001 TorlysOrdersToBeShippedList
             { }
             actionref("Post and Print"; PostAndPrint)
             { }
+            actionref("Create BOL"; CreateBOL)
+            { }
             group("Posted Documents")
             {
                 actionref("View Shipments"; ViewShipments)
@@ -738,14 +740,18 @@ page 52001 TorlysOrdersToBeShippedList
                             PickerPage.LookupMode(true);
                             PickerRecord.Reset;
                             PickerRecord.SetFilter("Job Title", 'Warehouse Associate');
+                            PickerRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
                             PickerPage.SetTableView(PickerRecord);
+                            PickerPage.Caption('Choose PICKER below');
                             if PickerPage.RunModal() = Action::LookupOK then
                                 PickerPage.GetRecord(PickerRecord);
                             AuditorPage.LookupMode(true);
                             AuditorRecord.Reset;
                             AuditorRecord.SetFilter("Job Title", 'Warehouse Associate');
+                            AuditorRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
                             AuditorRecord.SetFilter("Code", '<>%1', PickerRecord.Code);
                             AuditorPage.SetTableView(AuditorRecord);
+                            AuditorPage.Caption('Choose AUDITOR below');
                             if AuditorPage.RunModal() = Action::LookupOK then
                                 AuditorPage.GetRecord(AuditorRecord);
                             repeat
@@ -760,6 +766,7 @@ page 52001 TorlysOrdersToBeShippedList
             }
             group(ShipmentDate)
             {
+                // Visible = (ShipmentNo <> '');
                 action(ChangeToToday)
                 {
                     ApplicationArea = All;
@@ -828,6 +835,7 @@ page 52001 TorlysOrdersToBeShippedList
                     Caption = 'Print Pick Slip';
                     Image = Print;
                     ToolTip = 'Print a picking list that shows which items to pick and ship for the sales order. If an item is assembled to order, then the report includes rows for the assembly components that must be picked. Use this report as a pick instruction to employees in charge of picking sales items or assembly components for the sales order.';
+                    // Visible = (ShipmentNo = '');
                     trigger OnAction()
                     var
                         SalesHeader: Record "Sales Header";
@@ -845,6 +853,7 @@ page 52001 TorlysOrdersToBeShippedList
                     Caption = 'Print Summary Pick Slip';
                     Image = Print;
                     ToolTip = 'Print a summary picking list that shows which items to pick and ship for the sales order.';
+                    // Visible = (ShipmentNo = '');
                     trigger OnAction()
                     var
                         SalesHeader: Record "Sales Header";
@@ -879,6 +888,7 @@ page 52001 TorlysOrdersToBeShippedList
                     Caption = 'Post and Print';
                     Image = Post;
                     ToolTip = 'Post the selected sales order(s) as shipped.';
+                    // Visible = (ShipmentNo = '');
                     trigger OnAction()
                     var
                         SalesHeader: Record "Sales Header";
@@ -958,99 +968,130 @@ page 52001 TorlysOrdersToBeShippedList
                             until SalesHeader.Next() = 0;
                     end;
                 }
-            }
-            group("Documents")
-            {
-                Caption = 'Posted Documents';
-                Image = Documents;
-                action(ViewShipments)
+                action(CreateBOL)
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'View Shipments';
-                    Image = Shipment;
-                    RunObject = Page "Posted Sales Shipments";
-                    RunPageLink = "Order No." = field("No.");
-                    RunPageView = sorting("Order No.");
-                    ToolTip = 'View related posted sales shipments.';
-                }
-                action(RemoveBOL)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Remove BOL # from SH/OR';
-                    Image = CheckList;
-                    ToolTip = 'Clear the BOL # from the current line.';
+                    Caption = 'Create BOL';
+                    Image = NewWarehouseShipment;
+                    Visible = (Rec."BOL No." = '');
                     trigger OnAction()
                     var
-                        RemoveBOL: Boolean;
-                        ShipmentHeader: Record "Sales Shipment Header";
                         SalesHeader: Record "Sales Header";
+                        BOLHeader: Record "Torlys BOL Header";
                     begin
                         CurrPage.SetSelectionFilter(SalesHeader);
                         if SalesHeader.Count > 1 then begin
-                            Error('You cannot remove BOL # this way, choose 1 order.')
+                            Error('You cannot create BOLs this way, choose 1 order.')
                         end else begin
-                            RemoveBOL := Dialog.Confirm('This will just remove the BOL # from the SH and the OR, the BOL line will still be populated. Proceed?');
-                            if RemoveBOL then begin
-                                ShipmentHeader.Reset();
-                                ShipmentHeader.SetRange("No.", ShipmentNo);
-                                if ShipmentHeader.Find('-') then begin
-                                    ShipmentHeader."BOL No." := '';
-                                    ShipmentHeader.Modify(true);
-                                    Message('BOL # removed from %1.', ShipmentNo);
-                                end;
-                                SalesHeader.Reset();
-                                SalesHeader.SetRange("No.", Rec."No.");
-                                if SalesHeader.Find('-') then begin
-                                    SalesHeader."BOL No." := '';
-                                    SalesHeader.Modify(true);
-                                    Message('BOL # removed from %1.', Rec."No.");
-                                end;
-                            end;
+                            BOLHeader.Init;
+                            BOLHeader.Validate(BOLHeader."Transaction Type", BOLHeader."Transaction Type"::Shipment);
+                            BOLHeader.Validate(BOLHeader."Customer No.", Rec."Sell-to Customer No.");
+                            BOLHeader.Validate(BOLHeader."Ship-to Code", Rec."Ship-to Code");
+                            BOLHeader.Validate(BOLHeader."Location Code", Rec."Location Code");
+                            BOLHeader.Validate(BOLHeader."Pickup Date", Workdate());
+                            BOLHeader.Validate(BOLHeader."Shipping Agent Code", Rec."Shipping Agent Code");
+                            BOLHeader.Insert(true);
+                            Page.Run(Page::"Torlys BOL", BOLHeader);
                         end;
                     end;
                 }
+                group("Documents")
+                {
+                    Caption = 'Posted Documents';
+                    Image = Documents;
+                    action(ViewShipments)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'View Shipments';
+                        Image = Shipment;
+                        RunObject = Page "Posted Sales Shipments";
+                        RunPageLink = "Order No." = field("No.");
+                        RunPageView = sorting("Order No.");
+                        ToolTip = 'View related posted sales shipments.';
+                        Visible = (ShipmentNo <> '');
+                    }
+                    action(RemoveBOL)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Remove BOL # from SH/OR';
+                        Image = CheckList;
+                        ToolTip = 'Clear the BOL # from the current line.';
+                        // Visible = (Rec."BOL No." <> '');
+                        trigger OnAction()
+                        var
+                            RemoveBOL: Boolean;
+                            ShipmentHeader: Record "Sales Shipment Header";
+                            SalesHeader: Record "Sales Header";
+                        begin
+                            CurrPage.SetSelectionFilter(SalesHeader);
+                            if SalesHeader.Count > 1 then begin
+                                Error('You cannot remove BOL # this way, choose 1 order.')
+                            end else begin
+                                RemoveBOL := Dialog.Confirm('This will just remove the BOL # from the SH and the OR, the BOL line will still be populated. Proceed?');
+                                if RemoveBOL then begin
+                                    ShipmentHeader.Reset();
+                                    ShipmentHeader.SetRange("No.", ShipmentNo);
+                                    if ShipmentHeader.Find('-') then begin
+                                        ShipmentHeader."BOL No." := '';
+                                        ShipmentHeader.Modify(true);
+                                        Message('BOL # removed from %1.', ShipmentNo);
+                                    end;
+                                    SalesHeader.Reset();
+                                    SalesHeader.SetRange("No.", Rec."No.");
+                                    if SalesHeader.Find('-') then begin
+                                        SalesHeader."BOL No." := '';
+                                        SalesHeader.Modify(true);
+                                        Message('BOL # removed from %1.', Rec."No.");
+                                    end;
+                                end;
+                            end;
+                        end;
+                    }
 
-                action(ViewBOL)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'View BOL';
-                    Image = SalesShipment;
-                    RunObject = Page "Torlys BOL";
-                    RunPageLink = "No." = field("BOL No.");
-                    // RunPageView = sorting("No.");
-                    ToolTip = 'View related BOL.';
-                }
-                action(ViewPostedBOL)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'View Posted BOL';
-                    Image = SalesShipment;
-                    RunObject = Page "Torlys Processed BOL";
-                    RunPageLink = "No." = field("BOL No.");
-                    // RunPageView = sorting("No.");
-                    ToolTip = 'View related BOL.';
-                }
-                action(ViewInvoices)
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Invoices';
-                    Image = Invoice;
-                    ToolTip = 'View a list of ongoing sales invoices for the order.';
-                    AboutTitle = 'What has been invoiced?';
-                    AboutText = 'Here you can look up what has already been invoiced on an order.';
-                    trigger OnAction()
-                    var
-                        TempSalesInvoiceHeader: Record "Sales Invoice Header" temporary;
-                        SalesGetShipment: Codeunit "Sales-Get Shipment";
-                    begin
-                        SalesGetShipment.GetSalesOrderInvoices(TempSalesInvoiceHeader, Rec."No.");
-                        Page.Run(Page::"Posted Sales Invoices", TempSalesInvoiceHeader);
-                    end;
+                    action(ViewBOL)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'View BOL';
+                        Image = SalesShipment;
+                        RunObject = Page "Torlys BOL";
+                        RunPageLink = "No." = field("BOL No.");
+                        // RunPageView = sorting("No.");
+                        ToolTip = 'View related BOL.';
+                        // Visible = (BOLDate := 0DT);
+                    }
+                    action(ViewPostedBOL)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'View Posted BOL';
+                        Image = SalesShipment;
+                        RunObject = Page "Torlys Processed BOL";
+                        RunPageLink = "No." = field("BOL No.");
+                        // RunPageView = sorting("No.");
+                        ToolTip = 'View related BOL.';
+                        // Visible = (BOLDate <> 0DT);
+                        // Visible = (ShipmentNo <> '');                        
+                    }
+                    action(ViewInvoices)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Invoices';
+                        Image = Invoice;
+                        ToolTip = 'View a list of ongoing sales invoices for the order.';
+                        AboutTitle = 'What has been invoiced?';
+                        AboutText = 'Here you can look up what has already been invoiced on an order.';
+                        trigger OnAction()
+                        var
+                            TempSalesInvoiceHeader: Record "Sales Invoice Header" temporary;
+                            SalesGetShipment: Codeunit "Sales-Get Shipment";
+                        begin
+                            SalesGetShipment.GetSalesOrderInvoices(TempSalesInvoiceHeader, Rec."No.");
+                            Page.Run(Page::"Posted Sales Invoices", TempSalesInvoiceHeader);
+                        end;
+                    }
                 }
             }
         }
     }
-
     var
         SOCount: Integer;
         SalesHeader: Record "Sales Header";
@@ -1197,20 +1238,8 @@ page 52001 TorlysOrdersToBeShippedList
             BOLNoOfPackages := PostedBOLHeader."No. of Packages";
             BOLWeight := PostedBOLHeader."Weight - Total";
             BOLDate := PostedBOLHeader."SystemCreatedAt";
+        end else begin
+            BOLDate := 0DT;
         end;
-
-
-        // // Get Posted BOL stats
-        // Clear(BOLNoOfSkids);
-        // Clear(BOLNoOfPackages);
-        // Clear(BOLWeight);
-        // PostedBOLHeader.Reset();
-        // PostedBOLHeader.SetRange("No.", Rec."BOL No.");
-        // if PostedBOLHeader.Find('-') then begin
-        //     BOLNoOfSkids := PostedBOLHeader."No. of Skids";
-        //     BOLNoOfPackages := PostedBOLHeader."No. of Packages";
-        //     BOLWeight := PostedBOLHeader."Weight - Total";
-        // end;
-
     end;
 }

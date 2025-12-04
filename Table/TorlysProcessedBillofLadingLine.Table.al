@@ -142,7 +142,7 @@ table 55005 "Torlys Processed BOL Line"
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+            TableRelation = "Torlys Shipping Instructions";
         }
 
         field(23; "Shipping Comment"; Text[50])

@@ -63,7 +63,7 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(Carrier_Tracking_No_; "Carrier Tracking No.")
+            column(Carrier_Tracking_No_; "Package Tracking No.")
             {
 
             }
@@ -251,10 +251,10 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(Last_Print_Time; "Last Print Time")
-            {
+            // column(Last_Print_Time; "Last Print Time")
+            // {
 
-            }
+            // }
             column(Last_Print_Date; "Last Print Date")
             {
 
@@ -401,9 +401,9 @@ report 50008 "Bill Of Lading"
 
                 If not CurrReport.Preview then begin
                     "BOL Header"."No. Printed" := "BOL Header"."No. Printed" + 1;
-                    //"BOL Header"."Last Print Date" := workdate;
-                    "BOL Header"."Last Print Time" := TIME;
-                    "BOL Header"."Last Print By" := FORMAT(USERID);
+                    "BOL Header"."Last Print Date" := CurrentDateTime();
+                    // "BOL Header"."Last Print Time" := TIME;
+                    // "BOL Header"."Last Print By" := FORMAT(USERID);
                     //"BOL Header"."Lines Deleted" := FALSE;
                     "BOL Header".MODIFY();
                 end;

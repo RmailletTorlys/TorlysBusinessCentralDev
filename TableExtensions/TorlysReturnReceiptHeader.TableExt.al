@@ -47,7 +47,7 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
         field(50007; "Order Type"; Code[25])
         {
             Caption = 'Order Type';
-            TableRelation = "Torlys Lookup Values" where(Type = const("Order Type"));
+            TableRelation = "Torlys Order Type";
             DataClassification = CustomerContent;
         }
 
@@ -185,14 +185,14 @@ tableextension 56660 TorlysReturnReceiptHeader extends "Return Receipt Header"
         {
             Caption = 'Order Method';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values".Code where(Type = const("Order Method"));
+            TableRelation = "Torlys Order Method";
         }
 
         field(50037; "Shipping Instructions"; Code[30])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
-            TableRelation = "Torlys Lookup Values" where(Type = const("Shipping Instructions"));
+            TableRelation = "Torlys Shipping Instructions";
         }
 
         field(50040; "Shipping Comment"; Text[50])

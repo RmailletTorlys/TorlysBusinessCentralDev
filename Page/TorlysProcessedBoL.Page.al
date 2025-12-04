@@ -73,6 +73,22 @@ page 51006 "Torlys Processed BOL"
                     Caption = 'Shipping Agent Code';
                     Importance = Promoted;
                 }
+                field("No. Printed"; Rec."No. Printed")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'No. Printed';
+                    Caption = 'No. Printed';
+                    Importance = Additional;
+                    Editable = false;
+                }
+                field("Last Print Date"; Rec."Last Print Date")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Last Print Date';
+                    Caption = 'Last Print Date';
+                    Importance = Additional;
+                    Editable = false;
+                }
                 field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
                 {
                     Caption = 'Created By';
@@ -142,11 +158,11 @@ page 51006 "Torlys Processed BOL"
                             Importance = Additional;
                         }
 
-                        field("Tracking No."; Rec."Carrier Tracking No.")
+                        field("Package Tracking No."; Rec."Package Tracking No.")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the tracking number of the carrier.';
-                            Caption = 'Carrier Tracking No.';
+                            Caption = 'Package Tracking No.';
                         }
 
                         field("Loaded By"; Rec."Loaded by")
@@ -341,50 +357,50 @@ page 51006 "Torlys Processed BOL"
 
                     }
 
-                    group(Quantity2)
-                    {
-                        Caption = 'Quantity(BASE)';
+                    // group(Quantity2)
+                    // {
+                    //     Caption = 'Quantity(BASE)';
 
-                        field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
-                            Caption = 'Flooring';
-                            Editable = false;
-                        }
+                    //     field("Base Quantity - Flooring"; Rec."Base Quantity - Flooring")
+                    //     {
+                    //         ApplicationArea = Basic, Suite;
+                    //         ToolTip = 'Specifies the base quantity of the flooring in the shipment.';
+                    //         Caption = 'Flooring';
+                    //         Editable = false;
+                    //     }
 
-                        field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
-                            Caption = 'Underlayment Rolls';
-                            Editable = false;
-                        }
+                    //     field("Base Quantity - Underlayment Rolls"; Rec."Base Qty. - Underlayment Rolls")
+                    //     {
+                    //         ApplicationArea = Basic, Suite;
+                    //         ToolTip = 'Specifies the base quantity of the Underlayment Rolls in the shipment.';
+                    //         Caption = 'Underlayment Rolls';
+                    //         Editable = false;
+                    //     }
 
-                        field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
-                            Caption = 'Mouldings';
-                            Editable = false;
-                        }
+                    //     field("Base Quantity - Mouldings"; Rec."Base Quantity - Mouldings")
+                    //     {
+                    //         ApplicationArea = Basic, Suite;
+                    //         ToolTip = 'Specifies the base quantity of the mdlings in the shipment.';
+                    //         Caption = 'Mouldings';
+                    //         Editable = false;
+                    //     }
 
-                        field("Base Quantity - Other"; Rec."Base Quantity - Other")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the base quantity of other items in the shipment.';
-                            Caption = 'Other';
-                            Editable = false;
-                        }
+                    //     field("Base Quantity - Other"; Rec."Base Quantity - Other")
+                    //     {
+                    //         ApplicationArea = Basic, Suite;
+                    //         ToolTip = 'Specifies the base quantity of other items in the shipment.';
+                    //         Caption = 'Other';
+                    //         Editable = false;
+                    //     }
 
-                        field("Base Quantity - Total"; Rec."Base Quantity - Total")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the total base quantity of the shipment.';
-                            Caption = 'Total';
-                            Editable = false;
-                        }
-                    }
+                    //     field("Base Quantity - Total"; Rec."Base Quantity - Total")
+                    //     {
+                    //         ApplicationArea = Basic, Suite;
+                    //         ToolTip = 'Specifies the total base quantity of the shipment.';
+                    //         Caption = 'Total';
+                    //         Editable = false;
+                    //     }
+                    // }
                 }
             }
         }

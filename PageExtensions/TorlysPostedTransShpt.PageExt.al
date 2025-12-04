@@ -13,7 +13,29 @@ pageextension 55743 TorlysPostedTransShpt extends "Posted Transfer Shipment"
             }
         }
 
-        moveafter("Transfer-from Code"; "Transfer-to Code", "Direct Transfer", "In-Transit Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code", "Transfer Order No.", "Transfer Order Date")
+        moveafter("Transfer-from Code"; "Transfer-to Code", "Direct Transfer", "In-Transit Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code")
+
+        addafter("Shipping Agent Code")
+        {
+            field("BOL No."; Rec."BOL No.")
+            {
+                Caption = 'BOL No.';
+                ToolTip = 'BOL No.';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+            field("Package Tracking No."; Rec."Package Tracking No.")
+            {
+                Caption = 'Package Tracking No.';
+                ToolTip = 'Package Tracking No.';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Package Tracking No."; "Transfer Order No.", "Transfer Order Date")
 
         addafter("Transfer Order Date")
         {

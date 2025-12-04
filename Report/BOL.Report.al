@@ -63,10 +63,10 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(Carrier_Tracking_No_; "Package Tracking No.")
-            {
+            // column(Carrier_Tracking_No_;)
+            // {
 
-            }
+            // }
             column(No_; "No.")
             {
 

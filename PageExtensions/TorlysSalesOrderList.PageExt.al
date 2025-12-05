@@ -112,7 +112,7 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
             }
         }
 
-        moveafter("Shipping Comment"; "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("Shipping Comment"; "Shipping Agent Code", "Amt. Ship. Not Inv. (LCY) Base", Amount)
 
         addafter(Amount)
         {

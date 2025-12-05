@@ -63,10 +63,10 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(Carrier_Tracking_No_; "Package Tracking No.")
-            {
+            // column(Carrier_Tracking_No_;)
+            // {
 
-            }
+            // }
             column(No_; "No.")
             {
 
@@ -290,9 +290,9 @@ report 50008 "Bill Of Lading"
                 // Encode the data string to the barcode font
                 EncodedText := BarcodeFontProvider.EncodeFont(BarcodeStrings, BarcodeSymbology);
 
-                ShippingAgent1.Get("Shipping Agent Code");
+                ShippingAgent1.Get("Bol Header"."Shipping Agent Code");
                 If ShippingAgent1."Pickup/Beyond Method" then begin
-                    ShipToAddress[1] := "Ship-to Name";
+                    ShipToAddress[1] := "Bol Header"."Ship-to Name";
                     ShipToAddress[2] := ShippingAgent1."Pickup/Beyond Address 1";
                     ShipToAddress[3] := ShippingAgent1."Pickup/Beyond Address 3";
                     ShipToAddress[4] := ShippingAgent1."Pickup/Beyond Address 5";
@@ -305,8 +305,8 @@ report 50008 "Bill Of Lading"
                     DestinationInstructions1 := "Shipping Comment";
 
 
-                Location.Get("Location Code");
-                ShippingAgent.Get("Shipping Agent Code");
+                Location.Get("Bol Header"."Location Code");
+                ShippingAgent.Get("Bol Header"."Shipping Agent Code");
 
                 FormatAddress.Location(LocationAddress, Location);
                 LocationAddress[8] := Location."Phone No." + ' Fax: ' + Location."Fax No.";
@@ -326,8 +326,8 @@ report 50008 "Bill Of Lading"
 
 
                 Case
-                    "Bol Header"."Transaction Type" Of
-                    "Bol Header"."Transaction Type"::Shipment:
+                    "Transaction Type" Of
+                    "Transaction Type"::Shipment:
                         Begin
                             SalesShipmentLine.Reset();
                             SalesShipmentLine.SetCurrentKey("Document No.", Type);
@@ -336,7 +336,7 @@ report 50008 "Bill Of Lading"
                             SalesShipmentLine.SETFILTER(Quantity, '>%1', 0);
                             IF SalesShipmentLine.FIND('-') THEN
                                 repeat
-                                    IF NoOrderString = FALSE THEN
+                                    IF NoOrderString = FALSE THEN begin
                                         IF STRPOS(OrderString[OrderStringToUse], BOLLine."Order No.") = 0 THEN begin
                                             IF STRLEN(OrderString[1]) > 75 THEN
                                                 OrderStringToUse := 2;
@@ -356,6 +356,7 @@ report 50008 "Bill Of Lading"
                                             SalesShipmentHeader.Get(SalesShipmentLine."Document No.");
                                             OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + BOLLine."Order No." + '-' + SalesShipmentHeader."External Document No." + ' ';
                                         end;
+                                    end;
                                     //don't display order string because too long   
                                     If StrPos(LocationString, salesshipmentline."Location Code") = 0 then
                                         LocationString := LocationString + SalesShipmentLine."Location Code" + ' ';

@@ -109,7 +109,7 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group",
-                'CORK|CORKWOOD|LAMINATE|LEATHER|MQ LAMINATE|MQ VINYL DB|MQ VINYL LL|MQ VINYL SPC|MQ VINYL WPC|MQ WOOD|SS WOOD|VINYL|VINYL RW|VINYL UW|WALLS|WOOD');
+                'CORK|CORKWOOD|HARDWOOD|LAMINATE|LEATHER|MQ HARDWOOD|MQ LAMINATE|MQ VINYL DB|MQ VINYL LL|MQ VINYL SPC|MQ VINYL WPC|SS HARDWOOD|VINYL EW|VINYL RW|VINYL UW|WALLS');
         if SalesLine.Find('-') then begin
             repeat
                 ShippedQuantityFloor := ShippedQuantityFloor + SalesLine."Qty. to Invoice";
@@ -294,7 +294,7 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group",
-                'CORK|CORKWOOD|LAMINATE|LEATHER|MQ LAMINATE|MQ VINYL DB|MQ VINYL LL|MQ VINYL SPC|MQ VINYL WPC|MQ WOOD|SS WOOD|VINYL|VINYL RW|VINYL UW|WALLS|WOOD');
+                'CORK|CORKWOOD|HARDWOOD|LAMINATE|LEATHER|MQ HARDWOOD|MQ LAMINATE|MQ VINYL DB|MQ VINYL LL|MQ VINYL SPC|MQ VINYL WPC|SS HARDWOOD|VINYL EW|VINYL RW|VINYL UW|WALLS');
         if SalesLine.Find('-') then begin
             repeat
                 ShippedQuantityFloor := ShippedQuantityFloor + SalesLine."Qty. to Invoice";

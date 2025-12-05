@@ -121,7 +121,7 @@ table 55002 "Torlys BOL Header"
 
         field(10; "Ship-to County"; Text[30])
         {
-            Caption = 'Ship-to City';
+            Caption = 'Ship-to County';
             DataClassification = CustomerContent;
         }
 
@@ -135,12 +135,14 @@ table 55002 "Torlys BOL Header"
         {
             Caption = 'Ship-to Country/Region Code';
             DataClassification = CustomerContent;
+            TableRelation = "Country/Region";
         }
 
         field(13; "Location Code"; Code[20])
         {
             Caption = 'Location Code';
             DataClassification = CustomerContent;
+            TableRelation = Location;
         }
 
         field(14; "Shipping Agent Code"; Code[20])
@@ -150,12 +152,12 @@ table 55002 "Torlys BOL Header"
             TableRelation = "Shipping Agent";
         }
 
-        field(15; "Freight Type"; Option)
-        {
-            Caption = 'Freight Type';
-            OptionMembers = "Prepaid","Collect";
-            DataClassification = CustomerContent;
-        }
+        // field(15; "Freight Type"; Option)
+        // {
+        //     Caption = 'Freight Type';
+        //     OptionMembers = "Prepaid","Collect";
+        //     DataClassification = CustomerContent;
+        // }
 
         field(16; "Pickup Date"; Date)
         {
@@ -174,16 +176,7 @@ table 55002 "Torlys BOL Header"
             Caption = 'Shipping Instructions 2';
             DataClassification = CustomerContent;
         }
-        field(19; "Shipping Instructions 3"; Text[50])
-        {
-            Caption = 'Shipping Instructions 3';
-            DataClassification = CustomerContent;
-        }
-        field(20; "Shipping Instructions 4"; Text[50])
-        {
-            Caption = 'Shipping Instructions 4';
-            DataClassification = CustomerContent;
-        }
+
         field(21; "No. of Skids"; Integer)
         {
             Caption = 'No. of Skids';

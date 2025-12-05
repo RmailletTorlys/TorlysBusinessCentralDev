@@ -261,28 +261,28 @@ page 51002 "Torlys BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the weight of the flooring in the shipment.';
                             Caption = 'Flooring';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Weight - Underlayment Rolls"; Rec."Weight - Underlayment Rolls")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the weight of the underlayment rolls in the shipment.';
                             Caption = 'Underlayment Rolls';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Weight - Mouldings"; Rec."Weight - Mouldings")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the weight of the mdlings in the shipment.';
                             Caption = 'Mouldings';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Weight - Other"; Rec."Weight - Other")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the weight of other items in the shipment.';
                             Caption = 'Other';
-                            Editable = false;
+                            Editable = true;
                         }
 
                         field("Weight - Total"; Rec."Weight - Flooring" + Rec."Weight - Underlayment Rolls" + Rec."Weight - Mouldings" + Rec."Weight - Other")
@@ -311,28 +311,28 @@ page 51002 "Torlys BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the quantity of the flooring in the shipment.';
                             Caption = 'Flooring';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Cases - Underlayment Rolls"; Rec."Cases - Underlayment Rolls")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the quantity of the underlayment rolls in the shipment.';
                             Caption = 'Underlayment Rolls';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Cases - Mouldings"; Rec."Cases - Mouldings")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the quantity of the mdlings in the shipment.';
                             Caption = 'Mouldings';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Cases - Other"; Rec."Cases - Other")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the quantity of other items in the shipment.';
                             Caption = 'Other';
-                            Editable = false;
+                            Editable = true;
                         }
                         field("Cases - Total"; Rec."Cases - Flooring" + Rec."Cases - Underlayment Rolls" + Rec."Cases - Mouldings" + Rec."Cases - Other")
                         {
@@ -453,6 +453,7 @@ page 51002 "Torlys BOL"
                 trigger OnAction()
                 var
                 begin
+                    BOLPrintPostChecks.BOLChecks(Rec);
                     TorlysDocPrint.PrintBillOfLading(Rec);
                 end;
             }
@@ -484,11 +485,12 @@ page 51002 "Torlys BOL"
                     ProcessedBOLLine: Record "Torlys Processed BOL Line";
                     SalesShipmentHeader: Record "Sales Shipment Header";
                     SalesHeader: Record "Sales Header";
+                    TransferShipmentHeader: Record "Transfer Shipment Header";
+                    TransferHeader: Record "Transfer Header";
                 begin
-                    if Rec."Package Tracking No." = '' then
-                        Error('Need to input tracking number before posting.');
-                    if Rec."No. Printed" = 0 then
-                        Error('Cannot post until it has first been printed.');
+                    BOLPrintPostChecks.BOLChecks(Rec);
+                    if Rec."No. Printed" = 0 then Error('Cannot post until it has first been printed.');
+                    if Rec."Package Tracking No." = '' then Error('Need to input tracking number before posting.');
 
                     ProcessedBOLHeader.TransferFields(Rec);
                     ProcessedBOLHeader.Insert();
@@ -506,6 +508,14 @@ page 51002 "Torlys BOL"
                             if SalesHeader.Get(1, BOLLine."Order No.") then begin
                                 SalesHeader."Package Tracking No." := Rec."Package Tracking No.";
                                 SalesHeader.Modify(true);
+                            end;
+                            if TransferShipmentHeader.Get(BOLLine."Shipment No.") then begin
+                                TransferShipmentHeader."Package Tracking No." := Rec."Package Tracking No.";
+                                TransferShipmentHeader.Modify(true);
+                            end;
+                            if TransferHeader.Get(BOLLine."Order No.") then begin
+                                TransferHeader."Package Tracking No." := Rec."Package Tracking No.";
+                                TransferHeader.Modify(true);
                             end;
                         until BOLLine.Next = 0;
                     end;
@@ -527,9 +537,9 @@ page 51002 "Torlys BOL"
         SalesShipmentLine: Record "Sales Shipment Line";
         BOLLine: Record "Torlys BOL Line";
         NextLineNo: Integer;
+        ShippingAgent: Record "Shipping Agent";
         TotalWeight: Decimal;
-        // TotalCases: Integer;
-        TotalCases: Decimal;
+        TotalCases: Integer;
         SalesHeader: Record "Sales Header";
         TransferShipmentHeader: Record "Transfer Shipment Header";
         TransferShipmentLine: Record "Transfer Shipment Line";
@@ -539,6 +549,7 @@ page 51002 "Torlys BOL"
         SalesShipmentLine.Reset();
         BOLLine.Reset();
         NextLineNo := 0;
+        ShippingAgent.Reset();
         TotalWeight := 0;
         TotalCases := 0;
         SalesHeader.Reset();
@@ -581,9 +592,17 @@ page 51002 "Torlys BOL"
                     BOLLine."Ship-to Country/Region Code" := SalesShipmentHeader."Ship-to Country/Region Code";
                     BOLLine."External Document No." := SalesShipmentHeader."External Document No.";
                     BOLLine."Shipping Agent Code" := SalesShipmentHeader."Shipping Agent Code";
+                    if ShippingAgent.Get(Rec."Shipping Agent Code") THEN
+                        BOLLine."Freight Charges" := ShippingAgent."Freight Charges";
                     BOLLine."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
                     BOLLine."Total Weight" := 0;
                     BOLLine."Total Cases" := 0;
+
+                    if Rec."Shipping Comment" = '' then begin
+                        Rec."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
+                        Rec.Modify(true);
+                    end;
+
                     SalesShipmentLine.Reset();
                     SalesShipmentLine.SetRange("Document No.", SalesShipmentHeader."No.");
                     SalesShipmentLine.SetFilter(Type, 'Item');
@@ -604,7 +623,9 @@ page 51002 "Torlys BOL"
                                 Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case";
-                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'VINYL') then begin
+                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
+                                                                                    'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
+                                                                                    'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
                                 Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
@@ -658,7 +679,7 @@ page 51002 "Torlys BOL"
                     BOLLine."Shipment No." := TransferShipmentHeader."No.";
                     BOLLine."Shipment Date" := TransferShipmentHeader."Shipment Date";
                     BOLLine."Customer No." := TransferShipmentHeader."Transfer-to Code";
-                    BOLLine."Ship-to Code" := TransferShipmentHeader."Transfer-to Code";
+                    // BOLLine."Ship-to Code" := TransferShipmentHeader."Transfer-to Code";
                     BOLLine."Ship-to Name" := TransferShipmentHeader."Transfer-to Name";
                     BOLLine."Ship-to Address" := TransferShipmentHeader."Transfer-to Address";
                     BOLLine."Ship-to Address 2" := TransferShipmentHeader."Transfer-to Address 2";
@@ -668,9 +689,15 @@ page 51002 "Torlys BOL"
                     BOLLine."Ship-to Country/Region Code" := TransferShipmentHeader."Trsf.-to Country/Region Code";
                     BOLLine."External Document No." := TransferShipmentHeader."External Document No.";
                     BOLLine."Shipping Agent Code" := TransferShipmentHeader."Shipping Agent Code";
-                    // BOLLine."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
+                    if ShippingAgent.Get(Rec."Shipping Agent Code") THEN
+                        BOLLine."Freight Charges" := ShippingAgent."Freight Charges";
+                    BOLLine."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
                     BOLLine."Total Weight" := 0;
                     BOLLine."Total Cases" := 0;
+
+                    Rec."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
+                    Rec.Modify(true);
+
                     TransferShipmentLine.Reset();
                     TransferShipmentLine.SetRange("Document No.", TransferShipmentHeader."No.");
                     if TransferShipmentLine.FindSet() then begin
@@ -690,7 +717,9 @@ page 51002 "Torlys BOL"
                                 Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case";
-                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'VINYL') then begin
+                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
+                                                                                    'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
+                                                                                    'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
                                 Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
@@ -731,6 +760,7 @@ page 51002 "Torlys BOL"
     end;
 
     var
+        BOLPrintPostChecks: Codeunit TorlysBOLPrintPostCheck;
         TorlysDocPrint: Codeunit "TorlysDocumentPrint";
         LookupUserId: Codeunit TorlysLookupUserID;
 }

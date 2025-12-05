@@ -9,6 +9,7 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Caption = 'Transfer Type';
                 ToolTip = 'Transfer Type';
                 ApplicationArea = All;
+                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
         }
 
@@ -16,13 +17,53 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
 
         addafter("Shipping Agent Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            }
+            field("Picked By"; Rec."Picked By")
+            {
+                Caption = 'Picked By';
+                ToolTip = 'Picked By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            }
+            field("Audited By"; Rec."Audited By")
+            {
+                Caption = 'Audited By';
+                ToolTip = 'Audited By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            }
+            field("Received By"; Rec."Received By")
+            {
+                Caption = 'Received By';
+                ToolTip = 'Received By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            }
+            field("Put Away By"; Rec."Put Away By")
+            {
+                Caption = 'Put Away By';
+                ToolTip = 'Put Away By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            }
             field("BOL No."; Rec."BOL No.")
             {
                 Caption = 'BOL No.';
                 ToolTip = 'BOL No.';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
+                Importance = Standard;
             }
             field("Package Tracking No."; Rec."Package Tracking No.")
             {
@@ -30,8 +71,14 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 ToolTip = 'Package Tracking No.';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
+                Importance = Standard;
             }
+        }
+
+        moveafter("Package Tracking No."; Status)
+
+        addafter(Status)
+        {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

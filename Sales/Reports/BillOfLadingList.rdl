@@ -97,12 +97,6 @@ End Function
         <Field Name="Shipping_Instructions_2">
           <DataField>Shipping_Instructions_2</DataField>
         </Field>
-        <Field Name="Shipping_Instructions_3">
-          <DataField>Shipping_Instructions_3</DataField>
-        </Field>
-        <Field Name="Shipping_Instructions_4">
-          <DataField>Shipping_Instructions_4</DataField>
-        </Field>
         <Field Name="Shipping_Comment">
           <DataField>Shipping_Comment</DataField>
         </Field>

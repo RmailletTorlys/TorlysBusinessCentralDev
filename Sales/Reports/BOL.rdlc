@@ -100,9 +100,6 @@ End Function
         <Field Name="ShipAdd6">
           <DataField>ShipAdd6</DataField>
         </Field>
-        <Field Name="Carrier_Tracking_No_">
-          <DataField>Carrier_Tracking_No_</DataField>
-        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>
@@ -123,12 +120,6 @@ End Function
         </Field>
         <Field Name="Shipping_Instructions_2">
           <DataField>Shipping_Instructions_2</DataField>
-        </Field>
-        <Field Name="Shipping_Instructions_3">
-          <DataField>Shipping_Instructions_3</DataField>
-        </Field>
-        <Field Name="Shipping_Instructions_4">
-          <DataField>Shipping_Instructions_4</DataField>
         </Field>
         <Field Name="OrderString1">
           <DataField>OrderString1</DataField>

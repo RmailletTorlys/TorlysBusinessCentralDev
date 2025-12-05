@@ -66,7 +66,7 @@ table 55004 "Torlys Processed BOL Header"
 
         field(10; "Ship-to County"; Text[30])
         {
-            Caption = 'Ship-to City';
+            Caption = 'Ship-to County';
             DataClassification = CustomerContent;
         }
 
@@ -95,12 +95,12 @@ table 55004 "Torlys Processed BOL Header"
             TableRelation = "Shipping Agent";
         }
 
-        field(15; "Freight Type"; Option)
-        {
-            Caption = 'Freight Type';
-            OptionMembers = "Prepaid","Collect";
-            DataClassification = CustomerContent;
-        }
+        // field(15; "Freight Type"; Option)
+        // {
+        //     Caption = 'Freight Type';
+        //     OptionMembers = "Prepaid","Collect";
+        //     DataClassification = CustomerContent;
+        // }
 
         field(16; "Pickup Date"; Date)
         {
@@ -117,16 +117,6 @@ table 55004 "Torlys Processed BOL Header"
         field(18; "Shipping Instructions 2"; Text[50])
         {
             Caption = 'Shipping Instructions 2';
-            DataClassification = CustomerContent;
-        }
-        field(19; "Shipping Instructions 3"; Text[50])
-        {
-            Caption = 'Shipping Instructions 3';
-            DataClassification = CustomerContent;
-        }
-        field(20; "Shipping Instructions 4"; Text[50])
-        {
-            Caption = 'Shipping Instructions 4';
             DataClassification = CustomerContent;
         }
 
@@ -188,7 +178,8 @@ table 55004 "Torlys Processed BOL Header"
         field(29; "Weight - Total"; Decimal)
         {
             Caption = 'Weight-Total';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = sum("Torlys Processed BOL Line"."Total Weight" where("BOL No." = field("No.")));
         }
 
         field(30; "Weight - Other"; Decimal)
@@ -218,7 +209,8 @@ table 55004 "Torlys Processed BOL Header"
         field(34; "Cases - Total"; Decimal)
         {
             Caption = 'Cases - Total';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = sum("Torlys Processed BOL Line"."Total Cases" where("BOL No." = field("No.")));
         }
 
         field(35; "Cases - Other"; Decimal)

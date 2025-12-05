@@ -119,6 +119,13 @@ page 51004 "Torlys BOL Subform"
                     Caption = 'Shipping Agent Code';
                     Editable = false;
                 }
+                field("Freight Charges"; Rec."Freight Charges")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Freight Charges';
+                    Caption = 'Freight Charges';
+                    Editable = false;
+                }
                 field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
@@ -126,12 +133,7 @@ page 51004 "Torlys BOL Subform"
                     Caption = 'Shipping Comment';
                     Editable = false;
                 }
-                // field("Ship-to Comment 2"; Rec."Destination Instruction 2")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     ToolTip = 'Specifies the second line of the comment for the ship-to address.';
-                //     Caption = 'Ship-to Comment 2';
-                // }
+
                 field("Total Weight"; Rec."Total Weight")
                 {
                     ApplicationArea = Basic, Suite;

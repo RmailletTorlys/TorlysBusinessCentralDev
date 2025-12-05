@@ -126,11 +126,11 @@ table 55003 "Torlys BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(20; "Total Pallet"; Decimal)
-        {
-            Caption = 'Total Pallet';
-            DataClassification = CustomerContent;
-        }
+        // field(20; "Total Pallet"; Decimal)
+        // {
+        //     Caption = 'Total Pallet';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(21; "Total Weight"; Decimal)
         {
@@ -138,16 +138,23 @@ table 55003 "Torlys BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(22; "Shipping Instructions"; Code[30])
-        {
-            Caption = 'Shipping Instructions';
-            DataClassification = CustomerContent;
-            TableRelation = "Torlys Shipping Instructions";
-        }
+        // field(22; "Shipping Instructions"; Code[30])
+        // {
+        //     Caption = 'Shipping Instructions';
+        //     DataClassification = CustomerContent;
+        //     TableRelation = "Torlys Shipping Instructions";
+        // }
 
         field(23; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
+        }
+
+        field(24; "Freight Charges"; Option)
+        {
+            Caption = 'Freight Charges';
+            OptionMembers = " ","Prepaid","Collect";
             DataClassification = CustomerContent;
         }
 

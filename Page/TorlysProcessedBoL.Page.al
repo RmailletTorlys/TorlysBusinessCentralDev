@@ -298,20 +298,28 @@ page 51006 "Torlys Processed BOL"
                             Caption = 'Other';
                             Editable = false;
                         }
-
-                        field("Weight - Total"; Rec."Weight - Total")
+                        field("Weight - Total"; Rec."Weight - Flooring" + Rec."Weight - Underlayment Rolls" + Rec."Weight - Mouldings" + Rec."Weight - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the weight of other items in the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                            Style = Strong;
+                        }
+                        field("Calc Weight"; Rec."Weight - Total")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the total weight of the shipment.';
-                            Caption = 'Total';
+                            Caption = 'Calc Total';
                             Editable = false;
+                            Style = Strong;
                         }
 
                     }
 
                     group(Quantity)
                     {
-                        Caption = 'Quantity(CASE)';
+                        Caption = 'Case Quantity';
 
                         field("Cases - Flooring"; Rec."Cases - Flooring")
                         {
@@ -347,12 +355,21 @@ page 51006 "Torlys Processed BOL"
 
                         }
 
-                        field("Cases - Total"; Rec."Cases - Total")
+                        field("Cases - Total"; Rec."Cases - Flooring" + Rec."Cases - Underlayment Rolls" + Rec."Cases - Mouldings" + Rec."Cases - Other")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the quantity of other items in the shipment.';
+                            Caption = 'Total';
+                            Editable = false;
+                            Style = Strong;
+                        }
+                        field("Calc Cases"; Rec."Cases - Total")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the total quantity of the shipment.';
-                            Caption = 'Total';
+                            Caption = 'Calc Total';
                             Editable = false;
+                            Style = Strong;
                         }
 
                     }

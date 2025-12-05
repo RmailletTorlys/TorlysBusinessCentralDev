@@ -55,14 +55,14 @@ report 50013 "Processed BOL Carrier Manifest"
             {
 
             }
-            column(Shipping_Instructions_3; "Shipping Instructions 3")
-            {
+            // column(Shipping_Instructions_3; "Shipping Instructions 3")
+            // {
 
-            }
-            column(Shipping_Instructions_4; "Shipping Instructions 4")
-            {
+            // }
+            // column(Shipping_Instructions_4; "Shipping Instructions 4")
+            // {
 
-            }
+            // }
             column(Piece_Count; "Piece Count")
             {
 
@@ -133,10 +133,10 @@ report 50013 "Processed BOL Carrier Manifest"
                 {
 
                 }
-                column(Total_Pallet; "Total Pallet")
-                {
+                // column(Total_Pallet; "Total Pallet")
+                // {
 
-                }
+                // }
                 column(Total_Weight; "Total Weight")
                 {
 

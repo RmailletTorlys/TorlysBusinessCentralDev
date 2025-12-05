@@ -95,14 +95,14 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            column(Shipping_Instructions_3; "Shipping Instructions 3")
-            {
+            // column(Shipping_Instructions_3; "Shipping Instructions 3")
+            // {
 
-            }
-            column(Shipping_Instructions_4; "Shipping Instructions 4")
-            {
+            // }
+            // column(Shipping_Instructions_4; "Shipping Instructions 4")
+            // {
 
-            }
+            // }
             column(OrderString1; OrderString[1])
             {
 

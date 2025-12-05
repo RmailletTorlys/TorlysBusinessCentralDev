@@ -104,8 +104,8 @@ page 51005 "Torlys Processed BOL List"
                 field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the destination instruction.';
-                    Caption = 'Destination Instruction 1';
+                    ToolTip = 'Shipping Comment';
+                    Caption = 'Shipping Comment';
                 }
 
 

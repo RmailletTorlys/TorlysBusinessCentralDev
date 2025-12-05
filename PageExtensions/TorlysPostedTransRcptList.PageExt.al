@@ -49,6 +49,14 @@ pageextension 55753 TorlysPostedTransRcptList extends "Posted Transfer Receipts"
 
         addafter("Shipping Agent Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
             field("BOL No."; Rec."BOL No.")
             {
                 Caption = 'BOL No.';

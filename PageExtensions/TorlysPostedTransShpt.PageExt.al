@@ -17,6 +17,46 @@ pageextension 55743 TorlysPostedTransShpt extends "Posted Transfer Shipment"
 
         addafter("Shipping Agent Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
+            field("Picked By"; Rec."Picked By")
+            {
+                Caption = 'Picked By';
+                ToolTip = 'Picked By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+            field("Audited By"; Rec."Audited By")
+            {
+                Caption = 'Audited By';
+                ToolTip = 'Audited By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+            field("Received By"; Rec."Received By")
+            {
+                Caption = 'Received By';
+                ToolTip = 'Received By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+            field("Put Away By"; Rec."Put Away By")
+            {
+                Caption = 'Put Away By';
+                ToolTip = 'Put Away By';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
             field("BOL No."; Rec."BOL No.")
             {
                 Caption = 'BOL No.';

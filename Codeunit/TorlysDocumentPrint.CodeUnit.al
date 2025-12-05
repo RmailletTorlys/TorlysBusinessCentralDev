@@ -102,7 +102,7 @@ codeunit 50299 TorlysDocumentPrint
             ReportSelection.SETFILTER("Report ID", '<>0');
             ReportSelection.FIND('-');
             REPEAT
-                REPORT.RUNMODAL(ReportSelection."Report ID", TRUE, FALSE, SalesHeader)
+                REPORT.RunModal(ReportSelection."Report ID", TRUE, FALSE, SalesHeader)
             UNTIL ReportSelection.NEXT() = 0;
         end;
     end;
@@ -121,7 +121,7 @@ codeunit 50299 TorlysDocumentPrint
         ReportSelectionWhse.SETFILTER("Report ID", '<>0');
         ReportSelectionWhse.FIND('-');
         REPEAT
-            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
+            Report.RunModal(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
         UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 
@@ -134,7 +134,7 @@ codeunit 50299 TorlysDocumentPrint
         ReportSelectionWhse.SETFILTER("Report ID", '<>0');
         ReportSelectionWhse.FIND('-');
         REPEAT
-            REPORT.RUNMODAL(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
+            Report.RunModal(ReportSelectionWhse."Report ID", TRUE, FALSE, SalesHeader)
         UNTIL ReportSelectionWhse.NEXT() = 0;
     end;
 

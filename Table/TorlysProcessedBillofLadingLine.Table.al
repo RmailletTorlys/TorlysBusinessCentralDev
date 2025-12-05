@@ -108,17 +108,17 @@ table 55005 "Torlys Processed BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(17; "Destination Instruction 1"; Text[50])
-        {
-            Caption = 'Destination Instruction';
-            DataClassification = CustomerContent;
-        }
+        // field(17; "Destination Instruction 1"; Text[50])
+        // {
+        //     Caption = 'Destination Instruction';
+        //     DataClassification = CustomerContent;
+        // }
 
-        field(18; "Destination Instruction 2"; Text[50])
-        {
-            Caption = 'Destination Instruction 2';
-            DataClassification = CustomerContent;
-        }
+        // field(18; "Destination Instruction 2"; Text[50])
+        // {
+        //     Caption = 'Destination Instruction 2';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(19; "Total Cases"; Decimal)
         {
@@ -126,11 +126,11 @@ table 55005 "Torlys Processed BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(20; "Total Pallet"; Decimal)
-        {
-            Caption = 'Total Pallet';
-            DataClassification = CustomerContent;
-        }
+        // field(20; "Total Pallet"; Decimal)
+        // {
+        //     Caption = 'Total Pallet';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(21; "Total Weight"; Decimal)
         {
@@ -138,16 +138,22 @@ table 55005 "Torlys Processed BOL Line"
             DataClassification = CustomerContent;
         }
 
-        field(22; "Shipping Instructions"; Code[30])
-        {
-            Caption = 'Shipping Instructions';
-            DataClassification = CustomerContent;
-            TableRelation = "Torlys Shipping Instructions";
-        }
+        // field(22; "Shipping Instructions"; Code[30])
+        // {
+        //     Caption = 'Shipping Instructions';
+        //     DataClassification = CustomerContent;
+        //     TableRelation = "Torlys Shipping Instructions";
+        // }
 
         field(23; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';
+            DataClassification = CustomerContent;
+        }
+        field(24; "Freight Charges"; Option)
+        {
+            Caption = 'Freight Charges';
+            OptionMembers = " ","Prepaid","Collect";
             DataClassification = CustomerContent;
         }
 

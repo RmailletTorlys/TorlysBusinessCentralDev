@@ -94,12 +94,6 @@ End Function
         <Field Name="Shipping_Instructions_2">
           <DataField>Shipping_Instructions_2</DataField>
         </Field>
-        <Field Name="Shipping_Instructions_3">
-          <DataField>Shipping_Instructions_3</DataField>
-        </Field>
-        <Field Name="Shipping_Instructions_4">
-          <DataField>Shipping_Instructions_4</DataField>
-        </Field>
         <Field Name="Piece_Count">
           <DataField>Piece_Count</DataField>
         </Field>
@@ -159,12 +153,6 @@ End Function
         </Field>
         <Field Name="Total_CasesFormat">
           <DataField>Total_CasesFormat</DataField>
-        </Field>
-        <Field Name="Total_Pallet">
-          <DataField>Total_Pallet</DataField>
-        </Field>
-        <Field Name="Total_PalletFormat">
-          <DataField>Total_PalletFormat</DataField>
         </Field>
         <Field Name="Total_Weight">
           <DataField>Total_Weight</DataField>

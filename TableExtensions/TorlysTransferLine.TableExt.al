@@ -68,7 +68,6 @@ tableextension 55741 TorlysTransferLine extends "Transfer Line"
             FieldClass = FlowField;
             CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Transfer Order No." = field("Document No."), "Linked Transfer Order Line No." = field("Line No.")));
         }
-
     }
 
     [IntegrationEvent(false, false)]

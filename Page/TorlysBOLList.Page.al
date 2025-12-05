@@ -92,8 +92,8 @@ page 51001 "Torlys BOL List"
                 field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the first line of the destination instruction.';
-                    Caption = 'Destination Instruction 1';
+                    ToolTip = 'Shipping Comment';
+                    Caption = 'Shipping Comment';
                 }
                 field("Piece Count"; Rec."Piece Count")
                 {

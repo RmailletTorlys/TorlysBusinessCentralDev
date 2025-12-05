@@ -65,14 +65,14 @@ report 50016 "Bill Of Lading List"
                 {
 
                 }
-                column(Shipping_Instructions_3; "Shipping Instructions 3")
-                {
+                // column(Shipping_Instructions_3; "Shipping Instructions 3")
+                // {
 
-                }
-                column(Shipping_Instructions_4; "Shipping Instructions 4")
-                {
+                // }
+                // column(Shipping_Instructions_4; "Shipping Instructions 4")
+                // {
 
-                }
+                // }
                 column(Shipping_Comment; "Shipping Comment")
                 {
 

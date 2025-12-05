@@ -22,9 +22,9 @@ tableextension 55740 TorlysTransferHeader extends "Transfer Header"
             TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
 
-        field(50004; "Recevied By"; Code[20])
+        field(50004; "Received By"; Code[20])
         {
-            Caption = 'Recevied By';
+            Caption = 'Received By';
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
@@ -45,6 +45,12 @@ tableextension 55740 TorlysTransferHeader extends "Transfer Header"
         field(50007; "Package Tracking No."; Text[50])
         {
             Caption = 'Package Tracking No.';
+            DataClassification = CustomerContent;
+        }
+
+        field(50008; "Shipping Comment"; Text[50])
+        {
+            Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
     }

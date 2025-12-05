@@ -84,7 +84,7 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
             }
         }
 
-        moveafter("Order Time"; "Location Code", "Requested Delivery Date", "Shipment Date")
+        moveafter("Order Time"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {

@@ -401,16 +401,8 @@ page 52001 TorlysOrdersToBeShippedList
                     Image = Filter;
                     trigger OnAction()
                     var
-                        UserSetup: Record "User Setup";
-                        LocationCode: Code[25];
                         ShipmentDate: Date;
                     begin
-                        UserSetup.Get(UserId);
-                        if UserSetup."Default Location Code" = 'TOR' then
-                            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
-                        else if UserSetup."Default Location Code" = 'CAL' then
-                            LocationCode := 'CAL|QUACAL|CLAIMS CAL';
-
                         ShipmentDate := WorkDate;
 
                         Rec.Reset();
@@ -1047,7 +1039,6 @@ page 52001 TorlysOrdersToBeShippedList
                             end;
                         end;
                     }
-
                     action(ViewBOL)
                     {
                         ApplicationArea = Basic, Suite;

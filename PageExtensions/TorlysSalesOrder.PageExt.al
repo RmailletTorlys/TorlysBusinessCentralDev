@@ -13,6 +13,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Order Method';
                 ToolTip = 'Order Method';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    if (Rec."Order Method" = '') and (Rec.Status = Rec.Status::Released) then
+                        Error('Cannot delete if order released');
+                end;
             }
         }
 
@@ -25,6 +30,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    if (Rec."Tag Name" = '') and (Rec.Status = Rec.Status::Released) then
+                        Error('Cannot delete if order released');
+                end;
             }
             field(ShortcutDimCode3; ShortcutDimCode[3])
             {
@@ -37,7 +47,10 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Visible = true;
                 trigger OnValidate()
                 begin
-                    ValidateShortcutDimension(3);
+                    if (ShortcutDimCode[3] = '') and (Rec.Status = Rec.Status::Released) then
+                        Error('Cannot delete if order released')
+                    else
+                        ValidateShortcutDimension(3);
                 end;
             }
             field("Order Type"; Rec."Order Type")
@@ -45,6 +58,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Order Type';
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    if (Rec."Order Type" = '') and (Rec.Status = Rec.Status::Released) then
+                        Error('Cannot delete if order released');
+                end;
             }
             field("Temporary Hold"; Rec."Temporary Hold")
             {
@@ -52,6 +70,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Temporary Hold';
                 ApplicationArea = All;
                 Importance = Additional;
+                trigger OnValidate()
+                begin
+                    if (Rec."Temporary Hold") and (Rec.Status = Rec.Status::Released) then
+                        Error('Cannot change if order released');
+                end;
             }
         }
 
@@ -69,7 +92,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Order Time"; "Location Code", "Requested Delivery Date", "Shipment Date")
+        moveafter("Order Time"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -79,6 +102,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
                 Importance = Standard;
+                trigger OnValidate()
+                begin
+                    if (Rec."Shipping Instructions" = '') and (Rec.Status = Rec.Status::Released) then
+                        Error('Cannot delete if order released');
+                end;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
             {
@@ -479,7 +507,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         modify("Requested Delivery Date")
         {
-            Importance = Standard;
+            Visible = false;
         }
 
         modify("Payment Terms Code")

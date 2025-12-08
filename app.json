@@ -2,7 +2,7 @@
     "id": "a228c821-e432-4ee3-95e7-f199f9c7057b",
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
-    "version": "1.0.11.29",
+    "version": "1.0.12.2",
     "brief": "",
     "description": "",
     "privacyStatement": "",
@@ -57,7 +57,7 @@
     ],
     "screenshots": [],
     "platform": "1.0.0.0",
-    "application": "26.2.34746.35601",
+    "application": "27.1.41698.41831",
     "idRanges": [
         {
             "from": 50000,
@@ -69,7 +69,7 @@
         "allowDownloadingSource": true,
         "includeSourceInSymbolFile": true
     },
-    "runtime": "15.0",
+    "runtime": "16.0",
     "features": [
         "NoImplicitWith"
     ]

@@ -405,110 +405,172 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
 
     actions
     {
-        addfirst("F&unctions")
+        addfirst("&Line")
         {
-            action("Join To Transfer Order")
+            action(GetPrice1)
             {
-                ToolTip = 'Join To Transfer Order';
-                Caption = 'Join To Transfer Order';
-                Image = TransferToLines;
-                ApplicationArea = All;
-                trigger OnAction()
-                var
-                    TorlysJoinSalesLineToTransLine: Codeunit TorlysJoinSalesLineToTransLine;
-                    SelectedLines: Record "Sales Line";
-                    TransferOrderNumber: Code[20];
-                begin
-                    CurrPage.SetSelectionFilter(SelectedLines);
-                    if SelectedLines.FindSet() then begin
-                        TorlysJoinSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
-                    end;
-                    if TransferOrderNumber <> '' then begin
-                        repeat
-                            TorlysJoinSalesLineToTransLine.JoinSalesLineToTransLine(SelectedLines, TransferOrderNumber);
-                        until SelectedLines.Next() = 0;
-                    end;
-                end;
-            }
-            separator("Separator1")
-            {
-            }
-            action("Remove Link To Purchase Order")
-            {
-                ToolTip = 'Remove Link To Purchase Order';
-                Caption = 'Remove Link To Purchase Order';
-                Image = RemoveLine;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    if Rec."Linked Purchase Order No." = '' then begin
-                        Error('ERROR!\This line is not linked to a purchase order');
-                    end else begin
-                        Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Purchase Order No.", Rec."Linked Purch. Order Line No.");
-                        Rec."Linked Purchase Order No." := '';
-                        Rec."Linked Purch. Order Line No." := 0;
-                        Rec.Modify(true);
-                    end;
-                end;
-            }
-            action("Link To Purchase Order")
-            {
-                ToolTip = 'Link To Purchase Order';
-                Caption = 'Link To Purchase Order';
-                Image = Purchase;
-                ApplicationArea = All;
-                trigger OnAction()
-                var
-                    TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
-                    SalesLine: Record "Sales Line";
-                begin
-                    CurrPage.SetSelectionFilter(SalesLine);
-                    if SalesLine.FindSet() then begin
-                        TorlysLinkSalesLine.LinkSalesLineToPurchaseLine(SalesLine);
-                    end;
-                end;
-            }
-            separator("Separator2")
-            {
-            }
-            action("Remove Link To Transfer Order")
-            {
-                ToolTip = 'Remove Link To Transfer Order';
-                Caption = 'Remove Link To Transfer Order';
-                Image = RemoveLine;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    if Rec."Linked Transfer Order No." = '' then begin
-                        Error('ERROR!\This line is not linked to a transfer order');
-                    end else begin
-                        Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Transfer Order No.", Rec."Linked Transfer Order Line No.");
-                        Rec."Linked Transfer Order No." := '';
-                        Rec."Linked Transfer Order Line No." := 0;
-                        Rec.Modify(true);
-                    end;
-                end;
-            }
+                AccessByPermission = TableData "Sales Price" = R;
+                ApplicationArea = Basic, Suite;
+                Caption = 'Get Price';
+                Ellipsis = true;
+                Image = Price;
+                ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
+                // Visible = not ExtendedPriceEnabled;
+                ObsoleteState = Pending;
+                ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
+                ObsoleteTag = '17.0';
+                Promoted = true;
 
-            action("Link To Transfer Order")
-            {
-                ToolTip = 'Link To Transfer Order';
-                Caption = 'Link To Transfer Order';
-                Image = TransferOrder;
-                ApplicationArea = All;
                 trigger OnAction()
-                var
-                    TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
-                    SalesLine: Record "Sales Line";
                 begin
-                    CurrPage.SetSelectionFilter(SalesLine);
-                    if SalesLine.FindSet() then begin
-                        TorlysLinkSalesLine.LinkSalesLineToTransferLine(SalesLine);
-                    end;
+                    ShowPrices();
                 end;
             }
-            separator("Separator3")
+            group(OrderJoining)
             {
+                Visible = true;
+                Caption = 'Order Joining';
+                Image = Link;
+                action("Create Sales Order from this MPO")
+                {
+                    ToolTip = 'Create Sales Order from MPO';
+                    Caption = 'Create Sales Order from MPO';
+                    Image = NewOrder;
+                    ApplicationArea = All;
+                    trigger OnAction()
+                    var
+                        SelectedLines: Record "Sales Line";
+                        MPOSalesHeader: Record "Sales Header";
+                        ExistingAnswer: Boolean;
+                        TorlysCreateMPOFromSalesLine: Codeunit TorlysCreateMPOFromSalesLine;
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedLines);
+                        if SelectedLines.FindSet() then
+                            if SelectedLines.Count > 1 then begin
+                                Error('You can only copy 1 line at a time from a MPO.');
+                            end else begin
+                                MPOSalesHeader.Reset();
+                                MPOSalesHeader.Get(1, Rec."Document No.");
+                                if MPOSalesHeader."Order Type" <> 'MASTER PROJECT ORDER' then begin
+                                    Error('This order (%1) is not a Master Project Order.', Rec."Document No.")
+                                end else begin
+                                    ExistingAnswer := Dialog.Confirm('Are you looking to add to an existing order?');
+                                    if ExistingAnswer then
+                                        TorlysCreateMPOFromSalesLine.AddToExisting(SelectedLines)
+                                    else
+                                        TorlysCreateMPOFromSalesLine.CreateNew(SelectedLines);
+                                end;
+                            end;
+                    end;
+                }
+                separator("Separator1")
+                {
+                }
+                action("Add To Transfer Order")
+                {
+                    ToolTip = 'Add To Transfer Order';
+                    Caption = 'Add To Transfer Order';
+                    Image = TransferToLines;
+                    ApplicationArea = All;
+                    Visible = Rec."Transfer Order No." = '';
+                    trigger OnAction()
+                    var
+                        SelectedLines: Record "Sales Line";
+                        TransferOrderNumber: Code[20];
+                        TorlysAddSalesLineToTransLine: Codeunit TorlysAddSalesLineToTransLine;
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedLines);
+                        if SelectedLines.FindSet() then begin
+                            TorlysAddSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
+                        end;
+                        if TransferOrderNumber <> '' then begin
+                            repeat
+                                TorlysAddSalesLineToTransLine.AddSalesLineToTransLine(SelectedLines, TransferOrderNumber);
+                            until SelectedLines.Next() = 0;
+                        end;
+                    end;
+                }
+                separator("Separator2")
+                {
+                }
+                action("Link To Purchase Order")
+                {
+                    ToolTip = 'Link To Purchase Order';
+                    Caption = 'Link To Purchase Order';
+                    Image = Purchase;
+                    ApplicationArea = All;
+                    Visible = Rec."Linked Purchase Order No." = '';
+                    trigger OnAction()
+                    var
+                        TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                        SelectedLines: Record "Sales Line";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedLines);
+                        if SelectedLines.FindSet() then begin
+                            TorlysLinkSalesLine.LinkSalesLineToPurchaseLine(SelectedLines);
+                        end;
+                    end;
+                }
+                action("Remove Link To Purchase Order")
+                {
+                    ToolTip = 'Remove Link To Purchase Order';
+                    Caption = 'Remove Link To Purchase Order';
+                    Image = RemoveLine;
+                    ApplicationArea = All;
+                    Visible = Rec."Linked Purchase Order No." <> '';
+                    trigger OnAction()
+                    begin
+                        if Rec."Linked Purchase Order No." = '' then begin
+                            Error('ERROR!\This line is not linked to a purchase order');
+                        end else begin
+                            Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Purchase Order No.", Rec."Linked Purch. Order Line No.");
+                            Rec."Linked Purchase Order No." := '';
+                            Rec."Linked Purch. Order Line No." := 0;
+                            Rec.Modify(true);
+                        end;
+                    end;
+                }
+                separator("Separator3")
+                {
+                }
+
+                action("Link To Transfer Order")
+                {
+                    ToolTip = 'Link To Transfer Order';
+                    Caption = 'Link To Transfer Order';
+                    Image = TransferOrder;
+                    ApplicationArea = All;
+                    Visible = Rec."Linked Transfer Order No." = '';
+                    trigger OnAction()
+                    var
+                        TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                        SelectedLines: Record "Sales Line";
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedLines);
+                        if SelectedLines.FindSet() then begin
+                            TorlysLinkSalesLine.LinkSalesLineToTransferLine(SelectedLines);
+                        end;
+                    end;
+                }
+                action("Remove Link To Transfer Order")
+                {
+                    ToolTip = 'Remove Link To Transfer Order';
+                    Caption = 'Remove Link To Transfer Order';
+                    Image = RemoveLine;
+                    ApplicationArea = All;
+                    Visible = Rec."Linked Purchase Order No." <> '';
+                    trigger OnAction()
+                    begin
+                        if Rec."Linked Transfer Order No." = '' then begin
+                            Error('ERROR!\This line is not linked to a transfer order');
+                        end else begin
+                            Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Transfer Order No.", Rec."Linked Transfer Order Line No.");
+                            Rec."Linked Transfer Order No." := '';
+                            Rec."Linked Transfer Order Line No." := 0;
+                            Rec.Modify(true);
+                        end;
+                    end;
+                }
             }
         }
     }

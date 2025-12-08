@@ -30,4 +30,11 @@ codeunit 50019 TorlysCopyFields
         SalesLine."Discontinued Item" := Item."Discontinued Item";
         SalesLine."Clearance Item" := Item."Clearance Item";
     end;
+
+    // Sales Header --> Sales Line
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterInitHeaderDefaults', '', false, false)]
+    local procedure OnAfterInitHeaderDefaults(var SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header"; xSalesLine: Record "Sales Line")
+    begin
+        SalesLine."Ship-to Code" := SalesHeader."Ship-to Code";
+    end;
 }

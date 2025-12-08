@@ -1,4 +1,4 @@
-codeunit 50020 TorlysJoinSalesLineToTransLine
+codeunit 50020 TorlysAddSalesLineToTransLine
 {
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnDeleteOnBeforeDeleteRelatedData', '', false, false)]
     local procedure OnDeleteOnBeforeDeleteRelatedData(var TransferLine: Record "Transfer Line")
@@ -54,7 +54,7 @@ codeunit 50020 TorlysJoinSalesLineToTransLine
         end;
     end;
 
-    procedure JoinSalesLineToTransLine(Rec: Record "Sales Line"; var TransferOrderNumber: Code[20])
+    procedure AddSalesLineToTransLine(Rec: Record "Sales Line"; var TransferOrderNumber: Code[20])
     var
         TransferHeader: Record "Transfer Header";
         TransferLine: Record "Transfer Line";
@@ -113,5 +113,6 @@ codeunit 50020 TorlysJoinSalesLineToTransLine
             Commit();
 
         end;
+
     end;
 }

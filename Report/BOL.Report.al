@@ -301,8 +301,14 @@ report 50008 "Bill Of Lading"
                     DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
                 end else
-                    //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
-                    DestinationInstructions1 := "Shipping Comment";
+                    ShipToAddress[1] := "Bol Header"."Ship-to Name";
+                ShipToAddress[2] := "Bol Header"."Ship-to Address";
+                ShipToAddress[3] := "Bol Header"."Ship-to Address 2";
+                ShipToAddress[4] := "Bol Header"."Ship-to City";
+                ShipToAddress[5] := "Bol Header"."Ship-to County";
+                ShipToAddress[6] := "Bol Header"."Ship-to Country/Region Code";
+                // FormatAddress.SalesShptShipTo(ShipToAddress, SalesShipmentHeader);
+                DestinationInstructions1 := "Shipping Comment";
 
 
                 Location.Get("Bol Header"."Location Code");

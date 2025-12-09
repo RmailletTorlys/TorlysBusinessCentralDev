@@ -37,4 +37,10 @@ codeunit 50019 TorlysCopyFields
     begin
         SalesLine."Ship-to Code" := SalesHeader."Ship-to Code";
     end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateShipToCodeOnBeforeCopyShipToAddress', '', false, false)]
+    local procedure OnValidateShipToCodeOnBeforeCopyShipToAddress(var SalesHeader: Record "Sales Header"; var xSalesHeader: Record "Sales Header"; var CopyShipToAddress: Boolean)
+    begin
+        SalesHeader.UpdateSalesLinesByFieldNo(SalesHeader.FieldNo("Ship-to Code"), false)
+    end;
 }

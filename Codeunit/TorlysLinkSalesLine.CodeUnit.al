@@ -15,18 +15,19 @@ codeunit 50021 TorlysLinkSalesLine
         // i wish the next line could take how much is remaining to be linked, but i think would need to create a new field
         PurchaseLine.SetFilter("Quantity", '>=%1', Rec."Quantity");
         PurchaseLines.SetTableView(PurchaseLine);
-        if PurchaseLines.RunModal() = Action::LookupOK then
+        if PurchaseLines.RunModal() = Action::LookupOK then begin
             PurchaseLines.GetRecord(PurchaseLine);
 
-        PurchaseLine.CalcFields("Quantity Linked");
-        if (PurchaseLine."Quantity Linked" + Rec.Quantity) > PurchaseLine.Quantity then begin
-            Error('ERROR!\Not enough quantity remaining on %1 line %2.\Please choose another purchase order.', PurchaseLine."Document No.", PurchaseLine."Line No.");
-        end else begin
-            Message('SUCCESS!\%1 from %2 with a quantity of %3 will be linked to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", PurchaseLine."Document No.", PurchaseLine."Line No.");
-            Rec.Validate(Rec."Linked Purchase Order No.", PurchaseLine."Document No.");
-            Rec.Validate(Rec."Linked Purch. Order Line No.", PurchaseLine."Line No.");
-            Rec.Modify(true);
-            Commit();
+            PurchaseLine.CalcFields("Quantity Linked");
+            if (PurchaseLine."Quantity Linked" + Rec.Quantity) > PurchaseLine.Quantity then begin
+                Error('ERROR!\Not enough quantity remaining on %1 line %2.\Please choose another purchase order.', PurchaseLine."Document No.", PurchaseLine."Line No.");
+            end else begin
+                Message('SUCCESS!\%1 from %2 with a quantity of %3 will be linked to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", PurchaseLine."Document No.", PurchaseLine."Line No.");
+                Rec.Validate(Rec."Linked Purchase Order No.", PurchaseLine."Document No.");
+                Rec.Validate(Rec."Linked Purch. Order Line No.", PurchaseLine."Line No.");
+                Rec.Modify(true);
+                Commit();
+            end;
         end;
     end;
 
@@ -47,18 +48,19 @@ codeunit 50021 TorlysLinkSalesLine
         // i wish the next line could take how much is remaining to be linked, but i think would need to create a new field
         TransferLine.SetFilter("Quantity", '>=%1', Rec."Quantity");
         TransferLines.SetTableView(TransferLine);
-        if TransferLines.RunModal() = Action::LookupOK then
+        if TransferLines.RunModal() = Action::LookupOK then begin
             TransferLines.GetRecord(TransferLine);
 
-        TransferLine.CalcFields("Quantity Linked");
-        if (TransferLine."Quantity Linked" + Rec.Quantity) > TransferLine.Quantity then begin
-            Error('ERROR!\Not enough quantity remaining on %1 line %2.\Please choose another transfer.', TransferLine."Document No.", TransferLine."Line No.");
-        end else begin
-            Message('SUCCESS!\%1 from %2 with a quantity of %3 will be linked to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", TransferLine."Document No.", TransferLine."Line No.");
-            Rec.Validate(Rec."Linked Transfer Order No.", TransferLine."Document No.");
-            Rec.Validate(Rec."Linked Transfer Order Line No.", TransferLine."Line No.");
-            Rec.Modify(true);
-            Commit();
+            TransferLine.CalcFields("Quantity Linked");
+            if (TransferLine."Quantity Linked" + Rec.Quantity) > TransferLine.Quantity then begin
+                Error('ERROR!\Not enough quantity remaining on %1 line %2.\Please choose another transfer.', TransferLine."Document No.", TransferLine."Line No.");
+            end else begin
+                Message('SUCCESS!\%1 from %2 with a quantity of %3 will be linked to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", TransferLine."Document No.", TransferLine."Line No.");
+                Rec.Validate(Rec."Linked Transfer Order No.", TransferLine."Document No.");
+                Rec.Validate(Rec."Linked Transfer Order Line No.", TransferLine."Line No.");
+                Rec.Modify(true);
+                Commit();
+            end;
         end;
     end;
 }

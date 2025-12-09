@@ -426,6 +426,23 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     ShowPrices();
                 end;
             }
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                Promoted = true;
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."No.");
+                    Page.Run(Page::TorlysItemAvailability, Item);
+                end;
+            }
             group(OrderJoining)
             {
                 Visible = true;
@@ -442,7 +459,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                         SelectedLines: Record "Sales Line";
                         MPOSalesHeader: Record "Sales Header";
                         ExistingAnswer: Boolean;
-                        TorlysCreateMPOFromSalesLine: Codeunit TorlysCreateMPOFromSalesLine;
+                        TorlysCreateMPOFromSalesLine: Codeunit TorlysSalesLineFromMPO;
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
                         if SelectedLines.FindSet() then

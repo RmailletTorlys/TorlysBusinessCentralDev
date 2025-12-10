@@ -1,9 +1,9 @@
-report 50008 "Bill Of Lading"
+report 50026 "BOL"
 {
     Caption = 'Bill Of Lading';
     PreviewMode = PrintLayout;
     WordMergeDataItem = "BOL Header";
-    RDLCLayout = './Sales/Reports/BOL.rdlc';
+    RDLCLayout = './Sales/Reports/MainBOL.rdlc';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 

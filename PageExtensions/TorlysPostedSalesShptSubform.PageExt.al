@@ -101,6 +101,13 @@ pageextension 50131 "TorlysPostedSalesShptSubform" extends "Posted Sales Shpt. S
                 ApplicationArea = All;
                 Visible = false;
             }
+            field("Master Project Order No."; Rec."Master Project Order No.")
+            {
+                Caption = 'Master Project Order No.';
+                ToolTip = 'Master Project Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
 
             field("Purchasing Code"; Rec."Purchasing Code")
             {

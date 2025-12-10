@@ -3,11 +3,6 @@ codeunit 57006 TorlysReleaseSalesDocument
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Sales Document", 'OnBeforeTestSellToCustomerNo', '', false, false)]
     local procedure OnBeforeTestSellToCustomerNo(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
     var
-        // GetShortcutDimensionValues: Codeunit "Get Shortcut Dimension Values";
-        // DimMgt: codeunit DimensionManagement;
-        // ShortcutDimCode: array[8] of Code[20];
-        // ChannelDimension: Code[20];
-        // SalesHeaderPage: Page "Sales Order";
         DimensionSetEntry: Record "Dimension Set Entry";
     begin
         IsHandled := true;

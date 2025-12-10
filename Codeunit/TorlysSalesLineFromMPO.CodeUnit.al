@@ -26,21 +26,27 @@ codeunit 50022 TorlysSalesLineFromMPO
             NewSalesLine.Reset;
             NewSalesLine.SetRange("Document No.", SalesHeader."No.");
             if NewSalesLine.Find('+') then begin
-                Message('SUCCESS!\%1 from %2 with a quantity of %3 will be added to %4 line %5.', Rec."No.", Rec."Document No.", QtySendback, SalesHeader."No.", NewSalesLine."Line No." + 10000);
+                Message('SUCCESS!\\%1 from %2 with a quantity of %3 will be added to %4 line %5.\\%6 was reduced from %7 to %8.',
+                        Rec."No.", Rec."Document No.", QtySendback, NewSalesLine."Document No.", NewSalesLine."Line No." + 10000, Rec."Document No.", Rec."Quantity", Rec.Quantity - QtySendback);
                 LineNo := NewSalesLine."Line No." + 10000;
             end else begin
-                Message('SUCCESS!\%1 from %2 with a quantity of %3 will be added to %4 line 10000.', Rec."No.", Rec."Document No.", QtySendback, SalesHeader."No.");
+                Message('SUCCESS!\\%1 from %2 with a quantity of %3 will be added to %4 line 10000.\\%5 was reduced from %6 to %7.',
+                        Rec."No.", Rec."Document No.", QtySendback, SalesHeader."No.", Rec."Document No.", Rec."Quantity", Rec.Quantity - QtySendback);
                 LineNo := 10000;
             end;
 
+            Rec.Validate("Quantity", Rec."Quantity" - QtySendback);
+            Rec.Modify(true);
+
             NewSalesLine.Init();
             NewSalesLine.Validate("Document Type", 1);
-            NewSalesLine.Validate("Document No.", Rec."Document No.");
+            NewSalesLine.Validate("Document No.", SalesHeader."No.");
             NewSalesLine.Validate("Line No.", LineNo);
             NewSalesLine.Validate(Type, Rec.Type);
             NewSalesLine.Validate("No.", Rec."No.");
             NewSalesLine.Validate(Quantity, QtySendback);
             NewSalesLine.Validate("Unit Price", Rec."Unit Price");
+            NewSalesLine.Validate("Master Project Order No.", Rec."Document No.");
             NewSalesLine.Insert(true);
             Commit();
         end;
@@ -57,6 +63,9 @@ codeunit 50022 TorlysSalesLineFromMPO
         if TorlysSalesLineFromMPOQty.RunModal() = Action::OK then begin
             QtySendback := TorlysSalesLineFromMPOQty.GetQuantity();
         end;
+
+        Rec.Validate("Quantity", Rec."Quantity" - QtySendback);
+        Rec.Modify(true);
 
         NewSalesHeader.Reset();
         NewSalesHeader.Init();
@@ -75,7 +84,11 @@ codeunit 50022 TorlysSalesLineFromMPO
         NewSalesLine.Validate(NewSalesLine."No.", Rec."No.");
         NewSalesLine.Validate(Quantity, QtySendback);
         NewSalesLine.Validate("Unit Price", Rec."Unit Price");
+        NewSalesLine.Validate("Master Project Order No.", Rec."Document No.");
         NewSalesLine.Modify(true);
         Page.Run(Page::"Sales Order", NewSalesHeader);
+
+        Message('SUCCESS!\\%1 from %2 with a quantity of %3 will be added to %4 line 10000.\\%5 was reduced from %6 to %7.',
+        Rec."No.", Rec."Document No.", QtySendback, NewSalesHeader."No.", Rec."Document No.", Rec."Quantity" + QtySendback, Rec."Quantity");
     end;
 }

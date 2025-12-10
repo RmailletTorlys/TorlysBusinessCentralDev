@@ -168,6 +168,13 @@ pageextension 50516 TorlysSalesLines extends "Sales Lines"
                 ApplicationArea = All;
                 Visible = true;
             }
+            field("Master Project Order No."; Rec."Master Project Order No.")
+            {
+                Caption = 'Master Project Order No.';
+                ToolTip = 'Master Project Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
             field("Purchasing Code"; Rec."Purchasing Code")
             {
                 Caption = 'Purchasing Code';

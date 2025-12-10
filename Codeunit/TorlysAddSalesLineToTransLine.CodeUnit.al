@@ -10,12 +10,12 @@ codeunit 50020 TorlysAddSalesLineToTransLine
         SalesLine.SetRange("Line No.", TransferLine."Sales Order Line No.");
         if SalesLine.Find('-') then
             if TransferLine."Item No." <> '' then begin
-                Message('SUCCESS!\%1 from %2 with a quantity of %3.\Join will be broken with %4 line %5.', TransferLine."Item No.", TransferLine."Document No.", TransferLine.Quantity, TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
+                Message('SUCCESS!\\%1 from %2 with a quantity of %3.\\Join will be broken with %4 line %5.', TransferLine."Item No.", TransferLine."Document No.", TransferLine.Quantity, TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
                 SalesLine.Validate(SalesLine."Transfer Order No.", '');
                 SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
                 SalesLine.Modify(true);
             end else begin
-                Message('SUCCESS!\%1 from %2.\Join will be broken with %3 line %4.', TransferLine."Description", TransferLine."Document No.", TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
+                Message('SUCCESS!\\%1 from %2.\Join will be broken with %3 line %4.', TransferLine."Description", TransferLine."Document No.", TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
                 SalesLine.Validate(SalesLine."Transfer Order No.", '');
                 SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
                 SalesLine.Modify(true);
@@ -28,7 +28,7 @@ codeunit 50020 TorlysAddSalesLineToTransLine
         TransferHeader: Record "Transfer Header";
     begin
         if Rec."Transfer Order No." <> '' then
-            Error('ERROR!\%1 from %2 with a quantity of %3 is already joined to %4 line %5. Delete from transfer in order to change.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+            Error('ERROR!\\%1 from %2 with a quantity of %3 is already joined to %4 line %5.\\Delete from transfer in order to change.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
 
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);
@@ -50,7 +50,7 @@ codeunit 50020 TorlysAddSalesLineToTransLine
                 TransferOrders.GetRecord(TransferHeader);
             TransferOrderNumber := TransferHeader."No.";
         end else begin
-            Error('ERROR!\In order to join to a transfer order the line must be an Item or Comment.');
+            Error('ERROR!\\In order to join to a transfer order the line must be an Item or Comment.');
         end;
     end;
 
@@ -66,10 +66,10 @@ codeunit 50020 TorlysAddSalesLineToTransLine
             TransferLine.Reset;
             TransferLine.SetRange("Document No.", TransferOrderNumber);
             if TransferLine.Find('+') then begin
-                Message('SUCCESS!\%1 from %2 with a quantity of %3 will be added to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", TransferOrderNumber, TransferLine."Line No." + 10000);
+                Message('SUCCESS!\\%1 from %2 with a quantity of %3 will be added to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", TransferOrderNumber, TransferLine."Line No." + 10000);
                 LineNo := TransferLine."Line No." + 10000;
             end else begin
-                Message('SUCCESS!\%1 from %2 with a quantity of %3 will be added to  %4 line 10000.', Rec."No.", Rec."Document No.", Rec."Quantity", TransferOrderNumber);
+                Message('SUCCESS!\\%1 from %2 with a quantity of %3 will be added to  %4 line 10000.', Rec."No.", Rec."Document No.", Rec."Quantity", TransferOrderNumber);
                 LineNo := 10000;
             end;
 
@@ -92,10 +92,10 @@ codeunit 50020 TorlysAddSalesLineToTransLine
             TransferLine.Reset;
             TransferLine.SetRange("Document No.", TransferOrderNumber);
             if TransferLine.Find('+') then begin
-                Message('SUCCESS!\%1 from %2 will be added to %3 line %4.', Rec."Description", Rec."Document No.", TransferOrderNumber, TransferLine."Line No." + 10000);
+                Message('SUCCESS!\\%1 from %2 will be added to %3 line %4.', Rec."Description", Rec."Document No.", TransferOrderNumber, TransferLine."Line No." + 10000);
                 LineNo := TransferLine."Line No." + 10000;
             end else begin
-                Message('SUCCESS!\%1 from %2 will be added to %3 line 10000.', Rec."Description", Rec."Document No.", TransferOrderNumber);
+                Message('SUCCESS!\\%1 from %2 will be added to %3 line 10000.', Rec."Description", Rec."Document No.", TransferOrderNumber);
                 LineNo := 10000;
             end;
 

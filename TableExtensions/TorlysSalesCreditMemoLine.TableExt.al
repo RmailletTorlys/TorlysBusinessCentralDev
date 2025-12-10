@@ -146,6 +146,13 @@ tableextension 50115 TorlysSalesCrMemoLine extends "Sales Cr.Memo Line"
             Editable = false;
             // TableRelation = "Transfer Line"."Line No." where("Document No." = field("Transfer Order No."));
         }
+        field(50024; "Master Project Order No."; Code[20])
+        {
+            Caption = 'Transfer Order No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            // TableRelation = "Sales Header"."No." where("Order Type" = const('MASTER PROJECT ORDER'));
+        }
 
     }
 

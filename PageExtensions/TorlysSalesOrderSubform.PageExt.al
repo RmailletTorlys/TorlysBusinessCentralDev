@@ -135,7 +135,19 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
             }
         }
 
-        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Purchasing Code", "Drop Shipment")
+        moveafter("Qty. Shipped Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code")
+
+        addafter("Tax Area Code")
+        {
+            field("Master Project Order No."; Rec."Master Project Order No.")
+            {
+                Caption = 'Master Project Order No.';
+                ToolTip = 'Master Project Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+        }
+        moveafter("Master Project Order No."; "Purchasing Code", "Drop Shipment")
 
         addafter("Drop Shipment")
         {

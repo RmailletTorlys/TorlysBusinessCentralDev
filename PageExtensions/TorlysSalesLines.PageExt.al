@@ -168,12 +168,38 @@ pageextension 50516 TorlysSalesLines extends "Sales Lines"
                 ApplicationArea = All;
                 Visible = true;
             }
+            field("Builder Description"; Rec."Builder Description")
+            {
+                Caption = 'Builder Description';
+                ToolTip = 'Builder Description';
+                ApplicationArea = All;
+                Visible = true;
+            }
             field("Master Project Order No."; Rec."Master Project Order No.")
             {
                 Caption = 'Master Project Order No.';
                 ToolTip = 'Master Project Order No.';
                 ApplicationArea = All;
                 Visible = true;
+            }
+            field("Master Project Order Line No."; Rec."Master Project Order Line No.")
+            {
+                Caption = 'Master Project Order Line No.';
+                ToolTip = 'Master Project Order Line No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("MPO Qty. on Sales Order"; Rec."MPO Qty. on Sales Order")
+            {
+                Caption = 'MPO Qty. on Sales Order';
+                ToolTip = 'MPO Qty. on Sales Order';
+                ApplicationArea = All;
+            }
+            field("MPO Quantity Invoiced"; Rec."MPO Quantity Invoiced")
+            {
+                Caption = 'MPO Quantity Invoiced';
+                ToolTip = 'MPO Quantity Invoiced';
+                ApplicationArea = All;
             }
             field("Purchasing Code"; Rec."Purchasing Code")
             {

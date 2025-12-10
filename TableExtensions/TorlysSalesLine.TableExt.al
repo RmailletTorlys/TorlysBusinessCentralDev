@@ -44,7 +44,11 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             DataClassification = CustomerContent;
             Editable = false;
         }
-
+        field(50008; "Builder Description"; Text[20])
+        {
+            Caption = 'Builder Description';
+            DataClassification = CustomerContent;
+        }
         field(50009; "Sales Price Code"; Code[20])
         {
             Caption = 'Sales Price Code';
@@ -147,10 +151,33 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
         }
         field(50024; "Master Project Order No."; Code[20])
         {
-            Caption = 'Transfer Order No.';
+            Caption = 'Master Project Order No.';
             DataClassification = CustomerContent;
             Editable = false;
             TableRelation = "Sales Header"."No." where("Order Type" = const('MASTER PROJECT ORDER'));
+        }
+
+        field(50025; "Master Project Order Line No."; Integer)
+        {
+            Caption = 'Master Project Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            TableRelation = "Sales Line"."Line No." where("Document No." = field("Master Project Order No."));
+        }
+
+        field(50026; "MPO Qty. on Sales Order"; Decimal)
+        {
+            Caption = 'MPO Qty. on Sales Order';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Quantity" where("Master Project Order No." = field("Master Project Order No."), "Master Project Order Line No." = field("Master Project Order Line No.")));
+        }
+        field(50027; "MPO Quantity Invoiced"; Decimal)
+        {
+            Caption = 'MPO Quantity Invoiced';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Sales Invoice Line"."Quantity" where("Master Project Order No." = field("Master Project Order No."), "Master Project Order Line No." = field("Master Project Order Line No.")));
         }
     }
 

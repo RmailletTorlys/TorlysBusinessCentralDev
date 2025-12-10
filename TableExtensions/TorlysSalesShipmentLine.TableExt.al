@@ -46,7 +46,11 @@ tableextension 50111 TorlysSalesShipmentLine extends "Sales Shipment Line"
             DataClassification = CustomerContent;
             Editable = false;
         }
-
+        field(50008; "Builder Description"; Text[20])
+        {
+            Caption = 'Builder Description';
+            DataClassification = CustomerContent;
+        }
 
         field(50009; "Sales Price Code"; Code[20])
         {
@@ -156,6 +160,13 @@ tableextension 50111 TorlysSalesShipmentLine extends "Sales Shipment Line"
             DataClassification = CustomerContent;
             Editable = false;
             // TableRelation = "Sales Header"."No." where("Order Type" = const('MASTER PROJECT ORDER'));
+        }
+        field(50025; "Master Project Order Line No."; Integer)
+        {
+            Caption = 'Master Project Order Line No.';
+            DataClassification = CustomerContent;
+            Editable = false;
+            // TableRelation = "Sales Line"."Line No." where("Document No." = field("Master Project Order No."));
         }
 
     }

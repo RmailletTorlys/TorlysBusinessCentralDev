@@ -239,6 +239,10 @@ report 50008 "Bill Of Lading"
             {
 
             }
+            column(Shipping_Comment; "Shipping Comment")
+            {
+
+            }
             column(Cases___Total; "Cases - Total")
             {
 

@@ -271,6 +271,9 @@ End Function
         <Field Name="LocationString">
           <DataField>LocationString</DataField>
         </Field>
+        <Field Name="Shipping_Comment">
+          <DataField>Shipping_Comment</DataField>
+        </Field>
         <Field Name="Cases___Total">
           <DataField>Cases___Total</DataField>
         </Field>

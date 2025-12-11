@@ -235,10 +235,6 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            // column(Last_Print_Time; "Last Print Time")
-            // {
-
-            // }
             column(Last_Print_Date; "Last Print Date")
             {
 

@@ -63,7 +63,7 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            column(Carrier_Tracking_No_; "Package Tracking No.")
+            column(Package_Tracking_No_; "Package Tracking No.")
             {
 
             }
@@ -79,14 +79,6 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            column(DestinationInstructions1; DestinationInstructions1)
-            {
-
-            }
-            column(DestinationInstructions2; DestinationInstructions2)
-            {
-
-            }
             column(Shipping_Instructions_1; "Shipping Instructions 1")
             {
 
@@ -95,14 +87,6 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            // column(Shipping_Instructions_3; "Shipping Instructions 3")
-            // {
-
-            // }
-            // column(Shipping_Instructions_4; "Shipping Instructions 4")
-            // {
-
-            // }
             column(OrderString1; OrderString[1])
             {
 
@@ -239,6 +223,10 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
+            column(Shipping_Comment; "Shipping Comment")
+            {
+
+            }
             column(Cases___Total; "Cases - Total")
             {
 
@@ -251,10 +239,6 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
-            // column(Last_Print_Time; "Last Print Time")
-            // {
-
-            // }
             column(Last_Print_Date; "Last Print Date")
             {
 
@@ -263,6 +247,15 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
+            column(CollectMessage; CollectMessage)
+            {
+
+            }
+            column(Prepaidmessage; Prepaidmessage)
+            {
+
+            }
+
             trigger OnPreDataItem()
             begin
                 LastFieldNo := FieldNo("No.");
@@ -299,10 +292,16 @@ report 50009 "Processed Bill Of Lading"
                     ShipToAddress[6] := "Shipping Comment";
                     DestinationInstructions1 := ShippingAgent1."Pickup/Beyond Dest. Instr.";
                     DestinationInstructions2 := '';
-                end else
+                end else begin
+                    ShipToAddress[1] := "processed Bol Header"."Ship-to Name";
+                    ShipToAddress[2] := "processed Bol Header"."Ship-to Address";
+                    ShipToAddress[3] := "processed Bol Header"."Ship-to Address 2";
+                    ShipToAddress[4] := "processed Bol Header"."Ship-to City";
+                    ShipToAddress[5] := "processed Bol Header"."Ship-to County";
+                    ShipToAddress[6] := "processed Bol Header"."Ship-to Country/Region Code";
                     //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
                     DestinationInstructions1 := "Shipping Comment";
-
+                end;
 
 
                 Location.Get("Location Code");
@@ -323,83 +322,87 @@ report 50009 "Processed Bill Of Lading"
 
                 LoadClassArray();
 
-                //ProcessedBOLLine.SetFilter("BOL No.", "Processed Bol Header"."No.");
-                //If ProcessedBOLLine.Find('-') then begin
-                //    repeat
-                //        IF ProcessedBOLLine."Heated Service" = TRUE THEN
-                //        HeatRequiredMessage := 'HEAT REQUIRED';
-                //        IF ProcessedBOLLine."Freight Charges" = ProcessedBOLLine."Freight Charges"::Collect THEN
-                //        CollectMessage := '*'
-                //        ELSE
-                //        PrePaidMessage := '*';
-                //End;
+                ProcessedBOLLine.SetFilter("BOL No.", "Processed Bol Header"."No.");
+                If ProcessedBOLLine.Find('-') then begin
+                    repeat
+                        If ProcessedBOLLine."Freight Charges" = ProcessedBOLLine."Freight Charges"::Collect then
+                            CollectMessage := '*'
+                        else
+                            Prepaidmessage := '*';
 
-                Case "Processed Bol Header"."Transaction Type" of
-                    "Processed Bol Header"."Transaction Type"::Shipment:
-                        begin
-                            SalesShipmentLine.Reset();
-                            SalesShipmentLine.SetCurrentKey("Document No.", Type);
-                            SalesShipmentLine.SetFilter("Document No.", ProcessedBOLLine."Shipment No.");
-                            SalesShipmentLine.SetFilter(Type, '=%1', SalesShipmentLine.Type::Item);
-                            SalesShipmentLine.SetFilter(Quantity, '>%1', 0);
-                            If SalesShipmentLine.Find('-') then
-                                repeat
-                                    IF NoOrderString = FALSE THEN
-                                        IF STRPOS(OrderString[OrderStringToUse], ProcessedBOLLine."Order No.") = 0 THEN begin
-                                            IF STRLEN(OrderString[1]) > 75 THEN
-                                                OrderStringToUse := 2;
-                                            IF STRLEN(OrderString[2]) > 75 THEN
-                                                OrderStringToUse := 3;
-                                            IF STRLEN(OrderString[3]) > 75 THEN
-                                                OrderStringToUse := 4;
-                                            IF STRLEN(OrderString[4]) > 75 THEN
-                                                OrderStringToUse := 5;
-                                            IF STRLEN(OrderString[5]) > 75 THEN
-                                                OrderStringToUse := 6;
-                                            IF STRLEN(OrderString[6]) > 75 THEN
-                                                OrderStringToUse := 7;
-                                            IF STRLEN(OrderString[7]) > 75 THEN
-                                                OrderStringToUse := 8;
-                                            SalesShipmentHeader.GET(SalesShipmentLine."Document No.");
-                                            OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + ProcessedBOLLine."Order No." + '-' + SalesShipmentHeader."External Document No." + ' ';
-                                        end;
-                                    If StrPos(LocationString, SalesShipmentLine."Location Code") = 0 then
-                                        LocationString := LocationString + SalesShipmentLine."Location Code" + ' ';
-                                Until SalesShipmentLine.Next() = 0;
+                        Case "Processed Bol Header"."Transaction Type" of
+                            "Processed Bol Header"."Transaction Type"::Shipment:
+                                begin
+                                    SalesShipmentLine.Reset();
+                                    SalesShipmentLine.SetCurrentKey("Document No.", Type);
+                                    SalesShipmentLine.SetFilter("Document No.", ProcessedBOLLine."Shipment No.");
+                                    SalesShipmentLine.SetFilter(Type, '=%1', SalesShipmentLine.Type::Item);
+                                    SalesShipmentLine.SetFilter(Quantity, '>%1', 0);
+                                    If SalesShipmentLine.Find('-') then begin
+                                        repeat
+                                            IF NoOrderString = FALSE THEN begin
+                                                IF STRPOS(OrderString[OrderStringToUse], ProcessedBOLLine."Order No.") = 0 THEN begin
+                                                    IF STRLEN(OrderString[1]) > 75 THEN
+                                                        OrderStringToUse := 2;
+                                                    IF STRLEN(OrderString[2]) > 75 THEN
+                                                        OrderStringToUse := 3;
+                                                    IF STRLEN(OrderString[3]) > 75 THEN
+                                                        OrderStringToUse := 4;
+                                                    IF STRLEN(OrderString[4]) > 75 THEN
+                                                        OrderStringToUse := 5;
+                                                    IF STRLEN(OrderString[5]) > 75 THEN
+                                                        OrderStringToUse := 6;
+                                                    IF STRLEN(OrderString[6]) > 75 THEN
+                                                        OrderStringToUse := 7;
+                                                    IF STRLEN(OrderString[7]) > 75 THEN
+                                                        OrderStringToUse := 8;
 
-                        end;
-                    "Processed Bol Header"."Transaction Type"::Transfer:
-                        begin
-                            TransferShipmentLine.RESET();
-                            TransferShipmentLine.SETFILTER("Document No.", ProcessedBOLLine."Shipment No.");
-                            TransferShipmentLine.SETFILTER(Quantity, '>%1', 0);
-                            IF TransferShipmentLine.FIND('-') THEN
-                                repeat
-                                    IF NoOrderString = FALSE THEN
-                                        IF STRPOS(OrderString[OrderStringToUse], ProcessedBOLLine."Order No.") = 0 THEN begin
-                                            IF STRLEN(OrderString[1]) > 75 THEN
-                                                OrderStringToUse := 2;
-                                            IF STRLEN(OrderString[2]) > 75 THEN
-                                                OrderStringToUse := 3;
-                                            IF STRLEN(OrderString[3]) > 75 THEN
-                                                OrderStringToUse := 4;
-                                            IF STRLEN(OrderString[4]) > 75 THEN
-                                                OrderStringToUse := 5;
-                                            IF STRLEN(OrderString[5]) > 75 THEN
-                                                OrderStringToUse := 6;
-                                            IF STRLEN(OrderString[6]) > 75 THEN
-                                                OrderStringToUse := 7;
-                                            IF STRLEN(OrderString[7]) > 75 THEN
-                                                OrderStringToUse := 8;
-                                            TransferShipmentHeader.GET(TransferShipmentLine."Document No.");
-                                            OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + ProcessedBOLLine."Order No." + '-' + TransferShipmentHeader."External Document No." + ' ';
-                                        end;
-                                    If StrPos(LocationString, TransferShipmentLine."Transfer-from Code") = 0 then
-                                        LocationString := LocationString + TransferShipmentLine."Transfer-from Code" + ' ';
-                                Until TransferShipmentLine.Next() = 0;
-                        end;
-                End;
-                //UNTIL ProcessedBOLLine.NEXT = 0;
+                                                    SalesShipmentLine.SetCurrentKey("Document No.", Type);
+                                                    SalesShipmentLine.SetFilter("Document No.", ProcessedBOLLine."Shipment No.");
+                                                    SalesShipmentLine.SetFilter(Type, '=%1', SalesShipmentLine.Type::Item);
+                                                    SalesShipmentLine.SetFilter(Quantity, '>%1', 0);
+                                                    SalesShipmentHeader.GET(SalesShipmentLine."Document No.");
+                                                    OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + ProcessedBOLLine."Order No." + '-' + SalesShipmentHeader."External Document No." + ' ';
+                                                end;
+                                            end;
+                                            If StrPos(LocationString, SalesShipmentLine."Location Code") = 0 then
+                                                LocationString := LocationString + SalesShipmentLine."Location Code" + ' ';
+                                        Until SalesShipmentLine.Next() = 0;
+                                    end;
+                                end;
+                            "Processed Bol Header"."Transaction Type"::Transfer:
+                                begin
+                                    TransferShipmentLine.RESET();
+                                    TransferShipmentLine.SETFILTER("Document No.", ProcessedBOLLine."Shipment No.");
+                                    TransferShipmentLine.SETFILTER(Quantity, '>%1', 0);
+                                    IF TransferShipmentLine.FIND('-') THEN
+                                        repeat
+                                            IF NoOrderString = FALSE THEN
+                                                IF STRPOS(OrderString[OrderStringToUse], ProcessedBOLLine."Order No.") = 0 THEN begin
+                                                    IF STRLEN(OrderString[1]) > 75 THEN
+                                                        OrderStringToUse := 2;
+                                                    IF STRLEN(OrderString[2]) > 75 THEN
+                                                        OrderStringToUse := 3;
+                                                    IF STRLEN(OrderString[3]) > 75 THEN
+                                                        OrderStringToUse := 4;
+                                                    IF STRLEN(OrderString[4]) > 75 THEN
+                                                        OrderStringToUse := 5;
+                                                    IF STRLEN(OrderString[5]) > 75 THEN
+                                                        OrderStringToUse := 6;
+                                                    IF STRLEN(OrderString[6]) > 75 THEN
+                                                        OrderStringToUse := 7;
+                                                    IF STRLEN(OrderString[7]) > 75 THEN
+                                                        OrderStringToUse := 8;
+                                                    TransferShipmentHeader.GET(TransferShipmentLine."Document No.");
+                                                    OrderString[OrderStringToUse] := OrderString[OrderStringToUse] + ProcessedBOLLine."Order No." + '-' + TransferShipmentHeader."External Document No." + ' ';
+                                                end;
+                                            If StrPos(LocationString, TransferShipmentLine."Transfer-from Code") = 0 then
+                                                LocationString := LocationString + TransferShipmentLine."Transfer-from Code" + ' ';
+                                        Until TransferShipmentLine.Next() = 0;
+                                end;
+                        End;
+                    UNTIL ProcessedBOLLine.NEXT = 0;
+                end;
 
                 // CalcFields("Processed Bol Header"."Cases - Total", "Processed Bol Header"."Weight - Total");
 
@@ -469,6 +472,8 @@ report 50009 "Processed Bill Of Lading"
         DestinationInstructions1: Text;
         DestinationInstructions2: Text;
         EncodedText: Text;
+        CollectMessage: Text;
+        Prepaidmessage: Text;
 
 
 }

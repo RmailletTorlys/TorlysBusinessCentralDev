@@ -289,6 +289,15 @@ End Function
         <Field Name="No__Printed">
           <DataField>No__Printed</DataField>
         </Field>
+        <Field Name="Package_Tracking_No_">
+          <DataField>Package_Tracking_No_</DataField>
+        </Field>
+        <Field Name="CollectMessage">
+          <DataField>CollectMessage</DataField>
+        </Field>
+        <Field Name="Prepaidmessage">
+          <DataField>Prepaidmessage</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

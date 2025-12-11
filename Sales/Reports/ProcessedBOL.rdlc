@@ -100,8 +100,8 @@ End Function
         <Field Name="ShipAdd6">
           <DataField>ShipAdd6</DataField>
         </Field>
-        <Field Name="Carrier_Tracking_No_">
-          <DataField>Carrier_Tracking_No_</DataField>
+        <Field Name="Package_Tracking_No_">
+          <DataField>Package_Tracking_No_</DataField>
         </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
@@ -111,12 +111,6 @@ End Function
         </Field>
         <Field Name="Picking_instructions">
           <DataField>Picking_instructions</DataField>
-        </Field>
-        <Field Name="DestinationInstructions1">
-          <DataField>DestinationInstructions1</DataField>
-        </Field>
-        <Field Name="DestinationInstructions2">
-          <DataField>DestinationInstructions2</DataField>
         </Field>
         <Field Name="Shipping_Instructions_1">
           <DataField>Shipping_Instructions_1</DataField>
@@ -274,6 +268,9 @@ End Function
         <Field Name="LocationString">
           <DataField>LocationString</DataField>
         </Field>
+        <Field Name="Shipping_Comment">
+          <DataField>Shipping_Comment</DataField>
+        </Field>
         <Field Name="Cases___Total">
           <DataField>Cases___Total</DataField>
         </Field>
@@ -294,6 +291,12 @@ End Function
         </Field>
         <Field Name="No__Printed">
           <DataField>No__Printed</DataField>
+        </Field>
+        <Field Name="CollectMessage">
+          <DataField>CollectMessage</DataField>
+        </Field>
+        <Field Name="Prepaidmessage">
+          <DataField>Prepaidmessage</DataField>
         </Field>
       </Fields>
       <Query>

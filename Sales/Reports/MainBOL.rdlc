@@ -283,6 +283,9 @@ End Function
         <Field Name="EncodedText">
           <DataField>EncodedText</DataField>
         </Field>
+        <Field Name="Package_Tracking_No_">
+          <DataField>Package_Tracking_No_</DataField>
+        </Field>
         <Field Name="Last_Print_Date">
           <DataField>Last_Print_Date</DataField>
         </Field>

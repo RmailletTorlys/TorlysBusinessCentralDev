@@ -80,10 +80,24 @@ pageextension 50133 TorlysPostedSalesInvSubform extends "Posted Sales Invoice Su
 
         addafter("Tax Area Code")
         {
+            field("Builder Description"; Rec."Builder Description")
+            {
+                Caption = 'Builder Description';
+                ToolTip = 'Builder Description';
+                ApplicationArea = All;
+                Visible = true;
+            }
             field("Master Project Order No."; Rec."Master Project Order No.")
             {
                 Caption = 'Master Project Order No.';
                 ToolTip = 'Master Project Order No.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Master Project Order Line No."; Rec."Master Project Order Line No.")
+            {
+                Caption = 'Master Project Order Line No.';
+                ToolTip = 'Master Project Order Line No.';
                 ApplicationArea = All;
                 Visible = true;
             }

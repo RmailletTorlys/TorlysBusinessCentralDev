@@ -47,12 +47,24 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Visible = true;
                 trigger OnValidate()
                 begin
+                    if (MPOCount <> 0) and (ShortcutDimCode[3] = 'BUILDER') then
+                        Message('There are %1 MPOs tied to this customer.', MPOCount);
+                    if (MPOCount <> 0) and (ShortcutDimCode[3] = 'RENTAL') then
+                        Message('There are %1 MPOs tied to this customer.', MPOCount);
                     if (ShortcutDimCode[3] = '') and (Rec.Status = Rec.Status::Released) then
                         Error('Cannot delete if order released')
                     else
                         ValidateShortcutDimension(3);
                 end;
             }
+            // field("MPO Count"; MPOCount)
+            // {
+            //     Caption = 'MPO Count';
+            //     ToolTip = 'MPO Count';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            //     Visible = (ShortcutDimCode[3] = 'BUILDER');
+            // }
             field("Order Type"; Rec."Order Type")
             {
                 Caption = 'Order Type';
@@ -860,14 +872,23 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
+        MPOCount: Integer;
+        MPOSalesHeader: Record "Sales Header";
+        MPOVisible: Boolean;
+        LookupUserId: Codeunit "TorlysLookupUserID";
         InsertFreightLine: Codeunit "TorlysInsertFreightLine";
         TorlysCreditHold: Codeunit TorlysCreditHold;
 
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
+
+        MPOCount := 0;
+        MPOSalesHeader.Reset();
+        MPOSalesHeader.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
+        MPOSalesHeader.SetRange("Order Type", 'MASTER PROJECT ORDER');
+        MPOCount := MPOSalesHeader.Count;
     end;
 
     local procedure ValidateShortcutDimension(DimIndex: Integer)

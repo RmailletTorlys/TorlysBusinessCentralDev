@@ -46,7 +46,9 @@ codeunit 50022 TorlysSalesLineFromMPO
             NewSalesLine.Validate("No.", Rec."No.");
             NewSalesLine.Validate(Quantity, QtySendback);
             NewSalesLine.Validate("Unit Price", Rec."Unit Price");
+            NewSalesLine.Validate("Builder Description", Rec."Builder Description");
             NewSalesLine.Validate("Master Project Order No.", Rec."Document No.");
+            NewSalesLine.Validate("Master Project Order Line No.", Rec."Line No.");
             NewSalesLine.Insert(true);
             Commit();
         end;
@@ -56,6 +58,7 @@ codeunit 50022 TorlysSalesLineFromMPO
     var
         TorlysSalesLineFromMPOQty: Page TorlysSalesLineFromMPOQty;
         QtySendback: Decimal;
+        SalesHeader: Record "Sales Header";
         NewSalesHeader: Record "Sales Header";
         NewSalesLine: Record "Sales Line";
     begin
@@ -63,6 +66,8 @@ codeunit 50022 TorlysSalesLineFromMPO
         if TorlysSalesLineFromMPOQty.RunModal() = Action::OK then begin
             QtySendback := TorlysSalesLineFromMPOQty.GetQuantity();
         end;
+
+        SalesHeader.Get(1, Rec."Document No.");
 
         Rec.Validate("Quantity", Rec."Quantity" - QtySendback);
         Rec.Modify(true);
@@ -72,7 +77,8 @@ codeunit 50022 TorlysSalesLineFromMPO
         NewSalesHeader.Validate(NewSalesHeader."Document Type", 1);
         NewSalesHeader.Validate(NewSalesHeader."Sell-to Customer No.", Rec."Sell-to Customer No.");
         NewSalesHeader.Validate(NewSalesHeader."Ship-to Code", Rec."Ship-to Code");
-        // line here that puts the original order number in a MPO field
+        NewSalesHeader.Validate(NewSalesHeader."Tag Name", SalesHeader."Tag Name");
+        // NewSalesHeader.Validate(NewSalesHeader.ShortcutDimCode3,SalesHeader.Shortcut);
         NewSalesHeader.Insert(true);
         NewSalesLine.Reset();
         NewSalesLine.Init();
@@ -84,7 +90,9 @@ codeunit 50022 TorlysSalesLineFromMPO
         NewSalesLine.Validate(NewSalesLine."No.", Rec."No.");
         NewSalesLine.Validate(Quantity, QtySendback);
         NewSalesLine.Validate("Unit Price", Rec."Unit Price");
+        NewSalesLine.Validate("Builder Description", Rec."Builder Description");
         NewSalesLine.Validate("Master Project Order No.", Rec."Document No.");
+        NewSalesLine.Validate("Master Project Order Line No.", Rec."Line No.");
         NewSalesLine.Modify(true);
         Page.Run(Page::"Sales Order", NewSalesHeader);
 

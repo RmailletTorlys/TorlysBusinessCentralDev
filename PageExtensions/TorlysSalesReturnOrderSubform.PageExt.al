@@ -14,11 +14,11 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQuantityCase(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQuantityCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -27,11 +27,11 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQuantityPallet(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQuantityPallet(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
@@ -52,12 +52,11 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Return Qty. to Receive Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQtyToReceiveCase(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
-
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToReceiveCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Return Qty. to Receive Pallet"; Rec."Return Qty. to Receive Pallet")
@@ -66,11 +65,11 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
                 ToolTip = 'Return Qty. to Receive Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQtyToReceivePallet(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToReceivePallet(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
         }
         addafter("Return Qty. to Receive Pallet")
@@ -259,32 +258,43 @@ pageextension 56631 TorlysSalesReturnOrderSubform extends "Sales Return Order Su
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        EditCasePallet := CheckEditCasePallet(Rec);
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    // begin
+    // end;
+
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // begin
+    // end;
+
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // begin
+    // end;
+
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQtyToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // begin
+    // end;
+
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQtyToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // begin
+    // end;
+
+    procedure CheckEditCasePallet(var Rec: Record "Sales Line"): Boolean
+    var
+        Item: Record Item;
     begin
+        if Rec.Type <> Rec.Type::Item then exit(false);
+        if Rec."No." = '' then exit(false);
+        Item.Get(Rec."No.");
+        if Item."Compare Unit of Measure" = '' then exit(false);
+        exit(true);
     end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQtyToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQtyToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-    end;
-
 }

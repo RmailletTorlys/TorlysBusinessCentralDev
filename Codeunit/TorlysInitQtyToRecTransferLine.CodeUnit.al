@@ -8,7 +8,6 @@ codeunit 50014 TorlysInitQtyToRecTransferLine
         QtyPerCase: Decimal;
         QtyPerPallet: Decimal;
         TempQuantity: Decimal;
-
     begin
         TransferLine."Qty. to Receive" := TransferLine."Qty. in Transit";
         TransferLine."Qty. to Receive (Base)" := TransferLine."Qty. in Transit (Base)";

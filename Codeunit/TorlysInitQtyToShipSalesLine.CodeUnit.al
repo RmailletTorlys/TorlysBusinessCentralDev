@@ -12,14 +12,17 @@ codeunit 50009 "TorlysInitQtyToShipSalesLine"
     begin
         IsHandled := true;
         SalesLine."Qty. to Ship (Base)" := SalesLine.CalcBaseQty(SalesLine."Qty. to Ship", SalesLine.FieldCaption(SalesLine."Qty. to Ship"), SalesLine.FieldCaption(SalesLine."Qty. to Ship (Base)"));
-        if FieldNo = 15 then begin
+        if FieldNo in [15, 50001, 50002] then begin
+            Message('check 1');
             if SalesLine.Type = SalesLine.Type::Item then begin
+                Message('check 2');
                 if (SalesLine."Document Type" = SalesLine."Document Type"::Order) or (SalesLine."Document Type" = SalesLine."Document Type"::"Blanket Order") then begin
+                    Message('check 3');
                     Item.Get(SalesLine."No.");
                     if NOT Item."Automatically Allocate" then begin
                         OkToAllocate := true;
-                        if (SalesLine."Shipment Date" >= WORKDATE()) then begin
-                            if ((SalesLine."Shipment Date" - WORKDATE()) <= 45) then
+                        if (SalesLine."Shipment Date" >= WorkDate()) then begin
+                            if ((SalesLine."Shipment Date" - WorkDate()) <= 45) then
                                 OkToAllocate := true
                             else
                                 OkToAllocate := false;
@@ -54,8 +57,10 @@ codeunit 50009 "TorlysInitQtyToShipSalesLine"
                                     TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                                 end;
                             SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                            SalesLine."Qty. to Ship" := ((QtyPerPallet * SalesLine."Qty. to Ship Pallet") + (QtyPerCase * SalesLine."Qty. to Ship Case")) / SalesLine."Qty. per Unit of Measure";
                         end;
                     end else begin
+                        Message('check 4');
                         SalesLine."Qty. to Ship" := SalesLine."Outstanding Quantity";
                         SalesLine."Qty. to Ship (Base)" := SalesLine."Outstanding Qty. (Base)";
                         Item.Get(SalesLine."No.");
@@ -70,9 +75,11 @@ codeunit 50009 "TorlysInitQtyToShipSalesLine"
                                     TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                                 end;
                             SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                            SalesLine."Qty. to Ship" := ((QtyPerPallet * SalesLine."Qty. to Ship Pallet") + (QtyPerCase * SalesLine."Qty. to Ship Case")) / SalesLine."Qty. per Unit of Measure";
                         end;
                     end;
                 end else begin
+                    Message('check 5');
                     SalesLine."Qty. to Ship" := SalesLine."Outstanding Quantity";
                     SalesLine."Qty. to Ship (Base)" := SalesLine."Outstanding Qty. (Base)";
                     Item.Get(SalesLine."No.");
@@ -87,14 +94,17 @@ codeunit 50009 "TorlysInitQtyToShipSalesLine"
                                 TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                             end;
                         SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                        SalesLine."Qty. to Ship" := ((QtyPerPallet * SalesLine."Qty. to Ship Pallet") + (QtyPerCase * SalesLine."Qty. to Ship Case")) / SalesLine."Qty. per Unit of Measure";
                     end;
                 end;
             end else begin
+                Message('check 6');
                 SalesLine."Qty. to Ship" := SalesLine."Outstanding Quantity";
                 SalesLine."Qty. to Ship (Base)" := SalesLine."Outstanding Qty. (Base)";
                 SalesLine.CheckServItemCreation();
             end;
         end else begin
+            Message('check 7');
             if SalesLine.Type = SalesLine.Type::Item then begin
                 SalesLine."Qty. to Ship (Base)" := SalesLine.CalcBaseQty(SalesLine."Qty. to Ship", SalesLine.FieldCaption(SalesLine."Qty. to Ship"), SalesLine.FieldCaption(SalesLine."Qty. to Ship (Base)"));
                 Item.Get(SalesLine."No.");
@@ -109,6 +119,8 @@ codeunit 50009 "TorlysInitQtyToShipSalesLine"
                             TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                         end;
                     SalesLine."Qty. to Ship Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                    SalesLine."Qty. to Ship" := ((QtyPerPallet * SalesLine."Qty. to Ship Pallet") + (QtyPerCase * SalesLine."Qty. to Ship Case")) / SalesLine."Qty. per Unit of Measure";
+                    // SalesLine."Qty. to Ship (Base)" := SalesLine.CalcBaseQty(SalesLine."Qty. to Ship", SalesLine.FieldCaption(SalesLine."Qty. to Ship"), SalesLine.FieldCaption(SalesLine."Qty. to Ship (Base)"));
                 end else begin
                     SalesLine."Qty. to Ship" := SalesLine."Outstanding Quantity";
                     SalesLine."Qty. to Ship (Base)" := SalesLine."Outstanding Qty. (Base)";

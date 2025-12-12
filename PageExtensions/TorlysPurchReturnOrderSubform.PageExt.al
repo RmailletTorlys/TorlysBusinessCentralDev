@@ -22,11 +22,11 @@ pageextension 56641 TorlysPurchReturnOrderSubform extends "Purchase Return Order
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQuantityCase(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQuantityCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -35,13 +35,13 @@ pageextension 56641 TorlysPurchReturnOrderSubform extends "Purchase Return Order
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    if Rec.Type <> Rec.Type::Item then
-                        exit;
-                    OnValidateQuantityPallet(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     if Rec.Type <> Rec.Type::Item then
+                //         exit;
+                //     OnValidateQuantityPallet(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
         }
 
@@ -126,12 +126,11 @@ pageextension 56641 TorlysPurchReturnOrderSubform extends "Purchase Return Order
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQtyToShipCase(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
-
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToShipCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Return Qty. to Ship Pallet"; Rec."Return Qty. to Ship Pallet")
@@ -140,11 +139,11 @@ pageextension 56641 TorlysPurchReturnOrderSubform extends "Purchase Return Order
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateQtyToShipPallet(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToShipPallet(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
         }
 
@@ -316,32 +315,43 @@ pageextension 56641 TorlysPurchReturnOrderSubform extends "Purchase Return Order
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        EditCasePallet := CheckEditCasePallet(Rec);
     end;
 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQtyToShipCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQtyToShipCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateQtyToShipPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateQtyToShipPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    procedure CheckEditCasePallet(var Rec: Record "Purchase Line"): Boolean
+    var
+        Item: Record Item;
     begin
+        if Rec.Type <> Rec.Type::Item then exit(false);
+        if Rec."No." = '' then exit(false);
+        Item.Get(Rec."No.");
+        if Item."Compare Unit of Measure" = '' then exit(false);
+        exit(true);
     end;
 }

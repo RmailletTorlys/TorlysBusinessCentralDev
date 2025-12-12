@@ -28,7 +28,7 @@ codeunit 50414 TorlysInsertFreightLine
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then Error('Order is for pickup, therefore no freight charge.');
         if Rec."Order Type" = 'CLAIM REPLACEMENT' then Error('Order is a claim replacement, therefore no freight charge');
-        if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding.');
+        if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding freight.');
 
         // clear variables, get, and set values to 0
         Clear(FreightZones);
@@ -194,7 +194,7 @@ codeunit 50414 TorlysInsertFreightLine
         end;
     end;
 
-    // this is for adding freight when initiated during posting of shipment
+    // this is for adding freight when initiated during posting of shipment from the warehouse screens
     // main difference here is not respecting minimum charge and just doing the math
     procedure SHposting(Rec: Record "Sales Header")
 
@@ -352,6 +352,7 @@ codeunit 50414 TorlysInsertFreightLine
 
         // add freight line
         if OrderFreightCount = 0 then begin
+            Rec.PerformManualReopen(Rec);
             SalesLine.Reset;
             SalesLine.SetRange("Document Type", Rec."Document Type");
             SalesLine.SetRange("Document No.", Rec."No.");

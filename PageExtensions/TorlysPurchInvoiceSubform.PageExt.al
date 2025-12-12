@@ -11,12 +11,13 @@ pageextension 50055 TorlysPurchInvoiceSubform extends "Purch. Invoice Subform"
                 Caption = 'Quantity Case';
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    if Rec.Type <> Rec.Type::Item then
-                        exit;
-                    OnValidateCase(Rec, xRec);
-                end;
+                Editable = EditCasePallet;
+                // trigger OnValidate()
+                // begin
+                //     if Rec.Type <> Rec.Type::Item then
+                //         exit;
+                //     OnValidateCase(Rec, xRec);
+                // end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -24,12 +25,13 @@ pageextension 50055 TorlysPurchInvoiceSubform extends "Purch. Invoice Subform"
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    if Rec.Type <> Rec.Type::Item then
-                        exit;
-                    OnValidatePallet(Rec, xRec);
-                end;
+                Editable = EditCasePallet;
+                // trigger OnValidate()
+                // begin
+                //     if Rec.Type <> Rec.Type::Item then
+                //         exit;
+                //     OnValidatePallet(Rec, xRec);
+                // end;
             }
         }
 
@@ -131,14 +133,31 @@ pageextension 50055 TorlysPurchInvoiceSubform extends "Purch. Invoice Subform"
 
     var
         LookupUser: Codeunit "TorlysLookupUserID";
+        EditCasePallet: Boolean;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    trigger OnAfterGetRecord()
     begin
+        EditCasePallet := CheckEditCasePallet(Rec);
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // begin
+    // end;
+
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidatePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
+    // begin
+    // end;
+
+    procedure CheckEditCasePallet(var Rec: Record "Purchase Line"): Boolean
+    var
+        Item: Record Item;
     begin
+        if Rec.Type <> Rec.Type::Item then exit(false);
+        if Rec."No." = '' then exit(false);
+        Item.Get(Rec."No.");
+        if Item."Compare Unit of Measure" = '' then exit(false);
+        exit(true);
     end;
 }

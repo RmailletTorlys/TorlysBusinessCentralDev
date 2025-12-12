@@ -8,17 +8,43 @@ codeunit 50011 TorlysInitQtyToRecSalesLine
         QtyPerCase: Decimal;
         QtyPerPallet: Decimal;
         TempQuantity: Decimal;
-
     begin
         IsHandled := true;
 
-        if (SalesLine.Type = SalesLine.Type::Item) then begin
-            if (SalesLine."Document Type" = SalesLine."Document Type"::"Return Order") then begin
-                SalesLine."Return Qty. to Receive" := 0;
-                SalesLine.CalcBaseQty(SalesLine."Return Qty. to Receive", SalesLine.FieldCaption(SalesLine."Return Qty. to Receive"), SalesLine.FieldCaption(SalesLine."Return Qty. to Receive (Base)"));
+        if FieldNo = 15 then begin
+            if (SalesLine.Type = SalesLine.Type::Item) then begin
+                if (SalesLine."Document Type" = SalesLine."Document Type"::"Return Order") then begin
+                    SalesLine."Return Qty. to Receive" := 0;
+                    SalesLine."Return Qty. to Receive (Base)" := 0;
+                    SalesLine."Return Qty. to Receive Case" := 0;
+                    SalesLine."Return Qty. to Receive Pallet" := 0;
+                end else begin
+                    SalesLine."Return Qty. to Receive" := SalesLine."Outstanding Quantity";
+                    // SalesLine.CalcBaseQty(SalesLine."Return Qty. to Receive", SalesLine.FieldCaption(SalesLine."Return Qty. to Receive"), SalesLine.FieldCaption(SalesLine."Return Qty. to Receive (Base)"));
+                    SalesLine."Return Qty. to Receive (Base)" := SalesLine."Outstanding Qty. (Base)";
+                    Item.Get(SalesLine."No.");
+                    if Item."Compare Unit of Measure" <> '' then begin
+                        QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
+                        QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
+                        TempQuantity := SalesLine."Return Qty. to Receive"; //store entered quantity in variable
+                        SalesLine."Return Qty. to Receive Pallet" := 0; //go back to 0 for when quantity is changed
+                        if TempQuantity >= QtyPerPallet then //check if the entered quantity is more than a full pallet
+                            while TempQuantity >= QtyPerPallet do begin
+                                SalesLine."Return Qty. to Receive Pallet" := SalesLine."Return Qty. to Receive Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
+                                TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
+                            end;
+                        SalesLine."Return Qty. to Receive Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                    end;
+                end;
             end else begin
                 SalesLine."Return Qty. to Receive" := SalesLine."Outstanding Quantity";
-                SalesLine.CalcBaseQty(SalesLine."Return Qty. to Receive", SalesLine.FieldCaption(SalesLine."Return Qty. to Receive"), SalesLine.FieldCaption(SalesLine."Return Qty. to Receive (Base)"));
+                SalesLine."Return Qty. to Receive (Base)" := SalesLine."Outstanding Qty. (Base)";
+            end;
+        end else begin
+            if (SalesLine.Type = SalesLine.Type::Item) then begin
+                SalesLine."Return Qty. to Receive" := SalesLine."Outstanding Quantity";
+                // SalesLine.CalcBaseQty(SalesLine."Return Qty. to Receive", SalesLine.FieldCaption(SalesLine."Return Qty. to Receive"), SalesLine.FieldCaption(SalesLine."Return Qty. to Receive (Base)"));
+                SalesLine."Return Qty. to Receive (Base)" := SalesLine."Outstanding Qty. (Base)";
                 Item.Get(SalesLine."No.");
                 if Item."Compare Unit of Measure" <> '' then begin
                     QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
@@ -33,9 +59,6 @@ codeunit 50011 TorlysInitQtyToRecSalesLine
                     SalesLine."Return Qty. to Receive Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                 end;
             end;
-        end else begin
-            SalesLine."Return Qty. to Receive" := SalesLine."Outstanding Quantity";
-            SalesLine.CalcBaseQty(SalesLine."Return Qty. to Receive", SalesLine.FieldCaption(SalesLine."Return Qty. to Receive"), SalesLine.FieldCaption(SalesLine."Return Qty. to Receive (Base)"));
         end;
 
         SalesLine.InitQtyToInvoice();

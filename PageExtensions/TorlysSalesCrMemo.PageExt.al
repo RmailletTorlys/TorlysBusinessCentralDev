@@ -502,7 +502,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
 
         modify("Applies-to ID")
         {
-            Importance = Standard;
+            Visible = false;
         }
     }
 

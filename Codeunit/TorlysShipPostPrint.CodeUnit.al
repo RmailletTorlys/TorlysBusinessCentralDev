@@ -50,8 +50,8 @@ codeunit 50012 "TorlysShip-Post+Print"
 
             // custom to us - start
             // need to open order to add freight line
-            SalesHeader.Status := SalesHeader.Status::Open;
-            SalesHeader.Modify();
+            // SalesHeader.Status := SalesHeader.Status::Open;
+            // SalesHeader.Modify();
             // codeunit to add freight line
             InsertFreightLine.SHposting(SalesHeader);
             // custom to us - end

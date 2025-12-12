@@ -170,7 +170,8 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ItemNoTemp: Record Item;
         ParentBinCOntent: Record "Bin Content";
         DimMgmt: CodeUnit DimensionManagement;
-        UoMHelper: CodeUnit "Quantity Rounding Helper";
+        // UoMHelper: CodeUnit "Quantity Rounding Helper";
+        UOMMgt: Codeunit "Unit of Measure Management";
         TotalWeight: Decimal;
         ShipWeight: Decimal;
         TotalPieces: Decimal;
@@ -189,8 +190,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
     procedure SetQtyConst(No_: Code[20])
     begin
         Item.Get(No_);
-        QtyPerPallet := UoMHelper.GetQuantityUoM(Item."No.", 'PALLET');
-        QtyPerCase := UoMHelper.GetQuantityUoM(Item."No.", 'CASE');
+        // QtyPerPallet := UoMHelper.GetQuantityUoM(Item."No.", 'PALLET');
+        // QtyPerCase := UoMHelper.GetQuantityUoM(Item."No.", 'CASE');
+        QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
+        QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
     end;
 
 }

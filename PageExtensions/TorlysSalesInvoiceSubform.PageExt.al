@@ -39,6 +39,43 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ApplicationArea = All;
             }
 
+            field("Qty. to Ship"; Rec."Qty. to Ship")
+            {
+                Caption = 'Qty. to Ship';
+                ToolTip = 'Qty. to Ship';
+                ApplicationArea = All;
+            }
+            field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
+            {
+                Caption = 'Qty. to Ship Case';
+                ToolTip = 'Qty. to Ship Case';
+                ApplicationArea = All;
+                Editable = EditCasePallet;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToShipCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
+            }
+            field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
+            {
+                Caption = 'Qty. to Ship Pallet';
+                ToolTip = 'Qty. to Ship Pallet';
+                ApplicationArea = All;
+                Editable = EditCasePallet;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToShipPallet(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
+            }
+
+            field("Shipment Date"; Rec."Shipment Date")
+            {
+                Caption = 'Shipment Date';
+                ToolTip = 'Shipment Date';
+                ApplicationArea = All;
+            }
 
             field("Item Category Code"; Rec."Item Category Code")
             {

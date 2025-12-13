@@ -783,7 +783,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     salesline: Record "Sales Line";
                 begin
                     salesline.SetFilter("Document No.", Rec."No.");
-                    REPORT.RUNMODAL(50023, TRUE, FALSE, SalesLine);
+                    Report.RunModal(50023, true, false, SalesLine);
                 end;
             }
             action("B13 Purchase")

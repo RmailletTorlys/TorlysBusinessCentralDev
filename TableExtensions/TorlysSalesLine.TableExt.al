@@ -298,7 +298,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
-                    Item.GET(Rec."No."); //get the item record
+                    Item.Get(Rec."No."); //get the item record
                     if Item."Compare Unit of Measure" <> '' then begin
                         QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
                         QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        
@@ -309,7 +309,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
                                 Rec."Quantity Pallet" := Rec."Quantity Pallet" + 1; //if more than a pallet, apply pallet quantity, and keep repeating
                                 TempQuantity := TempQuantity - QtyPerPallet; //how much left after applying to pallets
                             end;
-                        Rec."Quantity Case" := ROUND((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
+                        Rec."Quantity Case" := Round((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                         // Rec.VALIDATE(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
                         Rec.Quantity := ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure";
                     end;
@@ -360,7 +360,7 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
-                    Item.GET(Rec."No."); //get the item record
+                    Item.Get(Rec."No."); //get the item record
                     if Item."Compare Unit of Measure" <> '' then begin
                         QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
                         QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet        

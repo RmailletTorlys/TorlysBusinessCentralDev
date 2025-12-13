@@ -25,7 +25,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
-                // Editable = EditCasePallet;
+                Editable = EditCasePallet;
                 // trigger OnValidate()
                 // begin
                 //     OnValidateQuantityPallet(Rec, Rec);
@@ -49,7 +49,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Case';
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
-                // Editable = EditCasePallet;
+                Editable = EditCasePallet;
                 // trigger OnValidate()
                 // begin
                 //     OnValidateQtyToShipCase(Rec, xRec);
@@ -61,7 +61,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
-                // Editable = EditCasePallet;
+                Editable = EditCasePallet;
                 // trigger OnValidate()
                 // begin
                 //     OnValidateQtyToShipPallet(Rec, xRec);

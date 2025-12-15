@@ -12,11 +12,11 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateCase(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -25,11 +25,11 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
                 ToolTip = 'Quantity Pallet';
                 Editable = EditCasePallet;
                 ApplicationArea = All;
-                trigger OnValidate()
-                begin
-                    OnValidatePallet(Rec, xRec);
-                    CurrPage.Update(true);
-                end;
+                //     trigger OnValidate()
+                //     begin
+                //         OnValidatePallet(Rec, xRec);
+                //         CurrPage.Update(true);
+                //     end;
             }
         }
 
@@ -113,21 +113,32 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        EditCasePallet := CheckEditCasePallet(Rec);
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; var EditCasePallet: Boolean)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line"; var EditCasePallet: Boolean)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateCase(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidatePallet(var Rec: Record "Item Journal Line"; xRec: Record "Item Journal Line")
+    // begin
+    // end;
+
+    procedure CheckEditCasePallet(var Rec: Record "Item Journal Line"): Boolean
+    var
+        Item: Record Item;
     begin
+        if Rec."No." = '' then exit(false);
+        Item.Get(Rec."No.");
+        if Item."Compare Unit of Measure" = '' then exit(false);
+        exit(true);
     end;
 }

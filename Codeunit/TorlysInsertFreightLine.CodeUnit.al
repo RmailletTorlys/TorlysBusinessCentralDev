@@ -24,11 +24,12 @@ codeunit 50414 TorlysInsertFreightLine
         QtyPerCase: Integer;
         UOMMgt: Codeunit "Unit of Measure Management";
         SalesLine: Record "Sales Line";
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then Error('Order is for pickup, therefore no freight charge.');
         if Rec."Order Type" = 'CLAIM REPLACEMENT' then Error('Order is a claim replacement, therefore no freight charge');
-        if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding.');
+        if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding freight.');
 
         // clear variables, get, and set values to 0
         Clear(FreightZones);
@@ -140,13 +141,13 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group", 'UNDERLAYMENT');
-        SalesLine.SETFILTER("Unit of Measure Code", '<>ROLL');
+        SalesLine.SetFilter("Unit of Measure Code", '<>ROLL');
         if SalesLine.Find('-') then begin
-            REPEAT
+            repeat
                 Item.Get(SalesLine."No.");
                 QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
                 ShippedQuantityUnderlaySheet := Round(ShippedQuantityUnderlaySheet + (SalesLine."Qty. to Invoice" / QtyPerCase), 1, '>');
-            UNTIL SalesLine.Next = 0;
+            until SalesLine.Next = 0;
         end;
 
         // if there are no shipped lines, then stop the process
@@ -185,16 +186,17 @@ codeunit 50414 TorlysInsertFreightLine
             SalesLine.Init;
             SalesLine."Line No." := SalesLine."Line No." + 10000;
             SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
-            SalesLine.Validate("No.", '61600');
+            SalesLine.Validate("No.", SalesSetup."Freight G/L Acc. No.");
             SalesLine.Validate(Description, 'Freight charge');
             SalesLine.Validate(Quantity, 1);
-            SalesLine.Validate("Qty. to Ship", 1);
+            // SalesLine.Validate("Qty. to Ship", 1);
+            // SalesLine.Validate("Qty. to Invoice", 1);
             SalesLine.Validate("Unit Price", FreightAmount);
             SalesLine.Insert;
         end;
     end;
 
-    // this is for adding freight when initiated during posting of shipment
+    // this is for adding freight when initiated during posting of shipment from the warehouse screens
     // main difference here is not respecting minimum charge and just doing the math
     procedure SHposting(Rec: Record "Sales Header")
 
@@ -213,6 +215,7 @@ codeunit 50414 TorlysInsertFreightLine
         QtyPerCase: Integer;
         UOMMgt: Codeunit "Unit of Measure Management";
         SalesLine: Record "Sales Line";
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then exit;
@@ -308,7 +311,7 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group", 'UNDERLAYMENT');
-        SalesLine.SETFILTER("Unit of Measure Code", 'ROLL');
+        SalesLine.SetFilter("Unit of Measure Code", 'ROLL');
         if SalesLine.Find('-') then begin
             repeat
                 // Item.Get(SalesLine."No.");
@@ -325,7 +328,7 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group", 'UNDERLAYMENT');
-        SalesLine.SETFILTER("Unit of Measure Code", '<>ROLL');
+        SalesLine.SetFilter("Unit of Measure Code", '<>ROLL');
         if SalesLine.Find('-') then begin
             REPEAT
                 Item.Get(SalesLine."No.");
@@ -352,6 +355,9 @@ codeunit 50414 TorlysInsertFreightLine
 
         // add freight line
         if OrderFreightCount = 0 then begin
+            Rec.Status := Rec.Status::Open;
+            Rec.Modify();
+            // Rec.PerformManualReopen(Rec);
             SalesLine.Reset;
             SalesLine.SetRange("Document Type", Rec."Document Type");
             SalesLine.SetRange("Document No.", Rec."No.");
@@ -359,10 +365,11 @@ codeunit 50414 TorlysInsertFreightLine
             SalesLine.Init;
             SalesLine."Line No." := SalesLine."Line No." + 10000;
             SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
-            SalesLine.Validate("No.", '61600');
+            SalesLine.Validate("No.", SalesSetup."Freight G/L Acc. No.");
             SalesLine.Validate(Description, 'Freight charge');
             SalesLine.Validate(Quantity, 1);
-            SalesLine.Validate("Qty. to Ship", 1);
+            // SalesLine.Validate("Qty. to Ship", 1);
+            // SalesLine.Validate("Qty. to Invoice", 1);
             SalesLine.Validate("Unit Price", FreightAmount);
             SalesLine.Insert;
         end;

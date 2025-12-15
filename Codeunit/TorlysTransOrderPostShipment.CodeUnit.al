@@ -31,5 +31,4 @@ codeunit 50015 TorlysTransOrderPostShipment
         TransferLine.Validate(TransferLine."Qty. to Receive Case", 0);
         TransferLine.Validate(TransferLine."Qty. to Receive Pallet", 0);
     end;
-
 }

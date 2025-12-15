@@ -522,11 +522,11 @@ pageextension 50043 TorlysSalesInvoice extends "Sales Invoice"
                 Visible = true;
                 Caption = 'Credit Hold';
 
-                actionref("Remove from Hold"; "Remove Credit Hold")
+                actionref("RemoveCreditHold"; "Remove Credit Hold")
                 {
                 }
 
-                actionref("Add to Hold"; "Place Credit Hold")
+                actionref("PlaceOnCreditHold"; "Place On Credit Hold")
                 {
                 }
             }
@@ -541,22 +541,18 @@ pageextension 50043 TorlysSalesInvoice extends "Sales Invoice"
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec."On Hold" := '';
-                    Rec.Modify(true);
-                    Message('Removed Order from Credit Hold');
+                    TorlysCreditHold.RemoveCreditHold(Rec, xRec);
                 end;
             }
-            action("Place Credit Hold")
+            action("Place on Credit Hold")
             {
                 ToolTip = 'Places selected Order(s) on Credit Hold.';
-                Caption = 'Place Credit Hold';
+                Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec."On Hold" := 'CR';
-                    Rec.Modify(true);
-                    Message('Placed Order on Credit Hold');
+                    TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
                 end;
             }
         }
@@ -565,6 +561,7 @@ pageextension 50043 TorlysSalesInvoice extends "Sales Invoice"
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
         ShortcutDimCode: array[8] of Code[20];
+        TorlysCreditHold: Codeunit TorlysCreditHold;
 
     trigger OnAfterGetRecord()
     begin

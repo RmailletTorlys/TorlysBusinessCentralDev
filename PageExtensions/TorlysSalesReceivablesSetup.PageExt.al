@@ -2,6 +2,8 @@ pageextension 50459 "TorlysSalesReceivablesSetup" extends "Sales & Receivables S
 {
     layout
     {
+        moveafter("Disable Search by Name"; "Freight G/L Acc. No.")
+
         addafter("Price List Nos.")
         {
             field("Bill of Lading No."; Rec."Bill of Lading Nos.")
@@ -16,6 +18,9 @@ pageextension 50459 "TorlysSalesReceivablesSetup" extends "Sales & Receivables S
             }
         }
 
-
+        modify("Freight G/L Acc. No.")
+        {
+            visible = true;
+        }
     }
 }

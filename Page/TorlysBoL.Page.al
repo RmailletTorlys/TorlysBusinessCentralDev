@@ -234,6 +234,7 @@ page 51002 "Torlys BOL"
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the number of pieces in the shipment.';
                             Caption = 'Piece Count';
+                            Editable = false;
                         }
                     }
                 }

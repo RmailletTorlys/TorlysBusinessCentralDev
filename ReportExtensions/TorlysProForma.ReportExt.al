@@ -126,7 +126,8 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
                 If "Qty. to Ship Pallet" > 0 then begin
                     If Type = Type::Item then
                         SetQtyConst("No.");
-                    Pieces += ("Qty. to Ship Pallet" * (PerPallet / PerCase));
+                    // Pieces += ("Qty. to Ship Pallet" * (PerPallet / PerCase));
+                    Pieces += ("Qty. to Ship Pallet" * (QtyPerPallet / QtyPerCase));
                 end;
 
                 If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
@@ -138,18 +139,22 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
     procedure SetQtyConst(No_: Code[20])
     begin
         Item.Get(No_);
-        PerPallet := UoMHelper.GetQuantityUoM(Item."No.", 'PALLET');
-        PerCase := UoMHelper.GetQuantityUoM(Item."No.", 'CASE');
+        // PerPallet := UoMHelper.GetQuantityUoM(Item."No.", 'PALLET');
+        // PerCase := UoMHelper.GetQuantityUoM(Item."No.", 'CASE');
+        QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
+        QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
     end;
 
     var
         Caladdress: array[5] of text;
-        PerPallet: Decimal;
-        PerCase: Decimal;
+        // PerPallet: Decimal;
+        // PerCase: Decimal;
+        QtyPerPallet: Integer;
+        QtyPerCase: Integer;
         ItemUOM: Record "Item Unit of Measure";
         Pieces: Decimal;
         UOMMgt: Codeunit "Unit of Measure Management";
-        UoMHelper: Codeunit "Quantity Rounding Helper";
+        // UoMHelper: Codeunit "Quantity Rounding Helper";        
         tempQuantity: Decimal;
         QtyShippedPallet: Decimal;
         QtyShippedCase: Decimal;

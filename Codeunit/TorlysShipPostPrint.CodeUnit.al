@@ -44,14 +44,14 @@ codeunit 50012 "TorlysShip-Post+Print"
             SalesHeader.Ship := true;
             SalesHeader.Invoice := false;
 
+            // custom to us - start
             // have to add this because out of the box doesn't update posting date to today when posting
             SalesHeader."Posting Date" := WorkDate();
             SalesHeader.Modify();
 
-            // custom to us - start
-            // need to open order to add freight line
-            SalesHeader.Status := SalesHeader.Status::Open;
-            SalesHeader.Modify();
+            // need to open order to add freight line, moved this to the Freight CU
+            // SalesHeader.Status := SalesHeader.Status::Open;
+            // SalesHeader.Modify();
             // codeunit to add freight line
             InsertFreightLine.SHposting(SalesHeader);
             // custom to us - end
@@ -73,14 +73,14 @@ codeunit 50012 "TorlysShip-Post+Print"
             ReportSelection.TestField("Report ID");
             case ReportUsage of
                 ReportSelection.Usage::"S.Invoice":
-                    REPORT.Run(ReportSelection."Report ID", false, false, SalesInvHeader);
+                    Report.Run(ReportSelection."Report ID", false, false, SalesInvHeader);
                 ReportSelection.Usage::"S.Cr.Memo":
-                    REPORT.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
+                    Report.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
                 ReportSelection.Usage::"S.Shipment":
-                    // REPORT.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
-                    REPORT.Run(ReportSelection."Report ID", true, false, SalesShptHeader); //changed to true so dont have to buy print management
+                    // Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
+                    Report.Run(ReportSelection."Report ID", true, false, SalesShptHeader); //changed to true so dont have to buy print management
                 ReportSelection.Usage::"S.Ret.Rcpt.":
-                    REPORT.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
+                    Report.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
             end;
         until ReportSelection.Next() = 0;
     end;

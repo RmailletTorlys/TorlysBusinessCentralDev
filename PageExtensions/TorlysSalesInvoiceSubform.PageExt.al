@@ -12,11 +12,11 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidateCase(Rec, Rec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateCase(Rec, Rec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -25,11 +25,11 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                trigger OnValidate()
-                begin
-                    OnValidatePallet(Rec, Rec);
-                    CurrPage.Update(true);
-                end;
+                // trigger OnValidate()
+                // begin
+                //     OnValidatePallet(Rec, Rec);
+                //     CurrPage.Update(true);
+                // end;
             }
 
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
@@ -39,6 +39,43 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
                 ApplicationArea = All;
             }
 
+            field("Qty. to Ship"; Rec."Qty. to Ship")
+            {
+                Caption = 'Qty. to Ship';
+                ToolTip = 'Qty. to Ship';
+                ApplicationArea = All;
+            }
+            field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
+            {
+                Caption = 'Qty. to Ship Case';
+                ToolTip = 'Qty. to Ship Case';
+                ApplicationArea = All;
+                Editable = EditCasePallet;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToShipCase(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
+            }
+            field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
+            {
+                Caption = 'Qty. to Ship Pallet';
+                ToolTip = 'Qty. to Ship Pallet';
+                ApplicationArea = All;
+                Editable = EditCasePallet;
+                // trigger OnValidate()
+                // begin
+                //     OnValidateQtyToShipPallet(Rec, xRec);
+                //     CurrPage.Update(true);
+                // end;
+            }
+
+            field("Shipment Date"; Rec."Shipment Date")
+            {
+                Caption = 'Shipment Date';
+                ToolTip = 'Shipment Date';
+                ApplicationArea = All;
+            }
 
             field("Item Category Code"; Rec."Item Category Code")
             {
@@ -208,22 +245,41 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()
+    // var
+
+    // Item: Record Item;
     begin
-        OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
+        // CheckEditCasePallet(Rec);
+        // Item.Get(Rec."No.");
+        // if Item."Compare Unit of Measure" = '' then EditCasePallet := false;
+        // if Rec."No." <> '' then EditCasePallet := false;
+        EditCasePallet := CheckEditCasePallet(Rec);
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidateCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // [IntegrationEvent(false, false)]
+    // local procedure OnValidatePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    // begin
+    // end;
+
+    procedure CheckEditCasePallet(var Rec: Record "Sales Line"): Boolean
+    var
+        Item: Record Item;
     begin
+        if Rec.Type <> Rec.Type::Item then exit(false);
+        if Rec."No." = '' then exit(false);
+        Item.Get(Rec."No.");
+        if Item."Compare Unit of Measure" = '' then exit(false);
+        exit(true);
     end;
 }

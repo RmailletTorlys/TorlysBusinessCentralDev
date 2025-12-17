@@ -126,6 +126,10 @@ report 50019 "Pre-Receiving Report - Trans"
                     {
                         ApplicationArea = Basic, Suite;
                     }
+                    field(HideQuantities; HideQuantities)
+                    {
+                        ApplicationArea = Basic, Suite;
+                    }
                 }
             }
         }

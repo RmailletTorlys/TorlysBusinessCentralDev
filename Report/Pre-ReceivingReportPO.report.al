@@ -129,6 +129,10 @@ report 50025 "Pre-Receiving Report PO"
                     {
                         ApplicationArea = Basic, Suite;
                     }
+                    field(HideQuantities; HideQuantities)
+                    {
+                        ApplicationArea = Basic, Suite;
+                    }
                 }
             }
         }

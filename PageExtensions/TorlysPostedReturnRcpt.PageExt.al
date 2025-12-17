@@ -52,9 +52,23 @@ pageextension 56660 TorlysPostedReturnRcpt extends "Posted Return Receipt"
                 ToolTip = 'Reason Code';
                 ApplicationArea = All;
             }
+            field("Original Invoice No."; Rec."Original Invoice No.")
+            {
+                Caption = 'Original Invoice No.';
+                ToolTip = 'Original Invoice No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+            field("Rebill Invoice No."; Rec."Rebill Invoice No.")
+            {
+                Caption = 'Rebill Invoice No.';
+                ToolTip = 'Rebill Invoice No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
-        moveafter("Reason Code"; "Return Order No.", "Posting Date")
+        moveafter("Rebill Invoice No."; "Return Order No.", "Posting Date")
 
         addafter("Posting Date")
         {

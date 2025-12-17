@@ -1,4 +1,4 @@
-codeunit 50020 TorlysAddSalesLineToTransLine
+codeunit 50027 TorlysAddSalesLineToTransLine
 {
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnDeleteOnBeforeDeleteRelatedData', '', false, false)]
     local procedure OnDeleteOnBeforeDeleteRelatedData(var TransferLine: Record "Transfer Line")

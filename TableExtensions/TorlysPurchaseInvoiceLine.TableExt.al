@@ -38,6 +38,12 @@ tableextension 50123 TorlysPurchInvLine extends "Purch. Inv. Line"
             DataClassification = CustomerContent;
         }
 
+        field(50007; "Booking No."; Code[25])
+        {
+            Caption = 'Booking No.';
+            DataClassification = CustomerContent;
+        }
+
         field(50009; "Previous ETA"; Date)
         {
             Caption = 'Previous ETA';

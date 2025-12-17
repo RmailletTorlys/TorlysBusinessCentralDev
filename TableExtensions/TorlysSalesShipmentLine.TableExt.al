@@ -171,6 +171,7 @@ tableextension 50111 TorlysSalesShipmentLine extends "Sales Shipment Line"
 
     }
 
+
     // trigger OnModify()
     // begin
     //     if ((Rec.Quantity) <> (xRec.Quantity)) then

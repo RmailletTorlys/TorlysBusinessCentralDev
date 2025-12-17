@@ -45,9 +45,9 @@ codeunit 50012 "TorlysShip-Post+Print"
             SalesHeader.Invoice := false;
 
             // custom to us - start
-            // have to add this because out of the box doesn't update posting date to today when posting
-            SalesHeader."Posting Date" := WorkDate();
-            SalesHeader.Modify();
+            // // have to add this because out of the box doesn't update posting date to today when posting
+            // SalesHeader."Posting Date" := WorkDate();
+            // SalesHeader.Modify();
 
             // need to open order to add freight line, moved this to the Freight CU
             // SalesHeader.Status := SalesHeader.Status::Open;

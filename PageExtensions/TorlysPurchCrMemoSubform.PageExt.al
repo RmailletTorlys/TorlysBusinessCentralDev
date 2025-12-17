@@ -105,6 +105,13 @@ pageextension 50098 TorlysPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
                 Editable = true;
                 visible = false;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+                visible = false;
+            }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 Caption = 'Outstanding Quantity';

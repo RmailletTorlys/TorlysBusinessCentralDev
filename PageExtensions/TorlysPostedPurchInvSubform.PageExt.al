@@ -78,6 +78,7 @@ pageextension 50139 TorlysPostedPurchInvSubform extends "Posted Purch. Invoice S
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
             }
+
         }
 
         addafter("Expected Departure Date")
@@ -96,9 +97,15 @@ pageextension 50139 TorlysPostedPurchInvSubform extends "Posted Purch. Invoice S
                 ApplicationArea = All;
                 Editable = true;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Previous ETA"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
+        moveafter("Booking No."; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
 
         addafter("ShortcutDimCode[8]")
         {

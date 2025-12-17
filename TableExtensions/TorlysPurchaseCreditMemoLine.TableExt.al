@@ -37,6 +37,11 @@ tableextension 50125 TorlysPurchCrMemoLine extends "Purch. Cr. Memo Line"
             Caption = 'Return Qty. to Ship Pallet';
             DataClassification = CustomerContent;
         }
+        field(50007; "Booking No."; Code[25])
+        {
+            Caption = 'Booking No.';
+            DataClassification = CustomerContent;
+        }
 
         field(50009; "Previous ETA"; Date)
         {

@@ -52,7 +52,7 @@ codeunit 50414 TorlysInsertFreightLine
         OrderFreightCount := 0;
         SalesLine.Reset;
         SalesLine.SetRange("Document No.", Rec."No.");
-        SalesLine.SetFilter("No.", '61600');
+        SalesLine.SetFilter("No.", SalesSetup."Freight G/L Acc. No.");
         SalesLine.SetFilter("Qty. to Invoice", '%1', 1);
         if SalesLine.Find('-') then begin
             repeat

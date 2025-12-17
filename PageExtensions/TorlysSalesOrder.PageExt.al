@@ -430,6 +430,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Your Reference")
         {
             Importance = Standard;
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."Your Reference" = '') and (Rec.Status = Rec.Status::Released) then
+                    Error('Cannot delete if order released');
+            end;
         }
 
         modify("Sell-to")
@@ -515,6 +520,11 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Salesperson Code")
         {
             Importance = Standard;
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."Salesperson Code" = '') and (Rec.Status = Rec.Status::Released) then
+                    Error('Cannot delete if order released');
+            end;
         }
 
         modify("Requested Delivery Date")
@@ -766,11 +776,26 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("External Document No.")
         {
             Importance = Standard;
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."External Document No." = '') and (Rec.Status = Rec.Status::Released) then
+                    Error('Cannot delete if order released');
+            end;
         }
     }
 
     actions
     {
+        addlast(Category_Category11)
+        {
+            actionref(B13_Sales; "B13 Sales")
+            {
+            }
+            actionref(B13_Purchase; "B13 Purchase")
+            {
+            }
+        }
+
         addlast(Action96)
         {
             action("B13 Sales")
@@ -780,9 +805,9 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = Basic, Suite;
                 trigger OnAction()
                 var
-                    salesline: Record "Sales Line";
+                    SalesLine: Record "Sales Line";
                 begin
-                    salesline.SetFilter("Document No.", Rec."No.");
+                    SalesLine.SetFilter("Document No.", Rec."No.");
                     Report.RunModal(50023, true, false, SalesLine);
                 end;
             }
@@ -793,33 +818,47 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = Basic, Suite;
                 trigger OnAction()
                 var
-                    salesline: Record "Sales Line";
+                    SalesLine: Record "Sales Line";
                 begin
-                    salesline.SetFilter("Document No.", Rec."No.");
-                    REPORT.RUNMODAL(50020, TRUE, FALSE, SalesLine);
+                    SalesLine.SetFilter("Document No.", Rec."No.");
+                    Report.RunModal(50020, true, false, SalesLine);
                 end;
             }
         }
-        addlast(Category_Category11)
+
+        addbefore(Category_New)
         {
-            actionref(B13_Sales; "B13 Sales")
+            group("Customer History")
             {
-            }
-            actionref(B13_Purchase; "B13 Purchase")
-            {
+                Visible = true;
+                Caption = 'Customer History';
+                actionref("OpenSalesOrders"; "Open Sales Orders")
+                {
+                }
+                actionref("PostedSalesInvoices"; "Posted Sales Invoices")
+                {
+                }
+                actionref("OpenCreditMemos"; "Open Credit Memos")
+                {
+                }
+                actionref("OpenReturnOrders"; "Open Return Orders")
+                {
+                }
+                actionref("PostedCreditMemos"; "Posted Credit Memos")
+                {
+                }
             }
         }
+
         addbefore(Category_New)
         {
             group("Credit Hold")
             {
                 Visible = true;
                 Caption = 'Credit Hold';
-
                 actionref("RemoveCreditHold"; "Remove Credit Hold")
                 {
                 }
-
                 actionref("PlaceOnCreditHold"; "Place On Credit Hold")
                 {
                 }
@@ -835,6 +874,51 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
         addfirst("F&unctions")
         {
+            action("Open Sales Orders")
+            {
+                Caption = 'Open Sales Orders';
+                ToolTip = 'View open sales orders for this customer';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "Sales Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order);
+            }
+            action("Posted Sales Invoices")
+            {
+                Caption = 'Posted Sales Invoices';
+                ToolTip = 'View posted sales invoices for this customer';
+                ApplicationArea = All;
+                Image = Invoice;
+                RunObject = Page "Posted Sales Invoice Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+            }
+            action("Open Credit Memos")
+            {
+                Caption = 'Open Credit Memos';
+                ToolTip = 'View open credit memos for this customer';
+                ApplicationArea = All;
+                Image = CreditMemo;
+                RunObject = Page "Sales Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo");
+            }
+            action("Open Return Orders")
+            {
+                Caption = 'Open Return Orders';
+                ToolTip = 'View open return orders for this customer';
+                ApplicationArea = All;
+                Image = ReturnOrder;
+                RunObject = Page "Sales Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order");
+            }
+            action("Posted Credit Memos")
+            {
+                Caption = 'Posted Credit Memos';
+                ToolTip = 'View posted credt memos for this customer';
+                ApplicationArea = All;
+                Image = PostedCreditMemo;
+                RunObject = Page "Posted Sales Credit Memo Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+            }
             action("Remove Credit Hold")
             {
                 ToolTip = 'Removes the Credit hold on an Order.';

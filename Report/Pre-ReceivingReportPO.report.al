@@ -29,14 +29,18 @@ report 50025 "Pre-Receiving Report PO"
             {
 
             }
-            // column(QtyCase; QtyCase)
-            // {
+            column(BinLocation; BinLocation)
+            {
 
-            // }
-            // column(QtyCase; QtyCase)
-            // {
+            }
+            column(QtyCase; QtyCase)
+            {
 
-            // }
+            }
+            column(QtyBase; QtyBase)
+            {
+
+            }
             column(QtyPallet; QtyPallet)
             {
 
@@ -50,6 +54,14 @@ report 50025 "Pre-Receiving Report PO"
 
             }
             column(Confirmation_No_; "Confirmation No.")
+            {
+
+            }
+            column(CommentLabel; CommentLabel)
+            {
+
+            }
+            column(Grouped; Grouped)
             {
 
             }
@@ -77,6 +89,8 @@ report 50025 "Pre-Receiving Report PO"
                     QtyCase := "Purchase Line"."Quantity Case";
                     QtyPallet := "Purchase Line"."Quantity Pallet";
                     QtyBase := "Purchase Line"."Quantity (Base)";
+                    If (QtyCase = 0) and (QtyPallet = 0) then
+                        QtyBase := Quantity;
                 end;
 
                 BinLocation := '';
@@ -98,6 +112,27 @@ report 50025 "Pre-Receiving Report PO"
             end;
         }
     }
+
+    requestpage
+    {
+        SaveValues = true;
+
+        layout
+        {
+            area(Content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+
+                    field(Grouped; Grouped)
+                    {
+                        ApplicationArea = Basic, Suite;
+                    }
+                }
+            }
+        }
+    }
     var
         Vendor: Record Vendor;
         BinContent: Record "Bin Content";
@@ -107,10 +142,11 @@ report 50025 "Pre-Receiving Report PO"
         BinLocation: Code[200];
         AppointDate: Date;
         AppointTime: Time;
-        Quantity: Integer;
-        QtyCase: Integer;
-        QtyPallet: Integer;
+        Quantity: Decimal;
+        QtyCase: Decimal;
+        QtyPallet: Decimal;
         QtyBase: Decimal;
         PalletQty: Integer;
         CommentLabel: Text;
+        Grouped: Boolean;
 }

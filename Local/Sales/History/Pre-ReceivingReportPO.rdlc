@@ -76,8 +76,26 @@ End Function
         <Field Name="ItemNumber">
           <DataField>ItemNumber</DataField>
         </Field>
+        <Field Name="BinLocation">
+          <DataField>BinLocation</DataField>
+        </Field>
+        <Field Name="QtyCase">
+          <DataField>QtyCase</DataField>
+        </Field>
+        <Field Name="QtyCaseFormat">
+          <DataField>QtyCaseFormat</DataField>
+        </Field>
+        <Field Name="QtyBase">
+          <DataField>QtyBase</DataField>
+        </Field>
+        <Field Name="QtyBaseFormat">
+          <DataField>QtyBaseFormat</DataField>
+        </Field>
         <Field Name="QtyPallet">
           <DataField>QtyPallet</DataField>
+        </Field>
+        <Field Name="QtyPalletFormat">
+          <DataField>QtyPalletFormat</DataField>
         </Field>
         <Field Name="Description">
           <DataField>Description</DataField>
@@ -87,6 +105,12 @@ End Function
         </Field>
         <Field Name="Confirmation_No_">
           <DataField>Confirmation_No_</DataField>
+        </Field>
+        <Field Name="CommentLabel">
+          <DataField>CommentLabel</DataField>
+        </Field>
+        <Field Name="Grouped">
+          <DataField>Grouped</DataField>
         </Field>
       </Fields>
       <Query>

@@ -63,7 +63,32 @@ End Function
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
-      <Fields />
+      <Fields>
+        <Field Name="Booking_No_">
+          <DataField>Booking_No_</DataField>
+        </Field>
+        <Field Name="Buy_from_Vendor_Name">
+          <DataField>Buy_from_Vendor_Name</DataField>
+        </Field>
+        <Field Name="PalletQty">
+          <DataField>PalletQty</DataField>
+        </Field>
+        <Field Name="ItemNumber">
+          <DataField>ItemNumber</DataField>
+        </Field>
+        <Field Name="QtyPallet">
+          <DataField>QtyPallet</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Document_No_">
+          <DataField>Document_No_</DataField>
+        </Field>
+        <Field Name="Confirmation_No_">
+          <DataField>Confirmation_No_</DataField>
+        </Field>
+      </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>
         <CommandText />

@@ -13,6 +13,47 @@ report 50025 "Pre-Receiving Report PO"
             DataItemTableView = sorting("Booking No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
             RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
 
+            column(Booking_No_; "Booking No.")
+            {
+
+            }
+            column(Buy_from_Vendor_Name; "Buy-from Vendor Name")
+            {
+
+            }
+            column(PalletQty; PalletQty)
+            {
+
+            }
+            column(ItemNumber; ItemNumber)
+            {
+
+            }
+            // column(QtyCase; QtyCase)
+            // {
+
+            // }
+            // column(QtyCase; QtyCase)
+            // {
+
+            // }
+            column(QtyPallet; QtyPallet)
+            {
+
+            }
+            column(Description; Description)
+            {
+
+            }
+            column(Document_No_; "Document No.")
+            {
+
+            }
+            column(Confirmation_No_; "Confirmation No.")
+            {
+
+            }
+
             dataitem(Pageloop; Integer)
             {
                 DataItemTableView = sorting(Number) where(Number = const(1));

@@ -44,6 +44,12 @@ tableextension 50121 TorlysPurchRcptLine extends "Purch. Rcpt. Line"
             DataClassification = CustomerContent;
         }
 
+        field(50008; "SH BOL No."; Code[20])
+        {
+            Caption = 'SH BOL No.';
+            DataClassification = CustomerContent;
+        }
+
         field(50009; "Previous ETA"; Date)
         {
             Caption = 'Previous ETA';

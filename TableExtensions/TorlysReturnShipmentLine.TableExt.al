@@ -43,6 +43,11 @@ tableextension 56651 TorlysReturnShipmentLine extends "Return Shipment Line"
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
         }
+        field(50008; "SH BOL No."; Code[20])
+        {
+            Caption = 'SH BOL No.';
+            DataClassification = CustomerContent;
+        }
 
         field(50009; "Previous ETA"; Date)
         {

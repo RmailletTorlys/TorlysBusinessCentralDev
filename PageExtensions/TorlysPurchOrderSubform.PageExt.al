@@ -80,6 +80,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
             }
+
         }
 
         moveafter("Expected Departure Date"; "Expected Receipt Date")
@@ -92,6 +93,12 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Previous ETA';
                 ApplicationArea = All;
                 Editable = true;
+            }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
             }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {

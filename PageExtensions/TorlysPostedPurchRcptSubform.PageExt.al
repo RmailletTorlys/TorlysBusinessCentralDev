@@ -64,6 +64,7 @@ pageextension 50137 TorlysPostedPurchRcptSubform extends "Posted Purchase Rcpt. 
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
             }
+
         }
 
         moveafter("Expected Departure Date"; "Expected Receipt Date")
@@ -77,9 +78,15 @@ pageextension 50137 TorlysPostedPurchRcptSubform extends "Posted Purchase Rcpt. 
                 ApplicationArea = All;
                 Editable = true;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Previous ETA"; "Qty. Rcd. Not Invoiced", "Quantity Invoiced")
+        moveafter("Booking No."; "Qty. Rcd. Not Invoiced", "Quantity Invoiced")
 
         addafter("Quantity Invoiced")
         {

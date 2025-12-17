@@ -481,6 +481,57 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Page.Run(Page::TorlysItemAvailability, Item);
                 end;
             }
+            group(CustomerItemHistory)
+            {
+                Visible = true;
+                Caption = 'Customer/Item History';
+                Image = ViewOrder;
+                action("Open Sales Orders")
+                {
+                    Caption = 'Open Sales Orders';
+                    ToolTip = 'View open sales orders for this customer and this item';
+                    ApplicationArea = All;
+                    Image = Order;
+                    RunObject = Page "Sales Lines";
+                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order), "No." = field("No.");
+                }
+                action("Posted Sales Invoices")
+                {
+                    Caption = 'Posted Sales Invoices';
+                    ToolTip = 'View posted sales invoices for this customer and this item';
+                    ApplicationArea = All;
+                    Image = Invoice;
+                    RunObject = Page "Posted Sales Invoice Lines";
+                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "No." = field("No.");
+                }
+                action("Open Credit Memos")
+                {
+                    Caption = 'Open Credit Memos';
+                    ToolTip = 'View open credit memos for this customer/item';
+                    ApplicationArea = All;
+                    Image = CreditMemo;
+                    RunObject = Page "Sales Lines";
+                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo"), "No." = field("No.");
+                }
+                action("Open Return Orders")
+                {
+                    Caption = 'Open Return Orders';
+                    ToolTip = 'View open return orders for this customer/item';
+                    ApplicationArea = All;
+                    Image = ReturnOrder;
+                    RunObject = Page "Sales Lines";
+                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order"), "No." = field("No.");
+                }
+                action("Posted Credit Memos")
+                {
+                    Caption = 'Posted Credit Memos';
+                    ToolTip = 'View posted credt memos for this customer';
+                    ApplicationArea = All;
+                    Image = PostedCreditMemo;
+                    RunObject = Page "Posted Sales Credit Memo Lines";
+                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "No." = field("No.");
+                }
+            }
             group(OrderJoining)
             {
                 Visible = true;

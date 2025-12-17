@@ -105,6 +105,18 @@ tableextension 50112 TorlysSalesInvoiceHeader extends "Sales Invoice Header"
             Caption = 'Popup Modify Time';
             DataClassification = CustomerContent;
         }
+        field(50017; "Original Invoice No."; Code[20])
+        {
+            Caption = 'Original Invoice No.';
+            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            DataClassification = CustomerContent;
+        }
+        field(50018; "Rebill Invoice No."; Code[20])
+        {
+            Caption = 'Rebill Invoice No.';
+            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            DataClassification = CustomerContent;
+        }
 
         field(50020; "Qty. To ship"; Decimal)
         {

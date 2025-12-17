@@ -66,6 +66,7 @@ pageextension 50518 TorlysPurchLines extends "Purchase Lines"
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
             }
+
         }
 
         moveafter("Expected Departure Date"; "Expected Receipt Date")
@@ -79,9 +80,15 @@ pageextension 50518 TorlysPurchLines extends "Purchase Lines"
                 ApplicationArea = All;
                 Editable = true;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Previous ETA"; "Outstanding Quantity")
+        moveafter("Booking No."; "Outstanding Quantity")
 
         addafter("Outstanding Quantity")
         {

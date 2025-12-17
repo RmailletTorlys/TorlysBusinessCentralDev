@@ -10,8 +10,8 @@ report 50025 "Pre-Receiving Report PO"
     {
         dataitem("Purchase Line"; "Purchase Line")
         {
-            DataItemTableView = sorting("Document No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
-            RequestFilterFields = "Document No.", "Expected Receipt Date";
+            DataItemTableView = sorting("Booking No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
+            RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
 
             dataitem(Pageloop; Integer)
             {
@@ -28,7 +28,32 @@ report 50025 "Pre-Receiving Report PO"
 
             trigger OnAfterGetRecord()
             begin
+                If HideQuantities then begin
+                    QtyCase := 0;
+                    QtyPallet := 0;
+                    QtyBase := 0;
+                end else begin
+                    QtyCase := "Purchase Line"."Quantity Case";
+                    QtyPallet := "Purchase Line"."Quantity Pallet";
+                    QtyBase := "Purchase Line"."Quantity (Base)";
+                end;
 
+                BinLocation := '';
+                BinContent.Reset();
+                BinContent.SetRange("Location Code", "Location Code");
+                BinContent.SetRange("Item No.", "No.");
+                if (BinContent.Find('-')) then begin
+                    repeat
+                        If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
+                            BinLocation := BinLocation + ' ' + BinContent."Bin Code";
+                        end;
+                    until BinContent.Next = 0;
+                end;
+
+                if "Buy-from Vendor No." = 'A197' then
+                    CommentLabel := 'Comment(s) / Off Cuts'
+                else
+                    CommentLabel := 'Comment(s)';
             end;
         }
     }

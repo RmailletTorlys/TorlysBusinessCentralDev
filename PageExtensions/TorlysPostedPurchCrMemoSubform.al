@@ -103,9 +103,16 @@ pageextension 50141 "TorlysPostedPurchCrMemoSubform" extends "Posted Purch. Cr. 
                 Editable = true;
                 visible = false;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+                visible = false;
+            }
         }
 
-        moveafter("Previous ETA"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
+        moveafter("Booking No."; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
 
         addafter("ShortcutDimCode[8]")
         {

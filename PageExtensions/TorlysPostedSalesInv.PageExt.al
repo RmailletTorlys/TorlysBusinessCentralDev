@@ -401,6 +401,82 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
         }
     }
 
+    actions
+    {
+        addbefore(Category_New)
+        {
+            group("Customer History")
+            {
+                Visible = true;
+                Caption = 'Customer History';
+                actionref("OpenSalesOrders"; "Open Sales Orders")
+                {
+                }
+                actionref("PostedSalesInvoices"; "Posted Sales Invoices")
+                {
+                }
+                actionref("OpenCreditMemos"; "Open Credit Memos")
+                {
+                }
+                actionref("OpenReturnOrders"; "Open Return Orders")
+                {
+                }
+                actionref("PostedCreditMemos"; "Posted Credit Memos")
+                {
+                }
+            }
+
+        }
+        addfirst("F&unctions")
+        {
+            action("Open Sales Orders")
+            {
+                Caption = 'Open Sales Orders';
+                ToolTip = 'View open sales orders for this customer';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "Sales Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order);
+            }
+            action("Posted Sales Invoices")
+            {
+                Caption = 'Posted Sales Invoices';
+                ToolTip = 'View posted sales invoices for this customer';
+                ApplicationArea = All;
+                Image = Invoice;
+                RunObject = Page "Posted Sales Invoice Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+            }
+            action("Open Credit Memos")
+            {
+                Caption = 'Open Credit Memos';
+                ToolTip = 'View open credit memos for this customer';
+                ApplicationArea = All;
+                Image = CreditMemo;
+                RunObject = Page "Sales Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo");
+            }
+            action("Open Return Orders")
+            {
+                Caption = 'Open Return Orders';
+                ToolTip = 'View open return orders for this customer';
+                ApplicationArea = All;
+                Image = ReturnOrder;
+                RunObject = Page "Sales Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order");
+            }
+            action("Posted Credit Memos")
+            {
+                Caption = 'Posted Credit Memos';
+                ToolTip = 'View posted credt memos for this customer';
+                ApplicationArea = All;
+                Image = PostedCreditMemo;
+                RunObject = Page "Posted Sales Credit Memo Lines";
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit "TorlysLookupUserID";
 

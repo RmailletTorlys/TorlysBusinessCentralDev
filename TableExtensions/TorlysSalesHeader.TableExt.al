@@ -87,7 +87,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50014; "Popup Modify By"; code[20])
+        field(50014; "Popup Modify By"; Code[20])
         {
             Caption = 'Popup Modify By';
             TableRelation = "User Details";
@@ -106,6 +106,18 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50017; "Original Invoice No."; Code[20])
+        {
+            Caption = 'Original Invoice No.';
+            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            DataClassification = CustomerContent;
+        }
+        field(50018; "Rebill Invoice No."; Code[20])
+        {
+            Caption = 'Rebill Invoice No.';
+            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            DataClassification = CustomerContent;
+        }
         field(50020; "Qty. to Ship"; Decimal)
         {
             Caption = 'Qty. to ship';

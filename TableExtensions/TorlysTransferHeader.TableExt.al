@@ -53,5 +53,11 @@ tableextension 55740 TorlysTransferHeader extends "Transfer Header"
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
+
+        field(50009; "Booking No."; Code[25])
+        {
+            Caption = 'Booking No.';
+            DataClassification = CustomerContent;
+        }
     }
 }

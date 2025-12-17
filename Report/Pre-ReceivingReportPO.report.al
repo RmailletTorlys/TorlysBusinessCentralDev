@@ -13,6 +13,59 @@ report 50025 "Pre-Receiving Report PO"
             DataItemTableView = sorting("Booking No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
             RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
 
+            column(Booking_No_; "Booking No.")
+            {
+
+            }
+            column(Buy_from_Vendor_Name; "Buy-from Vendor Name")
+            {
+
+            }
+            column(PalletQty; PalletQty)
+            {
+
+            }
+            column(ItemNumber; ItemNumber)
+            {
+
+            }
+            column(BinLocation; BinLocation)
+            {
+
+            }
+            column(QtyCase; QtyCase)
+            {
+
+            }
+            column(QtyBase; QtyBase)
+            {
+
+            }
+            column(QtyPallet; QtyPallet)
+            {
+
+            }
+            column(Description; Description)
+            {
+
+            }
+            column(Document_No_; "Document No.")
+            {
+
+            }
+            column(Confirmation_No_; "Confirmation No.")
+            {
+
+            }
+            column(CommentLabel; CommentLabel)
+            {
+
+            }
+            column(Grouped; Grouped)
+            {
+
+            }
+
             dataitem(Pageloop; Integer)
             {
                 DataItemTableView = sorting(Number) where(Number = const(1));
@@ -36,6 +89,8 @@ report 50025 "Pre-Receiving Report PO"
                     QtyCase := "Purchase Line"."Quantity Case";
                     QtyPallet := "Purchase Line"."Quantity Pallet";
                     QtyBase := "Purchase Line"."Quantity (Base)";
+                    If (QtyCase = 0) and (QtyPallet = 0) then
+                        QtyBase := Quantity;
                 end;
 
                 BinLocation := '';
@@ -57,6 +112,31 @@ report 50025 "Pre-Receiving Report PO"
             end;
         }
     }
+
+    requestpage
+    {
+        SaveValues = true;
+
+        layout
+        {
+            area(Content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+
+                    field(Grouped; Grouped)
+                    {
+                        ApplicationArea = Basic, Suite;
+                    }
+                    field(HideQuantities; HideQuantities)
+                    {
+                        ApplicationArea = Basic, Suite;
+                    }
+                }
+            }
+        }
+    }
     var
         Vendor: Record Vendor;
         BinContent: Record "Bin Content";
@@ -66,10 +146,11 @@ report 50025 "Pre-Receiving Report PO"
         BinLocation: Code[200];
         AppointDate: Date;
         AppointTime: Time;
-        Quantity: Integer;
-        QtyCase: Integer;
-        QtyPallet: Integer;
+        Quantity: Decimal;
+        QtyCase: Decimal;
+        QtyPallet: Decimal;
         QtyBase: Decimal;
         PalletQty: Integer;
         CommentLabel: Text;
+        Grouped: Boolean;
 }

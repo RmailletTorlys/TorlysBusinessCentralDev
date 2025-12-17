@@ -1,4 +1,4 @@
-codeunit 50018 TorlysSalesPost
+codeunit 50018 TorlysSalesPostReturn
 {
     [EventSubscriber(ObjectType::Table, Database::"Return Receipt Line", 'OnAfterInitFromSalesLine', '', false, false)]
     local procedure OnAfterInitFromSalesLine(ReturnRcptHeader: Record "Return Receipt Header"; SalesLine: Record "Sales Line"; var ReturnRcptLine: Record "Return Receipt Line")

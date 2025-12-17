@@ -63,7 +63,59 @@ End Function
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
-      <Fields />
+      <Fields>
+        <Field Name="In_Transit_Code">
+          <DataField>In_Transit_Code</DataField>
+        </Field>
+        <Field Name="ItemNumber">
+          <DataField>ItemNumber</DataField>
+        </Field>
+        <Field Name="BinLocation">
+          <DataField>BinLocation</DataField>
+        </Field>
+        <Field Name="QtyCase">
+          <DataField>QtyCase</DataField>
+        </Field>
+        <Field Name="QtyCaseFormat">
+          <DataField>QtyCaseFormat</DataField>
+        </Field>
+        <Field Name="QtyBase">
+          <DataField>QtyBase</DataField>
+        </Field>
+        <Field Name="QtyBaseFormat">
+          <DataField>QtyBaseFormat</DataField>
+        </Field>
+        <Field Name="QtyPallet">
+          <DataField>QtyPallet</DataField>
+        </Field>
+        <Field Name="QtyPalletFormat">
+          <DataField>QtyPalletFormat</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Document_No_">
+          <DataField>Document_No_</DataField>
+        </Field>
+        <Field Name="Sales_Order_No_">
+          <DataField>Sales_Order_No_</DataField>
+        </Field>
+        <Field Name="CommentLabel">
+          <DataField>CommentLabel</DataField>
+        </Field>
+        <Field Name="Grouped">
+          <DataField>Grouped</DataField>
+        </Field>
+        <Field Name="Transfer_to_Code">
+          <DataField>Transfer_to_Code</DataField>
+        </Field>
+        <Field Name="Booking_No_">
+          <DataField>Booking_No_</DataField>
+        </Field>
+        <Field Name="Transfer_Type">
+          <DataField>Transfer_Type</DataField>
+        </Field>
+      </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>
         <CommandText />

@@ -49,14 +49,14 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Importance = Standard;
                 Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
-            field("Put Away By"; Rec."Put Away By")
-            {
-                Caption = 'Put Away By';
-                ToolTip = 'Put Away By';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
-            }
+            // field("Put Away By"; Rec."Put Away By")
+            // {
+            //     Caption = 'Put Away By';
+            //     ToolTip = 'Put Away By';
+            //     ApplicationArea = All;
+            //     Importance = Standard;
+            //     Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            // }
             field("BOL No."; Rec."BOL No.")
             {
                 Caption = 'BOL No.';
@@ -73,9 +73,16 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Editable = false;
                 Importance = Standard;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
-        moveafter("Package Tracking No."; Status)
+        moveafter("Booking No."; Status)
 
         addafter(Status)
         {

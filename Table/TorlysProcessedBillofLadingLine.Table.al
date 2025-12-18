@@ -1,7 +1,7 @@
 table 55005 "Torlys Processed BOL Line"
 {
     DataClassification = CustomerContent;
-    Caption = 'Torlys Processed BOL Line';
+    Caption = 'Processed BOL Line';
     DrillDownPageId = "Torlys Processed BOL List";
     LookupPageId = "Torlys Processed BOL List";
 

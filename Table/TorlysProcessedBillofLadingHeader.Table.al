@@ -1,7 +1,7 @@
 table 55004 "Torlys Processed BOL Header"
 {
     DataClassification = CustomerContent;
-    Caption = 'Torlys Processed BOL Header';
+    Caption = 'Processed BOL Header';
 
     fields
     {

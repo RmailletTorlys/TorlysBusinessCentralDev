@@ -49,14 +49,14 @@ pageextension 55743 TorlysPostedTransShpt extends "Posted Transfer Shipment"
                 Importance = Standard;
                 Editable = false;
             }
-            field("Put Away By"; Rec."Put Away By")
-            {
-                Caption = 'Put Away By';
-                ToolTip = 'Put Away By';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = false;
-            }
+            // field("Put Away By"; Rec."Put Away By")
+            // {
+            //     Caption = 'Put Away By';
+            //     ToolTip = 'Put Away By';
+            //     ApplicationArea = All;
+            //     Importance = Standard;
+            //     Editable = false;
+            // }
             field("BOL No."; Rec."BOL No.")
             {
                 Caption = 'BOL No.';
@@ -73,9 +73,16 @@ pageextension 55743 TorlysPostedTransShpt extends "Posted Transfer Shipment"
                 Editable = false;
                 Importance = Additional;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
-        moveafter("Package Tracking No."; "Transfer Order No.", "Transfer Order Date")
+        moveafter("Booking No."; "Transfer Order No.", "Transfer Order Date")
 
         addafter("Transfer Order Date")
         {

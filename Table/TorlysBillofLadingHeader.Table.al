@@ -1,7 +1,7 @@
 table 55002 "Torlys BOL Header"
 {
     DataClassification = CustomerContent;
-    Caption = 'Torlys BOL Header';
+    Caption = 'BOL Header';
     Permissions = tabledata "Sales Shipment Header" = rm;
 
     fields

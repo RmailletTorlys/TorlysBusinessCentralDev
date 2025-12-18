@@ -201,7 +201,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";
         TransferHeaderFilter: Text;
-        OrderString: text[600];
+        OrderString: text[1000];
         BinLocation: Text;
         ToShipSingles: Decimal;
         ToShipCase: Decimal;

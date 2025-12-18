@@ -152,6 +152,46 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item);
             }
         }
+
+        addlast(Category_Category8)
+        {
+            actionref(Summary_Pick; "Summary Pick")
+            {
+            }
+            actionref(PreReceiving; "Pre-Receiving Report")
+            {
+            }
+        }
+
+        addlast(processing)
+        {
+            action("Summary Pick")
+            {
+                Caption = 'Print Summary Pick';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    transferheader: Record "Transfer Header";
+                begin
+                    transferheader.SetFilter("No.", Rec."No.");
+                    Report.RunModal(50007, true, false, transferheader);
+                end;
+            }
+            action("Pre-Receiving Report")
+            {
+                Caption = 'Print Pre-Receiving Report';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    transferline: Record "Transfer Line";
+                begin
+                    transferline.SetFilter("Document No.", Rec."No.");
+                    Report.RunModal(50019, true, false, transferline);
+                end;
+            }
+        }
     }
     var
         LookupUserId: Codeunit TorlysLookupUserID;

@@ -5,8 +5,6 @@ table 55098 "Torlys Order Method"
     LookupPageId = "Order Method";
     DrillDownPageId = "Order Method";
 
-
-
     fields
     {
         field(1; "Code"; Code[20])

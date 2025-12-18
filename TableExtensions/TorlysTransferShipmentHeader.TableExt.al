@@ -29,12 +29,12 @@ tableextension 55744 TorlysTransferShipmentHeader extends "Transfer Shipment Hea
             TableRelation = "Salesperson/Purchaser";
         }
 
-        field(50005; "Put Away By"; Code[20])
-        {
-            Caption = 'Put Away By';
-            DataClassification = CustomerContent;
-            TableRelation = "Salesperson/Purchaser";
-        }
+        // field(50005; "Put Away By"; Code[20])
+        // {
+        //     Caption = 'Put Away By';
+        //     DataClassification = CustomerContent;
+        //     TableRelation = "Salesperson/Purchaser";
+        // }
         field(50006; "BOL No."; Code[20])
         {
             Caption = 'BOL No.';
@@ -50,10 +50,11 @@ tableextension 55744 TorlysTransferShipmentHeader extends "Transfer Shipment Hea
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
-        field(50009; "Booking No."; Code[25])
+        field(50009; "Booking No."; Code[20])
         {
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
+            TableRelation = TorlysBookingInfo;
         }
     }
 }

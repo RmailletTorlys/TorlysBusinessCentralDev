@@ -5,8 +5,6 @@ table 55099 "Torlys Shipping Instructions"
     LookupPageId = "Shipping Instructions";
     DrillDownPageId = "Shipping Instructions";
 
-
-
     fields
     {
         field(1; "Code"; Code[20])

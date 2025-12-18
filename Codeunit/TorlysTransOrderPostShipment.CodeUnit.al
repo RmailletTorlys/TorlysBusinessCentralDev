@@ -16,7 +16,7 @@ codeunit 50015 TorlysTransOrderPostShipment
         TransferShipmentHeader."Picked By" := TransferHeader."Picked By";
         TransferShipmentHeader."Audited By" := TransferHeader."Audited By";
         TransferShipmentHeader."Received By" := TransferHeader."Received By";
-        TransferShipmentHeader."Put Away By" := TransferHeader."Put Away By";
+        // TransferShipmentHeader."Put Away By" := TransferHeader."Put Away By";
         TransferShipmentHeader."BOL No." := TransferHeader."BOL No.";
         TransferShipmentHeader."Package Tracking No." := TransferHeader."Package Tracking No.";
         TransferShipmentHeader."Shipping Comment" := TransferHeader."Shipping Comment";

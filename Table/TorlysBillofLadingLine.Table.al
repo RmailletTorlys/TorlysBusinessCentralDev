@@ -1,7 +1,7 @@
 table 55003 "Torlys BOL Line"
 {
     DataClassification = CustomerContent;
-    Caption = 'Torlys BOL Line';
+    Caption = 'BOL Line';
     DrillDownPageId = "Torlys BOL List";
     LookupPageId = "Torlys BOL List";
     Permissions = tabledata "Sales Shipment Header" = rm;

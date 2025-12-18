@@ -57,6 +57,18 @@ table 55009 TorlysBookingInfo
             Caption = 'Receipt Time';
             DataClassification = CustomerContent;
         }
+        field(9; "Open PO Count"; Integer)
+        {
+            Caption = 'Open PO Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Purchase Line" where("Booking No." = field("No.")));
+        }
+        field(10; "Open Transfer Count"; Integer)
+        {
+            Caption = 'Open Transfer Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Transfer Header" where("Booking No." = field("No.")));
+        }
     }
 
     keys

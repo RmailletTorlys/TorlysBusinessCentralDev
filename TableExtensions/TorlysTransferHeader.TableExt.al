@@ -1,5 +1,7 @@
 tableextension 55740 TorlysTransferHeader extends "Transfer Header"
 {
+    DrillDownPageID = "Transfer Orders";
+
     fields
     {
         field(50001; "Transfer Type"; Enum TorlysTransferType)

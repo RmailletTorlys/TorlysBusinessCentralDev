@@ -805,10 +805,12 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = Basic, Suite;
                 trigger OnAction()
                 var
-                    SalesLine: Record "Sales Line";
+                    // SalesLine: Record "Sales Line";
+                    TorlysDocPrint: Codeunit TorlysDocumentPrint;
                 begin
-                    SalesLine.SetFilter("Document No.", Rec."No.");
-                    Report.RunModal(50023, true, false, SalesLine);
+                    // SalesLine.SetFilter("Document No.", Rec."No.");
+                    // Report.RunModal(50023, true, false, SalesLine);
+                    TorlysDocPrint.PrintB13Sales(Rec);
                 end;
             }
             action("B13 Purchase")
@@ -818,10 +820,12 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ApplicationArea = Basic, Suite;
                 trigger OnAction()
                 var
-                    SalesLine: Record "Sales Line";
+                    // SalesLine: Record "Sales Line";
+                    TorlysDocPrint: Codeunit TorlysDocumentPrint;
                 begin
-                    SalesLine.SetFilter("Document No.", Rec."No.");
-                    Report.RunModal(50020, true, false, SalesLine);
+                    // SalesLine.SetFilter("Document No.", Rec."No.");
+                    // Report.RunModal(50020, true, false, SalesLine);
+                    TorlysDocPrint.PrintB13Purchase(Rec);
                 end;
             }
         }

@@ -221,6 +221,5 @@ report 50021 "Summary PickSlip"
         SalesHeaderFilter: Text;
         ParentBinLocationLabel: Text;
         previosfieldvalue: Text;
-        matchstring: Boolean;
         ItemNoCount: Integer;
 }

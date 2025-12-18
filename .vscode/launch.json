@@ -9,10 +9,10 @@
             "environmentType": "Sandbox",
             "environmentName": "Sandbox_DEV",
             // "startupObjectId": 9305, //sales order list
-            // "startupObjectId": 42, //sales order card
+            "startupObjectId": 42, //sales order card
             // "startupObjectId": 43, //sales invoice card
             // "startupObjectId": 9302, //sales credit memo list
-            "startupObjectId": 51009,
+            // "startupObjectId": 51009,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

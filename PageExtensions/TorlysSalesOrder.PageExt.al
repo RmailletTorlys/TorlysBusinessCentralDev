@@ -4,7 +4,19 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
     {
         movefirst(General; "Sell-to Customer No.")
 
-        moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
+        // moveafter("Sell-to Customer No."; "Ship-to Code", "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
+
+        addafter("Sell-to Customer No.")
+        {
+            field("Ship-to Code1"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Ship-to Code1"; "Sell-to Customer Name", "Sell-to Address", "Sell-to Address 2", "Sell-to City", "Sell-to County", "Sell-to Post Code", "Sell-to Country/Region Code")
 
         addafter("Sell-to Country/Region Code")
         {
@@ -253,17 +265,19 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
-        addafter(ShippingOptions)
-        {
-            field("Ship-to Code1"; Rec."Ship-to Code")
-            {
-                Caption = 'Ship-to Code';
-                ToolTip = 'Ship-to Code';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = false;
-            }
-        }
+        moveafter(ShippingOptions; "Ship-to Code")
+
+        // addafter(ShippingOptions)
+        // {
+        //     field("Ship-to Code"; Rec."Ship-to Code")
+        //     {
+        //         Caption = 'Ship-to Code';
+        //         ToolTip = 'Ship-to Code';
+        //         ApplicationArea = All;
+        //         Importance = Standard;
+        //         Editable = false;
+        //     }
+        // }
 
         addafter("Shipping Agent Code")
         {
@@ -430,6 +444,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Your Reference")
         {
             Importance = Standard;
+            Caption = 'Ordered By';
             trigger OnBeforeValidate()
             begin
                 if (Rec."Your Reference" = '') and (Rec.Status = Rec.Status::Released) then
@@ -446,6 +461,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         {
             Importance = Standard;
             Caption = 'Shipment Method Code';
+            Visible = false;
         }
 
         modify("Shipping Agent Code")

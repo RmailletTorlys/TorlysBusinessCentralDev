@@ -664,7 +664,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Caption = 'Remove Link To Transfer Order';
                     Image = RemoveLine;
                     ApplicationArea = All;
-                    Visible = Rec."Linked Purchase Order No." <> '';
+                    Visible = Rec."Linked Transfer Order No." <> '';
                     trigger OnAction()
                     begin
                         if Rec."Linked Transfer Order No." = '' then begin

@@ -134,6 +134,11 @@ report 50019 "Pre-Receiving Report - Trans"
             }
         }
     }
+    trigger OnInitReport()
+    begin
+        Grouped := True;
+    end;
+
     var
         Vendor: Record Vendor;
         transferheader: Record "Transfer Header";

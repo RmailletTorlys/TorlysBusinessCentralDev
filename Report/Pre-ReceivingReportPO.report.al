@@ -137,6 +137,12 @@ report 50025 "Pre-Receiving Report PO"
             }
         }
     }
+
+    trigger OnInitReport()
+    begin
+        Grouped := True;
+    end;
+
     var
         Vendor: Record Vendor;
         BinContent: Record "Bin Content";

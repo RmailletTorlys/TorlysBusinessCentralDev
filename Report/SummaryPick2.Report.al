@@ -205,7 +205,7 @@ report 50021 "Summary PickSlip"
         BinContent: Record "Bin Content";
 
 
-        OrderString: text[600];
+        OrderString: text[1000];
         NoLoops: Integer;
         NoCopies: Integer;
         CopyNo: Integer;
@@ -221,6 +221,5 @@ report 50021 "Summary PickSlip"
         SalesHeaderFilter: Text;
         ParentBinLocationLabel: Text;
         previosfieldvalue: Text;
-        matchstring: Boolean;
         ItemNoCount: Integer;
 }

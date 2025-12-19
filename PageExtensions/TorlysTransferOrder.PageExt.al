@@ -49,14 +49,14 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Importance = Standard;
                 Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
-            field("Put Away By"; Rec."Put Away By")
-            {
-                Caption = 'Put Away By';
-                ToolTip = 'Put Away By';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
-            }
+            // field("Put Away By"; Rec."Put Away By")
+            // {
+            //     Caption = 'Put Away By';
+            //     ToolTip = 'Put Away By';
+            //     ApplicationArea = All;
+            //     Importance = Standard;
+            //     Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            // }
             field("BOL No."; Rec."BOL No.")
             {
                 Caption = 'BOL No.';
@@ -73,9 +73,16 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Editable = false;
                 Importance = Standard;
             }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
-        moveafter("Package Tracking No."; Status)
+        moveafter("Booking No."; Status)
 
         addafter(Status)
         {
@@ -151,6 +158,48 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 RunObject = Page TorlysLinkedSOtoTO;
                 RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item);
             }
+        }
+
+        addlast(Category_Category8)
+        {
+            actionref(Summary_Pick; "Summary Pick")
+            {
+            }
+            // actionref(PreReceiving; "Pre-Receiving Report")
+            // {
+            // }
+        }
+
+        addlast(processing)
+        {
+            action("Summary Pick")
+            {
+                Caption = 'Print Summary Pick';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    // transferheader: Record "Transfer Header";
+                    TorlysDocPrint: Codeunit TorlysDocumentPrint;
+                begin
+                    // transferheader.SetFilter("No.", Rec."No.");
+                    // Report.RunModal(50007, true, false, transferheader);
+                    TorlysDocPrint.PrintSummaryPickSlipTransfer(Rec);
+                end;
+            }
+            // action("Pre-Receiving Report")
+            // {
+            //     Caption = 'Print Pre-Receiving Report';
+            //     Image = Print;
+            //     ApplicationArea = Basic, Suite;
+            //     trigger OnAction()
+            //     var
+            //         transferline: Record "Transfer Line";
+            //     begin
+            //         transferline.SetFilter("Document No.", Rec."No.");
+            //         Report.RunModal(50019, true, false, transferline);
+            //     end;
+            // }
         }
     }
     var

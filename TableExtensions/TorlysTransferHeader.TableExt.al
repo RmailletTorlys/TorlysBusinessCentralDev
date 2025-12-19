@@ -1,5 +1,7 @@
 tableextension 55740 TorlysTransferHeader extends "Transfer Header"
 {
+    DrillDownPageID = "Transfer Orders";
+
     fields
     {
         field(50001; "Transfer Type"; Enum TorlysTransferType)
@@ -29,12 +31,12 @@ tableextension 55740 TorlysTransferHeader extends "Transfer Header"
             TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
 
-        field(50005; "Put Away By"; Code[20])
-        {
-            Caption = 'Put Away By';
-            DataClassification = CustomerContent;
-            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
-        }
+        // field(50005; "Put Away By"; Code[20])
+        // {
+        //     Caption = 'Put Away By';
+        //     DataClassification = CustomerContent;
+        //     TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
+        // }
 
         field(50006; "BOL No."; Code[20])
         {
@@ -54,10 +56,11 @@ tableextension 55740 TorlysTransferHeader extends "Transfer Header"
             DataClassification = CustomerContent;
         }
 
-        field(50009; "Booking No."; Code[25])
+        field(50009; "Booking No."; Code[20])
         {
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
+            TableRelation = TorlysBookingInfo;
         }
     }
 }

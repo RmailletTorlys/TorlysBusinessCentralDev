@@ -111,6 +111,22 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
             Caption = 'Original Invoice No.';
             TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                SalesInvoiceHeader: Record "Sales Invoice Header";
+            begin
+                if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
+                    SalesInvoiceHeader.Get(Rec."Original Invoice No.");
+                    Rec."External Document No." := SalesInvoiceHeader."External Document No.";
+                    Rec."Tag Name" := SalesInvoiceHeader."Tag Name";
+                    Rec."Salesperson Code" := SalesInvoiceHeader."Salesperson Code";
+                    Rec."Salesperson Commission" := SalesInvoiceHeader."Salesperson Commission";
+                    Rec."Salesperson Code 2" := SalesInvoiceHeader."Salesperson Code 2";
+                    Rec."Salesperson Commission 2" := SalesInvoiceHeader."Salesperson Commission 2";
+                    Rec."Salesperson Code 3" := SalesInvoiceHeader."Salesperson Code 3";
+                    Rec."Salesperson Commission 3" := SalesInvoiceHeader."Salesperson Commission 3";
+                end;
+            end;
         }
         field(50018; "Rebill Invoice No."; Code[20])
         {

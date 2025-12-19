@@ -16,7 +16,7 @@ codeunit 50016 TorlysTransOrderPostReceipt
         TransferReceiptHeader."Picked By" := TransferHeader."Picked By";
         TransferReceiptHeader."Audited By" := TransferHeader."Audited By";
         TransferReceiptHeader."Received By" := TransferHeader."Received By";
-        TransferReceiptHeader."Put Away By" := TransferHeader."Put Away By";
+        // TransferReceiptHeader."Put Away By" := TransferHeader."Put Away By";
         TransferReceiptHeader."BOL No." := TransferHeader."BOL No.";
         TransferReceiptHeader."Package Tracking No." := TransferHeader."Package Tracking No.";
         TransferReceiptHeader."Shipping Comment" := TransferHeader."Shipping Comment";

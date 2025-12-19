@@ -287,6 +287,17 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             FieldClass = FlowField;
             CalcFormula = Sum("Sales Invoice Line"."Quantity" where("Master Project Order No." = field("Master Project Order No."), "Master Project Order Line No." = field("Master Project Order Line No.")));
         }
+        modify("No.")
+        {
+            trigger OnBeforeValidate()
+            var
+                SalesHeader: Record "Sales Header";
+            begin
+                SalesHeader.Get(Rec."Document Type", Rec."Document No.");
+                if ("Document Type" in ["Document Type"::"Return Order", "Document Type"::"Credit Memo"]) and (SalesHeader."External Document No." = '') then
+                    Error('You must enter the Original Invoice No. before entering items.');
+            end;
+        }
         modify(Quantity)
         {
             trigger OnBeforeValidate()

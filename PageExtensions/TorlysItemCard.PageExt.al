@@ -493,13 +493,13 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
 
-    procedure QuantityOfItem(Item: Record Item): Decimal
-    begin
-        exit(Item."Qty. on Sales Order")
-    end;
+    // procedure QuantityOfItem(Item: Record Item): Decimal
+    // begin
+    //     exit(Item."Qty. on Sales Order")
+    // end;
 
-    procedure QuantityAvailable(Item: Record Item): Decimal
-    begin
-        exit(Item."Qty. on Purch. Order" - Item."Qty. on Sales Order")
-    end;
+    // procedure QuantityAvailable(Item: Record Item): Decimal
+    // begin
+    //     exit(Item."Qty. on Purch. Order" - Item."Qty. on Sales Order")
+    // end;
 }

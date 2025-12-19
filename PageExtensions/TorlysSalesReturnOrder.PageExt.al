@@ -9,6 +9,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
                 Caption = 'Ship-to Code';
                 ToolTip = 'Ship-to Code';
                 ApplicationArea = All;
+                ShowMandatory = true;
             }
         }
 
@@ -20,6 +21,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
             {
                 Caption = 'Order Method';
                 ToolTip = 'Order Method';
+                ShowMandatory = true;
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
@@ -38,6 +40,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     if (Rec."Tag Name" = '') and (Rec.Status = Rec.Status::Released) then
@@ -53,6 +56,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     if (ShortcutDimCode[3] = '') and (Rec.Status = Rec.Status::Released) then
@@ -66,6 +70,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
                 Caption = 'Reason Code';
                 ToolTip = 'Reason Code';
                 ApplicationArea = All;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     if (Rec."Reason Code" = '') and (Rec.Status = Rec.Status::Released) then
@@ -78,6 +83,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
                 ToolTip = 'Original Invoice No.';
                 ApplicationArea = All;
                 Importance = Standard;
+                ShowMandatory = true;
             }
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")
             {
@@ -289,6 +295,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         modify("Your Reference")
         {
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Your Reference" = '') and (Rec.Status = Rec.Status::Released) then
@@ -350,6 +357,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         modify("Salesperson Code")
         {
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Salesperson Code" = '') and (Rec.Status = Rec.Status::Released) then
@@ -370,6 +378,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         modify("Shortcut Dimension 1 Code")
         {
             Importance = Promoted;
+            ShowMandatory = true;
         }
 
         modify("Currency Code")
@@ -395,6 +404,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         modify("Tax Area Code")
         {
             Importance = Standard;
+            ShowMandatory = true;
         }
 
         modify("Sell-to Contact")
@@ -436,6 +446,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         {
             Visible = true;
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."External Document No." = '') and (Rec.Status = Rec.Status::Released) then
@@ -540,8 +551,9 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
 
         modify("Shortcut Dimension 2 Code")
         {
-            editable = false;
+            Editable = false;
             Importance = Additional;
+            ShowMandatory = true;
         }
 
         modify("Ship-to Country/Region Code")

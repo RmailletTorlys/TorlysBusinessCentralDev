@@ -11,6 +11,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                 Caption = 'Ship-to Code';
                 ToolTip = 'Ship-to Code';
                 ApplicationArea = All;
+                ShowMandatory = true;
             }
         }
 
@@ -23,6 +24,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                 Caption = 'Order Method';
                 ToolTip = 'Order Method';
                 ApplicationArea = All;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     if (Rec."Order Method" = '') and (Rec.Status = Rec.Status::Released) then
@@ -40,6 +42,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     if (Rec."Tag Name" = '') and (Rec.Status = Rec.Status::Released) then
@@ -55,6 +58,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     if (ShortcutDimCode[3] = '') and (Rec.Status = Rec.Status::Released) then
@@ -75,6 +79,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
                 ToolTip = 'Original Invoice No.';
                 ApplicationArea = All;
                 Importance = Standard;
+                ShowMandatory = true;
             }
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")
             {
@@ -284,6 +289,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         modify("Your Reference")
         {
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Your Reference" = '') and (Rec.Status = Rec.Status::Released) then
@@ -334,6 +340,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         modify("Salesperson Code")
         {
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Salesperson Code" = '') and (Rec.Status = Rec.Status::Released) then
@@ -344,6 +351,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         modify("Shortcut Dimension 1 Code")
         {
             Importance = Promoted;
+            ShowMandatory = true;
         }
         modify("Currency Code")
         {
@@ -395,6 +403,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         {
             Visible = true;
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."External Document No." = '') and (Rec.Status = Rec.Status::Released) then
@@ -494,19 +503,22 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
 
         modify("Shortcut Dimension 2 Code")
         {
-            editable = false;
+            Editable = false;
             Importance = Additional;
+            ShowMandatory = true;
         }
 
         modify("Location Code")
         {
             Importance = Standard;
+            ShowMandatory = true;
         }
 
         modify("Reason Code")
         {
             Visible = true;
             Importance = Standard;
+            ShowMandatory = true;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Reason Code" = '') and (Rec.Status = Rec.Status::Released) then

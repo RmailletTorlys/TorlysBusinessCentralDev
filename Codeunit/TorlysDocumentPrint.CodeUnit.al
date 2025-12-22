@@ -179,7 +179,7 @@ codeunit 50299 TorlysDocumentPrint
         Report.RunModal(50020, true, false, SalesLine)
     end;
 
-    procedure PrintPreReceivingPO(BookingInfo: Record TorlysBookingInfo): Boolean
+    procedure PrintReceivingPO(BookingInfo: Record TorlysBookingInfo): Boolean
     var
         PurchaseLine: Record "Purchase Line";
     begin
@@ -187,7 +187,7 @@ codeunit 50299 TorlysDocumentPrint
         Report.RunModal(50025, true, false, PurchaseLine);
     end;
 
-    procedure PrintPreReceivingTransfer(BookingInfo: Record TorlysBookingInfo): Boolean
+    procedure PrintReceivingTransfer(BookingInfo: Record TorlysBookingInfo): Boolean
     var
         TransferHeader: Record "Transfer Header";
     begin

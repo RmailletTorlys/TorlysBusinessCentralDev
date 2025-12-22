@@ -16,6 +16,12 @@ pageextension 50459 "TorlysSalesReceivablesSetup" extends "Sales & Receivables S
                 Caption = 'Claims Tracking Nos.';
                 ApplicationArea = All;
             }
+
+            field("Booking No."; Rec."Booking Nos.")
+            {
+                Caption = 'Booking Nos.';
+                ApplicationArea = All;
+            }
         }
 
         modify("Freight G/L Acc. No.")

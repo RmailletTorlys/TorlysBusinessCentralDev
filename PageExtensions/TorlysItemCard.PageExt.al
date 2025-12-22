@@ -76,23 +76,6 @@ pageextension 50030 TorlysItemCard extends "Item Card"
             {
                 Caption = 'Attributes';
                 Visible = IsInventoriable;
-
-                // field("Assembly BOM"; Rec."Assembly BOM")
-                // {
-                //     Caption = 'Kit BOM No.';
-                //     ToolTip = 'The Item No. for the Kit Bill of Material';
-                //     ApplicationArea = All;
-                //     Visible = false;
-                //     Importance = Additional;
-                // }
-                field("New Item"; Rec."New Item")
-                {
-                    ApplicationArea = All;
-                    Visible = true;
-                    Caption = 'New Item';
-                    ToolTip = 'Specifies if this item is a new item for selling purposes.';
-                    Importance = Promoted;
-                }
                 field("Launch Date"; Rec."Launch Date")
                 {
                     ApplicationArea = All;
@@ -101,6 +84,15 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                     ToolTip = 'Date the Item launched';
                     Importance = Standard;
                 }
+                field("New Item"; Rec."New Item")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'New Item';
+                    ToolTip = 'Specifies if this item is a new item for selling purposes.';
+                    Importance = Promoted;
+                }
+
                 field("Current Item"; Rec."Current Item")
                 {
                     ApplicationArea = All;
@@ -129,7 +121,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                 {
                     ApplicationArea = All;
                     Visible = true;
-                    Caption = 'Discontinued';
+                    Caption = 'Discontinued Item';
                     ToolTip = 'Specifies if this item is no longer being replenished and no longer actively marketed.';
                     Importance = Standard;
                 }
@@ -164,6 +156,15 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'Production Date Required';
                     ToolTip = 'Production Date Required';
+                    Importance = Additional;
+                }
+
+                field("Assembly BOM"; Rec."Assembly BOM")
+                {
+                    Caption = 'Assembly BOM';
+                    ToolTip = 'The Item No. for the Kit Bill of Material';
+                    ApplicationArea = All;
+                    Visible = false;
                     Importance = Additional;
                 }
             }
@@ -267,6 +268,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = true;
+                ShowMandatory = true;
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(4);
@@ -310,8 +312,12 @@ pageextension 50030 TorlysItemCard extends "Item Card"
             }
         }
 
-        moveafter("Lead Time Calculation"; "Vendor No.", "Vendor Item No.")
+        moveafter("Lead Time Calculation"; "Vendor No.", "Manufacturer Code", "Vendor Item No.")
 
+        modify("Manufacturer Code")
+        {
+            Visible = true;
+        }
         modify("Shelf No.")
         {
             Visible = false;
@@ -475,6 +481,30 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         modify(SpecialPurchPriceListTxt)
         {
             Visible = false;
+        }
+        modify("Gen. Prod. Posting Group")
+        {
+            ShowMandatory = true;
+        }
+        modify("Inventory Posting Group")
+        {
+            ShowMandatory = true;
+        }
+        modify("Tax Group Code")
+        {
+            ShowMandatory = true;
+        }
+        modify("Gross Weight")
+        {
+            ShowMandatory = true;
+        }
+        modify("Net Weight")
+        {
+            ShowMandatory = true;
+        }
+        modify("Item Category Code")
+        {
+            ShowMandatory = true;
         }
     }
 

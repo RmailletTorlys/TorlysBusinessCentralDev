@@ -2,6 +2,8 @@ pageextension 55404 TorlysItemUnitsOfMeasure extends "Item Units of Measure"
 {
     layout
     {
+        movebefore("Code"; "Item No.")
+
         addafter("Qty. per Unit of Measure")
         {
 
@@ -19,6 +21,11 @@ pageextension 55404 TorlysItemUnitsOfMeasure extends "Item Units of Measure"
                 ToolTip = 'Conversion Quantity';
                 ApplicationArea = All;
             }
+        }
+        modify("Item No.")
+        {
+            Visible = true;
+            Editable = false;
         }
     }
 }

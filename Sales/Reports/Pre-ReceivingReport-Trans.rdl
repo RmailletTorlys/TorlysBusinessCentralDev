@@ -64,6 +64,12 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="Booking_No_">
+          <DataField>Booking_No_</DataField>
+        </Field>
+        <Field Name="Transfer_Type">
+          <DataField>Transfer_Type</DataField>
+        </Field>
         <Field Name="In_Transit_Code">
           <DataField>In_Transit_Code</DataField>
         </Field>
@@ -108,12 +114,6 @@ End Function
         </Field>
         <Field Name="Transfer_to_Code">
           <DataField>Transfer_to_Code</DataField>
-        </Field>
-        <Field Name="Booking_No_">
-          <DataField>Booking_No_</DataField>
-        </Field>
-        <Field Name="Transfer_Type">
-          <DataField>Transfer_Type</DataField>
         </Field>
       </Fields>
       <Query>

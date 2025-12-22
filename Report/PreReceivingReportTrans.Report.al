@@ -9,6 +9,22 @@ report 50019 "Pre-Receiving Report - Trans"
 
     dataset
     {
+        dataitem("Transfer Header"; "Transfer Header")
+        {
+            DataItemTableView = sorting("No.");
+            DataItemLinkReference = "Transfer Line";
+            DataItemLink = "No." = field("Document No.");
+            RequestFilterFields = "Booking No.";
+
+            column(Booking_No_; "Booking No.")
+            {
+
+            }
+            column(Transfer_Type; "Transfer Type")
+            {
+
+            }
+        }
         dataitem("Transfer Line"; "Transfer Line")
         {
             DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''), "Derived From Line No." = filter(0));
@@ -63,22 +79,22 @@ report 50019 "Pre-Receiving Report - Trans"
 
             }
 
-            dataitem("Transfer Header"; "Transfer Header")
-            {
-                DataItemTableView = sorting("No.");
-                DataItemLinkReference = "Transfer Line";
-                DataItemLink = "No." = field("Document No.");
-                RequestFilterFields = "Booking No.";
+            // dataitem("Transfer Header"; "Transfer Header")
+            // {
+            //     DataItemTableView = sorting("No.");
+            //     DataItemLinkReference = "Transfer Line";
+            //     DataItemLink = "No." = field("Document No.");
+            //     RequestFilterFields = "Booking No.";
 
-                column(Booking_No_; "Booking No.")
-                {
+            //     column(Booking_No_; "Booking No.")
+            //     {
 
-                }
-                column(Transfer_Type; "Transfer Type")
-                {
+            //     }
+            //     column(Transfer_Type; "Transfer Type")
+            //     {
 
-                }
-            }
+            //     }
+            // }
 
 
             trigger OnAfterGetRecord()

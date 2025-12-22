@@ -9,6 +9,7 @@ page 51009 TorlysBookingInfo
     SourceTable = TorlysBookingInfo;
     DeleteAllowed = false;
     ModifyAllowed = false;
+    // ModifyAllowed = true;
     // InsertAllowed = false;
 
     layout
@@ -164,9 +165,9 @@ page 51009 TorlysBookingInfo
             action("Pre-Receiving Report (PO)")
             {
                 ApplicationArea = All;
-                Caption = 'Pre-Receiving Report (PO)';
+                Caption = 'Receiving Report (PO)';
                 Image = Print;
-                ToolTip = 'Pre-Receiving Report (PO)';
+                ToolTip = 'Receiving Report (PO)';
                 Visible = Rec."Open PO Count" <> 0;
                 trigger OnAction()
                 var
@@ -177,15 +178,15 @@ page 51009 TorlysBookingInfo
                     if BookingInfo.Count > 1 then
                         Error('You cannot print multiple pre-receiving reports.')
                     else
-                        TorlysDocPrint.PrintPreReceivingPO(Rec);
+                        TorlysDocPrint.PrintReceivingPO(Rec);
                 end;
             }
             action("Pre-Receiving Report (Transfer)")
             {
                 ApplicationArea = All;
-                Caption = 'Pre-Receiving Report (Transfer)';
+                Caption = 'Receiving Report (Transfer)';
                 Image = Print;
-                ToolTip = 'Pre-Receiving Report (Transfer)';
+                ToolTip = 'Receiving Report (Transfer)';
                 Visible = Rec."Open Transfer Count" <> 0;
                 trigger OnAction()
                 var
@@ -196,7 +197,7 @@ page 51009 TorlysBookingInfo
                     if BookingInfo.Count > 1 then
                         Error('You cannot print multiple pre-receiving reports.')
                     else
-                        TorlysDocPrint.PrintPreReceivingTransfer(Rec);
+                        TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
         }

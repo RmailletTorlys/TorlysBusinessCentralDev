@@ -1,9 +1,9 @@
-report 50019 "Pre-Receiving Report - Trans"
+report 50019 "Receiving Report - Trans"
 {
-    Caption = 'Pre-Receiving Report - Trans';
+    Caption = 'Receiving Report - Trans';
     PreviewMode = PrintLayout;
     WordMergeDataItem = "Transfer Header";
-    RDLCLayout = './Sales/Reports/Pre-ReceivingReport-Trans.rdl';
+    RDLCLayout = './Sales/Reports/ReceivingReport-Trans.rdl';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 

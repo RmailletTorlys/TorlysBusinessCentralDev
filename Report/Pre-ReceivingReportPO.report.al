@@ -1,8 +1,8 @@
-report 50025 "Pre-Receiving Report PO"
+report 50025 "Receiving Report PO"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/Pre-ReceivingReportPO.rdlc';
-    Caption = 'Pre-Receiving Report PO';
+    RDLCLayout = './Local/Sales/History/ReceivingReportPO.rdlc';
+    Caption = 'Receiving Report PO';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 

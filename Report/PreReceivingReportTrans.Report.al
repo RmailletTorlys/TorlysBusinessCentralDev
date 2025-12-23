@@ -1,9 +1,9 @@
-report 50019 "Pre-Receiving Report - Trans"
+report 50019 "Receiving Report - Trans"
 {
-    Caption = 'Pre-Receiving Report - Trans';
+    Caption = 'Receiving Report - Trans';
     PreviewMode = PrintLayout;
-    WordMergeDataItem = "Transfer Line";
-    RDLCLayout = './Sales/Reports/Pre-ReceivingReport-Trans.rdl';
+    WordMergeDataItem = "Transfer Header";
+    RDLCLayout = './Sales/Reports/ReceivingReport-Trans.rdl';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -12,8 +12,6 @@ report 50019 "Pre-Receiving Report - Trans"
         dataitem("Transfer Header"; "Transfer Header")
         {
             DataItemTableView = sorting("No.");
-            DataItemLinkReference = "Transfer Line";
-            DataItemLink = "No." = field("Document No.");
             RequestFilterFields = "Booking No.";
 
             column(Booking_No_; "Booking No.")
@@ -24,106 +22,109 @@ report 50019 "Pre-Receiving Report - Trans"
             {
 
             }
-        }
-        dataitem("Transfer Line"; "Transfer Line")
-        {
-            DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''), "Derived From Line No." = filter(0));
-            RequestFilterFields = "Document No.";
 
-            column(In_Transit_Code; "In-Transit Code")
+            dataitem("Transfer Line"; "Transfer Line")
             {
+                DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''), "Derived From Line No." = filter(0));
+                DataItemLinkReference = "Transfer Header";
+                DataItemLink = "Document No." = field("No.");
+                RequestFilterFields = "Document No.";
 
-            }
-            column(ItemNumber; ItemNumber)
-            {
+                column(In_Transit_Code; "In-Transit Code")
+                {
 
-            }
-            column(BinLocation; BinLocation)
-            {
+                }
+                column(ItemNumber; ItemNumber)
+                {
 
-            }
-            column(QtyCase; QtyCase)
-            {
+                }
+                column(BinLocation; BinLocation)
+                {
 
-            }
-            column(QtyBase; QtyBase)
-            {
+                }
+                column(QtyCase; QtyCase)
+                {
 
-            }
-            column(QtyPallet; QtyPallet)
-            {
+                }
+                column(QtyBase; QtyBase)
+                {
 
-            }
-            column(Description; Description)
-            {
+                }
+                column(QtyPallet; QtyPallet)
+                {
 
-            }
-            column(Document_No_; "Document No.")
-            {
+                }
+                column(Description; Description)
+                {
 
-            }
-            column(Sales_Order_No_; "Sales Order No.")
-            {
+                }
+                column(Document_No_; "Document No.")
+                {
 
-            }
-            column(CommentLabel; CommentLabel)
-            {
+                }
+                column(Sales_Order_No_; "Sales Order No.")
+                {
 
-            }
-            column(Grouped; Grouped)
-            {
+                }
+                column(CommentLabel; CommentLabel)
+                {
 
-            }
-            column(Transfer_to_Code; "Transfer-to Code")
-            {
+                }
+                column(Grouped; Grouped)
+                {
 
-            }
+                }
+                column(Transfer_to_Code; "Transfer-to Code")
+                {
 
-            // dataitem("Transfer Header"; "Transfer Header")
-            // {
-            //     DataItemTableView = sorting("No.");
-            //     DataItemLinkReference = "Transfer Line";
-            //     DataItemLink = "No." = field("Document No.");
-            //     RequestFilterFields = "Booking No.";
+                }
 
-            //     column(Booking_No_; "Booking No.")
-            //     {
+                // dataitem("Transfer Header"; "Transfer Header")
+                // {
+                //     DataItemTableView = sorting("No.");
+                //     DataItemLinkReference = "Transfer Line";
+                //     DataItemLink = "No." = field("Document No.");
+                //     RequestFilterFields = "Booking No.";
 
-            //     }
-            //     column(Transfer_Type; "Transfer Type")
-            //     {
+                //     column(Booking_No_; "Booking No.")
+                //     {
 
-            //     }
-            // }
+                //     }
+                //     column(Transfer_Type; "Transfer Type")
+                //     {
+
+                //     }
+                // }
 
 
-            trigger OnAfterGetRecord()
-            begin
-                ItemNumber := "Transfer Line"."Item No.";
-                If HideQuantities then begin
-                    QtyCase := 0;
-                    QtyPallet := 0;
-                    QtyBase := 0;
-                end else begin
-                    QtyCase := "Transfer Line"."Quantity Case";
-                    QtyPallet := "Transfer Line"."Quantity Pallet";
-                    QtyBase := "Transfer Line"."Quantity (Base)";
-                    If (QtyCase = 0) and (QtyPallet = 0) then
-                        QtyBase := Quantity;
+                trigger OnAfterGetRecord()
+                begin
+                    ItemNumber := "Transfer Line"."Item No.";
+                    If HideQuantities then begin
+                        QtyCase := 0;
+                        QtyPallet := 0;
+                        QtyBase := 0;
+                    end else begin
+                        QtyCase := "Transfer Line"."Quantity Case";
+                        QtyPallet := "Transfer Line"."Quantity Pallet";
+                        QtyBase := "Transfer Line"."Quantity (Base)";
+                        If (QtyCase = 0) and (QtyPallet = 0) then
+                            QtyBase := Quantity;
+                    end;
+
+                    BinLocation := '';
+                    BinContent.Reset();
+                    BinContent.SetRange("Location Code", "Transfer-to Code");
+                    BinContent.SetRange("Item No.", "Item No.");
+                    if (BinContent.Find('-')) then begin
+                        repeat
+                            If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
+                                BinLocation := BinLocation + ' ' + BinContent."Bin Code";
+                            end;
+                        until BinContent.Next = 0;
+                    end;
                 end;
-
-                BinLocation := '';
-                BinContent.Reset();
-                BinContent.SetRange("Location Code", "Transfer-to Code");
-                BinContent.SetRange("Item No.", "Item No.");
-                if (BinContent.Find('-')) then begin
-                    repeat
-                        If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
-                            BinLocation := BinLocation + ' ' + BinContent."Bin Code";
-                        end;
-                    until BinContent.Next = 0;
-                end;
-            end;
+            }
         }
     }
     requestpage

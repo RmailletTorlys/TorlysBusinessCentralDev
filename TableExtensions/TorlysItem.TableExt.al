@@ -265,7 +265,6 @@ tableextension 50027 TorlysItem extends Item
             Caption = 'Customs/Tarrif Note';
             DataClassification = CustomerContent;
         }
-
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

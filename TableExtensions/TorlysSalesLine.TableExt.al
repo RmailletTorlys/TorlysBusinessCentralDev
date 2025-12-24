@@ -9,9 +9,9 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -37,9 +37,10 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -57,9 +58,9 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -85,9 +86,10 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -105,9 +107,9 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -133,9 +135,10 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -303,9 +306,9 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -332,9 +335,9 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -365,9 +368,9 @@ tableextension 50037 TorlysSalesLine extends "Sales Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items

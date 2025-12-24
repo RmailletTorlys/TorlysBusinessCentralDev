@@ -1,4 +1,4 @@
-tableextension 50123 TorlysPurchInvLine extends "Purch. Inv. Line"
+tableextension 50123 TorlysPurchaseInvoiceLine extends "Purch. Inv. Line"
 {
     fields
     {

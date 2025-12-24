@@ -1,4 +1,4 @@
-tableextension 55404 TorlysItemUoM extends "Item Unit of Measure"
+tableextension 55404 TorlysItemUnitOfMeasure extends "Item Unit of Measure"
 {
     fields
     {

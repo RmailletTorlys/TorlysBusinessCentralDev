@@ -1,4 +1,4 @@
-tableextension 50013 TorlysSalespersonsPurchasers extends "Salesperson/Purchaser"
+tableextension 50013 TorlysSalespersonsPurchaser extends "Salesperson/Purchaser"
 {
     fields
     {

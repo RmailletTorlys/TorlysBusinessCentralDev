@@ -1,4 +1,4 @@
-tableextension 50124 TorlysPurchCrMemoHdr extends "Purch. Cr. Memo Hdr."
+tableextension 50124 TorlysPurchaseCreditMemoHeader extends "Purch. Cr. Memo Hdr."
 {
     fields
     {

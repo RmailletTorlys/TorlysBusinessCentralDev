@@ -1,4 +1,4 @@
-tableextension 50043 TorlysPurchCommentLine extends "Purch. Comment Line"
+tableextension 50043 TorlysPurchaseCommentLine extends "Purch. Comment Line"
 {
     fields
     {

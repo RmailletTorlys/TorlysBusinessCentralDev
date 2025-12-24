@@ -1,4 +1,4 @@
-tableextension 50312 "Torlys Purch Payables Setup" extends "Purchases & Payables Setup"
+tableextension 50312 "TorlysPurchasesPayablesSetup" extends "Purchases & Payables Setup"
 {
     fields
     {

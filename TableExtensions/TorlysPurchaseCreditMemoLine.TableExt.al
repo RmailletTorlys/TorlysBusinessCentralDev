@@ -1,4 +1,4 @@
-tableextension 50125 TorlysPurchCrMemoLine extends "Purch. Cr. Memo Line"
+tableextension 50125 TorlysPurchaseCreditMemoLine extends "Purch. Cr. Memo Line"
 {
     fields
     {

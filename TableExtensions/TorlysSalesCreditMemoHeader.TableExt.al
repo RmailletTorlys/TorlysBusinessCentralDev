@@ -1,4 +1,4 @@
-tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
+tableextension 50114 TorlysSalesCreditMemoHeader extends "Sales Cr.Memo Header"
 {
     fields
     {

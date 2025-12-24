@@ -1,4 +1,4 @@
-tableextension 50120 TorlysPurchRcptHeader extends "Purch. Rcpt. Header"
+tableextension 50120 TorlysPurchaseReceiptHeader extends "Purch. Rcpt. Header"
 {
     fields
     {

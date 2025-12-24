@@ -15,5 +15,12 @@ tableextension 50459 "Torlys Sales Receivables Setup" extends "Sales & Receivabl
             TableRelation = "No. Series";
             ToolTip = 'Specifies the code for the number series that will be used to assign numbers to Claims Tracking.';
         }
+
+        field(50003; "Restocking G/L Acc. No."; Code[20])
+        {
+            Caption = 'Restocking G/L Acc. No.';
+            TableRelation = "G/L Account";
+            ToolTip = 'Restocking G/L Acc. No.';
+        }
     }
 }

@@ -170,7 +170,7 @@ pageextension 50030 TorlysItemCard extends "Item Card"
             }
         }
 
-        moveafter("Clearance Item"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
+        moveafter("Assembly BOM"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
         //Attributes Group End
 
         //Inventory Group Start

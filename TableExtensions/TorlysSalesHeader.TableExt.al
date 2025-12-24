@@ -229,7 +229,7 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
 
         field(50041; "MK Required"; Boolean)
         {
-            Caption = 'MKRequired';
+            Caption = 'MK Required';
             DataClassification = CustomerContent;
         }
 
@@ -237,41 +237,29 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         {
             Caption = 'MK Required Type';
             DataClassification = CustomerContent;
-            OptionMembers = None,"Plank","Swatch","Chainset","Custom";
+            OptionMembers = " ","Plank","Swatch","Chainset","Custom";
         }
 
-        field(50043; "MK Staged Location"; Code[10])
+        field(50043; "MK Staged"; Boolean)
         {
-            Caption = 'MKStaged_Location';
-            TableRelation = Bin.Code;
+            Caption = 'MK Staged';
             DataClassification = CustomerContent;
-
-            trigger OnValidate()
-            begin
-                UpdateMKStagedDateAndByFields();
-            end;
         }
-
-        field(50044; "MK Staged Date"; Date)
+        field(50044; "MK Staged Location"; Code[10])
         {
-            Caption = 'MKStaged_Date';
+            Caption = 'MK Staged Location';
+            // TableRelation = Bin.Code;
             DataClassification = CustomerContent;
-            Editable = false;
         }
-
-        field(50045; "MK Staged By"; Text[50])
+        field(50045; "MK Intransit"; Boolean)
         {
-            Caption = 'MKStaged_By';
-            TableRelation = "User Details";
+            Caption = 'MK Intransit';
             DataClassification = CustomerContent;
-            Editable = false;
         }
-
-        field(50046; "Marketing Shipment Transfer"; Option)
+        field(50046; "MK Received"; Boolean)
         {
-            Caption = 'Marketing_Order_Type';
+            Caption = 'MK Received';
             DataClassification = CustomerContent;
-            OptionMembers = "Shipment","Transfer";
         }
 
         field(50047; "Club"; Option)
@@ -368,12 +356,6 @@ tableextension 50036 "TorlysSalesHeader" extends "Sales Header"
         end;
 
         OnAfterCopyCommentsFromCustCardToSalesHeader();
-    end;
-
-    local procedure UpdateMKStagedDateAndByFields()
-    begin
-        "MK Staged Date" := Today();
-        "MK Staged By" := CopyStr(FORMAT(USERID), 1, 50);
     end;
 
     [IntegrationEvent(false, false)]

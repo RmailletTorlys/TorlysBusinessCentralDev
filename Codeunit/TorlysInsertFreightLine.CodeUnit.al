@@ -46,6 +46,7 @@ codeunit 50414 TorlysInsertFreightLine
         Clear(Item);
         QtyPerRoll := 0;
         QtyPerCase := 0;
+        SalesSetup.Get;
 
         // check open freight charge on this order
         OrderFreight := 0.0;
@@ -70,7 +71,8 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group", '<>IFS');
-        SalesLine.SetFilter("No.", '<>61600');
+        // SalesLine.SetFilter("No.", '<>61600');
+        SalesLine.SetFilter("No.", '<>%1', SalesSetup."Freight G/L Acc. No.");
         if SalesLine.Find('-') then begin
             repeat
                 LineCountTotal := LineCountTotal + 1;
@@ -236,11 +238,12 @@ codeunit 50414 TorlysInsertFreightLine
         Clear(Item);
         QtyPerRoll := 0;
         QtyPerCase := 0;
+        SalesSetup.Get;
 
         // check open freight charge on this order
         SalesLine.Reset;
         SalesLine.SetRange("Document No.", Rec."No.");
-        SalesLine.SetFilter("No.", '61600');
+        SalesLine.SetFilter("No.", SalesSetup."Freight G/L Acc. No.");
         SalesLine.SetFilter("Qty. to Invoice", '%1', 1);
         if SalesLine.Find('-') then begin
             repeat
@@ -257,7 +260,8 @@ codeunit 50414 TorlysInsertFreightLine
         SalesLine.SetFilter("Qty. to Invoice", '>0');
         SalesLine.SetRange(Type, SalesLine.Type::Item);
         SalesLine.SetFilter("Gen. Prod. Posting Group", '<>IFS');
-        SalesLine.SetFilter("No.", '<>61600');
+        // SalesLine.SetFilter("No.", '<>61600');
+        SalesLine.SetFilter("No.", '<>%1', SalesSetup."Freight G/L Acc. No.");
         if SalesLine.Find('-') then begin
             repeat
                 LineCountTotal := LineCountTotal + 1;

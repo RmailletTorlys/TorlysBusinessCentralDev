@@ -412,28 +412,29 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                             ToolTip = 'MK Required Type';
                             ApplicationArea = All;
                         }
+                        field("MK Staged"; Rec."MK Staged")
+                        {
+                            Caption = 'MK Staged';
+                            ToolTip = 'MK Staged';
+                            ApplicationArea = All;
+                        }
                         field("MK Staged Location"; Rec."MK Staged Location")
                         {
                             Caption = 'MK Staged Location';
                             ToolTip = 'MK Staged Location';
                             ApplicationArea = All;
                         }
-                        field("MK Staged By"; Rec."MK Staged By")
+
+                        field("MK Intransit"; Rec."MK Intransit")
                         {
-                            Caption = 'MK Staged By';
-                            ToolTip = 'MK Staged By';
+                            Caption = 'MK Intransit';
+                            ToolTip = 'MK Intransit';
                             ApplicationArea = All;
                         }
-                        field("MK Staged Date"; Rec."MK Staged Date")
+                        field("MK Received"; Rec."MK Received")
                         {
-                            Caption = 'MK Staged Date';
-                            ToolTip = 'MK Staged Date';
-                            ApplicationArea = All;
-                        }
-                        field("Marketing Shipment Transfer"; Rec."Marketing Shipment Transfer")
-                        {
-                            Caption = 'Marketing Shipment or Transfer';
-                            ToolTip = 'Specifies if the order is a Shipment or a Transfer';
+                            Caption = 'MK Received';
+                            ToolTip = 'MK Received';
                             ApplicationArea = All;
                         }
                     }

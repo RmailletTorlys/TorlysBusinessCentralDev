@@ -222,38 +222,30 @@ tableextension 50114 TorlysSalesCrMemoHeader extends "Sales Cr.Memo Header"
         {
             Caption = 'MK Required Type';
             DataClassification = CustomerContent;
-            OptionMembers = "","Plank","Swatch","Chainset","Custom";
+            OptionMembers = " ","Plank","Swatch","Chainset","Custom";
         }
 
-        field(50043; "MK Staged Location"; Code[10])
+        field(50043; "MK Staged"; Boolean)
+        {
+            Caption = 'MK Staged';
+            DataClassification = CustomerContent;
+        }
+        field(50044; "MK Staged Location"; Code[10])
         {
             Caption = 'MK Staged Location';
-            TableRelation = Bin.Code;
+            // TableRelation = Bin.Code;
             DataClassification = CustomerContent;
         }
-
-        field(50044; "MK Staged Date"; Date)
+        field(50045; "MK Intransit"; Boolean)
         {
-            Caption = 'MK Staged Date';
+            Caption = 'MK Intransit';
             DataClassification = CustomerContent;
-            Editable = false;
         }
-
-        field(50045; "MK Staged By"; Text[50])
+        field(50046; "MK Received"; Boolean)
         {
-            Caption = 'MK Staged By';
-            TableRelation = "User Details";
+            Caption = 'MK Received';
             DataClassification = CustomerContent;
-            Editable = false;
         }
-
-        field(50046; "Marketing Shipment Transfer"; Option)
-        {
-            Caption = 'Marketing Shipment Transfer';
-            DataClassification = CustomerContent;
-            OptionMembers = "Shipment","Transfer";
-        }
-
         field(50047; "Club"; Option)
         {
             Caption = 'Club';

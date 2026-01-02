@@ -9,9 +9,9 @@ tableextension 50083 TlyItemJournalLine extends "Item Journal Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 Item.Get(Rec."Item No."); //get the item record
@@ -35,9 +35,10 @@ tableextension 50083 TlyItemJournalLine extends "Item Journal Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 Item.Get(Rec."Item No."); //get the item record
                 QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
@@ -51,9 +52,9 @@ tableextension 50083 TlyItemJournalLine extends "Item Journal Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 Item.Get(Rec."Item No."); //get the item record

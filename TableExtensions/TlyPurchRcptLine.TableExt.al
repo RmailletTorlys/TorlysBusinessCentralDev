@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TableExtensions/TlyPurchRcptLine.TableExt.al
 tableextension 50121 TlyPurchRcptLine extends "Purch. Rcpt. Line"
+=======
+tableextension 50121 TorlysPurchaseReceiptLine extends "Purch. Rcpt. Line"
+>>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysPurchaseReceiptLine.TableExt.al
 {
     fields
     {

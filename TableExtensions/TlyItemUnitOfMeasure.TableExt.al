@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TableExtensions/TlyItemUnitOfMeasure.TableExt.al
 tableextension 55404 TlyItemUnitOfMeasure extends "Item Unit of Measure"
+=======
+tableextension 55404 TorlysItemUnitOfMeasure extends "Item Unit of Measure"
+>>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysItemUnitOfMeasure.TableExt.al
 {
     fields
     {

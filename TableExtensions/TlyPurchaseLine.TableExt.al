@@ -9,9 +9,9 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -37,9 +37,10 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -57,9 +58,9 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -85,9 +86,10 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -105,9 +107,9 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -133,9 +135,10 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
+
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -213,9 +216,9 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
@@ -242,9 +245,9 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item THEN BEGIN //only run check for items
@@ -275,9 +278,9 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnBeforeValidate()
             var
                 Item: Record Item;
+                UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-                UOMMgt: Codeunit "Unit of Measure Management";
                 TempQuantity: Decimal;
             begin
                 if Rec.Type = Rec.Type::Item THEN BEGIN //only run check for items

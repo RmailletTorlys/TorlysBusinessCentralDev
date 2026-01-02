@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TableExtensions/TlySalesCrMemoLine.TableExt.al
 tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
+=======
+tableextension 50115 TorlysSalesCreditMemoLine extends "Sales Cr.Memo Line"
+>>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysSalesCreditMemoLine.TableExt.al
 {
     fields
     {

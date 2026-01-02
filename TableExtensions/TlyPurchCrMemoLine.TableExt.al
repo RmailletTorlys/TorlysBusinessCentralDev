@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TableExtensions/TlyPurchCrMemoLine.TableExt.al
 tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
+=======
+tableextension 50125 TorlysPurchaseCreditMemoLine extends "Purch. Cr. Memo Line"
+>>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysPurchaseCreditMemoLine.TableExt.al
 {
     fields
     {

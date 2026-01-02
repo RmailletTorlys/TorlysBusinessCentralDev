@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TableExtensions/TlyPurchInvLine.TableExt.al
 tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
+=======
+tableextension 50123 TorlysPurchaseInvoiceLine extends "Purch. Inv. Line"
+>>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysPurchaseInvoiceLine.TableExt.al
 {
     fields
     {

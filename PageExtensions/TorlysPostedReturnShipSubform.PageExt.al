@@ -144,6 +144,6 @@ pageextension 56651 TorlysPostedReturnShipSubform extends "Posted Return Shipmen
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
 
 }

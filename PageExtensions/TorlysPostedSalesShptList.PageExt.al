@@ -180,7 +180,7 @@ pageextension 50142 TorlysPostedSalesShipmentList extends "Posted Sales Shipment
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

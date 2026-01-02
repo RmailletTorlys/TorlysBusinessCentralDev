@@ -293,7 +293,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Freight Zone Code';
                 ApplicationArea = All;
                 Importance = Standard;
-                TableRelation = "Torlys Freight Zones";
+                TableRelation = TlyFreightZone;
             }
         }
 
@@ -355,90 +355,90 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             group("Marketing")
             {
                 Caption = 'Marketing';
-                grid(Section1)
+                // grid(Section1)
+                // {
+                group(Details)
                 {
-                    group(Details)
+                    field(ShortcutDimCode5; ShortcutDimCode[5])
                     {
-                        field(ShortcutDimCode5; ShortcutDimCode[5])
-                        {
-                            ApplicationArea = Dimensions;
-                            CaptionClass = '1,2,5';
-                            ToolTip = 'Global Dimension 5 Code';
-                            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(5),
+                        ApplicationArea = Dimensions;
+                        CaptionClass = '1,2,5';
+                        ToolTip = 'Global Dimension 5 Code';
+                        TableRelation = "Dimension Value".Code where("Global Dimension No." = const(5),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
-                            Visible = true;
-                            trigger OnValidate()
-                            begin
-                                ValidateShortcutDimension(5);
-                            end;
-                        }
-                        field("Club"; Rec."Club")
-                        {
-                            Caption = 'Club';
-                            ToolTip = 'Club';
-                            ApplicationArea = All;
-                            Importance = Standard;
-                        }
-                        field("Power Up Level"; Rec."Power Up Level")
-                        {
-                            Caption = 'Power Up Level';
-                            ToolTip = 'Power Up Level';
-                            ApplicationArea = All;
-                            Importance = Standard;
-                        }
-                        field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
-                        {
-                            Caption = 'Sample Allowance Exclusion';
-                            ToolTip = 'Sample Allowance Exclusion';
-                            ApplicationArea = All;
-                            Importance = Standard;
-                        }
+                        Visible = true;
+                        trigger OnValidate()
+                        begin
+                            ValidateShortcutDimension(5);
+                        end;
                     }
-                }
-                grid(ManufacturingGrid)
-                {
-                    group(Manufacturing)
+                    field("Club"; Rec."Club")
                     {
-                        field("MK Required"; Rec."MK Required")
-                        {
-                            Caption = 'MK Required';
-                            ToolTip = 'MK Required';
-                            ApplicationArea = All;
-                        }
-                        field("MK Required Type"; Rec."MK Required Type")
-                        {
-                            Caption = 'MK Required Type';
-                            ToolTip = 'MK Required Type';
-                            ApplicationArea = All;
-                        }
-                        field("MK Staged"; Rec."MK Staged")
-                        {
-                            Caption = 'MK Staged';
-                            ToolTip = 'MK Staged';
-                            ApplicationArea = All;
-                        }
-                        field("MK Staged Location"; Rec."MK Staged Location")
-                        {
-                            Caption = 'MK Staged Location';
-                            ToolTip = 'MK Staged Location';
-                            ApplicationArea = All;
-                        }
-
-                        field("MK Intransit"; Rec."MK Intransit")
-                        {
-                            Caption = 'MK Intransit';
-                            ToolTip = 'MK Intransit';
-                            ApplicationArea = All;
-                        }
-                        field("MK Received"; Rec."MK Received")
-                        {
-                            Caption = 'MK Received';
-                            ToolTip = 'MK Received';
-                            ApplicationArea = All;
-                        }
+                        Caption = 'Club';
+                        ToolTip = 'Club';
+                        ApplicationArea = All;
+                        Importance = Standard;
+                    }
+                    field("Power Up Level"; Rec."Power Up Level")
+                    {
+                        Caption = 'Power Up Level';
+                        ToolTip = 'Power Up Level';
+                        ApplicationArea = All;
+                        Importance = Standard;
+                    }
+                    field("Sample Allowance Exclusion"; Rec."Sample Allowance Exclusion")
+                    {
+                        Caption = 'Sample Allowance Exclusion';
+                        ToolTip = 'Sample Allowance Exclusion';
+                        ApplicationArea = All;
+                        Importance = Standard;
                     }
                 }
+                // }
+                // grid(ManufacturingGrid)
+                // {
+                group(Manufacturing)
+                {
+                    field("MK Required"; Rec."MK Required")
+                    {
+                        Caption = 'MK Required';
+                        ToolTip = 'MK Required';
+                        ApplicationArea = All;
+                    }
+                    field("MK Required Type"; Rec."MK Required Type")
+                    {
+                        Caption = 'MK Required Type';
+                        ToolTip = 'MK Required Type';
+                        ApplicationArea = All;
+                    }
+                    field("MK Staged"; Rec."MK Staged")
+                    {
+                        Caption = 'MK Staged';
+                        ToolTip = 'MK Staged';
+                        ApplicationArea = All;
+                    }
+                    field("MK Staged Location"; Rec."MK Staged Location")
+                    {
+                        Caption = 'MK Staged Location';
+                        ToolTip = 'MK Staged Location';
+                        ApplicationArea = All;
+                    }
+
+                    field("MK Intransit"; Rec."MK Intransit")
+                    {
+                        Caption = 'MK Intransit';
+                        ToolTip = 'MK Intransit';
+                        ApplicationArea = All;
+                    }
+                    field("MK Received"; Rec."MK Received")
+                    {
+                        Caption = 'MK Received';
+                        ToolTip = 'MK Received';
+                        ApplicationArea = All;
+                    }
+                }
+                // }
             }
         }
 
@@ -839,7 +839,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 trigger OnAction()
                 var
                     // SalesLine: Record "Sales Line";
-                    TorlysDocPrint: Codeunit TorlysDocumentPrint;
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
                     // SalesLine.SetFilter("Document No.", Rec."No.");
                     // Report.RunModal(50023, true, false, SalesLine);
@@ -854,7 +854,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 trigger OnAction()
                 var
                     // SalesLine: Record "Sales Line";
-                    TorlysDocPrint: Codeunit TorlysDocumentPrint;
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
                     // SalesLine.SetFilter("Document No.", Rec."No.");
                     // Report.RunModal(50020, true, false, SalesLine);
@@ -997,9 +997,9 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         MPOCount: Integer;
         MPOSalesHeader: Record "Sales Header";
         MPOVisible: Boolean;
-        LookupUserId: Codeunit "TorlysLookupUserID";
-        InsertFreightLine: Codeunit "TorlysInsertFreightLine";
-        TorlysCreditHold: Codeunit TorlysCreditHold;
+        LookupUserId: Codeunit TlyLookupUserID;
+        InsertFreightLine: Codeunit TlyInsertFreightLine;
+        TorlysCreditHold: Codeunit TlyCreditHold;
 
     trigger OnAfterGetRecord()
     begin

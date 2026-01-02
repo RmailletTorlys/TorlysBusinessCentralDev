@@ -310,7 +310,7 @@ pageextension 56641 TorlysPurchReturnOrderSubform extends "Purchase Return Order
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

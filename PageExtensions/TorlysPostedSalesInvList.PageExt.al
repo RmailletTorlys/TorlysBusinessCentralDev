@@ -210,7 +210,7 @@ pageextension 50143 TorlysPostedSalesInvList extends "Posted Sales Invoices"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

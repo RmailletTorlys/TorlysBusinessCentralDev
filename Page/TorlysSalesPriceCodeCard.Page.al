@@ -2,7 +2,7 @@ page 51011 "Torlys Sales Price Code Card"
 {
     PageType = Card;
     ApplicationArea = All;
-    SourceTable = "Torlys Sales Price Code";
+    SourceTable = TlySalesPriceCode;
     Caption = 'Sales Price Code Card';
     Editable = true;
     UsageCategory = Administration;
@@ -52,7 +52,7 @@ page 51011 "Torlys Sales Price Code Card"
                 ApplicationArea = All;
                 Caption = 'Back';
                 ToolTip = 'Return to the previous page.';
-                RunObject = page "Sales Price Code List";
+                RunObject = page TlySalesPriceCodeList;
                 RunPageMode = Create;
                 Image = Navigate;
             }

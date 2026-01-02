@@ -96,5 +96,5 @@ pageextension 50145 TorlysPostedPurchRcptList extends "Posted Purchase Receipts"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

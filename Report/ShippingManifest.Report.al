@@ -23,7 +23,7 @@ report 50015 "Shipping Manifest"
 
             }
 
-            dataitem("Torlys Processed BOL Header"; "Torlys Processed BOL Header")
+            dataitem("Torlys Processed BOL Header"; TlyProcessedBillOfLadingHeader)
             {
                 DataItemLinkReference = "Shipping Agent";
                 DataItemLink = "Shipping Agent Code" = field(Code);
@@ -145,7 +145,7 @@ report 50015 "Shipping Manifest"
     }
     var
         ShippingAgent: Record "Shipping Agent";
-        ProcessedBOL: Record "Torlys Processed BOL Header";
+        ProcessedBOL: Record TlyProcessedBillOfLadingHeader;
         ShipToAddress: Record "Ship-to Address";
         Pickupdate: date;
         CarrierTotalWeight: Decimal;

@@ -145,7 +145,7 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
                 ToolTip = 'Freight Zone Code';
                 ApplicationArea = All;
                 Importance = Standard;
-                TableRelation = "Torlys Freight Zones";
+                TableRelation = TlyFreightZone;
             }
         }
 
@@ -379,7 +379,7 @@ pageextension 50130 TorlysPostedSalesShipment extends "Posted Sales Shipment"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()

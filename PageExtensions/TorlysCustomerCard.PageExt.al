@@ -652,7 +652,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Customer Displays';
                 Image = Database;
-                RunObject = Page "Customer Displays List";
+                RunObject = Page TlyCustomerDisplayList;
                 RunPageLink = "CustNo." = field("No.");
                 ToolTip = 'View or edit customer display programs for this customer.';
             }
@@ -676,7 +676,7 @@ pageextension 50021 TorlysCustomerCard extends "Customer Card"
         ShortcutDimCode: array[8] of Code[20];
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
     trigger OnAfterGetRecord()
     begin

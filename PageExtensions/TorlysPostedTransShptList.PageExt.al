@@ -106,5 +106,5 @@ pageextension 55752 TorlysPostedTransShptList extends "Posted Transfer Shipments
         }
     }
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

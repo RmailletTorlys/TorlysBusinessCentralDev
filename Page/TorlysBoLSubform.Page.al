@@ -6,7 +6,7 @@ page 51004 "Torlys BOL Subform"
     LinksAllowed = false;
     MultipleNewLines = true;
     PageType = ListPart;
-    SourceTable = "Torlys BOL Line";
+    SourceTable = TlyBillOfLadingLine;
     DeleteAllowed = true;
     ModifyAllowed = false;
     InsertAllowed = false;

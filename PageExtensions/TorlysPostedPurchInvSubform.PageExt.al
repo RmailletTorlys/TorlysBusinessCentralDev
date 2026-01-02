@@ -182,5 +182,5 @@ pageextension 50139 TorlysPostedPurchInvSubform extends "Posted Purch. Invoice S
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
 }

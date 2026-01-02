@@ -147,5 +147,5 @@ pageextension 50147 TorlysPostedPurchCrMemoList extends "Posted Purchase Credit 
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

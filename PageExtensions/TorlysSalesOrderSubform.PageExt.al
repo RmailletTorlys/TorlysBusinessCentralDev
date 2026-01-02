@@ -478,7 +478,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 begin
                     Item.Reset();
                     Item.SetRange("No.", Rec."No.");
-                    Page.Run(Page::TorlysItemAvailability, Item);
+                    Page.Run(Page::TlyItemAvailability, Item);
                 end;
             }
             group(CustomerItemHistory)
@@ -548,7 +548,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                         SelectedLines: Record "Sales Line";
                         MPOSalesHeader: Record "Sales Header";
                         ExistingAnswer: Boolean;
-                        TorlysCreateMPOFromSalesLine: Codeunit TorlysSalesLineFromMPO;
+                        TorlysCreateMPOFromSalesLine: Codeunit TlySalesLineFromMPO;
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
                         if SelectedLines.FindSet() then
@@ -583,7 +583,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     var
                         SelectedLines: Record "Sales Line";
                         TransferOrderNumber: Code[20];
-                        TorlysAddSalesLineToTransLine: Codeunit TorlysAddSalesLineToTransLine;
+                        TorlysAddSalesLineToTransLine: Codeunit TlyAddSalesLineToTransLine;
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
                         if SelectedLines.FindSet() then
@@ -608,7 +608,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Visible = Rec."Linked Purchase Order No." = '';
                     trigger OnAction()
                     var
-                        TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                        TorlysLinkSalesLine: Codeunit TlyLinkSalesLine;
                         SelectedLines: Record "Sales Line";
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
@@ -648,7 +648,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Visible = Rec."Linked Transfer Order No." = '';
                     trigger OnAction()
                     var
-                        TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                        TorlysLinkSalesLine: Codeunit TlyLinkSalesLine;
                         SelectedLines: Record "Sales Line";
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
@@ -680,7 +680,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
 

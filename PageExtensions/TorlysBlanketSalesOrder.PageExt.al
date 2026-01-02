@@ -340,5 +340,5 @@ pageextension 50507 TorlysBlanketSalesOrder extends "Blanket Sales Order"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

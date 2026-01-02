@@ -258,5 +258,5 @@ pageextension 50518 TorlysPurchLines extends "Purchase Lines"
     end;
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
 }

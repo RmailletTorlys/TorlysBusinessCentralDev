@@ -180,7 +180,7 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 trigger OnAction()
                 var
                     // transferheader: Record "Transfer Header";
-                    TorlysDocPrint: Codeunit TorlysDocumentPrint;
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
                     // transferheader.SetFilter("No.", Rec."No.");
                     // Report.RunModal(50007, true, false, transferheader);
@@ -203,5 +203,5 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
         }
     }
     var
-        LookupUserId: Codeunit TorlysLookupUserID;
+        LookupUserId: Codeunit TlyLookupUserID;
 }

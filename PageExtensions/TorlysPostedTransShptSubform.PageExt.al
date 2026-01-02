@@ -108,5 +108,5 @@ pageextension 55744 TorlysPostedTransShptSubform extends "Posted Transfer Shpt. 
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

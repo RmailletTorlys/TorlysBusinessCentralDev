@@ -3,7 +3,7 @@ page 55019 "Claims Order Subform"
     PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = Tasks;
-    SourceTable = "Claims Line";
+    SourceTable = TlyClaimsLine;
     Caption = 'Claims Lines';
     Editable = true;
     LinksAllowed = false;

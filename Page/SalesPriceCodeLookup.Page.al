@@ -1,7 +1,7 @@
 page 51010 "Sales Price Code Lookup"
 {
     PageType = List;
-    SourceTable = "Torlys Sales Price Code";
+    SourceTable = TlySalesPriceCode;
     Editable = false;
     Caption = 'Sales Price Code';
     ApplicationArea = All;

@@ -6,7 +6,7 @@ page 51008 "Torlys Processed BOL Subform"
     LinksAllowed = false;
     MultipleNewLines = true;
     PageType = ListPart;
-    SourceTable = "Torlys Processed BOL Line";
+    SourceTable = TlyProcessedBillOfLadingLine;
 
     layout
     {

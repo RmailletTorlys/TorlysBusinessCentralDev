@@ -693,7 +693,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()

@@ -248,8 +248,8 @@ pageextension 59305 TorlysSalesOrderList extends "Sales Order List"
         }
     }
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
-        TorlysCreditHold: Codeunit TorlysCreditHold;
+        LookupUserId: Codeunit TlyLookupUserID;
+        TorlysCreditHold: Codeunit TlyCreditHold;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

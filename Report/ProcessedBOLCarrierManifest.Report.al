@@ -9,7 +9,7 @@ report 50013 "Processed BOL Carrier Manifest"
 
     dataset
     {
-        dataitem(BOLHeader; "Torlys Processed BOL Header")
+        dataitem(BOLHeader; TlyProcessedBillOfLadingHeader)
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "Shipping Agent Code", "Pickup Date", "Location Code";
@@ -111,7 +111,7 @@ report 50013 "Processed BOL Carrier Manifest"
             {
 
             }
-            dataitem(BOLLine; "Torlys Processed BOL Line")
+            dataitem(BOLLine; TlyProcessedBillOfLadingLine)
             {
                 DataItemLink = "Bol No." = field("No.");
                 DataItemLinkReference = BOLHeader;

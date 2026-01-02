@@ -169,7 +169,7 @@ pageextension 56662 TorlysPostedReturnRcptList extends "Posted Return Receipts"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

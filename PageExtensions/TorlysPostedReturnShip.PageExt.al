@@ -180,5 +180,5 @@ pageextension 56650 TorlysPostedReturnShip extends "Posted Return Shipment"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

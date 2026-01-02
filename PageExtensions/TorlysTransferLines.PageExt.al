@@ -169,5 +169,5 @@ pageextension 55749 TorlysTransferLines extends "Transfer Lines"
         }
     }
     var
-        LookupUserId: Codeunit TorlysLookupUserID;
+        LookupUserId: Codeunit TlyLookupUserID;
 }

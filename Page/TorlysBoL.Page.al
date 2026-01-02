@@ -4,7 +4,7 @@ page 51002 "Torlys BOL"
     Caption = 'Bill of Lading';
     PageType = Card;
     RefreshOnActivate = true;
-    SourceTable = "Torlys BOL Header";
+    SourceTable = TlyBillOfLadingHeader;
     UsageCategory = Documents;
     ApplicationArea = Basic, Suite;
     Permissions = tabledata "Sales Shipment Header" = rm;
@@ -481,9 +481,9 @@ page 51002 "Torlys BOL"
 
                 trigger OnAction()
                 var
-                    ProcessedBOLHeader: Record "Torlys Processed BOL Header";
-                    BOLLine: Record "Torlys BOL Line";
-                    ProcessedBOLLine: Record "Torlys Processed BOL Line";
+                    ProcessedBOLHeader: Record TlyProcessedBillOfLadingHeader;
+                    BOLLine: Record TlyBillOfLadingLine;
+                    ProcessedBOLLine: Record TlyProcessedBillOfLadingLine;
                     SalesShipmentHeader: Record "Sales Shipment Header";
                     SalesHeader: Record "Sales Header";
                     TransferShipmentHeader: Record "Transfer Shipment Header";
@@ -536,7 +536,7 @@ page 51002 "Torlys BOL"
     var
         SalesShipmentHeader: Record "Sales Shipment Header";
         SalesShipmentLine: Record "Sales Shipment Line";
-        BOLLine: Record "Torlys BOL Line";
+        BOLLine: Record TlyBillOfLadingLine;
         NextLineNo: Integer;
         ShippingAgent: Record "Shipping Agent";
         TotalWeight: Decimal;
@@ -761,7 +761,7 @@ page 51002 "Torlys BOL"
     end;
 
     var
-        BOLPrintPostChecks: Codeunit TorlysBOLPrintPostCheck;
-        TorlysDocPrint: Codeunit "TorlysDocumentPrint";
-        LookupUserId: Codeunit TorlysLookupUserID;
+        BOLPrintPostChecks: Codeunit TlyBOLPrintPostCheck;
+        TorlysDocPrint: Codeunit TlyDocumentPrint;
+        LookupUserId: Codeunit TlyLookupUserID;
 }

@@ -139,8 +139,6 @@ pageextension 59311 TorlysPurchReturnOrderList extends "Purchase Return Order Li
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
-
-
+        LookupUserId: Codeunit TlyLookupUserID;
 
 }

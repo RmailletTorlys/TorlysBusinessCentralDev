@@ -373,7 +373,7 @@ pageextension 50096 TorlysSalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
         UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
 

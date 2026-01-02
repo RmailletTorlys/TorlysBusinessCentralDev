@@ -363,7 +363,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

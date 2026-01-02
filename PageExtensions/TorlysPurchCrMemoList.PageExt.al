@@ -124,7 +124,7 @@ pageextension 59309 TorlysPurchCrMemoList extends "Purchase Credit Memos"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
 
 }

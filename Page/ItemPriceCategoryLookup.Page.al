@@ -1,7 +1,7 @@
 page 51014 "Item Price Category Lookup"
 {
     PageType = List;
-    SourceTable = "Torlys Sales Price Code";
+    SourceTable = TlySalesPriceCode;
     Editable = false;
     Caption = 'Item Price Category';
     ApplicationArea = All;

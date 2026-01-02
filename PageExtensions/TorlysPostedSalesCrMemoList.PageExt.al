@@ -203,7 +203,7 @@ pageextension 50144 TorlysPostedSalesCrMemoList extends "Posted Sales Credit Mem
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

@@ -9,7 +9,7 @@ report 50014 "BOL Shipping Manifest"
 
     dataset
     {
-        dataitem(BOLHeader; "Torlys Processed BOL Header")
+        dataitem(BOLHeader; TlyProcessedBillOfLadingHeader)
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "No.";

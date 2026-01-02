@@ -296,7 +296,7 @@ pageextension 50047 "TorlysSalesInvoiceSubform" extends "Sales Invoice Subform"
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

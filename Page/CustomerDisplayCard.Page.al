@@ -2,7 +2,7 @@ Page 51024 "Customer Display Card"
 {
     Caption = 'Customer Display Card';
     PageType = Card;
-    SourceTable = "Display Header";
+    SourceTable = TlyDisplayHeader;
     ApplicationArea = All;
 
 

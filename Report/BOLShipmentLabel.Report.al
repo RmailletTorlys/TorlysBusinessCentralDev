@@ -9,7 +9,7 @@ report 50010 "BOL Shipment Label"
 
     dataset
     {
-        dataitem("Bol Header"; "Torlys BOL Header")
+        dataitem("Bol Header"; TlyBillOfLadingHeader)
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "No.", "Customer No.", "Ship-to Code", "No. Printed";
@@ -139,7 +139,7 @@ report 50010 "BOL Shipment Label"
 
     }
 
-    local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var BOLHeader: Record "Torlys BOL Header")
+    local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var BOLHeader: Record TlyBillOfLadingHeader)
     var
     begin
         FormatAddress.FormatAddr(
@@ -151,7 +151,7 @@ report 50010 "BOL Shipment Label"
     var
         ShippingAgent: Record "Shipping Agent";
         Location: Record Location;
-        BOLLine: Record "Torlys BOL Line";
+        BOLLine: Record TlyBillOfLadingLine;
         FormatAddress: Codeunit "Format Address";
         LocationAddress: array[8] of Text[50];
         ShipToAddress: array[8] of Text[50];

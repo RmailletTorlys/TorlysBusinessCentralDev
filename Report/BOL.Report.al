@@ -9,7 +9,7 @@ report 50008 "Bill Of Lading"
 
     dataset
     {
-        dataitem("Bol Header"; "Torlys BOL Header")
+        dataitem("Bol Header"; TlyBillOfLadingHeader)
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "No.";
@@ -460,7 +460,7 @@ report 50008 "Bill Of Lading"
         ShippingAgent1: Record "Shipping Agent";
         ShippingAgent: Record "Shipping Agent";
         Location: Record Location;
-        BOLLine: Record "Torlys BOL Line";
+        BOLLine: Record TlyBillOfLadingLine;
         SalesShipmentHeader: Record "Sales Shipment Header";
         SalesShipmentLine: Record "Sales Shipment Line";
         TransferShipmentHeader: Record "Transfer Shipment Header";

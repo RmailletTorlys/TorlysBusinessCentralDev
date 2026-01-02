@@ -9,7 +9,7 @@ report 50009 "Processed Bill Of Lading"
 
     dataset
     {
-        dataitem("Processed Bol Header"; "Torlys Processed BOL Header")
+        dataitem("Processed Bol Header"; TlyProcessedBillOfLadingHeader)
         {
             DataItemTableView = sorting("No.");
             RequestFilterFields = "No.";
@@ -450,7 +450,7 @@ report 50009 "Processed Bill Of Lading"
 
     var
         ShippingAgent: Record "Shipping Agent";
-        ProcessedBOLLine: Record "Torlys Processed BOL Line";
+        ProcessedBOLLine: Record TlyProcessedBillOfLadingLine;
         Location: Record Location;
         SalesShipmentHeader: Record "Sales Shipment Header";
         SalesShipmentLine: Record "Sales Shipment Line";

@@ -181,6 +181,6 @@ pageextension 50137 TorlysPostedPurchRcptSubform extends "Posted Purchase Rcpt. 
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
 
 }

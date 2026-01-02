@@ -347,6 +347,6 @@ pageextension 50516 TorlysSalesLines extends "Sales Lines"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }
 

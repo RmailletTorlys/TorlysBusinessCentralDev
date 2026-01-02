@@ -203,6 +203,6 @@ pageextension 50141 "TorlysPostedPurchCrMemoSubform" extends "Posted Purch. Cr. 
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
 
 }

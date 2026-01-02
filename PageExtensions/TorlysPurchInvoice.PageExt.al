@@ -204,5 +204,5 @@ pageextension 50051 TorlysPurchInvoice extends "Purchase Invoice"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

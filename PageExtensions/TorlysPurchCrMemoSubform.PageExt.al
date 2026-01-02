@@ -265,7 +265,7 @@ pageextension 50098 TorlysPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

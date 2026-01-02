@@ -565,7 +565,7 @@ pageextension 50134 TorlysPostedSalesCrMemo extends "Posted Sales Credit Memo"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()

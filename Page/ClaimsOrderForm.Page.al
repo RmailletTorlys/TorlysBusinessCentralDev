@@ -3,7 +3,7 @@ page 51018 "Claims Order Form"
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Tasks;
-    SourceTable = "Claims Header";
+    SourceTable = TlyClaimsHeader;
     Caption = 'Claims Order Form';
     Editable = false;
     LinksAllowed = false;
@@ -47,7 +47,7 @@ page 51018 "Claims Order Form"
 
 
 
-    procedure AssistEdit(ClaimsHeader: Record "Claims Header") Result: Boolean
+    procedure AssistEdit(ClaimsHeader: Record TlyClaimsHeader) Result: Boolean
     var
         SalesSetup: Record "Sales & Receivables Setup";
         NoSeries: Codeunit "No. Series";
@@ -67,7 +67,7 @@ page 51018 "Claims Order Form"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeAssistEdit(Rec: Record "Claims Header"; ClaimsHeader: Record "Claims Header"; var IsHandled: Boolean; var Result: Boolean)
+    local procedure OnBeforeAssistEdit(Rec: Record TlyClaimsHeader; ClaimsHeader: Record TlyClaimsHeader; var IsHandled: Boolean; var Result: Boolean)
     begin
     end;
 }

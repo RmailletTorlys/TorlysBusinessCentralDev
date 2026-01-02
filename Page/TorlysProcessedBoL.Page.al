@@ -4,7 +4,7 @@ page 51006 "Torlys Processed BOL"
     Caption = 'Processed Bill of Lading';
     PageType = Document;
     RefreshOnActivate = true;
-    SourceTable = "Torlys Processed BOL Header";
+    SourceTable = TlyProcessedBillOfLadingHeader;
     UsageCategory = Documents;
     Editable = false;
     ApplicationArea = Basic, Suite;
@@ -446,6 +446,6 @@ page 51006 "Torlys Processed BOL"
         }
     }
     var
-        TorlysDocPrint: Codeunit "TorlysDocumentPrint";
-        LookupUserId: Codeunit TorlysLookupUserID;
+        TorlysDocPrint: Codeunit TlyDocumentPrint;
+        LookupUserId: Codeunit TlyLookupUserID;
 }

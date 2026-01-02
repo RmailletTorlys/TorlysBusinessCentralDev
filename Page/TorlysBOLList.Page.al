@@ -7,7 +7,7 @@ page 51001 "Torlys BOL List"
     DataCaptionFields = "No.";
     Editable = false;
     PageType = List;
-    SourceTable = "Torlys BOL Header";
+    SourceTable = TlyBillOfLadingHeader;
     AdditionalSearchTerms = 'Bill of Lading, BOL';
 
     layout

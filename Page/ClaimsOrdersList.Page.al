@@ -6,7 +6,7 @@ page 55020 "Claims Orders List"
     QueryCategory = 'Claims Orders';
     ApplicationArea = All;
     UsageCategory = Tasks;
-    SourceTable = "Claims Header";
+    SourceTable = TlyClaimsHeader;
     SourceTableView = SORTING("No.") ORDER(Ascending);
 
     layout

@@ -275,6 +275,6 @@ pageextension 50133 TorlysPostedSalesInvSubform extends "Posted Sales Invoice Su
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
 }

@@ -166,6 +166,6 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
     end;
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
 }

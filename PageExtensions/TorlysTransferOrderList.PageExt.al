@@ -103,5 +103,5 @@ pageextension 55742 TorlysTransferOrders extends "Transfer Orders"
         }
     }
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

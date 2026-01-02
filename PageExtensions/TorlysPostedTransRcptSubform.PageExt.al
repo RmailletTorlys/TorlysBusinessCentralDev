@@ -103,5 +103,5 @@ pageextension 55746 TorlysPostedTransRcptSubform extends "Posted Transfer Rcpt. 
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

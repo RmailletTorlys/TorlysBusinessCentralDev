@@ -2,7 +2,7 @@ Page 51025 "Customer Display Subform"
 {
     Caption = 'Customer Display Lines';
     PageType = ListPart;
-    SourceTable = "Display Line";
+    SourceTable = TlyDisplayLine;
     SourceTableView = sorting("Display Type", "Item Category Code") order(ascending);
     ApplicationArea = All;
     PopulateAllFields = true;

@@ -132,7 +132,7 @@ pageextension 50055 TorlysPurchInvoiceSubform extends "Purch. Invoice Subform"
     }
 
     var
-        LookupUser: Codeunit "TorlysLookupUserID";
+        LookupUser: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()

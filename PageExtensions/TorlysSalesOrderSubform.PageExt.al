@@ -478,7 +478,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 begin
                     Item.Reset();
                     Item.SetRange("No.", Rec."No.");
-                    Page.Run(Page::TorlysItemAvailability, Item);
+                    Page.Run(Page::TlyItemAvailability, Item);
                 end;
             }
             group(CustomerItemHistory)
@@ -548,26 +548,26 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                         SelectedLines: Record "Sales Line";
                         MPOSalesHeader: Record "Sales Header";
                         ExistingAnswer: Boolean;
-                        TorlysCreateMPOFromSalesLine: Codeunit TorlysSalesLineFromMPO;
+                        TorlysCreateMPOFromSalesLine: Codeunit TlySalesLineFromMPO;
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
                         if SelectedLines.FindSet() then
-                            if SelectedLines.Count > 1 then begin
-                                Error('You can only copy 1 line at a time from a MPO.');
-                            end else begin
+                            if SelectedLines.Count > 1 then
+                                Error('You can only copy 1 line at a time from a MPO.')
+                            else begin
                                 MPOSalesHeader.Reset();
                                 MPOSalesHeader.Get(1, Rec."Document No.");
-                                if MPOSalesHeader."Order Type" <> 'MASTER PROJECT ORDER' then begin
+                                if MPOSalesHeader."Order Type" <> 'MASTER PROJECT ORDER' then
                                     Error('This order (%1) is not a Master Project Order.', Rec."Document No.")
-                                end else begin
-                                    ExistingAnswer := Dialog.Confirm('Are you looking to add to an existing order?');
-                                    if ExistingAnswer then
-                                        TorlysCreateMPOFromSalesLine.AddToExisting(SelectedLines)
-                                    else
-                                        TorlysCreateMPOFromSalesLine.CreateNew(SelectedLines);
-                                end;
-                            end;
+                            end else begin
+                            ExistingAnswer := Dialog.Confirm('Are you looking to add to an existing order?');
+                            if ExistingAnswer then
+                                TorlysCreateMPOFromSalesLine.AddToExisting(SelectedLines)
+                            else
+                                TorlysCreateMPOFromSalesLine.CreateNew(SelectedLines);
+                        end;
                     end;
+
                 }
                 separator("Separator1")
                 {
@@ -583,17 +583,17 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     var
                         SelectedLines: Record "Sales Line";
                         TransferOrderNumber: Code[20];
-                        TorlysAddSalesLineToTransLine: Codeunit TorlysAddSalesLineToTransLine;
+                        TorlysAddSalesLineToTransLine: Codeunit TlyAddSalesLineToTransLine;
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
-                        if SelectedLines.FindSet() then begin
+                        if SelectedLines.FindSet() then
                             TorlysAddSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
-                        end;
-                        if TransferOrderNumber <> '' then begin
+
+                        if TransferOrderNumber <> '' then
                             repeat
                                 TorlysAddSalesLineToTransLine.AddSalesLineToTransLine(SelectedLines, TransferOrderNumber);
                             until SelectedLines.Next() = 0;
-                        end;
+
                     end;
                 }
                 separator("Separator2")
@@ -608,13 +608,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Visible = Rec."Linked Purchase Order No." = '';
                     trigger OnAction()
                     var
-                        TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                        TorlysLinkSalesLine: Codeunit TlyLinkSalesLine;
                         SelectedLines: Record "Sales Line";
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
-                        if SelectedLines.FindSet() then begin
+                        if SelectedLines.FindSet() then
                             TorlysLinkSalesLine.LinkSalesLineToPurchaseLine(SelectedLines);
-                        end;
                     end;
                 }
                 action("Remove Link To Purchase Order")
@@ -626,9 +625,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Visible = Rec."Linked Purchase Order No." <> '';
                     trigger OnAction()
                     begin
-                        if Rec."Linked Purchase Order No." = '' then begin
-                            Error('ERROR!\This line is not linked to a purchase order');
-                        end else begin
+                        if Rec."Linked Purchase Order No." = '' then
+                            Error('ERROR!\This line is not linked to a purchase order')
+                        else begin
                             Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Purchase Order No.", Rec."Linked Purch. Order Line No.");
                             Rec."Linked Purchase Order No." := '';
                             Rec."Linked Purch. Order Line No." := 0;
@@ -649,13 +648,12 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Visible = Rec."Linked Transfer Order No." = '';
                     trigger OnAction()
                     var
-                        TorlysLinkSalesLine: Codeunit TorlysLinkSalesLine;
+                        TorlysLinkSalesLine: Codeunit TlyLinkSalesLine;
                         SelectedLines: Record "Sales Line";
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
-                        if SelectedLines.FindSet() then begin
+                        if SelectedLines.FindSet() then
                             TorlysLinkSalesLine.LinkSalesLineToTransferLine(SelectedLines);
-                        end;
                     end;
                 }
                 action("Remove Link To Transfer Order")
@@ -667,9 +665,9 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Visible = Rec."Linked Transfer Order No." <> '';
                     trigger OnAction()
                     begin
-                        if Rec."Linked Transfer Order No." = '' then begin
-                            Error('ERROR!\This line is not linked to a transfer order');
-                        end else begin
+                        if Rec."Linked Transfer Order No." = '' then
+                            Error('ERROR!\This line is not linked to a transfer order')
+                        else begin
                             Message('SUCCESS!\%1 from %2 with a quantity of %3 is being removed from %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Transfer Order No.", Rec."Linked Transfer Order Line No.");
                             Rec."Linked Transfer Order No." := '';
                             Rec."Linked Transfer Order Line No." := 0;
@@ -682,7 +680,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
 
@@ -725,13 +723,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     // begin
     // end;
 
-    procedure CheckEditCasePallet(var Rec: Record "Sales Line"): Boolean
+    procedure CheckEditCasePallet(var DocRec: Record "Sales Line"): Boolean
     var
         Item: Record Item;
     begin
-        if Rec.Type <> Rec.Type::Item then exit(false);
-        if Rec."No." = '' then exit(false);
-        Item.Get(Rec."No.");
+        if DocRec.Type <> Rec.Type::Item then exit(false);
+        if DocRec."No." = '' then exit(false);
+        Item.Get(DocRec."No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
     end;

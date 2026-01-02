@@ -344,7 +344,7 @@ pageextension 50031 TorlysItemList extends "Item List"
 
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()

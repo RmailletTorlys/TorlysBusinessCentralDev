@@ -188,7 +188,7 @@ pageextension 59304 TorlysSalesReturnOrderList extends "Sales Return Order List"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];

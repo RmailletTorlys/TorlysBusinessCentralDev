@@ -347,5 +347,5 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

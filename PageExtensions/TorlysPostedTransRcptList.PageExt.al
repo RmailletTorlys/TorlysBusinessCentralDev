@@ -107,5 +107,5 @@ pageextension 55753 TorlysPostedTransRcptList extends "Posted Transfer Receipts"
         }
     }
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 }

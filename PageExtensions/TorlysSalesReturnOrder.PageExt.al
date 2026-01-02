@@ -693,7 +693,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()
@@ -713,7 +713,9 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         OrderAmount: Decimal;
         RestockingAmount: Decimal;
         SalesLine: Record "Sales Line";
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
+        SalesSetup.Get;
         Cust.Get(Rec."Sell-to Customer No.");
         if Cust."Restocking Fee %" = 0 then Error('No Restocking Fee % setup on customer card for %1.', Rec."Sell-to Customer No.");
         if Cust."Restocking Fee Minimum" = 0 then Error('No Restocking Fee Minimum setup on customer card for %1.', Rec."Sell-to Customer No.");
@@ -723,7 +725,8 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         SalesLine.SetRange("Document Type", Rec."Document Type");
         SalesLine.SetRange("Document No.", Rec."No.");
         SalesLine.SetRange(Type, SalesLine.Type::"G/L Account");
-        SalesLine.SetRange("No.", '40500');
+        // SalesLine.SetRange("No.", '40500');
+        SalesLine.SetFilter("No.", SalesSetup."Restocking G/L Acc. No.");
         if SalesLine.Find('-') then
             Error('Restocking line already exists, please remove before adding new.');
 
@@ -755,7 +758,8 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
             SalesLine."Line No." := SalesLine."Line No." + 10000;
             SalesLine.Init;
             SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
-            SalesLine.Validate("No.", '40500');
+            // SalesLine.Validate("No.", '40500');
+            SalesLine.Validate("No.", SalesSetup."Restocking G/L Acc. No.");
             SalesLine.Validate(Quantity, -1);
             SalesLine.Validate("Unit Price", RestockingAmount);
             SalesLine.Insert;

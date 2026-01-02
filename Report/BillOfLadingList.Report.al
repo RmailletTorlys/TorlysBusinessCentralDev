@@ -23,7 +23,7 @@ report 50016 "Bill Of Lading List"
 
             }
 
-            dataitem("Torlys BOL Header"; "Torlys BOL Header")
+            dataitem("Torlys BOL Header"; TlyBillOfLadingHeader)
             {
                 DataItemTableView = sorting("No.");
                 DataItemLinkReference = "Shipping Agent";
@@ -86,11 +86,11 @@ report 50016 "Bill Of Lading List"
 
                 }
 
-                dataitem("Torlys BOL Line"; "Torlys BOL Line")
+                dataitem("Torlys BOL Line"; TlyBillOfLadingLine)
                 {
                     DataItemTableView = sorting("BOL No.", "BOL Line No.");
                     DataItemLinkReference = "Torlys BOL Header";
-                    DataItemLink = "Bol No." = field("No.");
+                    DataItemLink = "BOL No." = field("No.");
                 }
             }
 

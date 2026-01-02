@@ -198,7 +198,7 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
                 ToolTip = 'Freight Zone Code';
                 ApplicationArea = All;
                 Importance = Standard;
-                TableRelation = "Torlys Freight Zones";
+                TableRelation = TlyFreightZone;
             }
         }
 
@@ -478,7 +478,7 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
     }
 
     var
-        LookupUserId: Codeunit "TorlysLookupUserID";
+        LookupUserId: Codeunit TlyLookupUserID;
 
 
 

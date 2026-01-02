@@ -7,7 +7,7 @@ page 51005 "Torlys Processed BOL List"
     DataCaptionFields = "No.";
     Editable = false;
     PageType = List;
-    SourceTable = "Torlys Processed BOL Header";
+    SourceTable = TlyProcessedBillOfLadingHeader;
     AdditionalSearchTerms = 'Bill of Lading, BOL';
 
     layout

@@ -1,8 +1,4 @@
-<<<<<<< HEAD:TableExtensions/TlySalespersonPurchaser.TableExt.al
 tableextension 50013 TlySalespersonPurchaser extends "Salesperson/Purchaser"
-=======
-tableextension 50013 TorlysSalespersonsPurchaser extends "Salesperson/Purchaser"
->>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysSalespersonsPurchaser.TableExt.al
 {
     fields
     {

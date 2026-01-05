@@ -5,7 +5,7 @@ codeunit 50030 TlySalesPost
     begin
         // we want the posting date to be today
         SalesHeader."Posting Date" := WorkDate();
-        SalesHeader.SynchronizeAsmHeader();
+        // SalesHeader.SynchronizeAsmHeader();
         SalesHeader.Validate("Currency Code");
         SalesHeader.Modify(true);
     end;

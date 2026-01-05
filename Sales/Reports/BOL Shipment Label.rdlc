@@ -118,6 +118,9 @@ End Function
         <Field Name="POCount">
           <DataField>POCount</DataField>
         </Field>
+        <Field Name="ShippingAgent1">
+          <DataField>ShippingAgent1</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

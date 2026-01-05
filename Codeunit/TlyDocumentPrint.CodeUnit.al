@@ -150,6 +150,12 @@ codeunit 50299 TlyDocumentPrint
         until ReportSelectionWhse.Next() = 0;
     end;
 
+    procedure PrintBOLShippingLabel(BOLHeader: Record TlyBillOfLadingHeader): Boolean
+    begin
+        BOLHeader.SetRange("No.", BOLHeader."No.");
+        Report.RunModal(50010, true, false, BOLHeader);
+    end;
+
     procedure PrintProcessedBillOfLading(ProcessedBOLHeader: Record TlyProcessedBillOfLadingHeader): Boolean
     var
         ReportSelectionWhse: Record "Report Selection Warehouse";

@@ -97,6 +97,10 @@ report 50010 "BOL Shipment Label"
                     {
 
                     }
+                    column(ShippingAgent1; "Bol Header"."Shipping Agent code")
+                    {
+
+                    }
                 }
 
                 trigger OnPreDataItem()

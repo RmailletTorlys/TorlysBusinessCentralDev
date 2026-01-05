@@ -412,6 +412,8 @@ page 51002 "Torlys BOL"
             // { }
             actionref("Post and Print BOL"; PostAndPrint)
             { }
+            actionref("Print Shipping Label"; PrintShippingLabel)
+            { }
         }
         area(Navigation)
         {
@@ -443,6 +445,17 @@ page 51002 "Torlys BOL"
                     Rec."Cases - Mouldings" := 0;
                     Rec."Cases - Other" := 0;
                     Rec.Modify(true);
+                end;
+            }
+            action(PrintShippingLabel)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print Shipping Label';
+                Caption = 'Print Shipping Label';
+                Image = Print;
+                trigger OnAction()
+                begin
+                    TorlysDocPrint.PrintBOLShippingLabel(Rec);
                 end;
             }
             action(PrintBOL)

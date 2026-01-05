@@ -1,8 +1,5 @@
-<<<<<<< HEAD:TableExtensions/TlyPurchCommentLine.TableExt.al
 tableextension 50043 TlyPurchCommentLine extends "Purch. Comment Line"
-=======
-tableextension 50043 TorlysPurchaseCommentLine extends "Purch. Comment Line"
->>>>>>> 5d97453bc243d6e4cb3019687424c0f4e6bb89a7:TableExtensions/TorlysPurchaseCommentLine.TableExt.al
+
 {
     fields
     {

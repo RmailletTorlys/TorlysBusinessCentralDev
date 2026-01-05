@@ -360,9 +360,11 @@ codeunit 50414 TlyInsertFreightLine
         // add freight line
         if OrderFreightCount = 0 then begin
             // need to open order to add the line, for some reason need the "Get" here
-            Rec.Get(Rec."No.");
-            Rec.Status := Rec.Status::Open;
-            Rec.Modify(true);
+            // can't get this to work though
+            // Message('%1 %2', Rec."Document Type", Rec."No.");
+            // Rec.Get(Rec."Document Type", Rec."No.");
+            // Rec.Status := Rec.Status::Open;
+            // Rec.Modify(true);
             SalesLine.Reset;
             SalesLine.SetRange("Document Type", Rec."Document Type");
             SalesLine.SetRange("Document No.", Rec."No.");

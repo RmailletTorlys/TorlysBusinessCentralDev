@@ -334,11 +334,11 @@ codeunit 50414 TlyInsertFreightLine
         SalesLine.SetFilter("Gen. Prod. Posting Group", 'UNDERLAYMENT');
         SalesLine.SetFilter("Unit of Measure Code", '<>ROLL');
         if SalesLine.Find('-') then begin
-            REPEAT
+            repeat
                 Item.Get(SalesLine."No.");
                 QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
                 ShippedQuantityUnderlaySheet := Round(ShippedQuantityUnderlaySheet + (SalesLine."Qty. to Invoice" / QtyPerCase), 1, '>');
-            UNTIL SalesLine.Next = 0;
+            until SalesLine.Next = 0;
         end;
 
         // if there are no shipped lines, then stop the process
@@ -359,8 +359,8 @@ codeunit 50414 TlyInsertFreightLine
 
         // add freight line
         if OrderFreightCount = 0 then begin
-            Rec.Status := Rec.Status::Open;
-            Rec.Modify();
+            // Rec.Status := Rec.Status::Open;
+            // Rec.Modify(true);
             // Rec.PerformManualReopen(Rec);
             SalesLine.Reset;
             SalesLine.SetRange("Document Type", Rec."Document Type");

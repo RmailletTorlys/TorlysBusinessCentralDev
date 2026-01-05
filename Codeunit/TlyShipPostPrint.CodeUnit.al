@@ -45,9 +45,10 @@ codeunit 50012 TlyShipPostPrint
             SalesHeader.Invoice := false;
 
             // custom to us - start
-            // need to open order to add freight line, moved this to the Freight CU
-            SalesHeader.Status := SalesHeader.Status::Open;
-            SalesHeader.Modify(true);
+            // need to open order to add freight line
+            // moved to the Freight CU, because if the order fails to post for any reason it remains open
+            // SalesHeader.Status := SalesHeader.Status::Open;
+            // SalesHeader.Modify(true);
             // codeunit to add freight line
             InsertFreightLine.SHposting(SalesHeader);
             // custom to us - end

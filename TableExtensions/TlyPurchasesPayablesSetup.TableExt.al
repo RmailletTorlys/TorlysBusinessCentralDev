@@ -1,5 +1,4 @@
 tableextension 50312 TlyPurchasesPayablesSetup extends "Purchases & Payables Setup"
-
 {
     fields
     {

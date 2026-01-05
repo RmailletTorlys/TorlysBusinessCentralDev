@@ -1,5 +1,4 @@
 tableextension 50121 TlyPurchRcptLine extends "Purch. Rcpt. Line"
-
 {
     fields
     {

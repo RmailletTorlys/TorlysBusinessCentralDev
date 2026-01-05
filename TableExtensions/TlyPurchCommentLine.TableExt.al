@@ -1,5 +1,4 @@
 tableextension 50043 TlyPurchCommentLine extends "Purch. Comment Line"
-
 {
     fields
     {

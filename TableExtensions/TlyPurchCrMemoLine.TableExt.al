@@ -1,5 +1,4 @@
 tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
-
 {
     fields
     {

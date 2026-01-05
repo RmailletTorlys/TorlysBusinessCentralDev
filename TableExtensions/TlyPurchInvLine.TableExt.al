@@ -1,5 +1,4 @@
 tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
-
 {
     fields
     {

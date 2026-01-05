@@ -1,5 +1,4 @@
 tableextension 55404 TlyItemUnitOfMeasure extends "Item Unit of Measure"
-
 {
     fields
     {

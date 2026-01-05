@@ -1,5 +1,4 @@
 tableextension 50013 TlySalespersonPurchaser extends "Salesperson/Purchaser"
-
 {
     fields
     {

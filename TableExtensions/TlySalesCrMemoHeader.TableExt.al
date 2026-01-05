@@ -1,5 +1,4 @@
 tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
-
 {
     fields
     {

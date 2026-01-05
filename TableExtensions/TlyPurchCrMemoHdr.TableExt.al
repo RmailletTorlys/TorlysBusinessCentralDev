@@ -1,5 +1,4 @@
 tableextension 50124 TlyPurchCrMemoHdr extends "Purch. Cr. Memo Hdr."
-
 {
     fields
     {

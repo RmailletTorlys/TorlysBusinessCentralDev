@@ -1,5 +1,4 @@
 tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
-
 {
     fields
     {

@@ -353,6 +353,7 @@ pageextension 50132 TorlysPostedSalesInv extends "Posted Sales Invoice"
         modify("Your Reference")
         {
             Importance = Standard;
+            Caption = 'Ordered By';
         }
 
         modify("External Document No.")

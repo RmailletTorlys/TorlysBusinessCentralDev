@@ -41,7 +41,7 @@
             "version": "25.3.6.11",
             "publisher": "Lanham Associates"
         },
-                {
+        {
             "id": "bd6ded48-b30c-48b3-b0a2-7e561d3c0d19",
             "name": "Shipping Connector",
             "version": "4.5.6.4",
@@ -52,6 +52,12 @@
             "name": "Shipping Connector Documentation Library",
             "version": "4.5.6.4",
             "publisher": "Software Grotto"
+        },
+        {
+            "id": "24aff131-8f2b-4fde-86f3-07a1e67fbe26",
+            "name": "Nav-to-Net 10",
+            "version": "10.12.20251016.1",
+            "publisher": "Digital Vantage Point"
         }
 
     ],

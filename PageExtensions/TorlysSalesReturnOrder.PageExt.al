@@ -296,6 +296,7 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         {
             Importance = Standard;
             ShowMandatory = true;
+            Caption = 'Requested By';
             trigger OnBeforeValidate()
             begin
                 if (Rec."Your Reference" = '') and (Rec.Status = Rec.Status::Released) then
@@ -595,7 +596,6 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
         {
             Visible = true;
         }
-
     }
 
     actions
@@ -690,6 +690,18 @@ pageextension 56630 TorlysReturnOrder extends "Sales Return Order"
                 end;
             }
         }
+        // modify(GetPostedDocumentLinesToReverse)
+        // {
+        //     // ApplicationArea = SalesReturnOrder;
+        //     // Caption = 'Test';
+        //     // ToolTip = 'Test tip';
+        //     trigger OnAction()
+        //     begin
+        //         // Rec.GetPstdDocLinesToReverse();
+        //         // CurrPage.SalesLines.Page.ForceTotalsCalculation();
+        //         // CurrPage.Update();
+        //     end;
+        // }
     }
 
     var

@@ -452,7 +452,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Get Price';
                 Ellipsis = true;
                 Image = Price;
-                ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
+                // ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
                 // Visible = not ExtendedPriceEnabled;
                 ObsoleteState = Pending;
                 ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
@@ -480,6 +480,16 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Item.SetRange("No.", Rec."No.");
                     Page.Run(Page::TlyItemAvailability, Item);
                 end;
+            }
+            action(ItemAccessories)
+            {
+                Caption = 'Item Accessories';
+                ToolTip = 'Item Accessories';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "No." = field("No.");
+                RunPageMode = View;
             }
             group(CustomerItemHistory)
             {

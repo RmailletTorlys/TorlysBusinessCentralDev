@@ -289,6 +289,7 @@ pageextension 50044 TorlysSalesCrMemo extends "Sales Credit Memo"
         modify("Your Reference")
         {
             Importance = Standard;
+            Caption = 'Requested By';
             ShowMandatory = true;
             trigger OnBeforeValidate()
             begin

@@ -13,7 +13,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Ship-to Code';
                 ToolTip = 'Ship-to Code';
                 ApplicationArea = All;
-                ShowMandatory = true;
+                ShowMandatory = Rec."Temporary Hold" = false;
             }
         }
 
@@ -26,7 +26,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Order Method';
                 ToolTip = 'Order Method';
                 ApplicationArea = All;
-                ShowMandatory = true;
+                ShowMandatory = Rec."Temporary Hold" = false;
                 trigger OnValidate()
                 begin
                     if (Rec."Order Method" = '') and (Rec.Status = Rec.Status::Released) then
@@ -44,7 +44,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
-                ShowMandatory = true;
+                ShowMandatory = Rec."Temporary Hold" = false;
                 trigger OnValidate()
                 begin
                     if (Rec."Tag Name" = '') and (Rec.Status = Rec.Status::Released) then
@@ -61,6 +61,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                                                                   Blocked = const(false));
                 Visible = true;
                 ShowMandatory = true;
+                // ShowMandatory = Rec."Temporary Hold" = false;
                 trigger OnValidate()
                 begin
                     if (MPOCount <> 0) and (ShortcutDimCode[3] = 'BUILDER') then
@@ -86,7 +87,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 Caption = 'Order Type';
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
-                ShowMandatory = true;
+                ShowMandatory = Rec."Temporary Hold" = false;
                 trigger OnValidate()
                 begin
                     if (Rec."Order Type" = '') and (Rec.Status = Rec.Status::Released) then
@@ -131,7 +132,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
                 Importance = Standard;
-                ShowMandatory = true;
+                ShowMandatory = Rec."Temporary Hold" = false;
                 trigger OnValidate()
                 begin
                     if (Rec."Shipping Instructions" = '') and (Rec.Status = Rec.Status::Released) then
@@ -452,7 +453,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         {
             Importance = Standard;
             Caption = 'Ordered By';
-            ShowMandatory = true;
+            ShowMandatory = Rec."Temporary Hold" = false;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Your Reference" = '') and (Rec.Status = Rec.Status::Released) then
@@ -544,7 +545,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Salesperson Code")
         {
             Importance = Standard;
-            ShowMandatory = true;
+            ShowMandatory = Rec."Temporary Hold" = false;
             trigger OnBeforeValidate()
             begin
                 if (Rec."Salesperson Code" = '') and (Rec.Status = Rec.Status::Released) then
@@ -570,7 +571,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Shortcut Dimension 1 Code")
         {
             Importance = Promoted;
-            ShowMandatory = true;
+            ShowMandatory = Rec."Temporary Hold" = false;
         }
         modify("Currency Code")
         {
@@ -591,7 +592,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         modify("Tax Area Code")
         {
             Importance = Standard;
-            ShowMandatory = true;
+            ShowMandatory = Rec."Temporary Hold" = false;
         }
 
         modify("Sell-to Contact")
@@ -783,7 +784,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         {
             Editable = false;
             Importance = Additional;
-            ShowMandatory = true;
+            ShowMandatory = Rec."Temporary Hold" = false;
         }
 
         modify("Payment Discount %")
@@ -812,7 +813,7 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
         }
         modify("Location Code")
         {
-            ShowMandatory = true;
+            ShowMandatory = Rec."Temporary Hold" = false;
         }
 
     }

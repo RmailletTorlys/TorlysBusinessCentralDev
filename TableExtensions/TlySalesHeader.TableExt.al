@@ -60,6 +60,10 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         {
             Caption = 'Temporary Hold';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "Temporary Hold" then "Order Type" := 'Hold Order'
+            end;
         }
 
         field(50010; "No. Pick Slips Printed"; Integer)

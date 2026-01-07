@@ -508,6 +508,48 @@ pageextension 50030 TorlysItemCard extends "Item Card"
         }
     }
 
+    actions
+    {
+        addlast(Category_Process)
+        {
+            actionref(ItemAvailability_Promoted; ItemAvailability)
+            {
+            }
+            actionref(ItemAccessories_Promoted; ItemAccessories)
+            { }
+        }
+
+        addafter(ApplyTemplate)
+        {
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."No.");
+                    Page.Run(Page::TlyItemAvailability, Item);
+                end;
+            }
+            action(ItemAccessories)
+            {
+                Caption = 'Item Accessories';
+                ToolTip = 'Item Accessories';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "No." = field("No.");
+                RunPageMode = View;
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];

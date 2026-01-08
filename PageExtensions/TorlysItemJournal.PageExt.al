@@ -137,7 +137,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
         Item: Record Item;
     begin
         if Rec."No." = '' then exit(false);
-        Item.Get(Rec."No.");
+        Item.Get(Rec."Item No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
     end;

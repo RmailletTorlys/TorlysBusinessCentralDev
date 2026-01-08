@@ -398,8 +398,6 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         }
     }
 
-
-
     // var
     //     EditCasePallet: Boolean;
 

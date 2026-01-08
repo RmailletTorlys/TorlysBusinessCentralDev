@@ -2,6 +2,7 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
 {
     dataset
     {
+
         modify("Sales Shipment Header")
         {
             trigger OnAfterAfterGetRecord()
@@ -102,6 +103,22 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
         }
     }
 
+    requestpage
+    {
+        layout
+        {
+            addbefore(NumOfBlanksInput)
+            {
+                field(NoCopies; NoCopiesVar)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Number of Copies';
+                    ToolTip = 'Specifies the number of copies of each document (in addition to the original) that you want to print.';
+                }
+            }
+        }
+    }
+
     var
         ShipmentMethod: Record "Shipment Method";
         ShippingAgent: Record "Shipping Agent";
@@ -113,4 +130,7 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
         DayOfWeekNo: Integer;
         DayOfWeek: Text;
         ShipDate: Text[10];
+        NoCopiesVar: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
 }

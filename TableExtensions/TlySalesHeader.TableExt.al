@@ -117,8 +117,28 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
             trigger OnValidate()
             var
+                SalesHeader: Record "Sales Header";
+                SalesCrMemo: Record "Sales Cr.Memo Header";
                 SalesInvoiceHeader: Record "Sales Invoice Header";
             begin
+                if ("Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
+                    if "Original Invoice No." <> xRec."Original Invoice No." then begin
+                        // Check open CM/RO
+                        SalesHeader.Reset;
+                        SalesHeader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        SalesHeader.SetRange("Original Invoice No.", "Original Invoice No.");
+                        SalesHeader.SetFilter("Document Type", '%1', "Document Type"::"Credit Memo");
+                        if (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
+                            Message('Invoice number %1 exists on open credit memo %3. Please investigate!', "Original Invoice No.", SalesHeader."Document Type", SalesHeader."No.");
+                        // Check posted CR
+                        SalesCrMemo.Reset;
+                        SalesCrMemo.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        SalesCrMemo.SetRange("Original Invoice No.", "Original Invoice No.");
+                        if SalesCrMemo.Find('-') and (SalesCrMemo."No." <> "No.") then
+                            Message('Invoice number %1 exists on posted credit memo %2. Please investigate!', "Original Invoice No.", SalesCrMemo."No.");
+                    end;
+                end;
+
                 if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
                     SalesInvoiceHeader.Get(Rec."Original Invoice No.");
                     Rec."External Document No." := SalesInvoiceHeader."External Document No.";
@@ -294,6 +314,33 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             trigger OnAfterValidate()
             begin
                 CopyCommentsFromCustCardToSalesHeader();
+            end;
+        }
+
+        modify("External Document No.")
+        {
+            trigger OnAfterValidate()
+            var
+                SalesHeader: Record "Sales Header";
+                SalesInvoiceHeader: Record "Sales Invoice Header";
+            begin
+                if ("Document Type" in ["Document Type"::Order, "Document Type"::Invoice]) then begin
+                    if "External Document No." <> xRec."External Document No." then begin
+                        // Check open OR/SI
+                        SalesHeader.Reset();
+                        SalesHeader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        SalesHeader.SetRange("External Document No.", "External Document No.");
+                        SalesHeader.SetFilter("Document Type", '%1|%2', "Document Type"::Order, "Document Type"::Invoice);
+                        IF (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
+                            Error('Customer PO # %1 exists on order # %2!', "External Document No.", SalesHeader."No.");
+                        // Check posted invoices
+                        SalesInvoiceHeader.Reset();
+                        SalesInvoiceHeader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        SalesInvoiceHeader.SetRange("External Document No.", "External Document No.");
+                        if (SalesInvoiceHeader.Find('-')) then
+                            Error('Customer PO # %1 exists on invoice # %2!', "External Document No.", SalesInvoiceHeader."No.");
+                    end;
+                end;
             end;
         }
     }

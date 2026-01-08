@@ -173,7 +173,7 @@ codeunit 50299 TlyDocumentPrint
     var
         SalesLine: Record "Sales Line";
     begin
-        SalesLine.SetRange("No.", SalesHeader."No.");
+        SalesLine.SetRange("Document No.", SalesHeader."No.");
         Report.RunModal(50023, true, false, SalesLine)
     end;
 
@@ -181,7 +181,7 @@ codeunit 50299 TlyDocumentPrint
     var
         SalesLine: Record "Sales Line";
     begin
-        SalesLine.SetRange("No.", SalesHeader."No.");
+        SalesLine.SetRange("Document No.", SalesHeader."No.");
         Report.RunModal(50020, true, false, SalesLine)
     end;
 

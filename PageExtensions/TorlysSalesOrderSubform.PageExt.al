@@ -49,7 +49,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Case';
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
-                Editable = EditCasePallet;
+                Editable = EditQTS and EditCasePallet;
                 // trigger OnValidate()
                 // begin
                 //     OnValidateQtyToShipCase(Rec, xRec);
@@ -61,7 +61,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
-                Editable = EditCasePallet;
+                Editable = EditQTS and EditCasePallet;
                 // trigger OnValidate()
                 // begin
                 //     OnValidateQtyToShipPallet(Rec, xRec);
@@ -439,6 +439,11 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                 end;
             end;
         }
+
+        modify("Qty. to Ship")
+        {
+            Editable = EditQTS;
+        }
     }
 
     actions
@@ -693,6 +698,14 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
         LookupUserId: Codeunit TlyLookupUserID;
         UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
+        UserSetup: Record "User Setup";
+        EditQTS: Boolean;
+
+    trigger OnOpenPage()
+    begin
+        UserSetup.Get(UserId);
+        if UserSetup."SO Qty. to Ship Edit" then EditQTS := true;
+    end;
 
     trigger OnAfterGetRecord()
     begin
@@ -733,13 +746,13 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
     // begin
     // end;
 
-    procedure CheckEditCasePallet(var DocRec: Record "Sales Line"): Boolean
+    procedure CheckEditCasePallet(var SalesLine: Record "Sales Line"): Boolean
     var
         Item: Record Item;
     begin
-        if DocRec.Type <> Rec.Type::Item then exit(false);
-        if DocRec."No." = '' then exit(false);
-        Item.Get(DocRec."No.");
+        if SalesLine.Type <> Rec.Type::Item then exit(false);
+        if SalesLine."No." = '' then exit(false);
+        Item.Get(SalesLine."No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
     end;

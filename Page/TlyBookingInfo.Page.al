@@ -3,14 +3,9 @@ page 51009 TlyBookingInfo
     ApplicationArea = Basic, Suite, Assembly;
     UsageCategory = Lists;
     Caption = 'Booking Info';
-    // DataCaptionFields = "No.";
-    // Editable = false;
     PageType = List;
     SourceTable = TlyBookingInfo;
     DeleteAllowed = false;
-    ModifyAllowed = false;
-    // ModifyAllowed = true;
-    // InsertAllowed = false;
 
     layout
     {
@@ -24,7 +19,14 @@ page 51009 TlyBookingInfo
                     ApplicationArea = Basic, Suite;
                     Caption = 'No.';
                     ToolTip = 'Booking No.';
-                    Editable = false;
+                    // Editable = false;
+                }
+                field("Location Code"; Rec."Location Code")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Location Code';
+                    ToolTip = 'Location Code';
+                    // Editable = false;
                 }
                 field("Open PO Count"; Rec."Open PO Count")
                 {
@@ -52,6 +54,7 @@ page 51009 TlyBookingInfo
                     ApplicationArea = Basic, Suite;
                     Caption = 'Appointment Date';
                     ToolTip = 'Appointment Date';
+                    Editable = false;
                 }
 
                 field("Appointment Time"; Rec."Appointment Time")
@@ -59,6 +62,7 @@ page 51009 TlyBookingInfo
                     ApplicationArea = Basic, Suite;
                     Caption = 'Appointment Time';
                     ToolTip = 'Appointment Time';
+                    Editable = false;
                 }
 
                 field("Received by"; Rec."Received by")
@@ -123,7 +127,6 @@ page 51009 TlyBookingInfo
                             Rec."Appointment Date" := DatePage.GetDateTime.Date();
                             Rec."Appointment Time" := DatePage.GetDateTime.Time();
                             Rec.Modify(true);
-                        // Message('table = %1 popup = %2', Rec."Appointment Date", DatePage.GetDate());
                         until BookingInfo.Next() = 0;
                     end;
                     CurrPage.Update(true);
@@ -146,7 +149,7 @@ page 51009 TlyBookingInfo
                         ReceiverPage.LookupMode(true);
                         ReceiverRecord.Reset;
                         ReceiverRecord.SetFilter("Job Title", 'Warehouse Associate');
-                        // ReceiverRecord.SetFilter("Order Shipping Location", BookingInfo."Location Code");
+                        ReceiverRecord.SetFilter("Order Shipping Location", BookingInfo."Location Code");
                         ReceiverRecord.SetFilter("Code", '<>%1', ReceiverRecord.Code);
                         ReceiverPage.SetTableView(ReceiverRecord);
                         ReceiverPage.Caption('Choose RECEIVER below');
@@ -202,8 +205,53 @@ page 51009 TlyBookingInfo
             }
         }
     }
+
+    views
+    {
+        // addlast
+        // {
+        view(TodayTOR)
+        {
+            Caption = 'Today TOR';
+            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T'));
+            OrderBy = ascending("Appointment Date", "Appointment Time");
+        }
+        // view(TomorrowTOR)
+        // {
+        //     Caption = 'Tomorrow TOR';
+        //     Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T+1'));
+        //     OrderBy = ascending("Appointment Date", "Appointment Time");
+        // }
+        view(TodayCAL)
+        {
+            Caption = 'Today CAL';
+            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('T'));
+            OrderBy = ascending("Appointment Date", "Appointment Time");
+        }
+        // view(TomorrowCAL)
+        // {
+        //     Caption = 'Tomorrow CAL';
+        //     Filters = where("Location Code" = const('CAL'), "Appointment Date" = field(Tomorrow));
+        //     OrderBy = ascending("Appointment Date", "Appointment Time");        
+        // }
+        // }
+    }
+    // var
+    //     Today: Date;
+    //     Tomorrow: Date;
+
     trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
     begin
         Rec.CalcFields("Open PO Count", "Open Transfer Count");
+
+        // UserSetup.Get(UserId);
+        // Rec.SetFilter("Location Code", UserSetup."Default Location Code");
+
+        // Rec.SetFilter("Appointment Date", '%1', WorkDate());
+
+        // Today := Workdate();
+        // Tomorrow := Workdate() + 1;
     end;
 }

@@ -71,7 +71,11 @@ report 50008 "Bill Of Lading"
             {
 
             }
-            column(Picking_instructions; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            // column(Picking_instructions; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            // {
+
+            // }
+            column(ShippingAgentName; ShippingAgent."Name")
             {
 
             }

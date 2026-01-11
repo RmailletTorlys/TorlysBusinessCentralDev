@@ -259,6 +259,10 @@ report 50008 "Bill Of Lading"
             {
 
             }
+            column(ShippingAgent; ShippingAgent.Name)
+            {
+
+            }
 
             trigger OnPreDataItem()
             begin

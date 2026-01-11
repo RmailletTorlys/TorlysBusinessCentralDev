@@ -132,6 +132,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(Ship_to_Code; "Ship-to Code")
+            {
+
+            }
         }
 
         add("sales Line")

@@ -117,7 +117,24 @@ pageextension 50031 TorlysItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
-
+            field("Qty. on Hand (TOR)"; Rec."Qty. on Hand (TOR)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (TOR)';
+                ToolTip = 'Qty. on Hand (TOR)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Qty. on Hand (CAL)"; Rec."Qty. on Hand (CAL)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (CAL)';
+                ToolTip = 'Qty. on Hand (CAL)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
             field("Qty. on Sales Order"; Rec."Qty. on Sales Order")
             {
                 ApplicationArea = Dimensions;

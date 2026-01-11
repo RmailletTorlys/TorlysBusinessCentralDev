@@ -269,6 +269,12 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
             TableRelation = TlyBillOfLadingHeader;
             DataClassification = CustomerContent;
         }
+
+        field(50050; "MK Staged Quantity"; Integer)
+        {
+            Caption = 'MK Staged Quantity';
+            DataClassification = CustomerContent;
+        }
     }
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var

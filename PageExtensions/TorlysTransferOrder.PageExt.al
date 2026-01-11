@@ -9,6 +9,7 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Caption = 'Transfer Type';
                 ToolTip = 'Transfer Type';
                 ApplicationArea = All;
+                ShowMandatory = true;
                 Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
         }
@@ -123,6 +124,30 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
         modify("Assigned User ID")
         {
             Visible = false;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            ShowMandatory = true;
+            Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            ShowMandatory = true;
+            Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+        }
+
+        modify("Shipment Date")
+        {
+            ShowMandatory = true;
+            Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+        }
+
+        modify("Receipt Date")
+        {
+            ShowMandatory = true;
+            Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
         }
     }
 

@@ -2,7 +2,6 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
 {
     layout
     {
-
         moveafter(ShowMap; "Phone No.", "Fax No.", "E-Mail")
 
         addafter("E-Mail")
@@ -149,21 +148,21 @@ pageextension 50300 TorlysShipToAddressCard extends "Ship-to Address"
         }
     }
 
-    trigger OnNewRecord(BelowxRec: Boolean)
-    var
-        Customer: Record Customer;
-    begin
-        if not Customer.Get(Rec.GetFilterCustNo()) then
-            exit;
-        Rec.Validate("Location Code", Customer."Location Code");
-        Rec.Validate("Shipment Method Code", Customer."Shipment Method Code");
-        Rec.Validate("Shipping Agent Code", Customer."Shipping Agent Code");
-        Rec.Validate("Freight Zone Code", Customer."Freight Zone Code");
-        Rec.Validate("Shipping Instructions", Customer."Shipping Instructions");
-        Rec.Validate("Shipping Comment", Customer."Shipping Comment");
-        Rec.Validate("Tax Liable", Customer."Tax Liable");
-        Rec.Validate("Tax Area Code", Customer."Tax Area Code");
-    end;
+    // trigger OnNewRecord(BelowxRec: Boolean)
+    // var
+    //     Customer: Record Customer;
+    // begin
+    //     if not Customer.Get(Rec.GetFilterCustNo()) then
+    //         exit;
+    //     Rec.Validate("Location Code", Customer."Location Code");
+    //     Rec.Validate("Shipment Method Code", Customer."Shipment Method Code");
+    //     Rec.Validate("Shipping Agent Code", Customer."Shipping Agent Code");
+    //     Rec.Validate("Freight Zone Code", Customer."Freight Zone Code");
+    //     Rec.Validate("Shipping Instructions", Customer."Shipping Instructions");
+    //     Rec.Validate("Shipping Comment", Customer."Shipping Comment");
+    //     Rec.Validate("Tax Liable", Customer."Tax Liable");
+    //     Rec.Validate("Tax Area Code", Customer."Tax Area Code");
+    // end;
 
     var
         LookupUserId: Codeunit TlyLookupUserID;

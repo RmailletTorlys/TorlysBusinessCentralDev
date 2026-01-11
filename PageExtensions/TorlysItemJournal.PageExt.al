@@ -23,8 +23,8 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
             {
                 Caption = 'Quantity Pallet';
                 ToolTip = 'Quantity Pallet';
-                Editable = EditCasePallet;
                 ApplicationArea = All;
+                Editable = EditCasePallet;
                 //     trigger OnValidate()
                 //     begin
                 //         OnValidatePallet(Rec, xRec);
@@ -33,7 +33,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
             }
         }
 
-        moveafter("Quantity Pallet"; "Unit Amount", "Unit Cost", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Reason Code")
+        moveafter("Quantity Pallet"; "Unit Amount", "Amount", "Unit Cost", "Reason Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode4)
 
         modify("Entry Type")
         {
@@ -53,6 +53,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
         modify("Reason Code")
         {
             Visible = true;
+            ShowMandatory = true;
         }
 
         modify("Price Calculation Method")
@@ -67,7 +68,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
 
         modify(Amount)
         {
-            Visible = false;
+            Editable = false;
         }
 
         modify("Discount Amount")
@@ -87,7 +88,8 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
 
         modify(ShortcutDimCode4)
         {
-            Visible = false;
+            Editable = false;
+            ShowMandatory = true;
         }
 
         modify(ShortcutDimCode5)
@@ -106,6 +108,26 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
         {
             Visible = false;
         }
+
+        modify("Unit Cost")
+        {
+            Editable = false;
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            ShowMandatory = true;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            ShowMandatory = true;
+        }
+
+        modify("Location Code")
+        {
+            ShowMandatory = true;
+        }
     }
 
     var
@@ -115,6 +137,7 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
     begin
         // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
+        // Message('%1', EditCasePallet);
     end;
 
     // [IntegrationEvent(false, false)]
@@ -136,8 +159,8 @@ pageextension 50040 TorlysItemJournal extends "Item Journal"
     var
         Item: Record Item;
     begin
-        if Rec."No." = '' then exit(false);
-        Item.Get(Rec."No.");
+        if Rec."Item No." = '' then exit(false);
+        Item.Get(Rec."Item No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
     end;

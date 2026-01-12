@@ -100,6 +100,13 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Booking No.';
                 ApplicationArea = All;
             }
+            field("Container No."; Rec."Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 Caption = 'Outstanding Quantity';
@@ -359,6 +366,30 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
         modify("Drop Shipment")
         {
             Visible = true;
+        }
+    }
+
+    actions
+    {
+        addfirst("&Line")
+        {
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                Promoted = true;
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."No.");
+                    Page.Run(Page::TlyItemAvailability, Item);
+                end;
+            }
         }
     }
 

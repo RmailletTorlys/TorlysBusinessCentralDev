@@ -87,6 +87,22 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
 
         addafter(Status)
         {
+            field("Fully Shipped"; Rec."Completely Shipped")
+            {
+                Caption = 'Completely Shipped';
+                ToolTip = 'Completely Shipped';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+            field("Fully Received"; Rec."Completely Received")
+            {
+                Caption = 'Completely Shipped';
+                ToolTip = 'Completely Shipped';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -155,6 +171,9 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
     {
         addlast(Category_Category6)
         {
+            actionref(PopulateQtyToReceive; "Populate Qty. to Receive")
+            {
+            }
             actionref(JoinedSO; "View and Fill Joined SO")
             {
             }
@@ -165,6 +184,26 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
 
         addlast(Documents)
         {
+            action("Populate Qty. to Receive")
+            {
+                ApplicationArea = Location;
+                Caption = 'Populate Qty. to Receive';
+                ToolTip = 'Populate Qty. to Receive';
+                Image = ReceiveLoaner;
+                trigger OnAction()
+                var
+                    TransferLine: Record "Transfer Line";
+                begin
+                    TransferLine.Reset();
+                    TransferLine.SetRange("Document No.", Rec."No.");
+                    if TransferLine.Find('-') then begin
+                        repeat
+                            TransferLine.Validate(TransferLine."Qty. to Receive", TransferLine."Qty. in Transit");
+                            TransferLine.Modify(true);
+                        until TransferLine.Next() = 0;
+                    end
+                end;
+            }
             action("View and Fill Joined SO")
             {
                 ApplicationArea = Location;

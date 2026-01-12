@@ -211,6 +211,15 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             FieldClass = FlowField;
             CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Purchase Order No." = field("Document No."), "Linked Purch. Order Line No." = field("Line No.")));
         }
+
+        field(50017; "Container No."; Code[20])
+        {
+            Caption = 'Container No.';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Document No."), "Document Line No." = field("Line No.")));
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()

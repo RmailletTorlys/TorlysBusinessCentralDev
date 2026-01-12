@@ -36,7 +36,7 @@ page 50561 TlyItemAvailabilitySubform
                     begin
                         ItemLedgerEntry.Reset;
                         ItemLedgerEntry.SetRange("Item No.", Item."No.");
-                        ItemLedgerEntry.SetFilter("Location Code", Item.GETFILTER("Location Filter"));
+                        ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
                         ItemLedgerEntry.SetFilter(Open, 'Yes');
                         Page.Run(0, ItemLedgerEntry);
                     end;
@@ -130,7 +130,7 @@ page 50561 TlyItemAvailabilitySubform
                         PurchaseLine.SetRange(Type, PurchaseLine.Type::Item);
                         PurchaseLine.SetRange("No.", Item."No.");
                         PurchaseLine.SetFilter("Location Code", Item.GetFilter("Location Filter"));
-                        PurchaseLine.SetFilter(Quantity, '<>0');
+                        PurchaseLine.SetFilter("Outstanding Quantity", '<>0');
                         Page.Run(0, PurchaseLine);
                     end;
                 }

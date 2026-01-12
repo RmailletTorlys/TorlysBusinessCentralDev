@@ -21,4 +21,9 @@ Enum 50006 TlyTransferType
     {
         Caption = 'Marketing';
     }
+
+    value(4; "Supplier Purchase")
+    {
+        Caption = 'Supplier Purchase';
+    }
 }

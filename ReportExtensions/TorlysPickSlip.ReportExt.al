@@ -64,7 +64,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(PritingDescription; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            column(PritingDescription; ShippingAgent.Name)
             {
 
             }

@@ -17,7 +17,7 @@ report 50018 "Packing Slip"
             column(No_SalesShptHeader; "No.")
             {
             }
-            column(ShippingAgent; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            column(ShippingAgent; ShippingAgent.Name)
             {
 
             }
@@ -30,6 +30,10 @@ report 50018 "Packing Slip"
 
             }
             column(Your_Reference; "Your Reference")
+            {
+
+            }
+            column(Salesperson_Code; "Salesperson Code")
             {
 
             }
@@ -279,7 +283,7 @@ report 50018 "Packing Slip"
                         column(TempSalesShptLineNo; TempSalesShipmentLine."No.")
                         {
                         }
-                        column(TempSalesShptLineUOM; TempSalesShipmentLine."Unit of Measure")
+                        column(TempSalesShptLineUOM; TempSalesShipmentLine."Unit of Measure Code")
                         {
                         }
                         column(TempSalesShptLineQy; TempSalesShipmentLine.Quantity)

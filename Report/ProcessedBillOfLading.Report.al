@@ -255,6 +255,10 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
+            column(ShippingAgent; ShippingAgent.Name)
+            {
+
+            }
 
             trigger OnPreDataItem()
             begin

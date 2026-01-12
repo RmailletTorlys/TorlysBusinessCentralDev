@@ -298,6 +298,9 @@ End Function
         <Field Name="Prepaidmessage">
           <DataField>Prepaidmessage</DataField>
         </Field>
+        <Field Name="ShippingAgent">
+          <DataField>ShippingAgent</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

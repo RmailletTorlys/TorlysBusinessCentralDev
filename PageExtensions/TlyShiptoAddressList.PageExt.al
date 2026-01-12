@@ -14,8 +14,8 @@ pageextension 50301 TlyShiptoAddressList extends "Ship-to Address List"
             }
         }
 
-        moveafter(County; "Post Code","Country/Region Code", "Phone No.", "Fax No.")
-        
+        moveafter(County; "Post Code", "Country/Region Code", "Phone No.", "Fax No.")
+
         addafter("Fax No.")
         {
             field("E-mail"; Rec."E-mail")
@@ -26,10 +26,12 @@ pageextension 50301 TlyShiptoAddressList extends "Ship-to Address List"
                 Visible = false;
             }
         }
-moveafter("E-mail"; "Location Code")            
-addafter("Location Code")
-                        {
-                            field("Shipping Agent Code"; Rec."Shipping Agent Code")
+
+        moveafter("E-mail"; "Location Code")
+
+        addafter("Location Code")
+        {
+            field("Shipping Agent Code"; Rec."Shipping Agent Code")
             {
                 ApplicationArea = All;
                 Caption = 'Shipping Agent Code';
@@ -41,13 +43,13 @@ addafter("Location Code")
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Freight Zone Code';
             }
-                        field("Shipping Instructions"; Rec."Shipping Instructions")
+            field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 ApplicationArea = All;
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
             }
-                                    field("Shipping Comment"; Rec."Shipping Comment")
+            field("Shipping Comment"; Rec."Shipping Comment")
             {
                 ApplicationArea = All;
                 Caption = 'Shipping Comment';
@@ -65,22 +67,22 @@ addafter("Location Code")
             Visible = true;
         }
 
-modify("Post Code")
-{
-    Visible = true;
-}
-modify("Country/Region Code")
-{
-    Visible = false;
-}
-modify("Phone No.")
-{
-    Visible = false;
-}
-modify("Fax No.")
-{
-    Visible = false;
-}
+        modify("Post Code")
+        {
+            Visible = true;
+        }
+        modify("Country/Region Code")
+        {
+            Visible = false;
+        }
+        modify("Phone No.")
+        {
+            Visible = false;
+        }
+        modify("Fax No.")
+        {
+            Visible = false;
+        }
     }
     var
         LookupUserId: Codeunit TlyLookupUserID;

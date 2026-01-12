@@ -270,6 +270,12 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
+        field(50050; "MK Staged Quantity"; Integer)
+        {
+            Caption = 'MK Staged Quantity';
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys

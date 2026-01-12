@@ -64,7 +64,11 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(PritingDescription; ShippingAgent."Pickup/Beyond Dest. Instr.")
+            column(PritingDescription; ShippingAgent.Name)
+            {
+
+            }
+            column(agentno; shippingagent."Agent No.")
             {
 
             }
@@ -132,6 +136,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(Ship_to_Code; "Ship-to Code")
+            {
+
+            }
         }
 
         add("sales Line")
@@ -183,7 +191,16 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         }
         modify("Sales Header")
         {
-            RequestFilterFields = "Ship-to Code";
+            // RequestFilterFields = "Ship-to Code";
+            trigger OnAfterPreDataItem()
+            begin
+                "Sales Header".FilterGroup(2);
+                "Sales Header".SetFilter("Qty. to Ship", '>0');
+                "Sales Header".SetFilter("Status", 'Released');
+                "Sales Header".SetFilter("On Hold", '%1', '');
+                "Sales Header".FilterGroup(0);
+            end;
+
             trigger OnAfterAfterGetRecord()
             var
                 BarcodeSymbology: Enum "Barcode Symbology";

@@ -69,6 +69,14 @@ table 55009 TlyBookingInfo
             FieldClass = FlowField;
             CalcFormula = count("Transfer Header" where("Booking No." = field("No.")));
         }
+
+        field(11; "Location Code"; Code[20])
+        {
+            Caption = 'Location Code';
+            DataClassification = CustomerContent;
+            // FieldClass = FlowField;
+            // CalcFormula = lookup("Transfer Header"."Transfer-to Code" where("Booking No." = field("No.")));
+        }
     }
 
     keys
@@ -77,26 +85,37 @@ table 55009 TlyBookingInfo
         {
             Clustered = true;
         }
+
+        key(Key1; "Appointment Date", "Appointment Time")
+        {
+            Clustered = false;
+        }
     }
 
     trigger OnInsert()
     var
         PurchSetup: Record "Purchases & Payables Setup";
-        NoSeries: Codeunit "No. Series";
+        NoSeriesMgt: Codeunit "No. Series";
     begin
-        PurchSetup.FindFirst();
-        if not PurchSetup.IsEmpty() then
-            Rec."No." := NoSeries.GetNextNo(PurchSetup."Booking Nos.");
+        // PurchSetup.FindFirst();
+        // if not PurchSetup.IsEmpty() then
+        //     Rec."No." := NoSeries.GetNextNo(PurchSetup."Booking Nos.");
+
+        PurchSetup.Get();
+        if "No." = '' then begin
+            PurchSetup.TestField("Booking Nos.");
+            "No." := NoSeriesMgt.GetNextNo(PurchSetup."Booking Nos.", Today, true);
+        end;
     end;
 
-    procedure AssistEdit(OldBookingInfo: Record TlyBookingInfo) Result: Boolean
-    var
-        PurchSetup: Record "Purchases & Payables Setup";
-        NoSeries: Codeunit "No. Series";
-    begin
-        PurchSetup.FindFirst();
-        if not PurchSetup.IsEmpty() then
-            Rec."No." := NoSeries.GetNextNo(PurchSetup."Booking Nos.");
-        exit(true);
-    end;
+    // procedure AssistEdit(OldBookingInfo: Record TlyBookingInfo) Result: Boolean
+    // var
+    //     PurchSetup: Record "Purchases & Payables Setup";
+    //     NoSeries: Codeunit "No. Series";
+    // begin
+    //     PurchSetup.FindFirst();
+    //     if not PurchSetup.IsEmpty() then
+    //         Rec."No." := NoSeries.GetNextNo(PurchSetup."Booking Nos.");
+    //     exit(true);
+    // end;
 }

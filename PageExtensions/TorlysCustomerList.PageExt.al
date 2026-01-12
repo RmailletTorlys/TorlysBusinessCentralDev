@@ -399,11 +399,6 @@ pageextension 50022 TorlysCustomerList extends "Customer List"
             Visible = true;
         }
 
-        modify("Phone No.")
-        {
-            Visible = false;
-        }
-
         modify("Payment Terms Code")
         {
             Visible = true;
@@ -432,8 +427,10 @@ pageextension 50022 TorlysCustomerList extends "Customer List"
         {
             Visible = false;
         }
-
-
+        modify("Post Code")
+        {
+            Visible = true;
+        }
     }
 
 

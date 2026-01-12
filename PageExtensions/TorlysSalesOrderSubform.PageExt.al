@@ -593,7 +593,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Caption = 'Add To Transfer Order';
                     Image = TransferToLines;
                     ApplicationArea = All;
-                    Visible = Rec."Transfer Order No." = '';
+                    Visible = (Rec."Transfer Order No." = '') and (Rec."Linked Transfer Order No." = '') and (Rec."Linked Purchase Order No." = '');
                     trigger OnAction()
                     var
                         SelectedLines: Record "Sales Line";
@@ -620,7 +620,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Caption = 'Link To Purchase Order';
                     Image = Purchase;
                     ApplicationArea = All;
-                    Visible = Rec."Linked Purchase Order No." = '';
+                    Visible = (Rec."Transfer Order No." = '') and (Rec."Linked Transfer Order No." = '') and (Rec."Linked Purchase Order No." = '');
                     trigger OnAction()
                     var
                         TorlysLinkSalesLine: Codeunit TlyLinkSalesLine;
@@ -637,7 +637,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Caption = 'Remove Link To Purchase Order';
                     Image = RemoveLine;
                     ApplicationArea = All;
-                    Visible = Rec."Linked Purchase Order No." <> '';
+                    Visible = (Rec."Linked Purchase Order No." <> '');
                     trigger OnAction()
                     begin
                         if Rec."Linked Purchase Order No." = '' then
@@ -660,7 +660,8 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Caption = 'Link To Transfer Order';
                     Image = TransferOrder;
                     ApplicationArea = All;
-                    Visible = Rec."Linked Transfer Order No." = '';
+                    Visible = (Rec."Transfer Order No." = '') and (Rec."Linked Transfer Order No." = '') and (Rec."Linked Purchase Order No." = '');
+                    ;
                     trigger OnAction()
                     var
                         TorlysLinkSalesLine: Codeunit TlyLinkSalesLine;
@@ -677,7 +678,7 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                     Caption = 'Remove Link To Transfer Order';
                     Image = RemoveLine;
                     ApplicationArea = All;
-                    Visible = Rec."Linked Transfer Order No." <> '';
+                    Visible = (Rec."Linked Transfer Order No." <> '');
                     trigger OnAction()
                     begin
                         if Rec."Linked Transfer Order No." = '' then

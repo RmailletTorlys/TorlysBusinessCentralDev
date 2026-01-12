@@ -209,6 +209,30 @@ pageextension 55741 TorlysTransferOrderSubform extends "Transfer Order Subform"
         }
     }
 
+    actions
+    {
+        addfirst("&Line")
+        {
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                Promoted = true;
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."Item No.");
+                    Page.Run(Page::TlyItemAvailability, Item);
+                end;
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;

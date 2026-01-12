@@ -309,6 +309,12 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50050; "MK Staged Quantity"; Integer)
+        {
+            Caption = 'MK Staged Quantity';
+            DataClassification = CustomerContent;
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()

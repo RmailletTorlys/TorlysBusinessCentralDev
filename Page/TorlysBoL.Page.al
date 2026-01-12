@@ -73,6 +73,33 @@ page 51002 "Torlys BOL"
                     ToolTip = 'Specifies the code of the shipping agent.';
                     Caption = 'Shipping Agent Code';
                     Importance = Promoted;
+                    trigger OnValidate()
+                    var
+                        ShippingAgent: Record "Shipping Agent";
+                        TestInteger: Integer;
+                    begin
+                        ShippingAgent.Reset();
+                        if Evaluate(TestInteger, Rec."Shipping Agent Code") then begin
+                            ShippingAgent.SetFilter("Agent No.", Rec."Shipping Agent Code");
+                            if ShippingAgent.Find('-') then begin
+                                Rec."Shipping Agent Code" := ShippingAgent.Code;
+                            end else begin
+                                if not ShippingAgent.Get(Rec."Shipping Agent Code") THEN
+                                    ERROR('Agent No. %1 does not exist!', Rec."Shipping Agent Code");
+                            end;
+                        end else
+                            if not ShippingAgent.Get(Rec."Shipping Agent Code") THEN
+                                Error('Shipping Agent %1 does not exist!', Rec."Shipping Agent Code");
+                    end;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        ShippingAgent: Record "Shipping Agent";
+                    begin
+                        if Page.RunModal(Page::"Shipping Agents", ShippingAgent) = Action::LookupOK then begin
+                            Rec.Validate(Rec."Shipping Agent Code", ShippingAgent.Code);
+                        end;
+                    end;
                 }
                 field("No. Printed"; Rec."No. Printed")
                 {

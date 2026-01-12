@@ -22,6 +22,7 @@ report 50021 "Summary PickSlip"
                 dataitem("Sales Header"; "Sales Header")
                 {
                     // DataItemTableView = sorting("No.", "Document Type");
+                    DataItemTableView = where("Qty. to Ship" = filter(> 0), Status = const(Released), "On Hold" = filter(''));
                     DataItemLinkReference = PageLoop;
                     RequestFilterFields = "Sell-to Customer No.", "Ship-to Code", "Shipment Date", "Location Code", "Shipping Agent Code", "No. Pick Slips Printed";
                     RequestFilterHeading = 'Summary Pick Slip';

@@ -12,6 +12,7 @@ tableextension 50013 TlySalespersonPurchaser extends "Salesperson/Purchaser"
         {
             Caption = 'Manager';
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
 
         field(50003; "View Margin - Intranet"; Boolean)

@@ -100,6 +100,13 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Booking No.';
                 ApplicationArea = All;
             }
+            field("Container No."; Rec."Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 Caption = 'Outstanding Quantity';
@@ -155,7 +162,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Drop Shipment")
+        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode4, "Drop Shipment")
 
         addafter("Drop Shipment")
         {
@@ -256,16 +263,6 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
             Visible = false;
         }
 
-        modify("Shortcut Dimension 1 Code")
-        {
-            Visible = false;
-        }
-
-        modify("Shortcut Dimension 2 Code")
-        {
-            Visible = false;
-        }
-
         modify(ShortcutDimCode3)
         {
             Visible = false;
@@ -273,7 +270,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
 
         modify(ShortcutDimCode4)
         {
-            Visible = false;
+            Editable = false;
         }
 
         modify(ShortcutDimCode5)
@@ -359,6 +356,30 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
         modify("Drop Shipment")
         {
             Visible = true;
+        }
+    }
+
+    actions
+    {
+        addfirst("&Line")
+        {
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                Promoted = true;
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."No.");
+                    Page.Run(Page::TlyItemAvailability, Item);
+                end;
+            }
         }
     }
 

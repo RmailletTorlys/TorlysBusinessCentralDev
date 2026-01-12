@@ -419,6 +419,13 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                         ToolTip = 'MK Staged';
                         ApplicationArea = All;
                     }
+
+                    field("MK Staged Quantity"; Rec."MK Staged Quantity")
+                    {
+                        Caption = 'MK Staged Quantity';
+                        ToolTip = 'MK Staged Quantity';
+                        ApplicationArea = All;
+                    }
                     field("MK Staged Location"; Rec."MK Staged Location")
                     {
                         Caption = 'MK Staged Location';
@@ -820,8 +827,16 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
 
     actions
     {
+        addafter("Print Confirmation_Promoted")
+        {
+            actionref(PrintLabel; "Print Label")
+            { }
+        }
         addlast(Category_Category11)
         {
+
+            // actionref(PrintLabel; "Print Label")
+            // { }
             actionref(B13_Sales; "B13 Sales")
             {
             }
@@ -830,8 +845,39 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
             }
         }
 
+        addafter("Print Confirmation")
+        {
+            action("Print Label")
+            {
+                ApplicationArea = Warehouse;
+                Caption = 'Print Label';
+                Image = Print;
+                ToolTip = 'Print label for the sales order.';
+                trigger OnAction()
+                var
+                    SalesHeader: Record "Sales Header";
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintSalesOrderLabel(Rec);
+                end;
+            }
+        }
         addlast(Action96)
         {
+            // action("Print Label")
+            // {
+            //     ApplicationArea = Warehouse;
+            //     Caption = 'Print Label';
+            //     Image = Print;
+            //     ToolTip = 'Print label for the sales order.';
+            //     trigger OnAction()
+            //     var
+            //         SalesHeader: Record "Sales Header";
+            //         TorlysDocPrint: Codeunit TlyDocumentPrint;
+            //     begin
+            //         TorlysDocPrint.PrintSalesOrderLabel(Rec);
+            //     end;
+            // }
             action("B13 Sales")
             {
                 Caption = 'Print B13 Sales';
@@ -863,6 +909,8 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                 end;
             }
         }
+
+
 
         addbefore(Category_New)
         {
@@ -990,6 +1038,18 @@ pageextension 50042 TorlysSalesOrder extends "Sales Order"
                     InsertFreightLine.SOscreens(Rec);
                 end;
             }
+        }
+        modify("Pick Instruction")
+        {
+            Visible = false;
+        }
+        modify(AttachAsPDF)
+        {
+            Visible = false;
+        }
+        modify("Work Order")
+        {
+            Visible = false;
         }
     }
 

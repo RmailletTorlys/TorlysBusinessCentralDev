@@ -2,7 +2,10 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
 {
     dataset
     {
+        // addlast(BlankLine)
+        // {
 
+        // }
         modify("Sales Shipment Header")
         {
             trigger OnAfterAfterGetRecord()

@@ -84,6 +84,26 @@ tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
             Caption = 'Confirmation No.';
             DataClassification = CustomerContent;
         }
-
+        field(50015; "Quantity Linked"; Decimal)
+        {
+            Caption = 'Quantity Linked';
+            Editable = false;
+            // FieldClass = FlowField;
+            // CalcFormula = Sum("Sales Line"."Quantity" where("Linked Purchase Order No." = field("Document No."), "Linked Purch. Order Line No." = field("Line No.")));
+        }
+        field(50016; "Qty. to Ship Linked"; Decimal)
+        {
+            Caption = 'Qty. to Ship Linked';
+            Editable = false;
+            // FieldClass = FlowField;
+            // CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Purchase Order No." = field("Document No."), "Linked Purch. Order Line No." = field("Line No.")));
+        }
+        field(50017; "Container No."; Code[20])
+        {
+            Caption = 'Container No.';
+            Editable = false;
+            // FieldClass = FlowField;
+            // CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Document No."), "Document Line No." = field("Line No.")));
+        }
     }
 }

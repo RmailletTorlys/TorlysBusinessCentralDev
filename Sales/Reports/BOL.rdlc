@@ -106,8 +106,8 @@ End Function
         <Field Name="Pickup_Date">
           <DataField>Pickup_Date</DataField>
         </Field>
-        <Field Name="Picking_instructions">
-          <DataField>Picking_instructions</DataField>
+        <Field Name="ShippingAgentName">
+          <DataField>ShippingAgentName</DataField>
         </Field>
         <Field Name="Shipping_Instructions_1">
           <DataField>Shipping_Instructions_1</DataField>
@@ -297,6 +297,9 @@ End Function
         </Field>
         <Field Name="Prepaidmessage">
           <DataField>Prepaidmessage</DataField>
+        </Field>
+        <Field Name="ShippingAgent">
+          <DataField>ShippingAgent</DataField>
         </Field>
       </Fields>
       <Query>

@@ -85,11 +85,20 @@ page 51002 "Torlys BOL"
                                 Rec."Shipping Agent Code" := ShippingAgent.Code;
                             end else begin
                                 if not ShippingAgent.Get(Rec."Shipping Agent Code") THEN
-                                    ERROR('1Agent No. %1 does not exist!', Rec."Shipping Agent Code");
+                                    ERROR('Agent No. %1 does not exist!', Rec."Shipping Agent Code");
                             end;
                         end else
                             if not ShippingAgent.Get(Rec."Shipping Agent Code") THEN
-                                Error('2Shipping Agent %1 does not exist!', Rec."Shipping Agent Code");
+                                Error('Shipping Agent %1 does not exist!', Rec."Shipping Agent Code");
+                    end;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        ShippingAgent: Record "Shipping Agent";
+                    begin
+                        if Page.RunModal(Page::"Shipping Agents", ShippingAgent) = Action::LookupOK then begin
+                            Rec.Validate(Rec."Shipping Agent Code", ShippingAgent.Code);
+                        end;
                     end;
                 }
                 field("No. Printed"; Rec."No. Printed")

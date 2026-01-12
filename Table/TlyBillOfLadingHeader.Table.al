@@ -149,7 +149,7 @@ table 55002 TlyBillOfLadingHeader
         {
             Caption = 'Shipping Agent Code';
             DataClassification = CustomerContent;
-            TableRelation = "Shipping Agent";
+            // TableRelation = "Shipping Agent"; //this is on the form for Agent No. validation
         }
 
         // field(15; "Freight Type"; Option)

@@ -162,7 +162,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Drop Shipment")
+        moveafter("Qty. Rcd. Not Invoiced"; "Qty. to Invoice", "Quantity Invoiced", "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode4, "Drop Shipment")
 
         addafter("Drop Shipment")
         {
@@ -263,16 +263,6 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
             Visible = false;
         }
 
-        modify("Shortcut Dimension 1 Code")
-        {
-            Visible = false;
-        }
-
-        modify("Shortcut Dimension 2 Code")
-        {
-            Visible = false;
-        }
-
         modify(ShortcutDimCode3)
         {
             Visible = false;
@@ -280,7 +270,7 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
 
         modify(ShortcutDimCode4)
         {
-            Visible = false;
+            Editable = false;
         }
 
         modify(ShortcutDimCode5)

@@ -6,7 +6,6 @@ codeunit 50299 TlyDocumentPrint
         SalesLine: Record "Sales Line";
         Item: Record "Item";
         ReportSelection: Record "Report Selections";
-
     begin
         IsHandled := true;
         if Usage = 2 then begin

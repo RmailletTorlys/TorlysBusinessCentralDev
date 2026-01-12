@@ -76,6 +76,19 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
 
         moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
+        movefirst("Shipping and Payment"; "Lead Time Calculation", "Requested Receipt Date", "Promised Receipt Date")
+
+        addafter(ShippingOptionWithLocation)
+        {
+            field("Location Code1"; Rec."Location Code")
+            {
+                Caption = 'Location Code';
+                ToolTip = 'Location Code';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+
         modify(ShippingOptionWithLocation)
         {
             importance = Standard;
@@ -202,11 +215,6 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Visible = false;
         }
 
-        modify("Lead Time Calculation")
-        {
-            Visible = false;
-        }
-
         modify("Invoice Received Date")
         {
             Visible = false;
@@ -257,19 +265,24 @@ pageextension 50050 "TorlysPurchOrder" extends "Purchase Order"
             Importance = Standard;
         }
 
+        modify("Tax Liable")
+        {
+            Importance = Promoted;
+        }
+
+        modify("Lead Time Calculation")
+        {
+            Importance = Additional;
+        }
+
         modify("Requested Receipt Date")
         {
-            visible = false;
+            Importance = Additional;
         }
 
         modify("Promised Receipt Date")
         {
-            visible = false;
-        }
-
-        modify("Tax Liable")
-        {
-            Importance = Promoted;
+            Importance = Additional;
         }
 
         modify("Tax Area Code")

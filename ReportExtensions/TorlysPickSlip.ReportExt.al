@@ -68,6 +68,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(agentno; shippingagent."Agent No.")
+            {
+
+            }
             column(BillToAddress1; BillToAddress[1])
             {
 

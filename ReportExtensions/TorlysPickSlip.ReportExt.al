@@ -28,7 +28,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
-            column(Comment; Comment)
+            column(Shipping_Comment; "Shipping Comment")
             {
 
             }

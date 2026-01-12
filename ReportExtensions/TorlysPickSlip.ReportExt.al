@@ -192,6 +192,15 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         modify("Sales Header")
         {
             RequestFilterFields = "Ship-to Code";
+            trigger OnAfterPreDataItem()
+            begin
+                "Sales Header".FilterGroup(2);
+                "Sales Header".SetFilter("Qty. to Ship", '>0');
+                "Sales Header".SetFilter("Status", 'Released');
+                "Sales Header".SetFilter("On Hold", '%1', '');
+                "Sales Header".FilterGroup(0);
+            end;
+
             trigger OnAfterAfterGetRecord()
             var
                 BarcodeSymbology: Enum "Barcode Symbology";

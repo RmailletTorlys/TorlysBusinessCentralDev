@@ -2,8 +2,8 @@ table 55003 TlyBillOfLadingLine
 {
     DataClassification = CustomerContent;
     Caption = 'BOL Line';
-    DrillDownPageId = "Torlys BOL List";
-    LookupPageId = "Torlys BOL List";
+    DrillDownPageId = TlyBillOfLadingList;
+    LookupPageId = TlyBillOfLadingList;
     Permissions = tabledata "Sales Shipment Header" = rm;
 
     fields

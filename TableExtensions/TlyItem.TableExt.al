@@ -352,6 +352,7 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Tariff No. (Sales)';
             DataClassification = CustomerContent;
+            TableRelation = "Tariff Number";
         }
 
         field(50051; "Tarrif Charge Required"; Boolean)

@@ -94,18 +94,19 @@ pageextension 50054 TorlysPurchOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 Editable = true;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-            }
+
             field("Container No."; Rec."Container No.")
             {
                 Caption = 'Container No.';
                 ToolTip = 'Container No.';
                 ApplicationArea = All;
                 Editable = false;
+            }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
             }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {

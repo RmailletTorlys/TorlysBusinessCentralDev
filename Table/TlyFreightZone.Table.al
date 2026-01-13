@@ -5,7 +5,6 @@ table 55001 TlyFreightZone
     DataClassification = CustomerContent;
     Caption = 'Freight Zones';
 
-
     fields
     {
         field(1; "Code"; Code[10])

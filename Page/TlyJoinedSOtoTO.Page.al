@@ -98,8 +98,8 @@ page 50557 TlyJoinedSOtoTO
     {
         area(Promoted)
         {
-            // actionref("Check Quantites"; CheckQuantities)
-            // { }
+            actionref("Check Quantites"; CheckQuantities)
+            { }
             actionref("Populate Qty. to Ship"; PopulateQtyToShip)
             { }
         }
@@ -108,26 +108,33 @@ page 50557 TlyJoinedSOtoTO
         {
             group(MainGroup)
             {
-                // Caption = 'Check Quantities';
-                // Image = TaskQualityMeasure;
-                // action(CheckQuantities)
-                // {
-                //     ApplicationArea = Warehouse;
-                //     Caption = 'Select All Record';
-                //     ToolTip = 'Select All Record';
-                //     Image = SelectMore;
-                //     trigger OnAction()
-                //     var
-                //     // SelectedSalesLine: Record "Sales Line";
-                //     begin
-                //         // CurrPage.SetSelectionFilter(SelectedSalesLine);
-                //         // if SelectedSalesLine.FindSet() then
-                //         //     repeat
-                //         //         SelectedSalesLine."Qty. to Ship" := SelectedSalesLine.Quantity;
-                //         //         SelectedSalesLine.Modify(true);
-                //         //     until SelectedSalesLine.Next() = 0;
-                //     end;
-                // }
+                Caption = 'Check Quantities';
+                Image = TaskQualityMeasure;
+                action(CheckQuantities)
+                {
+                    ApplicationArea = Warehouse;
+                    Caption = 'Check Quantities Before Fill';
+                    ToolTip = 'Check Quantities Before Fill';
+                    Image = ReceiveLoaner;
+                    trigger OnAction()
+                    var
+                        SalesLine: Record "Sales Line";
+                        TRQuantity: Decimal;
+                        TRQtyToShip: Decimal;
+                    begin
+                        SalesLine.Reset();
+                        SalesLine.SetRange("Transfer Order No.", Rec."Transfer Order No.");
+                        SalesLine.SetFilter("Type", 'Item');
+                        SalesLine.SetFilter("Outstanding Quantity", '>0');
+                        if SalesLine.Find('-') then begin
+                            repeat
+                                TRQuantity += SalesLine.Quantity;
+                                TRQtyToShip += SalesLine."Qty. to Ship";
+                            until SalesLine.Next() = 0;
+                            Message('%1\Please review all numbers below match.\Quantity: %2\Qty. to Ship: %3', Rec."No.", TRQuantity, TRQtyToShip);
+                        end;
+                    end;
+                }
                 action(PopulateQtyToShip)
                 {
                     ApplicationArea = Warehouse;

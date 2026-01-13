@@ -281,14 +281,15 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             Caption = 'MPO Qty. on Sales Order';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Quantity" where("Master Project Order No." = field("Master Project Order No."), "Master Project Order Line No." = field("Master Project Order Line No.")));
+            CalcFormula = Sum("Sales Line"."Quantity" where("Master Project Order No." = field("Document No."), "Master Project Order Line No." = field("Line No.")));
         }
+
         field(50027; "MPO Quantity Invoiced"; Decimal)
         {
             Caption = 'MPO Quantity Invoiced';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Invoice Line"."Quantity" where("Master Project Order No." = field("Master Project Order No."), "Master Project Order Line No." = field("Master Project Order Line No.")));
+            CalcFormula = Sum("Sales Invoice Line"."Quantity" where("Master Project Order No." = field("Document No."), "Master Project Order Line No." = field("Line No.")));
         }
         modify("No.")
         {

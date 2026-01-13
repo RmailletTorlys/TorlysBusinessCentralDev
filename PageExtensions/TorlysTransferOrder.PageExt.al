@@ -14,7 +14,7 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
             }
         }
 
-        moveafter("Transfer-from Code"; "Transfer-to Code", "Direct Transfer", "In-Transit Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code")
+        moveafter("Transfer-from Code"; "Transfer-to Code", "In-Transit Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Posting Date", "Shipment Date", "Receipt Date", "Shipping Agent Code")
 
         addafter("Shipping Agent Code")
         {
@@ -165,6 +165,10 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
             ShowMandatory = true;
             Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
         }
+        modify("Direct Transfer")
+        {
+            Visible = false;
+        }
     }
 
     actions
@@ -223,7 +227,7 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
                 RunObject = Page TlyJoinedSOtoTO;
-                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
+                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(> 0);
             }
             action("View and Fill Linked SO")
             {

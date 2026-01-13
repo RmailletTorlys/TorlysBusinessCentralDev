@@ -572,15 +572,16 @@ pageextension 50046 TorlysSalesOrderSubform extends "Sales Order Subform"
                             else begin
                                 MPOSalesHeader.Reset();
                                 MPOSalesHeader.Get(1, Rec."Document No.");
-                                if MPOSalesHeader."Order Type" <> 'MASTER PROJECT ORDER' then
-                                    Error('This order (%1) is not a Master Project Order.', Rec."Document No.")
-                            end else begin
-                            ExistingAnswer := Dialog.Confirm('Are you looking to add to an existing order?');
-                            if ExistingAnswer then
-                                TorlysCreateMPOFromSalesLine.AddToExisting(SelectedLines)
-                            else
-                                TorlysCreateMPOFromSalesLine.CreateNew(SelectedLines);
-                        end;
+                                if MPOSalesHeader."Order Type" <> 'MASTER PROJECT ORDER' then begin
+                                    Error('This order (%1) is not a Master Project Order.', Rec."Document No.");
+                                end else begin
+                                    ExistingAnswer := Dialog.Confirm('Are you looking to add to an existing order?');
+                                    if ExistingAnswer then
+                                        TorlysCreateMPOFromSalesLine.AddToExisting(SelectedLines)
+                                    else
+                                        TorlysCreateMPOFromSalesLine.CreateNew(SelectedLines);
+                                end;
+                            end;
                     end;
 
                 }

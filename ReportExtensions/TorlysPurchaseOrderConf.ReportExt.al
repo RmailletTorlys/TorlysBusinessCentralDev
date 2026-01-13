@@ -21,6 +21,14 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
             {
 
             }
+            column(Quantity_Pallet; "Quantity Pallet")
+            {
+
+            }
+            column(Quantity_Case; "Quantity Case")
+            {
+
+            }
             column(SQM2Label; SQM2Label)
             {
 
@@ -38,6 +46,10 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
 
             }
             column(AmountExclInvDisc; AmountExclInvDisc)
+            {
+
+            }
+            column(Unit_of_Measure_Code; "Unit of Measure Code")
             {
 
             }

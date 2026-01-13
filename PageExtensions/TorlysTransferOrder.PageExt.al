@@ -193,15 +193,27 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 trigger OnAction()
                 var
                     TransferLine: Record "Transfer Line";
+                    TRQuantity: Decimal;
+                    TRQtyShipped: Decimal;
+                    TRQtyInTransit: Decimal;
+                    TRQtyToReceive: Decimal;
                 begin
                     TransferLine.Reset();
                     TransferLine.SetRange("Document No.", Rec."No.");
+                    TransferLine.SetFilter("Qty. in Transit", '<>0');
                     if TransferLine.Find('-') then begin
                         repeat
+                            TRQuantity += TransferLine.Quantity;
+                            TRQtyShipped += TransferLine."Quantity Shipped";
                             TransferLine.Validate(TransferLine."Qty. to Receive", TransferLine."Qty. in Transit");
                             TransferLine.Modify(true);
+                            TRQtyInTransit += TransferLine."Qty. in Transit";
+                            TRQtyToReceive += TransferLine."Qty. to Receive";
                         until TransferLine.Next() = 0;
-                    end
+                        Message('%1\Please review all numbers below match.\Quantity: %2\Qty. Shipped: %3\Qty. in Transit: %4\Qty. to Receive: %5', Rec."No.", TRQuantity, TRQtyShipped, TRQtyInTransit, TRQtyToReceive);
+                    end else begin
+                        Message('No lines have been shipped yet.');
+                    end;
                 end;
             }
             action("View and Fill Joined SO")
@@ -210,7 +222,7 @@ pageextension 55740 TorlysTransferOrder extends "Transfer Order"
                 Caption = 'View and Fill Joined SO';
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
-                RunObject = Page TorlysJoinedSOtoTO;
+                RunObject = Page TlyJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
             }
             action("View and Fill Linked SO")

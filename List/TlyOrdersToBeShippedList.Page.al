@@ -983,7 +983,7 @@ page 52001 TlyOrdersToBeShippedList
                             BOLHeader.Validate(BOLHeader."Pickup Date", Workdate());
                             BOLHeader.Validate(BOLHeader."Shipping Agent Code", Rec."Shipping Agent Code");
                             BOLHeader.Insert(true);
-                            Page.Run(Page::"Torlys BOL", BOLHeader);
+                            Page.Run(Page::TlyBillOfLading, BOLHeader);
                         end;
                     end;
                 }
@@ -1044,7 +1044,7 @@ page 52001 TlyOrdersToBeShippedList
                         ApplicationArea = Basic, Suite;
                         Caption = 'View BOL';
                         Image = SalesShipment;
-                        RunObject = Page "Torlys BOL";
+                        RunObject = Page TlyBillOfLading;
                         RunPageLink = "No." = field("BOL No.");
                         // RunPageView = sorting("No.");
                         ToolTip = 'View related BOL.';

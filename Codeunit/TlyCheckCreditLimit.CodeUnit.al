@@ -122,7 +122,7 @@ codeunit 50343 TlyCheckCreditLimit
         Cust2.Copy(Rec);
 
         // Cust2.Get();
-        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit"
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit Only"
         then begin
             CalcCreditLimitLCY();
             if (CustCreditAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then
@@ -130,7 +130,7 @@ codeunit 50343 TlyCheckCreditLimit
         end;
 
 
-        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::Terms
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Terms Only"
         then begin
             CalcOverdueBalanceLCY();
             if Rec."Balance Due (LCY)" > 0 then
@@ -147,13 +147,13 @@ codeunit 50343 TlyCheckCreditLimit
                 ExitValue := ExitValue + 2;
         end;
 
-        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit + Open Orders" then begin
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit+Open Ord Only" then begin
             CalcCreditLimitLCY();
             if (CustCreditAmountLCY + NewOrderAmountLCY - OldOrderAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then
                 ExitValue := 1;
         end;
 
-        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit + Open Orders / Terms" then begin
+        if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Cr Limit+Open Ord / Terms" then begin
             CalcCreditLimitLCY();
             CalcOverdueBalanceLCY();
             if (CustCreditAmountLCY + NewOrderAmountLCY - OldOrderAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then

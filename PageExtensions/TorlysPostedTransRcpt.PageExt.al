@@ -130,7 +130,7 @@ pageextension 55745 TorlysPostedTransRcpt extends "Posted Transfer Receipt"
                 Caption = 'View and Fill Joined SO';
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
-                RunObject = Page TorlysJoinedSOtoTO;
+                RunObject = Page TlyJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
             }
         }

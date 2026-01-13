@@ -30,12 +30,14 @@ page 51016 TlyFreightZoneCard
                     ApplicationArea = All;
                     Caption = 'Start Date';
                     ToolTip = 'Start date of the freight zone.';
+                    Visible = false;
                 }
                 field(EndDate; Rec."End Date")
                 {
                     ApplicationArea = All;
                     Caption = 'End Date';
                     ToolTip = 'End date of the freight zone.';
+                    Visible = false;
                 }
                 field(RatePerSqftFlooring; Rec."Rate per sqft (floor)")
                 {

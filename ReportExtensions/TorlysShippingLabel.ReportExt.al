@@ -6,6 +6,22 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
         // {
 
         // }
+        addfirst("Sales Shipment Header")
+        {
+            dataitem(CopyLoop; Integer)
+            {
+                DataItemTableView = sorting(Number);
+                column(NoCopies; Number)
+                {
+
+                }
+
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoCopiesVar + 1);
+                end;
+            }
+        }
         modify("Sales Shipment Header")
         {
             trigger OnAfterAfterGetRecord()
@@ -117,6 +133,7 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Number of Copies';
                     ToolTip = 'Specifies the number of copies of each document (in addition to the original) that you want to print.';
+                    MinValue = 0;
                 }
             }
         }

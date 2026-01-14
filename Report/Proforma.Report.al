@@ -415,7 +415,7 @@ report 50026 "Proforma"
                                     Find('-') else
                                     Next;
 
-                                if Type = 0 then begin
+                                if Type = Type::" " then begin
                                     "No." := '';
                                     "Unit of Measure code" := '';
                                     "Line Amount" := 0;
@@ -438,13 +438,13 @@ report 50026 "Proforma"
                                     CurrencyCode := "Sales Header"."Currency Code"
                                 END;
 
-                                IFSAmount := 0;
-                                IFSLine.RESET;
-                                IFSLine.SETRANGE("Document No.", "Document No.");
-                                IFSLine.SETRANGE("Attached to Line No.", "Line No.");
-                                IFSLine.SETFILTER("No.", 'IFS*');
-                                IF IFSLine.FIND('-') THEN
-                                    IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Quantity Shipped";
+                                // IFSAmount := 0;
+                                // IFSLine.RESET;
+                                // IFSLine.SETRANGE("Document No.", "Document No.");
+                                // IFSLine.SETRANGE("Attached to Line No.", "Line No.");
+                                // IFSLine.SETFILTER("No.", 'IFS*');
+                                // IF IFSLine.FIND('-') THEN
+                                //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Quantity Shipped";
 
                                 Item3.GET("No.");
                                 IF (OrderShipped) THEN BEGIN
@@ -452,14 +452,9 @@ report 50026 "Proforma"
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
                                     ELSE IF (UseListPrice) THEN
                                         AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") AND (NOT RemoveIFS) THEN
-                                        AmountExclInvDisc := ((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                                            * "Quantity Shipped"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") AND (RemoveIFS) THEN
+                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") THEN
                                         AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                                            * "Quantity Shipped") + IFSAmount
-                                    ELSE IF (RemoveIFS) THEN
-                                        AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped") + IFSAmount
+                                                            * "Quantity Shipped")
                                     ELSE
                                         AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
 
@@ -486,13 +481,13 @@ report 50026 "Proforma"
                                     TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped"
                                 end;
 
-                                IFSAmount := 0;
-                                IFSLine.RESET;
-                                IFSLine.SETRANGE("Document No.", "Document No.");
-                                IFSLine.SETRANGE("Attached to Line No.", "Line No.");
-                                IFSLine.SETFILTER("No.", 'IFS*');
-                                IF IFSLine.FIND('-') THEN
-                                    IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Qty. to Ship";
+                                // IFSAmount := 0;
+                                // IFSLine.RESET;
+                                // IFSLine.SETRANGE("Document No.", "Document No.");
+                                // IFSLine.SETRANGE("Attached to Line No.", "Line No.");
+                                // IFSLine.SETFILTER("No.", 'IFS*');
+                                // IF IFSLine.FIND('-') THEN
+                                //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Qty. to Ship";
 
                                 Item3.GET("No.");
                                 IF (NOT OrderShipped) THEN BEGIN
@@ -500,14 +495,9 @@ report 50026 "Proforma"
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
                                     ELSE IF (UseListPrice) THEN
                                         AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") AND (NOT RemoveIFS) THEN
-                                        AmountExclInvDisc := ((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                                            * "Qty. to Ship"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") AND (RemoveIFS) THEN
+                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") THEN
                                         AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                                            * "Qty. to Ship") + IFSAmount
-                                    ELSE IF (RemoveIFS) THEN
-                                        AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship") + IFSAmount
+                                                            * "Qty. to Ship")
                                     ELSE
                                         AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
 
@@ -549,7 +539,7 @@ report 50026 "Proforma"
                                     CountryOfOrigin := '';
                                     TariffNo := '';
                                 END;
-                                TotalPieces := CalcTotalPieces;  // BDOCH01
+                                TotalPieces := CalcTotalPieces;
                             end;
 
                             IF RemoveFreight THEN BEGIN
@@ -703,6 +693,66 @@ report 50026 "Proforma"
                     CALaddress5 := 'T3J 0R2';
                 end;
             end;
+        }
+    }
+    requestpage
+    {
+        SaveValues = true;
+        layout
+        {
+            area(Content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+
+                    field(NoCopies; NoCopies)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'No. of additional copies';
+                    }
+                    field(PrintCompany; PrintCompany)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Print Company Address';
+                    }
+                    field(OrderShipped; OrderShipped)
+                    {
+                        ApplicationArea = basic, suite;
+                        Caption = 'Is Order Shipped?';
+                    }
+                    field(IgnoreBackorder; IgnoreBackorder)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Exclude Backorder';
+                    }
+                    field(RemoveDuty; RemoveDuty)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Remove Duty Lines';
+                    }
+                    field(RemoveFreight; RemoveFreight)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Remove Freight Lines';
+                    }
+                    field(CostInsteadOfPrice; CostInsteadOfPrice)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Use Cost Instead of Price';
+                    }
+                    field(UseListPrice; UseListPrice)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Use List Price';
+                    }
+                    field(UsePurchasesTariff; UsePurchasesTariff)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'User Purchases Tariff';
+                    }
+                }
+            }
         }
     }
 

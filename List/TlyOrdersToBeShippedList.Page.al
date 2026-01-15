@@ -7,7 +7,7 @@ page 52001 TlyOrdersToBeShippedList
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Sales Header";
-    SourceTableView = sorting("No.", "Document Type") order(ascending)
+    SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending)
     where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
     InsertAllowed = false;
     DeleteAllowed = false;

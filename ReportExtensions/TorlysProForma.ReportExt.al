@@ -2,6 +2,22 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
 {
     dataset
     {
+        addfirst(Header)
+        {
+            dataitem(CopyLoop; Integer)
+            {
+                DataItemTableView = sorting(Number);
+                column(NoCopies; Number)
+                {
+
+                }
+
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoCopiesVar + 1);
+                end;
+            }
+        }
         add(Header)
         {
             column(Your_Reference; "Your Reference")
@@ -151,6 +167,7 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
         // PerCase: Decimal;
         QtyPerPallet: Integer;
         QtyPerCase: Integer;
+        NoCopiesVar: Integer;
         ItemUOM: Record "Item Unit of Measure";
         Pieces: Decimal;
         UOMMgt: Codeunit "Unit of Measure Management";
@@ -160,4 +177,17 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
         QtyShippedCase: Decimal;
         QtyShippedSingles: Decimal;
         CalculatedCase: Decimal;
+        PrintCompany: Boolean;
+        PrintFooter: Boolean;
+        TaxFlag: Boolean;
+        ArchiveDocument: Boolean;
+        LogInteraction: Boolean;
+        IgnoreBackorder: Boolean;
+        CostInsteadOfPrice: Boolean;
+        UseListPrice: Boolean;
+        UsePurchasesTariff: Boolean;
+        RemoveFreight: Boolean;
+        RemoveDuty: Boolean;
+        BackoutDuty: Boolean;
+        OrderShipped: Boolean;
 }

@@ -10,6 +10,7 @@ report 50005 "Sales Order Label"
 
     dataset
     {
+
         dataitem(Header; "Sales Header")
         {
             DataItemTableView = sorting("No.");
@@ -97,6 +98,20 @@ report 50005 "Sales Order Label"
 
             }
 
+            dataitem(CopyLoop; Integer)
+            {
+                DataItemTableView = sorting(Number);
+                column(NoCopies; Number)
+                {
+
+                }
+
+                trigger OnPreDataItem()
+                begin
+                    SetRange(Number, 1, NoCopiesVar + 1);
+                end;
+            }
+
             trigger OnAfterGetRecord()
             begin
                 if "Shipment Method Code" = '' then
@@ -119,6 +134,22 @@ report 50005 "Sales Order Label"
             end;
         }
     }
+    requestpage
+    {
+        layout
+        {
+            area(Content)
+            {
+                field(NoCopies; NoCopiesVar)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Number of Copies';
+                    ToolTip = 'Specifies the number of copies of each document (in addition to the original) that you want to print.';
+                    MinValue = 0;
+                }
+            }
+        }
+    }
 
     var
         ShipmentMethod: Record "Shipment Method";
@@ -129,4 +160,5 @@ report 50005 "Sales Order Label"
         LocationAddress: array[8] of Text[100];
         ShipToAddress: array[8] of Text[100];
         CustAddr: array[8] of Text[100];
+        NoCopiesVar: Integer;
 }

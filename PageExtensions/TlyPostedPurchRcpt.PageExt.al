@@ -2,7 +2,20 @@ pageextension 50136 TlyPostedPurchRcpt extends "Posted Purchase Receipt"
 {
     layout
     {
-        movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
+        movefirst(General; "Buy-from Vendor No.")
+
+        addafter("Buy-from Vendor No.")
+        {
+            field("Manufacturer Code"; Rec."Manufacturer Code")
+            {
+                Caption = 'Manufacturer Code';
+                ToolTip = 'Manufacturer Code';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from")
 
         moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Shipment Method Code", "Posting Date")
 
@@ -121,7 +134,7 @@ pageextension 50136 TlyPostedPurchRcpt extends "Posted Purchase Receipt"
                 Caption = 'View and Fill Linked SO';
                 ToolTip = 'View and Fill Linked SO';
                 Image = OrderTracking;
-                RunObject = Page TorlysLinkedSOtoPO;
+                RunObject = Page TlyLinkedSOtoPO;
                 RunPageLink = "Linked Purchase Order No." = field("No."), Type = const(Item);
             }
         }

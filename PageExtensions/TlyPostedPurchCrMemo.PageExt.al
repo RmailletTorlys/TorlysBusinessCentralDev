@@ -2,7 +2,20 @@ pageextension 50140 TlyPostedPurchCrMemo extends "Posted Purchase Credit Memo"
 {
     layout
     {
-        movefirst(General; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from")
+        movefirst(General; "Buy-from Vendor No.")
+
+        addafter("Buy-from Vendor No.")
+        {
+            field("Manufacturer Code"; Rec."Manufacturer Code")
+            {
+                Caption = 'Manufacturer Code';
+                ToolTip = 'Manufacturer Code';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from")
 
         moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Cr. Memo No.")
 

@@ -1055,7 +1055,7 @@ page 52001 TlyOrdersToBeShippedList
                         ApplicationArea = Basic, Suite;
                         Caption = 'View Posted BOL';
                         Image = SalesShipment;
-                        RunObject = Page "Torlys Processed BOL";
+                        RunObject = Page TlyProcBillOfLading;
                         RunPageLink = "No." = field("BOL No.");
                         // RunPageView = sorting("No.");
                         ToolTip = 'View related BOL.';

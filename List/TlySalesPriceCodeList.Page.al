@@ -2,7 +2,7 @@ page 52003 TlySalesPriceCodeList
 {
     ApplicationArea = Basic, Suite;
     Caption = 'Sales Price Codes';
-    CardPageID = "Torlys Sales Price Code Card";
+    // CardPageID = "Torlys Sales Price Code Card";
     InsertAllowed = false;
     PageType = List;
     RefreshOnActivate = true;
@@ -29,18 +29,18 @@ page 52003 TlySalesPriceCodeList
                     Caption = 'Description';
                     ToolTip = 'Description of the sales price.';
                 }
-                field(StartDate; Rec."Start Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Start Date';
-                    ToolTip = 'Start date of the sales price.';
-                }
-                field(EndDate; Rec."End Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'End Date';
-                    ToolTip = 'End date of the sales price.';
-                }
+                // field(StartDate; Rec."Start Date")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Start Date';
+                //     ToolTip = 'Start date of the sales price.';
+                // }
+                // field(EndDate; Rec."End Date")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'End Date';
+                //     ToolTip = 'End date of the sales price.';
+                // }
             }
         }
     }

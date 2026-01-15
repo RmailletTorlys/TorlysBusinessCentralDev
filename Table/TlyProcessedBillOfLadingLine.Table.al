@@ -2,8 +2,8 @@ table 55005 TlyProcessedBillOfLadingLine
 {
     DataClassification = CustomerContent;
     Caption = 'Processed BOL Line';
-    DrillDownPageId = "Torlys Processed BOL List";
-    LookupPageId = "Torlys Processed BOL List";
+    DrillDownPageId = TlyProcBillOfLadingList;
+    LookupPageId = TlyProcBillOfLadingList;
 
 
     fields

@@ -2,7 +2,20 @@ pageextension 50146 TlyPostedPurchInvList extends "Posted Purchase Invoices"
 {
     layout
     {
-        moveafter("No."; "Order No.", "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date")
+        moveafter("No."; "Order No.", "Buy-from Vendor No.")
+
+        addafter("Buy-from Vendor No.")
+        {
+            field("Manufacturer Code"; Rec."Manufacturer Code")
+            {
+                Caption = 'Manufacturer Code';
+                ToolTip = 'Manufacturer Code';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date")
 
         addafter("Posting Date")
         {

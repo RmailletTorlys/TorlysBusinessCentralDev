@@ -12,7 +12,20 @@ pageextension 50147 TlyPostedPurchCrMemoList extends "Posted Purchase Credit Mem
             }
         }
 
-        moveafter("Return Order No."; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
+        moveafter("Return Order No."; "Buy-from Vendor No.")
+
+        addafter("Buy-from Vendor No.")
+        {
+            field("Manufacturer Code"; Rec."Manufacturer Code")
+            {
+                Caption = 'Manufacturer Code';
+                ToolTip = 'Manufacturer Code';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
 
         addafter("Document Date")
         {

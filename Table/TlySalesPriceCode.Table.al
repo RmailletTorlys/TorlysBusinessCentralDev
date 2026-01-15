@@ -3,29 +3,30 @@ table 50007 TlySalesPriceCode
     Caption = 'Sales Price Code';
     DataClassification = CustomerContent;
     LookupPageID = TlySalesPriceCodeList;
+    DrillDownPageId = TlySalesPriceCodeList;
 
     fields
     {
-        field(1; "Code"; Code[10])
+        field(1; "Code"; Code[20])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; "Description"; Text[50])
+        field(2; "Description"; Text[100])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
         }
-        field(3; "Start Date"; Date)
-        {
-            Caption = 'Start Date';
-            DataClassification = CustomerContent;
-        }
-        field(4; "End Date"; Date)
-        {
-            Caption = 'End Date';
-            DataClassification = CustomerContent;
-        }
+        // field(3; "Start Date"; Date)
+        // {
+        //     Caption = 'Start Date';
+        //     DataClassification = CustomerContent;
+        // }
+        // field(4; "End Date"; Date)
+        // {
+        //     Caption = 'End Date';
+        //     DataClassification = CustomerContent;
+        // }
     }
 
     keys

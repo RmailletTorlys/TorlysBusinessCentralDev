@@ -12,7 +12,20 @@ pageextension 50145 TlyPostedPurchRcptList extends "Posted Purchase Receipts"
             }
         }
 
-        moveafter("Order No."; "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date")
+        moveafter("Order No."; "Buy-from Vendor No.", "Order Address Code")
+
+        addafter("Buy-from Vendor No.")
+        {
+            field("Manufacturer Code"; Rec."Manufacturer Code")
+            {
+                Caption = 'Manufacturer Code';
+                ToolTip = 'Manufacturer Code';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date")
 
         addafter("Posting Date")
         {

@@ -74,6 +74,7 @@ table 55009 TlyBookingInfo
         {
             Caption = 'Location Code';
             DataClassification = CustomerContent;
+            TableRelation = Location;
             // FieldClass = FlowField;
             // CalcFormula = lookup("Transfer Header"."Transfer-to Code" where("Booking No." = field("No.")));
         }

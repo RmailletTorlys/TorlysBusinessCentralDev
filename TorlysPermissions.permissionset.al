@@ -46,11 +46,11 @@ permissionset 50000 TorlysPermissions
         page TlyFreightZoneCard = X,
         page TlyFreightZoneList = X,
         // page TlyFreightZoneLookup = X,
-        page "Sales Price Code Lookup" = X,
+        // page "Sales Price Code Lookup" = X,
         page TlyBillOfLading = X,
         page TlyBillOfLadingSubform = X,
         page TlyBillOfLadingList = X,
-        page "Torlys Processed BOL" = X,
+        page TlyProcBillOfLading = X,
         page TlyOrdersToBeShippedList = X,
         query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;

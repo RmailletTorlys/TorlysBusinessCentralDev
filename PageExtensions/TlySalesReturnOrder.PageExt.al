@@ -270,9 +270,14 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                                                             "Dimension Value Type" = const(Standard),
                                                             Blocked = const(false));
                     Visible = true;
+                    ShowMandatory = true;
+                    // ShowMandatory = Rec."Temporary Hold" = false;
                     trigger OnValidate()
                     begin
-                        ValidateShortcutDimension(5);
+                        if (ShortcutDimCode[5] = '') and (Rec.Status = Rec.Status::Released) then
+                            Error('Cannot delete if order released')
+                        else
+                            ValidateShortcutDimension(5);
                     end;
                 }
                 field("Club"; Rec."Club")

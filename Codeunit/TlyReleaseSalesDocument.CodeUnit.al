@@ -21,6 +21,11 @@ codeunit 57006 TlyReleaseSalesDocument
             if DimensionSetEntry.IsEmpty then
                 Error('Channel must be populated before releasing.'); //code added on screen to not allow delete if released
 
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'BUYING GROUP');
+            if DimensionSetEntry.IsEmpty then
+                Error('Buying Group must be populated before releasing.'); //code added on screen to not allow delete if released                
+
             SalesHeader.TestField("Order Type"); //code added on screen to not allow delete if released
             SalesHeader.TestField("Shipment Date"); //code exists to not allow delete if released
             SalesHeader.TestField("Temporary Hold", false); //code added on screen to not allow delete if released
@@ -43,6 +48,11 @@ codeunit 57006 TlyReleaseSalesDocument
             if DimensionSetEntry.IsEmpty then
                 Error('Channel must be populated before releasing.'); //code added on screen to not allow delete if released
 
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'BUYING GROUP');
+            if DimensionSetEntry.IsEmpty then
+                Error('Buying Group must be populated before releasing.'); //code added on screen to not allow delete if released                 
+
             SalesHeader.TestField("Location Code"); //code exists to not allow delete if released
             SalesHeader.TestField("Tax Area Code"); //code exists to not allow delete if released
             SalesHeader.TestField("Shortcut Dimension 1 Code"); //mandatory comes from GL Account setup
@@ -63,6 +73,11 @@ codeunit 57006 TlyReleaseSalesDocument
             DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
             if DimensionSetEntry.IsEmpty then
                 Error('Channel must be populated before releasing.'); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'BUYING GROUP');
+            if DimensionSetEntry.IsEmpty then
+                Error('Buying Group must be populated before releasing.'); //code added on screen to not allow delete if released     
 
             SalesHeader.TestField("Reason Code"); //code added on screen to not allow delete if released
             SalesHeader.TestField("Location Code"); //code exists to not allow delete if released

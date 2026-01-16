@@ -250,8 +250,61 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
 
     views
     {
+        modify(ShippedNotInvoiced)
+        {
+            visible = false;
+        }
+        modify(SalesOrdersOpen)
+        {
+            visible = false;
+        }
+        modify(ReadyToShip)
+        {
+            visible = false;
+        }
+        modify(PartiallyShipped)
+        {
+            visible = false;
+        }
+        modify(Delayed)
+        {
+            visible = false;
+        }
+        modify(Released)
+        {
+            visible = false;
+        }
+
         addlast
         {
+            view(Seperator1)
+            {
+                Caption = '--------------------';
+            }
+            view(CRHoldPast)
+            {
+                Caption = 'CR Hold - Past';
+                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('<T'));
+            }
+            view(CRHoldToday)
+            {
+                Caption = 'CR Hold - Today';
+                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T'));
+            }
+            view(CRHoldFuture)
+            {
+                Caption = 'CR Hold - Future';
+                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('>T'));
+            }
+            view(CRHoldDirect)
+            {
+                Caption = 'CR Hold - DIRECT';
+                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Location Code" = filter('DIRECT'));
+            }
+            view(Seperator2)
+            {
+                Caption = '--------------------';
+            }
             view(MKRequiredNotStaged)
             {
                 Caption = 'MK Required, Not Staged';
@@ -261,6 +314,10 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'MK Required, Staged';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('Yes'));
+            }
+            view(Seperator3)
+            {
+                Caption = '--------------------';
             }
             view(ShipTodayNotReleased)
             {
@@ -277,11 +334,14 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'NTN, Not Released';
                 Filters = where("No." = filter('NTN*'), "Status" = const(Open));
             }
-
+            view(Seperator4)
+            {
+                Caption = '--------------------';
+            }
             view(ToBeInvoiced)
             {
                 Caption = 'To Be Invoiced';
-                Filters = where("Shipped Not Invoiced" = filter('Yes'), "Shipment Date" = filter('..T'));
+                Filters = where("Shipped Not Invoiced" = filter('Yes'), "Shipment Date" = filter('<T'));
             }
         }
     }

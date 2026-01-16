@@ -210,30 +210,30 @@ page 51009 TlyBookingInfo
     {
         // addlast
         // {
-        view(TodayTOR)
+        view(TORToday)
         {
-            Caption = 'Today TOR';
+            Caption = 'TOR - Today';
             Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
-        // view(TomorrowTOR)
-        // {
-        //     Caption = 'Tomorrow TOR';
-        //     Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T+1'));
-        //     OrderBy = ascending("Appointment Date", "Appointment Time");
-        // }
-        view(TodayCAL)
+        view(TORFuture)
         {
-            Caption = 'Today CAL';
+            Caption = 'TOR - Future';
+            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('>T'));
+            OrderBy = ascending("Appointment Date", "Appointment Time");
+        }
+        view(CALToday)
+        {
+            Caption = 'CAL - Today';
             Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('T'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
-        // view(TomorrowCAL)
-        // {
-        //     Caption = 'Tomorrow CAL';
-        //     Filters = where("Location Code" = const('CAL'), "Appointment Date" = field(Tomorrow));
-        //     OrderBy = ascending("Appointment Date", "Appointment Time");        
-        // }
+        view(CALFuture)
+        {
+            Caption = 'CAL - Future';
+            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('>T'));
+            OrderBy = ascending("Appointment Date", "Appointment Time");
+        }
         // }
     }
     // var

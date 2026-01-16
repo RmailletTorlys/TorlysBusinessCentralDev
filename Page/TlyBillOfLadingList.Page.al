@@ -166,6 +166,20 @@ page 51001 TlyBillOfLadingList
     //     }
     // }
 
+    views
+    {
+        view(TOR)
+        {
+            Caption = 'TOR';
+            Filters = where("Location Code" = filter('TOR'));
+        }
+        view(CAL)
+        {
+            Caption = 'CAL';
+            Filters = where("Location Code" = filter('CAL'));
+        }
+    }
+
     // procedure OnGetShipToCode(ShipToCode: Code[10]; CustomerNo: Code[10])
     // var
     //     Customer: Record Customer;

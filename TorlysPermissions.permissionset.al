@@ -42,7 +42,7 @@ permissionset 50000 TorlysPermissions
         codeunit "TlySalesLinePrice" = X,
         codeunit TlyPriceCalcBufferMgt = X,
         codeunit TlyPriceCodeSourcePriceCalc = X,
-        page CustomerSalesPriceListsLookup = X,
+        // page CustomerSalesPriceListsLookup = X,
         page TlyFreightZoneCard = X,
         page TlyFreightZoneList = X,
         // page TlyFreightZoneLookup = X,

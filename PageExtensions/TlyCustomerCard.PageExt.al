@@ -239,10 +239,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         addfirst(PricesandDiscounts)
         {
-            field("Default Price List"; Rec."Default Price List Code")
+            field("Default Price List Code"; Rec."Default Price List Code")
             {
                 ApplicationArea = All;
-                Caption = 'Default Price List';
+                Caption = 'Default Price List Code';
                 Visible = true;
                 ToolTip = 'This field is the default price list assigned to the customer account.';
             }

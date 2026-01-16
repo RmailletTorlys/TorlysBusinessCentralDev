@@ -7,17 +7,22 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
             view(TiersAll)
             {
                 Caption = 'Tiers - non QC/US';
-                Filters = where("Code" = filter('*1|*2|*3|*4|*5|*6'));
+                Filters = where("Code" = filter('TIER*&<>*QC&<>*US'));
             }
             view(TiersQC)
             {
                 Caption = 'Tiers - QC';
-                Filters = where("Code" = filter('*QC'));
+                Filters = where("Code" = filter('TIER*&*QC'));
             }
             view(TiersUS)
             {
                 Caption = 'Tiers - US';
-                Filters = where("Code" = filter('*US'));
+                Filters = where("Code" = filter('TIER*&*US'));
+            }
+            view(Clearance)
+            {
+                Caption = 'Tiers - US';
+                Filters = where("Code" = filter('CLEARANCE'));
             }
             view(Insurance)
             {
@@ -32,7 +37,7 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
             view(Promos)
             {
                 Caption = 'Promos';
-                Filters = where("Source Type" = filter('All Customers'), "Code" = filter('<>TIER*'));
+                Filters = where("Source Type" = filter('All Customers'), "Code" = filter('<>TIER*&<>CLEARANCE&<>INSURANCE*&<>ROOM*&<>CLEARANCE'));
             }
             view(Customers)
             {

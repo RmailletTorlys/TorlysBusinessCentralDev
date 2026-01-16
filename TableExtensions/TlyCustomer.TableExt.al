@@ -212,14 +212,14 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
             TableRelation = "Price List Header";
 
-            trigger OnLookup()
-            var
-                PriceList: Record "Price List Header";
-            begin
-                PriceList.Reset();
-                if Page.RunModal(Page::"CustomerSalesPriceListsLookup", PriceList) = Action::LookupOK then
-                    Rec."Default Price List Code" := PriceList.Code;
-            end;
+            // trigger OnLookup()
+            // var
+            //     PriceList: Record "Price List Header";
+            // begin
+            //     PriceList.Reset();
+            //     if Page.RunModal(Page::"Sales Price List", PriceList) = Action::LookupOK then
+            //         Rec."Default Price List Code" := PriceList.Code;
+            // end;
         }
 
         field(50033; "Club"; Enum TlyClub)

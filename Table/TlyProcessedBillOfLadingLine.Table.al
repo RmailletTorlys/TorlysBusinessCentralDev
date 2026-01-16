@@ -136,6 +136,7 @@ table 55005 TlyProcessedBillOfLadingLine
         {
             Caption = 'Total Weight';
             DataClassification = CustomerContent;
+            DecimalPlaces = 2 : 5;
         }
 
         // field(22; "Shipping Instructions"; Code[30])

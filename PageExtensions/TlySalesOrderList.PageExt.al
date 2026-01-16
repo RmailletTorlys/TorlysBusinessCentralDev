@@ -247,6 +247,45 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             }
         }
     }
+
+    views
+    {
+        addlast
+        {
+            view(MKRequiredNotStaged)
+            {
+                Caption = 'MK Required, Not Staged';
+                Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'));
+            }
+            view(MKRequiredStaged)
+            {
+                Caption = 'MK Required, Staged';
+                Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('Yes'));
+            }
+            view(ShipTodayNotReleased)
+            {
+                Caption = 'Ship Today, Not Released';
+                Filters = where("Shipment Date" = filter('T'), "Status" = const(Open));
+            }
+            view(ShipTodayAll)
+            {
+                Caption = 'Ship Today, All';
+                Filters = where("Shipment Date" = filter('T'));
+            }
+            view(NTNNotReleased)
+            {
+                Caption = 'NTN, Not Released';
+                Filters = where("No." = filter('NTN*'), "Status" = const(Open));
+            }
+
+            view(ToBeInvoiced)
+            {
+                Caption = 'To Be Invoiced';
+                Filters = where("Shipped Not Invoiced" = filter('Yes'), "Shipment Date" = filter('..T'));
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
         TorlysCreditHold: Codeunit TlyCreditHold;

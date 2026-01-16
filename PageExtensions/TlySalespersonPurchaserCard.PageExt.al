@@ -10,6 +10,12 @@ pageextension 55116 TlySalespersonPurchaserCard extends "Salesperson/Purchaser C
                 ToolTip = 'Order Shipping Location';
                 ApplicationArea = All;
             }
+
+        }
+        moveafter("Order Shipping Location"; "Phone No.", "E-Mail")
+
+        addafter("E-Mail")
+        {
             field(Manager; Rec.Manager)
             {
                 Caption = 'Manager';
@@ -29,21 +35,13 @@ pageextension 55116 TlySalespersonPurchaserCard extends "Salesperson/Purchaser C
                 ApplicationArea = All;
             }
         }
+        moveafter("View Mgr Pricing - Intranet"; Blocked)
 
         modify("Commission %")
         {
             Visible = false;
         }
 
-        modify("Phone No.")
-        {
-            Visible = false;
-        }
-
-        modify("E-Mail")
-        {
-            Visible = false;
-        }
         modify("Next Task Date")
         {
             Visible = false;

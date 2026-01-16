@@ -3,7 +3,7 @@ page 52003 TlySalesPriceCodeList
     ApplicationArea = Basic, Suite;
     Caption = 'Sales Price Codes';
     // CardPageID = "Torlys Sales Price Code Card";
-    InsertAllowed = false;
+    InsertAllowed = true;
     PageType = List;
     RefreshOnActivate = true;
     ShowFilter = false;

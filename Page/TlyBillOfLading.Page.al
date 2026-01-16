@@ -579,6 +579,10 @@ page 51002 TlyBillOfLading
         BOLLine: Record TlyBillOfLadingLine;
         NextLineNo: Integer;
         ShippingAgent: Record "Shipping Agent";
+        UOMMgt: Codeunit "Unit of Measure Management";
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
+        Item: Record Item;
         TotalWeight: Decimal;
         TotalCases: Integer;
         SalesHeader: Record "Sales Header";
@@ -591,6 +595,9 @@ page 51002 TlyBillOfLading
         BOLLine.Reset();
         NextLineNo := 0;
         ShippingAgent.Reset();
+        QtyPerCase := 0;
+        QtyPerPallet := 0;
+        Item.Reset();
         TotalWeight := 0;
         TotalCases := 0;
         SalesHeader.Reset();
@@ -667,10 +674,15 @@ page 51002 TlyBillOfLading
                             end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
                                                                                     'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
                                                                                     'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
+                                Item.Get(SalesShipmentLine."No.");
+                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
                                 Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case";
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"
+                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case";
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
+                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
                             end else begin
                                 Rec."Weight - Other" := Rec."Weight - Other" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 Rec."Cases - Other" := Rec."Cases - Other" + SalesShipmentLine."Quantity";
@@ -758,13 +770,18 @@ page 51002 TlyBillOfLading
                                 Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case";
-                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
+                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
                                                                                     'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
                                                                                     'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
+                                Item.Get(TransferShipmentLine."Item No.");
+                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
                                 Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"
+                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case";
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
+                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
                             end else begin
                                 Rec."Weight - Other" := Rec."Weight - Other" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 Rec."Cases - Other" := Rec."Cases - Other" + TransferShipmentLine."Quantity";

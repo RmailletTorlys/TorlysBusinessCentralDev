@@ -10,10 +10,23 @@ pageextension 50014 TlySalespersonPurchaserList extends "Salespersons/Purchasers
                 ToolTip = 'Job Title';
                 ApplicationArea = All;
             }
+
             field("Order Shipping Location"; Rec."Order Shipping Location")
             {
                 Caption = 'Order Shipping Location';
                 ToolTip = 'Order Shipping Location';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Order Shipping Location"; "Phone No.")
+
+        addafter("Phone No.")
+        {
+            field("E-Mail"; Rec."E-Mail")
+            {
+                Caption = 'E-Mail';
+                ToolTip = 'E-Mail';
                 ApplicationArea = All;
             }
             field(Manager; Rec.Manager)
@@ -34,14 +47,15 @@ pageextension 50014 TlySalespersonPurchaserList extends "Salespersons/Purchasers
                 ToolTip = 'Intranet - View Manager Pricing';
                 ApplicationArea = All;
             }
+            field("Blocked"; Rec."Blocked")
+            {
+                Caption = 'Blocked';
+                ToolTip = 'Blocked';
+                ApplicationArea = All;
+            }
         }
 
         modify("Commission %")
-        {
-            Visible = false;
-        }
-
-        modify("Phone No.")
         {
             Visible = false;
         }

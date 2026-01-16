@@ -49,24 +49,26 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Qty. to Ship Case';
                 ToolTip = 'Qty. to Ship Case';
                 ApplicationArea = All;
-                Editable = EditQTS and EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQtyToShipCase(Rec, xRec);
-                //     CurrPage.Update(true);
-                // end;
+                Editable = EditCasePallet and EditQTS;
+                trigger OnValidate()
+                begin
+                    // OnValidateQtyToShipCase(Rec, xRec);
+                    // CurrPage.Update(true);
+                    if (UserEditQTS = false) and (Rec."Qty. to Ship Case" <> 0) then Error('You can only set this to 0.');
+                end;
             }
             field("Qty. to Ship Pallet"; Rec."Qty. to Ship Pallet")
             {
                 Caption = 'Qty. to Ship Pallet';
                 ToolTip = 'Qty. to Ship Pallet';
                 ApplicationArea = All;
-                Editable = EditQTS and EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQtyToShipPallet(Rec, xRec);
-                //     CurrPage.Update(true);
-                // end;
+                Editable = EditCasePallet and EditQTS;
+                trigger OnValidate()
+                begin
+                    // OnValidateQtyToShipPallet(Rec, xRec);
+                    // CurrPage.Update(true);
+                    if (UserEditQTS = false) and (Rec."Qty. to Ship Pallet" <> 0) then Error('You can only set this to 0.');
+                end;
             }
         }
         moveafter("Qty. to Ship Pallet"; "Shipment Date")
@@ -183,6 +185,14 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Purchase Order No.';
                 ApplicationArea = All;
                 Visible = true;
+                trigger OnDrillDown()
+                var
+                    PurchaseHeader: Record "Purchase Header";
+                begin
+                    PurchaseHeader.Reset;
+                    PurchaseHeader.SetRange("No.", Rec."Purchase Order No.");
+                    Page.Run(50, PurchaseHeader);
+                end;
             }
             field("Purch. Order Line No."; Rec."Purch. Order Line No.")
             {
@@ -198,6 +208,14 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Transfer Order No.';
                 ApplicationArea = All;
                 Visible = true;
+                trigger OnDrillDown()
+                var
+                    TransferHeader: Record "Transfer Header";
+                begin
+                    TransferHeader.Reset;
+                    TransferHeader.SetRange("No.", Rec."Transfer Order No.");
+                    Page.Run(5740, TransferHeader);
+                end;
             }
             field("Transfer Order Line No."; Rec."Transfer Order Line No.")
             {
@@ -212,6 +230,14 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Linked Purchase Order No.';
                 ApplicationArea = All;
                 Visible = true;
+                trigger OnDrillDown()
+                var
+                    PurchaseHeader: Record "Purchase Header";
+                begin
+                    PurchaseHeader.Reset;
+                    PurchaseHeader.SetRange("No.", Rec."Linked Purchase Order No.");
+                    Page.Run(50, PurchaseHeader);
+                end;
             }
             field("Linked Purch. Order Line No."; Rec."Linked Purch. Order Line No.")
             {
@@ -227,6 +253,14 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Linked Transfer Order No.';
                 ApplicationArea = All;
                 Visible = true;
+                trigger OnDrillDown()
+                var
+                    TransferHeader: Record "Transfer Header";
+                begin
+                    TransferHeader.Reset;
+                    TransferHeader.SetRange("No.", Rec."Linked Transfer Order No.");
+                    Page.Run(5740, TransferHeader);
+                end;
             }
             field("Linked Transfer Order Line No."; Rec."Linked Transfer Order Line No.")
             {
@@ -443,6 +477,10 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         modify("Qty. to Ship")
         {
             Editable = EditQTS;
+            trigger OnBeforeValidate()
+            begin
+                if (UserEditQTS = false) and (Rec."Qty. to Ship" <> 0) then Error('You can only set this to 0.');
+            end;
         }
     }
 
@@ -492,9 +530,35 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Item Accessories';
                 ApplicationArea = All;
                 Image = Order;
-                RunObject = Page "NTN Web Related Items";
-                RunPageLink = "No." = field("No.");
-                RunPageMode = View;
+                trigger OnAction()
+                var
+                    ItemAccessoriesPage: Page "NTN Web Related Items";
+                    ItemAccessoriesRecord: Record "NTN Related Item";
+                    RelatedItem: Code[20];
+                    SalesLine: Record "Sales Line";
+                    LineNo: Integer;
+                begin
+                    ItemAccessoriesPage.LookupMode(true);
+                    ItemAccessoriesRecord.Reset;
+                    ItemAccessoriesRecord.SetRange("No.", Rec."No.");
+                    ItemAccessoriesPage.SetTableView(ItemAccessoriesRecord);
+                    if ItemAccessoriesPage.RunModal() = Action::LookupOK then
+                        ItemAccessoriesPage.GetRecord(ItemAccessoriesRecord);
+                    // RelatedItem := ItemAccessoriesRecord."Related Item No.";
+
+                    SalesLine.Reset;
+                    SalesLine.SetRange("Document No.", Rec."Document No.");
+                    if SalesLine.Find('+') then //begin
+                        LineNo := SalesLine."Line No." + 10000;
+                    // end;
+
+                    SalesLine.Init;
+                    SalesLine."Document No." := Rec."Document No.";
+                    SalesLine."Line No." := LineNo;
+                    SalesLine.Validate(Type, 2);
+                    SalesLine.Validate("No.", ItemAccessoriesRecord."Related Item No.");
+                    SalesLine.Insert;
+                end;
             }
             group(CustomerItemHistory)
             {
@@ -701,18 +765,27 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
         UserSetup: Record "User Setup";
+        UserEditQTS: Boolean;
         EditQTS: Boolean;
 
     trigger OnOpenPage()
     begin
+        // need this to just check for user setup and below function is record specfic for editing QTS
         UserSetup.Get(UserId);
-        if UserSetup."SO Qty. to Ship Edit" then EditQTS := true;
+        if UserSetup."SO Qty. to Ship Edit" then UserEditQTS := true;
     end;
+
+    // trigger OnAfterGetCurrRecord()
+    // begin
+    //     UserSetup.Get(UserId);
+    //     if UserSetup."SO Qty. to Ship Edit" then EditQTS := true;
+    // end;
 
     trigger OnAfterGetRecord()
     begin
         // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
+        EditQTS := CheckEditQTS(Rec);
     end;
 
     procedure PrepareUserModifiedUnitPrice()
@@ -757,5 +830,15 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         Item.Get(SalesLine."No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
+    end;
+
+    procedure CheckEditQTS(var SalesLine: Record "Sales Line"): Boolean
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get(UserId);
+        if UserSetup."SO Qty. to Ship Edit" then exit(true);
+        if SalesLine."Qty. to Ship" <> 0 then exit(true);
+        exit(false);
     end;
 }

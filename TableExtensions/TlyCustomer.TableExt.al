@@ -19,12 +19,14 @@ tableextension 50018 TlyCustomer extends Customer
         {
             Caption = 'Credit Limit Modified Date';
             DataClassification = CustomerContent;
+            Editable = false;
         }
 
         field(50004; "Credit Limit Modified By"; Code[20])
         {
             Caption = 'Credit Limit Modified By';
             DataClassification = CustomerContent;
+            Editable = false;
         }
 
         field(50005; "Previous Credit Limit (LCY)"; Decimal)
@@ -32,6 +34,7 @@ tableextension 50018 TlyCustomer extends Customer
             Caption = 'Previous Credit Limit (LCY)';
             DecimalPlaces = 2;
             DataClassification = CustomerContent;
+            Editable = false;
         }
 
         field(50006; "Credit Warnings"; enum TlyCustCreditWarnings)
@@ -265,6 +268,18 @@ tableextension 50018 TlyCustomer extends Customer
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
+        }
+
+        modify("Credit Limit (LCY)")
+        {
+            trigger OnAfterValidate()
+            begin
+                if Rec."Credit Limit (LCY)" <> xRec."Credit Limit (LCY)" then begin
+                    "Credit Limit Modified By" := UserId;
+                    "Credit Limit Modified Date" := WorkDate();
+                    "Previous Credit Limit (LCY)" := xRec."Credit Limit (LCY)"
+                end;
+            end;
         }
 
     }

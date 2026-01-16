@@ -82,6 +82,9 @@ End Function
         <Field Name="Customer_No_">
           <DataField>Customer_No_</DataField>
         </Field>
+        <Field Name="Ship_to_Name">
+          <DataField>Ship_to_Name</DataField>
+        </Field>
         <Field Name="Ship_to_Address">
           <DataField>Ship_to_Address</DataField>
         </Field>

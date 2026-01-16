@@ -46,6 +46,10 @@ report 50015 "Shipping Manifest"
                 {
 
                 }
+                column(Ship_to_Name; "Ship-to Name")
+                {
+
+                }
                 column(Ship_to_Address; "Ship-to Address")
                 {
 
@@ -115,6 +119,12 @@ report 50015 "Shipping Manifest"
                 trigger OnAfterGetRecord()
                 begin
                     CarrierTotalWeight := CarrierTotalWeight + "Weight - Total";
+
+                    TotalSkids := 0;
+                    TotalBoxes := 0;
+                    TotalTubes := 0;
+                    TotalRolls := 0;
+                    TotalPackages := 0;
 
                     TotalSkids += "No. of Skids";
                     TotalBoxes += "No. of Boxes";

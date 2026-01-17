@@ -186,6 +186,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
+                Importance = Additional;
             }
             field("SystemModifiedAt"; Rec."SystemModifiedAt")
             {
@@ -195,9 +196,6 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ToolTip = 'This field is the date the customer account was last modified.';
                 Importance = Additional;
             }
-
-
-
         }
 
         moveafter("Address 2"; "City", "County", "Country/Region Code", "Post Code", ShowMap, "Phone No.")
@@ -641,6 +639,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Importance = Additional;
         }
+        modify("Registration Number")
+        {
+            Importance = Additional;
+        }
     }
 
     actions
@@ -662,15 +664,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             actionref(Displays_Promoted; Displays) { }
         }
-
-
-
-
-
-
     }
-
-
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -683,12 +677,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
 
-
-
     local procedure ValidateShortcutDimension(DimIndex: Integer)
     var
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
-
 }

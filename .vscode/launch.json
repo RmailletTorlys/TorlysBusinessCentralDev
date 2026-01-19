@@ -12,7 +12,7 @@
             // "startupObjectId": 42, //sales order card
             // "startupObjectId": 43, //sales invoice card
             // "startupObjectId": 9302, //sales credit memo list
-            "startupObjectId": 26,
+            "startupObjectId": 70909740,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

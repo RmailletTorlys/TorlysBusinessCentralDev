@@ -2,8 +2,7 @@ tableextension 50097 TlyCommentLine extends "Comment Line"
 {
     fields
     {
-
-        field(50001; "Comment Type"; Code[25])
+        field(50001; "Comment Type"; Code[20])
         {
             Caption = 'Comment Type';
             ToolTip = 'Specifies the type of comment.';
@@ -25,7 +24,7 @@ tableextension 50097 TlyCommentLine extends "Comment Line"
 
         field(50005; "Print on Quote"; Boolean)
         {
-            Caption = 'Copy to Quote';
+            Caption = 'Print on Quote';
             ToolTip = 'Specifies whether the comment line should be copied to the quote.';
         }
 
@@ -90,7 +89,5 @@ tableextension 50097 TlyCommentLine extends "Comment Line"
             Caption = 'Print on Purchase Credit Memo';
             ToolTip = 'Specifies whether the comment line should be printed on the Purchase Credit Memo.';
         }
-
     }
-
 }

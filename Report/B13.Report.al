@@ -104,7 +104,7 @@ report 50020 "B13 Purchase"
                     // TariffNote := item."Customs/Tariff Note";
                     If CostInsteadOfPrice then
                         NetPrice := "Unit Cost (LCY)"
-                    else if (BackoutDuty) and (Item3."Tarrif Charge Required") then
+                    else if (BackoutDuty) and (Item3."Tariff Charge Required") then
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / 1.25)
                     else
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));

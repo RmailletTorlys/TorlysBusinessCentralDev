@@ -324,7 +324,7 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Compare Unit of Measure';
             DataClassification = CustomerContent;
-            TableRelation = "Item Unit of Measure".Code WHERE("Item No." = FIELD("No."));
+            TableRelation = "Item Unit of Measure".Code where("Item No." = field("No."));
         }
 
         field(50047; "Sales Price Code"; Code[20])
@@ -355,15 +355,15 @@ tableextension 50027 TlyItem extends Item
             TableRelation = "Tariff Number";
         }
 
-        field(50051; "Tarrif Charge Required"; Boolean)
+        field(50051; "Tariff Charge Required"; Boolean)
         {
             Caption = 'Tariff Charge Required';
             DataClassification = CustomerContent;
         }
 
-        field(50052; "Customs/Tarrif Note"; Text[50])
+        field(50052; "Customs/Tariff Note"; Text[50])
         {
-            Caption = 'Customs/Tarrif Note';
+            Caption = 'Customs/Tariff Note';
             DataClassification = CustomerContent;
         }
     }

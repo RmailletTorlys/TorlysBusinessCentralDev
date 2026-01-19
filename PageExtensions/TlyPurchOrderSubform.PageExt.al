@@ -45,9 +45,9 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Quantity Pallet"; "Direct Unit Cost", "Indirect Cost %", "Unit Cost (LCY)", "Line Amount")
+        moveafter("Quantity Pallet"; "Direct Unit Cost", "Indirect Cost %", "Unit Cost (LCY)", "Line Amount", "Lead Time Calculation")
 
-        addafter("Line Amount")
+        addafter("Lead Time Calculation")
         {
             field("Confirmation No."; Rec."Confirmation No.")
             {
@@ -74,27 +74,24 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Shipment Date';
                 ApplicationArea = All;
             }
+            field("Previous ETA"; Rec."Previous ETA")
+            {
+                Caption = 'Previous ETA';
+                ToolTip = 'Previous ETA';
+                ApplicationArea = All;
+            }
             field("Expected Departure Date"; Rec."Expected Departure Date")
             {
                 Caption = 'Expected Departure Date';
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
             }
-
         }
 
-        moveafter("Expected Departure Date"; "Expected Receipt Date")
+        moveafter("Expected Departure Date"; "Planned Receipt Date", "Expected Receipt Date")
 
         addafter("Expected Receipt Date")
         {
-            field("Previous ETA"; Rec."Previous ETA")
-            {
-                Caption = 'Previous ETA';
-                ToolTip = 'Previous ETA';
-                ApplicationArea = All;
-                Editable = true;
-            }
-
             field("Container No."; Rec."Container No.")
             {
                 Caption = 'Container No.';
@@ -314,11 +311,6 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             Visible = true;
         }
 
-        modify("Planned Receipt Date")
-        {
-            Visible = false;
-        }
-
         modify("LAX Exclude From Performance")
         {
             Visible = false;
@@ -355,6 +347,10 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
         }
 
         modify("Drop Shipment")
+        {
+            Visible = true;
+        }
+        modify("Lead Time Calculation")
         {
             Visible = true;
         }

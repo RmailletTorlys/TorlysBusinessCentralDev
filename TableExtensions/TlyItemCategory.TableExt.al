@@ -6,7 +6,6 @@ tableextension 55722 TlyItemCategory extends "Item Category"
         {
             Caption = 'Dimensions';
             DataClassification = CustomerContent;
-
         }
 
         field(50002; "Description 2"; Text[100])
@@ -14,7 +13,6 @@ tableextension 55722 TlyItemCategory extends "Item Category"
             Caption = 'Description 2';
             DataClassification = CustomerContent;
         }
-
 
         field(50004; "Description (FR)"; Text[100])
         {

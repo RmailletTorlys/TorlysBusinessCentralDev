@@ -8,7 +8,7 @@ pageextension 55404 TlyItemUnitsOfMeasure extends "Item Units of Measure"
         {
 
 
-            field("Conversion Unit of Measure"; Rec."Conversion UoM")
+            field("Conversion Unit of Measure"; Rec."Conversion Unit of Measure")
             {
                 Caption = 'Conversion Unit of Measure';
                 ToolTip = 'Conversion Unit of Measure';

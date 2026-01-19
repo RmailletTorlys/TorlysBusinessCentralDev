@@ -452,7 +452,7 @@ report 50026 "Proforma"
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
                                     ELSE IF (UseListPrice) THEN
                                         AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") THEN
+                                    ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
                                         AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
                                                             * "Quantity Shipped")
                                     ELSE
@@ -495,7 +495,7 @@ report 50026 "Proforma"
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
                                     ELSE IF (UseListPrice) THEN
                                         AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tarrif Charge Required") THEN
+                                    ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
                                         AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
                                                             * "Qty. to Ship")
                                     ELSE
@@ -526,7 +526,7 @@ report 50026 "Proforma"
                                     IF Item.GET("No.") THEN BEGIN
                                         CountryOfOrigin := Item."Country/Region of Origin Code";
                                         // ICProgramNo := Item.;
-                                        TariffNote := Item."Customs/Tarrif Note"; //TLY-SD - 04/09/2025
+                                        TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
                                         IF UsePurchasesTariff THEN
                                             TariffNo := Item."Tariff No."
                                         ELSE

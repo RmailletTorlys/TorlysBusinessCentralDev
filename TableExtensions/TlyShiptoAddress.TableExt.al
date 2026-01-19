@@ -2,16 +2,16 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
 {
     fields
     {
-        field(50001; "Comment"; Text[50])
-        {
-            Caption = 'Comment';
-            DataClassification = CustomerContent;
-        }
-        field(50003; "Email (BoL)"; Text[80])
-        {
-            Caption = 'Email (BoL)';
-            DataClassification = CustomerContent;
-        }
+        // field(50001; "Comment"; Text[50])
+        // {
+        //     Caption = 'Comment';
+        //     DataClassification = CustomerContent;
+        // }
+        // field(50003; "Email (BoL)"; Text[80])
+        // {
+        //     Caption = 'Email (BoL)';
+        //     DataClassification = CustomerContent;
+        // }
         field(50004; "Have Dock"; Boolean)
         {
             Caption = 'Have Dock';
@@ -42,19 +42,17 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
             Caption = 'Pump Truck Required';
             DataClassification = CustomerContent;
         }
-        field(50010; "Destination Instructions"; Text[50])
-        {
-            Caption = 'Destination Instructions';
-            DataClassification = CustomerContent;
-        }
-
-        field(50012; "Shipping Instructions"; Code[30])
+        // field(50010; "Destination Instructions"; Text[50])
+        // {
+        //     Caption = 'Destination Instructions';
+        //     DataClassification = CustomerContent;
+        // }
+        field(50012; "Shipping Instructions"; Code[20])
         {
             Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
             TableRelation = TlyShippingInstructions;
         }
-
         field(50013; "Shipping Comment"; Text[50])
         {
             Caption = 'Shipping Comment';
@@ -70,7 +68,6 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
             DataClassification = CustomerContent;
             TableRelation = TlyFreightZone;
         }
-
     }
 
     keys

@@ -158,19 +158,22 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     ToolTip = 'Production Date Required';
                     Importance = Additional;
                 }
-
-                field("Assembly BOM"; Rec."Assembly BOM")
-                {
-                    Caption = 'Assembly BOM';
-                    ToolTip = 'The Item No. for the Kit Bill of Material';
-                    ApplicationArea = All;
-                    Visible = false;
-                    Importance = Additional;
-                }
             }
         }
 
-        moveafter("Assembly BOM"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
+        moveafter("Production Date Required"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
+
+        addafter(Blocked)
+        {
+            field("Assembly BOM"; Rec."Assembly BOM")
+            {
+                Caption = 'Assembly BOM';
+                ToolTip = 'The Item No. for the Kit Bill of Material';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Additional;
+            }
+        }
         //Attributes Group End
 
         //Inventory Group Start
@@ -294,13 +297,21 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         addafter("Unit Price")
         {
+            field("Web Suggested Price"; Rec."NTN Web Suggested Price")
+            {
+                Caption = 'Web Suggested Price';
+                ToolTip = 'Web Suggested Price';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 Caption = 'Sales Price Code';
                 ToolTip = 'The Sales Price Code';
                 ApplicationArea = All;
                 Visible = true;
-                Importance = Additional;
+                Importance = Standard;
             }
             field("Automatically Allocate"; Rec."Automatically Allocate")
             {

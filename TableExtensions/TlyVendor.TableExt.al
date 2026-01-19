@@ -2,11 +2,11 @@ tableextension 50023 TlyVendor extends Vendor
 {
     fields
     {
-        field(50001; "Account No."; Text[20])
-        {
-            Caption = 'Account No.';
-            DataClassification = CustomerContent;
-        }
+        // field(50001; "Account No."; Text[20])
+        // {
+        //     Caption = 'Account No.';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(50002; "Default G/L Account"; Code[20])
         {
@@ -23,12 +23,11 @@ tableextension 50023 TlyVendor extends Vendor
 
         }
 
-        field(50005; "Invoice Unit of Measure"; Code[20])
-        {
-            Caption = 'Invoice Unit of Measure';
-            TableRelation = "Unit of Measure";
-            DataClassification = CustomerContent;
-
-        }
+        // field(50005; "Invoice Unit of Measure"; Code[20])
+        // {
+        //     Caption = 'Invoice Unit of Measure';
+        //     TableRelation = "Unit of Measure";
+        //     DataClassification = CustomerContent;
+        // }
     }
 }

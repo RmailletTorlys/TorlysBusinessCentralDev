@@ -178,32 +178,37 @@ table 55004 TlyProcessedBillOfLadingHeader
         field(29; "Weight - Total"; Decimal)
         {
             Caption = 'Weight-Total';
+            DecimalPlaces = 2 : 5;
             FieldClass = FlowField;
             CalcFormula = sum(TlyProcessedBillOfLadingLine."Total Weight" where("BOL No." = field("No.")));
         }
 
         field(30; "Weight - Other"; Decimal)
         {
-            Caption = 'Weight-Other';
+            Caption = 'Weight - Other';
             DataClassification = CustomerContent;
+            DecimalPlaces = 2 : 5;
         }
 
         field(31; "Weight - Flooring"; Decimal)
         {
             Caption = 'Weight - Flooring';
             DataClassification = CustomerContent;
+            DecimalPlaces = 2 : 5;
         }
 
         field(32; "Weight - Underlayment Rolls"; Decimal)
         {
             Caption = 'Weight - Underlayment Rolls';
             DataClassification = CustomerContent;
+            DecimalPlaces = 2 : 5;
         }
 
         field(33; "Weight - Mouldings"; Decimal)
         {
             Caption = 'Weight - Mouldings';
             DataClassification = CustomerContent;
+            DecimalPlaces = 2 : 5;
         }
 
         field(34; "Cases - Total"; Decimal)

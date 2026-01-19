@@ -58,19 +58,6 @@ pageextension 50137 TlyPostedPurchRcptSubform extends "Posted Purchase Rcpt. Sub
                 ToolTip = 'Shipment Date';
                 ApplicationArea = All;
             }
-            field("Expected Departure Date"; Rec."Expected Departure Date")
-            {
-                Caption = 'Expected Departure Date';
-                ToolTip = 'Expected Departure Date';
-                ApplicationArea = All;
-            }
-
-        }
-
-        moveafter("Expected Departure Date"; "Expected Receipt Date")
-
-        addafter("Expected Receipt Date")
-        {
             field("Previous ETA"; Rec."Previous ETA")
             {
                 Caption = 'Previous ETA';
@@ -78,6 +65,19 @@ pageextension 50137 TlyPostedPurchRcptSubform extends "Posted Purchase Rcpt. Sub
                 ApplicationArea = All;
                 Editable = true;
             }
+            field("Expected Departure Date"; Rec."Expected Departure Date")
+            {
+                Caption = 'Expected Departure Date';
+                ToolTip = 'Expected Departure Date';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Expected Departure Date"; "Planned Receipt Date", "Expected Receipt Date")
+
+        addafter("Expected Receipt Date")
+        {
+
             field("Container No."; Rec."Container No.")
             {
                 Caption = 'Container No.';

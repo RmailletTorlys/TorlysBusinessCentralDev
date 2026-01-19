@@ -72,13 +72,19 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
                 ToolTip = 'Shipment Date';
                 ApplicationArea = All;
             }
+            field("Previous ETA"; Rec."Previous ETA")
+            {
+                Caption = 'Previous ETA';
+                ToolTip = 'Previous ETA';
+                ApplicationArea = All;
+                Editable = true;
+            }
             field("Expected Departure Date"; Rec."Expected Departure Date")
             {
                 Caption = 'Expected Departure Date';
                 ToolTip = 'Expected Departure Date';
                 ApplicationArea = All;
             }
-
         }
 
         addafter("Expected Departure Date")
@@ -87,13 +93,6 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
             {
                 Caption = 'Expected Receipt Date';
                 ToolTip = 'Expected Receipt Date';
-                ApplicationArea = All;
-                Editable = true;
-            }
-            field("Previous ETA"; Rec."Previous ETA")
-            {
-                Caption = 'Previous ETA';
-                ToolTip = 'Previous ETA';
                 ApplicationArea = All;
                 Editable = true;
             }

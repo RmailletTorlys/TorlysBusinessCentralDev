@@ -89,7 +89,7 @@ pageextension 50050 TlyPurchOrder extends "Purchase Order"
 
         moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
-        movefirst("Shipping and Payment"; "Lead Time Calculation", "Requested Receipt Date", "Promised Receipt Date")
+        movefirst("Shipping and Payment"; "Lead Time Calculation")
 
         addafter(ShippingOptionWithLocation)
         {

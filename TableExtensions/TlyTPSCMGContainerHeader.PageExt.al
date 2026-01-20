@@ -22,5 +22,22 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             Caption = 'Previous ETA';
             DataClassification = CustomerContent;
         }
+        field(50005; "Steamship Line"; Text[20])
+        {
+            Caption = 'Steamship Line';
+            DataClassification = CustomerContent;
+            TableRelation = TlySteamshipLine;
+        }
+        field(50006; "Insurance Certificate No."; Text[30])
+        {
+            Caption = 'Insurance Certificate No.';
+            DataClassification = CustomerContent;
+        }
+        field(50007; "Freight Forwarder"; Code[20])
+        {
+            Caption = 'Freight Forwarder';
+            DataClassification = CustomerContent;
+            TableRelation = Vendor;
+        }
     }
 }

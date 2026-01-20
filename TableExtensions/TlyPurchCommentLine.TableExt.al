@@ -9,6 +9,12 @@ tableextension 50043 TlyPurchCommentLine extends "Purch. Comment Line"
             DataClassification = CustomerContent;
             TableRelation = TlyCommentType;
         }
+        field(50002; "Popup"; Boolean)
+        {
+            Caption = 'Popup';
+            ToolTip = 'Popup';
+            DataClassification = CustomerContent;
+        }
 
         field(50013; "Print on Purchase Order"; Boolean)
         {

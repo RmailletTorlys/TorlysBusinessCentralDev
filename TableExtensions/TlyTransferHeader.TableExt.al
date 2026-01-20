@@ -1,5 +1,7 @@
 tableextension 55740 TlyTransferHeader extends "Transfer Header"
 {
+    DrillDownPageId = "Transfer Orders";
+
     fields
     {
         field(50001; "Transfer Type"; Enum TlyTransferType)

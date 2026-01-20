@@ -21,7 +21,7 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
             }
             view(Clearance)
             {
-                Caption = 'Tiers - US';
+                Caption = 'Clearance';
                 Filters = where("Code" = filter('CLEARANCE'));
             }
             view(Insurance)

@@ -9,8 +9,12 @@ tableextension 50044 TlySalesCommentLine extends "Sales Comment Line"
             ToolTip = 'Specifies the type of comment.';
             TableRelation = TlyCommentType;
         }
-
-
+        field(50002; "Popup"; Boolean)
+        {
+            Caption = 'Popup';
+            ToolTip = 'Popup';
+            DataClassification = CustomerContent;
+        }
     }
 
 }

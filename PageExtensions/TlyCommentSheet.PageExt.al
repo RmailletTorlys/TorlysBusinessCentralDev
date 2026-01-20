@@ -9,7 +9,13 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Comment Type';
                 ToolTip = 'Specifies the type of comment.';
+            }
 
+            field(Popup; Rec."Popup")
+            {
+                ApplicationArea = All;
+                Caption = 'Popup';
+                ToolTip = 'Popup';
             }
 
             field("Copy to Sales Order"; Rec."Copy to Sales Order")
@@ -17,7 +23,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Copy to Sales Order';
                 ToolTip = 'Specifies if the comment should be copied to the sales order.';
-
             }
 
 
@@ -26,7 +31,7 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Quote';
                 ToolTip = 'Specifies if the comment should be printed on the quote.';
-
+                Visible = false;
             }
 
             field("Print on Pick Ticket"; Rec."Print on Pick Ticket")
@@ -34,7 +39,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Pick Ticket';
                 ToolTip = 'Specifies if the comment should be printed on the pick ticket.';
-
             }
 
             field("Print on Order Confirmation"; Rec."Print on Order Confirmation")
@@ -42,7 +46,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Order Confirmation';
                 ToolTip = 'Specifies if the comment should be printed on the order confirmation.';
-
             }
 
             field("Print on Shipment"; Rec."Print on Shipment")
@@ -50,7 +53,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Shipment';
                 ToolTip = 'Specifies if the comment should be printed on the shipment.';
-
             }
 
             field("Print on Invoice"; Rec."Print on Invoice")
@@ -58,7 +60,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Invoice';
                 ToolTip = 'Specifies if the comment should be printed on the invoice.';
-
             }
 
             field("Print on Credit Memo"; Rec."Print on Credit Memo")
@@ -66,7 +67,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Credit Memo';
                 ToolTip = 'Specifies if the comment should be printed on the credit memo.';
-
             }
 
             field("Print on Return Authorization"; Rec."Print on Return Authorization")
@@ -74,7 +74,7 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Return Authorization';
                 ToolTip = 'Specifies if the comment should be printed on the return authorization.';
-
+                Visible = false;
             }
 
             field("Print on Return Receipt"; Rec."Print on Return Receipt")
@@ -82,42 +82,36 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Return Receipt';
                 ToolTip = 'Specifies if the comment should be printed on the return receipt.';
-
             }
             field("Copy to Purchase Order"; Rec."Copy to Purchase Order")
             {
                 ApplicationArea = All;
                 Caption = 'Copy to Purchase Order';
                 ToolTip = 'Specifies if the comment should be copied to the purchase order.';
-
             }
             field("Print on Purchase Order"; Rec."Print on Purchase Order")
             {
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Order';
                 ToolTip = 'Specifies if the comment should be printed on the purchase order.';
-
             }
             field("Print on Purchase Receipt"; Rec."Print on Purchase Receipt")
             {
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Receipt';
                 ToolTip = 'Specifies if the comment should be printed on the purchase receipt.';
-
             }
             field("Print on Purchase Invoice"; Rec."Print on Purchase Invoice")
             {
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Invoice';
                 ToolTip = 'Specifies if the comment should be printed on the purchase invoice.';
-
             }
             field("Print on Purchase Credit Memo"; Rec."Print on Purchase Credit Memo")
             {
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Credit Memo';
                 ToolTip = 'Specifies if the comment should be printed on the purchase credit memo.';
-
             }
         }
 

@@ -72,6 +72,10 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
+            column(Unit_of_Measure_Code; "Unit of Measure Code")
+            {
+
+            }
         }
 
 

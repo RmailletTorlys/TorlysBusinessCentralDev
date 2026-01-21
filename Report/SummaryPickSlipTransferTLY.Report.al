@@ -93,6 +93,10 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         {
 
                         }
+                        column(ItemNoCount; ItemNoCount)
+                        {
+
+                        }
 
 
                         // trigger OnPreDataItem()

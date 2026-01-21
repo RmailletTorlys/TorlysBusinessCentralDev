@@ -24,6 +24,10 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
+            column(Posting_Date; "Posting Date")
+            {
+
+            }
         }
 
         add("Transfer Line")

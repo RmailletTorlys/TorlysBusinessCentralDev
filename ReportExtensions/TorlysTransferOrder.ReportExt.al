@@ -20,7 +20,6 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
-
         }
 
         add("Transfer Line")

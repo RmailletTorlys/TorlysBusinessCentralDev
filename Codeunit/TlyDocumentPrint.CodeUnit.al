@@ -208,4 +208,10 @@ codeunit 50299 TlyDocumentPrint
         TransferHeader.SetRange("Shipment Date", TransferHeader."Shipment Date");
         Report.RunModal(50007, true, false, TransferHeader)
     end;
+
+    procedure PrintTransferLabel(TransferHeader: Record "Transfer Header"): Boolean
+    begin
+        TransferHeader.SetRange("No.", TransferHeader."No.");
+        Report.RunModal(50027, true, false, TransferHeader)
+    end;
 }

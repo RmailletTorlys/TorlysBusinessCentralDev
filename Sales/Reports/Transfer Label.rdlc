@@ -64,62 +64,56 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="Booking_No_">
-          <DataField>Booking_No_</DataField>
+        <Field Name="LocationAddress1">
+          <DataField>LocationAddress1</DataField>
         </Field>
-        <Field Name="Transfer_Type">
-          <DataField>Transfer_Type</DataField>
+        <Field Name="LocationAddress2">
+          <DataField>LocationAddress2</DataField>
         </Field>
-        <Field Name="OrderString">
-          <DataField>OrderString</DataField>
+        <Field Name="LocationAddress3">
+          <DataField>LocationAddress3</DataField>
         </Field>
-        <Field Name="TransferOrderCount">
-          <DataField>TransferOrderCount</DataField>
+        <Field Name="LocationAddress4">
+          <DataField>LocationAddress4</DataField>
         </Field>
-        <Field Name="In_Transit_Code">
-          <DataField>In_Transit_Code</DataField>
+        <Field Name="LocationAddress5">
+          <DataField>LocationAddress5</DataField>
         </Field>
-        <Field Name="ItemNumber">
-          <DataField>ItemNumber</DataField>
+        <Field Name="LocationAddress6">
+          <DataField>LocationAddress6</DataField>
         </Field>
-        <Field Name="BinLocation">
-          <DataField>BinLocation</DataField>
+        <Field Name="Shipping_Agent_Code">
+          <DataField>Shipping_Agent_Code</DataField>
         </Field>
-        <Field Name="QtyCase">
-          <DataField>QtyCase</DataField>
+        <Field Name="ShipToAddress1">
+          <DataField>ShipToAddress1</DataField>
         </Field>
-        <Field Name="QtyCaseFormat">
-          <DataField>QtyCaseFormat</DataField>
+        <Field Name="ShipToAddress2">
+          <DataField>ShipToAddress2</DataField>
         </Field>
-        <Field Name="QtyBase">
-          <DataField>QtyBase</DataField>
+        <Field Name="ShipToAddress3">
+          <DataField>ShipToAddress3</DataField>
         </Field>
-        <Field Name="QtyBaseFormat">
-          <DataField>QtyBaseFormat</DataField>
+        <Field Name="ShipToAddress4">
+          <DataField>ShipToAddress4</DataField>
         </Field>
-        <Field Name="QtyPallet">
-          <DataField>QtyPallet</DataField>
+        <Field Name="ShipToAddress5">
+          <DataField>ShipToAddress5</DataField>
         </Field>
-        <Field Name="QtyPalletFormat">
-          <DataField>QtyPalletFormat</DataField>
+        <Field Name="ShipToAddress6">
+          <DataField>ShipToAddress6</DataField>
         </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
+        <Field Name="No_">
+          <DataField>No_</DataField>
         </Field>
-        <Field Name="Document_No_">
-          <DataField>Document_No_</DataField>
+        <Field Name="Shipment_Date">
+          <DataField>Shipment_Date</DataField>
         </Field>
-        <Field Name="Sales_Order_No_">
-          <DataField>Sales_Order_No_</DataField>
+        <Field Name="External_Document_No_">
+          <DataField>External_Document_No_</DataField>
         </Field>
-        <Field Name="CommentLabel">
-          <DataField>CommentLabel</DataField>
-        </Field>
-        <Field Name="Grouped">
-          <DataField>Grouped</DataField>
-        </Field>
-        <Field Name="Transfer_to_Code">
-          <DataField>Transfer_to_Code</DataField>
+        <Field Name="NoCopies">
+          <DataField>NoCopies</DataField>
         </Field>
       </Fields>
       <Query>

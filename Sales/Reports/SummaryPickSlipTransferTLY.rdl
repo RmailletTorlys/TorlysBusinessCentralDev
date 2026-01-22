@@ -130,6 +130,9 @@ End Function
         <Field Name="ToReceiveWeightFormat">
           <DataField>ToReceiveWeightFormat</DataField>
         </Field>
+        <Field Name="ItemNoCount">
+          <DataField>ItemNoCount</DataField>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>

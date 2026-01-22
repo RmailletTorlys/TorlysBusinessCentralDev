@@ -222,6 +222,20 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Document No."), "Document Line No." = field("Line No.")));
         }
 
+        modify("No.")
+        {
+            trigger OnBeforeValidate()
+            var
+                Item: Record Item;
+            begin
+                if Rec.Type = Rec.Type::Item then begin
+                Item.Get(Rec."No.");
+                if Rec."Buy-from Vendor No." <> Item."Vendor No." then
+                    Message('This is not the item card vendor for this item!');
+                end;
+            end;
+        }
+        
         modify(Quantity)
         {
             trigger OnBeforeValidate()

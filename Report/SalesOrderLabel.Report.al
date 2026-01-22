@@ -143,7 +143,7 @@ report 50005 "Sales Order Label"
                 field(NoCopies; NoCopiesVar)
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Number of Copies';
+                    Caption = 'Number of Additional Copies';
                     ToolTip = 'Specifies the number of copies of each document (in addition to the original) that you want to print.';
                     MinValue = 0;
                 }

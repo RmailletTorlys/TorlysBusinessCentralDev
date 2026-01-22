@@ -70,11 +70,11 @@ End Function
         <Field Name="Printdate">
           <DataField>Printdate</DataField>
         </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
         <Field Name="ProcessedBOLFilter">
           <DataField>ProcessedBOLFilter</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
         </Field>
         <Field Name="Pickupdate">
           <DataField>Pickupdate</DataField>

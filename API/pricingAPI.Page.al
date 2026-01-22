@@ -5,7 +5,7 @@ page 56000 "Pricing API"
     APIPublisher = 'torlys';
     APIGroup = 'app1';
     APIVersion = 'v2.0', 'v1.0';
-    EntityName = 'customer';
+    EntityName = 'prices';
     EntitySetName = 'priceLists';
     SourceTable = "Price List Line";
     DelayedInsert = true;
@@ -51,7 +51,10 @@ page 56000 "Pricing API"
                     Caption = 'Price Status';
                 }
 
-
+                field(endDate; Rec."Ending Date")
+                {
+                    Caption = 'End Date';
+                }
             }
         }
     }

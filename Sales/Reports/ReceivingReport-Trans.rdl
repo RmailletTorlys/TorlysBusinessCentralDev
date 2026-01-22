@@ -70,6 +70,12 @@ End Function
         <Field Name="Transfer_Type">
           <DataField>Transfer_Type</DataField>
         </Field>
+        <Field Name="OrderString">
+          <DataField>OrderString</DataField>
+        </Field>
+        <Field Name="TransferOrderCount">
+          <DataField>TransferOrderCount</DataField>
+        </Field>
         <Field Name="In_Transit_Code">
           <DataField>In_Transit_Code</DataField>
         </Field>

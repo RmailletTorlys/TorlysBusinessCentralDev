@@ -1,5 +1,19 @@
 codeunit 50015 TlyPostTransOrderShipment
 {
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Shipment", 'OnBeforeTransferOrderPostShipment', '', false, false)]
+    local procedure OnBeforeTransferOrderPostShipment(var TransferHeader: Record "Transfer Header"; var CommitIsSuppressed: Boolean; PreviewMode: Boolean)
+    begin
+        if TransferHeader."Picked By" = '' then
+            Error('The Picked By associate cannot be blank!');
+
+        if TransferHeader."Audited By" = '' then
+            Error('The Checked By associate cannot be blank!');
+
+        if TransferHeader."Picked By" = TransferHeader."Audited By" THEN
+            Error('The Picked By and Checked By associate cannot be the same!');
+    end;
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Shipment", 'OnAfterCheckInvtPostingSetup', '', false, false)]
     local procedure OnAfterCheckInvtPostingSetup(var TransferHeader: Record "Transfer Header"; var TempWhseShipmentHeader: Record "Warehouse Shipment Header" temporary; var SourceCode: Code[10])
     begin
@@ -7,6 +21,7 @@ codeunit 50015 TlyPostTransOrderShipment
         TransferHeader."Posting Date" := WorkDate();
         TransferHeader.Modify(true);
     end;
+
 
     [EventSubscriber(ObjectType::Table, Database::"Transfer Shipment Header", 'OnAfterCopyFromTransferHeader', '', false, false)]
     local procedure OnAfterCopyFromTransferHeader(var TransferShipmentHeader: Record "Transfer Shipment Header"; TransferHeader: Record "Transfer Header")
@@ -16,10 +31,10 @@ codeunit 50015 TlyPostTransOrderShipment
         TransferShipmentHeader."Picked By" := TransferHeader."Picked By";
         TransferShipmentHeader."Audited By" := TransferHeader."Audited By";
         TransferShipmentHeader."Received By" := TransferHeader."Received By";
-        // TransferShipmentHeader."Put Away By" := TransferHeader."Put Away By";
         TransferShipmentHeader."BOL No." := TransferHeader."BOL No.";
         TransferShipmentHeader."Package Tracking No." := TransferHeader."Package Tracking No.";
         TransferShipmentHeader."Shipping Comment" := TransferHeader."Shipping Comment";
+        TransferShipmentHeader."Booking No." := TransferHeader."Booking No.";
     end;
 
 

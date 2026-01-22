@@ -26,6 +26,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
                         end;
                     Rec."Quantity Case" := Round((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases            
                     Rec.Validate(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
+                    Rec.Validate(Rec."Direct Unit Cost"); // need this to update cost
                 end;
             end;
         }
@@ -47,6 +48,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
                     QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
                     QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
                     Rec.Validate(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet" + QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
+                    Rec.Validate(Rec."Direct Unit Cost"); // need this to update cost
                 end;
             end;
         }
@@ -220,6 +222,20 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Document No."), "Document Line No." = field("Line No.")));
         }
 
+        modify("No.")
+        {
+            trigger OnAfterValidate()
+            var
+                Item: Record Item;
+            begin
+                if Rec.Type = Rec.Type::Item then begin
+                    Item.Get(Rec."No.");
+                    if Rec."Buy-from Vendor No." <> Item."Vendor No." then
+                        Message('%1 default vendor is %2, not %3.', Rec."No.", Item."Vendor No.", Rec."Buy-from Vendor No.");
+                end;
+            end;
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()
@@ -327,4 +343,54 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
     // procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
     // begin
     // end;
+
+    // local procedure UpdateDirectUnitCostByField(CalledByFieldNo: Integer)
+    // var
+    //     BlanketOrderPurchaseLine: Record "Purchase Line";
+    //     PriceCalculation: Interface "Price Calculation";
+    //     IsHandled: Boolean;
+    //     ShouldExit: Boolean;
+    // begin
+    //     if not IsPriceCalcCalledByField(CalledByFieldNo) then
+    //         exit;
+
+    //     IsHandled := false;
+    //     // OnBeforeUpdateDirectUnitCost(Rec, xRec, CalledByFieldNo, CurrFieldNo, IsHandled);
+    //     if IsHandled then
+    //         exit;
+
+    //     if (CurrFieldNo <> 0) and IsProdOrder() then
+    //         UpdateAmounts();
+
+    //     ShouldExit := ((CalledByFieldNo <> CurrFieldNo) and (CurrFieldNo <> 0)) or IsProdOrder();
+    //     // OnUpdateDirectUnitCostByFieldOnAfterCalcShouldExit(Rec, xRec, CalledByFieldNo, CurrFieldNo, ShouldExit);
+    //     if ShouldExit then
+    //         exit;
+
+    //     case Type of
+    //         Type::"G/L Account",
+    //         Type::Item,
+    //         Type::Resource:
+    //             begin
+    //                 GetPurchHeader();
+    //                 IsHandled := false;
+    //                 // OnUpdateDirectUnitCostOnBeforeFindPrice(PurchHeader, Rec, CalledByFieldNo, CurrFieldNo, IsHandled, xRec);
+    //                 if not IsHandled then
+    //                     if not BlanketOrderIsRelated(BlanketOrderPurchaseLine) then begin
+    //                         GetPriceCalculationHandler(PurchHeader, PriceCalculation);
+    //                         if not ("Copied From Posted Doc." and IsCreditDocType()) then begin
+    //                             PriceCalculation.ApplyPrice(CalledByFieldNo);
+    //                             PriceCalculation.ApplyDiscount();
+    //                         end;
+    //                         GetLineWithCalculatedPrice(PriceCalculation);
+    //                     end else begin
+    //                         Validate("Direct Unit Cost", BlanketOrderPurchaseLine."Direct Unit Cost");
+    //                         Validate("Line Discount %", BlanketOrderPurchaseLine."Line Discount %");
+
+    //                         // OnUpdateDirectUnitCostByFieldOnAfterSetBlanketOrderPriceFields(PurchHeader, BlanketOrderPurchaseLine, Rec, CalledByFieldNo, CurrFieldNo);
+    //                     end;
+    //                 if (xRec."Direct Unit Cost" <> Rec."Direct Unit Cost") or not (CalledByFieldNo in [FieldNo("Job Task No."), FieldNo("Job No.")]) then
+    //                     Validate("Direct Unit Cost");
+    //             end;
+    //     end;
 }

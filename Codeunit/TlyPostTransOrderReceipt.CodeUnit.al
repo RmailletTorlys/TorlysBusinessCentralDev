@@ -1,5 +1,22 @@
 codeunit 50016 TlyPostTransOrderReceipt
 {
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Receipt", 'OnBeforeTransferOrderPostReceipt', '', false, false)]
+    local procedure OnBeforeTransferOrderPostReceipt(var TransferHeader: Record "Transfer Header"; var CommitIsSuppressed: Boolean; PreviewMode: Boolean)
+    begin
+        if TransferHeader."Picked By" = '' then
+            Error('The Picked By associate cannot be blank!');
+
+        if TransferHeader."Audited By" = '' then
+            Error('The Checked By associate cannot be blank!');
+
+        if TransferHeader."Picked By" = TransferHeader."Audited By" THEN
+            Error('The Picked By and Checked By associate cannot be the same!');
+
+        if TransferHeader."Received By" = '' then
+            Error('The Received By associate cannot be blank!');
+    end;
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Receipt", 'OnAfterCheckInvtPostingSetup', '', false, false)]
     local procedure OnAfterCheckInvtPostingSetup(var TransferHeader: Record "Transfer Header"; var WarehouseReceiptHeader: Record "Warehouse Receipt Header"; var SourceCode: Code[10])
     begin
@@ -16,10 +33,10 @@ codeunit 50016 TlyPostTransOrderReceipt
         TransferReceiptHeader."Picked By" := TransferHeader."Picked By";
         TransferReceiptHeader."Audited By" := TransferHeader."Audited By";
         TransferReceiptHeader."Received By" := TransferHeader."Received By";
-        // TransferReceiptHeader."Put Away By" := TransferHeader."Put Away By";
         TransferReceiptHeader."BOL No." := TransferHeader."BOL No.";
         TransferReceiptHeader."Package Tracking No." := TransferHeader."Package Tracking No.";
         TransferReceiptHeader."Shipping Comment" := TransferHeader."Shipping Comment";
+        TransferReceiptHeader."Booking No." := TransferHeader."Booking No.";
     end;
 
 

@@ -136,8 +136,17 @@ reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
                     MinValue = 0;
                 }
             }
+            modify("NumOfBlanksInput") // Use the name of the field to hide
+            {
+                Visible = false;
+            }
+            modify("LabelsPerRow") // Use the name of the field to hide
+            {
+                Visible = false;
+            }
         }
     }
+
 
     var
         ShipmentMethod: Record "Shipment Method";

@@ -9,6 +9,12 @@ tableextension 50097 TlyCommentLine extends "Comment Line"
             DataClassification = CustomerContent;
             TableRelation = TlyCommentType;
         }
+        field(50002; "Popup"; Boolean)
+        {
+            Caption = 'Popup';
+            ToolTip = 'Popup';
+            DataClassification = CustomerContent;
+        }
 
         field(50003; "Copy to Sales Order"; Boolean)
         {

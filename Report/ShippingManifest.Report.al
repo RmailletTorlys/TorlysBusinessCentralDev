@@ -12,7 +12,7 @@ report 50015 "Shipping Manifest"
         dataitem("Shipping Agent"; "Shipping Agent")
         {
             RequestFilterFields = "Master Pro Bill";
-            RequestFilterHeading = 'Shipping Manifest';
+            RequestFilterHeading = 'Shipping Agent';
 
             column(ShippingAgentFilter; ShippingAgentFilter)
             {
@@ -22,22 +22,26 @@ report 50015 "Shipping Manifest"
             {
 
             }
+            column(ProcessedBOLFilter; ProcessedBOLFilter)
+            {
+
+            }
 
             dataitem("Torlys Processed BOL Header"; TlyProcessedBillOfLadingHeader)
             {
                 DataItemLinkReference = "Shipping Agent";
                 DataItemLink = "Shipping Agent Code" = field(Code);
                 RequestFilterFields = "Pickup Date", "Transaction Type";
-                RequestFilterHeading = 'Shipping Manifest';
+                RequestFilterHeading = 'Processed BOL Header';
 
                 column(No_; "No.")
                 {
 
                 }
-                column(ProcessedBOLFilter; ProcessedBOLFilter)
-                {
+                // column(ProcessedBOLFilter; ProcessedBOLFilter)
+                // {
 
-                }
+                // }
                 column(Pickupdate; Format(Pickupdate, 0, '<month,2>/<day,2>/<year,4>'))
                 {
 
@@ -113,6 +117,7 @@ report 50015 "Shipping Manifest"
 
                 trigger OnPreDataItem()
                 begin
+                    // ProcessedBOLFilter := "Torlys Processed BOL Header".GetFilters;
                     CurrReport.CreateTotals("Weight - Total", CarrierTotalWeight);
                 end;
 
@@ -141,6 +146,7 @@ report 50015 "Shipping Manifest"
             trigger OnPreDataItem()
             begin
                 ShippingAgentFilter := "Shipping Agent".GetFilters;
+                ProcessedBOLFilter := "Torlys Processed BOL Header".GetFilters;
 
                 CurrReport.CreateTotals(ProcessedBOL."Weight - Total", CarrierTotalWeight);
                 Printdate := Today;

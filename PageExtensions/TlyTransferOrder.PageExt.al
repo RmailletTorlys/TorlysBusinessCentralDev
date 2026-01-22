@@ -32,6 +32,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ToolTip = 'Picked By';
                 ApplicationArea = All;
                 Importance = Standard;
+                ShowMandatory = true;
                 Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
             field("Audited By"; Rec."Audited By")
@@ -40,6 +41,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ToolTip = 'Audited By';
                 ApplicationArea = All;
                 Importance = Standard;
+                ShowMandatory = true;
                 Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
             field("Received By"; Rec."Received By")
@@ -48,7 +50,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ToolTip = 'Received By';
                 ApplicationArea = All;
                 Importance = Standard;
-                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+                // Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
             // field("Put Away By"; Rec."Put Away By")
             // {
@@ -226,6 +228,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Caption = 'View and Fill Joined SO';
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
+                Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Order Fullfillment");
                 RunObject = Page TlyJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(> 0);
             }
@@ -235,6 +238,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Caption = 'View and Fill Linked SO';
                 ToolTip = 'View and Fill Linked SO';
                 Image = OrderTracking;
+                Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning");
                 RunObject = Page TlyLinkedSOtoTO;
                 RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item);
             }
@@ -245,7 +249,10 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
             actionref(Summary_Pick; "Summary Pick")
             {
             }
-            // actionref(PreReceiving; "Pre-Receiving Report")
+            actionref(TransferLabel; "Transfer Label")
+            {
+            }
+            // actionref(ReceivingReport; "Receiving Report")
             // {
             // }
         }
@@ -259,25 +266,33 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ApplicationArea = Basic, Suite;
                 trigger OnAction()
                 var
-                    // transferheader: Record "Transfer Header";
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    // transferheader.SetFilter("No.", Rec."No.");
-                    // Report.RunModal(50007, true, false, transferheader);
                     TorlysDocPrint.PrintSummaryPickSlipTransfer(Rec);
                 end;
             }
-            // action("Pre-Receiving Report")
+            action("Transfer Label")
+            {
+                Caption = 'Print Transfer Label';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintTransferLabel(Rec);
+                end;
+            }
+            // action("Receiving Report")
             // {
-            //     Caption = 'Print Pre-Receiving Report';
+            //     Caption = 'Print Receiving Report';
             //     Image = Print;
             //     ApplicationArea = Basic, Suite;
             //     trigger OnAction()
             //     var
-            //         transferline: Record "Transfer Line";
+            //         TorlysDocPrint: Codeunit TlyDocumentPrint;
             //     begin
-            //         transferline.SetFilter("Document No.", Rec."No.");
-            //         Report.RunModal(50019, true, false, transferline);
+            //         TorlysDocPrint.PrintReceivingTransfer(Rec);
             //     end;
             // }
         }

@@ -353,6 +353,7 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
         modify("Lead Time Calculation")
         {
             Visible = true;
+            Editable = false;
         }
     }
 

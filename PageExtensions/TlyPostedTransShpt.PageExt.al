@@ -79,6 +79,7 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
                 ToolTip = 'Booking No.';
                 ApplicationArea = All;
                 Importance = Standard;
+                Editable = false;
             }
         }
 

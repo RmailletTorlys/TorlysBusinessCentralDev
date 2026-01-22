@@ -2,14 +2,13 @@ pageextension 50067 "TlySalesCommentSheet" extends "Sales Comment Sheet"
 {
     layout
     {
-        addafter(Code)
+        addafter(Comment)
         {
             field(Type; Rec."Comment Type")
             {
                 ApplicationArea = All;
                 Caption = 'Comment Type';
                 ToolTip = 'Specifies the type of comment.';
-
             }
         }
 
@@ -19,7 +18,7 @@ pageextension 50067 "TlySalesCommentSheet" extends "Sales Comment Sheet"
         }
         modify("Print on Quote")
         {
-            Visible = true;
+            Visible = false;
         }
         modify("Print on Pick Ticket")
         {
@@ -43,7 +42,7 @@ pageextension 50067 "TlySalesCommentSheet" extends "Sales Comment Sheet"
         }
         modify("Print on Return Authorization")
         {
-            Visible = true;
+            Visible = false;
         }
         modify("Print on Return Receipt")
         {

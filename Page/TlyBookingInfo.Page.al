@@ -100,9 +100,9 @@ page 51009 TlyBookingInfo
             { }
             actionref(Received; "Warehouse Received")
             { }
-            actionref(PrintPreReceivingPurchase; "Pre-Receiving Report (PO)")
+            actionref(PrintReceivingPurchase; "Receiving Report (PO)")
             { }
-            actionref(PrintPreReceivingTransfer; "Pre-Receiving Report (Transfer)")
+            actionref(PrintReceivingTransfer; "Receiving Report (Transfer)")
             { }
         }
         area(Processing)
@@ -165,7 +165,7 @@ page 51009 TlyBookingInfo
                     CurrPage.Update(true);
                 end;
             }
-            action("Pre-Receiving Report (PO)")
+            action("Receiving Report (PO)")
             {
                 ApplicationArea = All;
                 Caption = 'Receiving Report (PO)';
@@ -184,7 +184,7 @@ page 51009 TlyBookingInfo
                         TorlysDocPrint.PrintReceivingPO(Rec);
                 end;
             }
-            action("Pre-Receiving Report (Transfer)")
+            action("Receiving Report (Transfer)")
             {
                 ApplicationArea = All;
                 Caption = 'Receiving Report (Transfer)';

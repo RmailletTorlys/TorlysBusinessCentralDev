@@ -133,7 +133,7 @@ codeunit 50299 TlyDocumentPrint
         ReportSelectionWhse.Find('-');
         repeat
             Report.RunModal(ReportSelectionWhse."Report ID", true, false, SalesHeader)
-        until ReportSelectionWhse.NEXT() = 0;
+        until ReportSelectionWhse.Next() = 0;
     end;
 
     procedure PrintBillOfLading(BOLHeader: Record TlyBillOfLadingHeader): Boolean
@@ -207,5 +207,17 @@ codeunit 50299 TlyDocumentPrint
         TransferHeader.SetRange("Transfer-to Code", TransferHeader."Transfer-to Code");
         TransferHeader.SetRange("Shipment Date", TransferHeader."Shipment Date");
         Report.RunModal(50007, true, false, TransferHeader)
+    end;
+
+    procedure PrintTransferLabel(TransferHeader: Record "Transfer Header"): Boolean
+    begin
+        TransferHeader.SetRange("No.", TransferHeader."No.");
+        Report.RunModal(50027, true, false, TransferHeader)
+    end;
+
+    procedure PrintShipmentLabel(SalesShptHeader: Record "Sales Shipment Header"): Boolean
+    begin
+        SalesShptHeader.SetRange("No.", SalesShptHeader."No.");
+        Report.Runmodal(10078, true, false, SalesShptHeader);
     end;
 }

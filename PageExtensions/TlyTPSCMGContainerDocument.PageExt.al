@@ -14,7 +14,25 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Previous ETA"; "Expected Receipt Date", "BOL No.", "Shipment Method Code", "Vessel No.", "Voyage No.", "Shipping Agent From Port", "Port of loading")
+        moveafter("Previous ETA"; "Actual Shipment Date", "Expected Receipt Date", "BOL No.", "Shipment Method Code")
+
+        addafter("Shipment Method Code")
+        {
+            field("Freight Forwarder"; Rec."Freight Forwarder")
+            {
+                Caption = 'Freight Forwarder';
+                ToolTip = 'Freight Forwarder';
+                ApplicationArea = All;
+            }
+            field("Steamship Line"; Rec."Steamship Line")
+            {
+                Caption = 'Steamship Line';
+                ToolTip = 'Steamship Line';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Shipping Agent From Port", "Port of loading")
 
         addafter("Port of loading")
         {
@@ -42,9 +60,15 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 ToolTip = 'Inland Terminal Date';
                 ApplicationArea = All;
             }
+            field("Insurance Certificate No."; Rec."Insurance Certificate No.")
+            {
+                Caption = 'Insurance Certificate No.';
+                ToolTip = 'Insurance Certificate No.';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Inland Terminal Date"; "Shipping Status")
+        moveafter("Insurance Certificate No."; "Shipping Status")
 
         addafter(Status)
         {
@@ -118,7 +142,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         }
         modify("Actual Shipment Date")
         {
-            Visible = false;
+            Caption = 'Shipment Date';
         }
         modify("Original Expected Receipt Date")
         {
@@ -155,6 +179,22 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         modify(CubePercent)
         {
             Importance = Standard;
+        }
+        modify("FDA Status")
+        {
+            Visible = false;
+        }
+        modify("Receipt location")
+        {
+            ShowMandatory = true;
+        }
+        modify("Posting Date")
+        {
+            ShowMandatory = true;
+        }
+        modify("Expected Receipt Date")
+        {
+            ShowMandatory = true;
         }
     }
     var

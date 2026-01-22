@@ -320,6 +320,7 @@ page 51002 TlyBillOfLading
                             Caption = 'Total';
                             Editable = false;
                             Style = Strong;
+                            DecimalPlaces = 2 : 5;
                         }
                         field("Calc Weight"; Rec."Weight - Total")
                         {

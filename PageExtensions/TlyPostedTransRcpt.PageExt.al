@@ -79,6 +79,7 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 ToolTip = 'Booking No.';
                 ApplicationArea = All;
                 Importance = Standard;
+                Editable = false;
             }
         }
 

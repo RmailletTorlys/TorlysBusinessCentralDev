@@ -110,9 +110,9 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
             actionref(Summary_Pick; "Summary Pick")
             {
             }
-            // actionref(TransferLabel; "Transfer Label")
-            // {
-            // }
+            actionref(TransferLabel; "Transfer Label")
+            {
+            }
             // actionref(ReceivingReport; "Receiving Report")
             // {
             // }
@@ -132,18 +132,18 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                     TorlysDocPrint.PrintSummaryPickSlipTransfer(Rec);
                 end;
             }
-            // action("Transfer Label")
-            // {
-            //     Caption = 'Print Transfer Label';
-            //     Image = Print;
-            //     ApplicationArea = Basic, Suite;
-            //     trigger OnAction()
-            //     var
-            //         TorlysDocPrint: Codeunit TlyDocumentPrint;
-            //     begin
-            //         TorlysDocPrint.PrintTransferLabel(Rec);
-            //     end; 
-            // }
+            action("Transfer Label")
+            {
+                Caption = 'Print Transfer Label';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintTransferLabel(Rec);
+                end;
+            }
             // action("Receiving Report")
             // {
             //     Caption = 'Print Receiving Report';

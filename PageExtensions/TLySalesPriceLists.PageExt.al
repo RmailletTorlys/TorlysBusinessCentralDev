@@ -44,6 +44,11 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 Caption = 'Customers';
                 Filters = where("Source Type" = filter('Customer'));
             }
+            view(NotActive)
+            {
+                Caption = 'Not Active';
+                Filters = where("Status" = filter('<>Active'));
+            }
         }
     }
 }

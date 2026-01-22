@@ -329,6 +329,11 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'Ship Today, All';
                 Filters = where("Shipment Date" = filter('T'));
             }
+            view(ShipTomorrowAll)
+            {
+                Caption = 'Ship Tomorrow, All';
+                Filters = where("Shipment Date" = filter('>T'));
+            }
             view(NTNNotReleased)
             {
                 Caption = 'NTN, Not Released';
@@ -342,6 +347,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'To Be Invoiced';
                 Filters = where("Shipped Not Invoiced" = filter('Yes'), "Shipment Date" = filter('<T'));
+                OrderBy = ascending("Shipment Date", "Sell-to Customer No.", "Ship-to Code");
             }
         }
     }

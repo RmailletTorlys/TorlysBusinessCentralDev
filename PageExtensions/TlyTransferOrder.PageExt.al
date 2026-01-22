@@ -50,7 +50,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ToolTip = 'Received By';
                 ApplicationArea = All;
                 Importance = Standard;
-                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+                // Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
             // field("Put Away By"; Rec."Put Away By")
             // {

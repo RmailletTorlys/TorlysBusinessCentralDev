@@ -56,13 +56,13 @@ report 50027 "Transfer Label"
                 column(NoCopies; Number)
                 { }
 
-                // dataitem(PageLoop; Integer)
-                // {
-                //     DataItemTableView = sorting(Number) where(Number = const(1));
-                //     DataItemLinkReference = CopyLoop;
+                dataitem(PageLoop; Integer)
+                {
+                    DataItemTableView = sorting(Number) where(Number = const(1));
+                    DataItemLinkReference = CopyLoop;
 
 
-                // }
+                }
                 trigger OnPreDataItem()
                 begin
                     SetRange(Number, 1, NoCopies + 1);

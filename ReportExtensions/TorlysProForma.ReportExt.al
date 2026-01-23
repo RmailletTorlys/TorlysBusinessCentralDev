@@ -18,6 +18,16 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
                 end;
             }
         }
+        addlast(header)
+        {
+            dataitem("Sales Tax Amount Line"; "Sales Tax Amount Line")
+            {
+                column(Tax_Jurisdiction_Code; "Tax Jurisdiction Code")
+                {
+
+                }
+            }
+        }
         add(Header)
         {
             column(Your_Reference; "Your Reference")
@@ -86,8 +96,34 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
 
         modify(Header)
         {
+            trigger OnBeforePreDataItem()
+            begin
+                If PrintCompany then
+                    formataddress.Company(CompanyAddress, CompanyInformation)
+                else
+                    Clear(CompanyAddress);
+            end;
+
             trigger OnAfterAfterGetRecord()
             begin
+                if "Salesperson Code" = '' then
+                    clear(SalesPurchPerson)
+                else
+                    SalesPurchPerson.get("Salesperson Code");
+
+                if "Payment Terms Code" = '' then
+                    clear(PaymentTerms)
+                else
+                    PaymentTerms.get("Payment Terms Code");
+
+                If "Shipment Method Code" = '' then
+                    clear(ShipmentMethod)
+                else
+                    ShipmentMethod.get("Shipment Method Code");
+
+                if not customer.get("Sell-to Customer No.") then
+                    Clear(customer);
+
                 Caladdress[1] := '';
                 Caladdress[2] := '';
                 Caladdress[3] := '';
@@ -137,6 +173,28 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
                 // end else
                 //     Pieces := 0;
 
+                tempsalesline := "Line";
+
+                If IgnoreBackorder then begin
+                    tempsalesline.Quantity := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Quantity" := tempsalesline."qty. to ship";
+
+                    tempsalesline."Quantity (Base)" := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Qty. (Base)" := tempsalesline."qty. to ship";
+                end;
+
+                tempsalesline.Insert();
+
+                If IgnoreBackorder then begin
+                    tempsalesline.Quantity := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Quantity" := tempsalesline."qty. to ship";
+
+                    tempsalesline."Quantity (Base)" := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Qty. (Base)" := tempsalesline."qty. to ship";
+                end;
+
+                tempsalesline.Modify();
+
                 Pieces += "Qty. to Ship Case";
 
                 If "Qty. to Ship Pallet" > 0 then begin
@@ -165,6 +223,11 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
         Caladdress: array[5] of text;
         // PerPallet: Decimal;
         // PerCase: Decimal;
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        PaymentTerms: Record "Payment Terms";
+        ShipmentMethod: Record "Shipment Method";
+        customer: Record Customer;
+        tempsalesline: Record "Sales Line" temporary;
         QtyPerPallet: Integer;
         QtyPerCase: Integer;
         NoCopiesVar: Integer;
@@ -190,4 +253,5 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
         RemoveDuty: Boolean;
         BackoutDuty: Boolean;
         OrderShipped: Boolean;
+        formataddress: Codeunit "Format Address";
 }

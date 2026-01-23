@@ -20,6 +20,14 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
             {
 
             }
+            column(Receipt_Date; "Receipt Date")
+            {
+
+            }
+            column(Posting_Date; "Posting Date")
+            {
+
+            }
         }
 
         add("Transfer Line")
@@ -65,6 +73,10 @@ reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
 
             }
             column(TotalWeight; TotalWeight)
+            {
+
+            }
+            column(Unit_of_Measure_Code; "Unit of Measure Code")
             {
 
             }

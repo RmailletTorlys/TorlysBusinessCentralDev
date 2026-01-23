@@ -53,7 +53,22 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
             {
 
             }
+            column(Quantity; FormattedQuanitity)
+            {
 
+            }
+            column(qyantitycasetext; qyantitycasetext)
+            {
+
+            }
+            column(quantitypallettext; quantitypallettext)
+            {
+
+            }
+            column(unitpricetext; unitpricetext)
+            {
+
+            }
         }
 
         modify("Purchase Header")
@@ -87,22 +102,32 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
                         SQM2Price := 0;
                         SQM2Label := '';
                     end;
-
-                If Type = Type::" " then begin
-                    "No." := '';
-                    "Vendor Item No." := '';
-                    "Unit of Measure" := '';
-                    "Line Amount" := 0;
-                    "Inv. Discount Amount" := 0;
-                    qtytoprint := 0;
-                end;
-
+                qyantitycasetext := Format("Quantity Case");
+                quantitypallettext := Format("Quantity Pallet");
                 AmountExclInvDisc := "Line Amount";
-
                 If Quantity = 0 then
                     UnitPriceToPrint := 0
                 Else
                     UnitPriceToPrint := Round(AmountExclInvDisc / Quantity, 0.00001);
+                unitpricetext := Format(UnitPriceToPrint);
+
+                If Type = Type::" " then begin
+                    "No." := '';
+                    "Vendor Item No." := '';
+                    "Unit of Measure code" := '';
+                    "Line Amount" := 0;
+                    "Inv. Discount Amount" := 0;
+                    qtytoprint := 0;
+                    if "Quantity Case" = 0 then
+                        qyantitycasetext := '';
+                    if "Quantity Pallet" = 0 then
+                        quantitypallettext := '';
+                    if UnitPriceToPrint = 0 then
+                        unitpricetext := '';
+                end;
+
+
+
             end;
         }
 
@@ -119,5 +144,8 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
         UnitPriceToPrint: Decimal;
         SQM2Label: Text;
         CurrencyCodeToPrint: Text;
+        qyantitycasetext: Text;
+        quantitypallettext: Text;
+        unitpricetext: Text;
 
 }

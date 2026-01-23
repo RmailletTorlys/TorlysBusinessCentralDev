@@ -19,6 +19,7 @@ codeunit 50012 TlyShipPostPrint
         SalesPost: Codeunit "Sales-Post";
         Text1020001: Label 'Do you want to ship and print %1 for customer %2?';
         InsertFreightLine: Codeunit TlyInsertFreightLine;
+        TorlysDocPrint: Codeunit TlyDocumentPrint;
 
     local procedure "Code"()
     begin
@@ -27,13 +28,13 @@ codeunit 50012 TlyShipPostPrint
             Error('You cannot ship this order as no pick slips have been printed!');
 
         if SalesHeader."Picked By" = '' then
-            Error('The Warehouse Associate Picked By field cannot be blank!');
+            Error('The Picked By associate cannot be blank!');
 
         if SalesHeader."Audited By" = '' then
-            Error('The Warehouse Associate Checked By field cannot be blank!');
+            Error('The Checked By associate cannot be blank!');
 
         if SalesHeader."Picked By" = SalesHeader."Audited By" THEN
-            Error('The Picked By and the Checked By Associate cannot be the same!');
+            Error('The Picked By and Checked By associate cannot be the same!');
         // custom to us - end
 
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
@@ -59,6 +60,9 @@ codeunit 50012 TlyShipPostPrint
             SalesShptHeader."No." := SalesHeader."Last Shipping No.";
             SalesShptHeader.SetRecFilter();
             PrintReport(ReportSelection.Usage::"S.Shipment");
+
+            // need the label to print via own function, can't use report selection list due to differnet printer defaults
+            TorlysDocPrint.PrintShipmentLabel(SalesShptHeader);
         end;
     end;
 
@@ -75,8 +79,7 @@ codeunit 50012 TlyShipPostPrint
                 ReportSelection.Usage::"S.Cr.Memo":
                     Report.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
                 ReportSelection.Usage::"S.Shipment":
-                    // Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
-                    Report.Run(ReportSelection."Report ID", true, false, SalesShptHeader); //changed to true so dont have to buy print management
+                    Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader);
                 ReportSelection.Usage::"S.Ret.Rcpt.":
                     Report.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
             end;

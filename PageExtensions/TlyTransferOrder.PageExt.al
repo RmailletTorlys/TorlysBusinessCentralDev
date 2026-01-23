@@ -50,7 +50,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ToolTip = 'Received By';
                 ApplicationArea = All;
                 Importance = Standard;
-                Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+                // Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
             }
             // field("Put Away By"; Rec."Put Away By")
             // {
@@ -249,9 +249,9 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
             actionref(Summary_Pick; "Summary Pick")
             {
             }
-            // actionref(TransferLabel; "Transfer Label")
-            // {
-            // }
+            actionref(TransferLabel; "Transfer Label")
+            {
+            }
             // actionref(ReceivingReport; "Receiving Report")
             // {
             // }
@@ -271,18 +271,18 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                     TorlysDocPrint.PrintSummaryPickSlipTransfer(Rec);
                 end;
             }
-            // action("Transfer Label")
-            // {
-            //     Caption = 'Print Transfer Label';
-            //     Image = Print;
-            //     ApplicationArea = Basic, Suite;
-            //     trigger OnAction()
-            //     var
-            //         TorlysDocPrint: Codeunit TlyDocumentPrint;
-            //     begin
-            //         TorlysDocPrint.PrintTransferLabel(Rec);
-            //     end; 
-            // }
+            action("Transfer Label")
+            {
+                Caption = 'Print Transfer Label';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintTransferLabel(Rec);
+                end;
+            }
             // action("Receiving Report")
             // {
             //     Caption = 'Print Receiving Report';

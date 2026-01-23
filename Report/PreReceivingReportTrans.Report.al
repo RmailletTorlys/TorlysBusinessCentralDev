@@ -22,6 +22,14 @@ report 50019 "Receiving Report - Trans"
             {
 
             }
+            column(OrderString; OrderString)
+            {
+
+            }
+            column(TransferOrderCount; TransferOrderCount)
+            {
+
+            }
 
             dataitem("Transfer Line"; "Transfer Line")
             {
@@ -125,6 +133,13 @@ report 50019 "Receiving Report - Trans"
                     end;
                 end;
             }
+            trigger OnAfterGetRecord()
+            begin
+                OrderString += "No." + ' ';
+
+                TransferOrderCount := "Transfer Header".Count;
+            end;
+
         }
     }
     requestpage
@@ -172,7 +187,9 @@ report 50019 "Receiving Report - Trans"
         QtyBase: Decimal;
         PalletQty: Integer;
         CommentLabel: Text;
+        OrderString: text[1000];
         Grouped: Boolean;
         BookingNO: code[25];
+        TransferOrderCount: Integer;
 
 }

@@ -244,6 +244,13 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the default price list assigned to the customer account.';
             }
+            field("Display Regular Price On PL"; Rec."Display Regular Price On PL")
+            {
+                ApplicationArea = All;
+                Caption = 'Display Regular Price On PL';
+                Visible = true;
+                ToolTip = 'Display Regular Price On PL';
+            }
         }
 
         addafter("Currency Code")

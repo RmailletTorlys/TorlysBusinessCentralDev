@@ -64,8 +64,16 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
-                Visible = true;
+                Visible = false;
 
+            }
+            field("Reason Code"; Rec."Reason Code")
+            {
+                Caption = 'Reason Code';
+                ToolTip = 'Reason Code';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
             }
             field("Order Type"; Rec."Order Type")
             {
@@ -116,7 +124,7 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                 ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = true;
+                Visible = false;
             }
             field("Created At"; Rec."SystemCreatedAt")
             {
@@ -124,7 +132,7 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                 ToolTip = 'Created At';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = true;
+                Visible = false;
             }
 
             field("Modified By"; LookupUserId.UserId(Rec."SystemModifiedBy"))
@@ -133,7 +141,7 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = true;
+                Visible = false;
             }
 
             field("Modified At"; Rec."SystemModifiedAt")
@@ -142,7 +150,7 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                 ToolTip = 'Modified At';
                 ApplicationArea = All;
                 Editable = false;
-                Visible = true;
+                Visible = false;
             }
         }
 

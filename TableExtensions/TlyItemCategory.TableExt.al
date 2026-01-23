@@ -26,11 +26,11 @@ tableextension 55722 TlyItemCategory extends "Item Category"
             DataClassification = CustomerContent;
         }
 
-        field(50006; "Price List Order"; Integer)
-        {
-            Caption = 'Price List Order';
-            DataClassification = CustomerContent;
-        }
+        // field(50006; "Price List Order"; Integer)
+        // {
+        //     Caption = 'Price List Order';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(50007; "Not Available in US"; Boolean)
         {

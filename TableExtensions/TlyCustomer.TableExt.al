@@ -270,6 +270,12 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
+        field(50040; "Display Regular Price On PL"; Boolean)
+        {
+            Caption = 'Display Regular Price On PL';
+            DataClassification = CustomerContent;
+        }
+
         modify("Credit Limit (LCY)")
         {
             trigger OnAfterValidate()

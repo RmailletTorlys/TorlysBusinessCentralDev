@@ -175,10 +175,25 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
 
                 tempsalesline := "Line";
 
-                // If IgnoreBackorder then
-                // begin
-                //     tempsalesline.Quantity := tempsalesline
-                // end;
+                If IgnoreBackorder then begin
+                    tempsalesline.Quantity := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Quantity" := tempsalesline."qty. to ship";
+
+                    tempsalesline."Quantity (Base)" := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Qty. (Base)" := tempsalesline."qty. to ship";
+                end;
+
+                tempsalesline.Insert();
+
+                If IgnoreBackorder then begin
+                    tempsalesline.Quantity := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Quantity" := tempsalesline."qty. to ship";
+
+                    tempsalesline."Quantity (Base)" := tempsalesline."Qty. to Ship";
+                    tempsalesline."Outstanding Qty. (Base)" := tempsalesline."qty. to ship";
+                end;
+
+                tempsalesline.Modify();
 
                 Pieces += "Qty. to Ship Case";
 
@@ -212,7 +227,7 @@ reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
         PaymentTerms: Record "Payment Terms";
         ShipmentMethod: Record "Shipment Method";
         customer: Record Customer;
-        tempsalesline: Record "Sales Line";
+        tempsalesline: Record "Sales Line" temporary;
         QtyPerPallet: Integer;
         QtyPerCase: Integer;
         NoCopiesVar: Integer;

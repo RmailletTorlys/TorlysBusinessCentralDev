@@ -27,6 +27,11 @@ table 50007 TlySalesPriceCode
         //     Caption = 'End Date';
         //     DataClassification = CustomerContent;
         // }
+        field(5; "Price List Order"; Integer)
+        {
+            Caption = 'Price List Order';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

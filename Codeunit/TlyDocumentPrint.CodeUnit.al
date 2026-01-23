@@ -218,6 +218,6 @@ codeunit 50299 TlyDocumentPrint
     procedure PrintShipmentLabel(SalesShptHeader: Record "Sales Shipment Header"): Boolean
     begin
         SalesShptHeader.SetRange("No.", SalesShptHeader."No.");
-        Report.Runmodal(10078, true, false, SalesShptHeader);
+        Report.RunModal(10078, true, false, SalesShptHeader);
     end;
 }

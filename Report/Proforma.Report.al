@@ -446,7 +446,7 @@ report 50026 "Proforma"
                                 // IF IFSLine.FIND('-') THEN
                                 //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Quantity Shipped";
 
-                                Item3.GET("No.");
+                                Item3.GET("Sales Line"."No.");
                                 IF (OrderShipped) THEN BEGIN
                                     IF (CostInsteadOfPrice) THEN
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"

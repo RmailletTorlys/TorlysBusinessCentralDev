@@ -3,14 +3,14 @@ codeunit 50015 TlyPostTransOrderShipment
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Shipment", 'OnBeforeTransferOrderPostShipment', '', false, false)]
     local procedure OnBeforeTransferOrderPostShipment(var TransferHeader: Record "Transfer Header"; var CommitIsSuppressed: Boolean; PreviewMode: Boolean)
     begin
-        if TransferHeader."Picked By" = '' then
-            Error('The Picked By associate cannot be blank!');
-
-        if TransferHeader."Audited By" = '' then
-            Error('The Checked By associate cannot be blank!');
-
-        if TransferHeader."Picked By" = TransferHeader."Audited By" THEN
-            Error('The Picked By and Checked By associate cannot be the same!');
+        if TransferHeader."Transfer-from Code" <> 'ONWATER' then begin
+            if TransferHeader."Picked By" = '' then
+                Error('The Picked By associate cannot be blank!');
+            if TransferHeader."Audited By" = '' then
+                Error('The Checked By associate cannot be blank!');
+            if TransferHeader."Picked By" = TransferHeader."Audited By" THEN
+                Error('The Picked By and Checked By associate cannot be the same!');
+        end;
     end;
 
 

@@ -122,6 +122,13 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
                     Caption = 'Pick Slip Printed Time';
                 }
+                field("Last Shipping No."; Rec."Last Shipping No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Last Shipping No.';
+                    ToolTip = 'Last Shipping No.';
+                    Editable = false;
+                }
             }
             group(Lines)
             {
@@ -243,20 +250,21 @@ page 50999 TlySalesOrderShipment
                     trigger OnAction()
                     begin
                         Codeunit.Run(Codeunit::TlyShipPostPrint, Rec);
+                        TorlysDocPrint.PrintShipmentLabel(Rec);
                     end;
                 }
             }
         }
     }
 
-    trigger OnOpenPage()
-    begin
-        Rec.SetRange("Shipment Date");
-    end;
-
     var
         TorlysDocPrint: Codeunit TlyDocumentPrint;
         DocPrint: Codeunit "Document-Print";
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
         TorlysChangeShipmentDate: Codeunit TlyChangeShipmentDate;
+
+    // trigger OnOpenPage()
+    // begin
+    //     Rec.SetRange("Shipment Date");
+    // end;
 }

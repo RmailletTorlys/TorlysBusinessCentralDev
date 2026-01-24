@@ -416,7 +416,7 @@ report 50026 "Proforma"
                                     Next;
 
                                 if Type = Type::" " then begin
-                                    "No." := '';
+                                    TempSalesLine."No." := '';
                                     "Unit of Measure code" := '';
                                     "Line Amount" := 0;
                                     "Inv. Discount Amount" := 0;
@@ -446,7 +446,7 @@ report 50026 "Proforma"
                                 // IF IFSLine.FIND('-') THEN
                                 //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Quantity Shipped";
 
-                                Item3.GET("Sales Line"."No.");
+                                Item3.GET(TempSalesLine."No.");
                                 IF (OrderShipped) THEN BEGIN
                                     IF (CostInsteadOfPrice) THEN
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
@@ -489,7 +489,7 @@ report 50026 "Proforma"
                                 // IF IFSLine.FIND('-') THEN
                                 //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Qty. to Ship";
 
-                                Item3.GET("No.");
+                                Item3.GET(TempSalesLine."No.");
                                 IF (NOT OrderShipped) THEN BEGIN
                                     IF (CostInsteadOfPrice) THEN
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
@@ -523,7 +523,7 @@ report 50026 "Proforma"
                                 END;
 
                                 IF Type = Type::Item THEN BEGIN
-                                    IF Item.GET("No.") THEN BEGIN
+                                    IF Item.GET(TempSalesLine."No.") THEN BEGIN
                                         CountryOfOrigin := Item."Country/Region of Origin Code";
                                         // ICProgramNo := Item.;
                                         TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025

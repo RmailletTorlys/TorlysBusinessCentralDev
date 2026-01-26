@@ -1,7 +1,7 @@
-table 55008 TlyClaimsLine
+table 55008 TlyClaimsTrackingLine
 {
     DataClassification = CustomerContent;
-    Caption = 'Claims Line';
+    Caption = 'Claims Tracking Line';
 
     fields
     {

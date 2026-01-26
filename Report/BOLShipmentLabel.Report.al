@@ -20,6 +20,11 @@ report 50010 "BOL Shipment Label"
                 DataItemTableView = sorting(Number);
                 DataItemLinkReference = "Bol Header";
 
+                column(NoCopies; Number)
+                {
+
+                }
+
                 dataitem(PageLoop; Integer)
                 {
                     DataItemTableView = sorting(Number) where(Number = const(1));
@@ -105,20 +110,25 @@ report 50010 "BOL Shipment Label"
 
                 trigger OnPreDataItem()
                 begin
-                    NoLoops := 1 + Abs(NoCopies);
-                    If NoLoops <= 0 then
-                        NoLoops := 1;
-                    CopyNo := 0;
+                    SetRange(Number, 1, NoCopiesVar + 1);
                 end;
 
-                trigger OnAfterGetRecord()
-                begin
-                    CurrReport.PageNo := 1;
-                    If CopyNo = NoLoops then
-                        CurrReport.Break()
-                    else
-                        CopyNo := CopyNo + 1;
-                end;
+                // trigger OnPreDataItem()
+                // begin
+                //     NoLoops := 1 + Abs(NoCopies);
+                //     If NoLoops <= 0 then
+                //         NoLoops := 1;
+                //     CopyNo := 0;
+                // end;
+
+                // trigger OnAfterGetRecord()
+                // begin
+                //     CurrReport.PageNo := 1;
+                //     If CopyNo = NoLoops then
+                //         CurrReport.Break()
+                //     else
+                //         CopyNo := CopyNo + 1;
+                // end;
             }
 
             trigger OnAfterGetRecord()
@@ -142,6 +152,22 @@ report 50010 "BOL Shipment Label"
 
 
     }
+    requestpage
+    {
+        layout
+        {
+            area(Content)
+            {
+                field(NoCopies; NoCopiesVar)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Number of Additional Copies';
+                    ToolTip = 'Specifies the number of copies of each document (in addition to the original) that you want to print.';
+                    MinValue = 0;
+                }
+            }
+        }
+    }
 
     local procedure BOLHeaderShipTo(var AddrArray: array[8] of Text[100]; var BOLHeader: Record TlyBillOfLadingHeader)
     var
@@ -163,4 +189,5 @@ report 50010 "BOL Shipment Label"
         NoCopies: Integer;
         NoLoops: Integer;
         CopyNo: Integer;
+        NoCopiesVar: Integer;
 }

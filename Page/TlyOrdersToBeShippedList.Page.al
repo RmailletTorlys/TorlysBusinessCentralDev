@@ -183,11 +183,11 @@ page 52001 TlyOrdersToBeShippedList
                     ToolTip = 'Audited By';
                     Editable = false;
                 }
-                field("Shipment No."; ShipmentNo)
+                field("Last Shipping No."; Rec."Last Shipping No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Shipment No.';
-                    ToolTip = 'Shipment No.';
+                    Caption = 'Last Shipping No.';
+                    ToolTip = 'Last Shipping No.';
                     Editable = false;
                 }
                 field("Shipment Weight"; ShipmentWeight)
@@ -896,6 +896,7 @@ page 52001 TlyOrdersToBeShippedList
                         FirstShippingAgent: Code[10];
                         CurrentShippingAgent: Code[10];
                         IsSameShippingAgent: Boolean;
+                        LastShippingNo: Code[20];
                     begin
                         // check if all selected customers match
                         CurrPage.SetSelectionFilter(SalesHeader);
@@ -956,8 +957,10 @@ page 52001 TlyOrdersToBeShippedList
                                 // out of the box codeunit below
                                 // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
                                 // our codeunit below
-                                Codeunit.Run(CODEUNIT::TlyShipPostPrint, SalesHeader);
+                                Codeunit.Run(Codeunit::TlyShipPostPrint, SalesHeader);
                             until SalesHeader.Next() = 0;
+                        // if we put this label here, will it only prompt for 1 label at end of posting, great for multiple orders
+                        TorlysDocPrint.PrintShipmentLabel(SalesHeader);
                     end;
                 }
                 action(CreateBOL)
@@ -1000,7 +1003,7 @@ page 52001 TlyOrdersToBeShippedList
                         RunPageLink = "Order No." = field("No.");
                         RunPageView = sorting("Order No.");
                         ToolTip = 'View related posted sales shipments.';
-                        Visible = (ShipmentNo <> '');
+                        Visible = (Rec."Last Shipping No." <> '');
                     }
                     action(RemoveBOL)
                     {
@@ -1022,11 +1025,11 @@ page 52001 TlyOrdersToBeShippedList
                                 RemoveBOL := Dialog.Confirm('This will just remove the BOL # from the SH and the OR, the BOL line will still be populated. Proceed?');
                                 if RemoveBOL then begin
                                     ShipmentHeader.Reset();
-                                    ShipmentHeader.SetRange("No.", ShipmentNo);
+                                    ShipmentHeader.SetRange("No.", Rec."Last Shipping No.");
                                     if ShipmentHeader.Find('-') then begin
                                         ShipmentHeader."BOL No." := '';
                                         ShipmentHeader.Modify(true);
-                                        Message('BOL # removed from %1.', ShipmentNo);
+                                        Message('BOL # removed from %1.', Rec."Last Shipping No.");
                                     end;
                                     SalesHeader.Reset();
                                     SalesHeader.SetRange("No.", Rec."No.");
@@ -1091,7 +1094,7 @@ page 52001 TlyOrdersToBeShippedList
         Customer: Record "Customer";
         ToShipWeight: Decimal;
         TransferOrderNo: Code[20];
-        ShipmentNo: Code[20];
+        // ShipmentNo: Code[20];
         // BOLNo: Code[20];
         ShipmentHeader: Record "Sales Shipment Header";
         ShipmentWeight: Decimal;
@@ -1182,20 +1185,20 @@ page 52001 TlyOrdersToBeShippedList
         if SalesLine.Find('-') then
             TransferOrderNo := SalesLine."Linked Transfer Order No.";
 
-        // Get posted shipment number
-        Clear(ShipmentNo);
-        ShipmentHeader.Reset();
-        ShipmentHeader.SetRange("Order No.", Rec."No.");
-        ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
-        if ShipmentHeader.FindLast() then
-            ShipmentNo := ShipmentHeader."No."
-        else
-            ShipmentNo := '';
+        // // Get posted shipment number
+        // Clear(ShipmentNo);
+        // ShipmentHeader.Reset();
+        // ShipmentHeader.SetRange("Order No.", Rec."No.");
+        // ShipmentHeader.SetRange("Shipment Date", Rec."Shipment Date");
+        // if ShipmentHeader.FindLast() then
+        //     ShipmentNo := ShipmentHeader."No."
+        // else
+        //     ShipmentNo := '';
 
         // Get posted shipment weight
         Clear(ShipmentWeight);
         ShipmentLine.Reset();
-        ShipmentLine.SetRange("Document No.", ShipmentNo);
+        ShipmentLine.SetRange("Document No.", Rec."Last Shipping No.");
         if ShipmentLine.Find('-') THEN
             repeat
                 ShipmentWeight := ShipmentWeight + (ShipmentLine."Quantity" * ShipmentLine."Net Weight");

@@ -23,6 +23,7 @@ codeunit 50019 TlyCopyFields
         SalesHeader."Salesperson Commission 2" := SellToCustomer."Salesperson Commission 2";
         SalesHeader."Salesperson Code 3" := SellToCustomer."Salesperson Code 3";
         SalesHeader."Salesperson Commission 3" := SellToCustomer."Salesperson Commission 3";
+        SalesHeader."Shipping Agent Code" := SellToCustomer."Shipping Agent Code";
         SalesHeader."Freight Zone Code" := SellToCustomer."Freight Zone Code";
         SalesHeader."Shipping Instructions" := SellToCustomer."Shipping Instructions";
         SalesHeader."Shipping Comment" := SellToCustomer."Shipping Comment";
@@ -32,6 +33,7 @@ codeunit 50019 TlyCopyFields
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopyShipToCustomerAddressFieldsFromShipToAddr', '', false, false)]
     local procedure OnAfterCopyShipToCustomerAddressFieldsFromShipToAddr(var SalesHeader: Record "Sales Header"; ShipToAddress: Record "Ship-to Address"; xSalesHeader: Record "Sales Header")
     begin
+        SalesHeader."Shipping Agent Code" := ShipToAddress."Shipping Agent Code";
         SalesHeader."Freight Zone Code" := ShipToAddress."Freight Zone Code";
         SalesHeader."Shipping Instructions" := ShipToAddress."Shipping Instructions";
         SalesHeader."Shipping Comment" := ShipToAddress."Shipping Comment";

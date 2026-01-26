@@ -18,6 +18,7 @@ report 50026 "Proforma"
             {
                 DataItemTableView = sorting("Document Type", "Document No.", "Line No.") where("Document Type" = const(Order));
                 DataItemLinkReference = "Sales Header";
+                DataItemLink = "Document No." = field("No.");
 
 
                 trigger OnPreDataItem()
@@ -409,6 +410,7 @@ report 50026 "Proforma"
                         trigger OnAfterGetRecord()
                         begin
                             OnLineNumber := OnLineNumber + 1;
+                            // TempSalesLine.SetFilter("Document No.", "Sales Header"."No.");
 
                             with TempSalesLine do begin
                                 If OnLineNumber = 1 then
@@ -416,7 +418,7 @@ report 50026 "Proforma"
                                     Next;
 
                                 if Type = Type::" " then begin
-                                    TempSalesLine."No." := '';
+                                    "No." := '';
                                     "Unit of Measure code" := '';
                                     "Line Amount" := 0;
                                     "Inv. Discount Amount" := 0;
@@ -439,93 +441,118 @@ report 50026 "Proforma"
                                 END;
 
 
-                                Message('Tempsalesline %1', TempSalesLine);
-                                Item3.GET(TempSalesLine."No.");
-                                IF (OrderShipped) THEN BEGIN
-                                    IF (CostInsteadOfPrice) THEN
-                                        AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
-                                    ELSE IF (UseListPrice) THEN
-                                        AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
-                                        AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                                            * "Quantity Shipped")
-                                    ELSE
-                                        AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
+                                Message('tempsalesline %1', TempSalesLine);
+                                If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
+                                    Item3.GET("No.");
+                                    IF (OrderShipped) THEN BEGIN
+                                        IF (CostInsteadOfPrice) THEN
+                                            AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
+                                        ELSE IF (UseListPrice) THEN
+                                            AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
+                                        ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
+                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
+                                                                * "Quantity Shipped")
+                                        ELSE begin
+                                            AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
+                                            // Message('%1', AmountExclInvDisc);
+                                        end;
+                                        // AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
 
 
-                                    QtyOrderedNo := "Quantity Shipped";
-                                    IF "Quantity Shipped" = 0 THEN
-                                        UnitPriceToPrint := 0  // so it won't print
-                                    ELSE
-                                        UnitPriceToPrint := ROUND(AmountExclInvDisc / "Quantity Shipped", 0.00001);
-
-
-                                    IF AdditionalWeight = 0 THEN BEGIN
-                                        Weight1Label := 'Net Weight (LB)';
-                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped");
-                                        Weight2Label := 'Net Weight (KG)';
-                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
-                                    END ELSE BEGIN
-                                        Weight1Label := 'Net Weight (KG)';
-                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
-                                        Weight2Label := 'Gross Weight (KG)';
-                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
-                                    END;
-
-                                    TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped"
-                                end;
-
-                                // Item3.GET(TempSalesLine."No.");
-                                IF (NOT OrderShipped) THEN BEGIN
-                                    IF (CostInsteadOfPrice) THEN
-                                        AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
-                                    ELSE IF (UseListPrice) THEN
-                                        AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
-                                    ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
-                                        AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                                            * "Qty. to Ship")
-                                    ELSE
-                                        AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
-
-                                    QtyOrderedNo := "Qty. to Ship";
-                                    IF "Qty. to Ship" = 0 THEN
-                                        UnitPriceToPrint := 0  // so it won't print
-                                    ELSE
-                                        UnitPriceToPrint := ROUND(AmountExclInvDisc / "Qty. to Ship", 0.00001);
-
-                                    IF AdditionalWeight = 0 THEN BEGIN
-                                        Weight1Label := 'Net Weight (LB)';
-                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship");
-                                        Weight2Label := 'Net Weight (KG)';
-                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                    END ELSE BEGIN
-                                        Weight1Label := 'Net Weight (KG)';
-                                        Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                        Weight2Label := 'Gross Weight (KG)';
-                                        Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                    END;
-
-                                    TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
-                                END;
-
-                                IF Type = Type::Item THEN BEGIN
-                                    IF Item.GET(TempSalesLine."No.") THEN BEGIN
-                                        CountryOfOrigin := Item."Country/Region of Origin Code";
-                                        // ICProgramNo := Item.;
-                                        TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
-                                        IF UsePurchasesTariff THEN
-                                            TariffNo := Item."Tariff No."
+                                        QtyOrderedNo := "Quantity Shipped";
+                                        IF "Quantity Shipped" = 0 THEN
+                                            UnitPriceToPrint := 0  // so it won't print
                                         ELSE
-                                            TariffNo := Item."Tariff No. (Sales)";
+                                            UnitPriceToPrint := ROUND(AmountExclInvDisc / "Quantity Shipped", 0.00001);
+
+                                        IF AdditionalWeight = 0 THEN BEGIN
+                                            Weight1Label := 'Net Weight (LB)';
+                                            Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped");
+                                            Weight2Label := 'Net Weight (KG)';
+                                            Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
+                                        END ELSE BEGIN
+                                            Weight1Label := 'Net Weight (KG)';
+                                            Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
+                                            Weight2Label := 'Gross Weight (KG)';
+                                            Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
+                                        END;
+
+                                        TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped"
+                                    end;
+                                    IF Type = Type::Item THEN BEGIN
+                                        IF Item.GET("No.") THEN BEGIN
+                                            CountryOfOrigin := Item."Country/Region of Origin Code";
+                                            // ICProgramNo := Item.;
+                                            TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
+                                            IF UsePurchasesTariff THEN
+                                                TariffNo := Item."Tariff No."
+                                            ELSE
+                                                TariffNo := Item."Tariff No. (Sales)";
+                                        END ELSE BEGIN
+                                            CountryOfOrigin := '';
+                                            TariffNo := '';
+                                        END;
                                     END ELSE BEGIN
                                         CountryOfOrigin := '';
                                         TariffNo := '';
                                     END;
-                                END ELSE BEGIN
-                                    CountryOfOrigin := '';
-                                    TariffNo := '';
-                                END;
-                                TotalPieces := CalcTotalPieces;
+                                    TotalPieces := CalcTotalPieces;
+                                end;
+
+                                If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
+                                    Item3.GET("No.");
+                                    IF (NOT OrderShipped) THEN BEGIN
+                                        IF (CostInsteadOfPrice) THEN
+                                            AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
+                                        ELSE IF (UseListPrice) THEN
+                                            AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
+                                        ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
+                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
+                                                                * "Qty. to Ship")
+                                        ELSE
+                                            AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
+
+                                        QtyOrderedNo := "Qty. to Ship";
+                                        IF "Qty. to Ship" = 0 THEN
+                                            UnitPriceToPrint := 0  // so it won't print
+                                        ELSE
+                                            UnitPriceToPrint := ROUND(AmountExclInvDisc / "Qty. to Ship", 0.00001);
+
+                                        IF AdditionalWeight = 0 THEN BEGIN
+                                            Weight1Label := 'Net Weight (LB)';
+                                            Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship");
+                                            Weight2Label := 'Net Weight (KG)';
+                                            Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
+                                        END ELSE BEGIN
+                                            Weight1Label := 'Net Weight (KG)';
+                                            Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
+                                            Weight2Label := 'Gross Weight (KG)';
+                                            Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
+                                        END;
+
+                                        TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
+                                    END;
+                                    // end;
+
+                                    IF Type = Type::Item THEN BEGIN
+                                        IF Item.GET("No.") THEN BEGIN
+                                            CountryOfOrigin := Item."Country/Region of Origin Code";
+                                            // ICProgramNo := Item.;
+                                            TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
+                                            IF UsePurchasesTariff THEN
+                                                TariffNo := Item."Tariff No."
+                                            ELSE
+                                                TariffNo := Item."Tariff No. (Sales)";
+                                        END ELSE BEGIN
+                                            CountryOfOrigin := '';
+                                            TariffNo := '';
+                                        END;
+                                    END ELSE BEGIN
+                                        CountryOfOrigin := '';
+                                        TariffNo := '';
+                                    END;
+                                    TotalPieces := CalcTotalPieces;
+                                end;
                             end;
 
                             IF RemoveFreight THEN BEGIN

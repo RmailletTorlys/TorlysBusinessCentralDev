@@ -62,7 +62,8 @@ codeunit 50012 TlyShipPostPrint
             PrintReport(ReportSelection.Usage::"S.Shipment");
 
             // need the label to print via own function, can't use report selection list due to differnet printer defaults
-            TorlysDocPrint.PrintShipmentLabel(SalesShptHeader);
+            // TorlysDocPrint.PrintShipmentLabel(SalesShptHeader);
+            // moved this to the shipping screen as to only get 1 label if printing multiple orders
         end;
     end;
 

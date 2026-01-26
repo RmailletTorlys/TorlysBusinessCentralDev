@@ -438,14 +438,8 @@ report 50026 "Proforma"
                                     CurrencyCode := "Sales Header"."Currency Code"
                                 END;
 
-                                // IFSAmount := 0;
-                                // IFSLine.RESET;
-                                // IFSLine.SETRANGE("Document No.", "Document No.");
-                                // IFSLine.SETRANGE("Attached to Line No.", "Line No.");
-                                // IFSLine.SETFILTER("No.", 'IFS*');
-                                // IF IFSLine.FIND('-') THEN
-                                //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Quantity Shipped";
 
+                                Message('Tempsalesline %1', TempSalesLine);
                                 Item3.GET(TempSalesLine."No.");
                                 IF (OrderShipped) THEN BEGIN
                                     IF (CostInsteadOfPrice) THEN
@@ -481,15 +475,7 @@ report 50026 "Proforma"
                                     TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped"
                                 end;
 
-                                // IFSAmount := 0;
-                                // IFSLine.RESET;
-                                // IFSLine.SETRANGE("Document No.", "Document No.");
-                                // IFSLine.SETRANGE("Attached to Line No.", "Line No.");
-                                // IFSLine.SETFILTER("No.", 'IFS*');
-                                // IF IFSLine.FIND('-') THEN
-                                //     IFSAmount := ROUND((IFSLine."Unit Price" * (1 - IFSLine."Line Discount %" / 100)), 0.01, '=') * IFSLine."Qty. to Ship";
-
-                                Item3.GET(TempSalesLine."No.");
+                                // Item3.GET(TempSalesLine."No.");
                                 IF (NOT OrderShipped) THEN BEGIN
                                     IF (CostInsteadOfPrice) THEN
                                         AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"

@@ -64,6 +64,9 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="NoCopies">
+          <DataField>NoCopies</DataField>
+        </Field>
         <Field Name="LocationAddress1">
           <DataField>LocationAddress1</DataField>
         </Field>

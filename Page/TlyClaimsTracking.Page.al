@@ -1,10 +1,10 @@
-page 51018 "Claims Order Form"
+page 51018 TlyClaimsTracking
 {
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Tasks;
-    SourceTable = TlyClaimsHeader;
-    Caption = 'Claims Order Form';
+    SourceTable = TlyClaimsTrackingHeader;
+    Caption = 'Claims Tracking';
     Editable = false;
     LinksAllowed = false;
 
@@ -36,7 +36,7 @@ page 51018 "Claims Order Form"
             group(Lines)
             {
                 Caption = 'Lines';
-                part(ClaimsOrderSubform; "Claims Order Subform")
+                part(ClaimsOrderSubform; TlyClaimsTrackingSubform)
                 {
                     ApplicationArea = All;
                     SubPageLink = "Claim No." = field("No.");
@@ -47,7 +47,7 @@ page 51018 "Claims Order Form"
 
 
 
-    procedure AssistEdit(ClaimsHeader: Record TlyClaimsHeader) Result: Boolean
+    procedure AssistEdit(ClaimsHeader: Record TlyClaimsTrackingHeader) Result: Boolean
     var
         SalesSetup: Record "Sales & Receivables Setup";
         NoSeries: Codeunit "No. Series";
@@ -67,7 +67,7 @@ page 51018 "Claims Order Form"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeAssistEdit(Rec: Record TlyClaimsHeader; ClaimsHeader: Record TlyClaimsHeader; var IsHandled: Boolean; var Result: Boolean)
+    local procedure OnBeforeAssistEdit(Rec: Record TlyClaimsTrackingHeader; ClaimsHeader: Record TlyClaimsTrackingHeader; var IsHandled: Boolean; var Result: Boolean)
     begin
     end;
 }

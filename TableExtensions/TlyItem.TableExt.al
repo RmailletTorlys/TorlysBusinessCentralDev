@@ -337,14 +337,16 @@ tableextension 50027 TlyItem extends Item
         field(50048; "Replacement Cost (LCY)"; Decimal)
         {
             Caption = 'Replacement Cost (LCY)';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup(TlyReplacementCosts."Unit Cost (LCY)" where("Item No." = field("No."), "Date" = field("Replacement Cost (Date)")));
             Editable = false;
         }
 
         field(50049; "Replacement Cost (Date)"; Date)
         {
             Caption = 'Replacement Cost (Date)';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Max(TlyReplacementCosts."Date" where("Item No." = field("No.")));
             Editable = false;
         }
 

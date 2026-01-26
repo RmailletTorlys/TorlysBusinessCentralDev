@@ -1,7 +1,7 @@
-table 55007 TlyClaimsHeader
+table 55007 TlyClaimsTrackingHeader
 {
     DataClassification = CustomerContent;
-    Caption = 'Claims Header';
+    Caption = 'Claims Tracking';
 
     fields
     {

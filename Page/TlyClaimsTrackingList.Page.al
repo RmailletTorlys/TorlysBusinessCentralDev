@@ -1,12 +1,12 @@
-page 55020 "Claims Orders List"
+page 55020 TlyClaimsTrackingList
 {
-    Caption = 'Claims Orders';
+    Caption = 'Claims Tracking';
     PageType = List;
-    CardPageId = "Claims Order Form";
-    QueryCategory = 'Claims Orders';
+    CardPageId = TlyClaimsTracking;
+    QueryCategory = 'Claims Tracking';
     ApplicationArea = All;
     UsageCategory = Tasks;
-    SourceTable = TlyClaimsHeader;
+    SourceTable = TlyClaimsTrackingHeader;
     SourceTableView = SORTING("No.") ORDER(Ascending);
 
     layout

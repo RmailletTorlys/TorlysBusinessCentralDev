@@ -1,10 +1,10 @@
-page 55019 "Claims Order Subform"
+page 55019 TlyClaimsTrackingSubform
 {
     PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = Tasks;
-    SourceTable = TlyClaimsLine;
-    Caption = 'Claims Lines';
+    SourceTable = TlyClaimsTrackingLine;
+    Caption = 'Claims Tracking Lines';
     Editable = true;
     LinksAllowed = false;
 

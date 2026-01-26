@@ -36,22 +36,28 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
 
         addafter("Port of loading")
         {
-            field("Origin Port Date"; Rec."Origin Port Date")
+            field("Port of Loading Date"; Rec."Port of Loading Date")
             {
-                Caption = 'Origin Port Date';
-                ToolTip = 'Origin Port Date';
+                Caption = 'Port of Loading Date';
+                ToolTip = 'Port of Loading Date';
                 ApplicationArea = All;
             }
         }
 
-        moveafter("Origin Port Date"; "Port of discharge")
+        moveafter("Port of Loading Date"; "Port of discharge")
 
         addafter("Port of discharge")
         {
-            field("Destination Port Date"; Rec."Destination Port Date")
+            field("Port of Discharge Date"; Rec."Port of Discharge Date")
             {
-                Caption = 'Destination Port Date';
-                ToolTip = 'Destination Port Date';
+                Caption = 'Port of Discharge Date';
+                ToolTip = 'Port of Discharge Date';
+                ApplicationArea = All;
+            }
+            field("Inland Terminal"; Rec."Inland Terminal")
+            {
+                Caption = 'Inland Terminal';
+                ToolTip = 'Inland Terminal';
                 ApplicationArea = All;
             }
             field("Inland Terminal Date"; Rec."Inland Terminal Date")

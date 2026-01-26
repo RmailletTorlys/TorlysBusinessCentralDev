@@ -438,6 +438,8 @@ report 50026 "Proforma"
                                     CurrencyCode := "Sales Header"."Currency Code"
                                 END;
 
+
+                                Message('Tempsalesline %1', TempSalesLine);
                                 Item3.GET(TempSalesLine."No.");
                                 IF (OrderShipped) THEN BEGIN
                                     IF (CostInsteadOfPrice) THEN

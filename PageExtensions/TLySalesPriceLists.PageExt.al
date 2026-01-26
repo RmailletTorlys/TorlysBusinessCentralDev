@@ -44,6 +44,11 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 Caption = 'Customers';
                 Filters = where("Source Type" = filter('Customer'));
             }
+            view(Projects)
+            {
+                Caption = 'Projects';
+                Filters = where("Code" = filter('PRJ*'));
+            }
             view(NotActive)
             {
                 Caption = 'Not Active';

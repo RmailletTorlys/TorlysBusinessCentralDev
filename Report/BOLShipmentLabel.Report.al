@@ -110,7 +110,7 @@ report 50010 "BOL Shipment Label"
 
                 trigger OnPreDataItem()
                 begin
-                    SetRange(Number, 1, NoCopiesVar + 1);
+                    SetRange(Number, 1, NoCopies + 1);
                 end;
 
                 // trigger OnPreDataItem()
@@ -158,7 +158,7 @@ report 50010 "BOL Shipment Label"
         {
             area(Content)
             {
-                field(NoCopies; NoCopiesVar)
+                field(NoCopies; NoCopies)
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Number of Additional Copies';
@@ -189,5 +189,4 @@ report 50010 "BOL Shipment Label"
         NoCopies: Integer;
         NoLoops: Integer;
         CopyNo: Integer;
-        NoCopiesVar: Integer;
 }

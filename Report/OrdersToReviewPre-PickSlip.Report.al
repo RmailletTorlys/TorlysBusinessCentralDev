@@ -24,6 +24,10 @@ report 50006 "Orders to review pre-pick slip"
             {
 
             }
+            column(Status; Status)
+            {
+
+            }
             column(Bill_to_Name; "Bill-to Name")
             {
 

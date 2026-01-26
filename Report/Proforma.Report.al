@@ -146,6 +146,10 @@ report 50026 "Proforma"
                     {
 
                     }
+                    column(Location; "Sales Header"."Location Code")
+                    {
+
+                    }
                     column(CALaddress2; CALaddress2)
                     {
 
@@ -226,7 +230,7 @@ report 50026 "Proforma"
                     {
 
                     }
-                    column(shipvia; shipmentmethod.Description)
+                    column(shipvia; "sales header"."Shipping Agent Code")
                     {
 
                     }
@@ -269,6 +273,10 @@ report 50026 "Proforma"
                         DataItemLinkReference = PageLoop;
 
                         column(AmountExclInvDisc; AmountExclInvDisc)
+                        {
+
+                        }
+                        column(TotalAmountExclInvDisc; TotalAmountExclInvDisc)
                         {
 
                         }
@@ -356,6 +364,14 @@ report 50026 "Proforma"
                         {
 
                         }
+                        column(TotalVATAmount; TotalVATAmount)
+                        {
+
+                        }
+                        column(VATAmount; VATAmount)
+                        {
+
+                        }
                         column(BreakdownAmt1; BreakdownAmt[1])
                         {
 
@@ -423,6 +439,11 @@ report 50026 "Proforma"
                                     "Line Amount" := 0;
                                     "Inv. Discount Amount" := 0;
                                     Quantity := 0;
+                                    Weight1Calc := 0;
+                                    Weight2Calc := 0;
+                                    QtyOrderedNo := 0;
+                                    UnitPriceToPrint := 0;
+                                    AmountExclInvDisc := 0;
                                 end else if type = Type::"G/L Account" then
                                         "No." := '';
 
@@ -441,7 +462,7 @@ report 50026 "Proforma"
                                 END;
 
 
-                                Message('tempsalesline %1', TempSalesLine);
+                                // Message('tempsalesline %1', TempSalesLine);
                                 If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
                                     Item3.GET("No.");
                                     IF (OrderShipped) THEN BEGIN
@@ -477,7 +498,14 @@ report 50026 "Proforma"
                                             Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity Shipped") * 0.453592;
                                         END;
 
-                                        TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped"
+                                        TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped";
+                                        TotalAmountExclInvDisc += AmountExclInvDisc;
+                                        if (CostInsteadOfPrice) then
+                                            VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
+                                        else
+                                            VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Quantity Shipped"));
+
+                                        TotalVATAmount += VATAmount;
                                     end;
                                     IF Type = Type::Item THEN BEGIN
                                         IF Item.GET("No.") THEN BEGIN
@@ -531,6 +559,14 @@ report 50026 "Proforma"
                                         END;
 
                                         TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
+                                        TotalAmountExclInvDisc += AmountExclInvDisc;
+                                        if (CostInsteadOfPrice) then
+                                            VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
+                                        else
+                                            VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Qty. to Ship"));
+
+                                        TotalVATAmount += VATAmount;
+                                        TotalVATAmount += VATAmount;
                                     END;
                                     // end;
 
@@ -719,16 +755,16 @@ report 50026 "Proforma"
                 {
                     Caption = 'Options';
 
-                    field(NoCopies; NoCopies)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'No. of additional copies';
-                    }
-                    field(PrintCompany; PrintCompany)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Print Company Address';
-                    }
+                    // field(NoCopies; NoCopies)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'No. of additional copies';
+                    // }
+                    // field(PrintCompany; PrintCompany)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Print Company Address';
+                    // }
                     field(OrderShipped; OrderShipped)
                     {
                         ApplicationArea = basic, suite;
@@ -759,11 +795,11 @@ report 50026 "Proforma"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Use List Price';
                     }
-                    field(UsePurchasesTariff; UsePurchasesTariff)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'User Purchases Tariff';
-                    }
+                    // field(UsePurchasesTariff; UsePurchasesTariff)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'User Purchases Tariff';
+                    // }
                 }
             }
         }
@@ -843,9 +879,12 @@ report 50026 "Proforma"
         GrandTotal: Decimal;
         AdditionalWeight: Decimal;
         IFSAmount: Decimal;
+        TotalAmountExclInvDisc: Decimal;
         QtyOrderedNo: Decimal;
         PrevTaxPercent: Decimal;
         TotalPieces: Decimal;
+        VATAmount: Decimal;
+        TotalVATAmount: Decimal;
         CompanyAddress: array[8] of Text[100];
         CustAddress: array[8] of Text[100];
         Weight1Label: Text;

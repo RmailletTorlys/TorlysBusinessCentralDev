@@ -67,6 +67,9 @@ End Function
         <Field Name="CALaddress1">
           <DataField>CALaddress1</DataField>
         </Field>
+        <Field Name="Location">
+          <DataField>Location</DataField>
+        </Field>
         <Field Name="CALaddress2">
           <DataField>CALaddress2</DataField>
         </Field>
@@ -160,6 +163,12 @@ End Function
         <Field Name="AmountExclInvDiscFormat">
           <DataField>AmountExclInvDiscFormat</DataField>
         </Field>
+        <Field Name="TotalAmountExclInvDisc">
+          <DataField>TotalAmountExclInvDisc</DataField>
+        </Field>
+        <Field Name="TotalAmountExclInvDiscFormat">
+          <DataField>TotalAmountExclInvDiscFormat</DataField>
+        </Field>
         <Field Name="ItemNo">
           <DataField>ItemNo</DataField>
         </Field>
@@ -240,6 +249,18 @@ End Function
         </Field>
         <Field Name="BreakdownLabel4">
           <DataField>BreakdownLabel4</DataField>
+        </Field>
+        <Field Name="TotalVATAmount">
+          <DataField>TotalVATAmount</DataField>
+        </Field>
+        <Field Name="TotalVATAmountFormat">
+          <DataField>TotalVATAmountFormat</DataField>
+        </Field>
+        <Field Name="VATAmount">
+          <DataField>VATAmount</DataField>
+        </Field>
+        <Field Name="VATAmountFormat">
+          <DataField>VATAmountFormat</DataField>
         </Field>
         <Field Name="BreakdownAmt1">
           <DataField>BreakdownAmt1</DataField>

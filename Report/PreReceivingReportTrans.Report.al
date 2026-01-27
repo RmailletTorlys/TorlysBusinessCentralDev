@@ -14,6 +14,21 @@ report 50019 "Receiving Report - Trans"
             DataItemTableView = sorting("No.");
             RequestFilterFields = "Booking No.";
 
+            dataitem(TlyBookingInfo; TlyBookingInfo)
+            {
+                DataItemLink = "No." = field("Booking No.");
+                DataItemLinkReference = "Transfer Header";
+
+                column(Appointment_Date; "Appointment Date")
+                {
+
+                }
+                column(Appointment_Time; "Appointment Time")
+                {
+
+                }
+            }
+
             column(Booking_No_; "Booking No.")
             {
 
@@ -175,6 +190,7 @@ report 50019 "Receiving Report - Trans"
         Vendor: Record Vendor;
         transferheader: Record "Transfer Header";
         BinContent: Record "Bin Content";
+        bookinginfo: Record TlyBookingInfo;
         HideQuantities: Boolean;
         ItemNumber: Code[20];
         CartageCompany: Code[20];
@@ -191,5 +207,6 @@ report 50019 "Receiving Report - Trans"
         Grouped: Boolean;
         BookingNO: code[25];
         TransferOrderCount: Integer;
-
+        appointmentdate: Date;
+        apointmenttime: Time;
 }

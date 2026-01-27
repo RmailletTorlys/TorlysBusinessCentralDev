@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.0.12.37",
+    "version": "1.0.12.38",
 
     "brief": "",
     "description": "",
@@ -28,7 +28,7 @@
         {
             "id": "e036113a-c9ad-4354-ab15-213d62be5127",
             "name": "Container Management",
-            "version": "1.0.231.0",
+            "version": "1.0.245.0",
             "publisher": "Ternpoint Solutions LP"
         },
         {
@@ -38,21 +38,15 @@
             "publisher": "Lanham Associates"
         },
         {
-            "id": "a8c19647-b664-4902-a66a-c9f19da9121e",
-            "name": "Lanham Demand Planning",
-            "version": "25.3.6.11",
-            "publisher": "Lanham Associates"
-        },
-        {
             "id": "bd6ded48-b30c-48b3-b0a2-7e561d3c0d19",
             "name": "Shipping Connector",
-            "version": "4.5.6.4",
+            "version": "4.6.9.0",
             "publisher": "Software Grotto"
         },
         {
             "id": "9f5a78d6-7644-413a-92e5-588c20a191e0",
             "name": "Shipping Connector Documentation Library",
-            "version": "4.5.6.4",
+            "version": "4.6.9.0",
             "publisher": "Software Grotto"
         },
         {

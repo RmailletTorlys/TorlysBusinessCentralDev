@@ -318,10 +318,10 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             Visible = true;
         }
 
-        modify("LAX Exclude From Performance")
-        {
-            Visible = false;
-        }
+        // modify("LAX Exclude From Performance")
+        // {
+        //     Visible = false;
+        // }
 
         modify("Item Reference No.")
         {

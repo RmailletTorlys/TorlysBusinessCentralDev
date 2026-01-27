@@ -431,7 +431,7 @@ report 50026 "Proforma"
                             with TempSalesLine do begin
                                 If OnLineNumber = 1 then
                                     Find('-') else
-                                    Next;
+                                    Next();
 
                                 if Type = Type::" " then begin
                                     "No." := '';

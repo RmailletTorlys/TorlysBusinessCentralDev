@@ -158,6 +158,14 @@ codeunit 50299 TlyDocumentPrint
         // until ReportSelectionWhse.Next() = 0;
     end;
 
+    procedure PrintCarrierManifest(ProcessedBOLHeader: Record TlyProcessedBillOfLadingHeader): Boolean
+    begin
+        ProcessedBOLHeader.SetRange("Shipping Agent Code", ProcessedBOLHeader."Shipping Agent Code");
+        ProcessedBOLHeader.SetRange("Pickup Date", ProcessedBOLHeader."Pickup Date");
+        ProcessedBOLHeader.SetRange("Location Code", ProcessedBOLHeader."Location Code");
+        Report.RunModal(50013, true, false, ProcessedBOLHeader);
+    end;
+
     procedure PrintB13Sales(SalesHeader: Record "Sales Header"): Boolean
     var
         SalesLine: Record "Sales Line";

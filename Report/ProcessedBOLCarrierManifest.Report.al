@@ -142,6 +142,10 @@ report 50013 "Processed BOL Carrier Manifest"
 
                 }
             }
+            trigger OnPreDataItem()
+            begin
+                FilterString := BOLHeader.GetFilters;
+            end;
 
             trigger OnAfterGetRecord()
             begin

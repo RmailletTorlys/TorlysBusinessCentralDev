@@ -31,6 +31,11 @@ page 56001 "Price List Header API"
                     Caption = 'Start Date';
                 }
 
+                field(endDate; Rec."Ending Date")
+                {
+                    Caption = 'End Date';
+                }
+
                 field(currencyCode; Rec."Currency Code")
                 {
                     Caption = 'Currency Code';

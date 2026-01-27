@@ -107,46 +107,35 @@ codeunit 50299 TlyDocumentPrint
 
     procedure PrintSummaryPickSlip(SalesHeader: Record "Sales Header"): Boolean
     var
-        ReportSelectionWhse: Record "Report Selection Warehouse";
+    // ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
         SalesHeader.SetRange("Sell-to Customer No.", SalesHeader."Sell-to Customer No.");
         SalesHeader.SetRange("Ship-to Code", SalesHeader."Ship-to Code");
         SalesHeader.SetRange("Shipment Date", SalesHeader."Shipment Date");
         SalesHeader.SetRange("Location Code", SalesHeader."Location Code");
         SalesHeader.SetRange("Shipping Agent Code", SalesHeader."Shipping Agent Code");
+        Report.RunModal(50021, true, false, SalesHeader);
         // SalesHeader.SetRange("No. Pick Slips Printed", 0);
-        ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Summary Pick Slip");
-        ReportSelectionWhse.SetFilter("Report ID", '<>0');
-        ReportSelectionWhse.Find('-');
-        repeat
-            Report.RunModal(ReportSelectionWhse."Report ID", true, false, SalesHeader)
-        until ReportSelectionWhse.Next() = 0;
-    end;
-
-    procedure PrintSalesOrderLabel(SalesHeader: Record "Sales Header"): Boolean
-    var
-        ReportSelectionWhse: Record "Report Selection Warehouse";
-    begin
-        SalesHeader.SetRange("No.", SalesHeader."No.");
-        ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Sales Order Label");
-        ReportSelectionWhse.SetFilter("Report ID", '<>0');
-        ReportSelectionWhse.Find('-');
-        repeat
-            Report.RunModal(ReportSelectionWhse."Report ID", true, false, SalesHeader)
-        until ReportSelectionWhse.Next() = 0;
+        // ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Summary Pick Slip");
+        // ReportSelectionWhse.SetFilter("Report ID", '<>0');
+        // ReportSelectionWhse.Find('-');
+        // repeat
+        // Report.RunModal(ReportSelectionWhse."Report ID", true, false, SalesHeader)
+        // until ReportSelectionWhse.Next() = 0;
     end;
 
     procedure PrintBillOfLading(BOLHeader: Record TlyBillOfLadingHeader): Boolean
     var
-        ReportSelectionWhse: Record "Report Selection Warehouse";
+    // ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
         BOLHeader.SetRange("No.", BOLHeader."No.");
-        ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Bill of Lading");
-        ReportSelectionWhse.SetFilter("Report ID", '<>0');
-        ReportSelectionWhse.Find('-');
-        repeat
-            Report.RunModal(ReportSelectionWhse."Report ID", true, false, BOLHeader);
-        until ReportSelectionWhse.Next() = 0;
+        Report.RunModal(50008, true, false, BOLHeader);
+        // ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Bill of Lading");
+        // ReportSelectionWhse.SetFilter("Report ID", '<>0');
+        // ReportSelectionWhse.Find('-');
+        // repeat
+        // Report.RunModal(ReportSelectionWhse."Report ID", true, false, BOLHeader);
+        // until ReportSelectionWhse.Next() = 0;
     end;
 
     procedure PrintBOLShippingLabel(BOLHeader: Record TlyBillOfLadingHeader): Boolean
@@ -157,15 +146,16 @@ codeunit 50299 TlyDocumentPrint
 
     procedure PrintProcessedBillOfLading(ProcessedBOLHeader: Record TlyProcessedBillOfLadingHeader): Boolean
     var
-        ReportSelectionWhse: Record "Report Selection Warehouse";
+    // ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
         ProcessedBOLHeader.SetRange("No.", ProcessedBOLHeader."No.");
-        ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Processed Bill of Lading");
-        ReportSelectionWhse.SetFilter("Report ID", '<>0');
-        ReportSelectionWhse.Find('-');
-        repeat
-            Report.RunModal(ReportSelectionWhse."Report ID", true, false, ProcessedBOLHeader);
-        until ReportSelectionWhse.Next() = 0;
+        Report.RunModal(50009, true, false, ProcessedBOLHeader);
+        // ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Processed Bill of Lading");
+        // ReportSelectionWhse.SetFilter("Report ID", '<>0');
+        // ReportSelectionWhse.Find('-');
+        // repeat
+        // Report.RunModal(ReportSelectionWhse."Report ID", true, false, ProcessedBOLHeader);
+        // until ReportSelectionWhse.Next() = 0;
     end;
 
     procedure PrintB13Sales(SalesHeader: Record "Sales Header"): Boolean
@@ -215,17 +205,40 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50027, true, false, TransferHeader)
     end;
 
+    // v1
+    // this from when we printed after each order was posted
+    // then decided to change to v2
     // procedure PrintShipmentLabel(SalesShptHeader: Record "Sales Shipment Header"): Boolean
     // begin
     //     SalesShptHeader.SetRange("No.", SalesShptHeader."No.");
     //     Report.RunModal(10078, true, false, SalesShptHeader);
     // end;
 
-    procedure PrintShipmentLabel(SalesHeader: Record "Sales Header"): Boolean
+    // v2
+    // this is from when we printed it after all orders were posted is multiple
+    // then decided to change to v2
+    // procedure PrintShipmentLabel(SalesHeader: Record "Sales Header"): Boolean
+    // var
+    //     SalesShptHeader: Record "Sales Shipment Header";
+    // begin
+    //     SalesShptHeader.SetRange("No.", SalesHeader."Last Shipping No.");
+    //     Report.RunModal(10078, true, false, SalesShptHeader);
+    // end;
+
+    // v3
+    // this always existed, but now we modified and print after SH posts, therefore have 1 label if before post or after post
+    // this just wont let you print after invoiced as order will be deleted, but that is once in a blue moom
+    procedure PrintSalesOrderLabel(SalesHeader: Record "Sales Header"): Boolean
     var
-        SalesShptHeader: Record "Sales Shipment Header";
+    // ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
-        SalesShptHeader.SetRange("No.", SalesHeader."Last Shipping No.");
-        Report.RunModal(10078, true, false, SalesShptHeader);
+        SalesHeader.SetRange("No.", SalesHeader."No.");
+        Report.RunModal(50005, true, false, SalesHeader);
+        // ReportSelectionWhse.SetRange(Usage, ReportSelectionWhse.Usage::"Sales Order Label");
+        // ReportSelectionWhse.SetFilter("Report ID", '<>0');
+        // ReportSelectionWhse.Find('-');
+        // repeat
+        // Report.RunModal(ReportSelectionWhse."Report ID", true, false, SalesHeader)
+        // until ReportSelectionWhse.Next() = 0;
     end;
 }

@@ -76,6 +76,12 @@ End Function
         <Field Name="TransferOrderCount">
           <DataField>TransferOrderCount</DataField>
         </Field>
+        <Field Name="Appointment_Date">
+          <DataField>Appointment_Date</DataField>
+        </Field>
+        <Field Name="Appointment_Time">
+          <DataField>Appointment_Time</DataField>
+        </Field>
         <Field Name="In_Transit_Code">
           <DataField>In_Transit_Code</DataField>
         </Field>

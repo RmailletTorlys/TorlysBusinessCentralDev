@@ -385,6 +385,17 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                     Page.Run(Page::TlyItemAvailability, Item);
                 end;
             }
+            action(BackorderFill)
+            {
+                ApplicationArea = asic, Suite;
+                Caption = 'BackorderFill';
+                Ellipsis = true;
+                Image = OrderTracking;
+                ToolTip = 'BackorderFill';
+                Promoted = true;
+                RunObject = Page TlyBackOrderFill;
+                RunPageLink = "No." = field("No."), "Location Code" = field("Location Code"), "Qty. to Ship" = filter(0);
+            }
         }
     }
 

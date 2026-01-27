@@ -124,6 +124,18 @@ End Function
         <Field Name="Comment">
           <DataField>Comment</DataField>
         </Field>
+        <Field Name="DayOfWeek">
+          <DataField>DayOfWeek</DataField>
+        </Field>
+        <Field Name="Ship_to_City">
+          <DataField>Ship_to_City</DataField>
+        </Field>
+        <Field Name="Last_Shipping_No_">
+          <DataField>Last_Shipping_No_</DataField>
+        </Field>
+        <Field Name="BOL_No_">
+          <DataField>BOL_No_</DataField>
+        </Field>
         <Field Name="NoCopies">
           <DataField>NoCopies</DataField>
         </Field>

@@ -188,6 +188,12 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
                 ToolTip = 'Quantity Linked';
                 ApplicationArea = All;
             }
+            field("Quantity Remaining"; QuantityRemaining)
+            {
+                Caption = 'Quantity Remaining';
+                ToolTip = 'Quantity Remaining';
+                ApplicationArea = All;
+            }
             field("Qty. to Ship Linked"; Rec."Qty. to Ship Linked")
             {
                 Caption = 'Qty. to Ship Linked';
@@ -252,9 +258,17 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
         }
     }
 
+    var
+        QuantityRemaining: Decimal;
+
     trigger OnOpenPage()
     begin
         Rec.SetFilter("Document Type", 'Order');
+    end;
+
+    trigger OnAfterGetRecord()
+    begin
+        QuantityRemaining := Rec.Quantity - Rec."Quantity Linked";
     end;
 
     var

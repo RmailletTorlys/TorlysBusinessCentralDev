@@ -97,6 +97,22 @@ report 50005 "Sales Order Label"
             {
 
             }
+            column(DayOfWeek; DayOfWeek)
+            {
+
+            }
+            column(Ship_to_City; "Ship-to City")
+            {
+
+            }
+            column(Last_Shipping_No_; "Last Shipping No.")
+            {
+
+            }
+            column(BOL_No_; "BOL No.")
+            {
+
+            }
 
             dataitem(CopyLoop; Integer)
             {
@@ -128,7 +144,22 @@ report 50005 "Sales Order Label"
                     Clear(Location);
                 FmtAddress.Location(LocationAddress, Location);
 
+                DayOfWeekNo := Date2DWY("Shipment Date", 1);
+
                 FmtAddress.SalesHeaderShipTo(ShipToAddress, CustAddr, "Header");
+
+                case DayOfWeekNo of
+                    1:
+                        DayOfWeek := 'Monday';
+                    2:
+                        DayOfWeek := 'Tuesday';
+                    3:
+                        DayOfWeek := 'Wednesday';
+                    4:
+                        DayOfWeek := 'Thursday';
+                    5:
+                        DayOfWeek := 'Friday';
+                end;
 
                 ShipToAddress_Record.Get("Sell-to Customer No.", "Ship-to Code");
             end;
@@ -161,4 +192,6 @@ report 50005 "Sales Order Label"
         ShipToAddress: array[8] of Text[100];
         CustAddr: array[8] of Text[100];
         NoCopiesVar: Integer;
+        DayOfWeekNo: Integer;
+        DayOfWeek: Text;
 }

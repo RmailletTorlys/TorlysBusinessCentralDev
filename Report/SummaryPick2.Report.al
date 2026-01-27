@@ -27,11 +27,26 @@ report 50021 "Summary PickSlip"
                     RequestFilterFields = "Sell-to Customer No.", "Ship-to Code", "Shipment Date", "Location Code", "Shipping Agent Code", "No. Pick Slips Printed";
                     RequestFilterHeading = 'Summary Pick Slip';
 
+                    dataitem("Shipping Agent"; "Shipping Agent")
+                    {
+                        DataItemLink = Code = field("Shipping Agent Code");
+                        DataItemLinkReference = "sales Header";
+
+                        column(Agent_No_; "Agent No.")
+                        {
+
+                        }
+                    }
+
                     column(SalesHeaderFilter; SalesHeaderFilter)
                     {
 
                     }
                     column(PrintDate; Format(PrintDate, 0, '<month,2>/<day,2>/<year,4>'))
+                    {
+
+                    }
+                    column(Shipping_Agent_Code; "Shipping Agent Code")
                     {
 
                     }

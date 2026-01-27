@@ -250,7 +250,8 @@ page 50999 TlySalesOrderShipment
                     trigger OnAction()
                     begin
                         Codeunit.Run(Codeunit::TlyShipPostPrint, Rec);
-                        TorlysDocPrint.PrintShipmentLabel(Rec);
+                        // TorlysDocPrint.PrintShipmentLabel(Rec); //change to SO label only
+                        TorlysDocPrint.PrintSalesOrderLabel(Rec);
                     end;
                 }
             }

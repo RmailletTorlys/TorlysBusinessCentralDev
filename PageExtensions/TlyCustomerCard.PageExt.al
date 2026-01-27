@@ -244,12 +244,12 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the default price list assigned to the customer account.';
             }
-            field("Display Regular Price On PL"; Rec."Display Regular Price On PL")
+            field("Remove Regular Price On PL"; Rec."Remove Regular Price On PL")
             {
                 ApplicationArea = All;
-                Caption = 'Display Regular Price On PL';
+                Caption = 'Remove Regular Price On PL';
                 Visible = true;
-                ToolTip = 'Display Regular Price On PL';
+                ToolTip = 'Remove Regular Price On PL';
             }
         }
 

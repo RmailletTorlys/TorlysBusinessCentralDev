@@ -959,8 +959,9 @@ page 52001 TlyOrdersToBeShippedList
                                 // our codeunit below
                                 Codeunit.Run(Codeunit::TlyShipPostPrint, SalesHeader);
                             until SalesHeader.Next() = 0;
-                        // if we put this label here, will it only prompt for 1 label at end of posting, great for multiple orders
-                        TorlysDocPrint.PrintShipmentLabel(SalesHeader);
+                        // if we put this label here, will it only prompt for 1 label at end of posting, great for multiple orders, also lets use SO label only
+                        // TorlysDocPrint.PrintShipmentLabel(SalesHeader);
+                        TorlysDocPrint.PrintSalesOrderLabel(Rec);
                     end;
                 }
                 action(CreateBOL)

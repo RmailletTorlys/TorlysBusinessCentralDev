@@ -70,6 +70,9 @@ End Function
         <Field Name="PrintDate">
           <DataField>PrintDate</DataField>
         </Field>
+        <Field Name="Shipping_Agent_Code">
+          <DataField>Shipping_Agent_Code</DataField>
+        </Field>
         <Field Name="PrintTime">
           <DataField>PrintTime</DataField>
         </Field>
@@ -81,6 +84,9 @@ End Function
         </Field>
         <Field Name="OrderString">
           <DataField>OrderString</DataField>
+        </Field>
+        <Field Name="Agent_No_">
+          <DataField>Agent_No_</DataField>
         </Field>
         <Field Name="TotalWeight">
           <DataField>TotalWeight</DataField>

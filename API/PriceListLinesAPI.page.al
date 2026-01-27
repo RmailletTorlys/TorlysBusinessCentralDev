@@ -1,12 +1,12 @@
-page 56000 "Pricing API"
+page 56000 "Price List Lines API"
 {
     PageType = API;
     Caption = 'Pricing';
     APIPublisher = 'torlys';
     APIGroup = 'app1';
     APIVersion = 'v2.0', 'v1.0';
-    EntityName = 'prices';
-    EntitySetName = 'priceLists';
+    EntityName = 'priceListLines';
+    EntitySetName = 'priceListLines';
     SourceTable = "Price List Line";
     DelayedInsert = true;
 

@@ -1,4 +1,4 @@
-page 56001 "Programs API"
+page 56002 "Programs API"
 {
     PageType = API;
     Caption = 'Programs';

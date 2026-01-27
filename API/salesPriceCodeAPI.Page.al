@@ -1,4 +1,4 @@
-page 56002 "Sales Price Code API"
+page 56003 "Sales Price Code API"
 {
     PageType = API;
     Caption = 'Sales Price Codes';

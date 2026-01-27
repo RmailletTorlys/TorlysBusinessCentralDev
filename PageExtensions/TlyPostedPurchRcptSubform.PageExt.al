@@ -167,10 +167,10 @@ pageextension 50137 TlyPostedPurchRcptSubform extends "Posted Purchase Rcpt. Sub
             Visible = false;
         }
 
-        modify("LAX Exclude From Performance")
-        {
-            Visible = false;
-        }
+        // modify("LAX Exclude From Performance")
+        // {
+        //     Visible = false;
+        // }
 
         modify("Item Reference No.")
         {

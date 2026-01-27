@@ -239,6 +239,22 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
         }
     }
 
+    actions
+    {
+        addfirst("F&unctions")
+        {
+            action("Freight Forwarder Costs")
+            {
+                Caption = 'Freight Forwarder Costs';
+                ToolTip = 'Freight Forwarder Costs';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page TlyFreightForwarderCosts;
+                RunPageLink = "Vendor No." = field("No.");
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 }

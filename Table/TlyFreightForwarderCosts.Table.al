@@ -98,18 +98,17 @@ table 55103 TlyFreightForwarderCosts
         }
         field(17; "Steamship Line"; Text[20])
         {
-            Caption = 'Comments';
+            Caption = 'Steamship Line';
             DataClassification = CustomerContent;
             TableRelation = TlySteamshipLine;
         }
     }
 
-    // keys
-    // {
-    //     key(PK; "Vendor No.", "Item No.", Date)
-    //     {
-    //         Clustered = true;
-    //     }
-
-    // }
+    keys
+    {
+        key(PK; "Vendor No.", "Location Code", "Container Type", "Starting Date", "Ending Date")
+        {
+            Clustered = true;
+        }
+    }
 }

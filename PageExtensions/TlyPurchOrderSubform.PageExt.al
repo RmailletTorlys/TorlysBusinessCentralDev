@@ -186,6 +186,13 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
             }
 
+            field("Quantity Remaining"; QuantityRemaining)
+            {
+                Caption = 'Quantity Remaining';
+                ToolTip = 'Quantity Remaining';
+                ApplicationArea = All;
+            }
+
             field("Qty. to Ship Linked"; Rec."Qty. to Ship Linked")
             {
                 Caption = 'Qty. to Ship Linked';
@@ -384,11 +391,13 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
     var
         LookupUser: Codeunit TlyLookupUserID;
         EditCasePallet: Boolean;
+        QuantityRemaining: Decimal;
 
     trigger OnAfterGetRecord()
     begin
         // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
+        QuantityRemaining := Rec.Quantity - Rec."Quantity Linked";
     end;
 
 

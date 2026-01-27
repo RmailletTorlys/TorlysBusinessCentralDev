@@ -428,6 +428,8 @@ page 51006 TlyProcBillOfLading
         {
             actionref("Print BOL"; PrintBOL)
             { }
+            actionref("Print Carrier Manifest"; PrintCarrierManifest)
+            { }
         }
         area(Navigation)
         {
@@ -441,6 +443,18 @@ page 51006 TlyProcBillOfLading
                 var
                 begin
                     TorlysDocPrint.PrintProcessedBillOfLading(Rec);
+                end;
+            }
+            action(PrintCarrierManifest)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print Carrier Manifest';
+                Caption = 'Print Carrier Manifest';
+                Image = Print;
+                trigger OnAction()
+                var
+                begin
+                    TorlysDocPrint.PrintCarrierManifest(Rec);
                 end;
             }
         }

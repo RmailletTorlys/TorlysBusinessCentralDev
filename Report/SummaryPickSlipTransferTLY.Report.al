@@ -25,6 +25,17 @@ report 50007 "Summary Pick Slip Transfer TLY"
                     RequestFilterFields = "Transfer-from Code", "Transfer-to Code", "Shipment Date", "No.";
                     RequestFilterHeading = 'Summary Pick Slip Transfer TLY';
 
+                    dataitem("Shipping Agent"; "Shipping Agent")
+                    {
+                        DataItemLink = Code = field("Shipping Agent Code");
+                        DataItemLinkReference = "Transfer Header";
+
+                        column(Agent_No_; "Agent No.")
+                        {
+
+                        }
+                    }
+
                     column(OrderString; OrderString)
                     {
 
@@ -42,6 +53,14 @@ report 50007 "Summary Pick Slip Transfer TLY"
 
                     }
                     column(PrintTime; Format(PrintTime, 0, '<Hours24,2>:<Minutes,2>:<Seconds,2>'))
+                    {
+
+                    }
+                    column(Shipping_Agent_Code; "Shipping Agent Code")
+                    {
+
+                    }
+                    column(agentno; shippingagent."Agent No.")
                     {
 
                     }
@@ -162,6 +181,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
 
                     trigger OnPreDataItem()
                     begin
+                        "Transfer Header".SetFilter(Status, '%1', "Transfer Header".Status::Released);
                         TransferHeaderFilter := "Transfer Header".GetFilters;
 
                         PrintDate := Today;
@@ -204,6 +224,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";
+        shippingagent: Record "Shipping Agent";
         TransferHeaderFilter: Text;
         OrderString: text[1000];
         BinLocation: Text;

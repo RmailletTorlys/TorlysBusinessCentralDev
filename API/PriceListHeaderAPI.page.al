@@ -45,6 +45,11 @@ page 56001 "Price List Header API"
                 {
                     Caption = 'Applies To';
                 }
+
+                field(sourceNo; Rec."Source No.")
+                {
+                    Caption = 'Source No.';
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ page 55103 TlyFreightForwarderCosts
     UsageCategory = Lists;
     Editable = true;
     SourceTable = TlyFreightForwarderCosts;
-
+    AutoSplitKey = true;
 
     layout
     {

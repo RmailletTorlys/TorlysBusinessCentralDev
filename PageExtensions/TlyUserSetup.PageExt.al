@@ -2,9 +2,11 @@ pageextension 50119 TlyUserSetup extends "User Setup"
 {
     layout
     {
-        addafter("User ID")
+        moveafter("User ID"; "Register Time")
+
+        addafter("Register Time")
         {
-            field("Location Code"; Rec."Default Location Code")
+            field("Default Location Code"; Rec."Default Location Code")
             {
                 ApplicationArea = All;
                 Caption = 'Default Location Code';
@@ -19,6 +21,40 @@ pageextension 50119 TlyUserSetup extends "User Setup"
                 ToolTip = 'SO Qty. to Ship Edit';
                 Visible = true;
             }
+        }
+        moveafter("SO Qty. to Ship Edit"; "Allow Posting From", "Allow Posting To", "Sales Invoice Posting Policy", "Purch. Invoice Posting Policy")
+
+        modify("Allow Deferral Posting From")
+        {
+            Visible = false;
+        }
+        modify("Allow Deferral Posting To")
+        {
+            Visible = false;
+        }
+        modify("Sales Resp. Ctr. Filter")
+        {
+            Visible = false;
+        }
+        modify("Purchase Resp. Ctr. Filter")
+        {
+            Visible = false;
+        }
+        modify("Time Sheet Admin.")
+        {
+            Visible = false;
+        }
+        modify("Sustainability Manager")
+        {
+            Visible = false;
+        }
+        modify(PhoneNo)
+        {
+            Visible = false;
+        }
+        modify("Salespers./Purch. Code")
+        {
+            Visible = false;
         }
     }
 }

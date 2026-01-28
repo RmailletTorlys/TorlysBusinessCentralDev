@@ -428,7 +428,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         modify("E-Mail")
         {
-            Importance = Additional;
+            Visible = false;
         }
 
         modify("Language Code")

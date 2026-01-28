@@ -286,7 +286,9 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         //     }
         // }
 
-        addafter("Shipping Agent Code")
+        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+
+        addafter("Shipping Agent Service Code")
         {
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
@@ -577,7 +579,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         modify("Shipping Agent Service Code")
         {
-            Visible = false;
+            Importance = Standard;
         }
 
         modify("Shortcut Dimension 1 Code")

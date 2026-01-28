@@ -146,6 +146,11 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
         {
             Visible = false;
         }
+
+        modify("Shipment Method Code")
+        {
+            Visible = false;
+        }
     }
 
     // trigger OnNewRecord(BelowxRec: Boolean)

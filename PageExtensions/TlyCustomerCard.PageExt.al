@@ -371,18 +371,21 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Specifies the freight zone that the customer is assigned to.';
+                // Visible = false;
             }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 ApplicationArea = All;
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
+                Visible = false;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
             {
                 ApplicationArea = All;
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
+                Visible = false;
             }
         }
 
@@ -613,6 +616,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         modify("Payment Method Code")
         {
             Importance = Additional;
+        }
+        modify("Shipment Method Code")
+        {
+            Visible = false;
         }
         modify("Print Statements")
         {

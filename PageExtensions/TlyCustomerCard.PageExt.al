@@ -162,7 +162,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ToolTip = 'This field is the date the temporary credit limit expires.';
                 Importance = Additional;
             }
+        }
+        moveafter("Temp. Credit Limit Expiry Date"; "Document Sending Profile")
 
+        addafter("Document Sending Profile")
+        {
             field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
@@ -469,10 +473,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
-        modify("Document Sending Profile")
-        {
-            Visible = false;
-        }
+        // modify("Document Sending Profile")
+        // {
+        //     Visible = false;
+        // }
         modify(TotalSales2)
         {
             Visible = false;

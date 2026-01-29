@@ -349,6 +349,14 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 end;
             end;
         }
+
+        modify("Location Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                if Rec."Location Code" = 'CAL' then Rec."SCX Ship-from Code" := 'CALGARY'
+            end;
+        }
     }
 
     trigger OnAfterInsert()

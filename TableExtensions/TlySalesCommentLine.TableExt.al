@@ -5,7 +5,7 @@ tableextension 50044 TlySalesCommentLine extends "Sales Comment Line"
         field(50001; "Comment Type"; Code[25])
         {
             DataClassification = CustomerContent;
-            Caption = 'Type';
+            Caption = 'Comment Type';
             ToolTip = 'Specifies the type of comment.';
             TableRelation = TlyCommentType;
         }

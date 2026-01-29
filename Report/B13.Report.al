@@ -47,6 +47,10 @@ report 50020 "B13 Purchase"
             {
 
             }
+            column(user; user)
+            {
+
+            }
 
             dataitem("Sales Line"; "Sales Line")
             {
@@ -223,6 +227,8 @@ report 50020 "B13 Purchase"
             begin
                 SalesLineFilter := "Sales Line".GetFilters;
 
+                User := Format(UserId());
+
                 LastFieldNo := FieldNo("Tariff No.");
 
                 CurrReport.CreateTotals(TariffQuantity, TariffNetWeightLB, TariffNetWeightKG, TariffLineAmount);
@@ -311,4 +317,5 @@ report 50020 "B13 Purchase"
         SalesLineFilter: Text;
         OrderUOM: Code[10];
         HTSCode: Code[20];
+        user: code[50];
 }

@@ -67,6 +67,9 @@ End Function
         <Field Name="FilterString">
           <DataField>FilterString</DataField>
         </Field>
+        <Field Name="user">
+          <DataField>user</DataField>
+        </Field>
         <Field Name="TariffQuantity">
           <DataField>TariffQuantity</DataField>
         </Field>

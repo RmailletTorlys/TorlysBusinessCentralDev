@@ -19,6 +19,10 @@ report 50028 "B13 Sales Invoice"
             {
 
             }
+            column(user; user)
+            {
+
+            }
             column(TariffQuantity; TariffQuantity)
             {
 
@@ -27,6 +31,10 @@ report 50028 "B13 Sales Invoice"
             {
 
             }
+            // column(SystemId; LookupUserIdWithGuid(SystemId))
+            // {
+
+            // }
             column(TariffNetWeightLB; TariffNetWeightLB)
             {
 
@@ -110,38 +118,37 @@ report 50028 "B13 Sales Invoice"
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
 
                     // SalesHeader.get("Document Type", "Document No.");
-                    If OrderShipped then begin
-                        If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
-                            OrderQuantity := ("Quantity" / 10.764);
-                            OrderUOM := 'M2';
-                        end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
-                            OrderQuantity := "Quantity";
-                            OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
-                            OrderQuantity := "Quantity";
-                            OrderUOM := "Unit of Measure Code";
-                        end else begin
-                            ItemUOM.get("No.", 'CASE');
-                            OrderQuantity := ("Quantity" / ItemUOM."Qty. per Unit of Measure") * ((ItemUOM.Cubage / 1728) / 35.315);
-                            OrderUOM := 'M3';
-                        end;
-
-                        NetWeightLB := "Quantity" * "Net Weight";
-                        NetWeightKG := "Quantity" * "Net Weight" * 0.453592;
-                        LineAmount := "Quantity" * NetPrice;
-
-                        If Type = Type::Item then begin
-                            If Item2.get("No.") then begin
-                                TariffNote := item."Customs/Tariff Note";
-                                netweight := Item2."Net Weight";
-                            end;
-                        end;
-
-                        TariffQuantity := TariffQuantity + OrderQuantity;
-                        TariffNetWeightLB := TariffNetWeightLB + ("Sales Invoice Line"."Quantity" * "Sales Invoice Line"."Net Weight");
-                        TariffNetWeightKG := TariffNetWeightKG + ("Sales Invoice Line"."Quantity" * "Sales invoice Line"."Net Weight" * 0.453592);
-                        TariffLineAmount += LineAmount;
+                    If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        OrderQuantity := ("Quantity" / 10.764);
+                        OrderUOM := 'M2';
+                    end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
+                        OrderQuantity := "Quantity";
+                        OrderUOM := "Unit of Measure Code";
+                    end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
+                        OrderQuantity := "Quantity";
+                        OrderUOM := "Unit of Measure Code";
+                    end else begin
+                        ItemUOM.get("No.", 'CASE');
+                        OrderQuantity := ("Quantity" / ItemUOM."Qty. per Unit of Measure") * ((ItemUOM.Cubage / 1728) / 35.315);
+                        OrderUOM := 'M3';
                     end;
+
+                    NetWeightLB := "Quantity" * "Net Weight";
+                    NetWeightKG := "Quantity" * "Net Weight" * 0.453592;
+                    LineAmount := "Quantity" * NetPrice;
+
+                    If Type = Type::Item then begin
+                        If Item2.get("No.") then begin
+                            TariffNote := item."Customs/Tariff Note";
+                            netweight := Item2."Net Weight";
+                        end;
+                    end;
+
+                    TariffQuantity := TariffQuantity + OrderQuantity;
+                    TariffNetWeightLB := TariffNetWeightLB + ("Sales Invoice Line"."Quantity" * "Sales Invoice Line"."Net Weight");
+                    TariffNetWeightKG := TariffNetWeightKG + ("Sales Invoice Line"."Quantity" * "Sales invoice Line"."Net Weight" * 0.453592);
+                    TariffLineAmount += LineAmount;
+
 
                     If RemoveFreight then begin
                         If "Gen. Bus. Posting Group" = 'FREIGHT' then begin
@@ -178,6 +185,8 @@ report 50028 "B13 Sales Invoice"
             trigger OnPreDataItem()
             begin
                 SalesLineFilter := "Sales invoice Line".GetFilters;
+
+                User := Format(UserId());
 
                 LastFieldNo := FieldNo("Tariff No. (Sales)");
 
@@ -268,4 +277,5 @@ report 50028 "B13 Sales Invoice"
         SalesLineFilter: Text;
         OrderUOM: Code[10];
         HTSCode: Code[20];
+        user: code[50];
 }

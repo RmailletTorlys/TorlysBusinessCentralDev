@@ -19,6 +19,10 @@ report 50029 "B13 Purchase Invoice"
             {
 
             }
+            column(user; user)
+            {
+
+            }
             column(TariffQuantity; TariffQuantity)
             {
 
@@ -179,6 +183,8 @@ report 50029 "B13 Purchase Invoice"
             begin
                 SalesLineFilter := "Sales Invoice Line".GetFilters;
 
+                User := Format(UserId());
+
                 LastFieldNo := FieldNo("Tariff No.");
 
                 CurrReport.CreateTotals(TariffQuantity, TariffNetWeightLB, TariffNetWeightKG, TariffLineAmount);
@@ -268,4 +274,5 @@ report 50029 "B13 Purchase Invoice"
         SalesLineFilter: Text;
         OrderUOM: Code[10];
         HTSCode: Code[20];
+        user: code[50];
 }

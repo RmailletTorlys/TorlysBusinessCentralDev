@@ -295,6 +295,8 @@ page 52001 TlyOrdersToBeShippedList
             { }
             actionref("Create BOL"; CreateBOL)
             { }
+            actionref("Create Shipping Label"; CreateShippingLabel)
+            { }
             group("Posted Documents")
             {
                 actionref("View Shipments"; ViewShipments)
@@ -988,6 +990,24 @@ page 52001 TlyOrdersToBeShippedList
                             BOLHeader.Validate(BOLHeader."Shipping Agent Code", Rec."Shipping Agent Code");
                             BOLHeader.Insert(true);
                             Page.Run(Page::TlyBillOfLading, BOLHeader);
+                        end;
+                    end;
+                }
+                action(CreateShippingLabel)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Create Shippping Label';
+                    // Image = NewWarehouseShipment;
+                    Visible = (Rec."Shipping Agent Code" = 'FEDEX');
+                    trigger OnAction()
+                    var
+                        SalesHeader: Record "Sales Header";
+                    begin
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.Count > 1 then begin
+                            Error('You cannot create BOLs this way, choose 1 order.')
+                        end else begin
+                            message('create label')
                         end;
                     end;
                 }

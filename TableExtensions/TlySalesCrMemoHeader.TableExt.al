@@ -50,7 +50,7 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
             DataClassification = CustomerContent;
         }
 
-        field(50008; "Tag Name"; code[20])
+        field(50008; "Tag Name"; Text[30])
         {
             Caption = 'Tag Name';
             DataClassification = CustomerContent;
@@ -108,7 +108,7 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
         field(50017; "Original Invoice No."; Code[20])
         {
             Caption = 'Original Invoice No.';
-            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            // TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
             DataClassification = CustomerContent;
         }
         field(50018; "Rebill Invoice No."; Code[20])

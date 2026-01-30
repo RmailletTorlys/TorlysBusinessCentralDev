@@ -350,23 +350,23 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             end;
         }
 
-        modify("Location Code")
-        {
-            trigger OnAfterValidate()
-            begin
-                if Rec."Location Code" = 'CAL' then begin
-                    Message('test %1', rec."Location Code");
-                    // rec.validate(Rec."SCX Ship-from Code", 'CALGARY');
-                    // rec.Modify(true);
-                end;
-            end;
-        }
+        // modify("Location Code")
+        // {
+        //     trigger OnAfterValidate()
+        //     begin
+        //         if Rec."Location Code" = 'CAL' then begin
+        //             Message('test %1', rec."Location Code");
+        //             // rec.validate(Rec."SCX Ship-from Code", 'CALGARY');
+        //             // rec.Modify(true);
+        //         end;
+        //     end;
+        // }
     }
 
     trigger OnAfterInsert()
     begin
         "Order Time" := Time;
-        CopyCommentsFromCustCardToSalesHeader();
+        // CopyCommentsFromCustCardToSalesHeader();
     end;
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

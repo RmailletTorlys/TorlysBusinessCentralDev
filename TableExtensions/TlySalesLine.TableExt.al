@@ -312,11 +312,10 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                     exit;
 
                 CommentLine.Reset();
-                ;
                 CommentLine.SetCurrentKey("Table Name", "No.", "Line No.");
                 CommentLine.SetRange("Table Name", CommentLine."Table Name"::Item);
                 CommentLine.SetRange("No.", "No.");
-                CommentLine.SetRange("Popup", TRUE);
+                CommentLine.SetRange("Copy to Sales Order", true);
                 IF CommentLine.Find('-') then begin
                     SalesCommentLine.Reset();
                     SalesCommentLine.SetCurrentKey("Document Type", "No.");

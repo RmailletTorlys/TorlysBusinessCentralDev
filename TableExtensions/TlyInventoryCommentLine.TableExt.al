@@ -1,12 +1,12 @@
-tableextension 50044 TlySalesCommentLine extends "Sales Comment Line"
+tableextension 55748 TlyInventoryCommentLine extends "Inventory Comment Line"
 {
     fields
     {
         field(50001; "Comment Type"; Code[25])
         {
-            DataClassification = CustomerContent;
             Caption = 'Comment Type';
             ToolTip = 'Specifies the type of comment.';
+            DataClassification = CustomerContent;
             TableRelation = TlyCommentType;
         }
         field(50002; "Popup"; Boolean)
@@ -16,5 +16,4 @@ tableextension 50044 TlySalesCommentLine extends "Sales Comment Line"
             DataClassification = CustomerContent;
         }
     }
-
 }

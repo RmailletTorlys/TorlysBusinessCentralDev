@@ -162,7 +162,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ToolTip = 'This field is the date the temporary credit limit expires.';
                 Importance = Additional;
             }
+        }
+        moveafter("Temp. Credit Limit Expiry Date"; "Document Sending Profile")
 
+        addafter("Document Sending Profile")
+        {
             field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
@@ -469,10 +473,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
-        modify("Document Sending Profile")
-        {
-            Visible = false;
-        }
+        // modify("Document Sending Profile")
+        // {
+        //     Visible = false;
+        // }
         modify(TotalSales2)
         {
             Visible = false;
@@ -661,6 +665,90 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
     actions
     {
+        addlast(processing)
+        {
+            action(SendStatementReview)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Print/Send Statement';
+                Image = Email;
+
+                trigger OnAction()
+                var
+                    Cust: Record Customer;
+                    Choice: Integer;
+                    Options: Label 'Email,Print/Preview,Cancel';
+                    ReportId: Integer;
+                    Params: Text;
+                    RecRef: RecordRef;
+                    TmpBlob: Codeunit "Temp Blob";
+                    InStr: InStream;
+                    Email: Codeunit Email;
+                    EmailMsg: Codeunit "Email Message";
+                    FileName: Text;
+                    SubjectTxt: Text;
+                    BodyHtml: Text;
+                    ToAddr: Text;
+                    Rendered: Boolean;
+                    Err: Text;
+                begin
+                    Cust.Get(Rec."No.");
+                    ReportId := 1316;
+
+                    Choice := StrMenu(Options, 1);
+
+                    if Choice = 3 then
+                        exit;
+
+                    Params := Report.RunRequestPage(ReportId);
+                    if Params = '' then
+                        exit;
+
+                    Cust.SetRange("No.", Rec."No.");
+                    RecRef.GetTable(Cust);
+
+                    case Choice of
+                        1:
+                            begin
+                                // EMAIL FLOW (your existing logic)
+                                Clear(TmpBlob);
+                                Rendered := TryRenderToPdf(ReportId, Params, RecRef, TmpBlob, Err);
+                                if not Rendered then
+                                    Error('Could not render Customer Statement. Details: %1', Err);
+
+                                TmpBlob.CreateInStream(InStr);
+
+                                ToAddr := Cust."E-Mail";
+                                if ToAddr = '' then
+                                    Error('Customer %1 has no email address.', Cust."No.");
+
+                                SubjectTxt := StrSubstNo('Statement for %1 (%2)', Cust.Name, Cust."No.");
+                                BodyHtml :=
+                                    StrSubstNo(
+                                        '<p>Hello %1,</p>' +
+                                        '<p>Please find your latest account statement attached.</p>' +
+                                        '<p>Regards,<br/>%2</p>',
+                                        Cust.Name, UserId());
+
+                                FileName := StrSubstNo('Statement_%1_%2.pdf', Cust."No.", Format(Today(), 0, 9));
+
+                                EmailMsg.Create(ToAddr, SubjectTxt, BodyHtml, true);
+                                EmailMsg.AddAttachment(FileName, 'application/pdf', InStr);
+
+                                Email.OpenInEditor(EmailMsg);
+                            end;
+
+                        2:
+                            begin
+                                // PRINT / PREVIEW / EXPORT FLOW
+                                Report.RunModal(ReportId, true, false, Cust);
+                            end;
+                    end;
+                end;
+            }
+        }
+
+
         addafter(ShipToAddresses)
         {
             action(Displays)
@@ -678,6 +766,18 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             actionref(Displays_Promoted; Displays) { }
         }
+
+        addfirst(Category_Report)
+        {
+            actionref(SendStatementReview1; SendStatementReview)
+            {
+
+            }
+        }
+        modify("Report Statement_Promoted")
+        {
+            Visible = false;
+        }
     }
 
     protected var
@@ -685,6 +785,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        CustLedgEntry: Record "Cust. Ledger Entry";
+        DocumentMailing: Codeunit "Document-Mailing";
+        R: Report 10072;
+
+
 
     trigger OnAfterGetRecord()
     begin
@@ -695,5 +800,29 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
     var
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
+    end;
+
+    [TryFunction]
+    local procedure RenderToPdfInternal(ReportId: Integer; RequestPageXml: Text; RecRef: RecordRef; var TmpBlob: Codeunit "Temp Blob")
+    var
+        OutStr: OutStream;
+    begin
+        TmpBlob.CreateOutStream(OutStr);
+
+        Report.SaveAs(
+            ReportId,
+            RequestPageXml,
+            ReportFormat::Pdf,
+            OutStr,
+            RecRef);
+    end;
+
+    local procedure TryRenderToPdf(ReportId: Integer; RequestPageXml: Text; RecRef: RecordRef; var TmpBlob: Codeunit "Temp Blob"; var ErrorText: Text): Boolean
+    begin
+        if RenderToPdfInternal(ReportId, RequestPageXml, RecRef, TmpBlob) then
+            exit(true);
+
+        ErrorText := GetLastErrorText();
+        exit(false);
     end;
 }

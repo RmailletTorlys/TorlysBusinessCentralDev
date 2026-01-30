@@ -1002,12 +1002,15 @@ page 52001 TlyOrdersToBeShippedList
                     trigger OnAction()
                     var
                         SalesHeader: Record "Sales Header";
+                        SCXLabelsPage: Page SCX_ShippingLabels;
                     begin
                         CurrPage.SetSelectionFilter(SalesHeader);
                         if SalesHeader.Count > 1 then begin
                             Error('You cannot create BOLs this way, choose 1 order.')
                         end else begin
-                            message('create label')
+                            SCXLabelsPage.SetSalesRecord(Rec);
+                            Commit();
+                            SCXLabelsPage.RunModal();
                         end;
                     end;
                 }

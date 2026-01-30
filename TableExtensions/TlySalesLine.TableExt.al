@@ -301,6 +301,49 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 if ("Document Type" in ["Document Type"::"Return Order", "Document Type"::"Credit Memo"]) and (SalesHeader."External Document No." = '') then
                     Error('You must enter the Original Invoice No. before entering items.');
             end;
+
+            trigger OnAfterValidate()
+            var
+                CommentLine: Record "Comment Line";
+                SalesCommentLine: Record "Sales Comment Line";
+                LineNo: Integer;
+            begin
+                if Rec."No." = '' then
+                    exit;
+
+                CommentLine.Reset();
+                CommentLine.SetCurrentKey("Table Name", "No.", "Line No.");
+                CommentLine.SetRange("Table Name", CommentLine."Table Name"::Item);
+                CommentLine.SetRange("No.", "No.");
+                CommentLine.SetRange("Copy to Sales Order", true);
+                IF CommentLine.Find('-') then begin
+                    SalesCommentLine.Reset();
+                    SalesCommentLine.SetCurrentKey("Document Type", "No.");
+                    SalesCommentLine.SetRange("Document Type", "Document Type");
+                    SalesCommentLine.SetRange("No.", "Document No.");
+                    if SalesCommentLine.Find('+') then LineNo := SalesCommentLine."Line No.";
+                    LineNo += 10000;
+                    repeat
+                        SalesCommentLine.Init();
+                        SalesCommentLine."Document Type" := "Document Type";
+                        SalesCommentLine."No." := "Document No.";
+                        SalesCommentLine."Comment Type" := CommentLine."Comment Type";
+                        SalesCommentLine."Line No." := LineNo;
+                        LineNo += 10000;
+                        SalesCommentLine.Date := CommentLine.Date;
+                        SalesCommentLine.Comment := CommentLine.Comment;
+                        SalesCommentLine."Print On Quote" := CommentLine."Print On Quote";
+                        SalesCommentLine."Print On Pick Ticket" := CommentLine."Print On Pick Ticket";
+                        SalesCommentLine."Print On Order Confirmation" := CommentLine."Print On Order Confirmation";
+                        SalesCommentLine."Print On Shipment" := CommentLine."Print On Shipment";
+                        SalesCommentLine."Print On Invoice" := CommentLine."Print On Invoice";
+                        SalesCommentLine."Print On Credit Memo" := CommentLine."Print On Credit Memo";
+                        SalesCommentLine."Print On Return Authorization" := CommentLine."Print On Return Authorization";
+                        SalesCommentLine."Print On Return Receipt" := CommentLine."Print On Return Receipt";
+                        SalesCommentLine.Insert(true);
+                    until CommentLine.Next = 0;
+                END;
+            end;
         }
         modify(Quantity)
         {

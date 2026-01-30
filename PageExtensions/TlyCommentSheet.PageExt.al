@@ -4,7 +4,7 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
     {
         addafter(Code)
         {
-            field(Type; Rec."Comment Type")
+            field("Comment Type"; Rec."Comment Type")
             {
                 ApplicationArea = All;
                 Caption = 'Comment Type';
@@ -24,7 +24,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 Caption = 'Copy to Sales Order';
                 ToolTip = 'Specifies if the comment should be copied to the sales order.';
             }
-
 
             field("Print on Quote"; Rec."Print on Quote")
             {

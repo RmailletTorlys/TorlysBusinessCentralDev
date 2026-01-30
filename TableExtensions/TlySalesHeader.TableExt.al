@@ -381,12 +381,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         CommentLine: Record "Comment Line";
         SalesCommentLine: Record "Sales Comment Line";
         LineNo: Integer;
-        IsHandled: Boolean;
     begin
-        OnBeforeCopyCommentsFromCustCardToSalesHeader(IsHandled);
-        if IsHandled then
-            exit;
-
         if Rec."Sell-to Customer No." = '' then
             exit;
 
@@ -395,11 +390,11 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         CommentLine.SetRange("No.", Rec."Sell-to Customer No.");
         CommentLine.SetRange("Copy to Sales Order", true);
         if CommentLine.FindSet() then BEGIN
-            SalesCommentLine.RESET();
-            SalesCommentLine.SETCURRENTKEY("Document Type", "No.");
-            SalesCommentLine.SETRANGE("Document Type", "Document Type");
-            SalesCommentLine.SETRANGE("No.", "No.");
-            IF SalesCommentLine.FIND('+') THEN
+            SalesCommentLine.Reset();
+            SalesCommentLine.SetCurrentKey("Document Type", "No.");
+            SalesCommentLine.SetRange("Document Type", "Document Type");
+            SalesCommentLine.SetRange("No.", "No.");
+            if SalesCommentLine.Find('+') then
                 LineNo := SalesCommentLine."Line No.";
             LineNo += 10000;
             repeat
@@ -422,17 +417,5 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 SalesCommentLine.Insert();
             until CommentLine.Next() = 0;
         end;
-
-        OnAfterCopyCommentsFromCustCardToSalesHeader();
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeCopyCommentsFromCustCardToSalesHeader(var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterCopyCommentsFromCustCardToSalesHeader()
-    begin
     end;
 }

@@ -1,10 +1,10 @@
-pageextension 50067 "TlySalesCommentSheet" extends "Sales Comment Sheet"
+pageextension 50067 TlySalesCommentSheet extends "Sales Comment Sheet"
 {
     layout
     {
         addafter(Comment)
         {
-            field(Type; Rec."Comment Type")
+            field("Comment Type"; Rec."Comment Type")
             {
                 ApplicationArea = All;
                 Caption = 'Comment Type';

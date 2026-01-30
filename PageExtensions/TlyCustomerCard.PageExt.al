@@ -670,7 +670,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
             action(SendStatementReview)
             {
                 ApplicationArea = Basic, Suite;
-                Caption = 'Send Statement (Review Email)';
+                Caption = 'Print/Send Statement';
                 Image = Email;
 
                 trigger OnAction()

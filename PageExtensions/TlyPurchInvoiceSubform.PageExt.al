@@ -58,10 +58,16 @@ pageextension 50055 TlyPurchInvoiceSubform extends "Purch. Invoice Subform"
                 ToolTip = 'Quantity Invoiced';
                 ApplicationArea = All;
             }
+            field("Container No. (NAV)"; Rec."Container No. (NAV)")
+            {
+                Caption = 'Container No. (NAV)';
+                ToolTip = 'Container No. (NAV)';
+                ApplicationArea = All;
+            }
 
         }
 
-        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
+        moveafter("Container No. (NAV)"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
 
         addafter(ShortcutDimCode8)
         {

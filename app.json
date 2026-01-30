@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.0.12.42",
+    "version": "1.0.12.43",
 
     "brief": "",
     "description": "",
@@ -16,13 +16,13 @@
         {
             "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
             "name": "Sustainability",
-            "version": "26.2.34746.36197",
+            "version": "27.2.42879.42994",
             "publisher": "Microsoft"
         },
         {
             "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
             "name": "E-Document Core",
-            "version": "26.2.34746.36889",
+            "version": "27.2.42879.43521",
             "publisher": "Microsoft"
         },
         {
@@ -40,13 +40,13 @@
         {
             "id": "bd6ded48-b30c-48b3-b0a2-7e561d3c0d19",
             "name": "Shipping Connector",
-            "version": "4.6.9.0",
+            "version": "4.6.11.0",
             "publisher": "Software Grotto"
         },
         {
             "id": "9f5a78d6-7644-413a-92e5-588c20a191e0",
             "name": "Shipping Connector Documentation Library",
-            "version": "4.6.9.0",
+            "version": "4.6.11.0",
             "publisher": "Software Grotto"
         },
         {

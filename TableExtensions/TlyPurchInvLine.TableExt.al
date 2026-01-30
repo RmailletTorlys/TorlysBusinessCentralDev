@@ -106,5 +106,10 @@ tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
             // FieldClass = FlowField;
             // CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Document No."), "Document Line No." = field("Line No.")));
         }
+        field(50018; "Container No. (NAV)"; Code[25])
+        {
+            Caption = 'Container No. (NAV)';
+            DataClassification = CustomerContent;
+        }
     }
 }

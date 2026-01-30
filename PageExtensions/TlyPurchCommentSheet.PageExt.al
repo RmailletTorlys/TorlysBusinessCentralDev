@@ -1,15 +1,14 @@
-pageextension 50068 "TlyPurchCommentSheet" extends "Purch. Comment Sheet"
+pageextension 50068 TlyPurchCommentSheet extends "Purch. Comment Sheet"
 {
     layout
     {
         addafter(Code)
         {
-            field(Type; Rec."Comment Type")
+            field("Comment Type"; Rec."Comment Type")
             {
                 ApplicationArea = All;
                 Caption = 'Comment Type';
                 ToolTip = 'Specifies the type of comment.';
-
             }
 
             field("Print on Purchase Order"; Rec."Print on Purchase Order")
@@ -17,7 +16,6 @@ pageextension 50068 "TlyPurchCommentSheet" extends "Purch. Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Order';
                 ToolTip = 'Specifies if the comment should be printed on the purchase order.';
-
             }
 
             field("Print on Purchase Receipt"; Rec."Print on Purchase Receipt")
@@ -25,7 +23,6 @@ pageextension 50068 "TlyPurchCommentSheet" extends "Purch. Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Receipt';
                 ToolTip = 'Specifies if the comment should be printed on the purcahse receipt.';
-
             }
 
             field("Print on Purchase Invoice"; Rec."Print on Purchase Invoice")
@@ -33,7 +30,6 @@ pageextension 50068 "TlyPurchCommentSheet" extends "Purch. Comment Sheet"
                 ApplicationArea = All;
                 Caption = 'Print on Purchase Invoice';
                 ToolTip = 'Specifies if the comment should be printed on the purchase invoice.';
-
             }
             field("Print on Purchase Credit Memo"; Rec."Print on Purchase Credit Memo")
             {
@@ -42,8 +38,6 @@ pageextension 50068 "TlyPurchCommentSheet" extends "Purch. Comment Sheet"
                 ToolTip = 'Specifies if the comment should be printed on the purchase credit memo.';
 
             }
-
-
         }
 
         modify(Code)

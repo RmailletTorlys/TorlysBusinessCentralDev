@@ -665,7 +665,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
     actions
     {
-        addlast(Processing)
+        addlast(processing)
         {
             action(SendStatementReview)
             {
@@ -676,76 +676,78 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 trigger OnAction()
                 var
                     Cust: Record Customer;
+                    Choice: Integer;
+                    Options: Label 'Email,Print/Preview,Cancel';
+                    ReportId: Integer;
+                    Params: Text;
                     RecRef: RecordRef;
-                    ReportParams: Text;
-
                     TmpBlob: Codeunit "Temp Blob";
                     InStr: InStream;
-
                     Email: Codeunit Email;
                     EmailMsg: Codeunit "Email Message";
-
-                    ToAddr: Text;
+                    FileName: Text;
                     SubjectTxt: Text;
                     BodyHtml: Text;
-                    FileName: Text;
-
+                    ToAddr: Text;
                     Rendered: Boolean;
                     Err: Text;
-                    ReportIdPrimary: Integer;
-                    ReportIdFallback: Integer;
                 begin
-                    // 0) Get current customer
                     Cust.Get(Rec."No.");
+                    ReportId := 1316;
 
-                    // 1) Capture request page parameters for the statement
-                    //    Primary target: 10072 (legacy RDLC); fallback to 1316 (newer Word)
-                    ReportIdPrimary := 10072;
-                    ReportIdFallback := 1316; // present in many NA/CA tenants
-                    ReportParams := Report.RunRequestPage(ReportIdPrimary); // user chooses date range, aging, etc.
-                    if ReportParams = '' then
-                        exit; // user cancelled the request page
+                    Choice := StrMenu(Options, 1);
 
-                    // 2) Filter THIS customer and build RecRef
-                    Cust.Reset();
+                    if Choice = 3 then
+                        exit;
+
+                    Params := Report.RunRequestPage(ReportId);
+                    if Params = '' then
+                        exit;
+
                     Cust.SetRange("No.", Rec."No.");
                     RecRef.GetTable(Cust);
 
-                    // 3) Try rendering 10072; if it fails, try 1316
-                    Clear(TmpBlob);
-                    Rendered := TryRenderToPdf(ReportIdPrimary, ReportParams, RecRef, TmpBlob, Err);
-                    if not Rendered then begin
-                        // Attempt fallback to 1316 (if available in your tenant)
-                        Clear(TmpBlob);
-                        Rendered := TryRenderToPdf(ReportIdFallback, ReportParams, RecRef, TmpBlob, Err);
+                    case Choice of
+                        1:
+                            begin
+                                // EMAIL FLOW (your existing logic)
+                                Clear(TmpBlob);
+                                Rendered := TryRenderToPdf(ReportId, Params, RecRef, TmpBlob, Err);
+                                if not Rendered then
+                                    Error('Could not render Customer Statement. Details: %1', Err);
+
+                                TmpBlob.CreateInStream(InStr);
+
+                                ToAddr := Cust."E-Mail";
+                                if ToAddr = '' then
+                                    Error('Customer %1 has no email address.', Cust."No.");
+
+                                SubjectTxt := StrSubstNo('Statement for %1 (%2)', Cust.Name, Cust."No.");
+                                BodyHtml :=
+                                    StrSubstNo(
+                                        '<p>Hello %1,</p>' +
+                                        '<p>Please find your latest account statement attached.</p>' +
+                                        '<p>Regards,<br/>%2</p>',
+                                        Cust.Name, UserId());
+
+                                FileName := StrSubstNo('Statement_%1_%2.pdf', Cust."No.", Format(Today(), 0, 9));
+
+                                EmailMsg.Create(ToAddr, SubjectTxt, BodyHtml, true);
+                                EmailMsg.AddAttachment(FileName, 'application/pdf', InStr);
+
+                                Email.OpenInEditor(EmailMsg);
+                            end;
+
+                        2:
+                            begin
+                                // PRINT / PREVIEW / EXPORT FLOW
+                                Report.RunModal(ReportId, true, false, Cust);
+                            end;
                     end;
-
-                    if not Rendered then
-                        Error('Could not render Customer Statement. Details: %1', Err);
-
-                    // 4) Prepare email
-                    TmpBlob.CreateInStream(InStr);
-                    ToAddr := Cust."E-Mail";
-                    if ToAddr = '' then
-                        Error('Customer %1 has no email address.', Cust."No.");
-
-                    SubjectTxt := StrSubstNo('Statement for %1 (%2)', Cust.Name, Cust."No.");
-                    BodyHtml :=
-                      StrSubstNo(
-                        '<p>Hello %1,</p>' +
-                        '<p>Please find your latest account statement attached.</p>' +
-                        '<p>Regards,<br/>%2</p>',
-                        Cust.Name, UserId());
-                    FileName := StrSubstNo('Statement_%1_%2.pdf', Cust."No.", Format(Today(), 0, 9));
-
-                    EmailMsg.Create(ToAddr, SubjectTxt, BodyHtml, true); // true => HTML body
-                    EmailMsg.AddAttachment(FileName, 'application/pdf', InStr);
-
-                    // 5) Open the Email Editor for user to edit and send
-                    Email.OpenInEditor(EmailMsg);
                 end;
             }
         }
+
 
         addafter(ShipToAddresses)
         {
@@ -764,6 +766,18 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             actionref(Displays_Promoted; Displays) { }
         }
+
+        addfirst(Category_Report)
+        {
+            actionref(SendStatementReview1; SendStatementReview)
+            {
+
+            }
+        }
+        modify("Report Statement_Promoted")
+        {
+            Visible = false;
+        }
     }
 
     protected var
@@ -771,6 +785,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        CustLedgEntry: Record "Cust. Ledger Entry";
+        DocumentMailing: Codeunit "Document-Mailing";
+        R: Report 10072;
+
+
 
     trigger OnAfterGetRecord()
     begin
@@ -783,24 +802,27 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
 
-    local procedure TryRenderToPdf(ReportId: Integer; ReportParams: Text; RecRef: RecordRef; var Blob: Codeunit "Temp Blob"; var ErrorText: Text): Boolean
+    [TryFunction]
+    local procedure RenderToPdfInternal(ReportId: Integer; RequestPageXml: Text; RecRef: RecordRef; var TmpBlob: Codeunit "Temp Blob")
     var
         OutStr: OutStream;
     begin
-        ErrorText := '';
-        Blob.CreateOutStream(OutStr);
-        if TrySaveAs(ReportId, ReportParams, OutStr, RecRef) then
+        TmpBlob.CreateOutStream(OutStr);
+
+        Report.SaveAs(
+            ReportId,
+            RequestPageXml,
+            ReportFormat::Pdf,
+            OutStr,
+            RecRef);
+    end;
+
+    local procedure TryRenderToPdf(ReportId: Integer; RequestPageXml: Text; RecRef: RecordRef; var TmpBlob: Codeunit "Temp Blob"; var ErrorText: Text): Boolean
+    begin
+        if RenderToPdfInternal(ReportId, RequestPageXml, RecRef, TmpBlob) then
             exit(true);
 
-        ErrorText := GetLastErrorText(); // capture the platform error for diagnostics
+        ErrorText := GetLastErrorText();
         exit(false);
     end;
-
-    [TryFunction]
-    local procedure TrySaveAs(ReportId: Integer; ReportParams: Text; var OutStr: OutStream; RecRef: RecordRef)
-    begin
-        // This will throw if the report doesn't exist, you lack permission, or layout fails.
-        Report.SaveAs(ReportId, ReportParams, ReportFormat::Pdf, OutStr, RecRef);
-    end;
-
 }

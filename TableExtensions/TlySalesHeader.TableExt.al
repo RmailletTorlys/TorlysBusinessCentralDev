@@ -354,7 +354,11 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         {
             trigger OnAfterValidate()
             begin
-                if Rec."Location Code" = 'CAL' then Rec."SCX Ship-from Code" := 'CALGARY'
+                if Rec."Location Code" = 'CAL' then begin
+                    Message('test %1', rec."Location Code");
+                    // rec.validate(Rec."SCX Ship-from Code", 'CALGARY');
+                    // rec.Modify(true);
+                end;
             end;
         }
     }

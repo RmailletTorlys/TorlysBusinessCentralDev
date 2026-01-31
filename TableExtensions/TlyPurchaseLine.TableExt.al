@@ -233,11 +233,56 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnAfterValidate()
             var
                 Item: Record Item;
+                CommentLine: Record "Comment Line";
+                PurchCommentLine: Record "Purch. Comment Line";
+                LineNo: Integer;
             begin
                 if Rec.Type = Rec.Type::Item then begin
                     Item.Get(Rec."No.");
                     if Rec."Buy-from Vendor No." <> Item."Vendor No." then
                         Message('%1 default vendor is %2, not %3.', Rec."No.", Item."Vendor No.", Rec."Buy-from Vendor No.");
+                end;
+
+                if Rec."No." = '' then
+                    exit;
+
+                CommentLine.Reset();
+                CommentLine.SetCurrentKey("Table Name", "No.", "Line No.");
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
+                CommentLine.SetRange("No.", "No.");
+                CommentLine.SetRange("Copy to Purchase Order", true);
+                IF CommentLine.Find('-') then begin
+                    PurchCommentLine.Reset();
+                    PurchCommentLine.SetCurrentKey("Document Type", "No.");
+                    PurchCommentLine.SetRange("Document Type", "Document Type");
+                    PurchCommentLine.SetRange("No.", "Document No.");
+                    if PurchCommentLine.Find('+') then LineNo := PurchCommentLine."Line No.";
+                    LineNo += 10000;
+                    repeat
+                        PurchCommentLine.Init();
+                        PurchCommentLine."Document Type" := "Document Type";
+                        PurchCommentLine."No." := "Document No.";
+                        PurchCommentLine."Comment Type" := CommentLine."Comment Type";
+                        PurchCommentLine."Line No." := LineNo;
+                        LineNo += 10000;
+                        PurchCommentLine.Date := CommentLine.Date;
+                        PurchCommentLine.Comment := CommentLine.Comment;
+                        PurchCommentLine."Print on Purchase Order" := CommentLine."Print on Purchase Order";
+                        PurchCommentLine."Print on Purchase Receipt" := CommentLine."Print on Purchase Receipt";
+                        PurchCommentLine."Print on Purchase Invoice" := CommentLine."Print on Purchase Invoice";
+                        PurchCommentLine."Print on Purchase Credit Memo" := CommentLine."Print on Purchase Credit Memo";
+                        PurchCommentLine.Insert(true);
+                    until CommentLine.Next = 0;
+                end;
+
+                CommentLine.Reset();
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
+                CommentLine.SetFilter(CommentLine."No.", "No.");
+                if CommentLine.Find('-') then begin
+                    repeat
+                        if CommentLine."Popup" = true then
+                            Message('%1', CommentLine.Comment);
+                    until CommentLine.Next = 0;
                 end;
             end;
         }

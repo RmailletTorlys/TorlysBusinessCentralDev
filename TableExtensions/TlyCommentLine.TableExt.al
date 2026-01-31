@@ -96,4 +96,9 @@ tableextension 50097 TlyCommentLine extends "Comment Line"
             ToolTip = 'Specifies whether the comment line should be printed on the Purchase Credit Memo.';
         }
     }
+
+    trigger OnBeforeInsert()
+    begin
+        Date := WorkDate();
+    end;
 }

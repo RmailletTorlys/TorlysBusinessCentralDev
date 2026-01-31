@@ -2,7 +2,19 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
 {
     layout
     {
-        addafter(Code)
+        addafter(Date)
+        {
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Created By"; Comment)
+
+        addafter(Comment)
         {
             field("Comment Type"; Rec."Comment Type")
             {
@@ -24,7 +36,12 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 Caption = 'Copy to Sales Order';
                 ToolTip = 'Specifies if the comment should be copied to the sales order.';
             }
-
+            field("Copy to Purchase Order"; Rec."Copy to Purchase Order")
+            {
+                ApplicationArea = All;
+                Caption = 'Copy to Purchase Order';
+                ToolTip = 'Specifies if the comment should be copied to the purchase order.';
+            }
             field("Print on Quote"; Rec."Print on Quote")
             {
                 ApplicationArea = All;
@@ -82,12 +99,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
                 Caption = 'Print on Return Receipt';
                 ToolTip = 'Specifies if the comment should be printed on the return receipt.';
             }
-            field("Copy to Purchase Order"; Rec."Copy to Purchase Order")
-            {
-                ApplicationArea = All;
-                Caption = 'Copy to Purchase Order';
-                ToolTip = 'Specifies if the comment should be copied to the purchase order.';
-            }
             field("Print on Purchase Order"; Rec."Print on Purchase Order")
             {
                 ApplicationArea = All;
@@ -119,4 +130,6 @@ pageextension 50124 TlyCommentSheet extends "Comment Sheet"
             Visible = false;
         }
     }
+    var
+        LookupUser: Codeunit TlyLookupUserID;
 }

@@ -16,5 +16,8 @@ tableextension 50044 TlySalesCommentLine extends "Sales Comment Line"
             DataClassification = CustomerContent;
         }
     }
-
+    trigger OnBeforeInsert()
+    begin
+        Date := WorkDate();
+    end;
 }

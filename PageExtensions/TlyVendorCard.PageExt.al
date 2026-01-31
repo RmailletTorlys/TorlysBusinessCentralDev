@@ -129,18 +129,18 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
         {
             Visible = false;
         }
-        modify("Sust. Cert. Name")
-        {
-            Visible = false;
-        }
-        modify("Sust. Cert. No.")
-        {
-            Visible = false;
-        }
-        modify("Carbon Pricing Paid")
-        {
-            Visible = false;
-        }
+        // modify("Sust. Cert. Name")
+        // {
+        //     Visible = false;
+        // }
+        // modify("Sust. Cert. No.")
+        // {
+        //     Visible = false;
+        // }
+        // modify("Carbon Pricing Paid")
+        // {
+        //     Visible = false;
+        // }
         modify("Primary Contact No.")
         {
             Visible = false;
@@ -185,14 +185,14 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
         {
             Visible = false;
         }
-        modify("Receive E-Document To")
-        {
-            Visible = false;
-        }
-        modify("E-Document Service Participation Ids")
-        {
-            Visible = false;
-        }
+        // modify("Receive E-Document To")
+        // {
+        //     Visible = false;
+        // }
+        // modify("E-Document Service Participation Ids")
+        // {
+        //     Visible = false;
+        // }
         modify("Customized Calendar")
         {
             Visible = false;

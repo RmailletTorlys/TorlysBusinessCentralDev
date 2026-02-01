@@ -17,12 +17,22 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
         modify("Buy-from Vendor No.")
         {
             trigger OnAfterValidate()
+            var
+                CommentLine: Record "Comment Line";
             begin
                 CopyCommentsFromVendCardToPurchaseHeader();
+
+                CommentLine.Reset();
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Vendor);
+                CommentLine.SetFilter(CommentLine."No.", "Buy-from Vendor No.");
+                IF CommentLine.Find('-') then begin
+                    repeat
+                        IF CommentLine."Popup" = TRUE THEN
+                            Message('%1', CommentLine.Comment);
+                    until CommentLine.Next = 0;
+                end;
             end;
         }
-
-
     }
 
     trigger OnAfterInsert()
@@ -33,40 +43,38 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
     local procedure CopyCommentsFromVendCardToPurchaseHeader()
     var
         CommentLine: Record "Comment Line";
-        PurchaseCommentLine: Record "Purch. Comment Line";
+        PurchCommentLine: Record "Purch. Comment Line";
         LineNo: Integer;
     begin
         if Rec."Buy-from Vendor No." = '' then
             exit;
 
-
-
         CommentLine.Reset();
         CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Vendor);
         CommentLine.SetRange("No.", Rec."Buy-from Vendor No.");
         CommentLine.SetRange("Copy to Purchase Order", true);
-        if CommentLine.FindSet() then BEGIN
-            PurchaseCommentLine.RESET();
-            PurchaseCommentLine.SETCURRENTKEY("Document Type", "No.");
-            PurchaseCommentLine.SETRANGE("Document Type", "Document Type");
-            PurchaseCommentLine.SETRANGE("No.", "No.");
-            IF PurchaseCommentLine.FIND('+') THEN
-                LineNo := PurchaseCommentLine."Line No.";
+        if CommentLine.FindSet() then begin
+            PurchCommentLine.Reset();
+            PurchCommentLine.SetCurrentKey("Document Type", "No.");
+            PurchCommentLine.SetRange("Document Type", "Document Type");
+            PurchCommentLine.SetRange("No.", "No.");
+            IF PurchCommentLine.Find('+') THEN
+                LineNo := PurchCommentLine."Line No.";
             LineNo += 10000;
             repeat
-                PurchaseCommentLine.Init();
-                PurchaseCommentLine."Document Type" := Rec."Document Type";
-                PurchaseCommentLine."No." := Rec."No.";
-                PurchaseCommentLine."Comment Type" := CommentLine."Comment Type";
-                PurchaseCommentLine."Line No." := LineNo;
+                PurchCommentLine.Init();
+                PurchCommentLine."Document Type" := Rec."Document Type";
+                PurchCommentLine."No." := Rec."No.";
+                PurchCommentLine."Comment Type" := CommentLine."Comment Type";
+                PurchCommentLine."Line No." := LineNo;
                 LineNo += 10000;
-                PurchaseCommentLine.Date := CommentLine.Date;
-                PurchaseCommentLine.Comment := CommentLine.Comment;
-                PurchaseCommentLine."Print on Purchase Order" := CommentLine."Print on Purchase Order";
-                PurchaseCommentLine."Print on Purchase Receipt" := CommentLine."Print on Purchase Receipt";
-                PurchaseCommentLine."Print on Purchase Invoice" := CommentLine."Print on Purchase Invoice";
-                PurchaseCommentLine."Print on Purchase Credit Memo" := CommentLine."Print on Purchase Credit Memo";
-                PurchaseCommentLine.Insert();
+                PurchCommentLine.Date := CommentLine.Date;
+                PurchCommentLine.Comment := CommentLine.Comment;
+                PurchCommentLine."Print on Purchase Order" := CommentLine."Print on Purchase Order";
+                PurchCommentLine."Print on Purchase Receipt" := CommentLine."Print on Purchase Receipt";
+                PurchCommentLine."Print on Purchase Invoice" := CommentLine."Print on Purchase Invoice";
+                PurchCommentLine."Print on Purchase Credit Memo" := CommentLine."Print on Purchase Credit Memo";
+                PurchCommentLine.Insert();
             until CommentLine.Next() = 0;
         end;
     end;

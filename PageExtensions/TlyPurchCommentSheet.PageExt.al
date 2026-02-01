@@ -2,7 +2,19 @@ pageextension 50068 TlyPurchCommentSheet extends "Purch. Comment Sheet"
 {
     layout
     {
-        addafter(Code)
+        addafter(Date)
+        {
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Created By"; Comment)
+
+        addafter(Comment)
         {
             field("Comment Type"; Rec."Comment Type")
             {
@@ -45,4 +57,6 @@ pageextension 50068 TlyPurchCommentSheet extends "Purch. Comment Sheet"
             Visible = false;
         }
     }
+    var
+        LookupUser: Codeunit TlyLookupUserID;
 }

@@ -313,7 +313,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
 
                 CommentLine.Reset();
                 CommentLine.SetCurrentKey("Table Name", "No.", "Line No.");
-                CommentLine.SetRange("Table Name", CommentLine."Table Name"::Item);
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
                 CommentLine.SetRange("No.", "No.");
                 CommentLine.SetRange("Copy to Sales Order", true);
                 IF CommentLine.Find('-') then begin
@@ -342,7 +342,17 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                         SalesCommentLine."Print On Return Receipt" := CommentLine."Print On Return Receipt";
                         SalesCommentLine.Insert(true);
                     until CommentLine.Next = 0;
-                END;
+                end;
+
+                CommentLine.Reset();
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
+                CommentLine.SetFilter(CommentLine."No.", "No.");
+                if CommentLine.Find('-') then begin
+                    repeat
+                        if CommentLine."Popup" = true then
+                            Message('%1', CommentLine.Comment);
+                    until CommentLine.Next = 0;
+                end;
             end;
         }
         modify(Quantity)

@@ -308,10 +308,10 @@ pageextension 50050 TlyPurchOrder extends "Purchase Order"
             Visible = false;
         }
 
-        modify(PurchaseOrderLinkedToEdoc)
-        {
-            Visible = false;
-        }
+        // modify(PurchaseOrderLinkedToEdoc)
+        // {
+        //     Visible = false;
+        // }
 
         modify("Location Code")
         {

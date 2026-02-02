@@ -166,7 +166,7 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50013, true, false, ProcessedBOLHeader);
     end;
 
-    procedure PrintB13Sales(SalesHeader: Record "Sales Header"): Boolean
+    procedure PrintB13SalesFromSO(SalesHeader: Record "Sales Header"): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
@@ -174,12 +174,28 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50023, true, false, SalesLine)
     end;
 
-    procedure PrintB13Purchase(SalesHeader: Record "Sales Header"): Boolean
+    procedure PrintB13PurchaseFromSO(SalesHeader: Record "Sales Header"): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
         SalesLine.SetRange("Document No.", SalesHeader."No.");
-        Report.RunModal(50020, true, false, SalesLine)
+        Report.RunModal(50024, true, false, SalesLine)
+    end;
+
+    procedure PrintB13SalesFromInvoice(SalesInvHeader: Record "Sales Invoice Header"): Boolean
+    var
+        SalesInvLine: Record "Sales Invoice Line";
+    begin
+        SalesInvLine.SetRange("Document No.", SalesInvHeader."No.");
+        Report.RunModal(50028, true, false, SalesInvLine)
+    end;
+
+    procedure PrintB13PurchaseFromInvoice(SalesInvHeader: Record "Sales Invoice Header"): Boolean
+    var
+        SalesInvLine: Record "Sales Invoice Line";
+    begin
+        SalesInvLine.SetRange("Document No.", SalesInvHeader."No.");
+        Report.RunModal(50029, true, false, SalesInvLine)
     end;
 
     procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean

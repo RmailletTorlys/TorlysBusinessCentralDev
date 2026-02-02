@@ -897,7 +897,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 begin
                     // SalesLine.SetFilter("Document No.", Rec."No.");
                     // Report.RunModal(50023, true, false, SalesLine);
-                    TorlysDocPrint.PrintB13Sales(Rec);
+                    TorlysDocPrint.PrintB13SalesFromSO(Rec);
                 end;
             }
             action("B13 Purchase")
@@ -912,7 +912,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 begin
                     // SalesLine.SetFilter("Document No.", Rec."No.");
                     // Report.RunModal(50020, true, false, SalesLine);
-                    TorlysDocPrint.PrintB13Purchase(Rec);
+                    TorlysDocPrint.PrintB13PurchaseFromSO(Rec);
                 end;
             }
         }

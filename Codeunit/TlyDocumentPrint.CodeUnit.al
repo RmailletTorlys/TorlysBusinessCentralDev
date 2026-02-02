@@ -179,7 +179,7 @@ codeunit 50299 TlyDocumentPrint
         SalesLine: Record "Sales Line";
     begin
         SalesLine.SetRange("Document No.", SalesHeader."No.");
-        Report.RunModal(50024, true, false, SalesLine)
+        Report.RunModal(50020, true, false, SalesLine)
     end;
 
     procedure PrintB13SalesFromInvoice(SalesInvHeader: Record "Sales Invoice Header"): Boolean

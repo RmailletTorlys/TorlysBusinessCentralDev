@@ -404,45 +404,44 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
 
     actions
     {
-        //     addlast(Category_Category11)
-        //     {
+        addlast(Category_Category6)
+        {
 
-        //         actionref(B13_Sales; "B13 Sales")
-        //         {
-        //         }
-        //         actionref(B13_Purchase; "B13 Purchase")
-        //         {
-        //         }
-        //     }
+            actionref(B13_Sales; "B13 Sales")
+            {
+            }
+            actionref(B13_Purchase; "B13 Purchase")
+            {
+            }
+        }
 
-        // addlast(Action96)
-        // {
-        //     action("B13 Sales")
-        //     {
-        //         Caption = 'Print B13 Sales';
-        //         Image = Print;
-        //         ApplicationArea = Basic, Suite;
-        //         trigger OnAction()
-        //         var
-        //             TorlysDocPrint: Codeunit TlyDocumentPrint;
-        //         begin
-        //             TorlysDocPrint.PrintB13SalesFromInvoice(Rec);
-        //         end;
-        //     }
-        //     action("B13 Purchase")
-        //     {
-        //         Caption = 'Print B13 Purchase';
-        //         Image = Print;
-        //         ApplicationArea = Basic, Suite;
-        //         trigger OnAction()
-        //         var
-        //             // SalesLine: Record "Sales Line";
-        //             TorlysDocPrint: Codeunit TlyDocumentPrint;
-        //         begin
-        //             TorlysDocPrint.PrintB13PurchaseFromInvoice(Rec);
-        //         end;
-        //     }
-        // }
+        addlast("&Electronic Document")
+        {
+            action("B13 Sales")
+            {
+                Caption = 'Print B13 Sales';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintB13SalesFromInvoice(Rec);
+                end;
+            }
+            action("B13 Purchase")
+            {
+                Caption = 'Print B13 Purchase';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintB13PurchaseFromInvoice(Rec);
+                end;
+            }
+        }
 
         addbefore(Category_New)
         {

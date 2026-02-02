@@ -67,7 +67,7 @@ pageextension 50055 TlyPurchInvoiceSubform extends "Purch. Invoice Subform"
 
         }
 
-        moveafter("Container No. (NAV)"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
+        moveafter("Container No. (NAV)"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
 
         addafter(ShortcutDimCode8)
         {
@@ -132,7 +132,7 @@ pageextension 50055 TlyPurchInvoiceSubform extends "Purch. Invoice Subform"
 
         modify(ShortcutDimCode4)
         {
-            Visible = false;
+            Editable = true;
         }
 
     }

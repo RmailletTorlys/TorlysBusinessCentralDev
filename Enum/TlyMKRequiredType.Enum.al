@@ -25,4 +25,8 @@ enum 50005 TlyMKRequiredType
     {
         Caption = 'Custom';
     }
+    value(5; Labels)
+    {
+        Caption = 'Labels';
+    }
 }

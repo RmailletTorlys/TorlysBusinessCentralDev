@@ -59,6 +59,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                     CurrencyCode := "Currency Code";
 
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
+                FormatAddr1.SalesHeaderSellTo(selltoaddr, Header);
             end;
         }
 
@@ -139,6 +140,22 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(selltoaddr1; selltoaddr[1])
+            { }
+            column(selltoaddr2; selltoaddr[2])
+            { }
+            column(selltoaddr3; selltoaddr[3])
+            { }
+            column(selltoaddr4; selltoaddr[4])
+            { }
+            column(selltoaddr5; selltoaddr[5])
+            { }
+            column(selltoaddr6; selltoaddr[6])
+            { }
+            column(selltoaddr7; selltoaddr[7])
+            { }
+            column(selltoaddr8; selltoaddr[8])
+            { }
         }
 
         add(Totals)
@@ -185,6 +202,8 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ParentBinLocationLabel: Text;
         ParentBinLocation: Code[100];
         ShortCutDimCode: array[8] of Code[20];
+        selltoaddr: array[8] of Text;
+        FormatAddr1: Codeunit "Format Address";
 
 
     procedure SetQtyConst(No_: Code[20])

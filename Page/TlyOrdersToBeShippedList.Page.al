@@ -344,7 +344,6 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
-                        Rec.SetFilter("Status", 'Released');
                         Rec.SetRange("Shipment Date", ShipmentDate);
                     end;
                 }
@@ -376,7 +375,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", 'PU');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(TodayCarrier)
@@ -407,7 +406,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", '<>PU');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(TodayAllLocations)
@@ -424,7 +423,9 @@ page 52001 TlyOrdersToBeShippedList
 
                         Rec.Reset();
                         Rec.SetRange("Shipment Date", ShipmentDate);
-                        Rec.SetFilter("Status", 'Released');
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                     end;
                 }
                 action(OrdersNotShipped)
@@ -455,7 +456,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Qty. to Ship", '>0');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(OrdersShipped)
@@ -486,7 +487,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Qty. to Ship", '0');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(PicksNotPrinted)
@@ -517,7 +518,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '=0');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(PicksPrintedNotShipped)
@@ -549,7 +550,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
                         Rec.SetFilter("Qty. to Ship", '>0');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(PicksPrintedNotAssigned)
@@ -581,7 +582,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
                         Rec.SetFilter("Picked By", '=%1', '');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(AssignedNotShipped)
@@ -613,7 +614,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Picked By", '<>%1', '');
                         Rec.SetFilter("Qty. to Ship", '<>0');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(NotPrintedNotAssigned)
@@ -645,7 +646,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '0');
                         Rec.SetFilter("Picked By", '');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(TomorrowAll)
@@ -678,7 +679,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(TomorrowPickup)
@@ -712,7 +713,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", 'PU');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(TomorrowCarrier)
@@ -746,7 +747,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", '<>PU');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
                 action(TomorrowRockCity)
@@ -780,7 +781,7 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetRange("Shipping Agent Code", 'ROCKCITY');
-                        Rec.SetFilter("Status", 'Released');
+
                     end;
                 }
             }
@@ -1554,7 +1555,6 @@ page 52001 TlyOrdersToBeShippedList
     // }
 
     var
-        SOCount: Integer;
         SalesHeader: Record "Sales Header";
         Customer: Record "Customer";
         ShipmentLine: Record "Sales Shipment Line";
@@ -1574,24 +1574,18 @@ page 52001 TlyOrdersToBeShippedList
         BOLNoOfSkids: Integer;
         BOLNoOfPackages: Integer;
         BOLWeight: Decimal;
-
-
-
-
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
-        SalesLine: Record "Sales Line";
         LocationFilter: Code[30];
 
     trigger OnOpenPage()
     begin
         UserSetup.Get(UserId);
-        if UserSetup."Default Location Code" = 'TOR' then begin
-            Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR');
-            LocationFilter := Rec.GetFilter("Location Code");
-        end else if UserSetup."Default Location Code" = 'CAL' then begin
-            Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
-            LocationFilter := Rec.GetFilter("Location Code");
-        end;
+        if UserSetup."Default Location Code" = 'TOR' then
+            Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR')
+
+        else
+            if UserSetup."Default Location Code" = 'CAL' then
+                Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
 
         Rec.SetFilter("Shipment Date", '%1', WorkDate());
     end;

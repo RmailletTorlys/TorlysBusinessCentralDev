@@ -80,6 +80,19 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
                 ApplicationArea = All;
                 Editable = true;
             }
+            field("Container No."; Rec."Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Container No. (NAV)"; Rec."Container No. (NAV)")
+            {
+                Caption = 'Container No. (NAV)';
+                ToolTip = 'Container No. (NAV)';
+                ApplicationArea = All;
+            }
             field("Booking No."; Rec."Booking No.")
             {
                 Caption = 'Booking No.';

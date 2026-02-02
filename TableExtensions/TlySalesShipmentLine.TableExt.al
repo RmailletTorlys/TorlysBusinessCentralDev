@@ -168,6 +168,11 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             Editable = false;
             // TableRelation = "Sales Line"."Line No." where("Document No." = field("Master Project Order No."));
         }
+        field(50028; "Container No. (NAV)"; Code[25])
+        {
+            Caption = 'Container No. (NAV)';
+            DataClassification = CustomerContent;
+        }
 
     }
 

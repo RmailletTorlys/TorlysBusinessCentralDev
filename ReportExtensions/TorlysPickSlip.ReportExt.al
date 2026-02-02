@@ -348,16 +348,17 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                         If (Quantity - "Quantity Shipped" = 0) then
                             CurrReport.Skip();
 
+                // Message('%1', "No.");
+                // Clear(TempDesc3);
 
-                Clear(TempDesc3);
+                // If ("Item Reference No." <> '') then begin
+                //     Clear(TempItem);
+                //     TempItem.Get("No.");
 
-                If ("Item Reference No." <> '') then begin
-                    Clear(TempItem);
-                    TempItem.Get("No.");
-                    TempDesc3 := Description;
-                    Description := TempItem.Description;
-                    Modify();
-                end;
+                //     TempDesc3 := Description;
+                //     Description := TempItem.Description;
+                //     Modify();
+                // end;
 
                 If Type = Type::" " then begin
                     "No." := '';
@@ -483,7 +484,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         ParentBinContent: Record "Bin Content";
         TempSalesLine: Record "Sales Line" temporary;
         TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
-        TempItem: Record Item temporary;
+        TempItem: Record Item;
         FormatAddress: Codeunit "Format Address";
         SalesTaxCalc: Codeunit "Sales Tax Calculate";
         UOMMgt: Codeunit "Unit of Measure Management";

@@ -140,13 +140,13 @@ report 50023 "B13 Sales"
                         TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight" * 0.453592);
                         TariffLineAmount += LineAmount;
                     end else begin
-                        If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                             OrderQuantity := ("Qty. to Ship" / 10.764);
                             OrderUOM := 'M2';
-                        end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
+                        end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Qty. to Ship";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
                             OrderQuantity := "Qty. to Ship";
                             OrderUOM := "Unit of Measure Code";
                         end else begin
@@ -190,7 +190,7 @@ report 50023 "B13 Sales"
                     end;
 
                     If RemoveFreight then begin
-                        If "Gen. Bus. Posting Group" = 'FREIGHT' then begin
+                        If "Gen. Prod. Posting Group" = 'FREIGHT' then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;
@@ -206,7 +206,7 @@ report 50023 "B13 Sales"
                     end;
 
                     If RemoveDuty then begin
-                        If "Gen. Bus. Posting Group" = 'DUTY' then begin
+                        If "Gen. Prod. Posting Group" = 'DUTY' then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;

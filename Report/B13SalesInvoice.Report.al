@@ -118,13 +118,13 @@ report 50028 "B13 Sales Invoice"
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
 
                     // SalesHeader.get("Document Type", "Document No.");
-                    If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                    If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                         OrderQuantity := ("Quantity" / 10.764);
                         OrderUOM := 'M2';
-                    end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
+                    end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                         OrderQuantity := "Quantity";
                         OrderUOM := "Unit of Measure Code";
-                    end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
+                    end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
                         OrderQuantity := "Quantity";
                         OrderUOM := "Unit of Measure Code";
                     end else begin
@@ -151,7 +151,7 @@ report 50028 "B13 Sales Invoice"
 
 
                     If RemoveFreight then begin
-                        If "Gen. Bus. Posting Group" = 'FREIGHT' then begin
+                        If "Gen. Prod. Posting Group" = 'FREIGHT' then begin
                             "No." := '';
                             Description := '';
                             Quantity := 0;
@@ -166,7 +166,7 @@ report 50028 "B13 Sales Invoice"
                     end;
 
                     If RemoveDuty then begin
-                        If "Gen. Bus. Posting Group" = 'DUTY' then begin
+                        If "Gen. Prod. Posting Group" = 'DUTY' then begin
                             "No." := '';
                             Description := '';
                             Quantity := 0;

@@ -2,6 +2,18 @@ pageextension 50067 TlySalesCommentSheet extends "Sales Comment Sheet"
 {
     layout
     {
+        addafter(Date)
+        {
+            field("Created By"; LookupUser.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Created By"; Comment)
+
         addafter(Comment)
         {
             field("Comment Type"; Rec."Comment Type")
@@ -49,4 +61,6 @@ pageextension 50067 TlySalesCommentSheet extends "Sales Comment Sheet"
             Visible = true;
         }
     }
+    var
+        LookupUser: Codeunit TlyLookupUserID;
 }

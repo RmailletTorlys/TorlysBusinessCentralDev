@@ -44,10 +44,10 @@ pageextension 50119 TlyUserSetup extends "User Setup"
         {
             Visible = false;
         }
-        modify("Sustainability Manager")
-        {
-            Visible = false;
-        }
+        // modify("Sustainability Manager")
+        // {
+        //     Visible = false;
+        // }
         modify(PhoneNo)
         {
             Visible = false;

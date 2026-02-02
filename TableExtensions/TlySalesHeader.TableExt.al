@@ -318,8 +318,20 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()
+            var
+                CommentLine: Record "Comment Line";
             begin
                 CopyCommentsFromCustCardToSalesHeader();
+
+                CommentLine.Reset();
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Customer);
+                CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
+                IF CommentLine.Find('-') then begin
+                    repeat
+                        IF CommentLine."Popup" = TRUE THEN
+                            Message('%1', CommentLine.Comment);
+                    until CommentLine.Next = 0;
+                end;
             end;
         }
 
@@ -366,7 +378,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     trigger OnAfterInsert()
     begin
         "Order Time" := Time;
-        // CopyCommentsFromCustCardToSalesHeader();
+        CopyCommentsFromCustCardToSalesHeader();
     end;
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
@@ -389,7 +401,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Customer);
         CommentLine.SetRange("No.", Rec."Sell-to Customer No.");
         CommentLine.SetRange("Copy to Sales Order", true);
-        if CommentLine.FindSet() then BEGIN
+        if CommentLine.FindSet() then begin
             SalesCommentLine.Reset();
             SalesCommentLine.SetCurrentKey("Document Type", "No.");
             SalesCommentLine.SetRange("Document Type", "Document Type");

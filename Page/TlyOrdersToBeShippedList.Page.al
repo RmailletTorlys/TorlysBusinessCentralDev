@@ -963,7 +963,7 @@ page 52001 TlyOrdersToBeShippedList
                             until SalesHeader.Next() = 0;
                         // if we put this label here, will it only prompt for 1 label at end of posting, great for multiple orders, also lets use SO label only
                         // TorlysDocPrint.PrintShipmentLabel(SalesHeader);
-                        TorlysDocPrint.PrintSalesOrderLabel(Rec);
+                        TorlysDocPrint.PrintSalesOrderLabel(SalesHeader);
                     end;
                 }
                 action(CreateBOL)
@@ -997,7 +997,7 @@ page 52001 TlyOrdersToBeShippedList
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Create Shippping Label';
-                    // Image = NewWarehouseShipment;
+                    Image = ReleaseShipment;
                     Visible = (Rec."Shipping Agent Code" = 'FEDEX');
                     trigger OnAction()
                     var
@@ -1006,7 +1006,7 @@ page 52001 TlyOrdersToBeShippedList
                     begin
                         CurrPage.SetSelectionFilter(SalesHeader);
                         if SalesHeader.Count > 1 then begin
-                            Error('You cannot create BOLs this way, choose 1 order.')
+                            Error('You cannot create FedEx labels this way, choose 1 order.')
                         end else begin
                             SCXLabelsPage.SetSalesRecord(Rec);
                             Commit();

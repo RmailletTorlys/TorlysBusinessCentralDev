@@ -293,6 +293,11 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     Modify();
                 end;
 
+                If "No. Pick Slips Printed" > 0 then
+                    RePrintMessage := 'REPRINT'
+                else
+                    RePrintMessage := '';
+
                 If Not CurrReport.Preview then begin
                     "Pick Slip Printed By" := Format(UserId());
                     "Pick Slip Printed Date" := WorkDate();
@@ -304,10 +309,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 TotalPieces := 0;
                 TotalWeight := 0;
 
-                If "No. Pick Slips Printed" > 0 then
-                    RePrintMessage := 'REPRINT'
-                else
-                    RePrintMessage := '';
+
 
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");

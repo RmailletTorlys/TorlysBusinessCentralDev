@@ -215,7 +215,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 BarcodeSymbology := Enum::"Barcode Symbology"::"Code39";
 
                 // Set data string source
-                BarcodeStrings := "No.";
+                BarcodeStrings := "Sales Header"."No.";
 
                 // Validate the input. This method is not available for 2D provider
                 BarcodeFontProvider.ValidateInput(BarcodeStrings, BarcodeSymbology);

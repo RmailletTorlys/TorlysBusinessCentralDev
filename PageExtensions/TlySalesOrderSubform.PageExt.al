@@ -269,9 +269,17 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
                 Visible = true;
             }
+            field("Container No. (NAV)"; Rec."Container No. (NAV)")
+            {
+                Caption = 'Container No. (NAV)';
+                ToolTip = 'Container No. (NAV)';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
         }
 
-        addafter("Linked Transfer Order Line No.")
+        addafter("Container No. (NAV)")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {

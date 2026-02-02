@@ -291,6 +291,11 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             FieldClass = FlowField;
             CalcFormula = Sum("Sales Invoice Line"."Quantity" where("Master Project Order No." = field("Document No."), "Master Project Order Line No." = field("Line No.")));
         }
+        field(50028; "Container No. (NAV)"; Code[25])
+        {
+            Caption = 'Container No. (NAV)';
+            DataClassification = CustomerContent;
+        }
         modify("No.")
         {
             trigger OnBeforeValidate()

@@ -92,6 +92,13 @@ page 50563 TlyBackOrderFill
                     ToolTip = 'Shipping Instructions';
                     Editable = false;
                 }
+                field("Container No. (NAV)"; Rec."Container No. (NAV)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Container No. (NAV)';
+                    ToolTip = 'Container No. (NAV)';
+                    Editable = false;
+                }
                 field("Quantity"; Rec."Quantity")
                 {
                     ApplicationArea = All;

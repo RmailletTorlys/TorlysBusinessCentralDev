@@ -215,7 +215,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 BarcodeSymbology := Enum::"Barcode Symbology"::"Code39";
 
                 // Set data string source
-                BarcodeStrings := "No.";
+                BarcodeStrings := "Sales Header"."No.";
 
                 // Validate the input. This method is not available for 2D provider
                 BarcodeFontProvider.ValidateInput(BarcodeStrings, BarcodeSymbology);
@@ -293,6 +293,11 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     Modify();
                 end;
 
+                If "No. Pick Slips Printed" > 0 then
+                    RePrintMessage := 'REPRINT'
+                else
+                    RePrintMessage := '';
+
                 If Not CurrReport.Preview then begin
                     "Pick Slip Printed By" := Format(UserId());
                     "Pick Slip Printed Date" := WorkDate();
@@ -304,10 +309,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 TotalPieces := 0;
                 TotalWeight := 0;
 
-                If "No. Pick Slips Printed" > 0 then
-                    RePrintMessage := 'REPRINT'
-                else
-                    RePrintMessage := '';
+
 
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");
@@ -346,16 +348,17 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                         If (Quantity - "Quantity Shipped" = 0) then
                             CurrReport.Skip();
 
+                // Message('%1', "No.");
+                // Clear(TempDesc3);
 
-                Clear(TempDesc3);
+                // If ("Item Reference No." <> '') then begin
+                //     Clear(TempItem);
+                //     TempItem.Get("No.");
 
-                If ("Item Reference No." <> '') then begin
-                    Clear(TempItem);
-                    TempItem.Get("No.");
-                    TempDesc3 := Description;
-                    Description := TempItem.Description;
-                    Modify();
-                end;
+                //     TempDesc3 := Description;
+                //     Description := TempItem.Description;
+                //     Modify();
+                // end;
 
                 If Type = Type::" " then begin
                     "No." := '';
@@ -481,7 +484,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         ParentBinContent: Record "Bin Content";
         TempSalesLine: Record "Sales Line" temporary;
         TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
-        TempItem: Record Item temporary;
+        TempItem: Record Item;
         FormatAddress: Codeunit "Format Address";
         SalesTaxCalc: Codeunit "Sales Tax Calculate";
         UOMMgt: Codeunit "Unit of Measure Management";

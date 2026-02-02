@@ -281,7 +281,7 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
 
         modify(ShortcutDimCode4)
         {
-            Editable = false;
+            Editable = true;
         }
 
         modify(ShortcutDimCode5)
@@ -394,13 +394,13 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             action(BackorderFill)
             {
                 ApplicationArea = asic, Suite;
-                Caption = 'BackorderFill';
+                Caption = 'Backorder Fill';
                 Ellipsis = true;
                 Image = OrderTracking;
-                ToolTip = 'BackorderFill';
+                ToolTip = 'Backorder Fill';
                 Promoted = true;
                 RunObject = Page TlyBackOrderFill;
-                RunPageLink = "No." = field("No."), "Location Code" = field("Location Code"), "Qty. to Ship" = filter(0);
+                RunPageLink = "No." = field("No."), "Location Code" = filter('CAL|TOR'), "Outstanding Quantity" = filter(<> 0), "Qty. to Ship" = filter(0);
             }
         }
     }

@@ -8,7 +8,7 @@ page 52001 TlyOrdersToBeShippedList
     UsageCategory = Lists;
     SourceTable = "Sales Header";
     SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending)
-    where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
+                        where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
@@ -340,6 +340,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetFilter("Status", 'Released');
                         Rec.SetRange("Shipment Date", ShipmentDate);
@@ -367,6 +370,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", 'PU');
@@ -395,6 +401,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", '<>PU');
@@ -440,6 +449,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Qty. to Ship", '>0');
@@ -468,6 +480,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Qty. to Ship", '0');
@@ -496,6 +511,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '=0');
@@ -524,6 +542,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
@@ -553,6 +574,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
@@ -582,6 +606,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Picked By", '<>%1', '');
@@ -611,6 +638,9 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '0');
@@ -643,6 +673,9 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Status", 'Released');
@@ -673,6 +706,9 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", 'PU');
@@ -704,6 +740,9 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", '<>PU');
@@ -735,6 +774,9 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetRange("Shipping Agent Code", 'ROCKCITY');
@@ -1130,7 +1172,389 @@ page 52001 TlyOrdersToBeShippedList
             }
         }
     }
+    // Views
+    // {
+    //     view(TodayAll)
+    //     {
+    //         // Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR');
+    //         Caption = 'Today All';
+    //         Filters = where("Location Code" = const('LocationFilter'), "Shipment Date" = filter('T'));
+    //         OrderBy = ascending("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+    //     }
+    //     // view(TodayPickup)
+    //     // {
+    //     //     Caption = 'Today Pickup';
+    //     //     ToolTip = 'Today Pickup';
+    //     //     ApplicationArea = All;
+    //     //     Image = Filter;
+    //     //     trigger OnAction()
+    //     //     var
+    //     //         UserSetup: Record "User Setup";
+    //     //         LocationCode: Code[25];
+    //     //         ShipmentDate: Date;
+    //     //     begin
+    //     //         UserSetup.Get(UserId);
+    //     //         if UserSetup."Default Location Code" = 'TOR' then
+    //     //             LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //         else if UserSetup."Default Location Code" = 'CAL' then
+    //     //             LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //         ShipmentDate := WorkDate;
+
+    //     //         Rec.Reset();
+    //     //         Rec.SetFilter("Location Code", LocationCode);
+    //     //         Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //         Rec.SetFilter("Shipping Agent Code", 'PU');
+    //     //         // OrderBy = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending);
+    //     //     end;
+    //     // }
+    //     //     action(TodayCarrier)
+    //     //     {
+    //     //         Caption = 'Today Carrier';
+    //     //         ToolTip = 'Today Carrier';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("Shipping Agent Code", '<>PU');
+    //     //         end;
+    //     //     }
+    //     //     action(TodayAllLocations)
+    //     //     {
+    //     //         Caption = 'Today All Locations';
+    //     //         ToolTip = 'Today All Locations';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //         end;
+    //     //     }
+    //     //     action(OrdersNotShipped)
+    //     //     {
+    //     //         Caption = 'Orders Not Shipped';
+    //     //         ToolTip = 'Orders Not Shipped';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("Qty. to Ship", '>0');
+    //     //         end;
+    //     //     }
+    //     //     action(OrdersShipped)
+    //     //     {
+    //     //         Caption = 'Orders Shipped';
+    //     //         ToolTip = 'Orders Shipped';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("Qty. to Ship", '0');
+    //     //         end;
+    //     //     }
+    //     //     action(PicksNotPrinted)
+    //     //     {
+    //     //         Caption = 'Picks Not Printed';
+    //     //         ToolTip = 'Picks Not Printed';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("No. Pick Slips Printed", '=0');
+    //     //         end;
+    //     //     }
+    //     //     action(PicksPrintedNotShipped)
+    //     //     {
+    //     //         Caption = 'Picks Printed Not Shipped';
+    //     //         ToolTip = 'Picks Printed Not Shipped';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("No. Pick Slips Printed", '<>0');
+    //     //             Rec.SetFilter("Qty. to Ship", '>0');
+    //     //         end;
+    //     //     }
+    //     //     action(PicksPrintedNotAssigned)
+    //     //     {
+    //     //         Caption = 'Picks Printed Not Assigned';
+    //     //         ToolTip = 'Picks Printed Not Assigned';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("No. Pick Slips Printed", '<>0');
+    //     //             Rec.SetFilter("Picked By", '=%1', '');
+    //     //         end;
+    //     //     }
+    //     //     action(AssignedNotShipped)
+    //     //     {
+    //     //         Caption = 'Assigned Not Shipped';
+    //     //         ToolTip = 'Assigned Not Shipped';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("Picked By", '<>%1', '');
+    //     //             Rec.SetFilter("Qty. to Ship", '<>0');
+    //     //         end;
+    //     //     }
+    //     //     action(NotPrintedNotAssigned)
+    //     //     {
+    //     //         Caption = 'Not Printed Not Assigned';
+    //     //         ToolTip = 'Not Printed Not Assigned';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             ShipmentDate := WorkDate;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("No. Pick Slips Printed", '0');
+    //     //             Rec.SetFilter("Picked By", '');
+    //     //         end;
+    //     //     }
+    //     //     action(TomorrowAll)
+    //     //     {
+    //     //         Caption = 'Tomorrow All';
+    //     //         ToolTip = 'Tomorrow All';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             if Date2DWY(WorkDate(), 1) = 5 then
+    //     //                 ShipmentDate := WorkDate() + 3
+    //     //             else
+    //     //                 ShipmentDate := WorkDate() + 1;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //         end;
+    //     //     }
+    //     //     action(TomorrowPickup)
+    //     //     {
+    //     //         Caption = 'Tomorrow Pickup';
+    //     //         ToolTip = 'Tomorrow Pickup';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             if Date2DWY(WorkDate(), 1) = 5 then
+    //     //                 ShipmentDate := WorkDate() + 3
+    //     //             else
+    //     //                 ShipmentDate := WorkDate() + 1;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("Shipping Agent Code", 'PU');
+    //     //         end;
+    //     //     }
+    //     //     action(TomorrowCarrier)
+    //     //     {
+    //     //         Caption = 'Tomorrow Carrier';
+    //     //         ToolTip = 'Tomorrow Carrier';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             if Date2DWY(WorkDate(), 1) = 5 then
+    //     //                 ShipmentDate := WorkDate() + 3
+    //     //             else
+    //     //                 ShipmentDate := WorkDate() + 1;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetFilter("Shipping Agent Code", '<>PU');
+    //     //         end;
+    //     //     }
+    //     //     action(TomorrowRockCity)
+    //     //     {
+    //     //         Caption = 'Tomorrow Rock City';
+    //     //         ToolTip = 'Tomorrow Rock City';
+    //     //         ApplicationArea = All;
+    //     //         Image = Filter;
+    //     //         trigger OnAction()
+    //     //         var
+    //     //             UserSetup: Record "User Setup";
+    //     //             LocationCode: Code[25];
+    //     //             ShipmentDate: Date;
+    //     //         begin
+    //     //             UserSetup.Get(UserId);
+    //     //             if UserSetup."Default Location Code" = 'TOR' then
+    //     //                 LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+    //     //             else if UserSetup."Default Location Code" = 'CAL' then
+    //     //                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+    //     //             if Date2DWY(WorkDate(), 1) = 5 then
+    //     //                 ShipmentDate := WorkDate() + 3
+    //     //             else
+    //     //                 ShipmentDate := WorkDate() + 1;
+
+    //     //             Rec.Reset();
+    //     //             Rec.SetFilter("Location Code", LocationCode);
+    //     //             Rec.SetRange("Shipment Date", ShipmentDate);
+    //     //             Rec.SetRange("Shipping Agent Code", 'ROCKCITY');
+    //     //         end;
+    //     // }
+    // }
+
     var
+        SOCount: Integer;
         SalesHeader: Record "Sales Header";
         Customer: Record "Customer";
         ShipmentLine: Record "Sales Shipment Line";
@@ -1155,16 +1579,19 @@ page 52001 TlyOrdersToBeShippedList
 
 
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
-
+        SalesLine: Record "Sales Line";
+        LocationFilter: Code[30];
 
     trigger OnOpenPage()
     begin
         UserSetup.Get(UserId);
-        if UserSetup."Default Location Code" = 'TOR' then
-            Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR')
-        else
-            if UserSetup."Default Location Code" = 'CAL' then
-                Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
+        if UserSetup."Default Location Code" = 'TOR' then begin
+            Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR');
+            LocationFilter := Rec.GetFilter("Location Code");
+        end else if UserSetup."Default Location Code" = 'CAL' then begin
+            Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');
+            LocationFilter := Rec.GetFilter("Location Code");
+        end;
 
         Rec.SetFilter("Shipment Date", '%1', WorkDate());
     end;

@@ -142,7 +142,7 @@ pageextension 50047 TlySalesInvoiceSubform extends "Sales Invoice Subform"
             }
         }
 
-        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode8)
+        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode8)
 
         addafter(ShortcutDimCode8)
         {
@@ -208,7 +208,7 @@ pageextension 50047 TlySalesInvoiceSubform extends "Sales Invoice Subform"
 
         modify(ShortcutDimCode4)
         {
-            Visible = false;
+            Editable = true;
         }
 
         modify(ShortcutDimCode6)

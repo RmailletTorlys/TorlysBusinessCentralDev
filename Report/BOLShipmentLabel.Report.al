@@ -173,7 +173,7 @@ report 50010 "BOL Shipment Label"
     var
     begin
         FormatAddress.FormatAddr(
-            AddrArray, '', '', '', BOLHeader."Ship-to Address", BOLHeader."Ship-to Address 2",
+            AddrArray, '', '', BOLHeader."Ship-to Name", BOLHeader."Ship-to Address", BOLHeader."Ship-to Address 2",
             BOLHeader."Ship-to City", BOLHeader."Ship-to Post Code", '', BOLHeader."Ship-to Country/Region Code");
     end;
 

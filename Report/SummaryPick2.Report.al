@@ -129,6 +129,32 @@ report 50021 "Summary PickSlip"
 
                         trigger OnAfterGetRecord()
                         begin
+                            // If ("Gen. Prod. Posting Group" = 'MOULDINGS') then
+                            //     IF ("Item Category Code" <> 'ACC-86') AND (Sales_line."Item Category Code" <> 'ACC-107') AND
+                            //     ("Item Category Code" <> 'ACC-108') THEN BEGIN
+                            //         //"To Ship - Singles" := 0;
+                            //         "Qty. to Ship Case" := 0;
+                            //         "Qty. to Ship Pallet" := 0
+                            //     end;
+
+                            // IF "Gen. Prod. Posting Group" = 'MQ MOULDINGS' THEN BEGIN
+                            //     //"To Ship - Singles" := 0;
+                            //     "Qty. to Ship Case" := 0;
+                            //     "Qty. to Ship Pallet" := 0
+                            // END;
+
+                            // IF "Gen. Prod. Posting Group" = 'SS MOULDINGS' THEN BEGIN
+                            //     //"To Ship - Singles" := 0;
+                            //     "Qty. to Ship Case" := 0;
+                            //     "Qty. to Ship Pallet" := 0
+                            // END;
+
+                            // IF "Gen. Prod. Posting Group" = 'UNDERLAYMENT' THEN BEGIN
+                            //     //"To Ship - Singles" := 0;
+                            //     "Qty. to Ship Case" := 0;
+                            //     "Qty. to Ship Pallet" := 0
+                            // END;
+
                             If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then begin
                                 ToShipSingle := Abs("Qty. to Ship (Base)");
                                 ToShipCase := 0;
@@ -138,7 +164,9 @@ report 50021 "Summary PickSlip"
                             If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
                                 ItemCaseUOM.Get("No.", 'CASE');
                                 ItemPalletUOM.Get("No.", 'PALLET');
-                                ToShipSingle := 0;
+                                ToShipSingle := "Qty. to Ship" -
+                    (ToShipCase * ItemCaseUOM."Qty. per Unit of Measure") -
+                    (ToShipPallet * ItemPalletUOM."Qty. per Unit of Measure");
                                 ToShipCase := Abs("Qty. to Ship Case");
                                 ToShipPallet := Abs("Qty. to Ship Pallet");
                             end;

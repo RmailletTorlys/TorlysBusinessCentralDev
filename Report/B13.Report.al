@@ -115,13 +115,13 @@ report 50020 "B13 Purchase"
 
                     SalesHeader.get("Document Type", "Document No.");
                     If OrderShipped then begin
-                        If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                             OrderQuantity := ("Quantity Shipped" / 10.764);
                             OrderUOM := 'M2';
-                        end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
+                        end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Quantity Shipped";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
                             OrderQuantity := "Quantity Shipped";
                             OrderUOM := "Unit of Measure Code";
                         end else begin
@@ -190,7 +190,7 @@ report 50020 "B13 Purchase"
                     end;
 
                     If RemoveFreight then begin
-                        If "Gen. Bus. Posting Group" = 'FREIGHT' then begin
+                        If "Gen. Prod. Posting Group" = 'FREIGHT' then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;
@@ -206,7 +206,7 @@ report 50020 "B13 Purchase"
                     end;
 
                     If RemoveDuty then begin
-                        If "Gen. Bus. Posting Group" = 'DUTY' then begin
+                        If "Gen. Prod. Posting Group" = 'DUTY' then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;

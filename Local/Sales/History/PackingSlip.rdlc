@@ -82,6 +82,9 @@ End Function
         <Field Name="Salesperson_Code">
           <DataField>Salesperson_Code</DataField>
         </Field>
+        <Field Name="NoCopies">
+          <DataField>NoCopies</DataField>
+        </Field>
         <Field Name="CompanyInfo2Picture">
           <DataField>CompanyInfo2Picture</DataField>
         </Field>

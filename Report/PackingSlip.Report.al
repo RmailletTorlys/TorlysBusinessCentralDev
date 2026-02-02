@@ -103,6 +103,11 @@ report 50018 "Packing Slip"
             dataitem(CopyLoop; "Integer")
             {
                 DataItemTableView = sorting(Number);
+
+                column(NoCopies; Number)
+                {
+
+                }
                 dataitem(PageLoop; "Integer")
                 {
                     DataItemTableView = sorting(Number) where(Number = const(1));
@@ -520,10 +525,11 @@ report 50018 "Packing Slip"
 
                 trigger OnPreDataItem()
                 begin
-                    NoLoops := 1 + Abs(NoCopiesVar);
-                    if NoLoops <= 0 then
-                        NoLoops := 1;
-                    CopyNo := 0;
+                    SetRange(Number, 1, NoCopiesVar + 1);
+                    // NoLoops := 1 + Abs(NoCopiesVar);
+                    // if NoLoops <= 0 then
+                    //     NoLoops := 1;
+                    // CopyNo := 0;
                 end;
             }
 
@@ -613,8 +619,9 @@ report 50018 "Packing Slip"
                     field(NoCopies; NoCopiesVar)
                     {
                         ApplicationArea = Basic, Suite;
-                        Caption = 'Number of Copies';
+                        Caption = 'Number of Additional Copies';
                         ToolTip = 'Specifies the number of copies of each document (in addition to the original) that you want to print.';
+                        MinValue = 0;
                     }
                     field(PrintCompanyAddress; PrintCompany)
                     {
@@ -825,6 +832,11 @@ report 50018 "Packing Slip"
     procedure BlanksForIndent(): Text[10]
     begin
         exit(PadStr('', 2, ' '));
+    end;
+
+    procedure InitializeRequest(NewNoOfCopies: Integer)
+    begin
+        NoCopiesVar := NewNoOfCopies;
     end;
 
     local procedure InsertTempLine(Comment: Text[80]; IncrNo: Integer)

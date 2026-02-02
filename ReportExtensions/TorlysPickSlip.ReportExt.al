@@ -463,6 +463,17 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
     }
 
+    requestpage
+    {
+        layout
+        {
+            modify("No of Copies")
+            {
+                Caption = 'Number of Additional Copies';
+            }
+        }
+    }
+
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
         UserDetails: Record "User";

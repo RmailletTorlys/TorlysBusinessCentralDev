@@ -228,6 +228,18 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             DataClassification = CustomerContent;
         }
 
+        field(50019; "Shipment Method Code"; Code[10])
+        {
+            Caption = 'Shipment Method Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Shipment Method";
+            // trigger OnValidate()
+            // begin
+            //     if Type = Type::Item THEN
+            //         UpdateDirectUnitCostByField(FieldNo("Shipment Method Code"));
+            // end;
+        }
+
         modify("No.")
         {
             trigger OnAfterValidate()

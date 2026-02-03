@@ -189,6 +189,11 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         {
             Visible = true;
         }
+
+        modify("Salesperson Code")
+        {
+            Visible = true;
+        }
     }
 
     actions

@@ -80,8 +80,8 @@ codeunit 50012 TlyShipPostPrint
                 ReportSelection.Usage::"S.Cr.Memo":
                     Report.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
                 ReportSelection.Usage::"S.Shipment":
-                    Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader); // no longer present printer popup
-                                                                                            // Report.Run(ReportSelection."Report ID", true, false, SalesShptHeader); // for start of go live, want to present printer popup to be sure
+                    // Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader); // no longer present printer popup
+                    Report.Run(ReportSelection."Report ID", true, false, SalesShptHeader); // for start of go live, want to present printer popup to be sure
                 ReportSelection.Usage::"S.Ret.Rcpt.":
                     Report.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
             end;

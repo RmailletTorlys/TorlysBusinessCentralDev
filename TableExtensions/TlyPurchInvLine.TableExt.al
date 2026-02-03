@@ -111,5 +111,11 @@ tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
             Caption = 'Container No. (NAV)';
             DataClassification = CustomerContent;
         }
+        field(50019; "Shipment Method Code"; Code[10])
+        {
+            Caption = 'Shipment Method Code"';
+            DataClassification = CustomerContent;
+            TableRelation = "Shipment Method";
+        }
     }
 }

@@ -12,7 +12,19 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
             }
         }
 
-        moveafter("Vendor Item No."; Description, "Location Code", "Unit of Measure Code", Quantity)
+        moveafter("Vendor Item No."; Description, "Location Code")
+
+        addafter("Location Code")
+        {
+            field("Shipment Method Code"; Rec."Shipment Method Code")
+            {
+                Caption = 'Shipment Method Code';
+                ToolTip = 'Shipment Method Code';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Shipment Method Code"; "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {

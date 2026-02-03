@@ -170,6 +170,8 @@ report 50021 "Summary PickSlip"
                                 ToShipCase := 0;
                                 ToShipPallet := 0;
                             end;
+                            ItemCaseUOM.Get("No.", 'CASE');
+                            ItemPalletUOM.Get("No.", 'PALLET');
 
                             If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
                                 ItemCaseUOM.Get("No.", 'CASE');

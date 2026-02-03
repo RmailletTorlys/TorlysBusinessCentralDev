@@ -8,6 +8,22 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(MK_Required; "MK Required")
+            {
+
+            }
+            column(MK_Staged; "MK Staged")
+            {
+
+            }
+            column(MK_Staged_Location; "MK Staged Location")
+            {
+
+            }
+            column(MK_Staged_Quantity; "MK Staged Quantity")
+            {
+
+            }
             column(EncodedText; EncodedText)
             {
 

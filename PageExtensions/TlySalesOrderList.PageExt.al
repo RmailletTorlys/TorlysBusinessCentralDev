@@ -52,7 +52,21 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Salesperson Code", "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        moveafter("Ship-to County"; "Salesperson Code")
+
+        addafter("Salesperson Code")
+        {
+            field("Collector ID"; CollectorID)
+            {
+                Caption = 'Collector ID';
+                ToolTip = 'Collector ID';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+        }
+
+        moveafter("Collector ID"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 
         addafter("External Document No.")
         {
@@ -360,12 +374,19 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
     var
         LookupUserId: Codeunit TlyLookupUserID;
         TorlysCreditHold: Codeunit TlyCreditHold;
+        CollectorID: Code[20];
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()
+    var
+        Customer: Record Customer;
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
+
+        Customer.Reset();
+        Customer.Get(Rec."Sell-to Customer No.");
+        CollectorID := Customer."Collector ID";
     end;
 }

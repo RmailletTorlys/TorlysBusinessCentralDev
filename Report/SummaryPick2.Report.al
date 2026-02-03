@@ -69,7 +69,7 @@ report 50021 "Summary PickSlip"
 
                     dataitem(Sales_line; "Sales Line")
                     {
-                        DataItemTableView = sorting("Document Type", Type, "No.");
+                        DataItemTableView = sorting("Document Type", Type, "No.") where(Type = filter('Item'));
                         DataItemLinkReference = "Sales Header";
                         DataItemLink = "Document No." = field("No.");
 
@@ -125,17 +125,25 @@ report 50021 "Summary PickSlip"
                         {
 
                         }
-                        column(Qty_per_Unit_of_Measure_Pallet; itempalletuom."Qty. per Unit of Measure")
+                        column(Qty_per_Unit_of_Measure_Pallet; ItemCaseUOM.Get("No.", 'CASE'))
                         {
 
                         }
-                        column(Qty_per_Unit_of_Measure_Case; itemcaseuom."Qty. per Unit of Measure")
+                        column(Qty_per_Unit_of_Measure_Case; ItemCaseUOM.Get("No.", 'CASE'))
                         { }
                         column(BinLocation; BinLocation)
                         {
 
                         }
                         column(ItemNoCount; ItemNoCount)
+                        {
+
+                        }
+                        column(palletQTY; palletQTY)
+                        {
+
+                        }
+                        column(caseQTY; caseQTY)
                         {
 
                         }
@@ -169,26 +177,52 @@ report 50021 "Summary PickSlip"
                             //     "Qty. to Ship Pallet" := 0
                             // END;
 
-                            If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then begin
-                                ToShipSingle := Abs("Qty. to Ship (Base)");
-                                ToShipCase := 0;
-                                ToShipPallet := 0;
-                            end;
+                            // If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then begin
+                            //     ToShipSingle := Abs("Qty. to Ship (Base)");
+                            //     ToShipCase := 0;
+                            //     ToShipPallet := 0;
+                            // end;
 
-                            if Sales_line.Type = Type::Item then begin
-                                ItemCaseUOM.Get("No.", 'CASE');
-                                ItemPalletUOM.Get("No.", 'PALLET');
-                            end;
+                            // if Sales_line.Type = Type::Item then begin
 
-                            If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
-                                ItemCaseUOM.Get("No.", 'CASE');
-                                ItemPalletUOM.Get("No.", 'PALLET');
-                                ToShipSingle := "Qty. to Ship" -
-                    (ToShipCase * ItemCaseUOM."Qty. per Unit of Measure") -
-                    (ToShipPallet * ItemPalletUOM."Qty. per Unit of Measure");
-                                ToShipCase := Abs("Qty. to Ship Case");
-                                ToShipPallet := Abs("Qty. to Ship Pallet");
-                            end;
+                            //     ItemPalletUOM.Get("No.", 'PALLET');
+                            // end;
+
+                            //         If (Sales_line.Type = Type::Item) and (("Qty. to Ship Case" > 0) and ("Qty. to Ship Pallet" > 0)) then begin
+                            //             ItemCaseUOM.Get("No.", 'CASE');
+                            //             ItemPalletUOM.Get("No.", 'PALLET');
+                            //             ToShipSingle := "Qty. to Ship" -
+                            // (ToShipCase * ItemCaseUOM."Qty. per Unit of Measure") -
+                            // (ToShipPallet * ItemPalletUOM."Qty. per Unit of Measure");
+                            //             ToShipCase := Abs("Qty. to Ship Case");
+                            //             ToShipPallet := Abs("Qty. to Ship Pallet");
+                            //         end;
+
+                            // If (Sales_line.Type = Type::Item) and (("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0)) then begin
+
+                            //     ItemCaseUOM.Get("No.", 'CASE');
+                            //     ItemPalletUOM.Get("No.", 'PALLET');
+                            //     ToShipSingle := "Qty. to Ship (Base)" - (Round(("Qty. to Ship (Base)" / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<') * ItemCaseUOM."Qty. per Unit of Measure");
+                            //     ToShipCase := Round((("Qty. to Ship (Base)" - (ItemPalletUOM."Qty. per Unit of Measure" * (Round("Qty. to Ship (Base)" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<')))) / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<');
+                            //     ToShipPallet := Round("Qty. to Ship (Base)" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');
+                            // end;
+
+                            ItemCaseUOM.Reset();
+                            ItemCaseUOM.SetFilter("Item No.", "No.");
+                            ItemCaseUOM.SetFilter(Code, 'CASE');
+                            If ItemCaseUOM.Find('-') then
+                                caseQTY := ItemCaseUOM."Qty. per Unit of Measure"
+                            else
+                                caseQTY := 10000;
+
+                            ItempalletUOM.Reset();
+                            ItempalletUOM.SetFilter("Item No.", "No.");
+                            ItempalletUOM.SetFilter(Code, 'PALLET');
+                            If ItemPalletUOM.Find('-') then
+                                palletQTY := ItemPalletUOM."Qty. per Unit of Measure"
+                            else
+                                palletQTY := 10000;
+
 
                             TotalWeight := 0;
 
@@ -285,4 +319,6 @@ report 50021 "Summary PickSlip"
         ParentBinLocationLabel: Text;
         previosfieldvalue: Text;
         ItemNoCount: Integer;
+        caseQTY: Decimal;
+        palletQTY: Decimal;
 }

@@ -275,7 +275,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Container No. (NAV)';
                 ApplicationArea = All;
                 Visible = true;
-                Editable = false;
+                // Editable = false;
             }
         }
 

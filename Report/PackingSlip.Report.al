@@ -526,10 +526,10 @@ report 50018 "Packing Slip"
                 trigger OnPreDataItem()
                 begin
                     SetRange(Number, 1, NoCopiesVar + 1);
-                    // NoLoops := 1 + Abs(NoCopiesVar);
-                    // if NoLoops <= 0 then
-                    //     NoLoops := 1;
-                    // CopyNo := 0;
+                    NoLoops := 1 + Abs(NoCopiesVar);
+                    if NoLoops <= 0 then
+                        NoLoops := 1;
+                    CopyNo := 0;
                 end;
             }
 
@@ -834,10 +834,10 @@ report 50018 "Packing Slip"
         exit(PadStr('', 2, ' '));
     end;
 
-    procedure InitializeRequest(NewNoOfCopies: Integer)
-    begin
-        NoCopiesVar := NewNoOfCopies;
-    end;
+    // procedure InitializeRequest(NewNoOfCopies: Integer)
+    // begin
+    //     NoCopiesVar := NewNoOfCopies;
+    // end;
 
     local procedure InsertTempLine(Comment: Text[80]; IncrNo: Integer)
     begin

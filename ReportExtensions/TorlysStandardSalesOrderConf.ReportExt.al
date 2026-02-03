@@ -127,6 +127,22 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(MK_Required; "MK Required")
+            {
+
+            }
+            column(MK_Staged; "MK Staged")
+            {
+
+            }
+            column(MK_Staged_Location; "MK Staged Location")
+            {
+
+            }
+            column(MK_Staged_Quantity; "MK Staged Quantity")
+            {
+
+            }
 
             column(Shipping_Advice; "Shipping Advice")
             {

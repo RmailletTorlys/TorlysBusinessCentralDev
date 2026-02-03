@@ -116,6 +116,20 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         {
 
                         }
+                        column(palletQTY; palletQTY)
+                        {
+
+                        }
+                        column(caseQTY; caseQTY)
+                        {
+
+                        }
+                        column(Qty_per_Unit_of_Measure_Pallet; ItemCaseUOM.Get("Item No.", 'CASE'))
+                        {
+
+                        }
+                        column(Qty_per_Unit_of_Measure_Case; ItemCaseUOM.Get("Item No.", 'CASE'))
+                        { }
 
 
                         // trigger OnPreDataItem()
@@ -130,20 +144,35 @@ report 50007 "Summary Pick Slip Transfer TLY"
 
                         trigger OnAfterGetRecord()
                         begin
-                            ItemCaseUOM.Get("Item No.", 'CASE');
-                            ItemPalletUOM.Get("Item No.", 'PALLET');
+                            // ItemCaseUOM.Get("Item No.", 'CASE');
+                            // ItemPalletUOM.Get("Item No.", 'PALLET');
 
-                            If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then begin
-                                ToShipSingles := Abs("Qty. to Ship (Base)");
-                                ToShipCase := 0;
-                                ToShipPallet := 0;
-                            end;
+                            // If ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then begin
+                            //     ToShipSingles := Abs("Qty. to Ship (Base)");
+                            //     ToShipCase := 0;
+                            //     ToShipPallet := 0;
+                            // end;
 
-                            If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
-                                ToShipSingles := 0;
-                                ToShipCase := Abs("Qty. to Ship Case");
-                                ToShipPallet := Abs("Qty. to Ship Pallet");
-                            end;
+                            // If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
+                            //     ToShipSingles := 0;
+                            //     ToShipCase := Abs("Qty. to Ship Case");
+                            //     ToShipPallet := Abs("Qty. to Ship Pallet");
+                            // end;
+                            ItemCaseUOM.Reset();
+                            ItemCaseUOM.SetFilter(ItemCaseUOM."Item No.", Transfer_Line."Item No.");
+                            ItemCaseUOM.SetFilter(Code, 'CASE');
+                            If ItemCaseUOM.Find('-') then
+                                caseQTY := ItemCaseUOM."Qty. per Unit of Measure"
+                            else
+                                caseQTY := 10000;
+
+                            ItempalletUOM.Reset();
+                            ItempalletUOM.SetFilter(ItemPalletUOM."Item No.", Transfer_Line."Item No.");
+                            ItempalletUOM.SetFilter(Code, 'PALLET');
+                            If ItemPalletUOM.Find('-') then
+                                palletQTY := ItemPalletUOM."Qty. per Unit of Measure"
+                            else
+                                palletQTY := 10000;
 
                             TotalWeight := 0;
                             ToShipWeight := 0;
@@ -241,4 +270,6 @@ report 50007 "Summary Pick Slip Transfer TLY"
         ItemNoCount: Integer;
         PrintDate: Date;
         PrintTime: Time;
+        caseQTY: Decimal;
+        palletQTY: Decimal;
 }

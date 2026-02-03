@@ -32,7 +32,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Shipping Agent From Port", "Port of loading")
+        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Port of loading")
 
         addafter("Port of loading")
         {
@@ -201,6 +201,10 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         modify("Expected Receipt Date")
         {
             ShowMandatory = true;
+        }
+        modify("Shipping Agent From Port")
+        {
+            Visible = false;
         }
     }
     var

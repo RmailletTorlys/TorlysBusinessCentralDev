@@ -119,6 +119,14 @@ pageextension 59301 TlySalesInvoiceList extends "Sales Invoice List"
 
         addafter(Amount)
         {
+            field("No. Printed"; Rec."No. Printed")
+            {
+                Caption = 'No. Printed';
+                ToolTip = 'No. Printed';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';

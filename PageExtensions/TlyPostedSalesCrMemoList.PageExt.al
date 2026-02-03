@@ -114,9 +114,9 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
 
         }
 
-        moveafter("Shipping Comment"; Amount)
+        moveafter("Shipping Comment"; Amount, "No. Printed")
 
-        addafter(Amount)
+        addafter("No. Printed")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {

@@ -110,5 +110,11 @@ tableextension 56651 TlyReturnShipmentLine extends "Return Shipment Line"
             Caption = 'Container No. (NAV)';
             DataClassification = CustomerContent;
         }
+        field(50019; "Shipment Method Code"; Code[10])
+        {
+            Caption = 'Shipment Method Code"';
+            DataClassification = CustomerContent;
+            TableRelation = "Shipment Method";
+        }
     }
 }

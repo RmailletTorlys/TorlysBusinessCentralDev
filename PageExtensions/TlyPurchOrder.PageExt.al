@@ -349,28 +349,28 @@ pageextension 50050 TlyPurchOrder extends "Purchase Order"
         }
 
     }
-    actions
-    {
-        addlast(Category_Category8)
-        {
-            actionref(LinkededSO; "View and Fill Linked SO")
-            {
-            }
-        }
+    // actions
+    // {
+    //     addlast(Category_Category8)
+    //     {
+    //         actionref(LinkededSO; "View and Fill Linked SO")
+    //         {
+    //         }
+    //     }
 
-        addlast(Documents)
-        {
-            action("View and Fill Linked SO")
-            {
-                ApplicationArea = Location;
-                Caption = 'View and Fill Linked SO';
-                ToolTip = 'View and Fill Linked SO';
-                Image = OrderTracking;
-                RunObject = Page TlyLinkedSOtoPO;
-                RunPageLink = "Linked Purchase Order No." = field("No."), Type = const(Item);
-            }
-        }
-    }
+    //     addlast(Documents)
+    //     {
+    //         action("View and Fill Linked SO")
+    //         {
+    //             ApplicationArea = Location;
+    //             Caption = 'View and Fill Linked SO';
+    //             ToolTip = 'View and Fill Linked SO';
+    //             Image = OrderTracking;
+    //             RunObject = Page TlyLinkedSOtoPO;
+    //             RunPageLink = "Linked Purchase Order No." = field("No."), Type = const(Item);
+    //         }
+    //     }
+    // }
 
     var
         LookupUserId: Codeunit TlyLookupUserID;

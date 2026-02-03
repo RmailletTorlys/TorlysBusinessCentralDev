@@ -1,4 +1,4 @@
-codeunit 50019 TlyCopyFields
+codeunit 50019 TlyCopyFieldsSales
 {
     // Customer --> Ship-to Address
     [EventSubscriber(ObjectType::Page, Page::"Ship-to Address", 'OnAfterOnNewRecord', '', false, false)]

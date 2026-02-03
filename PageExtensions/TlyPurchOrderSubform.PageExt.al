@@ -12,7 +12,19 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Vendor Item No."; Description, "Location Code", "Unit of Measure Code", Quantity)
+        moveafter("Vendor Item No."; Description, "Location Code")
+
+        addafter("Location Code")
+        {
+            field("Shipment Method Code"; Rec."Shipment Method Code")
+            {
+                Caption = 'Shipment Method Code';
+                ToolTip = 'Shipment Method Code';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Shipment Method Code"; "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -390,6 +402,15 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                     Item.SetRange("No.", Rec."No.");
                     Page.Run(Page::TlyItemAvailability, Item);
                 end;
+            }
+            action("View and Fill Linked SO")
+            {
+                ApplicationArea = Location;
+                Caption = 'View and Fill Linked SO';
+                ToolTip = 'View and Fill Linked SO';
+                Image = OrderTracking;
+                RunObject = Page TlyLinkedSOtoPO;
+                RunPageLink = "Linked Purchase Order No." = field("Document No."), "No." = field("No.");
             }
             action(BackorderFill)
             {

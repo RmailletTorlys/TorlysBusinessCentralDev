@@ -33,6 +33,18 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
                 end;
             end;
         }
+
+        modify("Shipment Method Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                TestStatusOpen();
+                if ("Shipment Method Code" <> xRec."Shipment Method Code") and
+                   (xRec."Buy-from Vendor No." = "Buy-from Vendor No.")
+                then
+                    MessageIfPurchLinesExist(FieldCaption("Shipment Method Code"));
+            end;
+        }
     }
 
     trigger OnAfterInsert()

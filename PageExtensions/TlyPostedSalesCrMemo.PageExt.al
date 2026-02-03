@@ -487,6 +487,11 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             Visible = false;
         }
 
+        modify("No. Printed")
+        {
+            Visible = true;
+        }
+
     }
     actions
     {

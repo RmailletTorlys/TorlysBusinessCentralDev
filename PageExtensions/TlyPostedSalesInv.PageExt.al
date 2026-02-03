@@ -400,6 +400,11 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
         {
             Visible = false;
         }
+
+        modify("No. Printed")
+        {
+            Visible = true;
+        }
     }
 
     actions

@@ -46,5 +46,64 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             TableRelation = Vendor;
         }
 
+        field(50009; "Crossdock"; Boolean)
+        {
+            Caption = 'Crossdock';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50010; "ERS"; Boolean)
+        {
+            Caption = 'ERS';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50011; "Urgent"; Boolean)
+        {
+            Caption = 'Urgent';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50012; "Strike"; Boolean)
+        {
+            Caption = 'Strike';
+            DataClassification = CustomerContent;
+
+        }
+
+        field(50013; "Vendor No."; Text[20])
+        {
+            Caption = 'Vendor No.';
+            DataClassification = CustomerContent;
+            TableRelation = Vendor;
+        }
+
+        field(50014; "Delivery Appointment Date"; Date)
+        {
+            Caption = 'Delivery Appointment Date';
+            DataClassification = CustomerContent;
+        }
+
+        field(50015; "Freight Cost"; Decimal)
+        {
+            Caption = 'Freight Cost';
+            DataClassification = CustomerContent;
+        }
+
+        field(50016; "Premium Cost"; Decimal)
+        {
+            Caption = 'Premium Cost';
+            DataClassification = CustomerContent;
+        }
+
+
+
+
+
+
+
     }
 }

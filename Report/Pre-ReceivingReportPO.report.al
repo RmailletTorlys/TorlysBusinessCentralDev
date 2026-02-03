@@ -12,7 +12,20 @@ report 50025 "Receiving Report PO"
         {
             DataItemTableView = sorting("Booking No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
             RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
+            dataitem(TlyBookingInfo; TlyBookingInfo)
+            {
+                DataItemLink = "No." = field("Booking No.");
+                DataItemLinkReference = "Purchase Line";
 
+                column(Appointment_Date; "Appointment Date")
+                {
+
+                }
+                column(Appointment_Time; "Appointment Time")
+                {
+
+                }
+            }
             column(Booking_No_; "Booking No.")
             {
 

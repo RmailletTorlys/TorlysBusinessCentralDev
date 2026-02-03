@@ -114,6 +114,57 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
+        addafter(ContanierLine)
+        {
+            group(Freight)
+            {
+                Caption = 'Freight';
+
+                field("Vendor No."; Rec."Vendor No.")
+                {
+                    Caption = 'Vendor No.';
+                    ToolTip = 'Vendor No.';
+                    ApplicationArea = All;
+                }
+                field("Freight Cost"; Rec."Freight Cost")
+                {
+                    Caption = 'Freight Cost';
+                    ToolTip = 'Freight Cost';
+                    ApplicationArea = All;
+                }
+                field("Premium Cost"; Rec."Premium Cost")
+                {
+                    Caption = 'Premium Cost';
+                    ToolTip = 'Premium Cost';
+                    ApplicationArea = All;
+                }
+                field("Crossdock"; Rec."Crossdock")
+                {
+                    Caption = 'Crossdock';
+                    ToolTip = 'Crossdock';
+                    ApplicationArea = All;
+                }
+                field("ERS"; Rec."ERS")
+                {
+                    Caption = 'ERS';
+                    ToolTip = 'ERS';
+                    ApplicationArea = All;
+                }
+                field("Urgent"; Rec."Urgent")
+                {
+                    Caption = 'Urgent';
+                    ToolTip = 'Urgent';
+                    ApplicationArea = All;
+                }
+                field("Strike"; Rec."Strike")
+                {
+                    Caption = 'Strike';
+                    ToolTip = 'Strike';
+                    ApplicationArea = All;
+                }
+            }
+        }
+
         modify(Description)
         {
             Importance = Additional;

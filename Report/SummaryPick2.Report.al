@@ -77,6 +77,10 @@ report 50021 "Summary PickSlip"
                         {
 
                         }
+                        column(Type; Type)
+                        {
+
+                        }
                         column(No_; "No.")
                         {
 
@@ -170,8 +174,11 @@ report 50021 "Summary PickSlip"
                                 ToShipCase := 0;
                                 ToShipPallet := 0;
                             end;
-                            ItemCaseUOM.Get("No.", 'CASE');
-                            ItemPalletUOM.Get("No.", 'PALLET');
+
+                            if Sales_line.Type = Type::Item then begin
+                                ItemCaseUOM.Get("No.", 'CASE');
+                                ItemPalletUOM.Get("No.", 'PALLET');
+                            end;
 
                             If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
                                 ItemCaseUOM.Get("No.", 'CASE');

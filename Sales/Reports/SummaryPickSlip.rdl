@@ -94,6 +94,9 @@ End Function
         <Field Name="TotalWeightFormat">
           <DataField>TotalWeightFormat</DataField>
         </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>

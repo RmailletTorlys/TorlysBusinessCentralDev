@@ -97,6 +97,9 @@ End Function
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>
+        <Field Name="Gen__Prod__Posting_Group">
+          <DataField>Gen__Prod__Posting_Group</DataField>
+        </Field>
         <Field Name="ToShipCase">
           <DataField>ToShipCase</DataField>
         </Field>
@@ -144,6 +147,18 @@ End Function
         </Field>
         <Field Name="ParentBinLocationLabel">
           <DataField>ParentBinLocationLabel</DataField>
+        </Field>
+        <Field Name="Qty_per_Unit_of_Measure_Pallet">
+          <DataField>Qty_per_Unit_of_Measure_Pallet</DataField>
+        </Field>
+        <Field Name="Qty_per_Unit_of_Measure_PalletFormat">
+          <DataField>Qty_per_Unit_of_Measure_PalletFormat</DataField>
+        </Field>
+        <Field Name="Qty_per_Unit_of_Measure_Case">
+          <DataField>Qty_per_Unit_of_Measure_Case</DataField>
+        </Field>
+        <Field Name="Qty_per_Unit_of_Measure_CaseFormat">
+          <DataField>Qty_per_Unit_of_Measure_CaseFormat</DataField>
         </Field>
         <Field Name="BinLocation">
           <DataField>BinLocation</DataField>

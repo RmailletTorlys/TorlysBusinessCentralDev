@@ -81,6 +81,10 @@ report 50021 "Summary PickSlip"
                         {
 
                         }
+                        column(Gen__Prod__Posting_Group; "Gen. Prod. Posting Group")
+                        {
+
+                        }
                         column(ToShipCase; ToShipCase)
                         {
 
@@ -117,6 +121,12 @@ report 50021 "Summary PickSlip"
                         {
 
                         }
+                        column(Qty_per_Unit_of_Measure_Pallet; itempalletuom."Qty. per Unit of Measure")
+                        {
+
+                        }
+                        column(Qty_per_Unit_of_Measure_Case; itemcaseuom."Qty. per Unit of Measure")
+                        { }
                         column(BinLocation; BinLocation)
                         {
 
@@ -160,6 +170,8 @@ report 50021 "Summary PickSlip"
                                 ToShipCase := 0;
                                 ToShipPallet := 0;
                             end;
+                            ItemCaseUOM.Get("No.", 'CASE');
+                            ItemPalletUOM.Get("No.", 'PALLET');
 
                             If ("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0) then begin
                                 ItemCaseUOM.Get("No.", 'CASE');

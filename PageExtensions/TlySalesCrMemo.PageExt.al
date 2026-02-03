@@ -80,19 +80,19 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
                 ApplicationArea = All;
                 Importance = Standard;
                 ShowMandatory = true;
-                trigger OnValidate()
-                // have to do this on the screen and not the table
-                var
-                    SalesInvoiceHeader: Record "Sales Invoice Header";
-                    DimensionSetEntry: Record "Dimension Set Entry";
-                begin
-                    SalesInvoiceHeader.Get(Rec."Original Invoice No.");
-                    DimensionSetEntry.Reset();
-                    DimensionSetEntry.SetRange("Dimension Set ID", SalesInvoiceHeader."Dimension Set ID");
-                    DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
-                    if DimensionSetEntry.Find('-') then
-                        ShortcutDimCode[3] := DimensionSetEntry."Dimension Value Code";
-                end;
+                // trigger OnValidate()
+                // // have to do this on the screen and not the table
+                // var
+                //     SalesInvoiceHeader: Record "Sales Invoice Header";
+                //     DimensionSetEntry: Record "Dimension Set Entry";
+                // begin
+                //     SalesInvoiceHeader.Get(Rec."Original Invoice No.");
+                //     DimensionSetEntry.Reset();
+                //     DimensionSetEntry.SetRange("Dimension Set ID", SalesInvoiceHeader."Dimension Set ID");
+                //     DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+                //     if DimensionSetEntry.Find('-') then
+                //         ShortcutDimCode[3] := DimensionSetEntry."Dimension Value Code";
+                // end;
             }
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")
             {

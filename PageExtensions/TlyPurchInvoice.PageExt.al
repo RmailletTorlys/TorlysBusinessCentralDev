@@ -211,7 +211,7 @@ pageextension 50051 TlyPurchInvoice extends "Purchase Invoice"
 
         modify("Posting Date")
         {
-            Editable = false;
+            Editable = true;
             Importance = Promoted;
         }
 

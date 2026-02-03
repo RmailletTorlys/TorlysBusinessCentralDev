@@ -52,7 +52,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        moveafter("Ship-to County"; "Salesperson Code", "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 
         addafter("External Document No.")
         {

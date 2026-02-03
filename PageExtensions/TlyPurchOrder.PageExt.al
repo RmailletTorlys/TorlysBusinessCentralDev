@@ -110,7 +110,7 @@ pageextension 50050 TlyPurchOrder extends "Purchase Order"
         modify("Posting Date")
         {
             Importance = Promoted;
-            Editable = false;
+            Editable = true;
         }
 
         modify("Order Date")

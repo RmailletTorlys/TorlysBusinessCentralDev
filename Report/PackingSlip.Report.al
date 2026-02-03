@@ -288,6 +288,10 @@ report 50018 "Packing Slip"
                         column(TempSalesShptLineNo; TempSalesShipmentLine."No.")
                         {
                         }
+                        column(itemtype; TempSalesShipmentLine.Type)
+                        {
+
+                        }
                         column(TempSalesShptLineUOM; TempSalesShipmentLine."Unit of Measure Code")
                         {
                         }

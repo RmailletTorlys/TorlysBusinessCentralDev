@@ -259,6 +259,9 @@ End Function
         <Field Name="TempSalesShptLineNo">
           <DataField>TempSalesShptLineNo</DataField>
         </Field>
+        <Field Name="itemtype">
+          <DataField>itemtype</DataField>
+        </Field>
         <Field Name="TempSalesShptLineUOM">
           <DataField>TempSalesShptLineUOM</DataField>
         </Field>

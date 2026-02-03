@@ -142,6 +142,24 @@ End Function
         <Field Name="ItemNoCount">
           <DataField>ItemNoCount</DataField>
         </Field>
+        <Field Name="palletQTY">
+          <DataField>palletQTY</DataField>
+        </Field>
+        <Field Name="palletQTYFormat">
+          <DataField>palletQTYFormat</DataField>
+        </Field>
+        <Field Name="caseQTY">
+          <DataField>caseQTY</DataField>
+        </Field>
+        <Field Name="caseQTYFormat">
+          <DataField>caseQTYFormat</DataField>
+        </Field>
+        <Field Name="Qty_per_Unit_of_Measure_Pallet">
+          <DataField>Qty_per_Unit_of_Measure_Pallet</DataField>
+        </Field>
+        <Field Name="Qty_per_Unit_of_Measure_Case">
+          <DataField>Qty_per_Unit_of_Measure_Case</DataField>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>

@@ -16,6 +16,10 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
             {
 
             }
+            column(Document_Date; "Document Date")
+            {
+
+            }
         }
         add(Customer)
         {

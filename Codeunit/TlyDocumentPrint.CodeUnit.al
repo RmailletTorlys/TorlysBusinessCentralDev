@@ -21,26 +21,26 @@ codeunit 50299 TlyDocumentPrint
             // ERROR('Pick slip printing not allowed from this computer!');
 
             //must be released
-            IF SalesHeader.Status <> SalesHeader.Status::Released THEN
+            if SalesHeader.Status <> SalesHeader.Status::Released then
                 Error('Order must be released!');
 
             //must not be on credit hold
-            IF SalesHeader."On Hold" <> '' THEN
+            if SalesHeader."On Hold" <> '' then
                 Error('Order must not be on credit hold!');
 
             //shipment date must not be in past
-            IF SalesHeader."Shipment Date" < WorkDate() THEN
+            if SalesHeader."Shipment Date" < WorkDate() then
                 Error('Shipment date must not be in the past!');
 
             //shipment date must not be on weekend
-            IF Date2DWY(SalesHeader."Shipment Date", 1) > 5 THEN
+            if Date2DWY(SalesHeader."Shipment Date", 1) > 5 then
                 Error('Shipment date must not be on the weekend!');
 
             //shipment date must not be too far in the future   
-            IF (Date2DWY(WorkDate(), 1) < 5) AND (SalesHeader."Shipment Date" - WorkDate() > 1) THEN //weekday print 1 day in advance
+            if (Date2DWY(WorkDate(), 1) < 5) AND (SalesHeader."Shipment Date" - WorkDate() > 1) then //weekday print 1 day in advance
                 Error('Shipment date is too far in the future!')
-            ELSE
-                IF (Date2DWY(WorkDate(), 1) = 5) AND (SalesHeader."Shipment Date" - WorkDate() > 3) THEN //Friday print 3 days in advance
+            else
+                if (Date2DWY(WorkDate(), 1) = 5) AND (SalesHeader."Shipment Date" - WorkDate() > 3) then //Friday print 3 days in advance
                     Error('Shipment date is too far in the future!');
 
             //must have something allocated
@@ -80,6 +80,10 @@ codeunit 50299 TlyDocumentPrint
                     if SalesLine."Location Code" <> SalesHeader."Location Code" then
                         Error('Location on header (%1) is differnet than a line (%2, %3)!', SalesHeader."Location Code", SalesLine."Location Code", SalesLine."No.");
                 until SalesLine.Next() = 0;
+
+            //popup if already printed
+            if SalesHeader."No. Pick Slips Printed" > 0 then
+                Message('%1 pick slip has already been printed %2 time(s).', SalesHeader."No.", SalesHeader."No. Pick Slips Printed");
 
             //pass parameters and print
             SalesHeader.SetRange("No.", SalesHeader."No.");

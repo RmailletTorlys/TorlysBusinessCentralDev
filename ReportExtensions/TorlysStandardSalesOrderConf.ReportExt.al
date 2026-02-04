@@ -54,12 +54,13 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             trigger OnAfterAfterGetRecord()
             begin
                 if "Currency Code" = '' then
-                    CurrencyCode := 'CDN'
+                    CurrencyCode := 'CAD'
                 else
                     CurrencyCode := "Currency Code";
 
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
                 selladdr(selltoaddr, Header);
+                ShipAddrTly(ShipToAddrTly, Header);
 
                 if "MK Required" then
                     MKREQUIRED := 'MK REQUIRED'
@@ -205,6 +206,23 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             { }
             column(selltoaddr8; selltoaddr[8])
             { }
+
+            column(ShipToAddrTly1; ShipToAddrTly[1])
+            { }
+            column(ShipToAddrTly2; ShipToAddrTly[2])
+            { }
+            column(ShipToAddrTly3; ShipToAddrTly[3])
+            { }
+            column(ShipToAddrTly4; ShipToAddrTly[4])
+            { }
+            column(ShipToAddrTly5; ShipToAddrTly[5])
+            { }
+            column(ShipToAddrTly6; ShipToAddrTly[6])
+            { }
+            column(ShipToAddrTly7; ShipToAddrTly[7])
+            { }
+            column(ShipToAddrTly8; ShipToAddrTly[8])
+            { }
         }
 
         add(Totals)
@@ -252,6 +270,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ParentBinLocation: Code[100];
         ShortCutDimCode: array[8] of Code[20];
         selltoaddr: array[8] of Text;
+        ShipToAddrTly: array[8] of Text;
         FormatAddr1: Codeunit "Format Address";
         MKREQUIRED: text;
         MKSTAGED: Text;
@@ -275,8 +294,15 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
     var
     begin
         FormatAddr1.FormatAddr(
-            AddrArray, '', '', salesheader."Ship-to Name", salesheader."Ship-to Address", salesheader."Ship-to Address 2",
-            salesheader."Ship-to City", salesheader."Ship-to Post Code", '', salesheader."Ship-to Country/Region Code");
+            AddrArray, '', '', SalesHeader."Sell-to Customer Name", SalesHeader."Sell-to Address", SalesHeader."Sell-to Address 2",
+            SalesHeader."Sell-to City", SalesHeader."Sell-to Post Code", '', SalesHeader."Sell-to Country/Region Code");
     end;
 
+    local procedure ShipAddrTly(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', '', SalesHeader."Ship-to Name", SalesHeader."Ship-to Address", SalesHeader."Ship-to Address 2",
+            SalesHeader."Ship-to City", SalesHeader."Ship-to Post Code", '', SalesHeader."Ship-to Country/Region Code");
+    end;
 }

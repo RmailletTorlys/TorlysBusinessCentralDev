@@ -426,6 +426,7 @@ table 55002 TlyBillOfLadingHeader
 
         if UserSetup.Get(UserId) then "Location Code" := UserSetup."Default Location Code";
         "Pickup Date" := WorkDate(); //auto-populate todays date when creating BOL
+        "Package Tracking No." := Rec."No."; //copy tracking number as BOL # as that is what it is most of the time
     end;
 
     trigger OnDelete()

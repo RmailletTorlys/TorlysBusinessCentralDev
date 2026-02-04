@@ -204,7 +204,7 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
 
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = true;
         }
 
     }

@@ -7,6 +7,7 @@ codeunit 50030 TlyPostSales
         SalesHeader."Posting Date" := WorkDate();
         SalesHeader.SynchronizeAsmHeader();
         SalesHeader.Validate("Currency Code");
+        SalesHeader."Document Date" := SalesHeader."Posting Date"; // needed to calc due date and other
         SalesHeader.Modify(true);
     end;
 }

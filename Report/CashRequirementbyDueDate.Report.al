@@ -150,6 +150,9 @@ report 50030 "Cash Req By Due Date TLY"
             column(VendorCaption; VendorCaptionLbl)
             {
             }
+            column(UseVendorCurrencyCode; UseVendorCurrencyCode)
+            {
+            }
             column(NameCaption; NameCaptionLbl)
             {
             }
@@ -289,6 +292,11 @@ report 50030 "Cash Req By Due Date TLY"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Use External Doc. No.';
                         ToolTip = 'Specifies if you want to print the vendor''s document numbers, such as the invoice number, on all transactions. Clear this check box to print only internal document numbers.';
+                    }
+                    field(UseVendorCurrencyCode; UseVendorCurrencyCode)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Use Vendor Currency Code';
                     }
                 }
             }

@@ -253,6 +253,9 @@ End Function
         <Field Name="VendorCaption">
           <DataField>VendorCaption</DataField>
         </Field>
+        <Field Name="UseVendorCurrencyCode">
+          <DataField>UseVendorCurrencyCode</DataField>
+        </Field>
         <Field Name="NameCaption">
           <DataField>NameCaption</DataField>
         </Field>

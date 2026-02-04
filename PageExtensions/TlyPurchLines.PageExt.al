@@ -283,6 +283,17 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
         }
     }
 
+    views
+    {
+        addlast
+        {
+            view(OutsQty)
+            {
+                Caption = 'Outstanding Quantity Remaining';
+                Filters = where("Outstanding Quantity" = filter('>0'));
+            }
+        }
+    }
     var
         QuantityRemaining: Decimal;
 

@@ -3,7 +3,7 @@ page 50563 TlyBackOrderFill
     Caption = 'Backorder Fill';
     PageType = List;
     SourceTable = "Sales Line";
-    SourceTableView = sorting(Type, "No.", "Variant Code", "Drop Shipment", "Location Code", "Document Type", "Shipment Date") order(ascending);
+    SourceTableView = sorting("No.", "Location Code", "Container No. (NAV)", "Shipment Date") order(ascending);
     ApplicationArea = Basic, Suite;
     UsageCategory = Administration;
 

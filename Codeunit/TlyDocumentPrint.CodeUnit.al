@@ -198,6 +198,12 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50029, true, false, SalesInvLine)
     end;
 
+    //     procedure PrintProformaFromInvoice(SalesInvHeader: Record "Sales Invoice Header"): Boolean
+    // begin
+    //     SalesInvHeader.SetRange("No.", SalesInvHeader."No.");
+    //     Report.RunModal(, true, false, SalesInvHeader)
+    // end;
+
     procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
     var
         PurchaseLine: Record "Purchase Line";

@@ -142,12 +142,22 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity on Sales Order - TOR';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Outstanding Qty. (Base)" where
+                                                        ("Document Type" = const(Order),
+                                                        Type = const(Item),
+                                                        "No." = field("No."),
+                                                        "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                        "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                        "Location Code" = filter('TOR'),
+                                                        "Drop Shipment" = field("Drop Shipment Filter"),
+                                                        "Variant Code" = field("Variant Filter"),
+                                                        "Shipment Date" = field("Date Filter")));
             Editable = false;
         }
 
         field(50026; "Qty. on Hand (QUATOR)"; Decimal)
         {
-            Caption = 'Quantity on Hand - QUATOR';
+            Caption = 'Quantity on Hand (QUATOR)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
             CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
@@ -168,6 +178,16 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity on Sales Order - CAL';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Outstanding Qty. (Base)" where
+                                                        ("Document Type" = const(Order),
+                                                        Type = const(Item),
+                                                        "No." = field("No."),
+                                                        "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                        "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                        "Location Code" = filter('CAL'),
+                                                        "Drop Shipment" = field("Drop Shipment Filter"),
+                                                        "Variant Code" = field("Variant Filter"),
+                                                        "Shipment Date" = field("Date Filter")));
             Editable = false;
         }
 
@@ -189,7 +209,7 @@ tableextension 50027 TlyItem extends Item
 
         field(50030; "Qty. on Hand (CAL)"; Decimal)
         {
-            Caption = 'Quantity on Hand - CAL';
+            Caption = 'Quantity on Hand (CAL)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
             CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
@@ -207,7 +227,7 @@ tableextension 50027 TlyItem extends Item
 
         field(50031; "Qty. on Hand (QUACAL)"; Decimal)
         {
-            Caption = 'Quantity on Hand - QUACAL';
+            Caption = 'Quantity on Hand (QUACAL)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
             CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
@@ -261,7 +281,7 @@ tableextension 50027 TlyItem extends Item
 
         field(50040; "Qty. on Hand (SCANGLOBAL)"; Decimal)
         {
-            Caption = 'Quantity on Hand - SCANGLOBAL';
+            Caption = 'Quantity on Hand (SCANGLOBAL)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
             CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
@@ -279,7 +299,7 @@ tableextension 50027 TlyItem extends Item
 
         field(50041; "Qty. on Hand (KRN)"; Decimal)
         {
-            Caption = 'Quantity on Hand - KRN';
+            Caption = 'Quantity on Hand (KRN)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
             CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
@@ -367,6 +387,24 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Customs/Tariff Note';
             DataClassification = CustomerContent;
+        }
+
+        field(50053; "Qty. on Hand (TMT)"; Decimal)
+        {
+            Caption = 'Quantity on Hand (TMT)';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+            CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
+                                                                  "Global Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                  "Global Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                  "Location Code" = const('TMT'),
+                                                                  "Drop Shipment" = field("Drop Shipment Filter"),
+                                                                  "Variant Code" = field("Variant Filter"),
+                                                                  "Lot No." = field("Lot No. Filter"),
+                                                                  "Serial No." = field("Serial No. Filter"),
+                                                                  "Unit of Measure Code" = field("Unit of Measure Filter"),
+                                                                  "Package No." = field("Package No. Filter")));
+            Editable = false;
         }
     }
 

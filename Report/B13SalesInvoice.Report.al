@@ -124,7 +124,7 @@ report 50028 "B13 Sales Invoice"
                     end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                         OrderQuantity := "Quantity";
                         OrderUOM := "Unit of Measure Code";
-                    end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
+                    end else if COPYSTR("Gen. Prod. Posting Group", 1, 2) = 'MK' then begin
                         OrderQuantity := "Quantity";
                         OrderUOM := "Unit of Measure Code";
                     end else begin
@@ -151,7 +151,7 @@ report 50028 "B13 Sales Invoice"
 
 
                     If RemoveFreight then begin
-                        If "Gen. Prod. Posting Group" = 'FREIGHT' then begin
+                        If "No." = '60700' then begin
                             "No." := '';
                             Description := '';
                             Quantity := 0;
@@ -166,7 +166,7 @@ report 50028 "B13 Sales Invoice"
                     end;
 
                     If RemoveDuty then begin
-                        If "Gen. Prod. Posting Group" = 'DUTY' then begin
+                        If "No." = '51400' then begin
                             "No." := '';
                             Description := '';
                             Quantity := 0;

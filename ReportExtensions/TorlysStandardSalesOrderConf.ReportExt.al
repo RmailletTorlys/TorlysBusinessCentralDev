@@ -66,20 +66,20 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 else
                     MKREQUIRED := '';
 
-                if "MK Required" then
+                if "MK Staged" then
                     MKSTAGED := 'MK STAGED'
                 else
                     MKSTAGED := '';
 
                 mklocationtext := 'MK STAGED LOCATION';
-                if "MK Required" then
+                if "MK Staged" then
                     MKlocation := mklocationtext + ' : ' + "MK Staged Location"
                 else
                     MKlocation := '';
 
                 mkquantitytest := 'MK STAGED QUANTITY';
                 mkquantity1 := "MK Staged Quantity";
-                if "MK Required" then
+                if "MK Staged" then
                     mkqyantity := mkquantitytest + ' : ' + mkquantity1.ToText()
                 else
                     mkqyantity := '';

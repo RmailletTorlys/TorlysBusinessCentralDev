@@ -147,6 +147,13 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Importance = Standard;
                 TableRelation = TlyFreightZone;
             }
+            field("BOL No."; Rec."BOL No.")
+            {
+                Caption = 'BOL No.';
+                ToolTip = 'BOL No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
         moveafter("Shortcut Dimension 2 Code"; "Salesperson Code")

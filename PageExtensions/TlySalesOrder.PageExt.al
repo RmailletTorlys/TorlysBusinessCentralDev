@@ -699,11 +699,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             Visible = false;
         }
 
-        modify("Ship-to Phone No.")
-        {
-            Visible = false;
-        }
-
         modify("Outbound Whse. Handling Time")
         {
             Visible = false;

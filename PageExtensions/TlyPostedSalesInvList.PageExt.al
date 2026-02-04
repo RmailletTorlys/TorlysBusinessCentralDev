@@ -105,7 +105,7 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
             }
         }
 
-        moveafter("Shipping Comment"; "Amount")
+        moveafter("Shipping Comment"; "Due Date", "Amount")
 
         addafter("Amount")
         {
@@ -179,7 +179,7 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
 
         modify("Due Date")
         {
-            Visible = false;
+            Visible = true;
         }
 
         modify("Document Date")
@@ -204,9 +204,8 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
 
         modify("No. Printed")
         {
-            Visible = false;
+            Visible = true;
         }
-
     }
 
     var

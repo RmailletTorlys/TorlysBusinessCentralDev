@@ -54,20 +54,20 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         }
         moveafter("Ship-to County"; "Salesperson Code")
 
-        // addafter("Salesperson Code")
-        // {
-        //     field("Collector ID"; CollectorID)
-        //     {
-        //         Caption = 'Collector ID';
-        //         ToolTip = 'Collector ID';
-        //         ApplicationArea = All;
-        //         Visible = true;
-        //         Editable = false;
-        //     }
-        // }
+        addafter("Salesperson Code")
+        {
+            field("Collector ID"; CollectorID)
+            {
+                Caption = 'Collector ID';
+                ToolTip = 'Collector ID';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+        }
 
-        // moveafter("Collector ID"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
-        moveafter("Salesperson Code"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        moveafter("Collector ID"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        // moveafter("Salesperson Code"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 
         addafter("External Document No.")
         {
@@ -386,10 +386,10 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
 
-        // Customer.Reset();
-        // if Rec."Sell-to Customer No." <> '' then begin
-        //     Customer.Get(Rec."Sell-to Customer No.");
-        //     CollectorID := Customer."Collector ID";
-        // end;
+        Customer.Reset();
+        if Rec."Sell-to Customer No." <> '' then begin
+            Customer.Get(Rec."Sell-to Customer No.");
+            CollectorID := Customer."Collector ID";
+        end;
     end;
 }

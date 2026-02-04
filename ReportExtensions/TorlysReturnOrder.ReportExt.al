@@ -8,6 +8,14 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
             {
 
             }
+            column(Tag_Name; "Tag Name")
+            {
+
+            }
+            column(Document_Date; "Document Date")
+            {
+
+            }
         }
 
         add("Sales line")

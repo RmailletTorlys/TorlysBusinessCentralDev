@@ -59,7 +59,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                     CurrencyCode := "Currency Code";
 
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
-                FormatAddr1.SalesHeaderSellTo(selltoaddr, Header);
+                selladdr(selltoaddr, Header);
 
                 if "MK Required" then
                     MKREQUIRED := 'MK REQUIRED'
@@ -269,6 +269,14 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         // QtyPerCase := UoMHelper.GetQuantityUoM(Item."No.", 'CASE');
         QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case
         QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
+    end;
+
+    local procedure selladdr(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', '', salesheader."Ship-to Name", salesheader."Ship-to Address", salesheader."Ship-to Address 2",
+            salesheader."Ship-to City", salesheader."Ship-to Post Code", '', salesheader."Ship-to Country/Region Code");
     end;
 
 }

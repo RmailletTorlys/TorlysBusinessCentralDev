@@ -258,16 +258,16 @@ report 50023 "B13 Sales"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Exclude Backorder';
                     }
-                    field(RemoveFreight; RemoveFreight)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Remove Freight Lines';
-                    }
-                    field(RemoveDuty; RemoveDuty)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Remove Duty Lines';
-                    }
+                    // field(RemoveFreight; RemoveFreight)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Remove Freight Lines';
+                    // }
+                    // field(RemoveDuty; RemoveDuty)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Remove Duty Lines';
+                    // }
                     field(CostInsteadOfPrice; CostInsteadOfPrice)
                     {
                         ApplicationArea = Basic, Suite;

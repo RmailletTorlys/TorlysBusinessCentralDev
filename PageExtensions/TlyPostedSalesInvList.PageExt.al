@@ -206,6 +206,11 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
         {
             Visible = true;
         }
+
+        modify(SCX_PackageTrackingNo)
+        {
+            Visible = false;
+        }
     }
 
     var

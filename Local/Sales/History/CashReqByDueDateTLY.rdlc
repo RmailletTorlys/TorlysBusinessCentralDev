@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="TIME">
+          <DataField>TIME</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Name">
+          <DataField>CompanyInformation_Name</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="Subtitle">
+          <DataField>Subtitle</DataField>
+        </Field>
+        <Field Name="PrintDetail">
+          <DataField>PrintDetail</DataField>
+        </Field>
+        <Field Name="UseExternalDocNo">
+          <DataField>UseExternalDocNo</DataField>
+        </Field>
+        <Field Name="Vendor_TABLECAPTION__________FilterString">
+          <DataField>Vendor_TABLECAPTION__________FilterString</DataField>
+        </Field>
+        <Field Name="Document_Number_is______Vendor_Ledger_Entry__FIELDCAPTION__External_Document_No___">
+          <DataField>Document_Number_is______Vendor_Ledger_Entry__FIELDCAPTION__External_Document_No___</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Due_Date_">
+          <DataField>Vendor_Ledger_Entry__Due_Date_</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Vendor_No__">
+          <DataField>Vendor_Ledger_Entry__Vendor_No__</DataField>
+        </Field>
+        <Field Name="Vendor_Name">
+          <DataField>Vendor_Name</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Document_Type_">
+          <DataField>Vendor_Ledger_Entry__Document_Type_</DataField>
+        </Field>
+        <Field Name="DocNo">
+          <DataField>DocNo</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Posting_Date_">
+          <DataField>Vendor_Ledger_Entry__Posting_Date_</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Pmt__Discount_Date_">
+          <DataField>Vendor_Ledger_Entry__Pmt__Discount_Date_</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY__">
+          <DataField>Remaining_Amt___LCY__</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY__Format">
+          <DataField>Remaining_Amt___LCY__Format</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint">
+          <DataField>PaymentDiscToPrint</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrintFormat">
+          <DataField>PaymentDiscToPrintFormat</DataField>
+        </Field>
+        <Field Name="NetRequired">
+          <DataField>NetRequired</DataField>
+        </Field>
+        <Field Name="NetRequiredFormat">
+          <DataField>NetRequiredFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Due_Date__Control43">
+          <DataField>Vendor_Ledger_Entry__Due_Date__Control43</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control44">
+          <DataField>Remaining_Amt___LCY___Control44</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control44Format">
+          <DataField>Remaining_Amt___LCY___Control44Format</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control45">
+          <DataField>PaymentDiscToPrint_Control45</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control45Format">
+          <DataField>PaymentDiscToPrint_Control45Format</DataField>
+        </Field>
+        <Field Name="NetRequired_Control46">
+          <DataField>NetRequired_Control46</DataField>
+        </Field>
+        <Field Name="NetRequired_Control46Format">
+          <DataField>NetRequired_Control46Format</DataField>
+        </Field>
+        <Field Name="RequiredToDate">
+          <DataField>RequiredToDate</DataField>
+        </Field>
+        <Field Name="RequiredToDateFormat">
+          <DataField>RequiredToDateFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Due_Date__Control49">
+          <DataField>Vendor_Ledger_Entry__Due_Date__Control49</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control50">
+          <DataField>Remaining_Amt___LCY___Control50</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control50Format">
+          <DataField>Remaining_Amt___LCY___Control50Format</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control51">
+          <DataField>PaymentDiscToPrint_Control51</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control51Format">
+          <DataField>PaymentDiscToPrint_Control51Format</DataField>
+        </Field>
+        <Field Name="NetRequired_Control52">
+          <DataField>NetRequired_Control52</DataField>
+        </Field>
+        <Field Name="NetRequired_Control52Format">
+          <DataField>NetRequired_Control52Format</DataField>
+        </Field>
+        <Field Name="RequiredToDate_Control53">
+          <DataField>RequiredToDate_Control53</DataField>
+        </Field>
+        <Field Name="RequiredToDate_Control53Format">
+          <DataField>RequiredToDate_Control53Format</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control54">
+          <DataField>Remaining_Amt___LCY___Control54</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control54Format">
+          <DataField>Remaining_Amt___LCY___Control54Format</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control55">
+          <DataField>PaymentDiscToPrint_Control55</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control55Format">
+          <DataField>PaymentDiscToPrint_Control55Format</DataField>
+        </Field>
+        <Field Name="NetRequired_Control56">
+          <DataField>NetRequired_Control56</DataField>
+        </Field>
+        <Field Name="NetRequired_Control56Format">
+          <DataField>NetRequired_Control56Format</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control58">
+          <DataField>Remaining_Amt___LCY___Control58</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control58Format">
+          <DataField>Remaining_Amt___LCY___Control58Format</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control59">
+          <DataField>PaymentDiscToPrint_Control59</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control59Format">
+          <DataField>PaymentDiscToPrint_Control59Format</DataField>
+        </Field>
+        <Field Name="NetRequired_Control60">
+          <DataField>NetRequired_Control60</DataField>
+        </Field>
+        <Field Name="NetRequired_Control60Format">
+          <DataField>NetRequired_Control60Format</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry_Entry_No_">
+          <DataField>Vendor_Ledger_Entry_Entry_No_</DataField>
+        </Field>
+        <Field Name="Cash_Requirements_by_Due_DateCaption">
+          <DataField>Cash_Requirements_by_Due_DateCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Due_Date__Control49Caption">
+          <DataField>Vendor_Ledger_Entry__Due_Date__Control49Caption</DataField>
+        </Field>
+        <Field Name="Remaining_Amt___LCY___Control50Caption">
+          <DataField>Remaining_Amt___LCY___Control50Caption</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrint_Control51Caption">
+          <DataField>PaymentDiscToPrint_Control51Caption</DataField>
+        </Field>
+        <Field Name="NetRequired_Control52Caption">
+          <DataField>NetRequired_Control52Caption</DataField>
+        </Field>
+        <Field Name="RequiredToDate_Control53Caption">
+          <DataField>RequiredToDate_Control53Caption</DataField>
+        </Field>
+        <Field Name="Due_DateCaption">
+          <DataField>Due_DateCaption</DataField>
+        </Field>
+        <Field Name="VendorCaption">
+          <DataField>VendorCaption</DataField>
+        </Field>
+        <Field Name="NameCaption">
+          <DataField>NameCaption</DataField>
+        </Field>
+        <Field Name="Payment_Method_Code">
+          <DataField>Payment_Method_Code</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Document_Type_Caption">
+          <DataField>Vendor_Ledger_Entry__Document_Type_Caption</DataField>
+        </Field>
+        <Field Name="Vendor_Ledger_Entry__Posting_Date_Caption">
+          <DataField>Vendor_Ledger_Entry__Posting_Date_Caption</DataField>
+        </Field>
+        <Field Name="Discount_DateCaption">
+          <DataField>Discount_DateCaption</DataField>
+        </Field>
+        <Field Name="Amount_DueCaption">
+          <DataField>Amount_DueCaption</DataField>
+        </Field>
+        <Field Name="PaymentDiscToPrintCaption">
+          <DataField>PaymentDiscToPrintCaption</DataField>
+        </Field>
+        <Field Name="NetRequiredCaption">
+          <DataField>NetRequiredCaption</DataField>
+        </Field>
+        <Field Name="Cash_Req__to_DateCaption">
+          <DataField>Cash_Req__to_DateCaption</DataField>
+        </Field>
+        <Field Name="DocNoCaption">
+          <DataField>DocNoCaption</DataField>
+        </Field>
+        <Field Name="DocumentCaption">
+          <DataField>DocumentCaption</DataField>
+        </Field>
+        <Field Name="Date_TotalCaption">
+          <DataField>Date_TotalCaption</DataField>
+        </Field>
+        <Field Name="Report_TotalCaption">
+          <DataField>Report_TotalCaption</DataField>
+        </Field>
+        <Field Name="TotalCaption">
+          <DataField>TotalCaption</DataField>
+        </Field>
+        <Field Name="Currency_Code">
+          <DataField>Currency_Code</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

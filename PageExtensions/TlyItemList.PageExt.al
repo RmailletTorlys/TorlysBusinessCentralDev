@@ -135,6 +135,24 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
+            field("Qty. on Hand (TMT)"; Rec."Qty. on Hand (TMT)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (TMT)';
+                ToolTip = 'Qty. on Hand (TMT)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Qty. on Hand (SCAN)"; Rec."Qty. on Hand (SCANGLOBAL)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (SCANGLOBAL)';
+                ToolTip = 'Qty. on Hand (SCANGLOBAL)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
             field("Qty. on Sales Order"; Rec."Qty. on Sales Order")
             {
                 ApplicationArea = Dimensions;

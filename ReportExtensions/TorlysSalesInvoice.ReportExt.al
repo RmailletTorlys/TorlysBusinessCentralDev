@@ -40,10 +40,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
-            // column(tagname; "Tag Name")
-            // {
+            column(tagname; "Tag Name")
+            {
 
-            // }
+            }
 
         }
 
@@ -54,7 +54,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
 
                 if "Currency Code" = '' then
-                    currcode1 := 'CDN' else
+                    currcode1 := 'CAD' else
                     currcode1 := "Currency Code"
             end;
         }

@@ -284,6 +284,10 @@ report 50026 "Proforma"
                         {
 
                         }
+                        column(Itemtype; tempsalesline.Type)
+                        {
+
+                        }
                         column(Desc; tempsalesline.Description)
                         {
 

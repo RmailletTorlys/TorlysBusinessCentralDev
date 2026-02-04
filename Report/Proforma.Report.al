@@ -572,14 +572,14 @@ report 50026 "Proforma"
                                         END;
 
                                         TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
-                                        TotalAmountExclInvDisc += AmountExclInvDisc;
-                                        if (CostInsteadOfPrice) then
-                                            VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
-                                        else
-                                            VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Qty. to Ship"));
+                                        // TotalAmountExclInvDisc += AmountExclInvDisc;
+                                        // if (CostInsteadOfPrice) then
+                                        //     VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
+                                        // else
+                                        //     VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Qty. to Ship"));
 
-                                        TotalVATAmount += VATAmount;
-                                        TotalVATAmount += VATAmount;
+                                        // TotalVATAmount += VATAmount;
+                                        // TotalVATAmount += VATAmount;
                                     END;
                                     // end;
 
@@ -807,6 +807,11 @@ report 50026 "Proforma"
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Use List Price';
+                    }
+                    field(UsePurchasesTariff; UsePurchasesTariff)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Use Purchase Tariff';
                     }
                     // field(UsePurchasesTariff; UsePurchasesTariff)
                     // {

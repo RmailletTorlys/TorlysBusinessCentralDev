@@ -54,7 +54,7 @@ report 50020 "B13 Purchase"
 
             dataitem("Sales Line"; "Sales Line")
             {
-                DataItemTableView = where(Type = filter(Item), Quantity = filter(<> 0));
+                DataItemTableView = where(Type = filter(Item));
                 DataItemLinkReference = Item;
                 DataItemLink = "No." = field("No.");
                 RequestFilterFields = "Document No.", "Sell-to Customer No.", "Shipment Date";
@@ -121,7 +121,7 @@ report 50020 "B13 Purchase"
                         end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Quantity Shipped";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 2) = 'MK' then begin
                             OrderQuantity := "Quantity Shipped";
                             OrderUOM := "Unit of Measure Code";
                         end else begin
@@ -146,7 +146,7 @@ report 50020 "B13 Purchase"
                         end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Qty. to Ship";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 2) = 'MK' then begin
                             OrderQuantity := "Qty. to Ship";
                             OrderUOM := "Unit of Measure Code";
                         end else begin
@@ -171,7 +171,7 @@ report 50020 "B13 Purchase"
                         end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Quantity";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 2) = 'MK' then begin
                             OrderQuantity := "Quantity";
                             OrderUOM := "Unit of Measure Code";
                         end else begin
@@ -190,7 +190,7 @@ report 50020 "B13 Purchase"
                     end;
 
                     If RemoveFreight then begin
-                        If "Gen. Prod. Posting Group" = 'FREIGHT' then begin
+                        If "No." = '60700' then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;
@@ -206,7 +206,7 @@ report 50020 "B13 Purchase"
                     end;
 
                     If RemoveDuty then begin
-                        If "Gen. Prod. Posting Group" = 'DUTY' then begin
+                        If "No." = '51400' then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;

@@ -459,9 +459,9 @@ report 50018 "Packing Slip"
                                     AsmHeaderExists := SalesShipmentLine.AsmToShipmentExists(PostedAsmHeader);
                                 end;
 
-                            If TempSalesShipmentLine.Type = TempSalesShipmentLine.Type::" " then
-                                if (TempSalesShipmentLine.Quantity = 0) and (BackOrderedQuantity = 0) then
-                                    CurrReport.Skip();
+                            // If TempSalesShipmentLine.Type = TempSalesShipmentLine.Type::" " then
+                            //     if (TempSalesShipmentLine.Quantity = 0) and (BackOrderedQuantity = 0) then
+                            //         CurrReport.Skip();
 
                             If (TempSalesShipmentLine."Qty. to Ship Pallet" > 0) and (TempSalesShipmentLine.Type = TempSalesShipmentLine.Type::Item) then begin
                                 Item.Get(TempSalesShipmentLine."No.");
@@ -611,7 +611,7 @@ report 50018 "Packing Slip"
 
     requestpage
     {
-        SaveValues = true;
+        SaveValues = false;
 
         layout
         {

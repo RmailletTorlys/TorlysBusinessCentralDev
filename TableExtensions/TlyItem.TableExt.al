@@ -142,6 +142,16 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity on Sales Order - TOR';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Outstanding Qty. (Base)" where
+                                                        ("Document Type" = const(Order),
+                                                        Type = const(Item),
+                                                        "No." = field("No."),
+                                                        "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                        "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                        "Location Code" = filter('TOR'),
+                                                        "Drop Shipment" = field("Drop Shipment Filter"),
+                                                        "Variant Code" = field("Variant Filter"),
+                                                        "Shipment Date" = field("Date Filter")));
             Editable = false;
         }
 
@@ -168,6 +178,16 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity on Sales Order - CAL';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
+            CalcFormula = Sum("Sales Line"."Outstanding Qty. (Base)" where
+                                                        ("Document Type" = const(Order),
+                                                        Type = const(Item),
+                                                        "No." = field("No."),
+                                                        "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                        "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                        "Location Code" = filter('CAL'),
+                                                        "Drop Shipment" = field("Drop Shipment Filter"),
+                                                        "Variant Code" = field("Variant Filter"),
+                                                        "Shipment Date" = field("Date Filter")));
             Editable = false;
         }
 

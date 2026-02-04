@@ -16,6 +16,31 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
             {
 
             }
+            column(Your_Reference; "Your Reference")
+            {
+
+            }
+            column(Sell_to_Customer_No_; "Sell-to Customer No.")
+            {
+
+            }
+            column(Original_Invoice_No_; "Original Invoice No.")
+            {
+
+            }
+            column(External_Document_No_; "External Document No.")
+            {
+
+            }
+            column(ShortCutDimCode; ShortCutDimCode[3])
+            {
+
+            }
+            column(TMName; salespurch1.Name)
+            {
+
+            }
+
         }
 
         add("Sales line")
@@ -98,7 +123,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                 else
                     unitpricetoprint := round(amountexclusivedisc / quantity, 0.01);
 
-                if Type = Type::Item then begin
+                if (Type = Type::Item) and (Quantity <> 0) then begin
                     ItemCaseUOM.get("No.", 'Case');
                     ItemPalletUOM.get("No.", 'Pallet');
                     recCaseQty := Round((("Return Qty. Received" - (ItemPalletUOM."Qty. per Unit of Measure"
@@ -107,7 +132,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     recPalletQty := Round("Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');
                 end;
 
-                If "Gen. Bus. Posting Group" = 'MOULDINGS' then begin
+                If "Gen. Prod. Posting Group" = 'MOULDINGS' then begin
                     Quantity := 0;
                     "Quantity Case" := 0;
                     "Quantity Pallet" := 0;
@@ -116,7 +141,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     "Return Qty. to Receive Pallet" := 0;
                 end;
 
-                If "Gen. Bus. Posting Group" = 'MQ MOULDINGS' then begin
+                If "Gen. Prod. Posting Group" = 'MQ MOULDINGS' then begin
                     Quantity := 0;
                     "Quantity Case" := 0;
                     "Quantity Pallet" := 0;
@@ -125,7 +150,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     "Return Qty. to Receive Pallet" := 0;
                 end;
 
-                If "Gen. Bus. Posting Group" = 'SS MOULDINGS' then begin
+                If "Gen. Prod. Posting Group" = 'SS MOULDINGS' then begin
                     Quantity := 0;
                     "Quantity Case" := 0;
                     "Quantity Pallet" := 0;
@@ -137,6 +162,17 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                 SRSetup.get();
             end;
         }
+        modify("Sales Header")
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
+                If "Salesperson Code" = '' then
+                    Clear(salespurch1)
+                else
+                    salespurch1.Get("Salesperson Code");
+            end;
+        }
     }
 
     var
@@ -146,6 +182,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
         ItemPalletUOM: Record "Item Unit of Measure";
         SalesLineTemp: Record "Sales Line";
         SRSetup: Record "Sales & Receivables Setup";
+        salespurch1: Record "Salesperson/Purchaser";
         TaxFlag: Boolean;
         recCaseQty: Integer;
         recPalletQty: Integer;
@@ -155,4 +192,6 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
         TaxLiable: Decimal;
         amountexclusivedisc: Decimal;
         unitpricetoprint: Decimal;
+        ShortCutDimCode: array[8] of Code[20];
+        DimMgmt: CodeUnit DimensionManagement;
 }

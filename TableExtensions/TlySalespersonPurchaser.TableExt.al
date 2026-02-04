@@ -31,6 +31,7 @@ tableextension 50013 TlySalespersonPurchaser extends "Salesperson/Purchaser"
         {
             Caption = 'Order Shipping Location';
             DataClassification = CustomerContent;
+            TableRelation = Location;
         }
         field(50006; "Commission Guarantee Monthly"; Decimal)
         {

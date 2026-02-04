@@ -3,7 +3,7 @@ page 50563 TlyBackOrderFill
     Caption = 'Backorder Fill';
     PageType = List;
     SourceTable = "Sales Line";
-    SourceTableView = sorting("No.", "Location Code", "Container No. (NAV)", "Shipment Date") order(ascending);
+    SourceTableView = sorting("No.", "Location Code", "Shipment Date") order(ascending);
     ApplicationArea = Basic, Suite;
     UsageCategory = Administration;
 
@@ -90,6 +90,27 @@ page 50563 TlyBackOrderFill
                     ApplicationArea = All;
                     Caption = 'Shipping Instructions';
                     ToolTip = 'Shipping Instructions';
+                    Editable = false;
+                }
+                field("Transfer Order No."; Rec."Transfer Order No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Transfer Order No.';
+                    ToolTip = 'Transfer Order No.';
+                    Editable = false;
+                }
+                field("Linked Transfer Order No."; Rec."Linked Transfer Order No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Linked Transfer Order No.';
+                    ToolTip = 'Linked Transfer Order No.';
+                    Editable = false;
+                }
+                field("Linked Purchase Order No."; Rec."Linked Purchase Order No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Linked Purchase Order No.';
+                    ToolTip = 'Linked Purchase Order No.';
                     Editable = false;
                 }
                 field("Container No. (NAV)"; Rec."Container No. (NAV)")

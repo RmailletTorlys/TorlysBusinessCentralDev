@@ -12,6 +12,7 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
             }
         }
         moveafter("Item Reference No."; Description, "Location Code", "Unit of Measure Code", Quantity)
+
         addafter(Quantity)
         {
             field("Quantity Case"; Rec."Quantity Case")
@@ -30,6 +31,7 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
         }
 
         moveafter("Quantity Pallet"; "Outstanding Quantity", "Qty. to Ship")
+
         addafter("Qty. to Ship")
         {
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
@@ -53,6 +55,15 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
 
         addafter("Shipment Date")
         {
+
+            field("Shipping Instructions"; ShippingInstructions)
+            {
+                Caption = 'Shipping Instructions';
+                ToolTip = 'Shipping Instructions';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
             field("Item Category Code"; Rec."Item Category Code")
             {
                 Caption = 'Item Category Code';
@@ -348,5 +359,19 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        ShippingInstructions: Text[20];
+
+    trigger OnAfterGetRecord()
+    var
+        SalesHeader: Record "Sales Header";
+    begin
+        SalesHeader.Reset();
+        if Rec."Document No." <> '' then begin
+            SalesHeader.Get('1', Rec."Document No.");
+            ShippingInstructions := SalesHeader."Shipping Instructions";
+        end else begin
+            ShippingInstructions := '';
+        end;
+    end;
 }
 

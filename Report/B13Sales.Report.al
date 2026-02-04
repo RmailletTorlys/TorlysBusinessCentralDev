@@ -115,13 +115,13 @@ report 50023 "B13 Sales"
 
                     SalesHeader.get("Document Type", "Document No.");
                     If OrderShipped then begin
-                        If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                             OrderQuantity := ("Quantity Shipped" / 10.764);
                             OrderUOM := 'M2';
-                        end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
+                        end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Quantity Shipped";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
                             OrderQuantity := "Quantity Shipped";
                             OrderUOM := "Unit of Measure Code";
                         end else begin
@@ -165,13 +165,13 @@ report 50023 "B13 Sales"
                     end;
 
                     If "Document Type" = "Document Type"::"Return Order" then begin
-                        If ("Gen. Bus. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
                             OrderQuantity := ("Quantity" / 10.764);
                             OrderUOM := 'M2';
-                        end else if "Gen. Bus. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
+                        end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
                             OrderQuantity := "Quantity";
                             OrderUOM := "Unit of Measure Code";
-                        end else if COPYSTR("Gen. Bus. Posting Group", 1, 4) = 'MARK' then begin
+                        end else if COPYSTR("Gen. Prod. Posting Group", 1, 4) = 'MARK' then begin
                             OrderQuantity := "Quantity";
                             OrderUOM := "Unit of Measure Code";
                         end else begin

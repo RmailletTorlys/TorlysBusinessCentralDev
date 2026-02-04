@@ -172,6 +172,9 @@ End Function
         <Field Name="ItemNo">
           <DataField>ItemNo</DataField>
         </Field>
+        <Field Name="Itemtype">
+          <DataField>Itemtype</DataField>
+        </Field>
         <Field Name="Desc">
           <DataField>Desc</DataField>
         </Field>

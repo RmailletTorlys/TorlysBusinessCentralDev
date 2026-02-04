@@ -60,6 +60,31 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
                 FormatAddr1.SalesHeaderSellTo(selltoaddr, Header);
+
+                if "MK Required" then
+                    MKREQUIRED := 'MK REQUIRED'
+                else
+                    MKREQUIRED := '';
+
+                if "MK Required" then
+                    MKSTAGED := 'MK STAGED'
+                else
+                    MKSTAGED := '';
+
+                mklocationtext := 'MK STAGED LOCATION';
+                if "MK Required" then
+                    MKlocation := mklocationtext + ' : ' + "MK Staged Location"
+                else
+                    MKlocation := '';
+
+                mkquantitytest := 'MK STAGED QUANTITY';
+                mkquantity1 := "MK Staged Quantity";
+                if "MK Required" then
+                    mkqyantity := mkquantitytest + ' : ' + mkquantity1.ToText()
+                else
+                    mkqyantity := '';
+
+
             end;
         }
 
@@ -135,6 +160,14 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(mkqyantity; mkqyantity)
+            { }
+            column(MKlocation; MKlocation)
+            { }
+            column(MKREQUIRED; MKREQUIRED)
+            { }
+            column(MKSTAGED; MKSTAGED)
+            { }
             column(MK_Staged_Location; "MK Staged Location")
             {
 
@@ -220,6 +253,13 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ShortCutDimCode: array[8] of Code[20];
         selltoaddr: array[8] of Text;
         FormatAddr1: Codeunit "Format Address";
+        MKREQUIRED: text;
+        MKSTAGED: Text;
+        MKlocation: text;
+        mkqyantity: text;
+        mkquantity1: Decimal;
+        mklocationtext: text;
+        mkquantitytest: Text;
 
 
     procedure SetQtyConst(No_: Code[20])

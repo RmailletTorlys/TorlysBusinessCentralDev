@@ -390,6 +390,8 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         if Rec."Sell-to Customer No." <> '' then begin
             Customer.Get(Rec."Sell-to Customer No.");
             CollectorID := Customer."Collector ID";
+        end else begin
+            CollectorID := '';
         end;
     end;
 }

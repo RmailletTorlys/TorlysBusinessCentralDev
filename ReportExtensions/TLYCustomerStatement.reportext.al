@@ -43,10 +43,18 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
             {
 
             }
-            // column(Document_Date1; "Document Date")
-            // {
+            column(DocDate; DocDate)
+            {
 
-            // }
+            }
+        }
+        modify(DtldCustLedgEntries)
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                CustLedgerEntry1.Get("Cust. Ledger Entry No.");
+                DocDate := CustLedgerEntry1."Document Date";
+            end;
         }
         // add(openitem)
         // {
@@ -56,4 +64,7 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
         //     }
         // }
     }
+    var
+        CustLedgerEntry1: Record "Cust. Ledger Entry";
+        DocDate: Date;
 }

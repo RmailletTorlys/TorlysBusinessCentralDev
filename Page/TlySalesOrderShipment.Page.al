@@ -71,6 +71,13 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Shipping Agent Code';
                     Caption = 'Shipping Agent Code';
                 }
+                field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Shipping Agent Service Code';
+                    Caption = 'Shipping Agent Service Code';
+                }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
@@ -130,18 +137,19 @@ page 50999 TlySalesOrderShipment
                     Editable = false;
                 }
             }
-            group(Lines)
+            // group(Lines)
+            // {
+            // Caption = 'Lines';
+            part(SalesLines; "Sales Order Subform")
             {
-                Caption = 'Lines';
-                part(SalesLines; "Sales Order Subform")
-                {
-                    ApplicationArea = All;
-                    SubPageLink = "Document No." = field("No.");
-                    SubPageView = where("Outstanding Quantity" = filter(<> 0));
-                    Caption = 'Sales Lines';
-                    Editable = false;
-                }
+                // Caption = 'Sales Lines';
+                ApplicationArea = Basic, Suite;
+                Editable = false;
+                Enabled = true;
+                SubPageLink = "Document No." = field("No.");
+                SubPageView = where("Outstanding Quantity" = filter(<> 0));
             }
+            // }
         }
     }
     actions

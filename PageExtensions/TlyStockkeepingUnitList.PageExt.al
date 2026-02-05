@@ -39,6 +39,13 @@ pageextension 55701 TlyStockkeepingUnitList extends "Stockkeeping Unit List"
                 ToolTip = 'Qty. in Transit';
             }
 
+            field("Safety Stock"; Rec."Safety Stock Quantity")
+            {
+                ApplicationArea = All;
+                Caption = 'Safety Stock';
+                ToolTip = 'Safety Stock';
+            }
+
             // add fields here about physical inventory counting
         }
 

@@ -28,6 +28,7 @@ codeunit 50414 TlyInsertFreightLine
     begin
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then Error('Order is for pickup, therefore no freight charge.');
+        if Rec."Shipping Agent Code" = 'FEDEX' then Error('Order is for FedEx, therefore no freight charge.');
         if Rec."Order Type" = 'CLAIM REPLACEMENT' then Error('Order is a claim replacement, therefore no freight charge');
         if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding freight.');
 
@@ -221,6 +222,7 @@ codeunit 50414 TlyInsertFreightLine
     begin
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then exit;
+        if Rec."Shipping Agent Code" = 'FEDEX' then exit;
         if Rec."Order Type" = 'CLAIM REPLACEMENT' then exit;
         if Rec."Freight Zone Code" = '' then exit;
 

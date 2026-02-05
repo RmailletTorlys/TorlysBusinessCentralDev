@@ -39,7 +39,8 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
             {
 
             }
-            column(ponumber1; CustLedgEntry2."External Document No.")
+            // column(ponumber1; CustLedgEntry2."External Document No.")
+            column(ponumber2; ponumber2)
             {
 
             }
@@ -54,6 +55,7 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
             begin
                 CustLedgerEntry1.Get("Cust. Ledger Entry No.");
                 DocDate := CustLedgerEntry1."Document Date";
+                ponumber2 := CustLedgerEntry1."External Document No.";
             end;
         }
         // add(openitem)
@@ -67,4 +69,5 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
     var
         CustLedgerEntry1: Record "Cust. Ledger Entry";
         DocDate: Date;
+        ponumber2: code[20];
 }

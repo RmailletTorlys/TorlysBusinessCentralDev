@@ -411,9 +411,9 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
     {
         addlast(Category_Category6)
         {
-            // actionref(Proforma; "Proforma")
-            // {
-            // }
+            actionref(ProformaInv; "Proforma")
+            {
+            }
             actionref(B13_Sales; "B13 Sales")
             {
             }
@@ -424,18 +424,18 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
 
         addlast("&Electronic Document")
         {
-            // action(Proforma)
-            // {
-            //     Caption = 'Proforma';
-            //     Image = Print;
-            //     ApplicationArea = Basic, Suite;
-            //     trigger OnAction()
-            //     var
-            //         TorlysDocPrint: Codeunit TlyDocumentPrint;
-            //     begin
-            //         TorlysDocPrint.PrintProformaFromInvoice(Rec);
-            //     end;
-            // }
+            action(Proforma)
+            {
+                Caption = 'Proforma';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintProformaFromInvoice(Rec);
+                end;
+            }
             action("B13 Sales")
             {
                 Caption = 'Print B13 Sales';

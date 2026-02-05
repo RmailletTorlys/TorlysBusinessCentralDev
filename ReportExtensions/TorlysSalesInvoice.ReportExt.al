@@ -153,19 +153,19 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         ShipToAddrTly: array[8] of Text;
         FormatAddr1: Codeunit "Format Address";
 
-    local procedure billaddr(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")
+    local procedure billaddr(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
     var
     begin
         FormatAddr1.FormatAddr(
-            AddrArray, '', SalesHeader."Bill-to Name", SalesHeader."Bill-to Name 2", SalesHeader."Bill-to Address", SalesHeader."Bill-to Address 2",
-            SalesHeader."Bill-to City", SalesHeader."Bill-to Post Code", '', SalesHeader."Bill-to Country/Region Code");
+            AddrArray, '', SalesInvoiceHeader."Bill-to Name", SalesInvoiceHeader."Bill-to Name 2", SalesInvoiceHeader."Bill-to Address", SalesInvoiceHeader."Bill-to Address 2",
+            SalesInvoiceHeader."Bill-to City", SalesInvoiceHeader."Bill-to Post Code", '', SalesInvoiceHeader."Bill-to Country/Region Code");
     end;
 
-    local procedure ShipAddrTly(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Header")
+    local procedure ShipAddrTly(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
     var
     begin
         FormatAddr1.FormatAddr(
-            AddrArray, '', SalesHeader."Ship-to Name", SalesHeader."Ship-to Name 2", SalesHeader."Ship-to Address", SalesHeader."Ship-to Address 2",
-            SalesHeader."Ship-to City", SalesHeader."Ship-to Post Code", '', SalesHeader."Ship-to Country/Region Code");
+            AddrArray, '', SalesInvoiceHeader."Ship-to Name", SalesInvoiceHeader."Ship-to Name 2", SalesInvoiceHeader."Ship-to Address", SalesInvoiceHeader."Ship-to Address 2",
+            SalesInvoiceHeader."Ship-to City", SalesInvoiceHeader."Ship-to Post Code", '', SalesInvoiceHeader."Ship-to Country/Region Code");
     end;
 }

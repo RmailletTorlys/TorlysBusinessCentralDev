@@ -86,6 +86,8 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             begin
 
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
+                billaddr(billtoaddrTly, Header);
+                ShipAddrTly(ShipToAddrTly, Header);
 
                 if "Currency Code" = '' then
                     currcode1 := 'CAD' else

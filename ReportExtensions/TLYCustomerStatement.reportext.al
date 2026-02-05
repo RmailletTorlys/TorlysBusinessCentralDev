@@ -20,6 +20,7 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
             {
 
             }
+
         }
         add(Customer)
         {
@@ -42,6 +43,10 @@ reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
             {
 
             }
+            // column(Document_Date1; "Document Date")
+            // {
+
+            // }
         }
         // add(openitem)
         // {

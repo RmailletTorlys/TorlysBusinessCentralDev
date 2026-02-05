@@ -127,7 +127,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             }
         }
 
-        moveafter("Shipping Comment"; "Shipping Agent Code", "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("Shipping Comment"; "Shipping Agent Code", "Payment Terms Code", "Amt. Ship. Not Inv. (LCY) Base", Amount)
 
         addafter(Amount)
         {
@@ -206,6 +206,15 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         }
 
         modify("Salesperson Code")
+        {
+            Visible = true;
+        }
+
+        modify("Shipping Agent Code")
+        {
+            Visible = true;
+        }
+        modify("Payment Terms Code")
         {
             Visible = true;
         }

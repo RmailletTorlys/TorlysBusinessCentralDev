@@ -1,5 +1,7 @@
 pageextension 50027 TlyVendorList extends "Vendor List"
 {
+    DeleteAllowed = false;
+
     layout
     {
         moveafter("No."; Name)

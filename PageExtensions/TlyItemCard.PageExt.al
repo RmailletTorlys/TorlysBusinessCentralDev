@@ -1,5 +1,7 @@
 pageextension 50030 TlyItemCard extends "Item Card"
 {
+    DeleteAllowed = false;
+
     layout
     {
         //Item Group Start

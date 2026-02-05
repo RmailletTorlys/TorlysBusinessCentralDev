@@ -1,6 +1,7 @@
 
 pageextension 50021 TlyCustomerCard extends "Customer Card"
 {
+    DeleteAllowed = false;
 
     layout
     {

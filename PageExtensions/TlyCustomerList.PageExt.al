@@ -1,5 +1,7 @@
 pageextension 50022 TlyCustomerList extends "Customer List"
 {
+    DeleteAllowed = false;
+
     layout
     {
         moveafter("No."; "Name", "Search Name")

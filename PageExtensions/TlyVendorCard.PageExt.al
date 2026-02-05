@@ -1,5 +1,7 @@
 pageextension 50026 TlyVendorCard extends "Vendor Card"
 {
+    DeleteAllowed = false;
+
     layout
     {
         moveafter("No."; Name, "Search Name")

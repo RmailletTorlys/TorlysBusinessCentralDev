@@ -194,6 +194,36 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             Visible = false;
         }
     }
+    views
+    {
+        addlast
+        {
+            view(Open)
+            {
+                Caption = 'Open';
+                Filters = where(Status = filter('Open'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
+            view(Released)
+            {
+                Caption = 'Released';
+                Filters = where(Status = filter('Released'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
+            view(CompletlyShipped)
+            {
+                Caption = 'Completly Shipped';
+                Filters = where(Status = filter('Completely Shipped'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
+            view(CompletlyReceived)
+            {
+                Caption = 'Completly Received';
+                Filters = where(Status = filter('Completely Received'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
+        }
+    }
     var
         LookupUserId: Codeunit TlyLookupUserID;
 }

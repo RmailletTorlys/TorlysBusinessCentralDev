@@ -95,7 +95,7 @@ table 55003 TlyBillOfLadingLine
             DataClassification = CustomerContent;
         }
 
-        field(15; "External Document No."; Code[20])
+        field(15; "External Document No."; Code[35])
         {
             Caption = 'External Document No.';
             DataClassification = CustomerContent;

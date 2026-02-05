@@ -1,5 +1,7 @@
 pageextension 50031 TlyItemList extends "Item List"
 {
+    DeleteAllowed = false;
+
     layout
     {
         moveafter("No."; Description, "Item Category Code", "Base Unit of Measure")
@@ -126,6 +128,24 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
+            field("Qty. on Hand (QUATOR)"; Rec."Qty. on Hand (QUATOR)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (QUATOR)';
+                ToolTip = 'Qty. on Hand (QUATOR)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
+            }
+            field("Qty. on Hand (CLAIMSTOR)"; Rec."Qty. on Hand (CLAIMSTOR)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (CLAIMSTOR)';
+                ToolTip = 'Qty. on Hand (CLAIMSTOR)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
+            }
             field("Qty. on Hand (CAL)"; Rec."Qty. on Hand (CAL)")
             {
                 ApplicationArea = Dimensions;
@@ -134,6 +154,24 @@ pageextension 50031 TlyItemList extends "Item List"
                 DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;
+            }
+            field("Qty. on Hand (QUACAL)"; Rec."Qty. on Hand (QUACAL)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (QUACAL)';
+                ToolTip = 'Qty. on Hand (QUACAL)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
+            }
+            field("Qty. on Hand (CLAIMSCAL)"; Rec."Qty. on Hand (CLAIMSCAL)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (CLAIMSCAL)';
+                ToolTip = 'Qty. on Hand (CLAIMSCAL)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
             }
             field("Qty. on Hand (TMT)"; Rec."Qty. on Hand (TMT)")
             {

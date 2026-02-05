@@ -213,6 +213,18 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
         }
     }
 
+    views
+    {
+        addlast
+        {
+            view(NotPrinted)
+            {
+                Caption = 'Not Printed';
+                Filters = where("No. Printed" = filter('0'));
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 

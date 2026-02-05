@@ -532,6 +532,15 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                     Page.Run(Page::TlyItemAvailability, Item);
                 end;
             }
+            action(BinContent)
+            {
+                Caption = 'Bin Content';
+                ToolTip = 'Bin Content';
+                ApplicationArea = All;
+                Image = BinContent;
+                RunObject = Page "Bin Content";
+                RunPageLink = "Item No." = field("No."), "Location Code" = field("Location Code");
+            }
             action(ItemAccessories)
             {
                 Caption = 'Item Accessories';

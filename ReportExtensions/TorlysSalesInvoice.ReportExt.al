@@ -44,6 +44,39 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(billtoaddrTly1; billtoaddrTly[1])
+            { }
+            column(billtoaddrTly2; billtoaddrTly[2])
+            { }
+            column(billtoaddrTly3; billtoaddrTly[3])
+            { }
+            column(billtoaddrTly4; billtoaddrTly[4])
+            { }
+            column(billtoaddrTly5; billtoaddrTly[5])
+            { }
+            column(billtoaddrTly6; billtoaddrTly[6])
+            { }
+            column(billtoaddrTly7; billtoaddrTly[7])
+            { }
+            column(billtoaddrTly8; billtoaddrTly[8])
+            { }
+
+            column(ShipToAddrTly1; ShipToAddrTly[1])
+            { }
+            column(ShipToAddrTly2; ShipToAddrTly[2])
+            { }
+            column(ShipToAddrTly3; ShipToAddrTly[3])
+            { }
+            column(ShipToAddrTly4; ShipToAddrTly[4])
+            { }
+            column(ShipToAddrTly5; ShipToAddrTly[5])
+            { }
+            column(ShipToAddrTly6; ShipToAddrTly[6])
+            { }
+            column(ShipToAddrTly7; ShipToAddrTly[7])
+            { }
+            column(ShipToAddrTly8; ShipToAddrTly[8])
+            { }
 
         }
 
@@ -51,7 +84,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         {
             trigger OnAfterAfterGetRecord()
             begin
+
                 DimMgmt.GetShortcutDimensions("Dimension Set ID", ShortCutDimCode);
+                billaddr(billtoaddrTly, Header);
+                ShipAddrTly(ShipToAddrTly, Header);
 
                 if "Currency Code" = '' then
                     currcode1 := 'CAD' else
@@ -115,4 +151,23 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         DescToPrint: Text;
         currcode1: Text;
         ShortCutDimCode: array[8] of Code[20];
+        billtoaddrTly: array[8] of Text;
+        ShipToAddrTly: array[8] of Text;
+        FormatAddr1: Codeunit "Format Address";
+
+    local procedure billaddr(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', SalesInvoiceHeader."Bill-to Name", SalesInvoiceHeader."Bill-to Name 2", SalesInvoiceHeader."Bill-to Address", SalesInvoiceHeader."Bill-to Address 2",
+            SalesInvoiceHeader."Bill-to City", SalesInvoiceHeader."Bill-to Post Code", '', SalesInvoiceHeader."Bill-to Country/Region Code");
+    end;
+
+    local procedure ShipAddrTly(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', SalesInvoiceHeader."Ship-to Name", SalesInvoiceHeader."Ship-to Name 2", SalesInvoiceHeader."Ship-to Address", SalesInvoiceHeader."Ship-to Address 2",
+            SalesInvoiceHeader."Ship-to City", SalesInvoiceHeader."Ship-to Post Code", '', SalesInvoiceHeader."Ship-to Country/Region Code");
+    end;
 }

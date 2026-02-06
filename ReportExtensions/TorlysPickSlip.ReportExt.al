@@ -176,6 +176,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(desc2; "description 2")
+            {
+
+            }
             column(UOM; "Unit of Measure Code")
             {
 

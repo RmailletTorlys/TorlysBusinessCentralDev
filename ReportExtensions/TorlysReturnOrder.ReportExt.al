@@ -45,42 +45,49 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
 
         add("Sales line")
         {
-            column(TempDesc3; TempDesc3)
-            {
+            // column(TempDesc3; TempDesc3)
+            // {
 
-            }
-            column(itemcrossref; "Item Reference No.")
-            {
+            // }
+            // column(itemcrossref; "Item Reference No.")
+            // {
 
-            }
-            column(quantity; Quantity)
-            {
+            // }
+            // column(quantity; Quantity)
+            // {
 
-            }
-            column(qtycase; "Quantity Case")
-            {
+            // }
+            // column(qtycase; "Quantity Case")
+            // {
 
-            }
-            column(qtypallet; "Quantity Pallet")
-            {
+            // }
+            // column(qtypallet; "Quantity Pallet")
+            // {
 
-            }
-            column(unitpricetoprint; unitpricetoprint)
-            {
+            // }
+            // column(unitpricetoprint; unitpricetoprint)
+            // {
 
-            }
-            column(recCaseQty; "Return Qty. to Receive Case")
-            {
+            // }
+            // column(recCaseQty; "Return Qty. to Receive Case")
+            // {
 
-            }
-            column(recPalletQty; "Return Qty. to Receive Pallet")
-            {
+            // }
+            // column(recPalletQty; "Return Qty. to Receive Pallet")
+            // {
 
-            }
-            column(returnqtyreceived; "Return Qty. to Receive")
-            {
+            // }
+            // column(returnqtyreceived; "Return Qty. to Receive")
+            // {
 
-            }
+            // }
+        }
+        modify(SalesLine)
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                qtycase := tempsalesline1."Quantity Case";
+            end;
         }
 
         modify("Sales Line")
@@ -93,7 +100,7 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                     ItemTemp.get("No.");
                     TempDesc3 := Description;
                     Description := ItemTemp.Description;
-                    Modify();
+                    // Modify();
                 end;
 
                 If Type = Type::" " then begin
@@ -184,8 +191,10 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
         SRSetup: Record "Sales & Receivables Setup";
         salespurch1: Record "Salesperson/Purchaser";
         TaxFlag: Boolean;
+        tempsalesline1: Record "Sales Line" temporary;
         recCaseQty: Integer;
         recPalletQty: Integer;
+        qtycase: Integer;
         TempDesc3: Text;
         quantity: Decimal;
         TaxAmount: Decimal;

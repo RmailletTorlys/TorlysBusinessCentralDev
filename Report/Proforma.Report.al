@@ -574,8 +574,7 @@ report 50026 "Proforma"
                                         END;
 
                                         TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
-                                        Message('%1', TempSalesLine."Unit of Measure Code");
-                                        UOM1 := TempSalesLine."Unit of Measure Code";
+
 
                                         // TotalAmountExclInvDisc += AmountExclInvDisc;
                                         // if (CostInsteadOfPrice) then

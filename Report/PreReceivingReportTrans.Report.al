@@ -16,8 +16,8 @@ report 50019 "Receiving Report - Trans"
 
             dataitem(TlyBookingInfo; TlyBookingInfo)
             {
-                DataItemLink = "No." = field("Booking No.");
                 DataItemLinkReference = "Transfer Header";
+                DataItemLink = "No." = field("Booking No.");
 
                 column(Appointment_Date; "Appointment Date")
                 {
@@ -37,6 +37,14 @@ report 50019 "Receiving Report - Trans"
             {
 
             }
+            column(In_Transit_Code; "In-Transit Code")
+            {
+
+            }
+            column(Transfer_to_Code; "Transfer-to Code")
+            {
+
+            }
             column(OrderString; OrderString)
             {
 
@@ -53,10 +61,7 @@ report 50019 "Receiving Report - Trans"
                 DataItemLink = "Document No." = field("No.");
                 RequestFilterFields = "Document No.";
 
-                column(In_Transit_Code; "In-Transit Code")
-                {
 
-                }
                 column(ItemNumber; ItemNumber)
                 {
 
@@ -97,10 +102,7 @@ report 50019 "Receiving Report - Trans"
                 {
 
                 }
-                column(Transfer_to_Code; "Transfer-to Code")
-                {
 
-                }
 
                 // dataitem("Transfer Header"; "Transfer Header")
                 // {
@@ -181,10 +183,10 @@ report 50019 "Receiving Report - Trans"
             }
         }
     }
-    trigger OnInitReport()
-    begin
-        Grouped := True;
-    end;
+    // trigger OnInitReport()
+    // begin
+    //     Grouped := True;
+    // end;
 
     var
         Vendor: Record Vendor;

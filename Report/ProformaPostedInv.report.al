@@ -420,17 +420,18 @@ report 50031 "Proforma INV"
                                     QtyOrderedNo := 0;
                                     UnitPriceToPrint := 0;
                                     AmountExclInvDisc := 0;
-                                end else if type = Type::"G/L Account" then
-                                        "No." := '';
-                                // "Unit of Measure code" := '';
-                                // "Line Amount" := 0;
-                                // "Inv. Discount Amount" := 0;
-                                // Quantity := 0;
-                                // Weight1Calc := 0;
-                                // Weight2Calc := 0;
-                                // QtyOrderedNo := 0;
-                                // UnitPriceToPrint := 0;
-                                // AmountExclInvDisc := 0;
+                                end else if type = Type::"G/L Account" then begin
+                                    "No." := '';
+                                    "Unit of Measure code" := '';
+                                    "Line Amount" := 0;
+                                    "Inv. Discount Amount" := 0;
+                                    Quantity := 0;
+                                    Weight1Calc := 0;
+                                    Weight2Calc := 0;
+                                    QtyOrderedNo := 0;
+                                    UnitPriceToPrint := 0;
+                                    AmountExclInvDisc := 0;
+                                end;
 
                                 TaxAmount := "Amount Including VAT" - Amount;
                                 if TaxAmount <> 0 then begin

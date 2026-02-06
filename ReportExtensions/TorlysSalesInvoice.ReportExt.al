@@ -12,6 +12,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(Unit_of_Measure_Code; "Unit of Measure Code")
+            {
+
+            }
             column(UnitPriceToPrint; UnitPriceToPrint)
             {
 
@@ -24,15 +28,19 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(TempDesc; tempcrossrefitem.Description)
+            {
+
+            }
+            column(refitem; tempcrossrefitem."Reference No.")
+            {
+
+            }
         }
 
         add(Header)
         {
             column(ShortCutDimCode; ShortCutDimCode[3])
-            {
-
-            }
-            column(TempDesc; TempDesc)
             {
 
             }
@@ -101,13 +109,24 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             begin
                 DescToPrint := Description + ' ' + "Description 2";
 
-                Clear(TempDesc);
-                If "Item Reference No." <> '' then begin
-                    Clear(ItemNoTemp);
-                    ItemNoTemp.get("No.");
-                    TempDesc := Description;
-                    Description := ItemNoTemp.Description;
-                    // Modify();
+
+
+                // Clear(TempDesc);
+                // If tempsalesline."Item Reference No." <> '' then begin
+                //     Clear(tempitem);
+                //     tempitem.get(tempsalesline."No.");
+                //     TempDesc := tempsalesline.Description;
+                //     tempsalesline.Description := tempitem.Description;
+                //     tempsalesline.Modify();
+                // Modify();
+                // end;
+
+                If "No." <> '' then begin
+                    Clear(tempcrossrefitem);
+                    tempcrossrefitem.SetFilter("Item No.", "No.");
+                    tempcrossrefitem.SetFilter("Reference Type", 'Customer');
+                    If tempcrossrefitem.find('-') then
+                        tempsalesline."No." := tempcrossrefitem."Reference No.";
                 end;
 
                 OrderedQuantity := 0;
@@ -143,6 +162,9 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         OrderLine: Record "Sales Line";
         ShipLine: Record "Sales Shipment Line";
         DimMgmt: CodeUnit DimensionManagement;
+        tempsalesline: Record "Sales Invoice Line" temporary;
+        tempitem: Record Item;
+        tempcrossrefitem: Record "Item Reference";
         OrderedQuantity: Decimal;
         UnitPriceToPrint: Decimal;
         AmountExclInvDisc: Decimal;

@@ -289,6 +289,9 @@ End Function
         <Field Name="PackageTrackingText">
           <DataField>PackageTrackingText</DataField>
         </Field>
+        <Field Name="desc2">
+          <DataField>desc2</DataField>
+        </Field>
         <Field Name="AsmHeaderExists">
           <DataField>AsmHeaderExists</DataField>
         </Field>

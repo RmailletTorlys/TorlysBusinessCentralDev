@@ -807,7 +807,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         EditCasePallet := CheckEditCasePallet(Rec);
         EditQTS := CheckEditQTS(Rec);
 
-        if Rec."No." <> '' then begin
+        if (Rec.Type = Rec.Type::Item) and (Rec."No." <> '') then begin
             Item.Get(Rec."No.");
             UnitCostEdit := Item."Allow SO Unit Cost Edit"
         end;

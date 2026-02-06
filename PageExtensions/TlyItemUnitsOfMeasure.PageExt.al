@@ -15,7 +15,7 @@ pageextension 55404 TlyItemUnitsOfMeasure extends "Item Units of Measure"
                 ApplicationArea = All;
             }
 
-            field("Conversion Quantity"; Rec."Conversion Qty.")
+            field("Conversion Quantity"; Rec."Conversion Quantity")
             {
                 Caption = 'Conversion Quantity';
                 ToolTip = 'Conversion Quantity';

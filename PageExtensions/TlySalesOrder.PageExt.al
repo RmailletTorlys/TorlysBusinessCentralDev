@@ -13,6 +13,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Caption = 'Ship-to Code';
                 ToolTip = 'Ship-to Code';
                 ApplicationArea = All;
+                Editable = ShipToOptions = ShipToOptions::"Alternate Shipping Address";
                 ShowMandatory = Rec."Temporary Hold" = false;
             }
         }
@@ -497,7 +498,8 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             Caption = 'Ship-to Code';
             ToolTip = 'Ship-to Code';
-            Editable = true;
+            Editable = ShipToOptions = ShipToOptions::"Alternate Shipping Address";
+            ShowMandatory = Rec."Temporary Hold" = false;
         }
 
         modify("BillToOptions")

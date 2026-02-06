@@ -4,13 +4,15 @@ codeunit 57006 TlyReleaseSalesDocument
     local procedure OnBeforeTestSellToCustomerNo(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
     var
         DimensionSetEntry: Record "Dimension Set Entry";
+        SalesOrder: Page "Sales Order";
     begin
         IsHandled := true;
 
         // these are for SO only
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
             SalesHeader.TestField("Sell-to Customer No."); //code exists to not allow delete
-            SalesHeader.TestField("Ship-to Code"); //code exists to not allow delete if released
+                                                           // SalesHeader.TestField("Ship-to Code"); //code exists to not allow delete if released
+                                                           // i dont want this mandatory if doing custom address, but this works for now
             SalesHeader.TestField("Order Method"); //code added on screen to not allow delete if released
             SalesHeader.TestField("Your Reference"); //code added on screen to not allow delete if released
             SalesHeader.TestField("External Document No."); //code added on screen to not allow delete if released
@@ -85,7 +87,6 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Shortcut Dimension 1 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Shortcut Dimension 2 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Salesperson Code"); //code added on screen to not allow delete if released
-
         end;
     end;
 

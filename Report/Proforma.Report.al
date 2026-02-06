@@ -20,7 +20,6 @@ report 50026 "Proforma"
                 DataItemLinkReference = "Sales Header";
                 DataItemLink = "Document No." = field("No.");
 
-
                 trigger OnPreDataItem()
                 begin
                     TempSalesLine.Reset();
@@ -296,7 +295,7 @@ report 50026 "Proforma"
                         {
 
                         }
-                        column(UOM; tempsalesline."Unit of Measure Code")
+                        column(UOM; TempSalesLine."Unit of Measure Code")
                         {
 
                         }
@@ -448,17 +447,18 @@ report 50026 "Proforma"
                                     QtyOrderedNo := 0;
                                     UnitPriceToPrint := 0;
                                     AmountExclInvDisc := 0;
-                                end else if type = Type::"G/L Account" then
-                                        "No." := '';
-                                "Unit of Measure code" := '';
-                                "Line Amount" := 0;
-                                "Inv. Discount Amount" := 0;
-                                Quantity := 0;
-                                Weight1Calc := 0;
-                                Weight2Calc := 0;
-                                QtyOrderedNo := 0;
-                                UnitPriceToPrint := 0;
-                                AmountExclInvDisc := 0;
+                                end else if type = Type::"G/L Account" then begin
+                                    "No." := '';
+                                    "Unit of Measure code" := '';
+                                    "Line Amount" := 0;
+                                    "Inv. Discount Amount" := 0;
+                                    Quantity := 0;
+                                    Weight1Calc := 0;
+                                    Weight2Calc := 0;
+                                    QtyOrderedNo := 0;
+                                    UnitPriceToPrint := 0;
+                                    AmountExclInvDisc := 0;
+                                end;
 
                                 TaxAmount := "Amount Including VAT" - Amount;
                                 if TaxAmount <> 0 then begin
@@ -513,6 +513,8 @@ report 50026 "Proforma"
 
                                         TotalWeight := TotalWeight + "Net Weight" * "Quantity Shipped";
                                         TotalAmountExclInvDisc += AmountExclInvDisc;
+
+                                        UOM1 := TempSalesLine."Unit of Measure Code";
                                         if (CostInsteadOfPrice) then
                                             VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
                                         else
@@ -572,6 +574,9 @@ report 50026 "Proforma"
                                         END;
 
                                         TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
+                                        Message('%1', TempSalesLine."Unit of Measure Code");
+                                        UOM1 := TempSalesLine."Unit of Measure Code";
+
                                         // TotalAmountExclInvDisc += AmountExclInvDisc;
                                         // if (CostInsteadOfPrice) then
                                         //     VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
@@ -605,8 +610,8 @@ report 50026 "Proforma"
                             end;
 
                             IF RemoveFreight THEN BEGIN
-                                // IF TempSalesinvoiceLine."Gen. Prod. Posting Group" = 'FREIGHT' THEN BEGIN
-                                IF TempSalesLine."No." = '60700' THEN BEGIN
+                                IF TempSalesLine."Gen. Prod. Posting Group" = 'FREIGHT' THEN BEGIN
+                                    // IF TempSalesLine."No." = '60700' THEN BEGIN
                                     TempSalesLine."No." := '';
                                     TempSalesLine.Description := '';
                                     TempSalesLine."Description 2" := '';
@@ -620,8 +625,8 @@ report 50026 "Proforma"
                             END;
 
                             IF RemoveDuty THEN BEGIN
-                                // IF TempSalesLine."Gen. Prod. Posting Group" = 'DUTY' THEN BEGIN
-                                IF TempSalesLine."No." = '51400' THEN BEGIN
+                                IF TempSalesLine."Gen. Prod. Posting Group" = 'DUTY' THEN BEGIN
+                                    // IF TempSalesLine."No." = '51400' THEN BEGIN
                                     TempSalesLine."No." := '';
                                     TempSalesLine.Description := '';
                                     TempSalesLine."Description 2" := '';
@@ -952,6 +957,7 @@ report 50026 "Proforma"
         BrkIdx: Integer;
         PrevPrintOrder: Integer;
         UseDate: Date;
+        UOM1: code[10];
         Text000: Label '<COPY>';
         Text001: Label '<Transferred from page %1>';
         Text002: Label '<Transferred to page %1>';

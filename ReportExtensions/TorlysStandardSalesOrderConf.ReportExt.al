@@ -12,6 +12,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(Description_2; "Description 2")
+            {
+
+            }
 
             column(Qty_toShip; "Qty. to Ship")
             {

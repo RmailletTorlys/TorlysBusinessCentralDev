@@ -161,7 +161,7 @@ report 50005 "Sales Order Label"
                         DayOfWeek := 'Friday';
                 end;
 
-                ShipToAddress_Record.Get("Sell-to Customer No.", "Ship-to Code");
+                // ShipToAddress_Record.Get("Sell-to Customer No.", "Ship-to Code");
             end;
         }
     }

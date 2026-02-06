@@ -70,6 +70,12 @@ End Function
         <Field Name="Transfer_Type">
           <DataField>Transfer_Type</DataField>
         </Field>
+        <Field Name="In_Transit_Code">
+          <DataField>In_Transit_Code</DataField>
+        </Field>
+        <Field Name="Transfer_to_Code">
+          <DataField>Transfer_to_Code</DataField>
+        </Field>
         <Field Name="OrderString">
           <DataField>OrderString</DataField>
         </Field>
@@ -81,9 +87,6 @@ End Function
         </Field>
         <Field Name="Appointment_Time">
           <DataField>Appointment_Time</DataField>
-        </Field>
-        <Field Name="In_Transit_Code">
-          <DataField>In_Transit_Code</DataField>
         </Field>
         <Field Name="ItemNumber">
           <DataField>ItemNumber</DataField>
@@ -123,9 +126,6 @@ End Function
         </Field>
         <Field Name="Grouped">
           <DataField>Grouped</DataField>
-        </Field>
-        <Field Name="Transfer_to_Code">
-          <DataField>Transfer_to_Code</DataField>
         </Field>
       </Fields>
       <Query>

@@ -107,7 +107,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
                     ItemNoTemp.get("No.");
                     TempDesc := Description;
                     Description := ItemNoTemp.Description;
-                    Modify();
+                    // Modify();
                 end;
 
                 OrderedQuantity := 0;

@@ -118,7 +118,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
                 ApplicationArea = All;
-                Editable = false;
+                Editable = UnitCostEdit;
                 Visible = true;
             }
         }
@@ -354,7 +354,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         modify("Unit Cost (LCY)")
         {
             Visible = true;
-            Editable = false;
+            Editable = UnitCostEdit;
         }
 
         modify("Special Order")
@@ -784,6 +784,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         UserSetup: Record "User Setup";
         UserEditQTS: Boolean;
         EditQTS: Boolean;
+        UnitCostEdit: Boolean;
 
     trigger OnOpenPage()
     begin
@@ -799,10 +800,17 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
     // end;
 
     trigger OnAfterGetRecord()
+    var
+        Item: Record Item;
     begin
         // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
         EditQTS := CheckEditQTS(Rec);
+
+        if Rec."No." <> '' then begin
+            Item.Get(Rec."No.");
+            UnitCostEdit := Item."Allow SO Unit Cost Edit"
+        end;
     end;
 
     procedure PrepareUserModifiedUnitPrice()

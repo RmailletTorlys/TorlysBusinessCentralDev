@@ -334,10 +334,15 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = '--------------------';
             }
-            view(MKRequiredNotStaged)
+            view(MKRequiredNotStaged0)
             {
-                Caption = 'MK Required, Not Staged';
-                Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'));
+                Caption = 'MK Required, Not Staged (0)';
+                Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'), "No. Printed" = filter(0));
+            }
+            view(MKRequiredNotStagedNo0)
+            {
+                Caption = 'MK Required, Not Staged (>0)';
+                Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'), "No. Printed" = filter(> 0));
             }
             view(MKRequiredStaged)
             {

@@ -806,21 +806,21 @@ page 52001 TlyOrdersToBeShippedList
                     begin
                         CurrPage.SetSelectionFilter(SalesHeader);
                         if SalesHeader.FindSet() then begin
-                            PickerPage.LookupMode(true);
                             PickerRecord.Reset();
                             PickerRecord.SetFilter("Job Title", 'Warehouse Associate');
                             PickerRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
                             PickerPage.SetTableView(PickerRecord);
                             PickerPage.Caption('Choose PICKER below');
+                            PickerPage.LookupMode(true);
                             if PickerPage.RunModal() = Action::LookupOK then
                                 PickerPage.GetRecord(PickerRecord);
-                            AuditorPage.LookupMode(true);
                             AuditorRecord.Reset();
                             AuditorRecord.SetFilter("Job Title", 'Warehouse Associate');
                             AuditorRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
                             AuditorRecord.SetFilter("Code", '<>%1', PickerRecord.Code);
                             AuditorPage.SetTableView(AuditorRecord);
                             AuditorPage.Caption('Choose AUDITOR below');
+                            AuditorPage.LookupMode(true);
                             if AuditorPage.RunModal() = Action::LookupOK then
                                 AuditorPage.GetRecord(AuditorRecord);
                             repeat

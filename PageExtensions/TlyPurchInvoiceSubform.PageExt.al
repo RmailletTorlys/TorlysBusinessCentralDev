@@ -58,6 +58,12 @@ pageextension 50055 TlyPurchInvoiceSubform extends "Purch. Invoice Subform"
                 ToolTip = 'Quantity Invoiced';
                 ApplicationArea = All;
             }
+            field("Container No. (TPS)"; Rec."Container No. (TPS)")
+            {
+                Caption = 'Container No. (TPS)';
+                ToolTip = 'Container No. (TPS)';
+                ApplicationArea = All;
+            }
             field("Container No. (NAV)"; Rec."Container No. (NAV)")
             {
                 Caption = 'Container No. (NAV)';

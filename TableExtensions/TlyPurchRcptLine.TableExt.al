@@ -118,5 +118,11 @@ tableextension 50121 TlyPurchRcptLine extends "Purch. Rcpt. Line"
             DataClassification = CustomerContent;
             TableRelation = "Shipment Method";
         }
+        field(50020; "Container No. (TPS)"; Code[25])
+        {
+            Caption = 'Container No. (TPS)';
+            DataClassification = CustomerContent;
+            TableRelation = "TPS CMG Container Header";
+        }
     }
 }

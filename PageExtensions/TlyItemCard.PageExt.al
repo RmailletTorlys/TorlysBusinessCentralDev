@@ -530,6 +530,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
             actionref(ItemAccessories_Promoted; ItemAccessories)
             { }
+            actionref(BinContent_Promoted; BinContent)
+            { }
         }
 
         addafter(ApplyTemplate)
@@ -559,6 +561,15 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 RunObject = Page "NTN Web Related Items";
                 RunPageLink = "No." = field("No.");
                 RunPageMode = View;
+            }
+            action(BinContent)
+            {
+                Caption = 'Bin Content';
+                ToolTip = 'Bin Content';
+                ApplicationArea = All;
+                Image = BinContent;
+                RunObject = Page "Bin Content";
+                RunPageLink = "Item No." = field("No.");
             }
         }
     }

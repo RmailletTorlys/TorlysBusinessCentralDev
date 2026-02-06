@@ -78,13 +78,13 @@ pageextension 50137 TlyPostedPurchRcptSubform extends "Posted Purchase Rcpt. Sub
         addafter("Expected Receipt Date")
         {
 
-            field("Container No."; Rec."Container No.")
+            field("Container No. (TPS)"; Rec."Container No. (TPS)")
             {
-                Caption = 'Container No.';
-                ToolTip = 'Container No.';
+                Caption = 'Container No. (TPS)';
+                ToolTip = 'Container No. (TPS)';
                 ApplicationArea = All;
-                Editable = false;
             }
+
             field("Container No. (NAV)"; Rec."Container No. (NAV)")
             {
                 Caption = 'Container No. (NAV)';

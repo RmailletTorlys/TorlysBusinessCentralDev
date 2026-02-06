@@ -117,5 +117,12 @@ tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
             DataClassification = CustomerContent;
             TableRelation = "Shipment Method";
         }
+
+        field(50020; "Container No. (TPS)"; Code[20])
+        {
+            Caption = 'Container No. (TPS)';
+            DataClassification = CustomerContent;
+            TableRelation = "TPS CMG Container Header";
+        }
     }
 }

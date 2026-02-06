@@ -96,12 +96,11 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
                 ApplicationArea = All;
                 Editable = true;
             }
-            field("Container No."; Rec."Container No.")
+            field("Container No. (TPS)"; Rec."Container No. (TPS)")
             {
-                Caption = 'Container No.';
-                ToolTip = 'Container No.';
+                Caption = 'Container No. (TPS)';
+                ToolTip = 'Container No. (TPS)';
                 ApplicationArea = All;
-                Editable = false;
             }
             field("Container No. (NAV)"; Rec."Container No. (NAV)")
             {

@@ -5,6 +5,6 @@ codeunit 50131 TlyPostPurchaseInvoice
     begin
         // new fields to bring over
         PurchLine.CalcFields(PurchLine."Container No.");
-        PurchInvLine."Container No." := PurchLine."Container No.";
+        PurchInvLine."Container No. (TPS)" := PurchLine."Container No.";
     end;
 }

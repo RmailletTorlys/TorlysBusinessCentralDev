@@ -240,6 +240,13 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             // end;
         }
 
+        field(50020; "Container No. (TPS)"; Code[20])
+        {
+            Caption = 'Container No. (TPS)';
+            DataClassification = CustomerContent;
+            TableRelation = "TPS CMG Container Header";
+        }
+
         modify("No.")
         {
             trigger OnAfterValidate()

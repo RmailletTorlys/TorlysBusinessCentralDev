@@ -116,5 +116,12 @@ tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
             DataClassification = CustomerContent;
             TableRelation = "Shipment Method";
         }
+
+        field(50020; "Container No. (TPS)"; Code[20])
+        {
+            Caption = 'Container No. (TPS)';
+            DataClassification = CustomerContent;
+            TableRelation = "TPS CMG Container Header";
+        }
     }
 }

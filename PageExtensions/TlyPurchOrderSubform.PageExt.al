@@ -57,7 +57,21 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
-        moveafter("Quantity Pallet"; "Direct Unit Cost", "Indirect Cost %", "Unit Cost (LCY)", "Line Amount", "Lead Time Calculation")
+        moveafter("Quantity Pallet"; "Direct Unit Cost", "Indirect Cost %")
+
+        addafter("Indirect Cost %")
+        {
+            field("Unit Cost"; Rec."Unit Cost")
+            {
+                Caption = 'Unit Cost';
+                ToolTip = 'CUnit Cost';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = false;
+            }
+        }
+
+        moveafter("Unit Cost"; "Unit Cost (LCY)", "Line Amount", "Lead Time Calculation")
 
         addafter("Lead Time Calculation")
         {

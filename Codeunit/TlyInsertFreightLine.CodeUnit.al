@@ -246,8 +246,7 @@ codeunit 50414 TlyInsertFreightLine
         SalesLine.Reset;
         SalesLine.SetRange("Document No.", Rec."No.");
         SalesLine.SetFilter("No.", SalesSetup."Freight G/L Acc. No.");
-        SalesLine.SetFilter("Qty. to Invoice", '%1', 1); //original from BC, not sure why used, but was creating duplicates
-        // SalesLine.SetFilter("Outstanding Quantity", '<>%1', 0); //copied from NAV
+        SalesLine.SetFilter("Outstanding Quantity", '<>%1', 0);
         if SalesLine.Find('-') then begin
             repeat
                 OrderFreightCount := OrderFreightCount + 1;

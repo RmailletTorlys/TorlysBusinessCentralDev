@@ -579,7 +579,7 @@ report 50031 "Proforma INV"
 
                             IF RemoveFreight THEN BEGIN
                                 // IF TempSalesinvoiceLine."Gen. Prod. Posting Group" = 'FREIGHT' THEN BEGIN
-                                IF TempSalesinvoiceLine."No." = '61600' THEN BEGIN
+                                IF TempSalesinvoiceLine."No." = '60700' THEN BEGIN
                                     TempSalesinvoiceLine."No." := '';
                                     TempSalesinvoiceLine.Description := '';
                                     TempSalesinvoiceLine."Description 2" := '';

@@ -605,7 +605,8 @@ report 50026 "Proforma"
                             end;
 
                             IF RemoveFreight THEN BEGIN
-                                IF TempSalesLine."Gen. Prod. Posting Group" = 'FREIGHT' THEN BEGIN
+                                // IF TempSalesinvoiceLine."Gen. Prod. Posting Group" = 'FREIGHT' THEN BEGIN
+                                IF TempSalesLine."No." = '60700' THEN BEGIN
                                     TempSalesLine."No." := '';
                                     TempSalesLine.Description := '';
                                     TempSalesLine."Description 2" := '';
@@ -619,7 +620,8 @@ report 50026 "Proforma"
                             END;
 
                             IF RemoveDuty THEN BEGIN
-                                IF TempSalesLine."Gen. Prod. Posting Group" = 'DUTY' THEN BEGIN
+                                // IF TempSalesLine."Gen. Prod. Posting Group" = 'DUTY' THEN BEGIN
+                                IF TempSalesLine."No." = '51400' THEN BEGIN
                                     TempSalesLine."No." := '';
                                     TempSalesLine.Description := '';
                                     TempSalesLine."Description 2" := '';

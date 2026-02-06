@@ -313,6 +313,10 @@ report 50018 "Packing Slip"
                         column(PackageTrackingText; PackageTrackingText)
                         {
                         }
+                        column(desc2; tempsalesshipmentline."Description 2")
+                        {
+
+                        }
                         column(AsmHeaderExists; AsmHeaderExists)
                         {
                         }

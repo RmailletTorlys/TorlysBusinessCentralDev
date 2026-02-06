@@ -183,10 +183,10 @@ report 50019 "Receiving Report - Trans"
             }
         }
     }
-    trigger OnInitReport()
-    begin
-        Grouped := True;
-    end;
+    // trigger OnInitReport()
+    // begin
+    //     Grouped := True;
+    // end;
 
     var
         Vendor: Record Vendor;

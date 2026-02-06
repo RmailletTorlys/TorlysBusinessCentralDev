@@ -69,15 +69,15 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
             {
 
             }
-            column(recCaseQty; recCaseQty)
+            column(recCaseQty; "Return Qty. to Receive Case")
             {
 
             }
-            column(recPalletQty; recPalletQty)
+            column(recPalletQty; "Return Qty. to Receive Pallet")
             {
 
             }
-            column(returnqtyreceived; "Return Qty. Received")
+            column(returnqtyreceived; "Return Qty. to Receive")
             {
 
             }
@@ -123,14 +123,14 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
                 else
                     unitpricetoprint := round(amountexclusivedisc / quantity, 0.01);
 
-                if (Type = Type::Item) and (Quantity <> 0) then begin
-                    ItemCaseUOM.get("No.", 'Case');
-                    ItemPalletUOM.get("No.", 'Pallet');
-                    recCaseQty := Round((("Return Qty. Received" - (ItemPalletUOM."Qty. per Unit of Measure"
-                                  * (Round("Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<'))))
-                                  / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<');
-                    recPalletQty := Round("Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');
-                end;
+                // if (Type = Type::Item) and (Quantity <> 0) then begin
+                //     ItemCaseUOM.get("No.", 'Case');
+                //     ItemPalletUOM.get("No.", 'Pallet');
+                //     recCaseQty := Round((("Return Qty. Received" - (ItemPalletUOM."Qty. per Unit of Measure"
+                //                   * (Round("Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<'))))
+                //                   / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<');
+                //     recPalletQty := Round("Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');
+                // end;
 
                 If "Gen. Prod. Posting Group" = 'MOULDINGS' then begin
                     Quantity := 0;

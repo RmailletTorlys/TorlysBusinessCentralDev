@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CALaddress1">
+          <DataField>CALaddress1</DataField>
+        </Field>
+        <Field Name="Location">
+          <DataField>Location</DataField>
+        </Field>
+        <Field Name="CALaddress2">
+          <DataField>CALaddress2</DataField>
+        </Field>
+        <Field Name="CALaddress3">
+          <DataField>CALaddress3</DataField>
+        </Field>
+        <Field Name="CALaddress4">
+          <DataField>CALaddress4</DataField>
+        </Field>
+        <Field Name="CALaddress5">
+          <DataField>CALaddress5</DataField>
+        </Field>
+        <Field Name="ORNo">
+          <DataField>ORNo</DataField>
+        </Field>
+        <Field Name="ORDate">
+          <DataField>ORDate</DataField>
+        </Field>
+        <Field Name="PageNo">
+          <DataField>PageNo</DataField>
+        </Field>
+        <Field Name="ShipToAddress1">
+          <DataField>ShipToAddress1</DataField>
+        </Field>
+        <Field Name="ShipToAddress2">
+          <DataField>ShipToAddress2</DataField>
+        </Field>
+        <Field Name="ShipToAddress3">
+          <DataField>ShipToAddress3</DataField>
+        </Field>
+        <Field Name="ShipToAddress4">
+          <DataField>ShipToAddress4</DataField>
+        </Field>
+        <Field Name="ShipToAddress5">
+          <DataField>ShipToAddress5</DataField>
+        </Field>
+        <Field Name="ShipToAddress6">
+          <DataField>ShipToAddress6</DataField>
+        </Field>
+        <Field Name="BillToAddress1">
+          <DataField>BillToAddress1</DataField>
+        </Field>
+        <Field Name="BillToAddress2">
+          <DataField>BillToAddress2</DataField>
+        </Field>
+        <Field Name="BillToAddress3">
+          <DataField>BillToAddress3</DataField>
+        </Field>
+        <Field Name="BillToAddress4">
+          <DataField>BillToAddress4</DataField>
+        </Field>
+        <Field Name="BillToAddress5">
+          <DataField>BillToAddress5</DataField>
+        </Field>
+        <Field Name="BillToAddress6">
+          <DataField>BillToAddress6</DataField>
+        </Field>
+        <Field Name="Yourreference">
+          <DataField>Yourreference</DataField>
+        </Field>
+        <Field Name="shipvia">
+          <DataField>shipvia</DataField>
+        </Field>
+        <Field Name="Shipdate">
+          <DataField>Shipdate</DataField>
+        </Field>
+        <Field Name="Payterms">
+          <DataField>Payterms</DataField>
+        </Field>
+        <Field Name="TaxNo">
+          <DataField>TaxNo</DataField>
+        </Field>
+        <Field Name="tagname">
+          <DataField>tagname</DataField>
+        </Field>
+        <Field Name="customerID">
+          <DataField>customerID</DataField>
+        </Field>
+        <Field Name="PONumber">
+          <DataField>PONumber</DataField>
+        </Field>
+        <Field Name="PODate">
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="Salesperson">
+          <DataField>Salesperson</DataField>
+        </Field>
+        <Field Name="AmountExclInvDisc">
+          <DataField>AmountExclInvDisc</DataField>
+        </Field>
+        <Field Name="AmountExclInvDiscFormat">
+          <DataField>AmountExclInvDiscFormat</DataField>
+        </Field>
+        <Field Name="TotalAmountExclInvDisc">
+          <DataField>TotalAmountExclInvDisc</DataField>
+        </Field>
+        <Field Name="TotalAmountExclInvDiscFormat">
+          <DataField>TotalAmountExclInvDiscFormat</DataField>
+        </Field>
+        <Field Name="ItemNo">
+          <DataField>ItemNo</DataField>
+        </Field>
+        <Field Name="Itemtype">
+          <DataField>Itemtype</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Desc2">
+          <DataField>Desc2</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="Weight1Calc">
+          <DataField>Weight1Calc</DataField>
+        </Field>
+        <Field Name="Weight1CalcFormat">
+          <DataField>Weight1CalcFormat</DataField>
+        </Field>
+        <Field Name="Weight2Calc">
+          <DataField>Weight2Calc</DataField>
+        </Field>
+        <Field Name="Weight2CalcFormat">
+          <DataField>Weight2CalcFormat</DataField>
+        </Field>
+        <Field Name="Weight1Label">
+          <DataField>Weight1Label</DataField>
+        </Field>
+        <Field Name="Weight2Label">
+          <DataField>Weight2Label</DataField>
+        </Field>
+        <Field Name="QtyOrderedLabel">
+          <DataField>QtyOrderedLabel</DataField>
+        </Field>
+        <Field Name="QtyOrderedNo">
+          <DataField>QtyOrderedNo</DataField>
+        </Field>
+        <Field Name="QtyOrderedNoFormat">
+          <DataField>QtyOrderedNoFormat</DataField>
+        </Field>
+        <Field Name="UnitPriceToPrint">
+          <DataField>UnitPriceToPrint</DataField>
+        </Field>
+        <Field Name="UnitPriceToPrintFormat">
+          <DataField>UnitPriceToPrintFormat</DataField>
+        </Field>
+        <Field Name="CountryOfOrigin">
+          <DataField>CountryOfOrigin</DataField>
+        </Field>
+        <Field Name="TariffNo">
+          <DataField>TariffNo</DataField>
+        </Field>
+        <Field Name="TariffNote">
+          <DataField>TariffNote</DataField>
+        </Field>
+        <Field Name="TotalWeight">
+          <DataField>TotalWeight</DataField>
+        </Field>
+        <Field Name="TotalWeightFormat">
+          <DataField>TotalWeightFormat</DataField>
+        </Field>
+        <Field Name="TotalPieces">
+          <DataField>TotalPieces</DataField>
+        </Field>
+        <Field Name="TotalPiecesFormat">
+          <DataField>TotalPiecesFormat</DataField>
+        </Field>
+        <Field Name="TotalLabel">
+          <DataField>TotalLabel</DataField>
+        </Field>
+        <Field Name="BreakdownLabel1">
+          <DataField>BreakdownLabel1</DataField>
+        </Field>
+        <Field Name="BreakdownLabel2">
+          <DataField>BreakdownLabel2</DataField>
+        </Field>
+        <Field Name="BreakdownLabel3">
+          <DataField>BreakdownLabel3</DataField>
+        </Field>
+        <Field Name="BreakdownLabel4">
+          <DataField>BreakdownLabel4</DataField>
+        </Field>
+        <Field Name="TotalVATAmount">
+          <DataField>TotalVATAmount</DataField>
+        </Field>
+        <Field Name="TotalVATAmountFormat">
+          <DataField>TotalVATAmountFormat</DataField>
+        </Field>
+        <Field Name="VATAmount">
+          <DataField>VATAmount</DataField>
+        </Field>
+        <Field Name="VATAmountFormat">
+          <DataField>VATAmountFormat</DataField>
+        </Field>
+        <Field Name="BreakdownAmt1">
+          <DataField>BreakdownAmt1</DataField>
+        </Field>
+        <Field Name="BreakdownAmt1Format">
+          <DataField>BreakdownAmt1Format</DataField>
+        </Field>
+        <Field Name="BreakdownAmt2">
+          <DataField>BreakdownAmt2</DataField>
+        </Field>
+        <Field Name="BreakdownAmt2Format">
+          <DataField>BreakdownAmt2Format</DataField>
+        </Field>
+        <Field Name="BreakdownAmt3">
+          <DataField>BreakdownAmt3</DataField>
+        </Field>
+        <Field Name="BreakdownAmt3Format">
+          <DataField>BreakdownAmt3Format</DataField>
+        </Field>
+        <Field Name="BreakdownAmt4">
+          <DataField>BreakdownAmt4</DataField>
+        </Field>
+        <Field Name="BreakdownAmt4Format">
+          <DataField>BreakdownAmt4Format</DataField>
+        </Field>
+        <Field Name="CurrencyCode">
+          <DataField>CurrencyCode</DataField>
+        </Field>
+        <Field Name="GrandTotalLabel">
+          <DataField>GrandTotalLabel</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

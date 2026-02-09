@@ -53,6 +53,12 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
                 ToolTip = 'Confirmation No.';
                 ApplicationArea = All;
             }
+            field("Notes"; Rec."Notes")
+            {
+                Caption = 'Notes';
+                ToolTip = 'Notes';
+                ApplicationArea = All;
+            }
 
             field("Production Date"; Rec."Production Date")
             {

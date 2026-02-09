@@ -6,7 +6,7 @@ tableextension 55404 TlyItemUnitOfMeasure extends "Item Unit of Measure"
         {
             Caption = 'Conversion Unit of Measure';
             DataClassification = CustomerContent;
-            TableRelation = "Item Unit of Measure";
+            TableRelation = "Unit of Measure";
         }
 
         field(50002; "Conversion Quantity"; Integer)

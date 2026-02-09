@@ -171,6 +171,10 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
         {
             Visible = false;
         }
+        modify("Shipping Agent Code")
+        {
+            ShowMandatory = true;
+        }
     }
 
     actions

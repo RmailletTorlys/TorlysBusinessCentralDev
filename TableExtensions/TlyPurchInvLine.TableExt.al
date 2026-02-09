@@ -124,5 +124,10 @@ tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
             DataClassification = CustomerContent;
             TableRelation = "TPS CMG Container Header";
         }
+        field(50021; "Notes"; Text[50])
+        {
+            Caption = 'Notes';
+            DataClassification = CustomerContent;
+        }
     }
 }

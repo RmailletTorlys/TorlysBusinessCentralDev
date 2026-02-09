@@ -8,6 +8,7 @@ codeunit 57009 TlyReleaseTransferDocument
         TransferHeader.TestField("Shortcut Dimension 2 Code");
         TransferHeader.TestField("Shipment Date");
         TransferHeader.TestField("Receipt Date");
+        TransferHeader.TestField("Shipping Agent Code");
     end;
 
 }

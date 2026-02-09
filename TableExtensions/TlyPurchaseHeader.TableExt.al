@@ -8,6 +8,7 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
             DataClassification = CustomerContent;
             TableRelation = Manufacturer;
         }
+
         field(50010; "Last Archived Date"; Date)
         {
             Caption = 'Last Archived Date';

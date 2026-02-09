@@ -123,5 +123,10 @@ tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
             DataClassification = CustomerContent;
             TableRelation = "TPS CMG Container Header";
         }
+        field(50021; "Notes"; Text[50])
+        {
+            Caption = 'Notes';
+            DataClassification = CustomerContent;
+        }
     }
 }

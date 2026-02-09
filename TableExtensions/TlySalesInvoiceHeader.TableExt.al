@@ -277,6 +277,24 @@ tableextension 50112 TlySalesInvoiceHeader extends "Sales Invoice Header"
             Caption = 'MK Staged Quantity';
             DataClassification = CustomerContent;
         }
+
+        field(50051; "Received By"; Code[20])
+        {
+            Caption = 'Received By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
+        }
+
+        field(50052; "Put Away Date"; Date)
+        {
+            Caption = 'Put Away Date';
+            DataClassification = CustomerContent;
+        }
+        field(50053; "Return Claim No."; Code[20])
+        {
+            Caption = 'Return Claim No.';
+            DataClassification = CustomerContent;
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

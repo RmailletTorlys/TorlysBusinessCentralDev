@@ -124,5 +124,10 @@ tableextension 50121 TlyPurchRcptLine extends "Purch. Rcpt. Line"
             DataClassification = CustomerContent;
             TableRelation = "TPS CMG Container Header";
         }
+        field(50021; "Notes"; Text[50])
+        {
+            Caption = 'Notes';
+            DataClassification = CustomerContent;
+        }
     }
 }

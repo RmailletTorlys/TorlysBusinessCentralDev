@@ -246,6 +246,11 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             DataClassification = CustomerContent;
             TableRelation = "TPS CMG Container Header";
         }
+        field(50021; "Notes"; Text[50])
+        {
+            Caption = 'Notes';
+            DataClassification = CustomerContent;
+        }
 
         modify("No.")
         {

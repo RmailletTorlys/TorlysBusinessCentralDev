@@ -59,6 +59,14 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ShowMandatory = true;
                 trigger OnValidate()
                 begin
+                    if ShortcutDimCode[3] = 'RETAIL' then MustReturnDate := WorkDate() + 14;
+                    if ShortcutDimCode[3] = 'BUILDER' then MustReturnDate := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'COMMERCIAL' then MustReturnDate := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'HOSPITALITY' then MustReturnDate := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'DISTRIBUTOR' then MustReturnDate := WorkDate() + 24;
+                    if ShortcutDimCode[3] = 'RENTAL' then MustReturnDate := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'INSURANCE' then MustReturnDate := WorkDate() + 28;
+
                     if (ShortcutDimCode[3] = '') and (Rec.Status = Rec.Status::Released) then
                         Error('Cannot delete if order released')
                     else
@@ -98,6 +106,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 //         ShortcutDimCode[3] := DimensionSetEntry."Dimension Value Code";
                 // end;
             }
+
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")
             {
                 Caption = 'Rebill Invoice No.';
@@ -105,9 +114,24 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Importance = Standard;
             }
+            field("Must Return Date"; MustReturnDate)
+            {
+                Caption = 'Must Return Date';
+                ToolTip = 'Must Return Date';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+            field("Return Claim No."; Rec."Return Claim No.")
+            {
+                Caption = 'Claim No.';
+                ToolTip = 'Claim No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
-        moveafter("Rebill Invoice No."; "Posting Date", "Order Date")
+        moveafter("Return Claim No."; "Posting Date", "Order Date")
 
         addafter("Order Date")
         {
@@ -121,7 +145,41 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
             }
         }
 
-        moveafter("Order Time"; "Location Code", Status)
+        moveafter("Order Time"; "Location Code")
+
+        addafter("Location Code")
+        {
+            field("BOL No."; Rec."BOL No.")
+            {
+                Caption = 'BOL No.';
+                ToolTip = 'BOL No.';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("Shipping Agent Code1"; Rec."Shipping Agent Code")
+            {
+                Caption = 'Shipping Agent Code';
+                ToolTip = 'Shipping Agent Code';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("Received By"; Rec."Received By")
+            {
+                Caption = 'Received By';
+                ToolTip = 'Received By';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+            field("Put Away Date"; Rec."Put Away Date")
+            {
+                Caption = 'Put Away Date';
+                ToolTip = 'Put Away Date';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Put Away Date"; Status)
 
         addafter(Status)
         {
@@ -725,6 +783,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
+        MustReturnDate: Date;
 
     trigger OnAfterGetRecord()
     begin

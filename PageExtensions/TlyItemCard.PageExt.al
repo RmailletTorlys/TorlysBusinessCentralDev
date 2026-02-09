@@ -163,7 +163,21 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
-        moveafter("Production Date Required"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
+        moveafter("Production Date Required"; "Automatic Ext. Texts")
+
+        addafter("Automatic Ext. Texts")
+        {
+            field("High Shade Variation"; Rec."High Shade Variation")
+            {
+                Caption = 'High Shade Variation';
+                ToolTip = 'High Shade Variation';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+        }
+
+        moveafter("High Shade Variation"; "Sales Blocked", "Purchasing Blocked", Blocked)
 
         addafter(Blocked)
         {

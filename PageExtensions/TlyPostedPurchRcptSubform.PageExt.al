@@ -39,6 +39,12 @@ pageextension 50137 TlyPostedPurchRcptSubform extends "Posted Purchase Rcpt. Sub
                 ToolTip = 'Confirmation No.';
                 ApplicationArea = All;
             }
+            field("Notes"; Rec."Notes")
+            {
+                Caption = 'Notes';
+                ToolTip = 'Notes';
+                ApplicationArea = All;
+            }
 
             field("Production Date"; Rec."Production Date")
             {

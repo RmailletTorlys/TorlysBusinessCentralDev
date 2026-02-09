@@ -123,5 +123,10 @@ tableextension 56651 TlyReturnShipmentLine extends "Return Shipment Line"
             DataClassification = CustomerContent;
             TableRelation = "TPS CMG Container Header";
         }
+        field(50021; "Notes"; Text[50])
+        {
+            Caption = 'Notes';
+            DataClassification = CustomerContent;
+        }
     }
 }

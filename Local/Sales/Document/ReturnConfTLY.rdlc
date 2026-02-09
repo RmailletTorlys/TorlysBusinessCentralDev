@@ -79,6 +79,9 @@ End Function
         <Field Name="MustReturnDate">
           <DataField>MustReturnDate</DataField>
         </Field>
+        <Field Name="ReturnClaimNo">
+          <DataField>ReturnClaimNo</DataField>
+        </Field>
         <Field Name="Document_Date">
           <DataField>Document_Date</DataField>
         </Field>

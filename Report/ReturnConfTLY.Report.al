@@ -52,7 +52,10 @@ report 50035 "Return Conf TLY"
             {
 
             }
+            column(ReturnClaimNo; "Return Claim No.")
+            {
 
+            }
             column(Document_Date; "Document Date")
             {
 

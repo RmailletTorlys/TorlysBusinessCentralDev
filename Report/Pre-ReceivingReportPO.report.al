@@ -54,6 +54,10 @@ report 50025 "Receiving Report PO"
             {
 
             }
+            column(itemno; itemno)
+            {
+
+            }
             column(QtyPallet; QtyPallet)
             {
 
@@ -105,6 +109,7 @@ report 50025 "Receiving Report PO"
                     If (QtyCase = 0) and (QtyPallet = 0) then
                         QtyBase := Quantity;
                 end;
+                itemno := "Purchase Line"."No.";
 
                 BinLocation := '';
                 BinContent.Reset();
@@ -163,6 +168,7 @@ report 50025 "Receiving Report PO"
         ItemNumber: Code[20];
         CartageCompany: Code[20];
         BinLocation: Code[200];
+        itemno: code[20];
         AppointDate: Date;
         AppointTime: Time;
         Quantity: Decimal;

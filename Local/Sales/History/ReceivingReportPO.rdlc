@@ -91,6 +91,9 @@ End Function
         <Field Name="QtyBaseFormat">
           <DataField>QtyBaseFormat</DataField>
         </Field>
+        <Field Name="itemno">
+          <DataField>itemno</DataField>
+        </Field>
         <Field Name="QtyPallet">
           <DataField>QtyPallet</DataField>
         </Field>

@@ -113,6 +113,13 @@ page 52001 TlyOrdersToBeShippedList
                     ToolTip = 'Shipping Agent Code';
                     Editable = false;
                 }
+                field("MK Staged Location"; Rec."MK Staged Location")
+                {
+                    ApplicationArea = All;
+                    Caption = 'MK Staged Location';
+                    ToolTip = 'MK Staged Location';
+                    Editable = false;
+                }
                 field("Transfer Order No."; TransferOrderNo)
                 {
                     ApplicationArea = All;
@@ -181,13 +188,6 @@ page 52001 TlyOrdersToBeShippedList
                     ApplicationArea = All;
                     Caption = 'Audited By';
                     ToolTip = 'Audited By';
-                    Editable = false;
-                }
-                field("MK Staged Location"; Rec."MK Staged Location")
-                {
-                    ApplicationArea = All;
-                    Caption = 'MK Staged Location';
-                    ToolTip = 'MK Staged Location';
                     Editable = false;
                 }
                 field("Last Shipping No."; Rec."Last Shipping No.")

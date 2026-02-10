@@ -328,10 +328,15 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'CR Hold - Today';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T'));
             }
+            view(CRHoldTomorrow)
+            {
+                Caption = 'CR Hold - Tomorrow';
+                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T+1D'));
+            }
             view(CRHoldFuture)
             {
                 Caption = 'CR Hold - Future';
-                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('>T'));
+                Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('>T+1D'));
             }
             view(CRHoldDirect)
             {
@@ -376,10 +381,10 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'Ship Tomorrow, All';
                 Filters = where("Shipment Date" = filter('T+1D'));
             }
-            view(NTNNotReleased)
+            view(TSSNotReleased)
             {
-                Caption = 'NTN, Not Released';
-                Filters = where("No." = filter('NTN*'), "Status" = const(Open));
+                Caption = 'TSS, Not Released';
+                Filters = where("No." = filter('NTN*|SS*'), "Status" = const(Open));
             }
             view(Seperator4)
             {

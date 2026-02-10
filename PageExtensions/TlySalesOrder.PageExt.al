@@ -507,7 +507,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             Visible = true;
         }
 
-
         modify(Control1900201301)
         {
             Visible = false;
@@ -826,7 +825,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             ShowMandatory = Rec."Temporary Hold" = false;
         }
-
     }
 
     actions
@@ -913,8 +911,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 end;
             }
         }
-
-
 
         addbefore(Category_New)
         {
@@ -1054,6 +1050,14 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         modify("Work Order")
         {
             Visible = false;
+        }
+        modify(Release)
+        {
+            trigger OnBeforeAction()
+            begin
+                if (ShipToOptions <> ShipToOptions::"Custom Address") and (Rec."Ship-to Code" = '') then
+                    Error('Ship-to Code not selected');
+            end;
         }
     }
 

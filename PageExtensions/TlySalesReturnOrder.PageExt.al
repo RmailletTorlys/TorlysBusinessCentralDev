@@ -149,10 +149,10 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
 
         addafter("Location Code")
         {
-            field("BOL No."; Rec."BOL No.")
+            field("Return BOL No."; Rec."Return BOL No.")
             {
-                Caption = 'BOL No.';
-                ToolTip = 'BOL No.';
+                Caption = 'Return BOL No.';
+                ToolTip = 'Return BOL No.';
                 ApplicationArea = All;
                 Importance = Additional;
             }

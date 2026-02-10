@@ -294,6 +294,11 @@ tableextension 56660 TlyReturnReceiptHeader extends "Return Receipt Header"
             Caption = 'Return Claim No.';
             DataClassification = CustomerContent;
         }
+        field(50054; "Return BOL No."; Code[20])
+        {
+            Caption = 'Return BOL No.';
+            DataClassification = CustomerContent;
+        }
     }
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var

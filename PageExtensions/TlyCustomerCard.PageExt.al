@@ -369,14 +369,14 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         moveafter("Ship-to Code"; "Location Code", "Reserve", "Shipping Advice")
 
-        addafter("Shipping Agent Code")
+        addafter("Shipping Advice")
         {
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 ApplicationArea = All;
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Specifies the freight zone that the customer is assigned to.';
-                // Visible = false;
+                Visible = false;
             }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
@@ -661,6 +661,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         modify("Registration Number")
         {
             Importance = Additional;
+        }
+        modify("Shipping Agent Code")
+        {
+            Visible = false;
         }
     }
 

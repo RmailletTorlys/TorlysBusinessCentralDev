@@ -138,7 +138,7 @@ report 50015 "Shipping Manifest"
                     TotalPackages += "No. of Packages";
 
                     ShippingAgent.Get("Shipping Agent Code");
-                    ShipToAddress.Get("Customer No.", "Ship-to Code");
+                    // ShipToAddress.Get("Customer No.", "Ship-to Code");
                     // ShipToAddress_Terminal := ShipToAddress.
                 end;
             }

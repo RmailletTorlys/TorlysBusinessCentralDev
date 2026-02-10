@@ -48,6 +48,14 @@ report 50035 "Return Conf TLY"
             {
 
             }
+            column(MustReturnDate; MustReturnDate)
+            {
+
+            }
+            column(ReturnClaimNo; "Return Claim No.")
+            {
+
+            }
             column(Document_Date; "Document Date")
             {
 
@@ -468,6 +476,16 @@ report 50035 "Return Conf TLY"
                     Clear(salespurch1)
                 else
                     salespurch1.Get("Salesperson Code");
+
+                WkDate := "Document Date";
+                if ShortcutDimCode[3] = 'RETAIL' then MustReturnDate := WkDate + 14;
+                if ShortcutDimCode[3] = 'BUILDER' then MustReturnDate := WkDate + 28;
+                if ShortcutDimCode[3] = 'COMMERCIAL' then MustReturnDate := WkDate + 28;
+                if ShortcutDimCode[3] = 'HOSPITALITY' then MustReturnDate := WkDate + 28;
+                if ShortcutDimCode[3] = 'DISTRIBUTOR' then MustReturnDate := WkDate + 24;
+                if ShortcutDimCode[3] = 'RENTAL' then MustReturnDate := WkDate + 28;
+                if ShortcutDimCode[3] = 'INSURANCE' then MustReturnDate := WkDate + 28;
+
             end;
 
             trigger OnPreDataItem()
@@ -551,6 +569,7 @@ report 50035 "Return Conf TLY"
         ShipToAddress: array[8] of Text[100];
         CopyTxt: Text[10];
         PrintCompany: Boolean;
+        MustReturnDate: Date;
         NoCopies: Integer;
         NoLoops: Integer;
         CopyNo: Integer;
@@ -573,6 +592,7 @@ report 50035 "Return Conf TLY"
         P_O__NumberCaptionLbl: Label 'P.O. Number';
         SalesPersonCaptionLbl: Label 'SalesPerson';
         ShipCaptionLbl: Label 'Ship';
+        WkDate: Date;
         To_Caption_Control89Lbl: Label 'To:';
         RETURN_AUTHORIZATIONCaptionLbl: Label 'RETURN AUTHORIZATION';
         Return_Authorization_Number_CaptionLbl: Label 'Return Authorization Number:';

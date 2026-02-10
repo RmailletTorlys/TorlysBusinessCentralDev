@@ -5,11 +5,11 @@ codeunit 50019 TlyCopyFieldsSales
     local procedure OnAfterOnNewRecord(var Customer: Record Customer; var ShipToAddress: Record "Ship-to Address")
     begin
         ShipToAddress.Validate("Location Code", Customer."Location Code");
-        ShipToAddress.Validate("Shipment Method Code", Customer."Shipment Method Code");
-        ShipToAddress.Validate("Shipping Agent Code", Customer."Shipping Agent Code");
-        ShipToAddress.Validate("Freight Zone Code", Customer."Freight Zone Code");
-        ShipToAddress.Validate("Shipping Instructions", Customer."Shipping Instructions");
-        ShipToAddress.Validate("Shipping Comment", Customer."Shipping Comment");
+        // ShipToAddress.Validate("Shipment Method Code", Customer."Shipment Method Code");
+        // ShipToAddress.Validate("Shipping Agent Code", Customer."Shipping Agent Code");
+        // ShipToAddress.Validate("Freight Zone Code", Customer."Freight Zone Code");
+        // ShipToAddress.Validate("Shipping Instructions", Customer."Shipping Instructions");
+        // ShipToAddress.Validate("Shipping Comment", Customer."Shipping Comment");
         ShipToAddress.Validate("Tax Liable", Customer."Tax Liable");
         ShipToAddress.Validate("Tax Area Code", Customer."Tax Area Code");
     end;
@@ -23,10 +23,10 @@ codeunit 50019 TlyCopyFieldsSales
         SalesHeader."Salesperson Commission 2" := SellToCustomer."Salesperson Commission 2";
         SalesHeader."Salesperson Code 3" := SellToCustomer."Salesperson Code 3";
         SalesHeader."Salesperson Commission 3" := SellToCustomer."Salesperson Commission 3";
-        SalesHeader."Shipping Agent Code" := SellToCustomer."Shipping Agent Code";
-        SalesHeader."Freight Zone Code" := SellToCustomer."Freight Zone Code";
-        SalesHeader."Shipping Instructions" := SellToCustomer."Shipping Instructions";
-        SalesHeader."Shipping Comment" := SellToCustomer."Shipping Comment";
+        // SalesHeader."Shipping Agent Code" := SellToCustomer."Shipping Agent Code";
+        // SalesHeader."Freight Zone Code" := SellToCustomer."Freight Zone Code";
+        // SalesHeader."Shipping Instructions" := SellToCustomer."Shipping Instructions";
+        // SalesHeader."Shipping Comment" := SellToCustomer."Shipping Comment";
     end;
 
     // Ship-to Address --> Sales Header
@@ -35,7 +35,7 @@ codeunit 50019 TlyCopyFieldsSales
     begin
         SalesHeader."Shipping Agent Code" := ShipToAddress."Shipping Agent Code";
         SalesHeader."Freight Zone Code" := ShipToAddress."Freight Zone Code";
-        SalesHeader."Shipping Instructions" := ShipToAddress."Shipping Instructions";
+        // SalesHeader."Shipping Instructions" := ShipToAddress."Shipping Instructions";
         SalesHeader."Shipping Comment" := ShipToAddress."Shipping Comment";
     end;
 

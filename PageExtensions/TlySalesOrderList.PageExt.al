@@ -374,7 +374,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             view(ShipTomorrowAll)
             {
                 Caption = 'Ship Tomorrow, All';
-                Filters = where("Shipment Date" = filter('>T'));
+                Filters = where("Shipment Date" = filter('T+1D'));
             }
             view(NTNNotReleased)
             {

@@ -216,10 +216,16 @@ page 51009 TlyBookingInfo
             Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
+        view(TORTomorrow)
+        {
+            Caption = 'TOR - Tomorrow';
+            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T+1D'));
+            OrderBy = ascending("Appointment Date", "Appointment Time");
+        }
         view(TORFuture)
         {
             Caption = 'TOR - Future';
-            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('>T'));
+            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('>T+1D'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
         view(CALToday)
@@ -228,10 +234,16 @@ page 51009 TlyBookingInfo
             Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('T'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
+        view(CALTomorrow)
+        {
+            Caption = 'CAL - Tomorrow';
+            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('T+1D'));
+            OrderBy = ascending("Appointment Date", "Appointment Time");
+        }
         view(CALFuture)
         {
             Caption = 'CAL - Future';
-            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('>T'));
+            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('>T+1D'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
         // }

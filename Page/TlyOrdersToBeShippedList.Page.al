@@ -183,6 +183,13 @@ page 52001 TlyOrdersToBeShippedList
                     ToolTip = 'Audited By';
                     Editable = false;
                 }
+                field("MK Staged Location"; Rec."MK Staged Location")
+                {
+                    ApplicationArea = All;
+                    Caption = 'MK Staged Location';
+                    ToolTip = 'MK Staged Location';
+                    Editable = false;
+                }
                 field("Last Shipping No."; Rec."Last Shipping No.")
                 {
                     ApplicationArea = All;
@@ -797,18 +804,21 @@ page 52001 TlyOrdersToBeShippedList
                     ToolTip = 'Assign warehouse associates to selected order(s).';
                     trigger OnAction()
                     var
+                        LocationCode: Code[10];
                         SalesHeader: Record "Sales Header";
                         AuditorRecord: Record "Salesperson/Purchaser";
                         PickerRecord: Record "Salesperson/Purchaser";
                         AuditorPage: Page "Salespersons/Purchasers";
                         PickerPage: Page "Salespersons/Purchasers";
-
                     begin
                         CurrPage.SetSelectionFilter(SalesHeader);
                         if SalesHeader.FindSet() then begin
+                            if StrPos(SalesHeader."Location Code", 'TOR') > 0 then LocationCode := 'TOR';
+                            if StrPos(SalesHeader."Location Code", 'CAL') > 0 then LocationCode := 'CAL';
                             PickerRecord.Reset();
                             PickerRecord.SetFilter("Job Title", 'Warehouse Associate');
-                            PickerRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
+                            // PickerRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
+                            PickerRecord.SetFilter("Order Shipping Location", LocationCode);
                             PickerPage.SetTableView(PickerRecord);
                             PickerPage.Caption('Choose PICKER below');
                             PickerPage.LookupMode(true);
@@ -816,7 +826,8 @@ page 52001 TlyOrdersToBeShippedList
                                 PickerPage.GetRecord(PickerRecord);
                             AuditorRecord.Reset();
                             AuditorRecord.SetFilter("Job Title", 'Warehouse Associate');
-                            AuditorRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
+                            // AuditorRecord.SetFilter("Order Shipping Location", SalesHeader."Location Code");
+                            AuditorRecord.SetFilter("Order Shipping Location", LocationCode);
                             AuditorRecord.SetFilter("Code", '<>%1', PickerRecord.Code);
                             AuditorPage.SetTableView(AuditorRecord);
                             AuditorPage.Caption('Choose AUDITOR below');

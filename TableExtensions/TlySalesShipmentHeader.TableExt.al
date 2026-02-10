@@ -293,6 +293,11 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             Caption = 'Return Claim No.';
             DataClassification = CustomerContent;
         }
+        field(50054; "Return BOL No."; Code[20])
+        {
+            Caption = 'Return BOL No.';
+            DataClassification = CustomerContent;
+        }
 
     }
 

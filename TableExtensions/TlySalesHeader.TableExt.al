@@ -332,6 +332,11 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             Caption = 'Return Claim No.';
             DataClassification = CustomerContent;
         }
+        field(50054; "Return BOL No."; Code[20])
+        {
+            Caption = 'Return BOL No.';
+            DataClassification = CustomerContent;
+        }
 
         modify("Sell-to Customer No.")
         {

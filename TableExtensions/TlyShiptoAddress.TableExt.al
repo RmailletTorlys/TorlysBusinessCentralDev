@@ -68,6 +68,31 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
             DataClassification = CustomerContent;
             TableRelation = TlyFreightZone;
         }
+        field(50016; "Ships On - Monday"; Boolean)
+        {
+            Caption = 'Ships On - Monday';
+            DataClassification = CustomerContent;
+        }
+        field(50017; "Ships On - Tuesday"; Boolean)
+        {
+            Caption = 'Ships On - Tuesday';
+            DataClassification = CustomerContent;
+        }
+        field(50018; "Ships On - Wednesday"; Boolean)
+        {
+            Caption = 'Ships On - Wednesday';
+            DataClassification = CustomerContent;
+        }
+        field(50019; "Ships On - Thursday"; Boolean)
+        {
+            Caption = 'Ships On - Thursday';
+            DataClassification = CustomerContent;
+        }
+        field(50020; "Ships On - Friday"; Boolean)
+        {
+            Caption = 'Ships On - Friday';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

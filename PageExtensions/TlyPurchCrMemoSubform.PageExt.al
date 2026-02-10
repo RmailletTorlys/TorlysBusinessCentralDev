@@ -150,7 +150,7 @@ pageextension 50098 TlyPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
             }
         }
 
-        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
+        moveafter("Quantity Invoiced"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", ShortcutDimCode4, ShortcutDimCode5, ShortcutDimCode6, ShortcutDimCode7, ShortcutDimCode8)
 
         addafter(ShortcutDimCode8)
         {
@@ -218,11 +218,6 @@ pageextension 50098 TlyPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
             Visible = false;
         }
 
-        modify(ShortcutDimCode4)
-        {
-            Visible = false;
-        }
-
         modify("GST/HST")
         {
             Visible = false;
@@ -273,22 +268,6 @@ pageextension 50098 TlyPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
         // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
     end;
-
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    // begin
-    // end;
 
     procedure CheckEditCasePallet(var Rec: Record "Purchase Line"): Boolean
     var

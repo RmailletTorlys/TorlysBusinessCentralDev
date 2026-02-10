@@ -89,7 +89,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
 
         addafter(Status)
         {
-            field("Fully Shipped"; Rec."Completely Shipped")
+            field("Completely Shipped"; Rec."Completely Shipped")
             {
                 Caption = 'Completely Shipped';
                 ToolTip = 'Completely Shipped';
@@ -97,10 +97,27 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Editable = false;
                 Importance = Additional;
             }
-            field("Fully Received"; Rec."Completely Received")
+
+            field("Last Shipment No."; Rec."Last Shipment No.")
             {
-                Caption = 'Completely Shipped';
-                ToolTip = 'Completely Shipped';
+                Caption = 'Last Shipment No.';
+                ToolTip = 'Last Shipment No.';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+            field("Completely Received"; Rec."Completely Received")
+            {
+                Caption = 'Completely Received';
+                ToolTip = 'Completely Received';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+            field("Last Receipt No."; Rec."Last Receipt No.")
+            {
+                Caption = 'Last Receipt No.';
+                ToolTip = 'Last Receipt No.';
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;

@@ -55,6 +55,36 @@ pageextension 50301 TlyShiptoAddressList extends "Ship-to Address List"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
             }
+            field("Ships On - Monday"; Rec."Ships On - Monday")
+            {
+                Caption = 'Ships On - Monday';
+                ToolTip = 'Ships On - Monday';
+                ApplicationArea = All;
+            }
+            field("Ships On - Tuesday"; Rec."Ships On - Tuesday")
+            {
+                Caption = 'Ships On - Tuesday';
+                ToolTip = 'Ships On - Tuesday';
+                ApplicationArea = All;
+            }
+            field("Ships On - Wednesday"; Rec."Ships On - Wednesday")
+            {
+                Caption = 'Ships On - Wednesday';
+                ToolTip = 'Ships On - Wednesday';
+                ApplicationArea = All;
+            }
+            field("Ships On - Thursday"; Rec."Ships On - Thursday")
+            {
+                Caption = 'Ships On - Thursday';
+                ToolTip = 'Ships On - Thursday';
+                ApplicationArea = All;
+            }
+            field("Ships On - Friday"; Rec."Ships On - Friday")
+            {
+                Caption = 'Ships On - Friday';
+                ToolTip = 'Ships On - Friday';
+                ApplicationArea = All;
+            }
         }
 
         modify(Address)

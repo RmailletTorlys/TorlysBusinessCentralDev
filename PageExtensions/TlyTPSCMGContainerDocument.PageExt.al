@@ -38,8 +38,8 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             field("Port of Loading Date"; Rec."Port of Loading Date")
             {
-                Caption = 'Port of Loading Date';
-                ToolTip = 'Port of Loading Date';
+                Caption = 'Origin Port Departure Date';
+                ToolTip = 'Origin Port Departure Date';
                 ApplicationArea = All;
             }
         }
@@ -50,8 +50,8 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             field("Port of Discharge Date"; Rec."Port of Discharge Date")
             {
-                Caption = 'Port of Discharge Date';
-                ToolTip = 'Port of Discharge Date';
+                Caption = 'Destination Port Arrival Date';
+                ToolTip = 'Destination Port Arrival Date';
                 ApplicationArea = All;
             }
             field("Inland Terminal"; Rec."Inland Terminal")
@@ -162,6 +162,20 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     ToolTip = 'Strike';
                     ApplicationArea = All;
                 }
+                field(AppointmentDate; AppointmentDAte)
+                {
+                    Caption = 'Appointment Date';
+                    ToolTip = 'Appointment Date';
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field(AppointmentTime; AppointmentTime)
+                {
+                    Caption = 'Appointment Date';
+                    ToolTip = 'Appointment Date';
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
         }
 
@@ -257,7 +271,28 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             Visible = false;
         }
+        modify("Port of loading")
+        {
+            Caption = 'Origin Port';
+        }
+        modify("Port of Discharge")
+        {
+            Caption = 'Destination Port';
+        }
     }
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        AppointmentDate: Date;
+        AppointmentTime: Time;
+
+    trigger OnAfterGetRecord()
+    var
+        BookingInfo: Record TlyBookingInfo;
+    begin
+        BookingInfo.Reset();
+        if BookingInfo.Get(Rec."No.") then begin
+            AppointmentDate := BookingInfo."Appointment Date";
+            AppointmentTime := BookingInfo."Appointment Time";
+        end;
+    end;
 }

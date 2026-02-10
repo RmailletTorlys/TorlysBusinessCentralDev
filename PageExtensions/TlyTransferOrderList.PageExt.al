@@ -35,7 +35,6 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Shipping Comment';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Standard;
             }
             field("BOL No."; Rec."BOL No.")
             {
@@ -43,7 +42,6 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'BOL No.';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
             }
             field("Package Tracking No."; Rec."Package Tracking No.")
             {
@@ -51,7 +49,41 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Package Tracking No.';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
+            }
+            field("Booking No."; Rec."Booking No.")
+            {
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
+                ApplicationArea = All;
+            }
+            field("Completely Shipped"; Rec."Completely Shipped")
+            {
+                Caption = 'Completely Shipped';
+                ToolTip = 'Completely Shipped';
+                ApplicationArea = All;
+                Editable = false;
+            }
+
+            field("Last Shipment No."; Rec."Last Shipment No.")
+            {
+                Caption = 'Last Shipment No.';
+                ToolTip = 'Last Shipment No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Completely Received"; Rec."Completely Received")
+            {
+                Caption = 'Completely Received';
+                ToolTip = 'Completely Received';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Last Receipt No."; Rec."Last Receipt No.")
+            {
+                Caption = 'Last Receipt No.';
+                ToolTip = 'Last Receipt No.';
+                ApplicationArea = All;
+                Editable = false;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
@@ -59,7 +91,6 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Created By';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
             }
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
@@ -67,7 +98,6 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Created Date';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
             }
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
@@ -75,7 +105,6 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
             }
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
@@ -83,7 +112,6 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Modified Date';
                 ApplicationArea = All;
                 Editable = false;
-                Importance = Additional;
             }
         }
 

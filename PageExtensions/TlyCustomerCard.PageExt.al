@@ -696,30 +696,35 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     ToAddr: Text;
                     Rendered: Boolean;
                     Err: Text;
+                    outstr: OutStream;
                 begin
                     Cust.Get(Rec."No.");
-                    ReportId := 1316;
+                    ReportId := 50036;
 
                     Choice := StrMenu(Options, 1);
 
                     if Choice = 3 then
                         exit;
 
-                    Params := Report.RunRequestPage(ReportId);
-                    if Params = '' then
-                        exit;
+
 
                     Cust.SetRange("No.", Rec."No.");
                     RecRef.GetTable(Cust);
+
+                    Params := Report.RunRequestPage(ReportId);
+                    if Params = '' then
+                        exit;
 
                     case Choice of
                         1:
                             begin
                                 // EMAIL FLOW (your existing logic)
                                 Clear(TmpBlob);
+                                TmpBlob.CreateOutStream(OutStr);
                                 Rendered := TryRenderToPdf(ReportId, Params, RecRef, TmpBlob, Err);
                                 if not Rendered then
                                     Error('Could not render Customer Statement. Details: %1', Err);
+
 
                                 TmpBlob.CreateInStream(InStr);
 
@@ -747,6 +752,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                             begin
                                 // PRINT / PREVIEW / EXPORT FLOW
                                 Report.RunModal(ReportId, true, false, Cust);
+                                // Report.Execute(ReportId, Params, RecRef);
                             end;
                     end;
                 end;

@@ -44,6 +44,10 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(Posting_Date; "Posting Date")
+            {
+
+            }
             column(currencycode1; currcode)
             {
 

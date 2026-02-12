@@ -157,6 +157,54 @@ End Function
         <Field Name="ShipToAddress7">
           <DataField>ShipToAddress7</DataField>
         </Field>
+        <Field Name="selltoaddr1">
+          <DataField>selltoaddr1</DataField>
+        </Field>
+        <Field Name="selltoaddr2">
+          <DataField>selltoaddr2</DataField>
+        </Field>
+        <Field Name="selltoaddr3">
+          <DataField>selltoaddr3</DataField>
+        </Field>
+        <Field Name="selltoaddr4">
+          <DataField>selltoaddr4</DataField>
+        </Field>
+        <Field Name="selltoaddr5">
+          <DataField>selltoaddr5</DataField>
+        </Field>
+        <Field Name="selltoaddr6">
+          <DataField>selltoaddr6</DataField>
+        </Field>
+        <Field Name="selltoaddr7">
+          <DataField>selltoaddr7</DataField>
+        </Field>
+        <Field Name="selltoaddr8">
+          <DataField>selltoaddr8</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly1">
+          <DataField>ShipToAddrTly1</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly2">
+          <DataField>ShipToAddrTly2</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly3">
+          <DataField>ShipToAddrTly3</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly4">
+          <DataField>ShipToAddrTly4</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly5">
+          <DataField>ShipToAddrTly5</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly6">
+          <DataField>ShipToAddrTly6</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly7">
+          <DataField>ShipToAddrTly7</DataField>
+        </Field>
+        <Field Name="ShipToAddrTly8">
+          <DataField>ShipToAddrTly8</DataField>
+        </Field>
         <Field Name="BilltoCustNo_SalesShptHeader">
           <DataField>BilltoCustNo_SalesShptHeader</DataField>
         </Field>

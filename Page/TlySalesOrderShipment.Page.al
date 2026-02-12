@@ -163,6 +163,8 @@ page 50999 TlySalesOrderShipment
     {
         area(Promoted)
         {
+            actionref("Order Comments"; OrderComments)
+            { }
             group("Change Shipment Date")
             {
                 actionref("Today"; ChangeShipmentDateToday)
@@ -185,6 +187,17 @@ page 50999 TlySalesOrderShipment
         }
         area(Navigation)
         {
+            action(OrderComments)
+            {
+                ApplicationArea = All;
+                Caption = 'Order Comments';
+                Image = ViewComments;
+                RunObject = Page "Sales Comment Sheet";
+                RunPageLink = "Document Type" = field("Document Type"),
+                                  "No." = field("No."),
+                                  "Document Line No." = const(0);
+                ToolTip = 'View or add comments for the record.';
+            }
             group(ShipmentDate)
             {
                 action(ChangeShipmentDateToday)

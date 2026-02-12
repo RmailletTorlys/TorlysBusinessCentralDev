@@ -12,14 +12,15 @@ codeunit 50021 TlyLinkSalesLine
         PurchaseLine.Reset;
         PurchaseLine.SetRange("Location Code", Rec."Location Code");
         PurchaseLine.SetRange("No.", Rec."No.");
+        PurchaseLine.SetFilter("Outstanding Quantity", '<>0');
         // i wish the next line could take how much is remaining to be linked, but i think would need to create a new field
-        PurchaseLine.SetFilter("Quantity", '>=%1', Rec."Quantity");
+        PurchaseLine.SetFilter("Outstanding Quantity", '>=%1', Rec."Quantity");
         PurchaseLines.SetTableView(PurchaseLine);
         if PurchaseLines.RunModal() = Action::LookupOK then begin
             PurchaseLines.GetRecord(PurchaseLine);
 
             PurchaseLine.CalcFields("Quantity Linked");
-            if (PurchaseLine."Quantity Linked" + Rec."Quantity") > PurchaseLine."Quantity" then begin
+            if (PurchaseLine."Quantity Linked" + Rec."Quantity") > PurchaseLine."Outstanding Quantity" then begin
                 Error('ERROR!\\Not enough quantity remaining on %1 line %2.\\Please choose another purchase order.', PurchaseLine."Document No.", PurchaseLine."Line No.");
             end else begin
                 Message('SUCCESS!\\%1 from %2 with a quantity of %3 will be linked to %4 line %5.', Rec."No.", Rec."Document No.", Rec."Quantity", PurchaseLine."Document No.", PurchaseLine."Line No.");

@@ -773,6 +773,8 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     OutStr: OutStream;
                     Email: Codeunit Email;
                     EmailMsg: Codeunit "Email Message";
+                    SubjectTxt: Text;
+                    BodyHtml: Text;
                     Options: Label 'Email,Print/Preview,Cancel';
                     // Must use a report variable
                     StatementReport: Report "Customer Statements TLY";
@@ -805,7 +807,14 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                 StatementReport.SaveAs(Params, ReportFormat::Pdf, OutStr);
 
                                 TmpBlob.CreateInStream(InStr);
-                                EmailMsg.Create(Cust."E-Mail", 'Account Statement', 'Body Content', true);
+                                SubjectTxt := StrSubstNo('Statement for %1 (%2)', Cust.Name, Cust."No.");
+                                BodyHtml :=
+                                    StrSubstNo(
+                                        '<p>Hello %1,</p>' +
+                                        '<p>Please find your latest account statement attached.</p>' +
+                                        '<p>Regards,<br/>%2</p>',
+                                        Cust.Name, UserId());
+                                EmailMsg.Create(Cust."E-Mail", SubjectTxt, BodyHtml, true);
                                 EmailMsg.AddAttachment('Statement.pdf', 'application/pdf', InStr);
                                 Email.OpenInEditorModally(EmailMsg);
                             end;

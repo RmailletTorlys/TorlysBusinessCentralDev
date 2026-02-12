@@ -28,6 +28,14 @@ report 50035 "Return Conf TLY"
             {
 
             }
+            column(Received_By; "Received By")
+            {
+
+            }
+            column(Posting_Date; "Posting Date")
+            {
+
+            }
             column(MustReturnDate; MustReturnDate)
             {
 

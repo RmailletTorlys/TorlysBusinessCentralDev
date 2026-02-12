@@ -76,6 +76,12 @@ End Function
         <Field Name="Tag_Name">
           <DataField>Tag_Name</DataField>
         </Field>
+        <Field Name="Received_By">
+          <DataField>Received_By</DataField>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting_Date</DataField>
+        </Field>
         <Field Name="MustReturnDate">
           <DataField>MustReturnDate</DataField>
         </Field>

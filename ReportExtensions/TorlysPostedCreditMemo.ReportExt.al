@@ -36,10 +36,35 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                 desctoprint := Description + '' + "Description 2";
             end;
         }
+        modify(header)
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                if "Pre-Assigned No. Series" = 'SCR' then begin
+                    ROandPreALabel := 'Credit Memo No.';
+                    roandPreassignNo := "Pre-Assigned No.";
+                end else begin
+                    ROandPreALabel := 'Return Order No.';
+                    roandPreassignNo := "Return Order No."
+                end;
+            end;
+        }
 
         add(Header)
         {
             column(Payment_Terms_Code; "Payment Terms Code")
+            {
+
+            }
+            column(ROandPreALabel; ROandPreALabel)
+            {
+
+            }
+            column(roandPreassignNo; roandPreassignNo)
+            {
+
+            }
+            column(Original_Invoice_No_; "Original Invoice No.")
             {
 
             }
@@ -77,6 +102,7 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
         AmountExclInvDisc: Decimal;
         tempdesc3: Text;
         desctoprint: Text;
-
+        ROandPreALabel: Text;
+        roandPreassignNo: text;
 
 }

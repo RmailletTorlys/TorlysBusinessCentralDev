@@ -76,7 +76,9 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
 
         moveafter("Rebill Invoice No."; "Posting Date", "Location Code")
 
-        addafter("Location Code")
+        moveafter("Location Code"; "Pre-Assigned No.")
+
+        addafter("Pre-Assigned No.")
         {
             field("Return Order No."; Rec."Return Order No.")
             {
@@ -437,11 +439,6 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             Importance = Standard;
         }
 
-        modify("Pre-Assigned No.")
-        {
-            Visible = false;
-        }
-
         modify(Cancelled)
         {
             Visible = false;
@@ -490,6 +487,11 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
         modify("No. Printed")
         {
             Visible = true;
+        }
+
+        modify("Pre-Assigned No.")
+        {
+            Caption = 'Credit Memo No.';
         }
 
     }

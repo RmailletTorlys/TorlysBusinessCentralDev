@@ -318,6 +318,8 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         modify("Item Reference No.")
         {
             Visible = true;
+            // AssistEdit = true;
+            //could be do something like how we look up ship agent on BOL?
         }
 
         modify("Location Code")

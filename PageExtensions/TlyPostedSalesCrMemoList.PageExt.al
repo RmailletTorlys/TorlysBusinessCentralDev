@@ -3,6 +3,7 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
     layout
     {
         addafter("No.")
+
         {
             field("Return Order No."; Rec."Return Order No.")
             {
@@ -12,10 +13,18 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
                 Visible = true;
                 Editable = false;
             }
+            field("Pre-Assigned No."; Rec."Pre-Assigned No.")
+            {
+                Caption = 'Credit Memo No.';
+                ToolTip = 'Credit Memo No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
 
         }
 
-        moveafter("Return Order No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        moveafter("Pre-Assigned No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {

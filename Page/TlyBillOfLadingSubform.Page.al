@@ -88,7 +88,7 @@ page 51004 TlyBillOfLadingSubform
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the state of the ship-to address.';
-                    Caption = 'Ship-to State';
+                    Caption = 'Ship-to County';
                     Editable = false;
                 }
                 field("Ship-to Post Code"; Rec."Ship-to Post Code")

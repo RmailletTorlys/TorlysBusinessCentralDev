@@ -24,6 +24,14 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(Comment1; Comment1)
+            {
+
+            }
+            column(AllComments; AllComments)
+            {
+
+            }
             column(EncodedText; EncodedText)
             {
 
@@ -209,6 +217,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
             }
         }
+
         modify("Sales Header")
         {
             // RequestFilterFields = "Ship-to Code";
@@ -331,13 +340,33 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
 
 
+                // SalesCommentLine.Reset();
+                // SalesCommentLine.SetRange("No.", "No.");
+                // SalesCommentLine.SetFilter("Print On Pick Ticket", 'Yes');
+                // if (SalesCommentLine.Find('-')) then begin
+                //     NotesMessages := 'SEE NOTES';
+                //     Comment1 := SalesCommentLine.Comment;
+                // end Else
+                //     NotesMessages := '';
+
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");
-                SalesCommentLine.SetFilter("Print On Pick Ticket", 'Yes');
-                if (SalesCommentLine.Find('-')) then
-                    NotesMessages := 'SEE NOTES'
-                Else
+                SalesCommentLine.SetRange("Print On Pick Ticket", true);
+
+                // FindSet is used for looping through a set of records
+                if SalesCommentLine.FindSet() then begin
+                    NotesMessages := 'SEE NOTES';
+                    repeat
+                        // This is where you process EACH comment
+                        // Example: Concatenate all comments into one string
+                        AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
+
+                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                end else begin
                     NotesMessages := '';
+                    AllComments := '';
+                end;
+
 
                 case Date2DWY("Shipment Date", 1) of
                     1:
@@ -536,6 +565,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         PrevPrintOrder: Integer;
         BreakdownTitle: text;
         DayofWeek: Text;
+        spacepointer: Integer;
         ParentBinLocationLabel: Text;
         RePrintMessage: Text;
         BreakdownLabel: Text;
@@ -558,6 +588,8 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         TaxRegLabel: Text;
         EncodedText: Text;
         TaxRegNo: Text;
+        Comment1: Text;
+        AllComments: Text;
         UseDate: Date;
         Text000Lbl: Label 'COPY';
 #pragma warning disable AA0470

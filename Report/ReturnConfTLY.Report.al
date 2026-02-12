@@ -28,6 +28,7 @@ report 50035 "Return Conf TLY"
             {
 
             }
+            column(c)
             column(MustReturnDate; MustReturnDate)
             {
 

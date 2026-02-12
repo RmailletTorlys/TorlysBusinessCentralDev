@@ -98,12 +98,11 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             Caption = 'Premium Cost';
             DataClassification = CustomerContent;
         }
-
-
-
-
-
-
-
+        field(50017; "Manufacturer Code"; Code[10])
+        {
+            Caption = 'Manufacturer Code';
+            DataClassification = CustomerContent;
+            TableRelation = Manufacturer;
+        }
     }
 }

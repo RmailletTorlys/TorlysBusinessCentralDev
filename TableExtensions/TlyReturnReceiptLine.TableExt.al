@@ -49,7 +49,7 @@ tableextension 56661 TlyReturnReceiptLine extends "Return Receipt Line"
             DataClassification = CustomerContent;
             Editable = false;
         }
-        field(50008; "Builder Description"; Text[20])
+        field(50008; "Builder Description"; Text[30])
         {
             Caption = 'Builder Description';
             DataClassification = CustomerContent;

@@ -102,17 +102,17 @@ pageextension 50142 TlyPostedSalesShipmentList extends "Posted Sales Shipments"
                 Visible = true;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
             }
         }
 
-        addafter("Shipping Comment")
+        addafter("Order Comment")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {

@@ -100,21 +100,20 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
             }
-
         }
 
-        moveafter("Shipping Comment"; Amount)
+        moveafter("Order Comment"; Amount)
 
         addafter(Amount)
         {

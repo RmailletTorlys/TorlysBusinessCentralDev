@@ -109,21 +109,20 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
             }
-
         }
 
-        moveafter("Shipping Comment"; Amount, "No. Printed")
+        moveafter("Order Comment"; Amount, "No. Printed")
 
         addafter("No. Printed")
         {
@@ -208,6 +207,18 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
         modify("No. Printed")
         {
             Visible = true;
+        }
+    }
+
+    views
+    {
+        addlast
+        {
+            view(NotPrinted)
+            {
+                Caption = 'Not Printed';
+                Filters = where("No. Printed" = filter('0'));
+            }
         }
     }
 

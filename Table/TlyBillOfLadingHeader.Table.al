@@ -89,6 +89,7 @@ table 55002 TlyBillOfLadingHeader
                             "Ship-to County" := ShipTo.County;
                             "Ship-to Post Code" := ShipTo."Post Code";
                             "Ship-to Country/Region Code" := ShipTo."Country/Region Code";
+                            "Shipping Comment" := ShipTo."Shipping Comment";
                         end;
                     end;
                 end;
@@ -165,9 +166,9 @@ table 55002 TlyBillOfLadingHeader
             DataClassification = CustomerContent;
         }
 
-        field(17; "Shipping Instructions 1"; Text[50])
+        field(17; "Shipping Instructions 1"; Text[100])
         {
-            Caption = 'Shipping Instructions 1';
+            Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
         }
 
@@ -378,7 +379,7 @@ table 55002 TlyBillOfLadingHeader
         //     DataClassification = CustomerContent;
         // }
 
-        field(51; "Shipping Comment"; Text[50])
+        field(51; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

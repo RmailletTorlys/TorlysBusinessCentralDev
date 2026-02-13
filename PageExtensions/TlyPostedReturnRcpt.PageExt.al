@@ -46,6 +46,12 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
                 Visible = true;
                 Editable = false;
             }
+            field("Order Comment"; Rec."Order Comment")
+            {
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
+                ApplicationArea = All;
+            }
             field("Reason Code"; Rec."Reason Code")
             {
                 Caption = 'Reason Code';
@@ -121,6 +127,18 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
                 ApplicationArea = All;
                 Importance = Standard;
                 Editable = false;
+            }
+        }
+
+        addafter("Shipping Agent Code")
+        {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
             }
         }
 

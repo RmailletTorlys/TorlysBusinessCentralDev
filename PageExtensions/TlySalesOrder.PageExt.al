@@ -140,15 +140,15 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                         Error('Cannot delete if order released');
                 end;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Importance = Standard;
             }
         }
-        moveafter("Shipping Comment"; Status)
+        moveafter("Order Comment"; Status)
 
         addafter(Status)
         {
@@ -291,6 +291,14 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         addafter("Shipping Agent Service Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
+            }
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 Caption = 'Freight Zone Code';

@@ -103,18 +103,18 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                 Visible = false;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
                 Editable = false;
             }
 
         }
 
-        moveafter("Shipping Comment"; Amount)
+        moveafter("Order Comment"; Amount)
 
         addafter(Amount)
         {

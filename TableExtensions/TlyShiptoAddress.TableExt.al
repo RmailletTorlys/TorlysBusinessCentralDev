@@ -53,7 +53,7 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
             DataClassification = CustomerContent;
             TableRelation = TlyShippingInstructions;
         }
-        field(50013; "Shipping Comment"; Text[50])
+        field(50013; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

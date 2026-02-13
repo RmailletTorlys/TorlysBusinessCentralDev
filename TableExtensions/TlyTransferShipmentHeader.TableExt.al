@@ -45,7 +45,7 @@ tableextension 55744 TlyTransferShipmentHeader extends "Transfer Shipment Header
             Caption = 'Package Tracking No.';
             DataClassification = CustomerContent;
         }
-        field(50008; "Shipping Comment"; Text[50])
+        field(50008; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

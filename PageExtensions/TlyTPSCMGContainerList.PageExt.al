@@ -198,6 +198,12 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     {
         addlast
         {
+            view(NotComplete)
+            {
+                Caption = 'Outstanding';
+                Filters = where(Status = filter('<>Completely Received'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
             view(Open)
             {
                 Caption = 'Open';

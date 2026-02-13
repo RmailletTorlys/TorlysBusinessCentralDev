@@ -9,6 +9,7 @@ page 50999 TlySalesOrderShipment
     DeleteAllowed = false;
     ModifyAllowed = false;
     RefreshOnActivate = true;
+    Permissions = tabledata "Sales Shipment Header" = rm;
 
     layout
     {

@@ -318,6 +318,22 @@ pageextension 50096 TlySalesCrMemoSubForm extends "Sales Cr. Memo Subform"
     {
         addfirst("&Line")
         {
+            action(GetPrices1)
+            {
+                AccessByPermission = TableData "Sales Price Access" = R;
+                ApplicationArea = Basic, Suite;
+                Caption = 'Get Price';
+                Ellipsis = true;
+                Image = Price;
+                // Visible = ExtendedPriceEnabled;
+                ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
+                Promoted = true;
+
+                trigger OnAction()
+                begin
+                    ShowPrices();
+                end;
+            }
             group(CustomerItemHistory)
             {
                 Visible = true;
@@ -392,31 +408,6 @@ pageextension 50096 TlySalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 
     end;
 
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToReceiveCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToReceivePallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
     procedure CheckEditCasePallet(var Rec: Record "Sales Line"): Boolean
     var
         Item: Record Item;
@@ -426,5 +417,11 @@ pageextension 50096 TlySalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         Item.Get(Rec."No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
+    end;
+
+    procedure ShowPrices()
+    begin
+        Rec.PickPrice();
+        UpdateForm(true);
     end;
 }

@@ -191,6 +191,15 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
+            field("VMI Stock"; Rec."VMI Stock")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'VMI Stock';
+                ToolTip = 'VMI Stock';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
             field("Qty. on Sales Order"; Rec."Qty. on Sales Order")
             {
                 ApplicationArea = Dimensions;
@@ -245,6 +254,24 @@ pageextension 50031 TlyItemList extends "Item List"
                 ApplicationArea = Dimensions;
                 Caption = 'Qty. in Transit';
                 ToolTip = 'Qty. in Transit';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Sales (Qty.)"; Rec."Sales (Qty.)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Sales (Qty.)';
+                ToolTip = 'Sales (Qty.)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Purchases (Qty.)"; Rec."Purchases (Qty.)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Purchases (Qty.)';
+                ToolTip = 'Purchases (Qty.)';
                 DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;

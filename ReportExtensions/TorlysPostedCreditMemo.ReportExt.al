@@ -40,7 +40,7 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
         {
             trigger OnAfterAfterGetRecord()
             begin
-                if "Pre-Assigned No. Series" = 'SCR' then begin
+                if "Pre-Assigned No. Series" = 'S-CM' then begin
                     ROandPreALabel := 'Credit Memo No.';
                     roandPreassignNo := "Pre-Assigned No.";
                 end else begin

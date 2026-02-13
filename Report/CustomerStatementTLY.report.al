@@ -711,6 +711,16 @@ report 50036 "Customer Statements TLY"
             AgingMethod := AgingMethod::"Doc Date";
 
 
+            if Format(PeriodCalculation) = '' then
+                Evaluate(PeriodCalculation, '30D');
+
+
+            if (Customer.GetRangeMin("Date Filter") = 0D) and (Customer.GetRangeMax("Date Filter") = 0D) then
+                Customer.SetRange("Date Filter", Today);
+
+
+
+
             LogInteraction := SegManagement.FindInteractionTemplateCode("Interaction Log Entry Document Type"::"Sales Stmnt.") <> '';
             LogInteractionEnable := LogInteraction;
             MapOutputMethod();

@@ -115,7 +115,7 @@ report 50020 "B13 Purchase"
 
                     SalesHeader.get("Document Type", "Document No.");
                     If OrderShipped then begin
-                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesHeader."Ship-to Country/Region Code" = 'NZ') then begin
                             OrderQuantity := ("Quantity Shipped" / 10.764);
                             OrderUOM := 'M2';
                         end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
@@ -140,7 +140,7 @@ report 50020 "B13 Purchase"
                         TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity Shipped" * "Sales Line"."Net Weight" * 0.453592);
                         TariffLineAmount += LineAmount;
                     end else begin
-                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesHeader."Ship-to Country/Region Code" = 'NZ') then begin
                             OrderQuantity := ("Qty. to Ship" / 10.764);
                             OrderUOM := 'M2';
                         end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
@@ -165,7 +165,7 @@ report 50020 "B13 Purchase"
                     end;
 
                     If "Document Type" = "Document Type"::"Return Order" then begin
-                        If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                        If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesHeader."Ship-to Country/Region Code" = 'NZ') then begin
                             OrderQuantity := ("Quantity" / 10.764);
                             OrderUOM := 'M2';
                         end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
@@ -186,7 +186,7 @@ report 50020 "B13 Purchase"
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity" * "Sales Line"."Net Weight");
                         TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount += LineAmount;
+                        TariffLineAmount := TariffLineAmount + LineAmount;
                     end;
 
                     If RemoveFreight then begin

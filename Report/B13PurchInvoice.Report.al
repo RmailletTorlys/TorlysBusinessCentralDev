@@ -115,7 +115,7 @@ report 50029 "B13 Purchase Invoice"
 
                     // SalesHeader.get("Document Type", "Document No.");
                     // If OrderShipped then begin
-                    If ("Gen. Prod. Posting Group" = 'SS Wood') then begin
+                    If ("Gen. Prod. Posting Group" = 'SS HardWood') then begin
                         OrderQuantity := ("Quantity" / 10.764);
                         OrderUOM := 'M2';
                     end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin

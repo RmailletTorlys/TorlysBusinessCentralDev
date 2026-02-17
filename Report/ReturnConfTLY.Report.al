@@ -336,15 +336,15 @@ report 50035 "Return Conf TLY"
                         {
 
                         }
-                        column(recCase; TempSalesLine."Return Qty. to Receive Case")
+                        column(RecCaseQty; RecCaseQty)
                         {
 
                         }
-                        column(recpallet; TempSalesLine."Return Qty. to Receive Pallet")
+                        column(RecPalletQty; RecPalletQty)
                         {
 
                         }
-                        column(recQty; TempSalesLine."Return Qty. to Receive")
+                        column(recQty1; TempSalesLine."Return Qty. Received")
                         {
 
                         }
@@ -381,7 +381,23 @@ report 50035 "Return Conf TLY"
                                 TempSalesLine."Line Amount" := 0;
                                 TempSalesLine."Inv. Discount Amount" := 0;
                                 TempSalesLine.Quantity := 0;
-                            end
+                            end;
+
+                            If (TempSalesLine."Quantity Pallet" > 0) or (TempSalesLine."Quantity Case" > 0) then
+                                if TempSalesLine.Type = TempSalesLine.Type::Item then begin
+                                    ItemCaseUOM.get(TempSalesLine."No.", 'CASE');
+                                    ItemPalletUOM.Get(TempSalesLine."No.", 'Pallet');
+                                    RecCaseQty := Round(((TempSalesLine."Return Qty. Received" - (ItemPalletUOM."Qty. per Unit of Measure" *
+                                                 (Round(TempSalesLine."Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<')))) / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<');
+                                    RecPalletQty := Round(TempSalesLine."Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');
+                                end;
+
+                            If (TempSalesLine."Quantity Pallet" = 0) and (TempSalesLine."Quantity Case" = 0) then
+                                if (TempSalesLine.Type = TempSalesLine.Type::Item) or (TempSalesLine.Type = TempSalesLine.Type::"G/L Account") then begin
+                                    recqty := TempSalesLine."Return Qty. Received";
+                                    RecCaseQty := 0;
+                                    RecPalletQty := 0;
+                                end;
                             //  else
                             //     if TempSalesLine.Type = TempSalesLine.Type::"G/L Account" then
                             //         TempSalesLine."No." := '';
@@ -547,6 +563,8 @@ report 50035 "Return Conf TLY"
     var
         ShipmentMethod: Record "Shipment Method";
         PaymentTerms: Record "Payment Terms";
+        ItemCaseUOM: Record "Item Unit of Measure";
+        ItemPalletUOM: Record "Item Unit of Measure";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInformation: Record "Company Information";
         TempSalesLine: Record "Sales Line" temporary;
@@ -558,6 +576,9 @@ report 50035 "Return Conf TLY"
         CopyTxt: Text[10];
         PrintCompany: Boolean;
         MustReturnDate: Date;
+        RecCaseQty: Integer;
+        RecPalletQty: Integer;
+        recqty: Decimal;
         NoCopies: Integer;
         NoLoops: Integer;
         CopyNo: Integer;

@@ -156,37 +156,8 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Importance = Standard;
             }
-            field("Return BOL No."; Rec."Return BOL No.")
-            {
-                Caption = 'Return BOL No.';
-                ToolTip = 'Return BOL No.';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-            field("Shipping Agent Code1"; Rec."Shipping Agent Code")
-            {
-                Caption = 'Shipping Agent Code';
-                ToolTip = 'Shipping Agent Code';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-            field("Received By"; Rec."Received By")
-            {
-                Caption = 'Received By';
-                ToolTip = 'Received By';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-            field("Put Away Date"; Rec."Put Away Date")
-            {
-                Caption = 'Put Away Date';
-                ToolTip = 'Put Away Date';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
         }
-
-        moveafter("Put Away Date"; Status)
+        moveafter("Order Comment"; Status)
 
         addafter(Status)
         {
@@ -229,6 +200,42 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
+            }
+        }
+
+        addafter(General)
+        {
+            group(Warehosue)
+            {
+                Caption = 'Warehouse';
+                field("Return BOL No."; Rec."Return BOL No.")
+                {
+                    Caption = 'Return BOL No.';
+                    ToolTip = 'Return BOL No.';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+                field("Shipping Agent Code1"; Rec."Shipping Agent Code")
+                {
+                    Caption = 'Shipping Agent Code';
+                    ToolTip = 'Shipping Agent Code';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+                field("Received By"; Rec."Received By")
+                {
+                    Caption = 'Received By';
+                    ToolTip = 'Received By';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+                field("Put Away Date"; Rec."Put Away Date")
+                {
+                    Caption = 'Put Away Date';
+                    ToolTip = 'Put Away Date';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
             }
         }
 
@@ -692,6 +699,15 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
 
     actions
     {
+
+        addafter(Category_Category6)
+        {
+            actionref(WarehouseReceive; "Warehouse Receive")
+            {
+            }
+
+        }
+
         addbefore(Category_New)
         {
             group("Customer History")
@@ -720,6 +736,44 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
         {
             actionref("AddRestocking"; "Add Restocking")
             {
+            }
+        }
+
+        addfirst("P&osting")
+        {
+            action("Warehouse Receive")
+            {
+                ToolTip = 'Warehouse Receive';
+                Caption = 'Warehouse Receive';
+                Image = Receipt;
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    ReturnRcptHeader: Record "Return Receipt Header";
+                    SalesPost: Codeunit "Sales-Post";
+                    Text1020001: Label 'Do you want to return and print %1 for customer %2?';
+                begin
+                    if Rec."Shipping Agent Code" = '' then
+                        Error('The Shipping Agent Code cannot be blank!');
+                    if Rec."Received By" = '' then
+                        Error('The Received By associate cannot be blank!');
+
+                    if Rec."Document Type" = Rec."Document Type"::"Return Order" then begin
+                        if not Confirm(Text1020001, false, Rec."No.", Rec."Sell-to Customer No.") then begin
+                            Rec."Return Receipt No." := '-1';
+                            exit;
+                        end;
+                        Rec.Receive := true;
+                        Rec.Invoice := false;
+
+                        SalesPost.Run(Rec);
+
+                        // ReturnRcptHeader."No." := Rec."Last Return Receipt No.";
+                        // ReturnRcptHeader.SetRecFilter();
+                        Rec.SetRecFilter();
+                        Report.RunModal(50035, true, false, Rec);
+                    end;
+                end;
             }
         }
 

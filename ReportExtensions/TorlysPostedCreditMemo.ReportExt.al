@@ -56,6 +56,10 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
             {
 
             }
+            column(Reason_Code; "Reason Code")
+            {
+
+            }
             column(ROandPreALabel; ROandPreALabel)
             {
 

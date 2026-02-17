@@ -694,8 +694,8 @@ report 50036 "Customer Statements TLY"
                 Evaluate(PeriodCalculation, '30D');
 
 
-            if (Customer.GetRangeMin("Date Filter") = 0D) and (Customer.GetRangeMax("Date Filter") = 0D) then
-                Customer.SetRange("Date Filter", Today);
+            // if (Customer.GetRangeMin("Date Filter") = 0D) and (Customer.GetRangeMax("Date Filter") = 0D) then
+            //     Customer.SetRange("Date Filter", Today);
 
 
 

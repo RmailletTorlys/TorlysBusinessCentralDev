@@ -283,17 +283,17 @@ End Function
         <Field Name="QtyPallet">
           <DataField>QtyPallet</DataField>
         </Field>
-        <Field Name="recCase">
-          <DataField>recCase</DataField>
+        <Field Name="RecCaseQty">
+          <DataField>RecCaseQty</DataField>
         </Field>
-        <Field Name="recpallet">
-          <DataField>recpallet</DataField>
+        <Field Name="RecPalletQty">
+          <DataField>RecPalletQty</DataField>
         </Field>
-        <Field Name="recQty">
-          <DataField>recQty</DataField>
+        <Field Name="recQty1">
+          <DataField>recQty1</DataField>
         </Field>
-        <Field Name="recQtyFormat">
-          <DataField>recQtyFormat</DataField>
+        <Field Name="recQty1Format">
+          <DataField>recQty1Format</DataField>
         </Field>
         <Field Name="TempSalesLine_Description_________TempSalesLine__Description_2_">
           <DataField>TempSalesLine_Description_________TempSalesLine__Description_2_</DataField>

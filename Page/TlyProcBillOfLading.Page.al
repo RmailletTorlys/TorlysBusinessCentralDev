@@ -171,28 +171,26 @@ page 51006 TlyProcBillOfLading
                             ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
                             Caption = 'Loaded By';
                         }
+                        field("Shipping Instructions"; Rec."Shipping Instructions 1")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the first line of the shipping instructions.';
+                            Caption = 'Shipping Instructions';
+                            MultiLine = true;
+                        }
 
+                        // field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
+                        // {
+                        //     ApplicationArea = Basic, Suite;
+                        //     ToolTip = 'Specifies the second line of the shipping instructions.';
+                        //     Caption = 'Shipping Instructions 2';
+                        // }
                         field("Shipping Comment"; Rec."Shipping Comment")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the first line of the destination instructions.';
-                            Caption = 'Destination Instructions 1';
-                        }
-
-                        field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the first line of the shipping instructions.';
-                            Caption = 'Shipping Instructions 1';
-
-                        }
-
-                        field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the second line of the shipping instructions.';
-                            Caption = 'Shipping Instructions 2';
-
+                            Caption = 'Shipping Comment';
+                            MultiLine = true;
                         }
                     }
                     group("Shipment Contents")

@@ -125,7 +125,21 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
             }
         }
 
-        moveafter("Order Time"; "Location Code", Status)
+        moveafter("Order Time"; "Location Code")
+
+        addafter("Location Code")
+        {
+            field("Order Comment"; Rec."Order Comment")
+            {
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
+        }
+
+        moveafter("Order Comment"; Status)
 
         addafter(Status)
         {

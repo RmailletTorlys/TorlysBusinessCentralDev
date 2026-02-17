@@ -117,17 +117,17 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Visible = true;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
             }
         }
 
-        moveafter("Shipping Comment"; "Shipping Agent Code", "Payment Terms Code", "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("Order Comment"; "Shipping Agent Code", "Payment Terms Code", "Amt. Ship. Not Inv. (LCY) Base", Amount)
 
         addafter(Amount)
         {

@@ -204,23 +204,25 @@ page 51002 TlyBillOfLading
                             ToolTip = 'Specifies the warehouse associate who loaded the bill of lading.';
                             Caption = 'Loaded By';
                         }
+                        field("Shipping Instructions"; Rec."Shipping Instructions 1")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            ToolTip = 'Specifies the first line of the shipping instructions.';
+                            Caption = 'Shipping Instructions';
+                            MultiLine = true;
+                        }
+                        // field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
+                        // {
+                        //     ApplicationArea = Basic, Suite;
+                        //     ToolTip = 'Specifies the second line of the shipping instructions.';
+                        //     Caption = 'Shipping Instructions 2';
+                        // }
                         field("Shipping Comment"; Rec."Shipping Comment")
                         {
                             ApplicationArea = Basic, Suite;
                             ToolTip = 'Specifies the first line of the shipping comment.';
                             Caption = 'Shipping Comment';
-                        }
-                        field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the first line of the shipping instructions.';
-                            Caption = 'Shipping Instructions 1';
-                        }
-                        field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            ToolTip = 'Specifies the second line of the shipping instructions.';
-                            Caption = 'Shipping Instructions 2';
+                            MultiLine = true;
                         }
                     }
                     group("Shipment Contents")
@@ -475,17 +477,7 @@ page 51002 TlyBillOfLading
                     Rec.Modify(true);
                 end;
             }
-            action(PrintShippingLabel)
-            {
-                ApplicationArea = Basic, Suite;
-                ToolTip = 'Print Shipping Label';
-                Caption = 'Print Shipping Label';
-                Image = Print;
-                trigger OnAction()
-                begin
-                    TorlysDocPrint.PrintBOLShippingLabel(Rec);
-                end;
-            }
+
             action(PrintBOL)
             {
                 ApplicationArea = Basic, Suite;
@@ -568,6 +560,17 @@ page 51002 TlyBillOfLading
                     Rec.Delete();
                     Commit();
                     TorlysDocPrint.PrintProcessedBillOfLading(ProcessedBOLHeader);
+                end;
+            }
+            action(PrintShippingLabel)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print Shipping Label';
+                Caption = 'Print Shipping Label';
+                Image = Print;
+                trigger OnAction()
+                begin
+                    TorlysDocPrint.PrintBOLShippingLabel(Rec);
                 end;
             }
         }

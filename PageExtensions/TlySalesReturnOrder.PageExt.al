@@ -149,6 +149,13 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
 
         addafter("Location Code")
         {
+            field("Order Comment"; Rec."Order Comment")
+            {
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
             field("Return BOL No."; Rec."Return BOL No.")
             {
                 Caption = 'Return BOL No.';
@@ -291,6 +298,20 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
         }
 
         moveafter("Salesperson Commission 3"; "Applies-to Doc. Type", "Applies-to Doc. No.", "Applies-to ID")
+
+        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+
+        addafter("Shipping Agent Service Code")
+        {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
+            }
+        }
 
         addbefore("Ship-to Name")
         {
@@ -443,11 +464,6 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
         }
 
         modify("Payment Terms Code")
-        {
-            Visible = false;
-        }
-
-        modify("Shipping Agent Service Code")
         {
             Visible = false;
         }

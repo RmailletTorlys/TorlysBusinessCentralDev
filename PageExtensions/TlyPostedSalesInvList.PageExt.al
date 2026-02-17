@@ -95,17 +95,17 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
                 Visible = true;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
             }
         }
 
-        moveafter("Shipping Comment"; "Due Date", "Amount")
+        moveafter("Order Comment"; "Due Date", "Amount")
 
         addafter("Amount")
         {

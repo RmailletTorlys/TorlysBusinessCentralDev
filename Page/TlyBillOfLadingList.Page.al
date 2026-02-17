@@ -53,17 +53,11 @@ page 51001 TlyBillOfLadingList
                     ToolTip = 'Specifies the name of the ship-to address.';
                     Caption = 'Ship-to Name';
                 }
-                field("Carrier Code"; Rec."Shipping Agent Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the carrier.';
-                    Caption = 'Carrier Code';
-                }
-                field("Package Tracking No."; Rec."Package Tracking No.")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the tracking number of the carrier.';
-                    Caption = 'Package Tracking No.';
+                    ToolTip = 'Specifies the code of the location.';
+                    Caption = 'Location Code';
                 }
                 field("Pickup Date"; Rec."Pickup Date")
                 {
@@ -71,24 +65,37 @@ page 51001 TlyBillOfLadingList
                     ToolTip = 'Specifies the date of the pickup.';
                     Caption = 'Pickup Date';
                 }
-                field("Location Code"; Rec."Location Code")
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the location.';
-                    Caption = 'Location Code';
+                    ToolTip = 'Specifies the code of the carrier.';
+                    Caption = 'Shipping Agent Code';
                 }
-                field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
+                field("Package Tracking No."; Rec."Package Tracking No.")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the tracking number of the carrier.';
+                    Caption = 'Package Tracking No.';
+                }
+
+                field("Loaded By"; Rec."Loaded By")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Loaded By';
+                    Caption = 'Loaded By';
+                }
+                field("Shipping Instructions"; Rec."Shipping Instructions 1")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the first line of the shipping instructions.';
-                    Caption = 'Shipping Instructions 1';
+                    Caption = 'Shipping Instructions';
                 }
-                field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the shipping instructions.';
-                    Caption = 'Shipping Instructions 2';
-                }
+                // field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     ToolTip = 'Specifies the second line of the shipping instructions.';
+                //     Caption = 'Shipping Instructions 2';
+                // }
                 field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
@@ -113,58 +120,33 @@ page 51001 TlyBillOfLadingList
                     ToolTip = 'Specifies the total number of cases.';
                     Caption = 'Total Cases';
                 }
-                // field("Total Base Qty"; Rec."Base Quantity - Total")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     ToolTip = 'Specifies the total base quantity.';
-                //     Caption = 'Total Base Qty';
-                // }
+                field("No. Printed"; Rec."No. Printed")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'No. Printed';
+                    Caption = 'No. Printed';
+                }
+                field("Last Print Date"; Rec."Last Print Date")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Last Print Date';
+                    Caption = 'Last Print Date';
+                }
+                field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Created By';
+                    Caption = 'Created By';
+                }
+                field(SystemCreatedAt; Rec.SystemCreatedAt)
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Created At';
+                    Caption = 'Created At';
+                }
             }
         }
     }
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action(FindBill)
-    //         {
-    //             ApplicationArea = Basic, Suite;
-    //             ToolTip = 'Find BoL';
-    //             Caption = 'Find BoL';
-    //             Image = Document;
-    //             trigger OnAction()
-    //             var
-    //                 BillOfLading: Record "Torlys BOL Header";
-    //                 BoLListPage: Page "Torlys BOL List";
-    //             begin
-    //                 BoLListPage.SetTableView(BillOfLading);
-    //                 BoLListPage.SetRecord(BillOfLading);
-    //                 BoLListPage.LookupMode := true;
-    //                 if BoLListPage.RunModal() = Action::LookupOK then begin
-    //                     BoLListPage.GetRecord(BillOfLading);
-    //                     Rec.Get(BillOfLading."No.");
-    //                 end;
-    //             end;
-    //         }
-    //     }
-    //     area(navigation)
-    //     {
-    //         group("&Line")
-    //         {
-    //             Caption = '&Line';
-    //             Image = Line;
-    //             action("Show Order")
-    //             {
-    //                 ApplicationArea = Basic, Suite;
-    //                 Caption = 'Show BoL';
-    //                 Image = ViewOrder;
-    //                 RunObject = Page "Torlys BoL";
-    //                 RunPageLink = "No." = field("No.");
-    //                 ToolTip = 'View the selected bill of lading.';
-    //             }
-    //         }
-    //     }
-    // }
 
     views
     {
@@ -172,32 +154,16 @@ page 51001 TlyBillOfLadingList
         {
             Caption = 'TOR';
             Filters = where("Location Code" = filter('TOR'));
+            OrderBy = descending("Pickup Date");
         }
         view(CAL)
         {
             Caption = 'CAL';
             Filters = where("Location Code" = filter('CAL'));
+            OrderBy = descending("Pickup Date");
         }
     }
 
-    // procedure OnGetShipToCode(ShipToCode: Code[10]; CustomerNo: Code[10])
-    // var
-    //     Customer: Record Customer;
-    // begin
-
-    //     if CustomerNo = '' then
-    //         exit;
-
-    //     if ShipToCode = '' then
-    //         ShipToCode := CustomerNo;
-
-    //     Customer.Get(CustomerNo);
-
-    //     Rec."Ship-to Name" := Rec."Ship-to Name";
-    //     Rec."Ship-to Address" := Rec."Ship-to Address";
-    //     Rec."Ship-to Address 2" := Rec."Ship-to Address 2";
-    //     Rec."Ship-to City" := Rec."Ship-to City";
-    //     Rec."Ship-to Post Code" := Rec."Ship-to Post Code";
-    //     Rec."Ship-to Country/Region Code" := Rec."Ship-to Country/Region Code";
-    // end;
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

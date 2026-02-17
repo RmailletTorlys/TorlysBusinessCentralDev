@@ -70,17 +70,18 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
                 Importance = Standard;
+                Visible = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Importance = Standard;
             }
         }
 
-        moveafter("Shipping Comment"; Status)
+        moveafter("Order Comment"; Status)
 
         addafter(Status)
         {
@@ -217,8 +218,18 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
             }
         }
 
-        addafter("Shipping Agent Code")
+        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+
+        addafter("Shipping Agent Service Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
+            }
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 Caption = 'Freight Zone Code';
@@ -359,11 +370,6 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
         }
 
         modify("Direct Debit Mandate ID")
-        {
-            Visible = false;
-        }
-
-        modify("Shipping Agent Service Code")
         {
             Visible = false;
         }

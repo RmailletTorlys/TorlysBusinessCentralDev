@@ -9,6 +9,7 @@ codeunit 57007 TlyBOLPrintPostCheck
         if BOLHeader."Location Code" = '' then Error('Location Code cannot be blank!');
         if BOLHeader."Pickup Date" = 0D then Error('Pickup Date cannot be blank!');
         if BOLHeader."Shipping Agent Code" = '' then Error('Shipping Agent Code cannot be blank!');
+        if BOLHeader."Loaded By" = '' then Error('Loaded By cannot be blank!');
         if BOLHeader."Shipping Agent Code" = 'MIDLAND IN' then Message('Did you place both stickers on the BOL?');
         if BOLHeader."Shipping Agent Code" = 'GATEWAY' then Message('Have you applied stickers to required boxes?');
 

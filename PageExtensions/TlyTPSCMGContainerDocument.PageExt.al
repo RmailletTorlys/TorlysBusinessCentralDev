@@ -74,7 +74,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Insurance Certificate No."; "Shipping Status")
+        moveafter("Insurance Certificate No."; "Shipping Status", Status)
 
         addafter(Status)
         {
@@ -169,7 +169,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     ApplicationArea = All;
                 }
 
-                field(AppointmentDate; AppointmentDAte)
+                field(AppointmentDate; AppointmentDate)
                 {
                     Caption = 'Appointment Date';
                     ToolTip = 'Appointment Date';

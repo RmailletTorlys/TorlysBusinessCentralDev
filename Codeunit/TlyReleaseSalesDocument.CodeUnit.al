@@ -5,6 +5,7 @@ codeunit 57006 TlyReleaseSalesDocument
     var
         DimensionSetEntry: Record "Dimension Set Entry";
         SalesOrder: Page "Sales Order";
+        SalesLine: Record "Sales Line";
     begin
         IsHandled := true;
 
@@ -37,6 +38,14 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Shortcut Dimension 1 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Shortcut Dimension 2 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Salesperson Code"); //code added on screen to not allow delete if released
+
+            //check lines for those that have Item selected as type but no item number populated
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            SalesLine.SetRange("No.", '');
+            if SalesLine.Find('-') then
+                Error('Line %1 has Type as Item, but no item entered. Either key in item or delete the line.', SalesLine."Line No.");
         end;
 
         // these are for SI only
@@ -60,6 +69,14 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Shortcut Dimension 1 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Shortcut Dimension 2 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Salesperson Code"); //code added on screen to not allow delete if released
+
+            //check lines for those that have Item selected as type but no item number populated
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            SalesLine.SetRange("No.", '');
+            if SalesLine.Find('-') then
+                Error('Line %1 has Type as Item, but no item entered. Either key in item or delete the line.', SalesLine."Line No.");
         end;
 
         // these are for CM and RO only
@@ -87,6 +104,14 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Shortcut Dimension 1 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Shortcut Dimension 2 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Salesperson Code"); //code added on screen to not allow delete if released
+
+            //check lines for those that have Item selected as type but no item number populated
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            SalesLine.SetRange("No.", '');
+            if SalesLine.Find('-') then
+                Error('Line %1 has Type as Item, but no item entered. Either key in item or delete the line.', SalesLine."Line No.");
         end;
     end;
 

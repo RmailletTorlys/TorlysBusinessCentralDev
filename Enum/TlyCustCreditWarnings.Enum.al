@@ -4,12 +4,12 @@ enum 50007 TlyCustCreditWarnings
 
     value(0; "Cr Limit+Open Ord / Terms")
     {
-        Caption = 'Credit Limit and Open Orders or Terms';
+        Caption = 'Cr Limit+Open Ord / Terms';
     }
 
     value(1; "Cr Limit+Open Ord Only")
     {
-        Caption = 'Credit Limit and Open Orders Only';
+        Caption = 'Cr Limit+Open Ord Only';
     }
 
     value(2; "Terms Only")
@@ -19,12 +19,12 @@ enum 50007 TlyCustCreditWarnings
 
     value(3; "Cr Limit / Terms")
     {
-        Caption = 'Credit Limit or Terms';
+        Caption = 'Credit Limit / Terms';
     }
 
     value(4; "Cr Limit Only")
     {
-        Caption = 'Credit Limit Only';
+        Caption = 'Cr Limit Only';
     }
 
     value(5; "No Hold")

@@ -381,6 +381,9 @@ report 50035 "Return Conf TLY"
                                 TempSalesLine."Line Amount" := 0;
                                 TempSalesLine."Inv. Discount Amount" := 0;
                                 TempSalesLine.Quantity := 0;
+                                RecCaseQty := 0;
+                                RecPalletQty := 0;
+
                             end;
 
                             If (TempSalesLine."Quantity Pallet" > 0) or (TempSalesLine."Quantity Case" > 0) then

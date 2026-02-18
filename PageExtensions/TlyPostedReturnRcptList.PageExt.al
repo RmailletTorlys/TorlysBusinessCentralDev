@@ -106,13 +106,13 @@ pageextension 56662 TlyPostedReturnRcptList extends "Posted Return Receipts"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;

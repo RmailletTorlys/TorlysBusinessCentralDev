@@ -74,10 +74,24 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             }
         }
 
-        moveafter("Insurance Certificate No."; "Shipping Status")
+        moveafter("Insurance Certificate No."; "Shipping Status", Status)
 
         addafter(Status)
         {
+            field(AppointmentDate; AppointmentDate)
+            {
+                Caption = 'Appointment Date';
+                ToolTip = 'Appointment Date';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field(AppointmentTime; AppointmentTime)
+            {
+                Caption = 'Appointment Date';
+                ToolTip = 'Appointment Date';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';
@@ -166,12 +180,12 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
 
         modify("Total Weight")
         {
-            Importance = Standard;
+            Visible = false;
         }
 
         modify("Total Cube")
         {
-            Importance = Standard;
+            Visible = false;
         }
         modify("FDA Status")
         {
@@ -193,11 +207,21 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         {
             Visible = false;
         }
+        modify(SystemCreatedBy)
+        {
+            Visible = false;
+        }
     }
     views
     {
         addlast
         {
+            view(NotComplete)
+            {
+                Caption = 'Outstanding';
+                Filters = where(Status = filter('<>Completely Received'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
             view(Open)
             {
                 Caption = 'Open';
@@ -226,4 +250,17 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     }
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        AppointmentDate: Date;
+        AppointmentTime: Time;
+
+    trigger OnAfterGetRecord()
+    var
+        BookingInfo: Record TlyBookingInfo;
+    begin
+        BookingInfo.Reset();
+        if BookingInfo.Get(Rec."No.") then begin
+            AppointmentDate := BookingInfo."Appointment Date";
+            AppointmentTime := BookingInfo."Appointment Time";
+        end;
+    end;
 }

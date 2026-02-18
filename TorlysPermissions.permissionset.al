@@ -25,6 +25,7 @@ permissionset 50000 TorlysPermissions
         tabledata TlyReplacementCosts = RIMD,
         tabledata TlyTransportMethod = RIMD,
         tabledata TlyFreightForwarderCosts = RIMD,
+        tabledata TlyHolidayCalendar = RIMD,
         table TlyBillOfLadingHeader = X,
         table TlyBillOfLadingLine = X,
         table TlyFreightZone = X,
@@ -46,6 +47,7 @@ permissionset 50000 TorlysPermissions
         table TlyReplacementCosts = X,
         table TlyTransportMethod = X,
         table TlyFreightForwarderCosts = X,
+        table TlyHolidayCalendar = X,
         codeunit TlyPriceAssetSalesPriceCode = X,
         codeunit TlyPriceSourceSalesPriceCode = X,
         codeunit TlySLPriceListTriggers = X,
@@ -61,6 +63,7 @@ permissionset 50000 TorlysPermissions
         page TlyBillOfLadingSubform = X,
         page TlyBillOfLadingList = X,
         page TlyProcBillOfLading = X,
+        page TlyHolidayCalendarList = X,
         page TlyOrdersToBeShippedList = X,
         query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;

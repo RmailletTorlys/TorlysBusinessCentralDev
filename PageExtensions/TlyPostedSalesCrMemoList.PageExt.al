@@ -3,6 +3,7 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
     layout
     {
         addafter("No.")
+
         {
             field("Return Order No."; Rec."Return Order No.")
             {
@@ -12,10 +13,18 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
                 Visible = true;
                 Editable = false;
             }
+            field("Pre-Assigned No."; Rec."Pre-Assigned No.")
+            {
+                Caption = 'Credit Memo No.';
+                ToolTip = 'Credit Memo No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
 
         }
 
-        moveafter("Return Order No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
+        moveafter("Pre-Assigned No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")
 
         addafter("Sell-to Customer Name")
         {
@@ -100,21 +109,20 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Editable = false;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Visible = true;
                 Editable = false;
             }
-
         }
 
-        moveafter("Shipping Comment"; Amount, "No. Printed")
+        moveafter("Order Comment"; Amount, "No. Printed")
 
         addafter("No. Printed")
         {
@@ -199,6 +207,18 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
         modify("No. Printed")
         {
             Visible = true;
+        }
+    }
+
+    views
+    {
+        addlast
+        {
+            view(NotPrinted)
+            {
+                Caption = 'Not Printed';
+                Filters = where("No. Printed" = filter('0'));
+            }
         }
     }
 

@@ -74,7 +74,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Insurance Certificate No."; "Shipping Status")
+        moveafter("Insurance Certificate No."; "Shipping Status", Status)
 
         addafter(Status)
         {
@@ -126,16 +126,10 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     ToolTip = 'Vendor No.';
                     ApplicationArea = All;
                 }
-                field("Freight Cost"; Rec."Freight Cost")
+                field("Manufacturer Code"; Rec."Manufacturer Code")
                 {
-                    Caption = 'Freight Cost';
-                    ToolTip = 'Freight Cost';
-                    ApplicationArea = All;
-                }
-                field("Premium Cost"; Rec."Premium Cost")
-                {
-                    Caption = 'Premium Cost';
-                    ToolTip = 'Premium Cost';
+                    Caption = 'Manufacturer Code';
+                    ToolTip = 'Manufacturer Code';
                     ApplicationArea = All;
                 }
                 field("Crossdock"; Rec."Crossdock")
@@ -162,7 +156,20 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     ToolTip = 'Strike';
                     ApplicationArea = All;
                 }
-                field(AppointmentDate; AppointmentDAte)
+                field("Premium Cost"; Rec."Premium Cost")
+                {
+                    Caption = 'Premium Cost';
+                    ToolTip = 'Premium Cost';
+                    ApplicationArea = All;
+                }
+                field("Freight Cost"; Rec."Freight Cost")
+                {
+                    Caption = 'Freight Cost';
+                    ToolTip = 'Freight Cost';
+                    ApplicationArea = All;
+                }
+
+                field(AppointmentDate; AppointmentDate)
                 {
                     Caption = 'Appointment Date';
                     ToolTip = 'Appointment Date';

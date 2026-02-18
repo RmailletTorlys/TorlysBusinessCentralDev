@@ -292,6 +292,8 @@ page 52001 TlyOrdersToBeShippedList
                 actionref("2 Business Days"; ChangeTo2BusinessDays)
                 { }
             }
+            actionref("Order Comments"; OrderComments)
+            { }
             actionref("Print Pick Slip"; PrintPickSlip)
             { }
             actionref("Print Summary Pick Slip"; PrintSummaryPickSlip)
@@ -904,6 +906,17 @@ page 52001 TlyOrdersToBeShippedList
                         CurrPage.Update(true);
                     end;
                 }
+            }
+            action(OrderComments)
+            {
+                ApplicationArea = All;
+                Caption = 'Order Comments';
+                Image = ViewComments;
+                RunObject = Page "Sales Comment Sheet";
+                RunPageLink = "Document Type" = field("Document Type"),
+                                  "No." = field("No."),
+                                  "Document Line No." = const(0);
+                ToolTip = 'View or add comments for the record.';
             }
             group("Post + Print")
             {

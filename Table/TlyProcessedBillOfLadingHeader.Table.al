@@ -108,9 +108,9 @@ table 55004 TlyProcessedBillOfLadingHeader
             DataClassification = CustomerContent;
         }
 
-        field(17; "Shipping Instructions 1"; Text[50])
+        field(17; "Shipping Instructions 1"; Text[100])
         {
-            Caption = 'Shipping Instructions 1';
+            Caption = 'Shipping Instructions';
             DataClassification = CustomerContent;
         }
 
@@ -314,7 +314,7 @@ table 55004 TlyProcessedBillOfLadingHeader
         //     DataClassification = CustomerContent;
         // }
 
-        field(51; "Shipping Comment"; Text[50])
+        field(51; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

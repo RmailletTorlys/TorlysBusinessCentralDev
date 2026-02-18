@@ -38,13 +38,6 @@ page 51005 TlyProcBillOfLadingList
                     Caption = 'Customer No.';
                 }
 
-                // field("Customer Name"; GetCustomerName(Rec."Customer No."))
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     ToolTip = 'Specifies the name of the customer.';
-                //     Caption = 'Customer Name';
-                // }
-
                 field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = Basic, Suite;
@@ -58,118 +51,136 @@ page 51005 TlyProcBillOfLadingList
                     ToolTip = 'Specifies the name of the ship-to address.';
                     Caption = 'Ship-to Name';
                 }
-
-                field("Carrier Code"; Rec."Shipping Agent Code")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the code of the carrier.';
-                    Caption = 'Carrier Code';
-                }
-
-                field("Package Tracking No."; Rec."Package Tracking No.")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the tracking number of the carrier.';
-                    Caption = 'Package Tracking No.';
-                }
-
-                field("Pickup Date"; Rec."Pickup Date")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the date of the pickup.';
-                    Caption = 'Pickup Date';
-                }
-
                 field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the code of the location.';
                     Caption = 'Location Code';
                 }
-
-                field("Shipping Instructions 1"; Rec."Shipping Instructions 1")
+                field("Pickup Date"; Rec."Pickup Date")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the date of the pickup.';
+                    Caption = 'Pickup Date';
+                }
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the code of the carrier.';
+                    Caption = 'Shipping Agent Code';
+                }
+                field("Package Tracking No."; Rec."Package Tracking No.")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the tracking number of the carrier.';
+                    Caption = 'Package Tracking No.';
+                }
+                field("Loaded By"; Rec."Loaded By")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Loaded By';
+                    Caption = 'Loaded By';
+                }
+                field("Shipping Instructions"; Rec."Shipping Instructions 1")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the first line of the shipping instructions.';
-                    Caption = 'Shipping Instructions 1';
+                    Caption = 'Shipping Instructions';
                 }
-
-                field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
-                {
-                    ApplicationArea = Basic, Suite;
-                    ToolTip = 'Specifies the second line of the shipping instructions.';
-                    Caption = 'Shipping Instructions 2';
-                }
-
+                // field("Shipping Instructions 2"; Rec."Shipping Instructions 2")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     ToolTip = 'Specifies the second line of the shipping instructions.';
+                //     Caption = 'Shipping Instructions 2';
+                // }
                 field("Shipping Comment"; Rec."Shipping Comment")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Shipping Comment';
                     Caption = 'Shipping Comment';
                 }
-
-
                 field("Piece Count"; Rec."Piece Count")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of pieces.';
                     Caption = 'Piece Count';
                 }
-
                 field("Total Weight"; Rec."Weight - Total")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the total weight.';
                     Caption = 'Total Weight';
                 }
-
                 field("Total Cases"; Rec."Cases - Total")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the total number of cases.';
                     Caption = 'Total Cases';
                 }
-
-                // field("Total Base Qty"; Rec."Base Quantity - Total")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     ToolTip = 'Specifies the total base quantity.';
-                //     Caption = 'Total Base Qty';
-                // }
-            }
-        }
-    }
-    actions
-    {
-        area(navigation)
-        {
-            group("&Line")
-            {
-                Caption = '&Line';
-                Image = Line;
-                action("Show Order")
+                field("No. Printed"; Rec."No. Printed")
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Show BoL';
-                    Image = ViewOrder;
-                    RunObject = Page TlyBillOfLading;
-                    RunPageLink = "No." = field("No.");
-                    ToolTip = 'View the selected bill of lading.';
+                    ToolTip = 'No. Printed';
+                    Caption = 'No. Printed';
+                }
+                field("Last Print Date"; Rec."Last Print Date")
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Last Print Date';
+                    Caption = 'Last Print Date';
+                }
+                field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Created By';
+                    Caption = 'Created By';
+                }
+                field(SystemCreatedAt; Rec.SystemCreatedAt)
+                {
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Created At';
+                    Caption = 'Created At';
                 }
             }
         }
     }
+    // actions
+    // {
+    //     area(navigation)
+    //     {
+    //         group("&Line")
+    //         {
+    //             Caption = '&Line';
+    //             Image = Line;
+    //             action("Show Order")
+    //             {
+    //                 ApplicationArea = Basic, Suite;
+    //                 Caption = 'Show BoL';
+    //                 Image = ViewOrder;
+    //                 RunObject = Page TlyBillOfLading;
+    //                 RunPageLink = "No." = field("No.");
+    //                 ToolTip = 'View the selected bill of lading.';
+    //             }
+    //         }
+    //     }
+    // }
 
-    // local procedure GetCustomerName(CustomerNo: Code[10]): Text[100]
-    // var
-    //     Customer: Record "Customer";
-    //     CustomerName: Text[100];
+    views
+    {
+        view(TOR)
+        {
+            Caption = 'TOR';
+            Filters = where("Location Code" = filter('TOR'));
+            OrderBy = descending("Pickup Date");
+        }
+        view(CAL)
+        {
+            Caption = 'CAL';
+            Filters = where("Location Code" = filter('CAL'));
+            OrderBy = descending("Pickup Date");
+        }
+    }
 
-    // begin
-    //     Customer.Reset();
-    //     Customer.SetRange("No.", CustomerNo);
-    //     Customer.FindFirst();
-    //     CustomerName := Customer.Name;
-    //     exit(CustomerName);
-    // end;
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

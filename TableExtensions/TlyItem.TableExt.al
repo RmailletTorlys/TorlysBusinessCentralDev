@@ -319,7 +319,18 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'VMI Stock';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
             // FieldClass = FlowField;
+            // CalcFormula = sum("Purchase Line"."Outstanding Qty. (Base)" where("Document Type" = const(Order),
+            //                                                         Type = const(Item),
+            //                                                         "No." = field("No."),
+            //                                                         "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+            //                                                         "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+            //                                                         "Location Code" = const('VMI'),
+            //                                                         "Drop Shipment" = field("Drop Shipment Filter"),
+            //                                                         "Variant Code" = field("Variant Filter"),
+            //                                                         "Expected Receipt Date" = field("Date Filter"),
+            //                                                         "Unit of Measure Code" = field("Unit of Measure Filter")));
             Editable = false;
         }
 

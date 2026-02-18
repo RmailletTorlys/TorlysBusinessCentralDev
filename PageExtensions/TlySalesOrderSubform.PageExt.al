@@ -318,6 +318,8 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         modify("Item Reference No.")
         {
             Visible = true;
+            // AssistEdit = true;
+            //could be do something like how we look up ship agent on BOL?
         }
 
         modify("Location Code")
@@ -496,18 +498,34 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
     {
         addfirst("&Line")
         {
-            action(GetPrice1)
+            // action(GetPrice1)
+            // {
+            //     AccessByPermission = TableData "Sales Price" = R;
+            //     ApplicationArea = Basic, Suite;
+            //     Caption = 'Get Price';
+            //     Ellipsis = true;
+            //     Image = Price;
+            //     // ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
+            //     // Visible = not ExtendedPriceEnabled;
+            //     ObsoleteState = Pending;
+            //     ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
+            //     ObsoleteTag = '17.0';
+            //     Promoted = true;
+
+            //     trigger OnAction()
+            //     begin
+            //         ShowPrices();
+            //     end;
+            // }
+            action(GetPrices1)
             {
-                AccessByPermission = TableData "Sales Price" = R;
+                AccessByPermission = TableData "Sales Price Access" = R;
                 ApplicationArea = Basic, Suite;
                 Caption = 'Get Price';
                 Ellipsis = true;
                 Image = Price;
-                // ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
-                // Visible = not ExtendedPriceEnabled;
-                ObsoleteState = Pending;
-                ObsoleteReason = 'Replaced by the new implementation (V16) of price calculation.';
-                ObsoleteTag = '17.0';
+                // Visible = ExtendedPriceEnabled;
+                ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
                 Promoted = true;
 
                 trigger OnAction()
@@ -773,6 +791,19 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                         end;
                     end;
                 }
+            }
+            action(InsertExtTexts)
+            {
+                AccessByPermission = TableData "Extended Text Header" = R;
+                ApplicationArea = Basic, Suite;
+                Caption = 'Insert Ext. Texts';
+                Image = Text;
+                ToolTip = 'Insert the extended item description that is set up for the item that is being processed on the line.';
+
+                trigger OnAction()
+                begin
+                    InsertExtendedText(true);
+                end;
             }
         }
     }

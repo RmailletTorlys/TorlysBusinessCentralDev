@@ -3,6 +3,7 @@ codeunit 50299 TlyDocumentPrint
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Print", 'OnBeforeProcessPrintSalesOrder', '', false, false)]
     local procedure OnBeforeProcessPrintSalesOrder(var SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction"; var IsHandled: Boolean)
     var
+        HolidayCalendar: Record TlyHolidayCalendar;
         SalesLine: Record "Sales Line";
         Item: Record "Item";
         ReportSelection: Record "Report Selections";
@@ -36,12 +37,19 @@ codeunit 50299 TlyDocumentPrint
             if Date2DWY(SalesHeader."Shipment Date", 1) > 5 then
                 Error('Shipment date must not be on the weekend!');
 
-            //shipment date must not be too far in the future   
-            if (Date2DWY(WorkDate(), 1) < 5) AND (SalesHeader."Shipment Date" - WorkDate() > 1) then //weekday print 1 day in advance
-                Error('Shipment date is too far in the future!')
-            else
-                if (Date2DWY(WorkDate(), 1) = 5) AND (SalesHeader."Shipment Date" - WorkDate() > 3) then //Friday print 3 days in advance
+            //shipment date must not be too far in the future, unless it is a holiday 
+            HolidayCalendar.Reset();
+            HolidayCalendar.SetRange("Last Work Day", WorkDate());
+            if HolidayCalendar.Find('-') THEN BEGIN
+                if (SalesHeader."Shipment Date" - WorkDate() > HolidayCalendar."Days until next working day") then
                     Error('Shipment date is too far in the future!');
+            end else begin
+                if (Date2DWY(WorkDate(), 1) < 5) AND (SalesHeader."Shipment Date" - WorkDate() > 1) then //weekday print 1 day in advance
+                    Error('Shipment date is too far in the future!')
+                else
+                    if (Date2DWY(WorkDate(), 1) = 5) AND (SalesHeader."Shipment Date" - WorkDate() > 3) then //Friday print 3 days in advance
+                        Error('Shipment date is too far in the future!');
+            end;
 
             //must have something allocated
             SalesHeader.CalcFields("Qty. to Ship");

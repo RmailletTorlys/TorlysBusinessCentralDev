@@ -146,7 +146,7 @@ table 55005 TlyProcessedBillOfLadingLine
         //     TableRelation = "Torlys Shipping Instructions";
         // }
 
-        field(23; "Shipping Comment"; Text[50])
+        field(23; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

@@ -238,6 +238,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 ToolTip = 'Global Dimension 1 Code';
             }
+            field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Global Dimension 2 Code';
+            }
         }
 
         addfirst(PricesandDiscounts)

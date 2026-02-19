@@ -32,7 +32,6 @@ codeunit 50343 TlyCheckCreditLimit
         then
             NewOrderAmountLCY := NewOrderAmountLCY + SalesLineAmount(SalesHeader."Document Type", SalesHeader."No.");
 
-
         OldSalesHeader := SalesHeader;
         if OldSalesHeader.FindFirst() then
             // If "Bill-To Customer" is the same and Sales Header exists then do not consider amount in credit limit calculation since it's already included in "Outstanding Amount"
@@ -44,9 +43,7 @@ codeunit 50343 TlyCheckCreditLimit
         if AssignDeltaAmount then
             DiffAmount := NewOrderAmountLCY;
 
-
         Result := ShowWarning(SalesHeader."Bill-to Customer No.", NewOrderAmountLCY, OldOrderAmountLCY, true, SalesHeader."No.");
-
     end;
 
     local procedure SalesLineShowWarning(var SalesLine: Record "Sales Line"; var Result: Boolean; var DeltaAmount: Decimal): Boolean
@@ -54,7 +51,6 @@ codeunit 50343 TlyCheckCreditLimit
         SalesHeader: Record "Sales Header";
     begin
         SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
-
 
         BillToCustomerNo := SalesHeader."Bill-to Customer No.";
         if BillToCustomerNo = '' then
@@ -74,7 +70,6 @@ codeunit 50343 TlyCheckCreditLimit
     local procedure CalcSalesHeaderNewOrderAmountLCY(SalesHeader: Record "Sales Header")
     begin
 
-
         if SalesHeader."Currency Code" = '' then
             NewOrderAmountLCY := SalesHeader."Amount Including VAT"
         else
@@ -87,7 +82,6 @@ codeunit 50343 TlyCheckCreditLimit
 
     local procedure CalcSalesLineOrderAmountsLCY(SalesLine: Record "Sales Line")
     begin
-
 
         NewOrderAmountLCY := SalesLine."Outstanding Amount (LCY)" + SalesLine."Shipped Not Invoiced (LCY)";
 
@@ -110,7 +104,6 @@ codeunit 50343 TlyCheckCreditLimit
     var
         CustCheckCrLimit: Codeunit "Cust-Check Cr. Limit";
         ExitValue: Integer;
-
     begin
         if NewCustNo = '' then
             exit;
@@ -128,7 +121,6 @@ codeunit 50343 TlyCheckCreditLimit
             if (CustCreditAmountLCY > Rec."Credit Limit (LCY)") and (Rec."Credit Limit (LCY)" <> 0) then
                 ExitValue := 1;
         end;
-
 
         if Cust2."Credit Warnings" = Cust2."Credit Warnings"::"Terms Only"
         then begin
@@ -201,7 +193,6 @@ codeunit 50343 TlyCheckCreditLimit
         CustCreditAmountLCY :=
           Rec."Balance (LCY)" + Rec."Shipped Not Invoiced (LCY)" - RcdNotInvdRetOrdersLCY +
           OrderAmountTotalLCY - Rec.GetInvoicedPrepmtAmountLCY();
-
     end;
 
     local procedure CalcReturnAmounts(var OutstandingRetOrdersLCY2: Decimal; var RcdNotInvdRetOrdersLCY2: Decimal)
@@ -225,7 +216,6 @@ codeunit 50343 TlyCheckCreditLimit
         SalesOutstandingAmountFromShipment := SalesLineRec.OutstandingInvoiceAmountFromShipment(Rec."No.");
 
         Result := Rec."Outstanding Orders (LCY)" + Rec."Outstanding Invoices (LCY)" - SalesOutstandingAmountFromShipment;
-
     end;
 
     local procedure CalcOverdueBalanceLCY()
@@ -234,7 +224,6 @@ codeunit 50343 TlyCheckCreditLimit
         if Rec.GetFilter("Date Filter") = '' then
             Rec.SetFilter("Date Filter", '..%1', WorkDate());
         Rec.CalcFields("Balance Due (LCY)");
-
     end;
 
     local procedure PutOrderOnHold(OrderNo: Code[20])
@@ -250,13 +239,8 @@ codeunit 50343 TlyCheckCreditLimit
                 SalesHeader."On Hold" := 'CR';
 
             SalesHeader.Modify(true);
-
-
-
-
         end;
     end;
-
 
     var
         Rec: Record Customer;

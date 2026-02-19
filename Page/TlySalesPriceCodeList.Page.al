@@ -29,44 +29,48 @@ page 52003 TlySalesPriceCodeList
                     Caption = 'Description';
                     ToolTip = 'Description of the sales price.';
                 }
-                // field(StartDate; Rec."Start Date")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Start Date';
-                //     ToolTip = 'Start date of the sales price.';
-                // }
-                // field(EndDate; Rec."End Date")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'End Date';
-                //     ToolTip = 'End date of the sales price.';
-                // }
+                field("Price List Order"; Rec."Price List Order")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Price List Order';
+                    ToolTip = 'Price List Order';
+                }
             }
         }
     }
 
-    actions
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action(New)
+    //         {
+    //             Caption = 'New Sales Price Code';
+    //             ToolTip = 'Create a new price code.';
+    //             ApplicationArea = All;
+    //             Image = New;
+    //             Promoted = true;
+    //             PromotedCategory = New;
+    //             PromotedOnly = true;
+    //             trigger OnAction()
+    //             var
+    //                 PriceCode: Record TlySalesPriceCode;
+    //             begin
+    //                 PriceCode.Init();
+    //                 if Page.RunModal(Page::TlySalesPriceCodeList, PriceCode) = ACTION::OK then
+    //                     PriceCode.Insert(true);
+    //             end;
+    //         }
+    //     }
+    // }
+
+    views
     {
-        area(Processing)
+        view(PriceListOrder)
         {
-            action(New)
-            {
-                Caption = 'New Sales Price Code';
-                ToolTip = 'Create a new price code.';
-                ApplicationArea = All;
-                Image = New;
-                Promoted = true;
-                PromotedCategory = New;
-                PromotedOnly = true;
-                trigger OnAction()
-                var
-                    PriceCode: Record TlySalesPriceCode;
-                begin
-                    PriceCode.Init();
-                    if Page.RunModal(Page::TlySalesPriceCodeList, PriceCode) = ACTION::OK then
-                        PriceCode.Insert(true);
-                end;
-            }
+            Caption = 'Price List Order';
+            Filters = where("Price List Order" = filter('<>0'));
+            OrderBy = ascending("Price List Order");
         }
     }
 }

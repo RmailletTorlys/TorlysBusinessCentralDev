@@ -40,6 +40,7 @@ codeunit 50028 TlyPostSalesInvoice
             SalesHeader."Audited By" := '';
             SalesHeader."Last Shipping No." := '';
             SalesHeader."BOL No." := '';
+            SalesHeader."Package Tracking No." := '';
         end;
     end;
 }

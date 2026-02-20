@@ -968,6 +968,37 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         addfirst("F&unctions")
         {
+            action(RemoveBOL)
+            {
+                ApplicationArea = All;
+                Caption = 'Remove BOL #';
+                Image = CheckList;
+                ToolTip = 'Clear the BOL # from the current order.';
+                trigger OnAction()
+                var
+                    SalesHeader: Record "Sales Header";
+                    RemoveBOL: Boolean;
+                begin
+                    RemoveBOL := Dialog.Confirm('This will just remove the BOL # from this OR, the BOL line will still be populated. Proceed?');
+                    if RemoveBOL then begin
+                        SalesHeader.Reset();
+                        SalesHeader.SetRange("No.", Rec."No.");
+                        if SalesHeader.Find('-') then begin
+                            SalesHeader."No. Pick Slips Printed" := 0;
+                            SalesHeader."Pick Slip Printed By" := '';
+                            SalesHeader."Pick Slip Printed Date" := 0D;
+                            SalesHeader."Pick Slip Printed Time" := 0T;
+                            SalesHeader."Picked By" := '';
+                            SalesHeader."Audited By" := '';
+                            SalesHeader."Last Shipping No." := '';
+                            SalesHeader."BOL No." := '';
+                            SalesHeader."Package Tracking No." := '';
+                            SalesHeader.Modify(true);
+                            Message('BOL # (plus 8 other fields) removed from %1.', Rec."No.");
+                        end;
+                    end;
+                end;
+            }
             action("Open Sales Orders")
             {
                 Caption = 'Open Sales Orders';

@@ -12,8 +12,7 @@ codeunit 57006 TlyReleaseSalesDocument
         // these are for SO only
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
             SalesHeader.TestField("Sell-to Customer No."); //code exists to not allow delete
-                                                           // SalesHeader.TestField("Ship-to Code"); //code exists to not allow delete if released
-                                                           // i dont want this mandatory if doing custom address, but this works for now
+            //SalesHeader.TestField("Ship-to Code"); //moved this to the form due to "Custom Address"
             SalesHeader.TestField("Order Method"); //code added on screen to not allow delete if released
             SalesHeader.TestField("Your Reference"); //code added on screen to not allow delete if released
             SalesHeader.TestField("External Document No."); //code added on screen to not allow delete if released

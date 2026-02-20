@@ -198,6 +198,9 @@ report 50007 "Summary Pick Slip Transfer TLY"
                     }
                     dataitem(InventoryCommnetLine; "Inventory Comment Line")
                     {
+                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending) where("Document Type" = const("transfer order"));
+                        DataItemLinkReference = "Transfer_Line";
+                        DataItemLink = "No." = field("Document No.");
                         column(No_; "No.")
                         {
 

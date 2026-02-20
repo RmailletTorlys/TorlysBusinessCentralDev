@@ -3,7 +3,11 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
+<<<<<<< HEAD
     "version": "1.26.2.39",
+=======
+    "version": "1.26.2.38",
+>>>>>>> 6d97c5709030533436db293fc54fe0dd17dd15d1
 
     "brief": "",
     "description": "",

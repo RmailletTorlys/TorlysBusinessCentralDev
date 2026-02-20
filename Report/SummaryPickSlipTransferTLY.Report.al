@@ -209,6 +209,15 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         {
 
                         }
+                        column(CommentCount; CommentCount)
+                        {
+
+                        }
+
+                        trigger OnAfterGetRecord()
+                        begin
+                            CommentCount := InventoryCommnetLine.Count;
+                        end;
                     }
 
                     trigger OnPreDataItem()
@@ -267,6 +276,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
         ToShipWeight: Decimal;
         ToReceiveWeight: Decimal;
         TransferOrderCount: Integer;
+        CommentCount: Integer;
         CopyNo: Integer;
         NoLoops: Integer;
         NoCopies: Integer;

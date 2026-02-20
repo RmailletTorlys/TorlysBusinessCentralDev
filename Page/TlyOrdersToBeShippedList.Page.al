@@ -258,6 +258,8 @@ page 52001 TlyOrdersToBeShippedList
                 { }
                 actionref("Today All Location"; TodayAllLocations)
                 { }
+                actionref("Today Fully Allocated"; FullyAllocated)
+                { }
                 actionref("Orders Not Shipped"; OrdersNotShipped)
                 { }
                 actionref("Orders Shipped"; OrdersShipped)
@@ -437,6 +439,41 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
                         Rec.SetRange("Shipment Date", ShipmentDate);
+                    end;
+                }
+                action(FullyAllocated)
+                {
+                    Caption = 'Fully Allocated';
+                    ToolTip = 'Fully Allocated';
+                    ApplicationArea = All;
+                    Image = Filter;
+                    trigger OnAction()
+                    var
+                        UserSetup: Record "User Setup";
+                        LocationCode: Code[25];
+                        ShipmentDate: Date;
+                    begin
+                        UserSetup.Get(UserId);
+                        if UserSetup."Default Location Code" = 'TOR' then
+                            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+                        else
+                            if UserSetup."Default Location Code" = 'CAL' then
+                                LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+                        ShipmentDate := WorkDate();
+
+                        Rec.Reset();
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
+                        Rec.SetFilter("Location Code", LocationCode);
+                        Rec.SetRange("Shipment Date", ShipmentDate);
+                        repeat
+                            if Rec."Outstanding Quantity" = Rec."Qty. to Ship" then
+                                Rec.Mark(true);
+                        until Rec.Next() = 0;
+                        Rec.MarkedOnly(true);
                     end;
                 }
                 action(OrdersNotShipped)

@@ -394,6 +394,26 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
         }
     }
 
+    actions
+    {
+        addfirst("F&unctions")
+        {
+            action(RemoveBOL)
+            {
+                ApplicationArea = All;
+                Caption = 'Remove BOL #';
+                Image = CheckList;
+                ToolTip = 'Clear the BOL # from the current shipment.';
+                trigger OnAction()
+                var
+                    ShipmentHeaderEdit: Codeunit "Shipment Header - Edit";
+                begin
+                    ShipmentHeaderEdit.Run(Rec);
+                end;
+            }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];

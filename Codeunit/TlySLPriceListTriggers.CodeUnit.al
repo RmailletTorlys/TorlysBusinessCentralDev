@@ -3,7 +3,6 @@ codeunit 57000 TlySLPriceListTriggers
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
-
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterNoOnAfterValidate', '', true, true)]
     local procedure OnAfterNoOnAfterValidate(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line")
     begin
@@ -45,9 +44,8 @@ codeunit 57000 TlySLPriceListTriggers
         end;
     end;
 
-
-
-    local procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")
+    //local
+    procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")
     var
         Customer: Record "Customer";
         Item: Record "Item";

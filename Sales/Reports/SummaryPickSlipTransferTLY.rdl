@@ -166,6 +166,9 @@ End Function
         <Field Name="Comment">
           <DataField>Comment</DataField>
         </Field>
+        <Field Name="CommentCount">
+          <DataField>CommentCount</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

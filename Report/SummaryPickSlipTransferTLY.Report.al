@@ -36,6 +36,29 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         }
                     }
 
+                    dataitem(InventoryCommnetLine; "Inventory Comment Line")
+                    {
+                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending);
+                        DataItemLinkReference = "Transfer Header";
+                        DataItemLink = "No." = field("No.");
+                        column(No_; "No.")
+                        {
+
+                        }
+                        column(Comment; Comment)
+                        {
+
+                        }
+                        column(CommentCount; CommentCount)
+                        {
+
+                        }
+                        trigger OnAfterGetRecord()
+                        begin
+                            CommentCount := InventoryCommnetLine.Count;
+                        end;
+                    }
+
                     column(OrderString; OrderString)
                     {
 
@@ -195,29 +218,6 @@ report 50007 "Summary Pick Slip Transfer TLY"
                             ItemNoCount := Transfer_Line.Count;
                         end;
 
-                    }
-                    dataitem(InventoryCommnetLine; "Inventory Comment Line")
-                    {
-                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending) where("Document Type" = const("transfer order"));
-                        DataItemLinkReference = "Transfer_Line";
-                        DataItemLink = "No." = field("Document No.");
-                        column(No_; "No.")
-                        {
-
-                        }
-                        column(Comment; Comment)
-                        {
-
-                        }
-                        column(CommentCount; CommentCount)
-                        {
-
-                        }
-
-                        trigger OnAfterGetRecord()
-                        begin
-                            CommentCount := InventoryCommnetLine.Count;
-                        end;
                     }
 
                     trigger OnPreDataItem()

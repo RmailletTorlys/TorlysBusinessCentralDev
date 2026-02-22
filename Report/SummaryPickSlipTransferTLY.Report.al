@@ -38,7 +38,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
 
                     dataitem(InventoryCommnetLine; "Inventory Comment Line")
                     {
-                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending);
+                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending) where("Document Type" = const("Transfer Order"));
                         DataItemLinkReference = "Transfer Header";
                         DataItemLink = "No." = field("No.");
                         column(No_; "No.")
@@ -49,14 +49,15 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         {
 
                         }
-                        column(CommentCount; CommentCount)
-                        {
+                        // column(CommentCount; CommentCount)
+                        // {
 
-                        }
-                        trigger OnAfterGetRecord()
-                        begin
-                            CommentCount := InventoryCommnetLine.Count;
-                        end;
+                        // }
+                        // trigger OnAfterGetRecord()
+                        // begin
+                        //     Message('Found comment: %1 for Order: %2', InventoryCommnetLine.Comment, InventoryCommnetLine."No.");
+                        //     // CommentCount := InventoryCommnetLine.Count;
+                        // end;
                     }
 
                     column(OrderString; OrderString)

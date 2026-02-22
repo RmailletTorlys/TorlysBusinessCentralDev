@@ -94,9 +94,6 @@ End Function
         <Field Name="Comment">
           <DataField>Comment</DataField>
         </Field>
-        <Field Name="CommentCount">
-          <DataField>CommentCount</DataField>
-        </Field>
         <Field Name="Item_No_">
           <DataField>Item_No_</DataField>
         </Field>

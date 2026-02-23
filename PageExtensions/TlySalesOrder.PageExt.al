@@ -275,17 +275,18 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         moveafter(ShippingOptions; "Ship-to Code")
 
-        // addafter(ShippingOptions)
-        // {
-        //     field("Ship-to Code"; Rec."Ship-to Code")
-        //     {
-        //         Caption = 'Ship-to Code';
-        //         ToolTip = 'Ship-to Code';
-        //         ApplicationArea = All;
-        //         Importance = Standard;
-        //         Editable = false;
-        //     }
-        // }
+        addafter("Ship-to Code")
+        {
+            field("Temporary Posting Hold"; Rec."Temporary Posting Hold")
+            {
+                Caption = 'Temporary Posting Hold';
+                ToolTip = 'Temporary Posting Hold';
+                ApplicationArea = All;
+                Importance = Additional;
+
+            }
+
+        }
 
         moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
 

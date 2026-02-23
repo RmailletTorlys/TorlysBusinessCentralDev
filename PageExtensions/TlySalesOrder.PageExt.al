@@ -853,9 +853,77 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             actionref(B13_Purchase; "B13 Purchase")
             {
             }
+            actionref(SendEmailConfirmationTLY1; SendEmailConfirmationTLY)
+            { }
         }
 
-        addafter("Print Confirmation")
+        modify(SendEmailConfirmation)
+        {
+            Visible = false;
+        }
+
+        addbefore("Print Confirmation")
+        {
+            action(SendEmailConfirmationTLY)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Email Confirmation';
+                Image = Email;
+
+                trigger OnAction()
+                var
+                    CustomReportSelection: Record "Custom Report Selection";
+                    SalesHeader: Record "Sales Header";
+                    EmailMsg: Codeunit "Email Message";
+                    Email: Codeunit "Email";
+                    TempBlob: Codeunit "Temp Blob";
+                    OutStr: OutStream;
+                    InStr: InStream;
+                    RecipientList: List of [Text];
+                    EmailAddr: Text;
+                    ReportID: Integer;
+                begin
+                    // 1. Get Layout details for the BILL-TO Customer
+                    CustomReportSelection.SetRange("Source Type", Database::Customer);
+                    CustomReportSelection.SetRange("Source No.", Rec."Bill-to Customer No.");
+                    CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
+
+                    if CustomReportSelection.FindFirst() then begin
+                        EmailAddr := CustomReportSelection."Send To Email";
+                        ReportID := CustomReportSelection."Report ID";
+                    end;
+
+                    // 2. Fallbacks if Layout is missing
+                    if EmailAddr = '' then EmailAddr := Rec."Sell-to E-Mail";
+                    if ReportID = 0 then ReportID := Report::"Standard Sales - Order Conf.";
+
+                    // 3. Handle multiple emails (split by semicolon)
+                    if EmailAddr.Contains(';') then
+                        RecipientList := EmailAddr.Split(';')
+                    else
+                        RecipientList.Add(EmailAddr);
+
+                    // 4. Generate the Attachment
+                    SalesHeader.SetRange("Document Type", Rec."Document Type");
+                    SalesHeader.SetRange("No.", Rec."No.");
+                    TempBlob.CreateOutStream(OutStr);
+                    Report.SaveAs(ReportID, '', ReportFormat::Pdf, OutStr, SalesHeader);
+                    TempBlob.CreateInStream(InStr);
+
+                    // 5. Create and Open Editor
+                    EmailMsg.Create(RecipientList, 'Order Confirmation ' + Rec."No.", '', true);
+                    EmailMsg.AddAttachment('Order_' + Rec."No." + '.pdf', 'application/pdf', InStr);
+
+                    // Note: In v27.2, use OpenInEditor
+                    Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::Default);
+                end;
+
+
+            }
+
+        }
+
+        addfirst(Action96)
         {
             action("Print Label")
             {

@@ -7,14 +7,13 @@ codeunit 50220 "BatchSendInvoices"
     var
         SalesInvHeader: Record "Sales Invoice Header";
     begin
-        // Filter 1: Only invoices from today
+        //Filter for invoices from today and No. Printer is 0
         SalesInvHeader.SetRange("Posting Date", WorkDate());
         SalesInvHeader.SetRange("No. Printed", 0);
 
         if SalesInvHeader.FindSet() then
             repeat
-                // EmailRecords(false) sends the email silently in the background
-                // using the Document Layout email address.
+                // EmailRecords(false) sends the email silently in the background using the Document Layout email address.
                 SalesInvHeader.EmailRecords(false);
                 SalesInvHeader."No. Printed" += 1;
                 SalesInvHeader.Modify();

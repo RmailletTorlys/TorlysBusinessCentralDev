@@ -1135,6 +1135,34 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
                 end;
             }
+
+            action("Remove Posting Hold")
+            {
+                ToolTip = 'Removes the Posting hold on an Order.';
+                Caption = 'Remove Posting Hold';
+                Image = Report;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    Rec."Temporary Posting Hold" := false;
+                    Rec.Modify(true);
+                    Message('Posting hold removed from %1.', Rec."No.");
+                end;
+            }
+
+            action("Add Posting Hold")
+            {
+                ToolTip = 'Add the Posting hold on an Order.';
+                Caption = 'Add Posting Hold';
+                Image = Report;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    Rec."Temporary Posting Hold" := true;
+                    Rec.Modify(true);
+                    Message('Posting hold removed from %1.', Rec."No.");
+                end;
+            }
             action("Add Freight")
             {
                 ToolTip = 'Add Freight';

@@ -8,7 +8,7 @@ codeunit 50220 "BatchSendInvoices"
         SalesInvHeader: Record "Sales Invoice Header";
     begin
         //Filter for invoices from today and No. Printer is 0
-        SalesInvHeader.SetRange("Posting Date", WorkDate());
+        // SalesInvHeader.SetRange("Posting Date", WorkDate());
         SalesInvHeader.SetRange("No. Printed", 0);
 
         if SalesInvHeader.FindSet() then

@@ -2,29 +2,29 @@ enum 50007 TlyCustCreditWarnings
 {
     Caption = 'Customer Credit Warnings';
 
-    value(0; "Cr Limit+Open Ord / Terms")
+    value(0; "Credit Limit + Open Orders or Terms")
     {
-        Caption = 'Cr Limit+Open Ord / Terms';
+        Caption = 'Credit Limit + Open Orders or Terms';
     }
 
-    value(1; "Cr Limit+Open Ord Only")
+    value(1; "Credit Limit + Open Orders")
     {
-        Caption = 'Cr Limit+Open Ord Only';
+        Caption = 'Credit Limit + Open Orders';
     }
 
-    value(2; "Terms Only")
+    value(2; "Terms")
     {
-        Caption = 'Terms Only';
+        Caption = 'Terms';
     }
 
-    value(3; "Cr Limit / Terms")
+    value(3; "Credit Limit or Terms")
     {
-        Caption = 'Credit Limit / Terms';
+        Caption = 'Credit Limit or Terms';
     }
 
-    value(4; "Cr Limit Only")
+    value(4; "Credit Limit")
     {
-        Caption = 'Cr Limit Only';
+        Caption = 'Credit Limit';
     }
 
     value(5; "No Hold")

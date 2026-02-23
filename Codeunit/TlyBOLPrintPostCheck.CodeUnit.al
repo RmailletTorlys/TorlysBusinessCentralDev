@@ -18,15 +18,15 @@ codeunit 57007 TlyBOLPrintPostCheck
         BOLLine.SetFilter("BOL No.", BOLHeader."No.");
         if BOLLine.Find('-') then begin
             repeat
-                if BOLLine."Customer No." <> BOLHeader."Customer No." then begin
-                    Error('Shipment # %1 has a differnet CUSTOMER # than the BOL Header!', BOLLine."Shipment No.")
-                end;
-                if BOLLine."Ship-to Code" <> BOLHeader."Ship-to Code" then begin
-                    Error('Shipment # %1 has a differnet SHIP-TO CODE than the BOL Header!', BOLLine."Shipment No.")
-                end;
-                if BOLLine."Ship-to Name" <> BOLHeader."Ship-to Name" then begin
-                    Error('Shipment # %1 has a differnet NAME than the BOL Header!', BOLLine."Shipment No.")
-                end;
+                // if BOLLine."Customer No." <> BOLHeader."Customer No." then begin
+                //     Error('Shipment # %1 has a differnet CUSTOMER # than the BOL Header!', BOLLine."Shipment No.")
+                // end;
+                // if BOLLine."Ship-to Code" <> BOLHeader."Ship-to Code" then begin
+                //     Error('Shipment # %1 has a differnet SHIP-TO CODE than the BOL Header!', BOLLine."Shipment No.")
+                // end;
+                // if BOLLine."Ship-to Name" <> BOLHeader."Ship-to Name" then begin
+                //     Error('Shipment # %1 has a differnet NAME than the BOL Header!', BOLLine."Shipment No.")
+                // end;
                 if BOLLine."Ship-to Address" <> BOLHeader."Ship-to Address" then begin
                     Error('Shipment # %1 has a differnet ADDRESS than the BOL Header!', BOLLine."Shipment No.")
                 end;

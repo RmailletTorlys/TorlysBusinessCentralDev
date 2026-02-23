@@ -572,6 +572,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                     RelatedItem: Code[20];
                     SalesLine: Record "Sales Line";
                     LineNo: Integer;
+                    TlySLPriceListTriggers: Codeunit TlySLPriceListTriggers;
                 begin
                     ItemAccessoriesPage.LookupMode(true);
                     ItemAccessoriesRecord.Reset;
@@ -592,6 +593,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                     SalesLine."Line No." := LineNo;
                     SalesLine.Validate(Type, 2);
                     SalesLine.Validate("No.", ItemAccessoriesRecord."Related Item No.");
+                    TlySLPriceListTriggers.UpdateUnitPrice(SalesLine); //this references custom code, dont love it, but it works
                     SalesLine.Insert;
                 end;
             }

@@ -36,6 +36,30 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         }
                     }
 
+                    dataitem(InventoryCommnetLine; "Inventory Comment Line")
+                    {
+                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending) where("Document Type" = const("Transfer Order"));
+                        DataItemLinkReference = "Transfer Header";
+                        DataItemLink = "No." = field("No.");
+                        column(No_; "No.")
+                        {
+
+                        }
+                        column(Comment; Comment)
+                        {
+
+                        }
+                        // column(CommentCount; CommentCount)
+                        // {
+
+                        // }
+                        // trigger OnAfterGetRecord()
+                        // begin
+                        //     Message('Found comment: %1 for Order: %2', InventoryCommnetLine.Comment, InventoryCommnetLine."No.");
+                        //     // CommentCount := InventoryCommnetLine.Count;
+                        // end;
+                    }
+
                     column(OrderString; OrderString)
                     {
 
@@ -196,20 +220,6 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         end;
 
                     }
-                    dataitem(InventoryCommnetLine; "Inventory Comment Line")
-                    {
-                        DataItemTableView = sorting("Document Type", "No.", "Line No.") order(ascending) where("Document Type" = const("transfer order"));
-                        DataItemLinkReference = "Transfer_Line";
-                        DataItemLink = "No." = field("Document No.");
-                        column(No_; "No.")
-                        {
-
-                        }
-                        column(Comment; Comment)
-                        {
-
-                        }
-                    }
 
                     trigger OnPreDataItem()
                     begin
@@ -267,6 +277,7 @@ report 50007 "Summary Pick Slip Transfer TLY"
         ToShipWeight: Decimal;
         ToReceiveWeight: Decimal;
         TransferOrderCount: Integer;
+        CommentCount: Integer;
         CopyNo: Integer;
         NoLoops: Integer;
         NoCopies: Integer;

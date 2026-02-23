@@ -9,6 +9,7 @@ page 52001 TlyOrdersToBeShippedList
     SourceTable = "Sales Header";
     SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending)
                         where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
+    //"MK Required" = filter(false), "MK Staged" = filter(true));
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
@@ -258,6 +259,8 @@ page 52001 TlyOrdersToBeShippedList
                 { }
                 actionref("Today All Location"; TodayAllLocations)
                 { }
+                actionref("Today Fully Allocated"; FullyAllocated)
+                { }
                 actionref("Orders Not Shipped"; OrdersNotShipped)
                 { }
                 actionref("Orders Shipped"; OrdersShipped)
@@ -353,6 +356,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                     end;
@@ -383,6 +388,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", 'PU');
@@ -414,6 +421,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", '<>PU');
@@ -436,7 +445,46 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetRange("Shipment Date", ShipmentDate);
+                    end;
+                }
+                action(FullyAllocated)
+                {
+                    Caption = 'Fully Allocated';
+                    ToolTip = 'Fully Allocated';
+                    ApplicationArea = All;
+                    Image = Filter;
+                    trigger OnAction()
+                    var
+                        UserSetup: Record "User Setup";
+                        LocationCode: Code[25];
+                        ShipmentDate: Date;
+                    begin
+                        UserSetup.Get(UserId);
+                        if UserSetup."Default Location Code" = 'TOR' then
+                            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+                        else
+                            if UserSetup."Default Location Code" = 'CAL' then
+                                LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+                        ShipmentDate := WorkDate();
+
+                        Rec.Reset();
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
+                        Rec.SetFilter("Location Code", LocationCode);
+                        Rec.SetRange("Shipment Date", ShipmentDate);
+                        repeat
+                            if Rec."Outstanding Quantity" = Rec."Qty. to Ship" then
+                                Rec.Mark(true);
+                        until Rec.Next() = 0;
+                        Rec.MarkedOnly(true);
                     end;
                 }
                 action(OrdersNotShipped)
@@ -465,6 +513,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Qty. to Ship", '>0');
@@ -496,6 +546,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Qty. to Ship", '0');
@@ -527,6 +579,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '=0');
@@ -558,6 +612,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
@@ -590,6 +646,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '<>0');
@@ -622,6 +680,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Picked By", '<>%1', '');
@@ -654,6 +714,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("No. Pick Slips Printed", '0');
@@ -689,6 +751,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                     end;
@@ -722,6 +786,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", 'PU');
@@ -756,6 +822,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetFilter("Shipping Agent Code", '<>PU');
@@ -790,6 +858,8 @@ page 52001 TlyOrdersToBeShippedList
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
+                        // Rec.SetFilter("MK Required", 'false');
+                        // Rec.SetFilter("MK Staged", 'true');
                         Rec.SetFilter("Location Code", LocationCode);
                         Rec.SetRange("Shipment Date", ShipmentDate);
                         Rec.SetRange("Shipping Agent Code", 'ROCKCITY');

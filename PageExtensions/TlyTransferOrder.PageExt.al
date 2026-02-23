@@ -191,6 +191,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
         modify("Shipping Agent Code")
         {
             ShowMandatory = true;
+            Editable = true;
         }
     }
 
@@ -259,7 +260,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Caption = 'View and Fill Linked SO';
                 ToolTip = 'View and Fill Linked SO';
                 Image = OrderTracking;
-                Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning");
+                Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning") or (Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase");
                 RunObject = Page TlyLinkedSOtoTO;
                 RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item);
             }

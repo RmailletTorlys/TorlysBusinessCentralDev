@@ -13,13 +13,23 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                 else
                     unitpricetoprint := ROUND(AmountExclInvDisc / Quantity, 0.01);
 
-                Clear(tempdesc3);
-                If ("Item Reference No." <> '') then begin
-                    Clear(ItemTemp);
-                    ItemTemp.get("No.");
-                    tempdesc3 := Description;
-                    Description := ItemTemp.Description;
-                    Modify();
+                // Clear(tempdesc3);
+                // If ("Item Reference No." <> '') then begin
+                //     Clear(ItemTemp);
+                //     ItemTemp.get("No.");
+                //     tempdesc3 := Description;
+                //     Description := ItemTemp.Description;
+                //     Modify();
+                // end;
+
+                If ("No." <> '') and ("Item Reference No." <> '') then begin
+                    Clear(tempcrossrefitem);
+                    tempcrossrefitem.SetFilter("Item No.", "No.");
+                    tempcrossrefitem.SetFilter("Reference Type", 'Customer');
+                    If tempcrossrefitem.find('-') then
+                        tempsalescrmemoline."No." := tempcrossrefitem."Reference No.";
+                    TempDesc := tempcrossrefitem.Description;
+                    refitem := tempcrossrefitem."Reference No.";
                 end;
 
                 If Type = Type::" " then begin
@@ -36,10 +46,39 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                 desctoprint := Description + '' + "Description 2";
             end;
         }
+        modify(header)
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                if "Pre-Assigned No. Series" = 'S-CM' then begin
+                    ROandPreALabel := 'Credit Memo No.';
+                    roandPreassignNo := "Pre-Assigned No.";
+                end else begin
+                    ROandPreALabel := 'Return Order No.';
+                    roandPreassignNo := "Return Order No."
+                end;
+            end;
+        }
 
         add(Header)
         {
             column(Payment_Terms_Code; "Payment Terms Code")
+            {
+
+            }
+            column(Reason_Code; "Reason Code")
+            {
+
+            }
+            column(ROandPreALabel; ROandPreALabel)
+            {
+
+            }
+            column(roandPreassignNo; roandPreassignNo)
+            {
+
+            }
+            column(Original_Invoice_No_; "Original Invoice No.")
             {
 
             }
@@ -67,16 +106,29 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
             {
 
             }
+            column(TempDesc; TempDesc)
+            {
+
+            }
+            column(refitem; refitem)
+            {
+
+            }
         }
     }
 
     var
         ItemTemp: Record Item;
+        tempcrossrefitem: Record "Item Reference";
+        tempsalescrmemoline: Record "Sales Cr.Memo Line" temporary;
         quantity1: Decimal;
         unitpricetoprint: Decimal;
         AmountExclInvDisc: Decimal;
         tempdesc3: Text;
         desctoprint: Text;
-
+        ROandPreALabel: Text;
+        roandPreassignNo: text;
+        TempDesc: Text;
+        refitem: code[50];
 
 }

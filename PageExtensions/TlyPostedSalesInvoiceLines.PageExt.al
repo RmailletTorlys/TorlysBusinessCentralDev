@@ -1,10 +1,40 @@
-pageextension 50133 TlyPostedSalesInvSubform extends "Posted Sales Invoice Subform"
+pageextension 50526 TlyPostedSalesInvoiceLines extends "Posted Sales Invoice Lines"
 {
     layout
     {
-        moveafter("No."; "Item Reference No.")
+        addafter("Document No.")
+        {
+            field("Posting Date"; Rec."Posting Date")
+            {
+                Caption = 'Posting Date';
+                ToolTip = 'Posting Date';
+                ApplicationArea = All;
+            }
+        }
 
-        moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
+        addafter("No.")
+        {
+            field("Item Reference No."; Rec."Item Reference No.")
+            {
+                Caption = 'Item Reference No.';
+                ToolTip = 'Item Reference No.';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Item Reference No."; Description)
+
+        addafter(Description)
+        {
+            field("Location Code"; Rec."Location Code")
+            {
+                Caption = 'Location Code';
+                ToolTip = 'Location Code';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Location Code"; "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -62,10 +92,18 @@ pageextension 50133 TlyPostedSalesInvSubform extends "Posted Sales Invoice Subfo
             }
         }
 
-        moveafter("Price List"; "Unit Price", "Line Amount")
+        moveafter("Price List"; "Unit Price")
 
-        addafter("Line Amount")
+        addafter("Unit Price")
         {
+            field("Line Amount"; Rec."Line Amount")
+            {
+                Caption = 'Line Amount';
+                ToolTip = 'Line Amount';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
             field("Unit Cost"; Rec."Unit Cost")
             {
                 Caption = 'Unit Cost';
@@ -74,13 +112,26 @@ pageextension 50133 TlyPostedSalesInvSubform extends "Posted Sales Invoice Subfo
                 Editable = false;
                 Visible = true;
             }
-
         }
 
-        moveafter("Unit Cost"; "Unit Cost (LCY)", "Tax Group Code", "Tax Area Code")
+        moveafter("Unit Cost"; "Unit Cost (LCY)")
 
-        addafter("Tax Area Code")
+        addafter("Unit Cost (LCY)")
         {
+            field("Tax Group Code"; Rec."Tax Group Code")
+            {
+                Caption = 'Tax Group Code';
+                ToolTip = 'Tax Group Code';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Tax Area Code"; Rec."Tax Area Code")
+            {
+                Caption = 'Tax Area Code';
+                ToolTip = 'Tax Area Code';
+                ApplicationArea = All;
+                Visible = true;
+            }
             field("Builder Description"; Rec."Builder Description")
             {
                 Caption = 'Builder Description';
@@ -134,32 +185,12 @@ pageextension 50133 TlyPostedSalesInvSubform extends "Posted Sales Invoice Subfo
             }
         }
 
-        modify("Location Code")
-        {
-            Visible = true;
-        }
-
         modify("Unit Cost (LCY)")
         {
             Visible = true;
         }
 
-        modify("Tax Area Code")
-        {
-            Visible = true;
-        }
-
-        modify("Tax Group Code")
-        {
-            Visible = true;
-        }
-
         modify("Line Discount %")
-        {
-            Visible = false;
-        }
-
-        modify("Deferral Code")
         {
             Visible = false;
         }
@@ -174,106 +205,13 @@ pageextension 50133 TlyPostedSalesInvSubform extends "Posted Sales Invoice Subfo
             Visible = false;
         }
 
-        modify("ShortcutDimCode[3]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[4]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[5]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[6]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[7]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[8]")
-        {
-            Visible = false;
-        }
-
         modify("Amount Including VAT")
         {
             Visible = false;
         }
-
-        modify("Invoice Discount Amount")
-        {
-            Visible = false;
-        }
     }
 
-    actions
-    {
-        addfirst("&Line")
-        {
-            group(CustomerItemHistory)
-            {
-                Visible = true;
-                Caption = 'Customer/Item History';
-                Image = ViewOrder;
-                action("Open Sales Orders")
-                {
-                    Caption = 'Open Sales Orders';
-                    ToolTip = 'View open sales orders for this customer and this item';
-                    ApplicationArea = All;
-                    Image = Order;
-                    RunObject = Page "Sales Lines";
-                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order), "No." = field("No.");
-                }
-                action("Posted Sales Invoices")
-                {
-                    Caption = 'Posted Sales Invoices';
-                    ToolTip = 'View posted sales invoices for this customer and this item';
-                    ApplicationArea = All;
-                    Image = Invoice;
-                    RunObject = Page "Posted Sales Invoice Lines";
-                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "No." = field("No.");
-                }
-                action("Open Credit Memos")
-                {
-                    Caption = 'Open Credit Memos';
-                    ToolTip = 'View open credit memos for this customer/item';
-                    ApplicationArea = All;
-                    Image = CreditMemo;
-                    RunObject = Page "Sales Lines";
-                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo"), "No." = field("No.");
-                }
-                action("Open Return Orders")
-                {
-                    Caption = 'Open Return Orders';
-                    ToolTip = 'View open return orders for this customer/item';
-                    ApplicationArea = All;
-                    Image = ReturnOrder;
-                    RunObject = Page "Sales Lines";
-                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order"), "No." = field("No.");
-                }
-                action("Posted Credit Memos")
-                {
-                    Caption = 'Posted Credit Memos';
-                    ToolTip = 'View posted credt memos for this customer';
-                    ApplicationArea = All;
-                    Image = PostedCreditMemo;
-                    RunObject = Page "Posted Sales Credit Memo Lines";
-                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "No." = field("No.");
-                }
-            }
-        }
-    }
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
-
 }

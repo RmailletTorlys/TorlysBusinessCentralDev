@@ -205,7 +205,7 @@ tableextension 50112 TlySalesInvoiceHeader extends "Sales Invoice Header"
             TableRelation = TlyShippingInstructions;
         }
 
-        field(50040; "Shipping Comment"; Text[50])
+        field(50040; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
@@ -298,6 +298,11 @@ tableextension 50112 TlySalesInvoiceHeader extends "Sales Invoice Header"
         field(50054; "Return BOL No."; Code[20])
         {
             Caption = 'Return BOL No.';
+            DataClassification = CustomerContent;
+        }
+        field(50055; "Order Comment"; Text[30])
+        {
+            Caption = 'Order Comment';
             DataClassification = CustomerContent;
         }
     }

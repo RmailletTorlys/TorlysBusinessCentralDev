@@ -53,10 +53,14 @@ report 50019 "Receiving Report - Trans"
             {
 
             }
+            column(Grouped; Grouped)
+            {
+
+            }
 
             dataitem("Transfer Line"; "Transfer Line")
             {
-                DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''), "Derived From Line No." = filter(0));
+                DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''));
                 DataItemLinkReference = "Transfer Header";
                 DataItemLink = "Document No." = field("No.");
                 RequestFilterFields = "Document No.";
@@ -98,10 +102,10 @@ report 50019 "Receiving Report - Trans"
                 {
 
                 }
-                column(Grouped; Grouped)
-                {
+                // column(Grouped; Grouped)
+                // {
 
-                }
+                // }
 
 
                 // dataitem("Transfer Header"; "Transfer Header")
@@ -183,10 +187,10 @@ report 50019 "Receiving Report - Trans"
             }
         }
     }
-    // trigger OnInitReport()
-    // begin
-    //     Grouped := True;
-    // end;
+    trigger OnInitReport()
+    begin
+        Grouped := True;
+    end;
 
     var
         Vendor: Record Vendor;

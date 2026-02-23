@@ -48,6 +48,7 @@ pageextension 50301 TlyShiptoAddressList extends "Ship-to Address List"
                 ApplicationArea = All;
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
+                Visible = false;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
             {

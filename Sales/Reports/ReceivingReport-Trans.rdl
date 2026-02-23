@@ -82,6 +82,9 @@ End Function
         <Field Name="TransferOrderCount">
           <DataField>TransferOrderCount</DataField>
         </Field>
+        <Field Name="Grouped">
+          <DataField>Grouped</DataField>
+        </Field>
         <Field Name="Appointment_Date">
           <DataField>Appointment_Date</DataField>
         </Field>
@@ -123,9 +126,6 @@ End Function
         </Field>
         <Field Name="CommentLabel">
           <DataField>CommentLabel</DataField>
-        </Field>
-        <Field Name="Grouped">
-          <DataField>Grouped</DataField>
         </Field>
       </Fields>
       <Query>

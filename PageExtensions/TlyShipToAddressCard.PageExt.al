@@ -29,12 +29,14 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                 ApplicationArea = All;
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
+                Visible = false;
             }
             field("Shipping Comment"; Rec."Shipping Comment")
             {
                 ApplicationArea = All;
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
+                MultiLine = true;
             }
         }
 

@@ -183,6 +183,39 @@ report 50018 "Packing Slip"
                     column(ShipToAddress7; ShipToAddress[7])
                     {
                     }
+                    column(selltoaddr1; selltoaddr[1])
+                    { }
+                    column(selltoaddr2; selltoaddr[2])
+                    { }
+                    column(selltoaddr3; selltoaddr[3])
+                    { }
+                    column(selltoaddr4; selltoaddr[4])
+                    { }
+                    column(selltoaddr5; selltoaddr[5])
+                    { }
+                    column(selltoaddr6; selltoaddr[6])
+                    { }
+                    column(selltoaddr7; selltoaddr[7])
+                    { }
+                    column(selltoaddr8; selltoaddr[8])
+                    { }
+
+                    column(ShipToAddrTly1; ShipToAddrTly[1])
+                    { }
+                    column(ShipToAddrTly2; ShipToAddrTly[2])
+                    { }
+                    column(ShipToAddrTly3; ShipToAddrTly[3])
+                    { }
+                    column(ShipToAddrTly4; ShipToAddrTly[4])
+                    { }
+                    column(ShipToAddrTly5; ShipToAddrTly[5])
+                    { }
+                    column(ShipToAddrTly6; ShipToAddrTly[6])
+                    { }
+                    column(ShipToAddrTly7; ShipToAddrTly[7])
+                    { }
+                    column(ShipToAddrTly8; ShipToAddrTly[8])
+                    { }
                     column(BilltoCustNo_SalesShptHeader; "Sales Shipment Header"."Bill-to Customer No.")
                     {
                     }
@@ -577,6 +610,9 @@ report 50018 "Packing Slip"
                 FormatAddress.SalesShptBillTo(BillToAddress, BillToAddress, "Sales Shipment Header");
                 FormatAddress.SalesShptShipTo(ShipToAddress, "Sales Shipment Header");
 
+                selladdr(selltoaddr, "Sales Shipment Header");
+                ShipAddrTly(ShipToAddrTly, "Sales Shipment Header");
+
                 ShippingAgentCodeLabel := '';
                 ShippingAgentCodeText := '';
                 PackageTrackingNoLabel := '';
@@ -789,6 +825,8 @@ report 50018 "Packing Slip"
         ShippingAgentCodeLabel: Text;
         TempDesc3: Text;
         LogInteractionVar: Boolean;
+        selltoaddr: array[8] of Text;
+        ShipToAddrTly: array[8] of Text;
         Text000Lbl: Label 'COPY';
         Text001Lbl: Label 'Tracking No.';
         Text002Lbl: Label 'Specific Tracking No.';
@@ -817,6 +855,7 @@ report 50018 "Packing Slip"
         ShippedCaptionLbl: Label 'Shipped';
         OrderedCaptionLbl: Label 'Ordered';
         BackOrderedCaptionLbl: Label 'Back Ordered';
+        FormatAddr1: Codeunit "Format Address";
 
     protected var
         CompanyInfo1: Record "Company Information";
@@ -855,6 +894,22 @@ report 50018 "Packing Slip"
         HighestLineNo := TempSalesShipmentLine."Line No.";
         FormatDocument.ParseComment(Comment, TempSalesShipmentLine.Description, TempSalesShipmentLine."Description 2");
         TempSalesShipmentLine.Insert();
+    end;
+
+    local procedure selladdr(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Shipment Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', '', SalesHeader."Sell-to Customer Name", SalesHeader."Sell-to Address", SalesHeader."Sell-to Address 2",
+            SalesHeader."Sell-to City", SalesHeader."Sell-to Post Code", '', SalesHeader."Sell-to Country/Region Code");
+    end;
+
+    local procedure ShipAddrTly(var AddrArray: array[8] of Text[100]; var SalesHeader: Record "Sales Shipment Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', '', SalesHeader."Ship-to Name", SalesHeader."Ship-to Address", SalesHeader."Ship-to Address 2",
+            SalesHeader."Ship-to City", SalesHeader."Ship-to Post Code", '', SalesHeader."Ship-to Country/Region Code");
     end;
 }
 

@@ -2,6 +2,28 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
 {
     layout
     {
+        addafter("Document No.")
+        {
+            field("Transfer-from Code"; Rec."Transfer-from Code")
+            {
+                Caption = 'Transfer-from Code';
+                ToolTip = 'Transfer-from Code';
+                ApplicationArea = All;
+            }
+            field("Transfer-to Code"; Rec."Transfer-to Code")
+            {
+                Caption = 'Transfer-to Code';
+                ToolTip = 'Transfer-to Code';
+                ApplicationArea = All;
+            }
+            field("Receipt Date"; Rec."Receipt Date")
+            {
+                Caption = 'Receipt Date';
+                ToolTip = 'Receipt Date';
+                ApplicationArea = All;
+            }
+        }
+
         moveafter("Item No."; Description)
 
         addafter(Description)

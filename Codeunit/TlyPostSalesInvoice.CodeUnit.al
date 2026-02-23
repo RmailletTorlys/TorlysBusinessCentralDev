@@ -26,4 +26,21 @@ codeunit 50028 TlyPostSalesInvoice
             end;
         end;
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterUpdateLastPostingNos', '', false, false)]
+    local procedure OnAfterUpdateLastPostingNos(var SalesHeader: Record "Sales Header")
+    begin
+        // blank out the below so if backorder, the warehouse doesn't see this old information
+        if SalesHeader.Invoice then begin
+            SalesHeader."No. Pick Slips Printed" := 0;
+            SalesHeader."Pick Slip Printed By" := '';
+            SalesHeader."Pick Slip Printed Date" := 0D;
+            SalesHeader."Pick Slip Printed Time" := 0T;
+            SalesHeader."Picked By" := '';
+            SalesHeader."Audited By" := '';
+            SalesHeader."Last Shipping No." := '';
+            SalesHeader."BOL No." := '';
+            SalesHeader."Package Tracking No." := '';
+        end;
+    end;
 }

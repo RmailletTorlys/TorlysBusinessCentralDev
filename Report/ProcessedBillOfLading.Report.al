@@ -462,7 +462,7 @@ report 50009 "Processed Bill Of Lading"
         TransferShipmentLine: Record "Transfer Shipment Line";
         ShippingAgent1: Record "Shipping Agent";
         FormatAddress: Codeunit "Format Address";
-        ShipToAddress: array[8] of Text[50];
+        ShipToAddress: array[8] of Text[100];
         LocationAddress: array[8] of Text[50];
         OrderString: array[8] of Text[100];
         CategoryArray: array[8] of Text[30];

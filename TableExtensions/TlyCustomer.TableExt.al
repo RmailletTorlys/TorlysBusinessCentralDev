@@ -264,7 +264,7 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50039; "Shipping Comment"; Text[50])
+        field(50039; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;

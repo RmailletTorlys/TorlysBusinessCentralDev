@@ -140,15 +140,15 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                         Error('Cannot delete if order released');
                 end;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Importance = Standard;
             }
         }
-        moveafter("Shipping Comment"; Status)
+        moveafter("Order Comment"; Status)
 
         addafter(Status)
         {
@@ -292,6 +292,14 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         addafter("Shipping Agent Service Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
+            }
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 Caption = 'Freight Zone Code';
@@ -846,9 +854,77 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             actionref(B13_Purchase; "B13 Purchase")
             {
             }
+            actionref(SendEmailConfirmationTLY1; SendEmailConfirmationTLY)
+            { }
         }
 
-        addafter("Print Confirmation")
+        modify(SendEmailConfirmation)
+        {
+            Visible = false;
+        }
+
+        addbefore("Print Confirmation")
+        {
+            action(SendEmailConfirmationTLY)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Email Confirmation';
+                Image = Email;
+
+                trigger OnAction()
+                var
+                    CustomReportSelection: Record "Custom Report Selection";
+                    SalesHeader: Record "Sales Header";
+                    EmailMsg: Codeunit "Email Message";
+                    Email: Codeunit "Email";
+                    TempBlob: Codeunit "Temp Blob";
+                    OutStr: OutStream;
+                    InStr: InStream;
+                    RecipientList: List of [Text];
+                    EmailAddr: Text;
+                    ReportID: Integer;
+                begin
+                    // 1. Get Layout details for the BILL-TO Customer
+                    CustomReportSelection.SetRange("Source Type", Database::Customer);
+                    CustomReportSelection.SetRange("Source No.", Rec."Bill-to Customer No.");
+                    CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
+
+                    if CustomReportSelection.FindFirst() then begin
+                        EmailAddr := CustomReportSelection."Send To Email";
+                        ReportID := CustomReportSelection."Report ID";
+                    end;
+
+                    // 2. Fallbacks if Layout is missing
+                    if EmailAddr = '' then EmailAddr := Rec."Sell-to E-Mail";
+                    if ReportID = 0 then ReportID := Report::"Standard Sales - Order Conf.";
+
+                    // 3. Handle multiple emails (split by semicolon)
+                    if EmailAddr.Contains(';') then
+                        RecipientList := EmailAddr.Split(';')
+                    else
+                        RecipientList.Add(EmailAddr);
+
+                    // 4. Generate the Attachment
+                    SalesHeader.SetRange("Document Type", Rec."Document Type");
+                    SalesHeader.SetRange("No.", Rec."No.");
+                    TempBlob.CreateOutStream(OutStr);
+                    Report.SaveAs(ReportID, '', ReportFormat::Pdf, OutStr, SalesHeader);
+                    TempBlob.CreateInStream(InStr);
+
+                    // 5. Create and Open Editor
+                    EmailMsg.Create(RecipientList, 'Order Confirmation ' + Rec."No.", '', true);
+                    EmailMsg.AddAttachment('Order_' + Rec."No." + '.pdf', 'application/pdf', InStr);
+
+                    // Note: In v27.2, use OpenInEditor
+                    Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::Default);
+                end;
+
+
+            }
+
+        }
+
+        addfirst(Action96)
         {
             action("Print Label")
             {
@@ -961,6 +1037,37 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         addfirst("F&unctions")
         {
+            action(RemoveBOL)
+            {
+                ApplicationArea = All;
+                Caption = 'Remove BOL #';
+                Image = CheckList;
+                ToolTip = 'Clear the BOL # from the current order.';
+                trigger OnAction()
+                var
+                    SalesHeader: Record "Sales Header";
+                    RemoveBOL: Boolean;
+                begin
+                    RemoveBOL := Dialog.Confirm('This will just remove the BOL # from this OR, the BOL line will still be populated. Proceed?');
+                    if RemoveBOL then begin
+                        SalesHeader.Reset();
+                        SalesHeader.SetRange("No.", Rec."No.");
+                        if SalesHeader.Find('-') then begin
+                            SalesHeader."No. Pick Slips Printed" := 0;
+                            SalesHeader."Pick Slip Printed By" := '';
+                            SalesHeader."Pick Slip Printed Date" := 0D;
+                            SalesHeader."Pick Slip Printed Time" := 0T;
+                            SalesHeader."Picked By" := '';
+                            SalesHeader."Audited By" := '';
+                            SalesHeader."Last Shipping No." := '';
+                            SalesHeader."BOL No." := '';
+                            SalesHeader."Package Tracking No." := '';
+                            SalesHeader.Modify(true);
+                            Message('BOL # (plus 8 other fields) removed from %1.', Rec."No.");
+                        end;
+                    end;
+                end;
+            }
             action("Open Sales Orders")
             {
                 Caption = 'Open Sales Orders';

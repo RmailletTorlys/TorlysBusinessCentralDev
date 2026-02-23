@@ -47,9 +47,17 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
                 Visible = true;
                 Editable = false;
             }
+            field("Order Comment"; Rec."Order Comment")
+            {
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
         }
 
-        addafter(ShortcutDimCode3)
+        addafter("Order Comment")
         {
             field("Reason Code"; Rec."Reason Code")
             {
@@ -76,7 +84,9 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
 
         moveafter("Rebill Invoice No."; "Posting Date", "Location Code")
 
-        addafter("Location Code")
+        moveafter("Location Code"; "Pre-Assigned No.")
+
+        addafter("Pre-Assigned No.")
         {
             field("Return Order No."; Rec."Return Order No.")
             {
@@ -175,6 +185,20 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
         }
 
         moveafter("Salesperson Commission 3"; Correction, "Applies-to Doc. Type", "Applies-to Doc. No.")
+
+        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+
+        addafter("Shipping Agent Service Code")
+        {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
+            }
+        }
 
         addbefore("Bill-to Name")
         {
@@ -437,11 +461,6 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             Importance = Standard;
         }
 
-        modify("Pre-Assigned No.")
-        {
-            Visible = false;
-        }
-
         modify(Cancelled)
         {
             Visible = false;
@@ -462,14 +481,9 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             Visible = false;
         }
 
-        modify("Shipping Agent Service Code")
-        {
-            Visible = false;
-        }
-
         modify("Shipment Method Code")
         {
-            Importance = Standard;
+            Visible = false;
         }
 
         modify("Shipping Agent Code")
@@ -490,6 +504,11 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
         modify("No. Printed")
         {
             Visible = true;
+        }
+
+        modify("Pre-Assigned No.")
+        {
+            Caption = 'Credit Memo No.';
         }
 
     }

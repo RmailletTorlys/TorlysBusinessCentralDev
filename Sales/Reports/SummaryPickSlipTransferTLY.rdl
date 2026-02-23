@@ -88,6 +88,12 @@ End Function
         <Field Name="Agent_No_">
           <DataField>Agent_No_</DataField>
         </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+        </Field>
         <Field Name="Item_No_">
           <DataField>Item_No_</DataField>
         </Field>
@@ -159,12 +165,6 @@ End Function
         </Field>
         <Field Name="Qty_per_Unit_of_Measure_Case">
           <DataField>Qty_per_Unit_of_Measure_Case</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Comment">
-          <DataField>Comment</DataField>
         </Field>
       </Fields>
       <Query>

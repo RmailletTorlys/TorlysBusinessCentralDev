@@ -78,15 +78,15 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
                 ApplicationArea = All;
                 Importance = Standard;
             }
-            field("Shipping Comment"; Rec."Shipping Comment")
+            field("Order Comment"; Rec."Order Comment")
             {
-                Caption = 'Shipping Comment';
-                ToolTip = 'Shipping Comment';
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
                 ApplicationArea = All;
                 Importance = Standard;
             }
         }
-        moveafter("Shipping Comment"; "Order No.", "No. Printed")
+        moveafter("Order Comment"; "Order No.", "No. Printed")
 
         addafter("No. Printed")
         {
@@ -190,8 +190,18 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
             }
         }
 
-        addafter("Shipping Agent Code")
+        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+
+        addafter("Shipping Agent Service Code")
         {
+            field("Shipping Comment"; Rec."Shipping Comment")
+            {
+                Caption = 'Shipping Comment';
+                ToolTip = 'Shipping Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+                MultiLine = true;
+            }
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 Caption = 'Freight Zone Code';
@@ -303,11 +313,6 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
         {
             Importance = Standard;
             Caption = 'Shipping Agent Code';
-        }
-
-        modify("Shipping Agent Service Code")
-        {
-            Visible = false;
         }
 
         modify("Package Tracking No.")

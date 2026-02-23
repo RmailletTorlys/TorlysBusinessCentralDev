@@ -155,7 +155,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             DataClassification = CustomerContent;
             Editable = false;
         }
-        field(50008; "Builder Description"; Text[20])
+        field(50008; "Builder Description"; Text[30])
         {
             Caption = 'Builder Description';
             DataClassification = CustomerContent;
@@ -295,6 +295,27 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         {
             Caption = 'Container No. (NAV)';
             DataClassification = CustomerContent;
+        }
+        field(50029; "Salesperson Code"; Code[20])
+        {
+            Caption = 'Salesperson Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Salesperson Code" where("No." = field("Document No.")));
+        }
+        field(50030; "Salesperson Code 2"; Code[20])
+        {
+            Caption = 'Salesperson Code 2';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Salesperson Code 2" where("No." = field("Document No.")));
+        }
+        field(50031; "Salesperson Code 3"; Code[20])
+        {
+            Caption = 'Salesperson Code 3';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Salesperson Code 3" where("No." = field("Document No.")));
         }
         modify("No.")
         {

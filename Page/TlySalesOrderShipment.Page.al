@@ -9,6 +9,7 @@ page 50999 TlySalesOrderShipment
     DeleteAllowed = false;
     ModifyAllowed = false;
     RefreshOnActivate = true;
+    Permissions = tabledata "Sales Shipment Header" = rm;
 
     layout
     {
@@ -136,6 +137,13 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Last Shipping No.';
                     Editable = false;
                 }
+                field("BOL No."; Rec."BOL No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'BOL No.';
+                    ToolTip = 'BOL No.';
+                    Editable = false;
+                }
             }
             // group(Lines)
             // {
@@ -156,6 +164,8 @@ page 50999 TlySalesOrderShipment
     {
         area(Promoted)
         {
+            actionref("Order Comments"; OrderComments)
+            { }
             group("Change Shipment Date")
             {
                 actionref("Today"; ChangeShipmentDateToday)
@@ -173,9 +183,22 @@ page 50999 TlySalesOrderShipment
             { }
             actionref("Post and Print"; PostAndPrint)
             { }
+            actionref("Remove BOL # from SH/OR"; RemoveBOL)
+            { }
         }
         area(Navigation)
         {
+            action(OrderComments)
+            {
+                ApplicationArea = All;
+                Caption = 'Order Comments';
+                Image = ViewComments;
+                RunObject = Page "Sales Comment Sheet";
+                RunPageLink = "Document Type" = field("Document Type"),
+                                  "No." = field("No."),
+                                  "Document Line No." = const(0);
+                ToolTip = 'View or add comments for the record.';
+            }
             group(ShipmentDate)
             {
                 action(ChangeShipmentDateToday)
@@ -260,6 +283,43 @@ page 50999 TlySalesOrderShipment
                         Codeunit.Run(Codeunit::TlyShipPostPrint, Rec);
                         // TorlysDocPrint.PrintShipmentLabel(Rec); //change to SO label only
                         TorlysDocPrint.PrintSalesOrderLabel(Rec);
+                    end;
+                }
+                action(RemoveBOL)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Remove BOL # from SH/OR';
+                    Image = CheckList;
+                    ToolTip = 'Clear the BOL # from the current line.';
+                    // Visible = (Rec."BOL No." <> '');
+                    trigger OnAction()
+                    var
+                        ShipmentHeader: Record "Sales Shipment Header";
+                        SalesHeader: Record "Sales Header";
+                        RemoveBOL: Boolean;
+                    begin
+                        CurrPage.SetSelectionFilter(SalesHeader);
+                        if SalesHeader.Count > 1 then
+                            Error('You cannot remove BOL # this way, choose 1 order.')
+                        else begin
+                            RemoveBOL := Dialog.Confirm('This will just remove the BOL # from the SH and the OR, the BOL line will still be populated. Proceed?');
+                            if RemoveBOL then begin
+                                ShipmentHeader.Reset();
+                                ShipmentHeader.SetRange("No.", Rec."Last Shipping No.");
+                                if ShipmentHeader.Find('-') then begin
+                                    ShipmentHeader."BOL No." := '';
+                                    ShipmentHeader.Modify(true);
+                                    Message('BOL # removed from %1.', Rec."Last Shipping No.");
+                                end;
+                                SalesHeader.Reset();
+                                SalesHeader.SetRange("No.", Rec."No.");
+                                if SalesHeader.Find('-') then begin
+                                    SalesHeader."BOL No." := '';
+                                    SalesHeader.Modify(true);
+                                    Message('BOL # removed from %1.', Rec."No.");
+                                end;
+                            end;
+                        end;
                     end;
                 }
             }

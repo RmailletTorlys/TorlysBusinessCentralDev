@@ -238,6 +238,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 ToolTip = 'Global Dimension 1 Code';
             }
+            field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Global Dimension 2 Code';
+            }
         }
 
         addfirst(PricesandDiscounts)
@@ -672,6 +677,91 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
     {
         addlast(processing)
         {
+            // action(SendStatementReview)
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Caption = 'Print/Send Statement';
+            //     Image = Email;
+
+            //     trigger OnAction()
+            //     var
+            //         Cust: Record Customer;
+            //         Choice: Integer;
+            //         Options: Label 'Email,Print/Preview,Cancel';
+            //         ReportId: Integer;
+            //         Params: Text;
+            //         RecRef: RecordRef;
+            //         TmpBlob: Codeunit "Temp Blob";
+            //         InStr: InStream;
+            //         Email: Codeunit Email;
+            //         EmailMsg: Codeunit "Email Message";
+            //         FileName: Text;
+            //         SubjectTxt: Text;
+            //         BodyHtml: Text;
+            //         ToAddr: Text;
+            //         Rendered: Boolean;
+            //         Err: Text;
+            //         outstr: OutStream;
+            //     begin
+            //         Cust.Get(Rec."No.");
+            //         ReportId := 50036;
+
+            //         Choice := StrMenu(Options, 1);
+
+            //         if Choice = 3 then
+            //             exit;
+
+
+
+            //         Cust.SetRange("No.", Rec."No.");
+            //         RecRef.GetTable(Cust);
+
+            //         Params := Report.RunRequestPage(ReportId);
+            //         if Params = '' then
+            //             exit;
+
+            //         case Choice of
+            //             1:
+            //                 begin
+            //                     // EMAIL FLOW (your existing logic)
+            //                     Clear(TmpBlob);
+            //                     TmpBlob.CreateOutStream(OutStr);
+            //                     Rendered := TryRenderToPdf(ReportId, Params, RecRef, TmpBlob, Err);
+            //                     if not Rendered then
+            //                         Error('Could not render Customer Statement. Details: %1', Err);
+
+
+            //                     TmpBlob.CreateInStream(InStr);
+
+            //                     ToAddr := Cust."E-Mail";
+            //                     if ToAddr = '' then
+            //                         Error('Customer %1 has no email address.', Cust."No.");
+
+            //                     SubjectTxt := StrSubstNo('Statement for %1 (%2)', Cust.Name, Cust."No.");
+            //                     BodyHtml :=
+            //                         StrSubstNo(
+            //                             '<p>Hello %1,</p>' +
+            //                             '<p>Please find your latest account statement attached.</p>' +
+            //                             '<p>Regards,<br/>%2</p>',
+            //                             Cust.Name, UserId());
+
+            //                     FileName := StrSubstNo('Statement_%1_%2.pdf', Cust."No.", Format(Today(), 0, 9));
+
+            //                     EmailMsg.Create(ToAddr, SubjectTxt, BodyHtml, true);
+            //                     EmailMsg.AddAttachment(FileName, 'application/pdf', InStr);
+
+            //                     Email.OpenInEditor(EmailMsg);
+            //                 end;
+
+            //             2:
+            //                 begin
+            //                     // PRINT / PREVIEW / EXPORT FLOW
+            //                     Report.RunModal(ReportId, true, false, Cust);
+            //                     // Report.Execute(ReportId, Params, RecRef);
+            //                 end;
+            //         end;
+            //     end;
+            // }
             action(SendStatementReview)
             {
                 ApplicationArea = Basic, Suite;
@@ -681,52 +771,47 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 trigger OnAction()
                 var
                     Cust: Record Customer;
-                    Choice: Integer;
-                    Options: Label 'Email,Print/Preview,Cancel';
-                    ReportId: Integer;
                     Params: Text;
-                    RecRef: RecordRef;
                     TmpBlob: Codeunit "Temp Blob";
                     InStr: InStream;
+                    Choice: Integer;
+                    OutStr: OutStream;
                     Email: Codeunit Email;
                     EmailMsg: Codeunit "Email Message";
-                    FileName: Text;
                     SubjectTxt: Text;
                     BodyHtml: Text;
-                    ToAddr: Text;
-                    Rendered: Boolean;
-                    Err: Text;
+                    Options: Label 'Email,Print/Preview,Cancel';
+                    // Must use a report variable
+                    StatementReport: Report "Customer Statements TLY";
                 begin
-                    Cust.Get(Rec."No.");
-                    ReportId := 1316;
+                    if not Cust.Get(Rec."No.") then exit;
 
                     Choice := StrMenu(Options, 1);
+                    if (Choice = 0) or (Choice = 3) then exit;
 
-                    if Choice = 3 then
-                        exit;
-
-                    Params := Report.RunRequestPage(ReportId);
-                    if Params = '' then
-                        exit;
-
+                    // 1. Apply filter to the record
                     Cust.SetRange("No.", Rec."No.");
-                    RecRef.GetTable(Cust);
+
+                    // 2. Get parameters from the request page
+                    // Passing Cust.GetView() ensures the filter stays in the XML
+                    // Params := StatementReport.RunRequestPage(Cust.GetFilters());
+                    // if Params = '' then exit;
+
+                    // Clear(StatementReport);
 
                     case Choice of
-                        1:
+                        1: // EMAIL
                             begin
-                                // EMAIL FLOW (your existing logic)
+                                Params := StatementReport.RunRequestPage(Cust.GetFilters());
+                                if Params = '' then exit;
+                                Clear(StatementReport);
                                 Clear(TmpBlob);
-                                Rendered := TryRenderToPdf(ReportId, Params, RecRef, TmpBlob, Err);
-                                if not Rendered then
-                                    Error('Could not render Customer Statement. Details: %1', Err);
+                                TmpBlob.CreateOutStream(OutStr);
+
+                                // Call SaveAs on the INSTANCE, not the static Report object
+                                StatementReport.SaveAs(Params, ReportFormat::Pdf, OutStr);
 
                                 TmpBlob.CreateInStream(InStr);
-
-                                ToAddr := Cust."E-Mail";
-                                if ToAddr = '' then
-                                    Error('Customer %1 has no email address.', Cust."No.");
-
                                 SubjectTxt := StrSubstNo('Statement for %1 (%2)', Cust.Name, Cust."No.");
                                 BodyHtml :=
                                     StrSubstNo(
@@ -734,19 +819,27 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                         '<p>Please find your latest account statement attached.</p>' +
                                         '<p>Regards,<br/>%2</p>',
                                         Cust.Name, UserId());
-
-                                FileName := StrSubstNo('Statement_%1_%2.pdf', Cust."No.", Format(Today(), 0, 9));
-
-                                EmailMsg.Create(ToAddr, SubjectTxt, BodyHtml, true);
-                                EmailMsg.AddAttachment(FileName, 'application/pdf', InStr);
-
-                                Email.OpenInEditor(EmailMsg);
+                                EmailMsg.Create(Cust."E-Mail", SubjectTxt, BodyHtml, true);
+                                EmailMsg.AddAttachment('Statement.pdf', 'application/pdf', InStr);
+                                Email.OpenInEditorModally(EmailMsg);
                             end;
 
-                        2:
+                        2: // PRINT / PREVIEW
                             begin
-                                // PRINT / PREVIEW / EXPORT FLOW
-                                Report.RunModal(ReportId, true, false, Cust);
+                                // Execute handles both the XML parameters and the UI flow
+                                // StatementReport.Execute(Params);
+                                // Report.Run(Report::"Customer Statements TLY", true, false, Cust);
+                                // if not Cust.Get(Rec."No.") then exit;
+
+                                // 2. Apply the filter so the Request Page knows which customer to show
+                                // Cust.SetRange("No.", Rec."No.");
+
+                                // 3. Run the report directly
+                                // Parameter 1: Report ID
+                                // Parameter 2: TRUE (This shows the standard Request Page with Preview/Print/Email)
+                                // Parameter 3: FALSE (Don't force it to a specific system printer)
+                                // Parameter 4: Cust (Passes the filtered record)
+                                Report.Run(Report::"Customer Statements TLY", true, false, Cust);
                             end;
                     end;
                 end;

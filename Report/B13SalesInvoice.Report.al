@@ -118,7 +118,7 @@ report 50028 "B13 Sales Invoice"
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
 
                     // SalesHeader.get("Document Type", "Document No.");
-                    If ("Gen. Prod. Posting Group" = 'SS Wood') and (SalesHeader."Ship-to Country/Region Code" = 'NZL') then begin
+                    If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesHeader."Ship-to Country/Region Code" = 'NZ') then begin
                         OrderQuantity := ("Quantity" / 10.764);
                         OrderUOM := 'M2';
                     end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin

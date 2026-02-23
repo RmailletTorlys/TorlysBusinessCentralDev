@@ -343,7 +343,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50055; "Temporary Posting Hold"; Boolean)
+        field(50056; "Temporary Posting Hold"; Boolean)
         {
             Caption = 'Temporary Posting Hold';
             DataClassification = CustomerContent;

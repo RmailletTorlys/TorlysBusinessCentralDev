@@ -1157,7 +1157,7 @@ page 52001 TlyOrdersToBeShippedList
                     Caption = 'Create Shippping Label';
                     ToolTip = 'Create a shipping label';
                     Image = ReleaseShipment;
-                    Visible = (Rec."Shipping Agent Code" = 'FEDEX');
+                    Visible = (Rec."Shipping Agent Code" = 'FEDEX') or (Rec."Shipping Agent Code" = 'UPS');
                     trigger OnAction()
                     var
                         SalesHeader: Record "Sales Header";

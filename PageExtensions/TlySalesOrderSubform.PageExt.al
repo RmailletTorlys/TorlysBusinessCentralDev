@@ -14,11 +14,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQuantityCase(Rec, Rec);
-                //     CurrPage.Update(true);
-                // end;
+
             }
             field("Quantity Pallet"; Rec."Quantity Pallet")
             {
@@ -26,11 +22,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQuantityPallet(Rec, Rec);
-                //     CurrPage.Update(true);
-                // end;
+
             }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {

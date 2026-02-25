@@ -74,6 +74,10 @@ report 50025 "Receiving Report PO"
             {
 
             }
+            column(Notes; Notes)
+            {
+
+            }
             column(CommentLabel; CommentLabel)
             {
 

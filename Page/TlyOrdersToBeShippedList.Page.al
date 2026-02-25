@@ -1114,11 +1114,11 @@ page 52001 TlyOrdersToBeShippedList
                             repeat
                                 // since we can't inject to add freight, we will just call our own codeunit
                                 // out of the box codeunit below
-                                // CODEUNIT.RUN(CODEUNIT::"Ship-Post + Print", Rec);
+                                // Codeunit.Run(CODEUNIT::"Ship-Post + Print", Rec);
                                 // our codeunit below
                                 Codeunit.Run(Codeunit::TlyShipPostPrint, SalesHeader);
                             until SalesHeader.Next() = 0;
-                        // if we put this label here, will it only prompt for 1 label at end of posting, great for multiple orders, also lets use SO label only
+                        // if we put the label here, it will it only prompt for 1 label at end of posting, great for multiple orders, also lets use SO label only
                         // TorlysDocPrint.PrintShipmentLabel(SalesHeader);
                         TorlysDocPrint.PrintSalesOrderLabel(SalesHeader);
                     end;

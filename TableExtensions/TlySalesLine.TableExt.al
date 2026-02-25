@@ -456,6 +456,14 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                     end;
                 end;
             end;
+
+            trigger OnAfterValidate()
+            begin
+                if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) and (Rec."Qty. to Ship" <> xRec."Qty. to Ship") then begin
+                    WarehouseNotifyFieldChanged := 'Qty. to Ship';
+                    UpdateWarehouseNotify;
+                end;
+            end;
         }
         modify("Return Qty. to Receive")
         {
@@ -492,13 +500,23 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         }
     }
 
-    // var
-    //     EditCasePallet: Boolean;
+    var
+        //     EditCasePallet: Boolean;
+        WarehouseNotifyFieldChanged: Text[15];
 
     // trigger OnAfterGetRecord()
     // begin
     //     CheckEditCasePallet(Rec, xRec, EditCasePallet);
     // end;
+
+    trigger OnAfterDelete()
+    begin
+        if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) then begin
+            // if not SkipHeaderModify then begin
+            WarehouseNotifyFieldChanged := 'Line Deleted';
+            UpdateWarehouseNotify;
+        end;
+    end;
 
     trigger OnModify()
     begin
@@ -506,15 +524,20 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             Rec.Validate(Quantity);
     end;
 
-    // [IntegrationEvent(false, false)]
-    // procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
-    // begin
-    // end;
-
-
+    procedure UpdateWarehouseNotify()
+    var
+        SalesHeader: Record "Sales Header";
+    begin
+        // populate below field only when:
+        // 1) delete a line (Sales Line)
+        // 2) modify Qty to Ship (don't need if add a line because the Qty. to Ship will be modified at that time) (Sales Line)
+        // 3) change ship-to (Sales Header)
+        if SalesHeader.Get("Document Type", "Document No.") then begin
+            SalesHeader."Warehouse Notify Modify By" := UserId;
+            SalesHeader."Warehouse Notify Modify Date" := WorkDate();
+            SalesHeader."Warehouse Notify Modify Time" := Time;
+            SalesHeader."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
+            SalesHeader.Modify(true);
+        end;
+    end;
 }

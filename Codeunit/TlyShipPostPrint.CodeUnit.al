@@ -20,6 +20,7 @@ codeunit 50012 TlyShipPostPrint
         Text1020001: Label 'Do you want to ship and print %1 for customer %2?';
         InsertFreightLine: Codeunit TlyInsertFreightLine;
         TorlysDocPrint: Codeunit TlyDocumentPrint;
+        PrevShipConfirm: Boolean;
 
     local procedure "Code"()
     begin
@@ -33,37 +34,86 @@ codeunit 50012 TlyShipPostPrint
         if SalesHeader."Audited By" = '' then
             Error('The Checked By associate cannot be blank!');
 
-        if SalesHeader."Picked By" = SalesHeader."Audited By" THEN
+        if SalesHeader."Picked By" = SalesHeader."Audited By" then
             Error('The Picked By and Checked By associate cannot be the same!');
+
+        if SalesHeader."Pick Slip Printed Date" < SalesHeader."Warehouse Notify Modify Date" then
+            Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
+
+        if (SalesHeader."Pick Slip Printed Date" = SalesHeader."Warehouse Notify Modify Date")
+            and (SalesHeader."Pick Slip Printed Time" < SalesHeader."Warehouse Notify Modify Time") then
+            Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
         // custom to us - end
 
-        if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
-            if not Confirm(Text1020001, false, SalesHeader."No.", SalesHeader."Sell-to Customer No.") then begin
-                SalesHeader."Shipping No." := '-1';
-                exit;
+        // checking if something already posted against this that is not yet invoiced
+        if SalesHeader."Last Shipping No." <> '' then begin
+            // Message('%1 already has a shipment %2 that is not yet invoiced. Please confirm.', SalesHeader."No.", SalesHeader."Last Shipping No.");
+            PrevShipConfirm := Dialog.Confirm('This order already has a shipment that is not yet invocied. Proceed?');
+            if PrevShipConfirm then begin
+                // START of posting routine, should move to a procedure for calling in multiple spots
+                if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
+                    if not Confirm(Text1020001, false, SalesHeader."No.", SalesHeader."Sell-to Customer No.") then begin
+                        SalesHeader."Shipping No." := '-1';
+                        exit;
+                    end;
+                    SalesHeader.Ship := true;
+                    SalesHeader.Invoice := false;
+
+                    // custom to us - start
+                    // need to open order to add freight line
+                    // moved to the Freight CU, because if the order fails to post for any reason it remains open
+                    // but can't get it to work, so leave here for now
+                    SalesHeader.Status := SalesHeader.Status::Open;
+                    SalesHeader.Modify(true);
+                    // codeunit to add freight line
+                    InsertFreightLine.SHposting(SalesHeader);
+                    // custom to us - end
+
+                    SalesPost.Run(SalesHeader);
+
+                    SalesShptHeader."No." := SalesHeader."Last Shipping No.";
+                    SalesShptHeader.SetRecFilter();
+                    PrintReport(ReportSelection.Usage::"S.Shipment");
+
+                    // need the label to print via own function, can't use report selection list due to differnet printer defaults
+                    // TorlysDocPrint.PrintShipmentLabel(SalesShptHeader);
+                    // moved this to the shipping screen as to only get 1 label if printing multiple orders and change to always print SO label
+                end;
+                // END of posting routine, should move to a procedure for calling in multiple spots
+            end else begin
+                Message('Go check out what is on %1 and come back.', SalesHeader."Last Shipping No.")
             end;
-            SalesHeader.Ship := true;
-            SalesHeader.Invoice := false;
+        end else begin
+            // START of posting routine, should move to a procedure for calling in multiple spots
+            if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
+                if not Confirm(Text1020001, false, SalesHeader."No.", SalesHeader."Sell-to Customer No.") then begin
+                    SalesHeader."Shipping No." := '-1';
+                    exit;
+                end;
+                SalesHeader.Ship := true;
+                SalesHeader.Invoice := false;
 
-            // custom to us - start
-            // need to open order to add freight line
-            // moved to the Freight CU, because if the order fails to post for any reason it remains open
-            // but can't get it to work, so leave here for now
-            SalesHeader.Status := SalesHeader.Status::Open;
-            SalesHeader.Modify(true);
-            // codeunit to add freight line
-            InsertFreightLine.SHposting(SalesHeader);
-            // custom to us - end
+                // custom to us - start
+                // need to open order to add freight line
+                // moved to the Freight CU, because if the order fails to post for any reason it remains open
+                // but can't get it to work, so leave here for now
+                SalesHeader.Status := SalesHeader.Status::Open;
+                SalesHeader.Modify(true);
+                // codeunit to add freight line
+                InsertFreightLine.SHposting(SalesHeader);
+                // custom to us - end
 
-            SalesPost.Run(SalesHeader);
+                SalesPost.Run(SalesHeader);
 
-            SalesShptHeader."No." := SalesHeader."Last Shipping No.";
-            SalesShptHeader.SetRecFilter();
-            PrintReport(ReportSelection.Usage::"S.Shipment");
+                SalesShptHeader."No." := SalesHeader."Last Shipping No.";
+                SalesShptHeader.SetRecFilter();
+                PrintReport(ReportSelection.Usage::"S.Shipment");
 
-            // need the label to print via own function, can't use report selection list due to differnet printer defaults
-            // TorlysDocPrint.PrintShipmentLabel(SalesShptHeader);
-            // moved this to the shipping screen as to only get 1 label if printing multiple orders and change to always print SO label
+                // need the label to print via own function, can't use report selection list due to differnet printer defaults
+                // TorlysDocPrint.PrintShipmentLabel(SalesShptHeader);
+                // moved this to the shipping screen as to only get 1 label if printing multiple orders and change to always print SO label
+            end;
+            // END of posting routine, should move to a procedure for calling in multiple spots
         end;
     end;
 
@@ -80,8 +130,8 @@ codeunit 50012 TlyShipPostPrint
                 ReportSelection.Usage::"S.Cr.Memo":
                     Report.Run(ReportSelection."Report ID", false, false, SalesCrMemoHeader);
                 ReportSelection.Usage::"S.Shipment":
-                    // Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader); // no longer present printer popup
-                    Report.Run(ReportSelection."Report ID", true, false, SalesShptHeader); // for start of go live, want to present printer popup to be sure
+                    // Report.Run(ReportSelection."Report ID", false, false, SalesShptHeader); // don't present printer popup
+                    Report.Run(ReportSelection."Report ID", true, false, SalesShptHeader); // present printer popup
                 ReportSelection.Usage::"S.Ret.Rcpt.":
                     Report.Run(ReportSelection."Report ID", false, false, ReturnRcptHeader);
             end;

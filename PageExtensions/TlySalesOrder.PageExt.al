@@ -918,10 +918,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     // Note: In v27.2, use OpenInEditor
                     Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::Default);
                 end;
-
-
             }
-
         }
 
         addfirst(Action96)

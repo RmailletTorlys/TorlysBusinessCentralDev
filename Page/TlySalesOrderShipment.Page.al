@@ -102,34 +102,34 @@ page 50999 TlySalesOrderShipment
                     Caption = 'Status';
                     // StyleExpr = StatusStyleTxt;
                 }
-                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the number of pick lists that have been printed for the sales order.';
-                    Caption = 'No. Pick Slips Printed';
-                }
-                field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the name of the person who printed the pick slip for the sales order.';
-                    Caption = 'Pick Slip Printed By';
-                }
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the date when the pick slip was printed for the sales order.';
-                    Caption = 'Pick Slip Printed Date';
-                }
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
-                    Caption = 'Pick Slip Printed Time';
-                }
+                // field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Specifies the number of pick lists that have been printed for the sales order.';
+                //     Caption = 'No. Pick Slips Printed';
+                // }
+                // field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Specifies the name of the person who printed the pick slip for the sales order.';
+                //     Caption = 'Pick Slip Printed By';
+                // }
+                // field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Specifies the date when the pick slip was printed for the sales order.';
+                //     Caption = 'Pick Slip Printed Date';
+                // }
+                // field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
+                //     Caption = 'Pick Slip Printed Time';
+                // }
                 field("Last Shipping No."; Rec."Last Shipping No.")
                 {
                     ApplicationArea = All;
@@ -158,6 +158,67 @@ page 50999 TlySalesOrderShipment
                 SubPageView = where("Outstanding Quantity" = filter(<> 0));
             }
             // }
+            group(PrintDetail)
+            {
+                Caption = 'Print Detail';
+
+                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the number of pick lists that have been printed for the sales order.';
+                    Caption = 'No. Pick Slips Printed';
+                }
+                field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the name of the person who printed the pick slip for the sales order.';
+                    Caption = 'Pick Slip Printed By';
+                }
+                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the date when the pick slip was printed for the sales order.';
+                    Caption = 'Pick Slip Printed Date';
+                }
+                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
+                    Caption = 'Pick Slip Printed Time';
+                }
+                field("Warehouse Notify Modify Field"; Rec."Warehouse Notify Modify Field")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Warehouse Notify Modify Field';
+                    Caption = 'Warehouse Notify Modify Field';
+                }
+                field("Warehouse Notify Modify By"; Rec."Warehouse Notify Modify By")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Warehouse Notify Modify By';
+                    Caption = 'Warehouse Notify Modify By';
+                }
+                field("Warehouse Notify Modify Date"; Rec."Warehouse Notify Modify Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Warehouse Notify Modify Date';
+                    Caption = 'Warehouse Notify Modify Date';
+                }
+                field("Warehouse Notify Modify Time"; Rec."Warehouse Notify Modify Time")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Warehouse Notify Modify Time';
+                    Caption = 'Warehouse Notify Modify Time';
+                }
+            }
         }
     }
     actions

@@ -283,4 +283,12 @@ codeunit 50299 TlyDocumentPrint
         // Report.RunModal(ReportSelectionWhse."Report ID", true, false, SalesHeader)
         // until ReportSelectionWhse.Next() = 0;
     end;
+
+    procedure PrintBOM(AssemblyBOM: Record "BOM Component"): Boolean
+    var
+        Item: Record Item;
+    begin
+        Item.SetRange("No.", AssemblyBOM."Parent Item No.");
+        Report.RunModal(801, true, false, Item);
+    end;
 }

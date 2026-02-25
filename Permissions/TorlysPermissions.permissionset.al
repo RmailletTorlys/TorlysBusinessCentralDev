@@ -66,6 +66,6 @@ permissionset 50000 TorlysPermissions
         page TlyProcBillOfLading = X,
         page TlyHolidayCalendarList = X,
         page TlyOrdersToBeShippedList = X,
-        query CustInfoForTorlysDotCom = X,
+        // query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;
 }

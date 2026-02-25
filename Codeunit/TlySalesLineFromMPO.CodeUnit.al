@@ -17,7 +17,7 @@ codeunit 50022 TlySalesLineFromMPO
         SalesOrders.LookupMode(true);
         SalesHeader.Reset;
         SalesHeader.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
-        SalesHeader.SetRange("Ship-to Code", Rec."Ship-to Code");
+        // SalesHeader.SetRange("Ship-to Code", Rec."Ship-to Code");
         // line here that puts the original order number in a MPO field
         SalesOrders.SetTableView(SalesHeader);
         if SalesOrders.RunModal() = Action::LookupOK then begin

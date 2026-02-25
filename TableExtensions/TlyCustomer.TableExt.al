@@ -239,11 +239,11 @@ tableextension 50018 TlyCustomer extends Customer
             ToolTip = 'Specifies the freight zone that the customer is assigned to.';
         }
 
-        field(50035; "Dealer Locator Participant"; Boolean)
-        {
-            Caption = 'Dealer Locator Participant';
-            DataClassification = CustomerContent;
-        }
+        // field(50035; "Dealer Locator Participant"; Boolean)
+        // {
+        //     Caption = 'Dealer Locator Participant';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(50036; "Shipping Instructions"; Code[20])
         {
@@ -276,6 +276,14 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
+        field(50041; "Marketing Items Zero Charge"; Boolean)
+        {
+            Caption = 'Marketing Items Zero Charge';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = exist("Price List Line" where("Source No." = field("No."), "Product No." = filter('DI-01A')));
+        }
+
         modify("Credit Limit (LCY)")
         {
             trigger OnAfterValidate()
@@ -287,7 +295,6 @@ tableextension 50018 TlyCustomer extends Customer
                 end;
             end;
         }
-
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

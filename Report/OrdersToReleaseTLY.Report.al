@@ -86,13 +86,13 @@ report 50004 "Orders to Release TLY"
             trigger OnAfterGetRecord()
             begin
                 If "No. Pick Slips Printed" > 0 then
-                    If "Pick Slip Printed Date" > "Popup Modify Date" then
+                    If "Pick Slip Printed Date" > "Warehouse Notify Modify Date" then
                         ModifiedAfterPrint := False
                     else
-                        if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        if "Pick Slip Printed Date" < "Warehouse Notify Modify Date" then
                             ModifiedAfterPrint := true
                         else
-                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                            if (("Pick Slip Printed Date" = "Warehouse Notify Modify Date") and ("Pick Slip Printed Time" <= "Warehouse Notify Modify Time")) then
                                 ModifiedAfterPrint := true
                             else
                                 ModifiedAfterPrint := false;

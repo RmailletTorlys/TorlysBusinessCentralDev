@@ -2,6 +2,26 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
 {
     layout
     {
+        addafter("Sell-to Customer Name")
+        {
+            field("External Document No."; Rec."External Document No.")
+            {
+                Caption = 'External Document No.';
+                ToolTip = 'External Document No.';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Tag Name"; Rec."Tag Name")
+            {
+                Caption = 'Tag Name';
+                ToolTip = 'Tag Name';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
         addafter("No.")
         {
             field("Item Reference No."; Rec."Item Reference No.")

@@ -104,6 +104,9 @@ page 51009 TlyBookingInfo
             { }
             actionref(PrintReceivingTransfer; "Receiving Report (Transfer)")
             { }
+            actionref(Attachments_Promoted; Attachments)
+            {
+            }
         }
         area(Processing)
         {
@@ -203,13 +206,30 @@ page 51009 TlyBookingInfo
                         TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+
+                trigger OnAction()
+                var
+                    DocumentAttachmentRecord: Record "Document Attachment";
+                    DocumentAttachmentPage: Page "Document Attachment Details";
+                begin
+                    DocumentAttachmentRecord.Reset;
+                    DocumentAttachmentRecord.SetFilter("Table ID", '55009');
+                    DocumentAttachmentRecord.SetFilter("No.", Rec."No.");
+                    DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
+                    DocumentAttachmentPage.RunModal();
+                end;
+            }
         }
     }
 
     views
     {
-        // addlast
-        // {
         view(TORToday)
         {
             Caption = 'TOR - Today';
@@ -246,24 +266,13 @@ page 51009 TlyBookingInfo
             Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('>T+1D'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
-        // }
+
     }
-    // var
-    //     Today: Date;
-    //     Tomorrow: Date;
 
     trigger OnOpenPage()
     var
         UserSetup: Record "User Setup";
     begin
         Rec.CalcFields("Open PO Count", "Open Transfer Count");
-
-        // UserSetup.Get(UserId);
-        // Rec.SetFilter("Location Code", UserSetup."Default Location Code");
-
-        // Rec.SetFilter("Appointment Date", '%1', WorkDate());
-
-        // Today := Workdate();
-        // Tomorrow := Workdate() + 1;
     end;
 }

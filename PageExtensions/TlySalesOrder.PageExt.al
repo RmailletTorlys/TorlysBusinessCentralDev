@@ -886,7 +886,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 begin
                     // 1. Get Layout details for the BILL-TO Customer
                     CustomReportSelection.SetRange("Source Type", Database::Customer);
-                    CustomReportSelection.SetRange("Source No.", Rec."Bill-to Customer No.");
+                    CustomReportSelection.SetRange("Source No.", Rec."Sell-to Customer No.");
                     CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
 
                     if CustomReportSelection.FindFirst() then begin

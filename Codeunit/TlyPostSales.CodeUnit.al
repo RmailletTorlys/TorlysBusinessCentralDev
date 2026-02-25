@@ -19,4 +19,17 @@ codeunit 50030 TlyPostSales
         ReplaceDocumentDate := true;
         PostingDate := WorkDate();
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeCheckMandatoryHeaderFields', '', false, false)]
+
+    local procedure OnBeforeCheckMandatoryHeaderFields(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
+    begin
+        IsHandled := false;
+        if SalesHeader."Temporary Posting Hold" then
+            Error(ErrorInfo.Create('Sales order was already posted. Please confirm if this order needs to be reposted.'))
+        else
+            IsHandled := false;
+        SalesHeader."Temporary Posting Hold" := true;
+        SalesHeader.Modify(true);
+    end;
 }

@@ -285,6 +285,34 @@ page 50999 TlySalesOrderShipment
                         TorlysDocPrint.PrintSalesOrderLabel(Rec);
                     end;
                 }
+
+                action("Remove Posting Hold")
+                {
+                    ToolTip = 'Removes the Posting hold on an Order.';
+                    Caption = 'Remove Posting Hold';
+                    Image = Report;
+                    ApplicationArea = All;
+                    trigger OnAction()
+                    begin
+                        Rec."Temporary Posting Hold" := false;
+                        Rec.Modify(true);
+                        Message('Posting hold removed from %1.', Rec."No.");
+                    end;
+                }
+
+                action("Add Posting Hold")
+                {
+                    ToolTip = 'Add the Posting hold on an Order.';
+                    Caption = 'Add Posting Hold';
+                    Image = Report;
+                    ApplicationArea = All;
+                    trigger OnAction()
+                    begin
+                        Rec."Temporary Posting Hold" := true;
+                        Rec.Modify(true);
+                        Message('Posting hold removed from %1.', Rec."No.");
+                    end;
+                }
                 action(RemoveBOL)
                 {
                     ApplicationArea = All;

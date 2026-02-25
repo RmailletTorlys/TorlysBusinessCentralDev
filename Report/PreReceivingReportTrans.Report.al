@@ -60,7 +60,7 @@ report 50019 "Receiving Report - Trans"
 
             dataitem("Transfer Line"; "Transfer Line")
             {
-                DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''));
+                DataItemTableView = sorting("Item No.") where("Item No." = filter(<> ''), "Derived From Line No." = filter(0));
                 DataItemLinkReference = "Transfer Header";
                 DataItemLink = "Document No." = field("No.");
                 RequestFilterFields = "Document No.";

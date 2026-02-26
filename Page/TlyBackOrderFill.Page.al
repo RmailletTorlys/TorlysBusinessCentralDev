@@ -85,13 +85,13 @@ page 50563 TlyBackOrderFill
                     ToolTip = 'Shipment Date';
                     Editable = false;
                 }
-                field("Shipping Instructions"; ShippingInstructions)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Shipping Instructions';
-                    ToolTip = 'Shipping Instructions';
-                    Editable = false;
-                }
+                // field("Shipping Instructions"; ShippingInstructions)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Shipping Instructions';
+                //     ToolTip = 'Shipping Instructions';
+                //     Editable = false;
+                // }
                 field("Pick Slip Printed Date"; PickSlipPrintedDate)
                 {
                     ApplicationArea = All;

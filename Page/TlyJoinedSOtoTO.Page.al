@@ -20,6 +20,13 @@ page 50557 TlyJoinedSOtoTO
                     ToolTip = 'Document No.';
                     Editable = false;
                 }
+                field("Location Code"; Rec."Location Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Location Code';
+                    ToolTip = 'Location Code';
+                    Editable = false;
+                }
                 field("Type"; Rec."Type")
                 {
                     ApplicationArea = All;
@@ -27,6 +34,7 @@ page 50557 TlyJoinedSOtoTO
                     ToolTip = 'Type';
                     Editable = false;
                 }
+
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
@@ -39,6 +47,20 @@ page 50557 TlyJoinedSOtoTO
                     ApplicationArea = All;
                     Caption = 'Description';
                     ToolTip = 'Description';
+                    Editable = false;
+                }
+                field("Shipment Date"; Rec."Shipment Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Shipment Date';
+                    ToolTip = 'Shipment Date';
+                    Editable = false;
+                }
+                field("Pick Slip Printed Date"; PickSlipPrintedDate)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pick Slip Printed Date';
+                    ToolTip = 'Pick Slip Printed Date';
                     Editable = false;
                 }
 
@@ -162,6 +184,9 @@ page 50557 TlyJoinedSOtoTO
             StyleExprTxt := 'Unfavorable'
         else
             StyleExprTxt := '';
+
+        SalesHeader.Get(Rec."Document Type", Rec."Document No.");
+        PickSlipPrintedDate := SalesHeader."Pick Slip Printed Date";
     end;
 
     trigger OnModifyRecord(): Boolean
@@ -174,4 +199,6 @@ page 50557 TlyJoinedSOtoTO
 
     var
         StyleExprTxt: Text;
+        SalesHeader: Record "Sales Header";
+        PickSlipPrintedDate: Date;
 }

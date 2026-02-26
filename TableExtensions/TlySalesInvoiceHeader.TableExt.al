@@ -258,7 +258,7 @@ tableextension 50112 TlySalesInvoiceHeader extends "Sales Invoice Header"
 
         field(50048; "Powerup Level"; Enum TlyPowerUpLevel)
         {
-            Caption = 'Club';
+            Caption = 'Powerup Level';
             FieldClass = FlowField;
             CalcFormula = Lookup(Customer."Power Up Level" where("No." = field("Sell-to Customer No.")));
             // OptionMembers = None,"Premier","Elite","Designer";

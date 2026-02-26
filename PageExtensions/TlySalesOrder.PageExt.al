@@ -109,7 +109,21 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date", "Order Date")
+        moveafter("Temporary Hold"; "Posting Date")
+
+        addafter("Posting Date")
+        {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+        }
+
+        moveafter("Entered By"; "Order Date")
 
         addafter("Order Date")
         {

@@ -92,6 +92,13 @@ page 50563 TlyBackOrderFill
                     ToolTip = 'Shipping Instructions';
                     Editable = false;
                 }
+                field("Pick Slip Printed Date"; PickSlipPrintedDate)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pick Slip Printed Date';
+                    ToolTip = 'Pick Slip Printed Date';
+                    Editable = false;
+                }
                 field("Transfer Order No."; Rec."Transfer Order No.")
                 {
                     ApplicationArea = All;
@@ -239,6 +246,7 @@ page 50563 TlyBackOrderFill
         TagName: Text[30];
         OrderDate: Date;
         ShippingInstructions: Text[20];
+        PickSlipPrintedDate: Date;
 
     trigger OnAfterGetRecord()
     begin
@@ -248,6 +256,7 @@ page 50563 TlyBackOrderFill
         TagName := SalesHeader."Tag Name";
         OrderDate := SalesHeader."Order Date";
         ShippingInstructions := SalesHeader."Shipping Instructions";
+        PickSlipPrintedDate := SalesHeader."Pick Slip Printed Date";
 
         if Rec."Qty. to Ship" <> Rec.Quantity then
             StyleExprTxt := 'Unfavorable'

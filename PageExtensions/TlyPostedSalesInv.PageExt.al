@@ -49,6 +49,14 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
 
         addafter("Posting Date")
         {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';

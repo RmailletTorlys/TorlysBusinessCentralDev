@@ -355,6 +355,12 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50058; "Entered By"; Code[50])
+        {
+            Caption = 'Entered By';
+            DataClassification = CustomerContent;
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()
@@ -366,7 +372,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 CommentLine.Reset();
                 CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Customer);
                 CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
-                IF CommentLine.Find('-') then begin
+                if CommentLine.Find('-') then begin
                     repeat
                         IF CommentLine."Popup" = TRUE THEN
                             Message('%1', CommentLine.Comment);
@@ -400,7 +406,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                         SalesHeader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
                         SalesHeader.SetRange("External Document No.", "External Document No.");
                         SalesHeader.SetFilter("Document Type", '%1|%2', "Document Type"::Order, "Document Type"::Invoice);
-                        IF (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
+                        if (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
                             Error('Customer PO # %1 exists on order # %2!', "External Document No.", SalesHeader."No.");
                         // Check posted invoices
                         SalesInvoiceHeader.Reset();
@@ -428,10 +434,13 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
     var
         WarehouseNotifyFieldChanged: Text[15];
+        LookupUserId: Codeunit TlyLookupUserID;
 
     trigger OnAfterInsert()
     begin
+        "Entered By" := UserId;
         "Order Time" := Time;
+        Rec.Modify(true);
         CopyCommentsFromCustCardToSalesHeader();
     end;
 

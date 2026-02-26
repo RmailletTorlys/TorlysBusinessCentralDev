@@ -66,6 +66,14 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
 
         addafter("Posting Date")
         {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';

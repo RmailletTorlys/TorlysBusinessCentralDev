@@ -82,7 +82,21 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             }
         }
 
-        moveafter("Rebill Invoice No."; "Posting Date", "Location Code")
+        moveafter("Rebill Invoice No."; "Posting Date")
+
+        addafter("Posting Date")
+        {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+        }
+
+        moveafter("Entered By"; "Location Code")
 
         moveafter("Location Code"; "Pre-Assigned No.")
 

@@ -302,6 +302,23 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
             Caption = 'Order Comment';
             DataClassification = CustomerContent;
         }
+        field(50056; "Temporary Posting Hold"; Boolean)
+        {
+            Caption = 'Temporary Posting Hold';
+            DataClassification = CustomerContent;
+        }
+
+        field(50057; "Warehouse Notify Modify Field"; Text[15])
+        {
+            Caption = 'Warehouse Notify Modify Field';
+            DataClassification = CustomerContent;
+        }
+
+        field(50058; "Entered By"; Code[50])
+        {
+            Caption = 'Entered By';
+            DataClassification = CustomerContent;
+        }
     }
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var

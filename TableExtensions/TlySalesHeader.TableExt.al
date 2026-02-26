@@ -91,20 +91,20 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50014; "Warehouse Notify Modify By"; Code[20])
+        field(50014; "Popup Modify By"; Code[20])
         {
             Caption = 'Warehouse Notify Modify By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
-        field(50015; "Warehouse Notify Modify Date"; Date)
+        field(50015; "Popup Modify Date"; Date)
         {
             Caption = 'Warehouse Notify Modify Date';
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Warehouse Notify Modify Time"; Time)
+        field(50016; "Popup Modify Time"; Time)
         {
             Caption = 'Warehouse Notify Modify Time';
             DataClassification = CustomerContent;
@@ -161,14 +161,14 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         field(50020; "Qty. to Ship"; Decimal)
         {
             Caption = 'Qty. to ship';
-            CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }
 
         field(50021; "Outstanding Quantity"; Decimal)
         {
             Caption = 'Outstanding Quantity';
-            CalcFormula = Sum("Sales Line"."Outstanding Quantity" WHERE("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Sales Line"."Outstanding Quantity" where("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }
 
@@ -381,16 +381,16 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             end;
         }
 
-        modify("Ship-to Code")
-        {
-            trigger OnAfterValidate()
-            begin
-                if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
-                    WarehouseNotifyFieldChanged := 'Ship-to';
-                    UpdateWarehouseNotify;
-                end;
-            end;
-        }
+        // modify("Ship-to Code")
+        // {
+        //     trigger OnAfterValidate()
+        //     begin
+        //         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
+        //             WarehouseNotifyFieldChanged := 'Ship-to';
+        //             UpdateWarehouseNotify;
+        //         end;
+        //     end;
+        // }
 
         modify("External Document No.")
         {
@@ -434,7 +434,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
     var
         WarehouseNotifyFieldChanged: Text[15];
-        LookupUserId: Codeunit TlyLookupUserID;
+    // LookupUserId: Codeunit TlyLookupUserID;
 
     trigger OnAfterInsert()
     begin
@@ -458,9 +458,9 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         // 2) modify Qty to Ship (don't need if add a line because the Qty. to Ship will be modified at that time) (Sales Line)
         // 3) change ship-to (Sales Header)
         if Rec.Get("Document Type", "No.") then begin
-            Rec."Warehouse Notify Modify By" := UserId;
-            Rec."Warehouse Notify Modify Date" := WorkDate();
-            Rec."Warehouse Notify Modify Time" := Time;
+            Rec."Popup Modify By" := UserId;
+            Rec."Popup Modify Date" := WorkDate();
+            Rec."Popup Modify Time" := Time;
             Rec."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
             Rec.Modify(true);
         end;

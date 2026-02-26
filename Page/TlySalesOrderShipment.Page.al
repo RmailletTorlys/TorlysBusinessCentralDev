@@ -197,21 +197,21 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Warehouse Notify Modify Field';
                     Caption = 'Warehouse Notify Modify Field';
                 }
-                field("Warehouse Notify Modify By"; Rec."Warehouse Notify Modify By")
+                field("Warehouse Notify Modify By"; Rec."Popup Modify By")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Warehouse Notify Modify By';
                     Caption = 'Warehouse Notify Modify By';
                 }
-                field("Warehouse Notify Modify Date"; Rec."Warehouse Notify Modify Date")
+                field("Warehouse Notify Modify Date"; Rec."Popup Modify Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Warehouse Notify Modify Date';
                     Caption = 'Warehouse Notify Modify Date';
                 }
-                field("Warehouse Notify Modify Time"; Rec."Warehouse Notify Modify Time")
+                field("Warehouse Notify Modify Time"; Rec."Popup Modify Time")
                 {
                     ApplicationArea = All;
                     Editable = false;

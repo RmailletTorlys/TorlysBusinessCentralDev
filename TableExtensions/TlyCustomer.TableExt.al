@@ -239,11 +239,12 @@ tableextension 50018 TlyCustomer extends Customer
             ToolTip = 'Specifies the freight zone that the customer is assigned to.';
         }
 
-        // field(50035; "Dealer Locator Participant"; Boolean)
-        // {
-        //     Caption = 'Dealer Locator Participant';
-        //     DataClassification = CustomerContent;
-        // }
+        field(50035; "Dealer Locator Participant"; Boolean)
+        {
+            Caption = 'Dealer Locator Participant';
+            DataClassification = CustomerContent;
+            // Enabled = false;
+        }
 
         field(50036; "Shipping Instructions"; Code[20])
         {
@@ -262,6 +263,7 @@ tableextension 50018 TlyCustomer extends Customer
         {
             Caption = 'Add to Dealer Locator';
             DataClassification = CustomerContent;
+            // Enabled = false;
         }
 
         field(50039; "Shipping Comment"; Text[100])

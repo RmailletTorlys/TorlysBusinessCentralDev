@@ -64,23 +64,17 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="CompanyInformationName">
-          <DataField>CompanyInformationName</DataField>
+        <Field Name="CompanyInformation">
+          <DataField>CompanyInformation</DataField>
         </Field>
-        <Field Name="TextOut">
-          <DataField>TextOut</DataField>
-        </Field>
-        <Field Name="SystemId">
-          <DataField>SystemId</DataField>
-        </Field>
-        <Field Name="Itemfilder">
-          <DataField>Itemfilder</DataField>
+        <Field Name="ItemLedgerEntry2">
+          <DataField>ItemLedgerEntry2</DataField>
         </Field>
         <Field Name="Location_Code">
           <DataField>Location_Code</DataField>
         </Field>
-        <Field Name="class">
-          <DataField>class</DataField>
+        <Field Name="Shortcut_Dimension_4_Code">
+          <DataField>Shortcut_Dimension_4_Code</DataField>
         </Field>
         <Field Name="ClassDesc">
           <DataField>ClassDesc</DataField>

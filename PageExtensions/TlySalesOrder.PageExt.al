@@ -1028,8 +1028,8 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             group("Credit Hold")
             {
-                Visible = true;
                 Caption = 'Credit Hold';
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 actionref("RemoveCreditHold"; "Remove Credit Hold")
                 {
                 }
@@ -1141,6 +1141,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 begin
                     TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
@@ -1153,6 +1154,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Caption = 'Remove Posting Hold';
                 Image = Report;
                 ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 begin
                     Rec."Temporary Posting Hold" := false;
@@ -1216,6 +1218,15 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         LookupUserId: Codeunit TlyLookupUserID;
         InsertFreightLine: Codeunit TlyInsertFreightLine;
         TorlysCreditHold: Codeunit TlyCreditHold;
+        UserDepartment: Enum TlyUserDepartment;
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if UserSetup.Get(UserId) then
+            UserDepartment := UserSetup.Department;
+    end;
 
     trigger OnAfterGetRecord()
     begin

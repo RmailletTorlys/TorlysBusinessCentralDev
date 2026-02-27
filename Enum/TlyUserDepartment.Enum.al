@@ -19,27 +19,35 @@ Enum 50011 TlyUserDepartment
     {
         Caption = 'Customer Service';
     }
-    value(4; "IT")
+    value(4; "Executive")
+    {
+        Caption = 'Executive';
+    }
+    value(5; "Finance")
+    {
+        Caption = 'Finance';
+    }
+    value(6; "IT")
     {
         Caption = 'IT';
     }
-    value(5; "Marketing")
+    value(7; "Marketing")
     {
         Caption = 'Marketing';
     }
-    value(6; "PID")
+    value(8; "PID")
     {
         Caption = 'PID';
     }
-    value(7; "Sampling")
+    value(9; "Sampling")
     {
         Caption = 'Sampling';
     }
-    value(8; "Warehouse CAL")
+    value(10; "Warehouse CAL")
     {
         Caption = 'Warehouse CAL';
     }
-    value(9; "Warehouse TOR")
+    value(11; "Warehouse TOR")
     {
         Caption = 'Warehouse TOR';
     }

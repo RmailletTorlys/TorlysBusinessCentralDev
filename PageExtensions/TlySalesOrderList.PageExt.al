@@ -234,8 +234,8 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         {
             group("Credit Hold")
             {
-                Visible = true;
                 Caption = 'Credit Hold';
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 actionref("Remove from Hold"; "Remove Credit Hold")
                 {
                 }
@@ -252,6 +252,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'Remove Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 var
                     SelectedOrders: Record "Sales Header";
@@ -270,6 +271,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 var
                     SelectedOrders: Record "Sales Header";
@@ -356,19 +358,19 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'MK Required, Not Staged (0)';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'), "No. Printed" = filter(0));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
             view(MKRequiredNotStagedNo0)
             {
                 Caption = 'MK Required, Not Staged (>0)';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'), "No. Printed" = filter(> 0));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
             view(MKRequiredStaged)
             {
                 Caption = 'MK Required, Staged';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('Yes'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
             // view(Seperator3)
             // {
@@ -427,7 +429,6 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
     begin
         if UserSetup.Get(UserId) then
             UserDepartment := UserSetup.Department;
-        // Message('%1', UserSetup."Default Location Code");
     end;
 
     trigger OnAfterGetRecord()

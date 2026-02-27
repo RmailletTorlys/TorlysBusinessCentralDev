@@ -37,7 +37,7 @@ tableextension 50018 TlyCustomer extends Customer
             Editable = false;
         }
 
-        field(50006; "Credit Warnings"; enum TlyCustCreditWarnings)
+        field(50006; "Credit Warnings"; Enum TlyCustCreditWarnings)
         {
             Caption = 'Credit Warnings';
             DataClassification = CustomerContent;
@@ -49,7 +49,7 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50009; "Closed By"; code[20])
+        field(50009; "Closed By"; Code[20])
         {
             Caption = 'Closed By';
             TableRelation = "Salesperson/Purchaser";

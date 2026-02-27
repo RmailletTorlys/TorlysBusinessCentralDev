@@ -512,7 +512,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     trigger OnAfterDelete()
     begin
         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) then begin
-            // if not SkipHeaderModify then begin
+            // if not SkipHeaderModify then begin //this is here so user can delete order on header as opposed to lines then header
             WarehouseNotifyFieldChanged := 'Line Deleted';
             UpdateWarehouseNotify;
         end;

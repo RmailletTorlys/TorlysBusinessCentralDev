@@ -182,7 +182,8 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
         modify("Receipt Date")
         {
             ShowMandatory = true;
-            Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            // Editable = (Rec.Status = Rec.Status::Open) and EnableTransferFields;
+            Editable = true;
         }
         modify("Direct Transfer")
         {

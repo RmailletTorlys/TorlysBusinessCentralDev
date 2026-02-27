@@ -26,7 +26,7 @@ table 55004 TlyProcessedBillOfLadingHeader
 
         }
 
-        field(4; "Customer No."; Code[10])
+        field(4; "Customer No."; Code[20])
         {
             Caption = 'Customer No.';
 

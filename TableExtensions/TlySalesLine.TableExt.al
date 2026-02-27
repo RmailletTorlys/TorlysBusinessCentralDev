@@ -535,7 +535,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         if SalesHeader.Get("Document Type", "Document No.") then begin
             SalesHeader."Popup Modify By" := UserId;
             SalesHeader."Popup Modify Date" := WorkDate();
-            SalesHeader."Popup Modify Time" := Time;
+            SalesHeader."Warehouse Notify Modify Time" := Time;
             SalesHeader."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
             SalesHeader.Modify(true);
         end;

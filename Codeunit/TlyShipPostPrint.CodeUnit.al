@@ -41,7 +41,7 @@ codeunit 50012 TlyShipPostPrint
             Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
 
         if (SalesHeader."Pick Slip Printed Date" = SalesHeader."Popup Modify Date")
-            and (SalesHeader."Pick Slip Printed Time" < SalesHeader."Popup Modify Time") then
+            and (SalesHeader."Pick Slip Printed Time" < SalesHeader."Warehouse Notify Modify Time") then
             Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
         // custom to us - end
 

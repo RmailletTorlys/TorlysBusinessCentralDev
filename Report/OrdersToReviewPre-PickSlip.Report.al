@@ -121,7 +121,7 @@ report 50006 "Orders to review pre-pick slip"
                         if "Pick Slip Printed Date" < "Popup Modify Date" then
                             ModifiedAfterPrint := true
                         else
-                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Warehouse Notify Modify Time")) then
                                 ModifiedAfterPrint := true
                             else
                                 ModifiedAfterPrint := false;

@@ -29,4 +29,8 @@ enum 50005 TlyMKRequiredType
     {
         Caption = 'Labels';
     }
+    value(6; Board)
+    {
+        Caption = 'Board';
+    }
 }

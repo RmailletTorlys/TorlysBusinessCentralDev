@@ -89,20 +89,20 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
 
         field(50014; "Popup Modify By"; code[20])
         {
-            Caption = 'Popup Modify By';
+            Caption = 'Warehouse Notify Modify By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
         field(50015; "Popup Modify Date"; Date)
         {
-            Caption = 'Popup Modify Date';
+            Caption = 'Warehouse Notify Modify Date';
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Popup Modify Time"; Time)
+        field(50016; "Warehouse Notify Modify Time"; Time)
         {
-            Caption = 'Popup Modify Time';
+            Caption = 'Warehouse Notify Modify Time';
             DataClassification = CustomerContent;
         }
         field(50017; "Original Invoice No."; Code[20])

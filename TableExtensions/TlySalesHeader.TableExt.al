@@ -104,7 +104,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Popup Modify Time"; Time)
+        field(50016; "Warehouse Notify Modify Time"; Time)
         {
             Caption = 'Warehouse Notify Modify Time';
             DataClassification = CustomerContent;
@@ -374,9 +374,16 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
                 if CommentLine.Find('-') then begin
                     repeat
-                        IF CommentLine."Popup" = TRUE THEN
+                        if CommentLine."Popup" = TRUE THEN
                             Message('%1', CommentLine.Comment);
                     until CommentLine.Next = 0;
+                end;
+
+                if Rec."Sell-to Customer No." = 'SWATCH SAMPLE' then begin
+                    Rec.Validate("Order Method", 'ONLINE');
+                    Rec.Validate("Your Reference", 'SHOP AT HOME');
+                    Rec.Validate("Order Type", 'SHOP AT HOME');
+                    Rec.Validate("Shipping Instructions", 'SCHEDULED');
                 end;
             end;
         }
@@ -460,7 +467,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         if Rec.Get("Document Type", "No.") then begin
             Rec."Popup Modify By" := UserId;
             Rec."Popup Modify Date" := WorkDate();
-            Rec."Popup Modify Time" := Time;
+            Rec."Warehouse Notify Modify Time" := Time;
             Rec."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
             Rec.Modify(true);
         end;

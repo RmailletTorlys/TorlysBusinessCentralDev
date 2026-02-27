@@ -148,7 +148,7 @@ page 52001 TlyOrdersToBeShippedList
                     Caption = 'Collector ID';
                     ToolTip = 'Collector ID';
                     Editable = false;
-                    Visible = false;
+                    Visible = true;
                 }
                 field("Reprint Required"; ReprintRequired)
                 {
@@ -1729,7 +1729,7 @@ page 52001 TlyOrdersToBeShippedList
                 ReprintRequired := ''
             else if Rec."Pick Slip Printed Date" < Rec."Popup Modify Date" then
                 ReprintRequired := 'Yes'
-            else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Popup Modify Time") then
+            else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Warehouse Notify Modify Time") then
                 ReprintRequired := 'Yes';
         end else begin
             ReprintRequired := '';

@@ -43,11 +43,15 @@ Enum 50011 TlyUserDepartment
     {
         Caption = 'Sampling';
     }
-    value(10; "Warehouse CAL")
+    value(10; "Supply Chain")
+    {
+        Caption = 'Supply Chain';
+    }
+    value(11; "Warehouse CAL")
     {
         Caption = 'Warehouse CAL';
     }
-    value(11; "Warehouse TOR")
+    value(12; "Warehouse TOR")
     {
         Caption = 'Warehouse TOR';
     }

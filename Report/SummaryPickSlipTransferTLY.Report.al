@@ -258,11 +258,9 @@ report 50007 "Summary Pick Slip Transfer TLY"
             end;
 
         }
-
     }
 
     var
-
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";

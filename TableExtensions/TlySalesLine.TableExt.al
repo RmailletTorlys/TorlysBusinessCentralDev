@@ -512,7 +512,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     trigger OnAfterDelete()
     begin
         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) then begin
-            // if not SkipHeaderModify then begin
+            // if not SkipHeaderModify then begin //this is here so user can delete order on header as opposed to lines then header
             WarehouseNotifyFieldChanged := 'Line Deleted';
             UpdateWarehouseNotify;
         end;
@@ -533,8 +533,8 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         // 2) modify Qty to Ship (don't need if add a line because the Qty. to Ship will be modified at that time) (Sales Line)
         // 3) change ship-to (Sales Header)
         if SalesHeader.Get("Document Type", "Document No.") then begin
-            SalesHeader."Warehouse Notify Modify By" := UserId;
-            SalesHeader."Warehouse Notify Modify Date" := WorkDate();
+            SalesHeader."Popup Modify By" := UserId;
+            SalesHeader."Popup Modify Date" := WorkDate();
             SalesHeader."Warehouse Notify Modify Time" := Time;
             SalesHeader."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
             SalesHeader.Modify(true);

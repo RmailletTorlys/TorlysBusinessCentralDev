@@ -15,6 +15,13 @@ tableextension 50091 TlyUserSetup extends "User Setup"
             ToolTip = 'SO Qty. to Ship Edit';
             DataClassification = CustomerContent;
         }
+
+        field(50003; "Department"; Enum TlyUserDepartment)
+        {
+            Caption = 'Department';
+            ToolTip = 'Department';
+            DataClassification = CustomerContent;
+        }
     }
 
 }

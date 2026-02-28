@@ -4,7 +4,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
     {
         moveafter("No."; "Item Reference No.")
 
-        moveafter(Description; "Location Code", "Unit of Measure Code", Quantity)
+        moveafter(Description; "Description 2", "Location Code", "Unit of Measure Code", Quantity)
 
         addafter(Quantity)
         {
@@ -456,6 +456,11 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         }
 
         modify("Invoice Disc. Pct.")
+        {
+            Visible = false;
+        }
+
+        modify("Description 2")
         {
             Visible = false;
         }

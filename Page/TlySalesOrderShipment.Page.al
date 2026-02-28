@@ -197,14 +197,14 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Warehouse Notify Modify Field';
                     Caption = 'Warehouse Notify Modify Field';
                 }
-                field("Warehouse Notify Modify By"; Rec."Warehouse Notify Modify By")
+                field("Warehouse Notify Modify By"; Rec."Popup Modify By")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Warehouse Notify Modify By';
                     Caption = 'Warehouse Notify Modify By';
                 }
-                field("Warehouse Notify Modify Date"; Rec."Warehouse Notify Modify Date")
+                field("Warehouse Notify Modify Date"; Rec."Popup Modify Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -347,33 +347,33 @@ page 50999 TlySalesOrderShipment
                     end;
                 }
 
-                action("Remove Posting Hold")
-                {
-                    ToolTip = 'Removes the Posting hold on an Order.';
-                    Caption = 'Remove Posting Hold';
-                    Image = Report;
-                    ApplicationArea = All;
-                    trigger OnAction()
-                    begin
-                        Rec."Temporary Posting Hold" := false;
-                        Rec.Modify(true);
-                        Message('Posting hold removed from %1.', Rec."No.");
-                    end;
-                }
+                // action("Remove Posting Hold")
+                // {
+                //     ToolTip = 'Removes the Posting hold on an Order.';
+                //     Caption = 'Remove Posting Hold';
+                //     Image = Report;
+                //     ApplicationArea = All;
+                //     trigger OnAction()
+                //     begin
+                //         Rec."Temporary Posting Hold" := false;
+                //         Rec.Modify(true);
+                //         Message('Posting hold removed from %1.', Rec."No.");
+                //     end;
+                // }
 
-                action("Add Posting Hold")
-                {
-                    ToolTip = 'Add the Posting hold on an Order.';
-                    Caption = 'Add Posting Hold';
-                    Image = Report;
-                    ApplicationArea = All;
-                    trigger OnAction()
-                    begin
-                        Rec."Temporary Posting Hold" := true;
-                        Rec.Modify(true);
-                        Message('Posting hold removed from %1.', Rec."No.");
-                    end;
-                }
+                // action("Add Posting Hold")
+                // {
+                //     ToolTip = 'Add the Posting hold on an Order.';
+                //     Caption = 'Add Posting Hold';
+                //     Image = Report;
+                //     ApplicationArea = All;
+                //     trigger OnAction()
+                //     begin
+                //         Rec."Temporary Posting Hold" := true;
+                //         Rec.Modify(true);
+                //         Message('Posting hold removed from %1.', Rec."No.");
+                //     end;
+                // }
                 action(RemoveBOL)
                 {
                     ApplicationArea = All;

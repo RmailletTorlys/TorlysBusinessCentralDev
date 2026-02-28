@@ -148,6 +148,21 @@ page 52001 TlyOrdersToBeShippedList
                     Caption = 'Collector ID';
                     ToolTip = 'Collector ID';
                     Editable = false;
+                    Visible = true;
+                }
+                field("Reprint Required"; ReprintRequired)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Reprint Required';
+                    ToolTip = 'Reprint Required';
+                    Editable = false;
+                }
+                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
+                {
+                    ApplicationArea = All;
+                    Caption = 'No. Pick Slips Printed';
+                    ToolTip = 'No. Pick Slips Printed';
+                    Editable = false;
                 }
                 field("Pick Slip Printed By"; Rec."Pick Slip Printed By")
                 {
@@ -170,13 +185,7 @@ page 52001 TlyOrdersToBeShippedList
                     ToolTip = 'Pick Slip Printed Time';
                     Editable = false;
                 }
-                field("No. Pick Slips Printed"; Rec."No. Pick Slips Printed")
-                {
-                    ApplicationArea = All;
-                    Caption = 'No. Pick Slips Printed';
-                    ToolTip = 'No. Pick Slips Printed';
-                    Editable = false;
-                }
+
                 field("Picked By"; Rec."Picked By")
                 {
                     ApplicationArea = All;
@@ -1663,6 +1672,7 @@ page 52001 TlyOrdersToBeShippedList
         SOCount: Integer;
         FullyAllocated: Text[3];
         CollectorID: Code[20];
+        ReprintRequired: Text[3];
         ToShipWeight: Decimal;
         TransferOrderNo: Code[20];
         ShipmentWeight: Decimal;
@@ -1712,6 +1722,18 @@ page 52001 TlyOrdersToBeShippedList
             CollectorID := Customer."Collector ID"
         else
             CollectorID := '';
+
+        // check if pick slip reprint required
+        if Rec."No. Pick Slips Printed" > 0 then begin
+            if Rec."Pick Slip Printed Date" > Rec."Popup Modify Date" then
+                ReprintRequired := ''
+            else if Rec."Pick Slip Printed Date" < Rec."Popup Modify Date" then
+                ReprintRequired := 'Yes'
+            else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Warehouse Notify Modify Time") then
+                ReprintRequired := 'Yes';
+        end else begin
+            ReprintRequired := '';
+        end;
 
         // Get weight of allocated order
         Clear(ToShipWeight);

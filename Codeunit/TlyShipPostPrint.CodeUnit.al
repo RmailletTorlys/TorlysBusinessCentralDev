@@ -37,10 +37,10 @@ codeunit 50012 TlyShipPostPrint
         if SalesHeader."Picked By" = SalesHeader."Audited By" then
             Error('The Picked By and Checked By associate cannot be the same!');
 
-        if SalesHeader."Pick Slip Printed Date" < SalesHeader."Warehouse Notify Modify Date" then
+        if SalesHeader."Pick Slip Printed Date" < SalesHeader."Popup Modify Date" then
             Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
 
-        if (SalesHeader."Pick Slip Printed Date" = SalesHeader."Warehouse Notify Modify Date")
+        if (SalesHeader."Pick Slip Printed Date" = SalesHeader."Popup Modify Date")
             and (SalesHeader."Pick Slip Printed Time" < SalesHeader."Warehouse Notify Modify Time") then
             Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
         // custom to us - end

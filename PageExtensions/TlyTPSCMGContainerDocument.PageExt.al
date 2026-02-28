@@ -2,7 +2,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
 {
     layout
     {
-        moveafter("No."; Description, "Receipt location", "Posting Date", "Container Type")
+        moveafter("No."; Description, "Receipt location", "Container Type")
 
         addafter("Container Type")
         {
@@ -14,7 +14,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Previous ETA"; "Actual Shipment Date", "Expected Receipt Date", "BOL No.", "Shipment Method Code")
+        moveafter("Previous ETA"; "BOL No.", "Shipment Method Code")
 
         addafter("Shipment Method Code")
         {
@@ -32,38 +32,15 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Port of loading")
-
-        addafter("Port of loading")
-        {
-            field("Port of Loading Date"; Rec."Port of Loading Date")
-            {
-                Caption = 'Origin Port Departure Date';
-                ToolTip = 'Origin Port Departure Date';
-                ApplicationArea = All;
-            }
-        }
-
-        moveafter("Port of Loading Date"; "Port of discharge")
+        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Port of loading", "Port of discharge")
 
         addafter("Port of discharge")
         {
-            field("Port of Discharge Date"; Rec."Port of Discharge Date")
-            {
-                Caption = 'Destination Port Arrival Date';
-                ToolTip = 'Destination Port Arrival Date';
-                ApplicationArea = All;
-            }
+
             field("Inland Terminal"; Rec."Inland Terminal")
             {
                 Caption = 'Inland Terminal';
                 ToolTip = 'Inland Terminal';
-                ApplicationArea = All;
-            }
-            field("Inland Terminal Date"; Rec."Inland Terminal Date")
-            {
-                Caption = 'Inland Terminal Date';
-                ToolTip = 'Inland Terminal Date';
                 ApplicationArea = All;
             }
             field("Insurance Certificate No."; Rec."Insurance Certificate No.")
@@ -74,9 +51,32 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Insurance Certificate No."; "Shipping Status", Status)
+        moveafter("Insurance Certificate No."; "Shipping Status", Status, "Posting Date", "Actual Shipment Date")
 
-        addafter(Status)
+        addafter("Actual Shipment Date")
+        {
+            field("Port of Loading Date"; Rec."Port of Loading Date")
+            {
+                Caption = 'Origin Port Departure Date';
+                ToolTip = 'Origin Port Departure Date';
+                ApplicationArea = All;
+            }
+            field("Port of Discharge Date"; Rec."Port of Discharge Date")
+            {
+                Caption = 'Destination Port Arrival Date';
+                ToolTip = 'Destination Port Arrival Date';
+                ApplicationArea = All;
+            }
+            field("Inland Terminal Date"; Rec."Inland Terminal Date")
+            {
+                Caption = 'Inland Terminal Date';
+                ToolTip = 'Inland Terminal Date';
+                ApplicationArea = All;
+            }
+        }
+        moveafter("Inland Terminal Date"; "Expected Receipt Date")
+
+        addafter("Expected Receipt Date")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {

@@ -37,7 +37,7 @@ tableextension 50018 TlyCustomer extends Customer
             Editable = false;
         }
 
-        field(50006; "Credit Warnings"; enum TlyCustCreditWarnings)
+        field(50006; "Credit Warnings"; Enum TlyCustCreditWarnings)
         {
             Caption = 'Credit Warnings';
             DataClassification = CustomerContent;
@@ -49,7 +49,7 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
-        field(50009; "Closed By"; code[20])
+        field(50009; "Closed By"; Code[20])
         {
             Caption = 'Closed By';
             TableRelation = "Salesperson/Purchaser";
@@ -239,11 +239,12 @@ tableextension 50018 TlyCustomer extends Customer
             ToolTip = 'Specifies the freight zone that the customer is assigned to.';
         }
 
-        // field(50035; "Dealer Locator Participant"; Boolean)
-        // {
-        //     Caption = 'Dealer Locator Participant';
-        //     DataClassification = CustomerContent;
-        // }
+        field(50035; "Dealer Locator Participant"; Boolean)
+        {
+            Caption = 'Dealer Locator Participant';
+            DataClassification = CustomerContent;
+            // Enabled = false;
+        }
 
         field(50036; "Shipping Instructions"; Code[20])
         {
@@ -262,6 +263,7 @@ tableextension 50018 TlyCustomer extends Customer
         {
             Caption = 'Add to Dealer Locator';
             DataClassification = CustomerContent;
+            // Enabled = false;
         }
 
         field(50039; "Shipping Comment"; Text[100])

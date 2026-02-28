@@ -6,6 +6,13 @@ pageextension 50119 TlyUserSetup extends "User Setup"
 
         addafter("Register Time")
         {
+            field("Department"; Rec."Department")
+            {
+                ApplicationArea = All;
+                Caption = 'Department';
+                ToolTip = 'Department';
+                Visible = true;
+            }
             field("Default Location Code"; Rec."Default Location Code")
             {
                 ApplicationArea = All;

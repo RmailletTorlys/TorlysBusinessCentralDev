@@ -115,6 +115,18 @@ End Function
         <Field Name="PrintDetail">
           <DataField>PrintDetail</DataField>
         </Field>
+        <Field Name="Entry_No_">
+          <DataField>Entry_No_</DataField>
+        </Field>
+        <Field Name="TotalInventoryValue">
+          <DataField>TotalInventoryValue</DataField>
+        </Field>
+        <Field Name="TotalInventoryValueFormat">
+          <DataField>TotalInventoryValueFormat</DataField>
+        </Field>
+        <Field Name="TextOut">
+          <DataField>TextOut</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

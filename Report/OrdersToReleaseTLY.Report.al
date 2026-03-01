@@ -92,7 +92,7 @@ report 50004 "Orders to Release TLY"
                         if "Pick Slip Printed Date" < "Popup Modify Date" then
                             ModifiedAfterPrint := true
                         else
-                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Warehouse Notify Modify Time")) then
                                 ModifiedAfterPrint := true
                             else
                                 ModifiedAfterPrint := false;

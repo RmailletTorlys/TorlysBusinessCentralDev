@@ -66,6 +66,14 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
 
         addafter("Posting Date")
         {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';
@@ -103,7 +111,30 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Importance = Standard;
             }
         }
-        moveafter("Order Comment"; "Order No.", "No. Printed")
+        moveafter("Order Comment"; "Order No.")
+
+        addafter("Order No.")
+        {
+            field("Picked By"; Rec."Picked By")
+            {
+                Caption = 'Picked By';
+                ToolTip = 'Picked By';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+
+            field("Audited By"; Rec."Audited By")
+            {
+                Caption = 'Audited By';
+                ToolTip = 'Audited By';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Audited By"; "No. Printed")
 
         addafter("No. Printed")
         {
@@ -360,6 +391,11 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
         }
 
         modify(BillToContactPhoneNo)
+        {
+            Visible = false;
+        }
+
+        modify("Requested Delivery Date")
         {
             Visible = false;
         }

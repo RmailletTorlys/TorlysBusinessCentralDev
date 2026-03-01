@@ -27,7 +27,7 @@ table 55002 TlyBillOfLadingHeader
             TableRelation = "No. Series";
         }
 
-        field(4; "Customer No."; Code[10])
+        field(4; "Customer No."; Code[20])
         {
             Caption = 'Customer No.';
             TableRelation = if ("Transaction Type" = const(Shipment)) Customer else if ("Transaction Type" = const(Transfer)) Location;

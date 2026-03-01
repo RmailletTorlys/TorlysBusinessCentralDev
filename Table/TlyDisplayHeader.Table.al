@@ -4,7 +4,7 @@ Table 51057 TlyDisplayHeader
     Caption = 'Display Header';
     Fields
     {
-        field(1; "CustNo."; Code[10])
+        field(1; "CustNo."; Code[20])
         {
             Caption = 'Customer No.';
             TableRelation = Customer;

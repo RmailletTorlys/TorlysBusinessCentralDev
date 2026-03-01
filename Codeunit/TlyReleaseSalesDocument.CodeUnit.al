@@ -19,6 +19,16 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Tag Name"); //code added on screen to not allow delete if released
 
             DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'REGION');
+            if DimensionSetEntry.IsEmpty then
+                Error('Region must be populated before releasing.'); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'DEPARTMENT');
+            if DimensionSetEntry.IsEmpty then
+                Error('Department must be populated before releasing.'); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
             DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
             if DimensionSetEntry.IsEmpty then
                 Error('Channel must be populated before releasing.'); //code added on screen to not allow delete if released
@@ -54,6 +64,16 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("External Document No."); //code added on screen to not allow delete if released
 
             DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'REGION');
+            if DimensionSetEntry.IsEmpty then
+                Error('Region must be populated before releasing.'); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'DEPARTMENT');
+            if DimensionSetEntry.IsEmpty then
+                Error('Department must be populated before releasing.'); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
             DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
             if DimensionSetEntry.IsEmpty then
                 Error('Channel must be populated before releasing.'); //code added on screen to not allow delete if released
@@ -86,6 +106,16 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Your Reference"); //code added on screen to not allow delete if released
             SalesHeader.TestField("External Document No."); //code added on screen to not allow delete if released
             SalesHeader.TestField("Tag Name"); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'REGION');
+            if DimensionSetEntry.IsEmpty then
+                Error('Region must be populated before releasing.'); //code added on screen to not allow delete if released
+
+            DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
+            DimensionSetEntry.SetFilter("Dimension Code", 'DEPARTMENT');
+            if DimensionSetEntry.IsEmpty then
+                Error('Department must be populated before releasing.'); //code added on screen to not allow delete if released
 
             DimensionSetEntry.SetRange("Dimension Set ID", SalesHeader."Dimension Set ID");
             DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');

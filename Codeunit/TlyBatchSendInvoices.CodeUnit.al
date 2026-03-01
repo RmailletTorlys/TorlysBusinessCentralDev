@@ -17,6 +17,15 @@ codeunit 50220 "BatchSendInvoices"
                 SalesInvHeader.EmailRecords(false);
                 SalesInvHeader."No. Printed" += 1;
                 SalesInvHeader.Modify();
+            // Commit();
             until SalesInvHeader.Next() = 0;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Mailing", 'OnBeforeSendEmail', '', false, false)]
+    local procedure OnBeforeSendEmail(var TempEmailItem: Record "Email Item" temporary)
+    begin
+        // If the system failed to find an email address, apply the fallback
+        if TempEmailItem."Send to" = '' then
+            TempEmailItem."Send to" := 'MiscInvoices@torlys.com';
     end;
 }

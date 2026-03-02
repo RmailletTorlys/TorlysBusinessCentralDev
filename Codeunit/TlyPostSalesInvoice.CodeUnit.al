@@ -36,6 +36,7 @@ codeunit 50028 TlyPostSalesInvoice
             SalesHeader."Pick Slip Printed By" := '';
             SalesHeader."Pick Slip Printed Date" := 0D;
             SalesHeader."Pick Slip Printed Time" := 0T;
+            SalesHeader."Pick Slip Printed At" := 0DT;
             SalesHeader."Picked By" := '';
             SalesHeader."Audited By" := '';
             SalesHeader."Last Shipping No." := '';

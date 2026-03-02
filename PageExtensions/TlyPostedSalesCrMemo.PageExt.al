@@ -82,23 +82,7 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             }
         }
 
-        moveafter("Rebill Invoice No."; "Posting Date")
-
-        addafter("Posting Date")
-        {
-            field("Entered By"; Rec."Entered By")
-            {
-                Caption = 'Entered By';
-                ToolTip = 'Entered By';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-        }
-
-        moveafter("Entered By"; "Location Code")
-
-        moveafter("Location Code"; "Pre-Assigned No.")
+        moveafter("Rebill Invoice No."; "Posting Date", "Location Code", "Pre-Assigned No.")
 
         addafter("Pre-Assigned No.")
         {
@@ -115,6 +99,22 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
 
         addafter("No. Printed")
         {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

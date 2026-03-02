@@ -9,6 +9,8 @@ page 52001 TlyOrdersToBeShippedList
     SourceTable = "Sales Header";
     SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending)
                         where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
+    // SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.") order(ascending)
+    //                     where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));                        
     //"MK Required" = filter(false), "MK Staged" = filter(true));
     InsertAllowed = false;
     DeleteAllowed = false;
@@ -183,6 +185,14 @@ page 52001 TlyOrdersToBeShippedList
                     ApplicationArea = All;
                     Caption = 'Pick Slip Printed Time';
                     ToolTip = 'Pick Slip Printed Time';
+                    Editable = false;
+                }
+
+                field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pick Slip Printed At';
+                    ToolTip = 'Pick Slip Printed At';
                     Editable = false;
                 }
 
@@ -1729,7 +1739,7 @@ page 52001 TlyOrdersToBeShippedList
                 ReprintRequired := ''
             else if Rec."Pick Slip Printed Date" < Rec."Popup Modify Date" then
                 ReprintRequired := 'Yes'
-            else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Warehouse Notify Modify Time") then
+            else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Popup Modify Time") then
                 ReprintRequired := 'Yes';
         end else begin
             ReprintRequired := '';

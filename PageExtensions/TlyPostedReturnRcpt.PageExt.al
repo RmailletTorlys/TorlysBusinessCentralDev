@@ -74,9 +74,9 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
             }
         }
 
-        moveafter("Rebill Invoice No."; "Return Order No.", "Posting Date")
+        moveafter("Rebill Invoice No."; "Return Order No.", "Posting Date", "Location Code", "No. Printed")
 
-        addafter("Posting Date")
+        addafter("No. Printed")
         {
             field("Entered By"; Rec."Entered By")
             {
@@ -102,12 +102,14 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
                 Editable = false;
                 Importance = Additional;
             }
-        }
-
-        moveafter("Order Time"; "Location Code", "No. Printed")
-
-        addafter("No. Printed")
-        {
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

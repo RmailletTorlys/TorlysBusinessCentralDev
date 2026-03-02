@@ -87,7 +87,7 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50014; "Popup Modify By"; code[20])
+        field(50014; "Popup Modify By"; Code[20])
         {
             Caption = 'Warehouse Notify Modify By';
             TableRelation = "User Details";
@@ -100,7 +100,7 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Warehouse Notify Modify Time"; Time)
+        field(50016; "Popup Modify Time"; Time)
         {
             Caption = 'Warehouse Notify Modify Time';
             DataClassification = CustomerContent;
@@ -320,7 +320,21 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             Caption = 'Entered By';
             DataClassification = CustomerContent;
         }
-
+        field(50059; "Entered At"; DateTime)
+        {
+            Caption = 'Entered At';
+            DataClassification = CustomerContent;
+        }
+        field(50060; "Pick Slip Printed At"; DateTime)
+        {
+            Caption = 'Pick Sliped Printed At';
+            DataClassification = CustomerContent;
+        }
+        field(50061; "Warehouse Notify At"; DateTime)
+        {
+            Caption = 'Warehouse Notify At';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

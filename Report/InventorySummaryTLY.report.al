@@ -69,6 +69,23 @@ report 50037 "Inventory Summary TLY"
             {
 
             }
+            column(Entry_No_; "Entry No.")
+            {
+
+            }
+            column(TotalInventoryValue; TotalInventoryValue)
+            {
+
+            }
+            column(TextOut; TextOut)
+            {
+
+            }
+
+            trigger OnPreDataItem()
+            begin
+                TextOut := "Item Ledger Entry".GetFilters;
+            end;
 
             trigger OnAfterGetRecord()
             begin
@@ -106,8 +123,10 @@ report 50037 "Inventory Summary TLY"
 
                 InventoryValue := "Remaining Quantity" * Cost;
 
-                IF ClassRec.GET("Item Ledger Entry"."Shortcut Dimension 4 Code") THEN
-                    ClassDesc := ClassRec."Dimension Value Name";
+                TotalInventoryValue := TotalInventoryValue + InventoryValue;
+
+                // IF ClassRec.GET("Item Ledger Entry"."Shortcut Dimension 4 Code") THEN
+                //     ClassDesc := ClassRec."Dimension Value Name";
 
             end;
         }
@@ -159,7 +178,7 @@ report 50037 "Inventory Summary TLY"
         TextOut: Text;
         ClassRec: Record "Dimension Set Entry";
         ClassDesc: Text;
-        ICClass: code[10];
+        ICClass: code[15];
         GenProdPostGrp: Record "Gen. Product Posting Group";
         ShowSunset: Boolean;
         ShowWebEnabled: Boolean;

@@ -11,7 +11,7 @@ using Microsoft.Sales.Receivables;
 using System.IO;
 using System.Utilities;
 
-report 50140 "Aged Accounts Rec Torlys"
+report 50039 "Aged Accounts Rec Torlys"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Local/Sales/Reports/AgedAccountsReceivableNA-Extended.rdlc';

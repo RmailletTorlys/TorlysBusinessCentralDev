@@ -176,20 +176,20 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Specifies the name of the person who printed the pick slip for the sales order.';
                     Caption = 'Pick Slip Printed By';
                 }
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the date when the pick slip was printed for the sales order.';
-                    Caption = 'Pick Slip Printed Date';
-                }
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
-                    Caption = 'Pick Slip Printed Time';
-                }
+                // field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Specifies the date when the pick slip was printed for the sales order.';
+                //     Caption = 'Pick Slip Printed Date';
+                // }
+                // field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
+                //     Caption = 'Pick Slip Printed Time';
+                // }
                 field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
                 {
                     ApplicationArea = All;
@@ -197,34 +197,34 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Specifies the time when the pick slip was printed for the sales order.';
                     Caption = 'Pick Slip Printed At';
                 }
-                field("Warehouse Notify Modify Field"; Rec."Warehouse Notify Modify Field")
+                field("Warehouse Notify Field"; Rec."Warehouse Notify Modify Field")
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    ToolTip = 'Warehouse Notify Modify Field';
-                    Caption = 'Warehouse Notify Modify Field';
+                    ToolTip = 'Warehouse Notify Field';
+                    Caption = 'Warehouse Notify Field';
                 }
-                field("Warehouse Notify Modify By"; Rec."Popup Modify By")
+                field("Warehouse Notify By"; Rec."Popup Modify By")
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    ToolTip = 'Warehouse Notify Modify By';
-                    Caption = 'Warehouse Notify Modify By';
+                    ToolTip = 'Warehouse Notify By';
+                    Caption = 'Warehouse Notify By';
                 }
-                field("Warehouse Notify Modify Date"; Rec."Popup Modify Date")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Warehouse Notify Modify Date';
-                    Caption = 'Warehouse Notify Modify Date';
-                }
-                field("Warehouse Notify Modify Time"; Rec."Popup Modify Time")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ToolTip = 'Warehouse Notify Modify Time';
-                    Caption = 'Warehouse Notify Modify Time';
-                }
+                // field("Warehouse Notify Modify Date"; Rec."Popup Modify Date")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Warehouse Notify Modify Date';
+                //     Caption = 'Warehouse Notify Modify Date';
+                // }
+                // field("Warehouse Notify Modify Time"; Rec."Popup Modify Time")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     ToolTip = 'Warehouse Notify Modify Time';
+                //     Caption = 'Warehouse Notify Modify Time';
+                // }
 
                 field("Warehouse Notify At"; Rec."Warehouse Notify At")
                 {

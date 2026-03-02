@@ -62,7 +62,21 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date", "Location Code", "Shipment Date")
+        moveafter("Temporary Hold"; "Posting Date")
+
+        addafter("Posting Date")
+        {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = false;
+            }
+        }
+
+        moveafter("Order Date"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -114,22 +128,6 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 ToolTip = 'Entered By';
                 ApplicationArea = All;
                 Importance = Additional;
-                Editable = false;
-            }
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = false;
-            }
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Standard;
                 Editable = false;
             }
             field("Entered At"; Rec."Entered At")

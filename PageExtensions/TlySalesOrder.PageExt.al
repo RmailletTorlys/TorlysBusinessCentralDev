@@ -109,7 +109,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date", "Location Code", "Shipment Date")
+        moveafter("Temporary Hold"; "Posting Date", "Order Date", "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -154,19 +154,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Importance = Additional;
                 Editable = false;
             }
-        }
-        moveafter("Entered By"; "Order Date")
 
-        addafter("Order Date")
-        {
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
             field("Entered At"; Rec."Entered At")
             {
                 Caption = 'Entered At';
@@ -288,7 +276,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter(ShippingOptions; "Ship-to Code", "Shipping Agent Code"; "Shipping Agent Service Code")
+        moveafter(ShippingOptions; "Ship-to Code", "Shipping Agent Code", "Shipping Agent Service Code")
 
         addafter("Shipping Agent Service Code")
         {
@@ -344,22 +332,22 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     Importance = Standard;
                     Editable = false;
                 }
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
-                {
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    Caption = 'Pick Slip Printed Time';
-                    ToolTip = 'Pick Slip Printed Time';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
+                // field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // {
+                //     Caption = 'Pick Slip Printed Date';
+                //     ToolTip = 'Pick Slip Printed Date';
+                //     ApplicationArea = All;
+                //     Importance = Standard;
+                //     Editable = false;
+                // }
+                // field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                // {
+                //     Caption = 'Pick Slip Printed Time';
+                //     ToolTip = 'Pick Slip Printed Time';
+                //     ApplicationArea = All;
+                //     Importance = Standard;
+                //     Editable = false;
+                // }
                 field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
                 {
                     Caption = 'Pick Slip Printed At';
@@ -1080,7 +1068,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = Order;
                 RunObject = Page "Sales Lines";
-                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order);
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order);
             }
             action("Posted Sales Invoices")
             {
@@ -1089,7 +1077,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = Invoice;
                 RunObject = Page "Posted Sales Invoice Lines";
-                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
             }
             action("Open Credit Memos")
             {
@@ -1098,7 +1086,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = CreditMemo;
                 RunObject = Page "Sales Lines";
-                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo");
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo");
             }
             action("Open Return Orders")
             {
@@ -1107,7 +1095,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = ReturnOrder;
                 RunObject = Page "Sales Lines";
-                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order");
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order");
             }
             action("Posted Credit Memos")
             {
@@ -1116,30 +1104,30 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = PostedCreditMemo;
                 RunObject = Page "Posted Sales Credit Memo Lines";
-                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
             }
             action("Remove Credit Hold")
             {
                 ToolTip = 'Removes the Credit hold on an Order.';
                 Caption = 'Remove Credit Hold';
                 Image = Report;
-                            ApplicationArea = All;
-    trigger OnAction()
-    begin
-        TorlysCreditHold.RemoveCreditHold(Rec, xRec);
-    end;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    TorlysCreditHold.RemoveCreditHold(Rec, xRec);
+                end;
             }
             action("Place On Credit Hold")
             {
                 ToolTip = 'Places selected Order(s) on Credit Hold.';
                 Caption = 'Place On Credit Hold';
                 Image = Report;
-                            ApplicationArea = All;
-                            Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
-    trigger OnAction()
-    begin
-        TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
-    end;
+                ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                trigger OnAction()
+                begin
+                    TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
+                end;
             }
 
             // action("Remove Posting Hold")

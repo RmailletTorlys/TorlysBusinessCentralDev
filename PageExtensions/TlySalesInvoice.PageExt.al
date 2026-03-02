@@ -39,7 +39,20 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
             }
         }
 
-        moveafter("Order Type"; "Posting Date", "Location Code", "Shipment Date")
+        moveafter("Order Type"; "Posting Date")
+
+        addafter("Posting Date")
+        {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Order Date"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -76,21 +89,6 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
             {
                 Caption = 'Entered By';
                 ToolTip = 'Entered By';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
                 ApplicationArea = All;
                 Importance = Additional;
                 Editable = false;

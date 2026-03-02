@@ -100,13 +100,13 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50015; "Popup Modify Date"; Date)
         {
-            Caption = 'Warehouse Notify Modify Date';
+            Caption = 'Warehouse Notify Date';
             DataClassification = CustomerContent;
         }
 
         field(50016; "Popup Modify Time"; Time)
         {
-            Caption = 'Warehouse Notify Modify Time';
+            Caption = 'Warehouse Notify Time';
             DataClassification = CustomerContent;
         }
 
@@ -368,7 +368,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50060; "Pick Slip Printed At"; DateTime)
         {
-            Caption = 'Pick Sliped Print At';
+            Caption = 'Pick Slip Printed At';
             DataClassification = CustomerContent;
         }
 

@@ -341,6 +341,66 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         moveafter("Lead Time Calculation"; "Vendor No.", "Manufacturer Code", "Vendor Item No.")
 
+        addafter("Vendor Item No.")
+        {
+            field("BO - Backorder Status"; Rec."BO - Backorder Status")
+            {
+                Caption = 'BO - Backorder Status';
+                ToolTip = 'BO - Backorder Status';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Low Stock"; Rec."BO - Low Stock")
+            {
+                Caption = 'BO - Low Stock';
+                ToolTip = 'BO - Low Stock';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Quality Issue"; Rec."BO - Quality Issue")
+            {
+                Caption = 'BO - Quality Issue';
+                ToolTip = 'BO - Quality Issue';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Production Delay"; Rec."BO - Production Delay")
+            {
+                Caption = 'BO - Production Delay';
+                ToolTip = 'BO - Production Delay';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Spike In Sales"; Rec."BO - Spike In Sales")
+            {
+                Caption = 'BO - Spike In Sales';
+                ToolTip = 'BO - Spike In Sales';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Transit Delay"; Rec."BO - Transit Delay")
+            {
+                Caption = 'BO - Transit Delay';
+                ToolTip = 'BO - Transit Delay';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Get Well Date"; Rec."BO - Get Well Date")
+            {
+                Caption = 'BO - Get Well Date';
+                ToolTip = 'BO - Get Well Date';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+        }
+
         modify("Manufacturer Code")
         {
             Visible = true;

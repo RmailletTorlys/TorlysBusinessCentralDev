@@ -288,22 +288,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter(ShippingOptions; "Ship-to Code")
-
-        addafter("Ship-to Code")
-        {
-            field("Temporary Posting Hold"; Rec."Temporary Posting Hold")
-            {
-                Caption = 'Temporary Posting Hold';
-                ToolTip = 'Temporary Posting Hold';
-                ApplicationArea = All;
-                Importance = Additional;
-
-            }
-
-        }
-
-        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+        moveafter(ShippingOptions; "Ship-to Code", "Shipping Agent Code"; "Shipping Agent Service Code")
 
         addafter("Shipping Agent Service Code")
         {
@@ -1095,7 +1080,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = Order;
                 RunObject = Page "Sales Lines";
-                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order);
+                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const(Order);
             }
             action("Posted Sales Invoices")
             {
@@ -1104,7 +1089,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = Invoice;
                 RunObject = Page "Posted Sales Invoice Lines";
-                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
             }
             action("Open Credit Memos")
             {
@@ -1113,7 +1098,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = CreditMemo;
                 RunObject = Page "Sales Lines";
-                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo");
+                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Credit Memo");
             }
             action("Open Return Orders")
             {
@@ -1122,7 +1107,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = ReturnOrder;
                 RunObject = Page "Sales Lines";
-                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order");
+                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document Type" = const("Return Order");
             }
             action("Posted Credit Memos")
             {
@@ -1131,30 +1116,30 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Image = PostedCreditMemo;
                 RunObject = Page "Posted Sales Credit Memo Lines";
-                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+                                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
             }
             action("Remove Credit Hold")
             {
                 ToolTip = 'Removes the Credit hold on an Order.';
                 Caption = 'Remove Credit Hold';
                 Image = Report;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    TorlysCreditHold.RemoveCreditHold(Rec, xRec);
-                end;
+                            ApplicationArea = All;
+    trigger OnAction()
+    begin
+        TorlysCreditHold.RemoveCreditHold(Rec, xRec);
+    end;
             }
             action("Place On Credit Hold")
             {
                 ToolTip = 'Places selected Order(s) on Credit Hold.';
                 Caption = 'Place On Credit Hold';
                 Image = Report;
-                ApplicationArea = All;
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
-                trigger OnAction()
-                begin
-                    TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
-                end;
+                            ApplicationArea = All;
+                            Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+    trigger OnAction()
+    begin
+        TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
+    end;
             }
 
             // action("Remove Posting Hold")

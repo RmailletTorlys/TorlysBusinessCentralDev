@@ -64,12 +64,19 @@ page 51009 TlyBookingInfo
                     ToolTip = 'Appointment Time';
                     Editable = false;
                 }
-
-                field("Received by"; Rec."Received by")
+                field("Appointment At"; Rec."Appointment At")
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Received by';
-                    ToolTip = 'Received by';
+                    Caption = 'Appointment At';
+                    ToolTip = 'Appointment At';
+                    Editable = false;
+                }
+
+                field("Received By"; Rec."Received by")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Received By';
+                    ToolTip = 'Received By';
                     Editable = false;
                 }
 
@@ -86,6 +93,13 @@ page 51009 TlyBookingInfo
                     ApplicationArea = Basic, Suite;
                     Caption = 'Receipt Time';
                     ToolTip = 'Receipt Time';
+                    Editable = false;
+                }
+                field("Received At"; Rec."Received At")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Received At';
+                    ToolTip = 'Received At';
                     Editable = false;
                 }
             }
@@ -129,6 +143,7 @@ page 51009 TlyBookingInfo
                         repeat
                             Rec."Appointment Date" := DatePage.GetDateTime.Date();
                             Rec."Appointment Time" := DatePage.GetDateTime.Time();
+                            Rec."Appointment At" := DatePage.GetDateTime();
                             Rec.Modify(true);
                         until BookingInfo.Next() = 0;
                     end;
@@ -162,6 +177,7 @@ page 51009 TlyBookingInfo
                             BookingInfo."Received By" := ReceiverRecord.Code;
                             BookingInfo."Receipt Date" := WorkDate();
                             BookingInfo."Receipt Time" := Time;
+                            BookingInfo."Received At" := CurrentDateTime;
                             BookingInfo.Modify(true);
                         until BookingInfo.Next() = 0;
                     end;

@@ -32,7 +32,7 @@ table 55199 TlyHolidayCalendar
 
     Keys
     {
-        key(PK; "Last Work Day")
+        key(PK; "Holiday Date", "Last Work Day")
         {
             Clustered = true;
         }

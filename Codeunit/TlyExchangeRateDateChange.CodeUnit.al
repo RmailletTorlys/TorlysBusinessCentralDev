@@ -1,4 +1,4 @@
-codeunit 50100 "ExchRateDateHandler"
+codeunit 50100 TlyExchangeRateDateChange
 {
     [EventSubscriber(ObjectType::Table, Database::"Data Exch. Field", 'OnBeforeInsertEvent', '', false, false)]
     local procedure ChangeDateOnInsert(var Rec: Record "Data Exch. Field"; RunTrigger: Boolean)

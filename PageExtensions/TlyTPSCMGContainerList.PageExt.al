@@ -92,6 +92,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 ApplicationArea = All;
                 Editable = false;
             }
+            field(AppointmentAt; AppointmentAt)
+            {
+                Caption = 'Appointment At';
+                ToolTip = 'Appointment At';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';
@@ -252,6 +259,7 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         LookupUserId: Codeunit TlyLookupUserID;
         AppointmentDate: Date;
         AppointmentTime: Time;
+        AppointmentAt: DateTime;
 
     trigger OnAfterGetRecord()
     var
@@ -261,6 +269,7 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         if BookingInfo.Get(Rec."No.") then begin
             AppointmentDate := BookingInfo."Appointment Date";
             AppointmentTime := BookingInfo."Appointment Time";
+            AppointmentAt := BookingInfo."Appointment At";
         end;
     end;
 }

@@ -109,35 +109,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date")
-
-        addafter("Posting Date")
-        {
-            field("Entered By"; Rec."Entered By")
-            {
-                Caption = 'Entered By';
-                ToolTip = 'Entered By';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-        }
-
-        moveafter("Entered By"; "Order Date")
-
-        addafter("Order Date")
-        {
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-        }
-
-        moveafter("Order Time"; "Location Code", "Shipment Date")
+        moveafter("Temporary Hold"; "Posting Date", "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -173,6 +145,35 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
+            }
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+        }
+        moveafter("Entered By"; "Order Date")
+
+        addafter("Order Date")
+        {
+            field("Order Time"; Rec."Order Time")
+            {
+                Caption = 'Order Time';
+                ToolTip = 'Order Time';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
@@ -370,6 +371,14 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 {
                     Caption = 'Pick Slip Printed Time';
                     ToolTip = 'Pick Slip Printed Time';
+                    ApplicationArea = All;
+                    Importance = Standard;
+                    Editable = false;
+                }
+                field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
+                {
+                    Caption = 'Pick Slip Printed At';
+                    ToolTip = 'Pick Slip Printed At';
                     ApplicationArea = All;
                     Importance = Standard;
                     Editable = false;

@@ -45,9 +45,28 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
             }
         }
 
-        moveafter("Order Type"; "Posting Date")
+        moveafter("Order Type"; "Posting Date", "Location Code", "Shipment Date")
 
-        addafter("Posting Date")
+        addafter("Shipment Date")
+        {
+            field("Shipping Instructions"; Rec."Shipping Instructions")
+            {
+                Caption = 'Shipping Instructions';
+                ToolTip = 'Shipping Instructions';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+            field("Order Comment"; Rec."Order Comment")
+            {
+                Caption = 'Order Comment';
+                ToolTip = 'Order Comment';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+        moveafter("Order Comment"; "Order No.", "No. Printed")
+
+        addafter("No. Printed")
         {
             field("Entered By"; Rec."Entered By")
             {
@@ -73,31 +92,14 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
                 Importance = Additional;
                 Editable = false;
             }
-        }
-
-        moveafter("Order Time"; "Location Code", "Shipment Date")
-
-        addafter("Shipment Date")
-        {
-            field("Shipping Instructions"; Rec."Shipping Instructions")
+            field("Entered At"; Rec."Entered At")
             {
-                Caption = 'Shipping Instructions';
-                ToolTip = 'Shipping Instructions';
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
                 ApplicationArea = All;
-                Importance = Standard;
+                Importance = Additional;
+                Editable = false;
             }
-            field("Order Comment"; Rec."Order Comment")
-            {
-                Caption = 'Order Comment';
-                ToolTip = 'Order Comment';
-                ApplicationArea = All;
-                Importance = Standard;
-            }
-        }
-        moveafter("Order Comment"; "Order No.", "No. Printed")
-
-        addafter("No. Printed")
-        {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

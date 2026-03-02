@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 // ------------------------------------------------------------------------------------------------
 // Custom clone of Report 10085 with Vendor-Currency Grand Totals added
 // ------------------------------------------------------------------------------------------------
@@ -11,6 +13,7 @@ using Microsoft.Purchases.Vendor;
 using System.IO;
 using System.Utilities;
 
+>>>>>>> 703cec2975aca4074c5d1743638f620596fbc331
 report 50038 "Aged Accounts Payable Torlys"
 {
     DefaultLayout = RDLC;

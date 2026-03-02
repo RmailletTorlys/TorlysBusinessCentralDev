@@ -178,8 +178,8 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 }
                 field(AppointmentTime; AppointmentTime)
                 {
-                    Caption = 'Appointment Date';
-                    ToolTip = 'Appointment Date';
+                    Caption = 'Appointment Time';
+                    ToolTip = 'Appointment Time';
                     ApplicationArea = All;
                     Editable = false;
                 }
@@ -291,6 +291,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         LookupUserId: Codeunit TlyLookupUserID;
         AppointmentDate: Date;
         AppointmentTime: Time;
+        AppointmentAt: DateTime;
 
     trigger OnAfterGetRecord()
     var
@@ -300,6 +301,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         if BookingInfo.Get(Rec."No.") then begin
             AppointmentDate := BookingInfo."Appointment Date";
             AppointmentTime := BookingInfo."Appointment Time";
+            AppointmentAt := BookingInfo."Appointment At";
         end;
     end;
 }

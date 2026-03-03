@@ -7,8 +7,7 @@ codeunit 50320 TlyBatchSendCreditMemo
     var
         SalesCreditMemoHeader: Record "Sales Cr.Memo Header";
     begin
-        //Filter for invoices from today and No. Printer is 0
-        // SalesInvHeader.SetRange("Posting Date", WorkDate());
+        //Filter for Cr memo from today and No. Printer is 0
         SalesCreditMemoHeader.SetRange("No. Printed", 0);
 
         if SalesCreditMemoHeader.FindSet() then

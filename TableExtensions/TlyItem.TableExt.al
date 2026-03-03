@@ -417,6 +417,48 @@ tableextension 50027 TlyItem extends Item
                                                                   "Package No." = field("Package No. Filter")));
             Editable = false;
         }
+        field(50054; "BO - Backorder Status"; Boolean)
+        {
+            Caption = 'BO - Backorder Status';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
+        field(50055; "BO - Low Stock"; Boolean)
+        {
+            Caption = 'BO - Low Stock';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
+        field(50056; "BO - Quality Issue"; Boolean)
+        {
+            Caption = 'BO - Quality Issue';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
+        field(50057; "BO - Production Delay"; Boolean)
+        {
+            Caption = 'BO - Production Delay';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
+        field(50058; "BO - Spike In Sales"; Boolean)
+        {
+            Caption = 'BO - Spike In Sales';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
+        field(50059; "BO - Transit Delay"; Boolean)
+        {
+            Caption = 'BO - Transit Delay';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
+        field(50060; "BO - Get Well Date"; Text[30])
+        {
+            Caption = 'BO - Get Well Date';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/02/2026';
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

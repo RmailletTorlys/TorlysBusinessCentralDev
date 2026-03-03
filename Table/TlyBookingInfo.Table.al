@@ -78,6 +78,17 @@ table 55009 TlyBookingInfo
             // FieldClass = FlowField;
             // CalcFormula = lookup("Transfer Header"."Transfer-to Code" where("Booking No." = field("No.")));
         }
+
+        field(12; "Appointment At"; DateTime)
+        {
+            Caption = 'Appointment At';
+            DataClassification = CustomerContent;
+        }
+        field(13; "Received At"; DateTime)
+        {
+            Caption = 'Received At';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

@@ -311,8 +311,8 @@ pageextension 50022 TlyCustomerList extends "Customer List"
             field("Shipment Method Code"; Rec."Shipment Method Code")
             {
                 ApplicationArea = All;
-                Caption = 'Shipping Agent Code';
-                ToolTip = 'Shipping Agent Code';
+                Caption = 'Shipping Method Code';
+                ToolTip = 'Shipping Method Code';
                 TableRelation = "Shipment Method";
                 Visible = false;
             }
@@ -322,6 +322,13 @@ pageextension 50022 TlyCustomerList extends "Customer List"
 
         addafter("Shipping Agent Code")
         {
+            field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Shipping Agent Service Code';
+                ToolTip = 'Shipping Agent Service Code';
+                Visible = false;
+            }
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 ApplicationArea = All;
@@ -329,7 +336,6 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 ToolTip = 'Freight Zone Code';
                 Visible = false;
             }
-
         }
 
         addafter("Balance Due (LCY)")

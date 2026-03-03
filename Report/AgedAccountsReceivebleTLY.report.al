@@ -1,17 +1,4 @@
-// ------------------------------------------------------------------------------------------------
-// Custom clone of Report 10040 with Customer-Currency Grand Totals + Cloud-safe Excel export
-// ------------------------------------------------------------------------------------------------
-namespace Microsoft.Sales.Reports;
-
-using Microsoft.Finance.Currency;
-using Microsoft.Finance.GeneralLedger.Setup;
-using Microsoft.Foundation.Company;
-using Microsoft.Sales.Customer;
-using Microsoft.Sales.Receivables;
-using System.IO;
-using System.Utilities;
-
-report 50140 "Aged Accounts Rec Torlys"
+report 50039 "Aged Accounts Rec Torlys"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Local/Sales/Reports/AgedAccountsReceivableNA-Extended.rdlc';

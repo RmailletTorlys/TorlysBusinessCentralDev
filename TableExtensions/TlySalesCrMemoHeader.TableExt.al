@@ -100,7 +100,7 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Warehouse Notify Modify Time"; Time)
+        field(50016; "Popup Modify Time"; Time)
         {
             Caption = 'Warehouse Notify Modify Time';
             DataClassification = CustomerContent;
@@ -317,6 +317,21 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
         field(50058; "Entered By"; Code[50])
         {
             Caption = 'Entered By';
+            DataClassification = CustomerContent;
+        }
+        field(50059; "Entered At"; DateTime)
+        {
+            Caption = 'Entered At';
+            DataClassification = CustomerContent;
+        }
+        field(50060; "Pick Slip Printed At"; DateTime)
+        {
+            Caption = 'Pick Sliped Printed At';
+            DataClassification = CustomerContent;
+        }
+        field(50061; "Warehouse Notify At"; DateTime)
+        {
+            Caption = 'Warehouse Notify At';
             DataClassification = CustomerContent;
         }
     }

@@ -68,7 +68,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50010; "No. Pick Slips Printed"; Integer)
         {
-            Caption = 'No. Pick Slips Printed';
+            Caption = 'No. Pick Slip Printed';
             DataClassification = CustomerContent;
         }
 
@@ -93,20 +93,20 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50014; "Popup Modify By"; Code[20])
         {
-            Caption = 'Warehouse Notify Modify By';
+            Caption = 'Warehouse Notify By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
         field(50015; "Popup Modify Date"; Date)
         {
-            Caption = 'Warehouse Notify Modify Date';
+            Caption = 'Warehouse Notify Date';
             DataClassification = CustomerContent;
         }
 
-        field(50016; "Warehouse Notify Modify Time"; Time)
+        field(50016; "Popup Modify Time"; Time)
         {
-            Caption = 'Warehouse Notify Modify Time';
+            Caption = 'Warehouse Notify Time';
             DataClassification = CustomerContent;
         }
 
@@ -351,13 +351,30 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50057; "Warehouse Notify Modify Field"; Text[15])
         {
-            Caption = 'Warehouse Notify Modify Field';
+            Caption = 'Warehouse Notify Field';
             DataClassification = CustomerContent;
         }
 
         field(50058; "Entered By"; Code[50])
         {
             Caption = 'Entered By';
+            DataClassification = CustomerContent;
+        }
+        field(50059; "Entered At"; DateTime)
+        {
+            Caption = 'Entered At';
+            DataClassification = CustomerContent;
+        }
+
+        field(50060; "Pick Slip Printed At"; DateTime)
+        {
+            Caption = 'Pick Slip Printed At';
+            DataClassification = CustomerContent;
+        }
+
+        field(50061; "Warehouse Notify At"; DateTime)
+        {
+            Caption = 'Warehouse Notify At';
             DataClassification = CustomerContent;
         }
 
@@ -446,6 +463,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     trigger OnAfterInsert()
     begin
         "Entered By" := UserId;
+        "Entered At" := CurrentDateTime;
         "Order Time" := Time;
         Rec.Modify(true);
         CopyCommentsFromCustCardToSalesHeader();
@@ -467,7 +485,8 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         if Rec.Get("Document Type", "No.") then begin
             Rec."Popup Modify By" := UserId;
             Rec."Popup Modify Date" := WorkDate();
-            Rec."Warehouse Notify Modify Time" := Time;
+            Rec."Popup Modify Time" := Time;
+            Rec."Warehouse Notify At" := CurrentDateTime;
             Rec."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
             Rec.Modify(true);
         end;

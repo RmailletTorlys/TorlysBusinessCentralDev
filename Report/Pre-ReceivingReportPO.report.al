@@ -25,6 +25,10 @@ report 50025 "Receiving Report PO"
                 {
 
                 }
+                column(Appointment_At; "Appointment At")
+                {
+
+                }
             }
             column(Booking_No_; "Booking No.")
             {
@@ -175,6 +179,7 @@ report 50025 "Receiving Report PO"
         itemno: code[20];
         AppointDate: Date;
         AppointTime: Time;
+        AppointAt: DateTime;
         Quantity: Decimal;
         QtyCase: Decimal;
         QtyPallet: Decimal;

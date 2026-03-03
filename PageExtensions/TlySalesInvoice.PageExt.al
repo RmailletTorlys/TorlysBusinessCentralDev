@@ -43,14 +43,6 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
 
         addafter("Posting Date")
         {
-            field("Entered By"; Rec."Entered By")
-            {
-                Caption = 'Entered By';
-                ToolTip = 'Entered By';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';
@@ -58,17 +50,9 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
                 ApplicationArea = All;
                 Importance = Additional;
             }
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
         }
 
-        moveafter("Order Time"; "Location Code", "Shipment Date")
+        moveafter("Order Date"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -100,6 +84,22 @@ pageextension 50043 TlySalesInvoice extends "Sales Invoice"
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
+            }
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {

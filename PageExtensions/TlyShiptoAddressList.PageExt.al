@@ -37,6 +37,12 @@ pageextension 50301 TlyShiptoAddressList extends "Ship-to Address List"
                 Caption = 'Shipping Agent Code';
                 ToolTip = 'Shipping Agent Code';
             }
+            field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Shipping Agent Service Code';
+                ToolTip = 'Shipping Agent Service Code';
+            }
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
                 ApplicationArea = All;

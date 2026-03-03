@@ -1,17 +1,4 @@
-// ------------------------------------------------------------------------------------------------
-// Custom clone of Report 10085 with Vendor-Currency Grand Totals added
-// ------------------------------------------------------------------------------------------------
-namespace Microsoft.Purchases.Reports;
-
-using Microsoft.Finance.Currency;
-using Microsoft.Finance.GeneralLedger.Setup;
-using Microsoft.Foundation.Company;
-using Microsoft.Purchases.Payables;
-using Microsoft.Purchases.Vendor;
-using System.IO;
-using System.Utilities;
-
-report 50185 "Aged Accounts Payable Torlys"
+report 50038 "Aged Accounts Payable Torlys"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Local/Purchases/Reports/AgedAccountsPayableNA-Extended.rdlc';

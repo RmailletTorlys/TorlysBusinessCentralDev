@@ -7,7 +7,9 @@ page 52001 TlyOrdersToBeShippedList
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Sales Header";
-    SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending)
+    // SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.") order(ascending)
+    //                     where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
+    SourceTableView = sorting("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.") order(ascending)
                         where("Document Type" = const(Order), "Status" = const(Released), "Temporary Hold" = filter(0));
     //"MK Required" = filter(false), "MK Staged" = filter(true));
     InsertAllowed = false;
@@ -171,18 +173,26 @@ page 52001 TlyOrdersToBeShippedList
                     ToolTip = 'Pick Slip Printed By';
                     Editable = false;
                 }
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Pick Slip Printed Date';
+                //     ToolTip = 'Pick Slip Printed Date';
+                //     Editable = false;
+                // }
+                // field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Pick Slip Printed Time';
+                //     ToolTip = 'Pick Slip Printed Time';
+                //     Editable = false;
+                // }
+
+                field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
                 {
                     ApplicationArea = All;
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
-                    Editable = false;
-                }
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Pick Slip Printed Time';
-                    ToolTip = 'Pick Slip Printed Time';
+                    Caption = 'Pick Slip Printed At';
+                    ToolTip = 'Pick Slip Printed At';
                     Editable = false;
                 }
 
@@ -361,7 +371,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -393,7 +404,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -426,7 +438,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -450,7 +463,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -481,7 +495,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -518,7 +533,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -551,7 +567,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -584,7 +601,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -617,7 +635,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -651,7 +670,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -685,7 +705,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -719,7 +740,8 @@ page 52001 TlyOrdersToBeShippedList
                         ShipmentDate := WorkDate();
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -756,7 +778,8 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -791,7 +814,8 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -827,7 +851,8 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -863,7 +888,8 @@ page 52001 TlyOrdersToBeShippedList
                             ShipmentDate := WorkDate() + 1;
 
                         Rec.Reset();
-                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
                         Rec.SetFilter("Document Type", 'Order');
                         Rec.SetFilter(Status, 'Released');
                         Rec.SetFilter("Temporary Hold", '0');
@@ -1725,12 +1751,14 @@ page 52001 TlyOrdersToBeShippedList
 
         // check if pick slip reprint required
         if Rec."No. Pick Slips Printed" > 0 then begin
-            if Rec."Pick Slip Printed Date" > Rec."Popup Modify Date" then
+            // if Rec."Pick Slip Printed Date" > Rec."Popup Modify Date" then
+            if Rec."Pick Slip Printed At" > Rec."Warehouse Notify At" then
                 ReprintRequired := ''
-            else if Rec."Pick Slip Printed Date" < Rec."Popup Modify Date" then
+            // else if Rec."Pick Slip Printed Date" < Rec."Popup Modify Date" then
+            else if Rec."Pick Slip Printed At" < Rec."Warehouse Notify At" then
                 ReprintRequired := 'Yes'
-            else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Warehouse Notify Modify Time") then
-                ReprintRequired := 'Yes';
+            // else if (Rec."Pick Slip Printed Date" = Rec."Popup Modify Date") and (Rec."Pick Slip Printed Time" < Rec."Popup Modify Time") then
+            // ReprintRequired := 'Yes';
         end else begin
             ReprintRequired := '';
         end;

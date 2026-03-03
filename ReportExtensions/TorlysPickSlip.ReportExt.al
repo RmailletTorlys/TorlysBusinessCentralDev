@@ -76,6 +76,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(Pick_Slip_Printed_At; "Pick Slip Printed At")
+            {
+
+            }
             column(Order_Date; Format("Order Date", 0, '<month,2>/<day,2>/<year,2>'))
             {
 
@@ -331,14 +335,13 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     "Pick Slip Printed By" := Format(UserId());
                     "Pick Slip Printed Date" := WorkDate();
                     "Pick Slip Printed Time" := Time;
+                    "Pick Slip Printed At" := CurrentDateTime;
                     "No. Pick Slips Printed" := "No. Pick Slips Printed" + 1;
                     Modify();
                 end;
 
                 TotalPieces := 0;
                 TotalWeight := 0;
-
-
 
                 // SalesCommentLine.Reset();
                 // SalesCommentLine.SetRange("No.", "No.");
@@ -491,7 +494,6 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     "Qty. to Ship Pallet" := 0
                 END;
 
-
                 ParentBinLocationLabel := '';
                 ParentBinLocation := '';
                 ParentBinContent.RESET();
@@ -508,8 +510,6 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             end;
 
         }
-
-
     }
 
     requestpage

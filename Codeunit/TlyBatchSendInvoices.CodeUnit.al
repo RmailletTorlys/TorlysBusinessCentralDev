@@ -1,4 +1,4 @@
-codeunit 50220 "BatchSendInvoices"
+codeunit 50220 TlyBatchSendInvoices
 {
     TableNo = "Job Queue Entry";
     Permissions = TableData "Sales Invoice Header" = rm;

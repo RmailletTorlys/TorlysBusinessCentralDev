@@ -57,6 +57,22 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                     ROandPreALabel := 'Return Order No.';
                     roandPreassignNo := "Return Order No."
                 end;
+
+                SalesCommentLine.Reset();
+                SalesCommentLine.SetRange("No.", "No.");
+                SalesCommentLine.SetRange("Print On Credit Memo", true);
+
+                // FindSet is used for looping through a set of records
+                if SalesCommentLine.FindSet() then begin
+                    repeat
+                        // This is where you process EACH comment
+                        // Example: Concatenate all comments into one string
+                        AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
+
+                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                end else begin
+                    AllComments := '';
+                end;
             end;
         }
 
@@ -79,6 +95,10 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
 
             }
             column(Original_Invoice_No_; "Original Invoice No.")
+            {
+
+            }
+            column(AllComments; AllComments)
             {
 
             }
@@ -121,11 +141,13 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
         ItemTemp: Record Item;
         tempcrossrefitem: Record "Item Reference";
         tempsalescrmemoline: Record "Sales Cr.Memo Line" temporary;
+        SalesCommentLine: Record "Sales Comment Line";
         quantity1: Decimal;
         unitpricetoprint: Decimal;
         AmountExclInvDisc: Decimal;
         tempdesc3: Text;
         desctoprint: Text;
+        AllComments: Text;
         ROandPreALabel: Text;
         roandPreassignNo: text;
         TempDesc: Text;

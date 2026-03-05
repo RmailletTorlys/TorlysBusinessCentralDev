@@ -339,6 +339,13 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     DecimalPlaces = 2 : 1;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
                 }
+                field("Marketing Items Zero Charge"; Rec."Marketing Items Zero Charge")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Marketing Items Zero Charge';
+                    Editable = false;
+                    ToolTip = 'Marketing Items Zero Charge';
+                }
             }
 
         }

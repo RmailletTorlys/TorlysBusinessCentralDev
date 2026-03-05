@@ -109,21 +109,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date", "Order Date")
-
-        addafter("Order Date")
-        {
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-        }
-
-        moveafter("Order Time"; "Location Code", "Shipment Date")
+        moveafter("Temporary Hold"; "Posting Date", "Order Date", "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -159,6 +145,23 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
+            }
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
@@ -273,22 +276,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter(ShippingOptions; "Ship-to Code")
-
-        addafter("Ship-to Code")
-        {
-            field("Temporary Posting Hold"; Rec."Temporary Posting Hold")
-            {
-                Caption = 'Temporary Posting Hold';
-                ToolTip = 'Temporary Posting Hold';
-                ApplicationArea = All;
-                Importance = Additional;
-
-            }
-
-        }
-
-        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+        moveafter(ShippingOptions; "Ship-to Code", "Shipping Agent Code", "Shipping Agent Service Code")
 
         addafter("Shipping Agent Service Code")
         {
@@ -344,18 +332,26 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     Importance = Standard;
                     Editable = false;
                 }
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // {
+                //     Caption = 'Pick Slip Printed Date';
+                //     ToolTip = 'Pick Slip Printed Date';
+                //     ApplicationArea = All;
+                //     Importance = Standard;
+                //     Editable = false;
+                // }
+                // field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                // {
+                //     Caption = 'Pick Slip Printed Time';
+                //     ToolTip = 'Pick Slip Printed Time';
+                //     ApplicationArea = All;
+                //     Importance = Standard;
+                //     Editable = false;
+                // }
+                field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
                 {
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    Caption = 'Pick Slip Printed Time';
-                    ToolTip = 'Pick Slip Printed Time';
+                    Caption = 'Pick Slip Printed At';
+                    ToolTip = 'Pick Slip Printed At';
                     ApplicationArea = All;
                     Importance = Standard;
                     Editable = false;
@@ -886,7 +882,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 begin
                     // 1. Get Layout details for the BILL-TO Customer
                     CustomReportSelection.SetRange("Source Type", Database::Customer);
-                    CustomReportSelection.SetRange("Source No.", Rec."Bill-to Customer No.");
+                    CustomReportSelection.SetRange("Source No.", Rec."Sell-to Customer No.");
                     CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
 
                     if CustomReportSelection.FindFirst() then begin
@@ -918,10 +914,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     // Note: In v27.2, use OpenInEditor
                     Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::Default);
                 end;
-
-
             }
-
         }
 
         addfirst(Action96)
@@ -1017,8 +1010,8 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             group("Credit Hold")
             {
-                Visible = true;
                 Caption = 'Credit Hold';
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 actionref("RemoveCreditHold"; "Remove Credit Hold")
                 {
                 }
@@ -1130,39 +1123,41 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 begin
                     TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);
                 end;
             }
 
-            action("Remove Posting Hold")
-            {
-                ToolTip = 'Removes the Posting hold on an Order.';
-                Caption = 'Remove Posting Hold';
-                Image = Report;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    Rec."Temporary Posting Hold" := false;
-                    Rec.Modify(true);
-                    Message('Posting hold removed from %1.', Rec."No.");
-                end;
-            }
+            // action("Remove Posting Hold")
+            // {
+            //     ToolTip = 'Removes the Posting hold on an Order.';
+            //     Caption = 'Remove Posting Hold';
+            //     Image = Report;
+            //     ApplicationArea = All;
+            //     Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+            //     trigger OnAction()
+            //     begin
+            //         Rec."Temporary Posting Hold" := false;
+            //         Rec.Modify(true);
+            //         Message('Posting hold removed from %1.', Rec."No.");
+            //     end;
+            // }
 
-            action("Add Posting Hold")
-            {
-                ToolTip = 'Add the Posting hold on an Order.';
-                Caption = 'Add Posting Hold';
-                Image = Report;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    Rec."Temporary Posting Hold" := true;
-                    Rec.Modify(true);
-                    Message('Posting hold removed from %1.', Rec."No.");
-                end;
-            }
+            // action("Add Posting Hold")
+            // {
+            //     ToolTip = 'Add the Posting hold on an Order.';
+            //     Caption = 'Add Posting Hold';
+            //     Image = Report;
+            //     ApplicationArea = All;
+            //     trigger OnAction()
+            //     begin
+            //         Rec."Temporary Posting Hold" := true;
+            //         Rec.Modify(true);
+            //         Message('Posting hold removed from %1.', Rec."No.");
+            //     end;
+            // }
             action("Add Freight")
             {
                 ToolTip = 'Add Freight';
@@ -1205,6 +1200,15 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         LookupUserId: Codeunit TlyLookupUserID;
         InsertFreightLine: Codeunit TlyInsertFreightLine;
         TorlysCreditHold: Codeunit TlyCreditHold;
+        UserDepartment: Enum TlyUserDepartment;
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if UserSetup.Get(UserId) then
+            UserDepartment := UserSetup.Department;
+    end;
 
     trigger OnAfterGetRecord()
     begin

@@ -64,12 +64,19 @@ page 51009 TlyBookingInfo
                     ToolTip = 'Appointment Time';
                     Editable = false;
                 }
-
-                field("Received by"; Rec."Received by")
+                field("Appointment At"; Rec."Appointment At")
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Received by';
-                    ToolTip = 'Received by';
+                    Caption = 'Appointment At';
+                    ToolTip = 'Appointment At';
+                    Editable = false;
+                }
+
+                field("Received By"; Rec."Received by")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Received By';
+                    ToolTip = 'Received By';
                     Editable = false;
                 }
 
@@ -88,6 +95,13 @@ page 51009 TlyBookingInfo
                     ToolTip = 'Receipt Time';
                     Editable = false;
                 }
+                field("Received At"; Rec."Received At")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Received At';
+                    ToolTip = 'Received At';
+                    Editable = false;
+                }
             }
         }
     }
@@ -104,6 +118,9 @@ page 51009 TlyBookingInfo
             { }
             actionref(PrintReceivingTransfer; "Receiving Report (Transfer)")
             { }
+            actionref(Attachments_Promoted; Attachments)
+            {
+            }
         }
         area(Processing)
         {
@@ -126,6 +143,7 @@ page 51009 TlyBookingInfo
                         repeat
                             Rec."Appointment Date" := DatePage.GetDateTime.Date();
                             Rec."Appointment Time" := DatePage.GetDateTime.Time();
+                            Rec."Appointment At" := DatePage.GetDateTime();
                             Rec.Modify(true);
                         until BookingInfo.Next() = 0;
                     end;
@@ -159,6 +177,7 @@ page 51009 TlyBookingInfo
                             BookingInfo."Received By" := ReceiverRecord.Code;
                             BookingInfo."Receipt Date" := WorkDate();
                             BookingInfo."Receipt Time" := Time;
+                            BookingInfo."Received At" := CurrentDateTime;
                             BookingInfo.Modify(true);
                         until BookingInfo.Next() = 0;
                     end;
@@ -203,13 +222,30 @@ page 51009 TlyBookingInfo
                         TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+
+                trigger OnAction()
+                var
+                    DocumentAttachmentRecord: Record "Document Attachment";
+                    DocumentAttachmentPage: Page "Document Attachment Details";
+                begin
+                    DocumentAttachmentRecord.Reset;
+                    DocumentAttachmentRecord.SetFilter("Table ID", '55009');
+                    DocumentAttachmentRecord.SetFilter("No.", Rec."No.");
+                    DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
+                    DocumentAttachmentPage.RunModal();
+                end;
+            }
         }
     }
 
     views
     {
-        // addlast
-        // {
         view(TORToday)
         {
             Caption = 'TOR - Today';
@@ -246,24 +282,13 @@ page 51009 TlyBookingInfo
             Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('>T+1D'));
             OrderBy = ascending("Appointment Date", "Appointment Time");
         }
-        // }
+
     }
-    // var
-    //     Today: Date;
-    //     Tomorrow: Date;
 
     trigger OnOpenPage()
     var
         UserSetup: Record "User Setup";
     begin
         Rec.CalcFields("Open PO Count", "Open Transfer Count");
-
-        // UserSetup.Get(UserId);
-        // Rec.SetFilter("Location Code", UserSetup."Default Location Code");
-
-        // Rec.SetFilter("Appointment Date", '%1', WorkDate());
-
-        // Today := Workdate();
-        // Tomorrow := Workdate() + 1;
     end;
 }

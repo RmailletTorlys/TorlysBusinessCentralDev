@@ -68,7 +68,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50010; "No. Pick Slips Printed"; Integer)
         {
-            Caption = 'No. Pick Slips Printed';
+            Caption = 'No. Pick Slip Printed';
             DataClassification = CustomerContent;
         }
 
@@ -93,20 +93,20 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50014; "Popup Modify By"; Code[20])
         {
-            Caption = 'Popup Modify By';
+            Caption = 'Warehouse Notify By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
         field(50015; "Popup Modify Date"; Date)
         {
-            Caption = 'Popup Modify Date';
+            Caption = 'Warehouse Notify Date';
             DataClassification = CustomerContent;
         }
 
         field(50016; "Popup Modify Time"; Time)
         {
-            Caption = 'Popup Modify Time';
+            Caption = 'Warehouse Notify Time';
             DataClassification = CustomerContent;
         }
 
@@ -161,14 +161,14 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         field(50020; "Qty. to Ship"; Decimal)
         {
             Caption = 'Qty. to ship';
-            CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }
 
         field(50021; "Outstanding Quantity"; Decimal)
         {
             Caption = 'Outstanding Quantity';
-            CalcFormula = Sum("Sales Line"."Outstanding Quantity" WHERE("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Sales Line"."Outstanding Quantity" where("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }
 
@@ -349,6 +349,35 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50057; "Warehouse Notify Modify Field"; Text[15])
+        {
+            Caption = 'Warehouse Notify Field';
+            DataClassification = CustomerContent;
+        }
+
+        field(50058; "Entered By"; Code[50])
+        {
+            Caption = 'Entered By';
+            DataClassification = CustomerContent;
+        }
+        field(50059; "Entered At"; DateTime)
+        {
+            Caption = 'Entered At';
+            DataClassification = CustomerContent;
+        }
+
+        field(50060; "Pick Slip Printed At"; DateTime)
+        {
+            Caption = 'Pick Slip Printed At';
+            DataClassification = CustomerContent;
+        }
+
+        field(50061; "Warehouse Notify At"; DateTime)
+        {
+            Caption = 'Warehouse Notify At';
+            DataClassification = CustomerContent;
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()
@@ -360,14 +389,32 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 CommentLine.Reset();
                 CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Customer);
                 CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
-                IF CommentLine.Find('-') then begin
+                if CommentLine.Find('-') then begin
                     repeat
-                        IF CommentLine."Popup" = TRUE THEN
+                        if CommentLine."Popup" = TRUE THEN
                             Message('%1', CommentLine.Comment);
                     until CommentLine.Next = 0;
                 end;
+
+                if Rec."Sell-to Customer No." = 'SWATCH SAMPLE' then begin
+                    Rec.Validate("Order Method", 'ONLINE');
+                    Rec.Validate("Your Reference", 'SHOP AT HOME');
+                    Rec.Validate("Order Type", 'SHOP AT HOME');
+                    Rec.Validate("Shipping Instructions", 'SCHEDULED');
+                end;
             end;
         }
+
+        // modify("Ship-to Code")
+        // {
+        //     trigger OnAfterValidate()
+        //     begin
+        //         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
+        //             WarehouseNotifyFieldChanged := 'Ship-to';
+        //             UpdateWarehouseNotify;
+        //         end;
+        //     end;
+        // }
 
         modify("External Document No.")
         {
@@ -383,7 +430,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                         SalesHeader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
                         SalesHeader.SetRange("External Document No.", "External Document No.");
                         SalesHeader.SetFilter("Document Type", '%1|%2', "Document Type"::Order, "Document Type"::Invoice);
-                        IF (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
+                        if (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
                             Error('Customer PO # %1 exists on order # %2!', "External Document No.", SalesHeader."No.");
                         // Check posted invoices
                         SalesInvoiceHeader.Reset();
@@ -409,9 +456,16 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         // }
     }
 
+    var
+        WarehouseNotifyFieldChanged: Text[15];
+    // LookupUserId: Codeunit TlyLookupUserID;
+
     trigger OnAfterInsert()
     begin
+        "Entered By" := UserId;
+        "Entered At" := CurrentDateTime;
         "Order Time" := Time;
+        Rec.Modify(true);
         CopyCommentsFromCustCardToSalesHeader();
     end;
 
@@ -420,6 +474,22 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         DimMgt: Codeunit "DimensionManagement";
     begin
         DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcutDimCode);
+    end;
+
+    procedure UpdateWarehouseNotify()
+    begin
+        // populate below field only when:
+        // 1) delete a line (Sales Line)
+        // 2) modify Qty to Ship (don't need if add a line because the Qty. to Ship will be modified at that time) (Sales Line)
+        // 3) change ship-to (Sales Header)
+        if Rec.Get("Document Type", "No.") then begin
+            Rec."Popup Modify By" := UserId;
+            Rec."Popup Modify Date" := WorkDate();
+            Rec."Popup Modify Time" := Time;
+            Rec."Warehouse Notify At" := CurrentDateTime;
+            Rec."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
+            Rec.Modify(true);
+        end;
     end;
 
     local procedure CopyCommentsFromCustCardToSalesHeader()

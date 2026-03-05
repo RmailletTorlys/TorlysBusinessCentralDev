@@ -86,20 +86,28 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
                 Editable = false;
                 Importance = Standard;
             }
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
         }
 
-        moveafter("Order Time"; "Location Code", "No. Printed")
+        moveafter("Order Date"; "Location Code", "No. Printed")
 
         addafter("No. Printed")
         {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

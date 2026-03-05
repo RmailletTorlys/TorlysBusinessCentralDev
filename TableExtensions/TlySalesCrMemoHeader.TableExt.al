@@ -89,20 +89,20 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
 
         field(50014; "Popup Modify By"; code[20])
         {
-            Caption = 'Popup Modify By';
+            Caption = 'Warehouse Notify Modify By';
             TableRelation = "User Details";
             DataClassification = CustomerContent;
         }
 
         field(50015; "Popup Modify Date"; Date)
         {
-            Caption = 'Popup Modify Date';
+            Caption = 'Warehouse Notify Modify Date';
             DataClassification = CustomerContent;
         }
 
         field(50016; "Popup Modify Time"; Time)
         {
-            Caption = 'Popup Modify Time';
+            Caption = 'Warehouse Notify Modify Time';
             DataClassification = CustomerContent;
         }
         field(50017; "Original Invoice No."; Code[20])
@@ -300,6 +300,38 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
         field(50055; "Order Comment"; Text[30])
         {
             Caption = 'Order Comment';
+            DataClassification = CustomerContent;
+        }
+        field(50056; "Temporary Posting Hold"; Boolean)
+        {
+            Caption = 'Temporary Posting Hold';
+            DataClassification = CustomerContent;
+        }
+
+        field(50057; "Warehouse Notify Modify Field"; Text[15])
+        {
+            Caption = 'Warehouse Notify Modify Field';
+            DataClassification = CustomerContent;
+        }
+
+        field(50058; "Entered By"; Code[50])
+        {
+            Caption = 'Entered By';
+            DataClassification = CustomerContent;
+        }
+        field(50059; "Entered At"; DateTime)
+        {
+            Caption = 'Entered At';
+            DataClassification = CustomerContent;
+        }
+        field(50060; "Pick Slip Printed At"; DateTime)
+        {
+            Caption = 'Pick Sliped Printed At';
+            DataClassification = CustomerContent;
+        }
+        field(50061; "Warehouse Notify At"; DateTime)
+        {
+            Caption = 'Warehouse Notify At';
             DataClassification = CustomerContent;
         }
     }

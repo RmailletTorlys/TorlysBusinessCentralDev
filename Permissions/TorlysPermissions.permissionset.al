@@ -52,7 +52,7 @@ permissionset 50000 TorlysPermissions
         codeunit TlyPriceAssetSalesPriceCode = X,
         codeunit TlyPriceSourceSalesPriceCode = X,
         codeunit TlySLPriceListTriggers = X,
-        codeunit "TlySalesLinePrice" = X,
+        codeunit TlySalesLinePrice = X,
         codeunit TlyPriceCalcBufferMgt = X,
         codeunit TlyPriceCodeSourcePriceCalc = X,
         // page CustomerSalesPriceListsLookup = X,
@@ -64,8 +64,8 @@ permissionset 50000 TorlysPermissions
         page TlyBillOfLadingSubform = X,
         page TlyBillOfLadingList = X,
         page TlyProcBillOfLading = X,
-        page TlyHolidayCalendarList = X,
+        // page TlyHolidayCalendarList = X,
         page TlyOrdersToBeShippedList = X,
-        query CustInfoForTorlysDotCom = X,
+        // query CustInfoForTorlysDotCom = X,
         query ItemInfoForTorlysDotCom = X;
 }

@@ -27,6 +27,10 @@ report 50019 "Receiving Report - Trans"
                 {
 
                 }
+                column(Appointment_At; "Appointment At")
+                {
+
+                }
             }
 
             column(Booking_No_; "Booking No.")
@@ -203,6 +207,7 @@ report 50019 "Receiving Report - Trans"
         BinLocation: Code[200];
         AppointDate: Date;
         AppointTime: Time;
+        AppointAt: DateTime;
         Quantity: Decimal;
         QtyCase: Decimal;
         QtyPallet: Decimal;
@@ -213,6 +218,7 @@ report 50019 "Receiving Report - Trans"
         Grouped: Boolean;
         BookingNO: code[25];
         TransferOrderCount: Integer;
-        appointmentdate: Date;
-        apointmenttime: Time;
+        AppointmentDate: Date;
+        ApointmentTime: Time;
+        AppointmentAt: DateTime;
 }

@@ -91,6 +91,9 @@ End Function
         <Field Name="Pick_Slip_Printed_Time">
           <DataField>Pick_Slip_Printed_Time</DataField>
         </Field>
+        <Field Name="Pick_Slip_Printed_At">
+          <DataField>Pick_Slip_Printed_At</DataField>
+        </Field>
         <Field Name="RePrintPickSlip">
           <DataField>RePrintPickSlip</DataField>
         </Field>

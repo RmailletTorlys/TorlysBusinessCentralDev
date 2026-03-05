@@ -131,21 +131,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
             }
         }
 
-        moveafter("Return Claim No."; "Posting Date", "Order Date")
-
-        addafter("Order Date")
-        {
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
-        }
-
-        moveafter("Order Time"; "Location Code")
+        moveafter("Return Claim No."; "Posting Date", "Order Date", "Location Code")
 
         addafter("Location Code")
         {
@@ -168,6 +154,22 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Editable = false;
                 Importance = Additional;
+            }
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
@@ -836,33 +838,33 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 end;
             }
 
-            action("Remove Posting Hold")
-            {
-                ToolTip = 'Removes the Posting hold on an Order.';
-                Caption = 'Remove Posting Hold';
-                Image = Report;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    Rec."Temporary Posting Hold" := false;
-                    Rec.Modify(true);
-                    Message('Posting hold removed from %1.', Rec."No.");
-                end;
-            }
+            // action("Remove Posting Hold")
+            // {
+            //     ToolTip = 'Removes the Posting hold on an Order.';
+            //     Caption = 'Remove Posting Hold';
+            //     Image = Report;
+            //     ApplicationArea = All;
+            //     trigger OnAction()
+            //     begin
+            //         Rec."Temporary Posting Hold" := false;
+            //         Rec.Modify(true);
+            //         Message('Posting hold removed from %1.', Rec."No.");
+            //     end;
+            // }
 
-            action("Add Posting Hold")
-            {
-                ToolTip = 'Add the Posting hold on an Order.';
-                Caption = 'Add Posting Hold';
-                Image = Report;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    Rec."Temporary Posting Hold" := true;
-                    Rec.Modify(true);
-                    Message('Posting hold removed from %1.', Rec."No.");
-                end;
-            }
+            // action("Add Posting Hold")
+            // {
+            //     ToolTip = 'Add the Posting hold on an Order.';
+            //     Caption = 'Add Posting Hold';
+            //     Image = Report;
+            //     ApplicationArea = All;
+            //     trigger OnAction()
+            //     begin
+            //         Rec."Temporary Posting Hold" := true;
+            //         Rec.Modify(true);
+            //         Message('Posting hold removed from %1.', Rec."No.");
+            //     end;
+            // }
         }
         // modify(GetPostedDocumentLinesToReverse)
         // {

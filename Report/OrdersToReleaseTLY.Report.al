@@ -52,6 +52,10 @@ report 50004 "Orders to Release TLY"
             {
 
             }
+            column(Pick_Slip_Printed_At; "Pick Slip Printed At")
+            {
+
+            }
             column(RePrintPickSlip; RePrintPickSlip)
             {
 
@@ -85,19 +89,19 @@ report 50004 "Orders to Release TLY"
 
             trigger OnAfterGetRecord()
             begin
-                If "No. Pick Slips Printed" > 0 then
-                    If "Pick Slip Printed Date" > "Popup Modify Date" then
+                if "No. Pick Slips Printed" > 0 then
+                    // If "Pick Slip Printed Date" > "Popup Modify Date" then
+                    If "Pick Slip Printed At" > "Warehouse Notify At" then
                         ModifiedAfterPrint := False
                     else
-                        if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        // if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        if "Pick Slip Printed At" < "Warehouse Notify At" then
                             ModifiedAfterPrint := true
                         else
-                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
-                                ModifiedAfterPrint := true
-                            else
-                                ModifiedAfterPrint := false;
-
-
+                            // if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                            // ModifiedAfterPrint := true
+                            // else
+                            ModifiedAfterPrint := false;
                 If ModifiedAfterPrint then
                     RePrintPickSlip := 'Yes'
                 else

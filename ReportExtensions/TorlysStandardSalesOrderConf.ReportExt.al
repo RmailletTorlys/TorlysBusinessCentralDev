@@ -66,6 +66,22 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 selladdr(selltoaddr, Header);
                 ShipAddrTly(ShipToAddrTly, Header);
 
+                SalesCommentLine.Reset();
+                SalesCommentLine.SetRange("No.", "No.");
+                SalesCommentLine.SetRange("Print On Order Confirmation", true);
+
+                // FindSet is used for looping through a set of records
+                if SalesCommentLine.FindSet() then begin
+                    repeat
+                        // This is where you process EACH comment
+                        // Example: Concatenate all comments into one string
+                        AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
+
+                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                end else begin
+                    AllComments := '';
+                end;
+
                 if "MK Required" then
                     MKREQUIRED := 'MK REQUIRED'
                 else
@@ -165,6 +181,8 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
+            column(AllComments; AllComments)
+            { }
             column(mkqyantity; mkqyantity)
             { }
             column(MKlocation; MKlocation)
@@ -257,6 +275,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         Item: Record Item;
         ItemNoTemp: Record Item;
         ParentBinCOntent: Record "Bin Content";
+        SalesCommentLine: Record "Sales Comment Line";
         DimMgmt: CodeUnit DimensionManagement;
         // UoMHelper: CodeUnit "Quantity Rounding Helper";
         UOMMgt: Codeunit "Unit of Measure Management";
@@ -268,6 +287,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         ToShipPieces: Decimal;
         QtyOrd: Decimal;
         CurrencyCode: Text;
+        AllComments: Text;
         TempDesc: Text;
         ItemDescription: Text;
         ParentBinLocationLabel: Text;

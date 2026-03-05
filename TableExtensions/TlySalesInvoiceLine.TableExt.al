@@ -156,7 +156,7 @@ tableextension 50113 TlySalesInvoiceLine extends "Sales Invoice Line"
         }
         field(50024; "Master Project Order No."; Code[20])
         {
-            Caption = 'Transfer Order No.';
+            Caption = 'Master Project Order No.';
             DataClassification = CustomerContent;
             Editable = false;
             // TableRelation = "Sales Header"."No." where("Order Type" = const('MASTER PROJECT ORDER'));

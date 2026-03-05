@@ -14,9 +14,9 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
             }
         }
 
-        moveafter("Location Code"; "Shipment Method Code", "Shipping Agent Code")
+        moveafter("Location Code"; "Shipment Method Code", "Shipping Agent Code", "Shipping Agent Service Code")
 
-        addafter("Shipping Agent Code")
+        addafter("Shipping Agent Service Code")
         {
             field("Freight Zone Code"; Rec."Freight Zone Code")
             {
@@ -165,11 +165,6 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
         }
 
         modify("Home Page")
-        {
-            Visible = false;
-        }
-
-        modify("Shipping Agent Service Code")
         {
             Visible = false;
         }

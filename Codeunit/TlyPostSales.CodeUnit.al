@@ -1,16 +1,5 @@
 codeunit 50030 TlyPostSales
 {
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterValidatePostingAndDocumentDate', '', false, false)]
-    // local procedure OnAfterValidatePostingAndDocumentDate(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean; PreviewMode: Boolean; ReplacePostingDate: Boolean; ReplaceDocumentDate: Boolean)
-    // begin
-    //     // we want the posting date to be today
-    //     SalesHeader."Posting Date" := WorkDate();
-    //     SalesHeader.SynchronizeAsmHeader();
-    //     SalesHeader.Validate("Currency Code");
-    //     SalesHeader.Validate("Document Date", WorkDate()); // needed to calc due date and other
-    //     SalesHeader.Modify(true);
-    // end;
-
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnValidatePostingAndDocumentDateOnAfterCalcPostingDateExists', '', false, false)]
     local procedure OnValidatePostingAndDocumentDateOnAfterCalcPostingDateExists(var PostingDateExists: Boolean; var ReplacePostingDate: Boolean; var ReplaceDocumentDate: Boolean; var PostingDate: Date; var SalesHeader: Record "Sales Header"; var ModifyHeader: Boolean; var VATDateExists: Boolean; var ReplaceVATDate: Boolean; var VATDate: Date)
     begin
@@ -20,16 +9,16 @@ codeunit 50030 TlyPostSales
         PostingDate := WorkDate();
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeCheckMandatoryHeaderFields', '', false, false)]
-
-    local procedure OnBeforeCheckMandatoryHeaderFields(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterInitQtyToShip2', '', false, false)]
+    local procedure OnAfterInitQtyToShip2(var SalesLine: Record "Sales Line"; CurrFieldNo: Integer)
     begin
-        IsHandled := false;
-        if SalesHeader."Temporary Posting Hold" then
-            Error(ErrorInfo.Create('Sales order was already posted. Please confirm if this order needs to be reposted.'))
-        else
-            IsHandled := false;
-        SalesHeader."Temporary Posting Hold" := true;
-        SalesHeader.Modify(true);
+        //this is to not allocate quantities for partial shipments when shipping or invoicing
+        if (SalesLine.Type = SalesLine.Type::Item) and (SalesLine."Document Type" = SalesLine."Document Type"::Order) then begin
+            SalesLine."Qty. to Ship" := 0;
+            SalesLine."Qty. to Ship (Base)" := 0;
+            SalesLine."Qty. to Ship Case" := 0;
+            SalesLine."Qty. to Ship Pallet" := 0;
+            SalesLine.Modify(true);
+        end;
     end;
 }

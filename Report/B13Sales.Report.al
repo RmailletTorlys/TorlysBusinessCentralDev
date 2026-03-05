@@ -64,6 +64,10 @@ report 50023 "B13 Sales"
                 {
 
                 }
+                column(IgnoreBackorder; IgnoreBackorder)
+                {
+
+                }
                 column(FilterString1; SalesLineFilter)
                 {
 
@@ -207,6 +211,22 @@ report 50023 "B13 Sales"
 
                     If RemoveDuty then begin
                         If "No." = '51400' then begin
+                            "No." := '';
+                            Description := '';
+                            OrderQuantity := 0;
+                            NetWeightLB := 0;
+                            NetWeightKG := 0;
+                            NetPrice := 0;
+                            LineAmount := 0;
+                            TariffQuantity := 0;
+                            TariffNetWeightLB := 0;
+                            TariffNetWeightKG := 0;
+                            TariffLineAmount := 0;
+                        end;
+                    end;
+
+                    If IgnoreBackorder then begin
+                        If "Outstanding Quantity" <> 0 then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;

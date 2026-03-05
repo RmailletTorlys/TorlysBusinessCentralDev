@@ -74,17 +74,9 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Importance = Standard;
                 Editable = false;
             }
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = false;
-            }
         }
 
-        moveafter("Order Time"; "Location Code", "Shipment Date")
+        moveafter("Order Date"; "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -103,10 +95,49 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Importance = Standard;
             }
         }
-        moveafter("Order Comment"; "Order No.", "No. Printed")
+        moveafter("Order Comment"; "Order No.")
+
+        addafter("Order No.")
+        {
+            field("Picked By"; Rec."Picked By")
+            {
+                Caption = 'Picked By';
+                ToolTip = 'Picked By';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+
+            field("Audited By"; Rec."Audited By")
+            {
+                Caption = 'Audited By';
+                ToolTip = 'Audited By';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Audited By"; "No. Printed")
 
         addafter("No. Printed")
         {
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+            field("Entered At"; Rec."Entered At")
+            {
+                Caption = 'Entered At';
+                ToolTip = 'Entered At';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -360,6 +391,11 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
         }
 
         modify(BillToContactPhoneNo)
+        {
+            Visible = false;
+        }
+
+        modify("Requested Delivery Date")
         {
             Visible = false;
         }

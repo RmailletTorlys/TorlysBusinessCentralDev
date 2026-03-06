@@ -430,7 +430,7 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'View and Fill Linked SO';
                 Image = OrderTracking;
                 RunObject = Page TlyLinkedSOtoPO;
-                RunPageLink = "Linked Purchase Order No." = field("Document No."), "No." = field("No.");
+                RunPageLink = "Linked Purchase Order No." = field("Document No."), "No." = field("No."), "Outstanding Quantity" = filter(<> 0);
             }
             action(BackorderFill)
             {

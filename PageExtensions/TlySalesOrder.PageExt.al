@@ -782,6 +782,11 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             visible = false;
         }
 
+        modify("Gen. Bus. Posting Group")
+        {
+            Editable = false;
+        }
+
         modify(BillToContactMobilePhoneNo)
         {
             visible = false;

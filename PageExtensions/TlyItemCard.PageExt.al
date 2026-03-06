@@ -606,6 +606,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
             actionref(ItemAccessories_Promoted; ItemAccessories)
             { }
+            actionref(ItemAccessoriesReversal_Promoted; ItemAccessoriesReversal)
+            { }
             actionref(BinContent_Promoted; BinContent)
             { }
         }
@@ -636,6 +638,16 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Image = Order;
                 RunObject = Page "NTN Web Related Items";
                 RunPageLink = "No." = field("No.");
+                RunPageMode = View;
+            }
+            action(ItemAccessoriesReversal)
+            {
+                Caption = 'Item Accessories Reversal';
+                ToolTip = 'Item Accessories Reversal';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "Related Item No." = field("No.");
                 RunPageMode = View;
             }
             action(BinContent)

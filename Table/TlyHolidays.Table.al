@@ -1,7 +1,7 @@
-table 55199 TlyHolidayCalendar
+table 55201 TlyHolidays
 {
-    // DrillDownPageID = TlyHolidayCalendarList;
-    // LookupPageID = TlyHolidayCalendarList;
+    DrillDownPageID = TlyHolidaysList;
+    LookupPageID = TlyHolidaysList;
     DataClassification = CustomerContent;
     Caption = 'Holiday Calendar';
 
@@ -32,12 +32,9 @@ table 55199 TlyHolidayCalendar
 
     Keys
     {
-        key(PK; "Last Work Day")
+        key(PK; "Holiday Date")
         {
-            // Clustered = true;
+            Clustered = true;
         }
-        // key(Key1; "Holiday Date")
-        // {
-        // }
     }
 }

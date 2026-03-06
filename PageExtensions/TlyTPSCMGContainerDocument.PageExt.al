@@ -172,6 +172,20 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             group(WarehouseGrp)
             {
                 Caption = 'Warehouse';
+                field("Open PO Count"; Rec."Open PO Count")
+                {
+                    Caption = 'Open PO Count';
+                    ToolTip = 'Open PO Count';
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Open Transfer Count"; Rec."Open Transfer Count")
+                {
+                    Caption = 'Open Transfer Count';
+                    ToolTip = 'Open Transfer Count';
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field(BookingNo; BookingNo)
                 {
                     Caption = 'Booking No.';

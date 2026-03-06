@@ -77,11 +77,11 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             TableRelation = Vendor;
         }
 
-        // field(50014; "Delivery Appointment Date"; Date)
-        // {
-        //     Caption = 'Delivery Appointment Date';
-        //     DataClassification = CustomerContent;
-        // }
+        field(50014; "Delivery Appointment Date"; Date)
+        {
+            Caption = 'Delivery Appointment Date';
+            DataClassification = CustomerContent;
+        }
 
         field(50015; "Freight Cost"; Decimal)
         {

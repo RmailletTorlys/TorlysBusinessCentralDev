@@ -459,6 +459,29 @@ tableextension 50027 TlyItem extends Item
             DataClassification = CustomerContent;
             Description = 'TLY-SD - 03/02/2026';
         }
+        field(50061; "Qty. on Hand (ONWATER)"; Decimal)
+        {
+            Caption = 'Quantity on Hand (ONWATER)';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+            CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
+                                                                  "Global Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                  "Global Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                  "Location Code" = const('ONWATER'),
+                                                                  "Drop Shipment" = field("Drop Shipment Filter"),
+                                                                  "Variant Code" = field("Variant Filter"),
+                                                                  "Lot No." = field("Lot No. Filter"),
+                                                                  "Serial No." = field("Serial No. Filter"),
+                                                                  "Unit of Measure Code" = field("Unit of Measure Filter"),
+                                                                  "Package No." = field("Package No. Filter")));
+            Editable = false;
+        }
+        field(50062; "QC Inspection Required"; Boolean)
+        {
+            Caption = 'QC Inspection Required';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/06/2026 - requested by JK';
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
@@ -491,7 +514,6 @@ tableextension 50027 TlyItem extends Item
                         ShortcutDimCode[8] := Dimension."Dimension Value Code";
                 end;
             until Dimension.Next() = 0;
-
     end;
 
     // procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

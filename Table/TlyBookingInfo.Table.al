@@ -98,7 +98,7 @@ table 55009 TlyBookingInfo
             Clustered = true;
         }
 
-        key(Key1; "Appointment Date", "Appointment Time")
+        key(Key1; "Appointment At")
         {
             Clustered = false;
         }

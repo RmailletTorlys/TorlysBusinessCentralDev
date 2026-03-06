@@ -78,24 +78,52 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
 
         addafter(Status)
         {
-            field(AppointmentDate; AppointmentDate)
+            field(BookingNo; BookingNo)
             {
-                Caption = 'Appointment Date';
-                ToolTip = 'Appointment Date';
+                Caption = 'Booking No.';
+                ToolTip = 'Booking No.';
                 ApplicationArea = All;
                 Editable = false;
             }
-            field(AppointmentTime; AppointmentTime)
-            {
-                Caption = 'Appointment Date';
-                ToolTip = 'Appointment Date';
-                ApplicationArea = All;
-                Editable = false;
-            }
+            // field(AppointmentDate; AppointmentDate)
+            // {
+            //     Caption = 'Appointment Date';
+            //     ToolTip = 'Appointment Date';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
+            // field(AppointmentTime; AppointmentTime)
+            // {
+            //     Caption = 'Appointment Date';
+            //     ToolTip = 'Appointment Date';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
             field(AppointmentAt; AppointmentAt)
             {
                 Caption = 'Appointment At';
                 ToolTip = 'Appointment At';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Appointment At"; Rec."Appointment At")
+            {
+                Caption = 'Appointment At';
+                ToolTip = 'Appointment At';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Received By"; Rec."Received By")
+            {
+                Caption = 'Received By';
+                ToolTip = 'Received By';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Received At"; Rec."Received At")
+            {
+                Caption = 'Received At';
+                ToolTip = 'Received At';
                 ApplicationArea = All;
                 Editable = false;
             }
@@ -253,20 +281,78 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 Filters = where(Status = filter('Completely Received'));
                 OrderBy = ascending("Expected Receipt Date");
             }
+            view(TORToday)
+            {
+                Caption = 'TOR - Today';
+                Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('T'));
+                OrderBy = ascending("Appointment At");
+            }
+            // view(TORTomorrow)
+            // {
+            //     Caption = 'TOR - Tomorrow';
+            //     // Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('CreateDateTime(Today + 1, 0T)..CreateDateTime(Today + 1, 24T)'));
+            //     Filters = where("Location Code" = const('TOR'), "Appointment At" = field(Display));
+            //     OrderBy = ascending("Appointment At");
+            // }
+            view(TORFuture)
+            {
+                Caption = 'TOR - Future';
+                Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('>T'));
+                OrderBy = ascending("Appointment At");
+            }
+            view(CALToday)
+            {
+                Caption = 'CAL - Today';
+                Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('T'));
+                OrderBy = ascending("Appointment At");
+            }
+            // view(CALTomorrow)
+            // {
+            //     Caption = 'CAL - Tomorrow';
+            //     Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('T+1D'));
+            //     OrderBy = ascending("Appointment At");
+            // }
+            view(CALFuture)
+            {
+                Caption = 'CAL - Future';
+                Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('>T'));
+                OrderBy = ascending("Appointment At");
+            }
         }
     }
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        BookingNo: Code[20];
         AppointmentDate: Date;
         AppointmentTime: Time;
         AppointmentAt: DateTime;
+    // Display: DateTime;
+
+    // trigger OnOpenPage()
+    // var
+    //     InputDate: Date;
+    //     Tomorrow: Date;
+
+    // begin
+    //     InputDate := Today();
+    //     Tomorrow := CalcDate('<+1D>', InputDate);
+    //     // Display := CreateDateTime(Tomorrow, 0T);
+    //     Display := CreateDateTime(Today + 1, 0T);
+    //     Message('%1', Display);
+    // end;
 
     trigger OnAfterGetRecord()
     var
         BookingInfo: Record TlyBookingInfo;
     begin
+        BookingNo := '';
+        AppointmentDate := 0D;
+        AppointmentTime := 0T;
+        AppointmentAt := 0DT;
+
         BookingInfo.Reset();
         if BookingInfo.Get(Rec."No.") then begin
+            BookingNo := BookingInfo."No.";
             AppointmentDate := BookingInfo."Appointment Date";
             AppointmentTime := BookingInfo."Appointment Time";
             AppointmentAt := BookingInfo."Appointment At";

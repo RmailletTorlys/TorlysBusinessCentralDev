@@ -83,9 +83,17 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 ApplicationArea = All;
                 Importance = Standard;
             }
+            field("Container No."; Rec."TPS CMG Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Importance = Standard;
+                Editable = (Rec."Transfer Type" <> Rec."Transfer Type"::"Supplier Purchase");
+            }
         }
 
-        moveafter("Booking No."; Status)
+        moveafter("Container No."; Status)
 
         addafter(Status)
         {

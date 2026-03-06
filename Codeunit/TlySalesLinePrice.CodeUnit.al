@@ -216,7 +216,9 @@ codeunit 57004 TlySalesLinePrice implements "Line With Price"
 
     begin
         PriceSourceList.Add(Enum::"Price Source Type"::"All Customers");
-        PriceSourceList.Add(Enum::"Price Source Type"::Customer, SalesHeader."Bill-to Customer No.");
+        // bill-to is standard, but we use sell-to
+        // PriceSourceList.Add(Enum::"Price Source Type"::Customer, SalesHeader."Bill-to Customer No.");
+        PriceSourceList.Add(Enum::"Price Source Type"::Customer, SalesHeader."Sell-to Customer No.");
         PriceSourceList.Add(Enum::"Price Source Type"::Contact, SalesHeader."Bill-to Contact No.");
         PriceSourceList.Add(Enum::"Price Source Type"::Campaign, SalesHeader."Campaign No.");
 

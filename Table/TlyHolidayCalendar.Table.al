@@ -4,6 +4,7 @@ table 55199 TlyHolidayCalendar
     // LookupPageID = TlyHolidayCalendarList;
     DataClassification = CustomerContent;
     Caption = 'Holiday Calendar';
+    ObsoleteState = Pending;
 
     fields
     {
@@ -34,10 +35,10 @@ table 55199 TlyHolidayCalendar
     {
         key(PK; "Last Work Day")
         {
-            Clustered = true;
+            // Clustered = true;
         }
-        key(Key1; "Holiday Date")
-        {
-        }
+        // key(Key1; "Holiday Date")
+        // {
+        // }
     }
 }

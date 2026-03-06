@@ -56,6 +56,13 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Booking No.';
                 ApplicationArea = All;
             }
+            field("Container No."; Rec."TPS CMG Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
             field("Completely Shipped"; Rec."Completely Shipped")
             {
                 Caption = 'Completely Shipped';

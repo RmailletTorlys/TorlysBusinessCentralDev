@@ -50,28 +50,24 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
         {
             Caption = 'Crossdock';
             DataClassification = CustomerContent;
-
         }
 
         field(50010; "ERS"; Boolean)
         {
             Caption = 'ERS';
             DataClassification = CustomerContent;
-
         }
 
         field(50011; "Urgent"; Boolean)
         {
             Caption = 'Urgent';
             DataClassification = CustomerContent;
-
         }
 
         field(50012; "Strike"; Boolean)
         {
             Caption = 'Strike';
             DataClassification = CustomerContent;
-
         }
 
         field(50013; "Vendor No."; Text[20])
@@ -81,11 +77,11 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             TableRelation = Vendor;
         }
 
-        field(50014; "Delivery Appointment Date"; Date)
-        {
-            Caption = 'Delivery Appointment Date';
-            DataClassification = CustomerContent;
-        }
+        // field(50014; "Delivery Appointment Date"; Date)
+        // {
+        //     Caption = 'Delivery Appointment Date';
+        //     DataClassification = CustomerContent;
+        // }
 
         field(50015; "Freight Cost"; Decimal)
         {
@@ -103,6 +99,38 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             Caption = 'Manufacturer Code';
             DataClassification = CustomerContent;
             TableRelation = Manufacturer;
+        }
+
+        field(50018; "Appointment At"; DateTime)
+        {
+            Caption = 'Appointment At';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/05/2026 - moving from Booking Info to do it all on the container now';
+        }
+        field(50019; "Received By"; Code[20])
+        {
+            Caption = 'Received By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
+            Description = 'TLY-SD - 03/05/2026 - moving from Booking Info to do it all on the container now';
+        }
+        field(50020; "Received At"; DateTime)
+        {
+            Caption = 'Received At';
+            DataClassification = CustomerContent;
+            Description = 'TLY-SD - 03/05/2026 - moving from Booking Info to do it all on the container now';
+        }
+        field(50021; "Open PO Count"; Integer)
+        {
+            Caption = 'Open PO Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Purchase Line" where("Container No." = field("No.")));
+        }
+        field(50022; "Open Transfer Count"; Integer)
+        {
+            Caption = 'Open Transfer Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Transfer Header" where("TPS CMG Container No." = field("No.")));
         }
     }
 }

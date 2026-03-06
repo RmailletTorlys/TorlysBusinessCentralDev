@@ -152,6 +152,14 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Importance = Additional;
                 }
 
+                field("High Shade Variation"; Rec."High Shade Variation")
+                {
+                    Caption = 'High Shade Variation';
+                    ToolTip = 'High Shade Variation';
+                    ApplicationArea = All;
+                    Visible = true;
+                    Importance = Standard;
+                }
                 field("Production Date Required"; Rec."Production Date Required")
                 {
                     ApplicationArea = All;
@@ -160,24 +168,18 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     ToolTip = 'Production Date Required';
                     Importance = Additional;
                 }
+                field("QC Inspection Required"; Rec."QC Inspection Required")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'QC Inspection Required';
+                    ToolTip = 'QC Inspection Required';
+                    Importance = Additional;
+                }
             }
         }
 
-        moveafter("Production Date Required"; "Automatic Ext. Texts")
-
-        addafter("Automatic Ext. Texts")
-        {
-            field("High Shade Variation"; Rec."High Shade Variation")
-            {
-                Caption = 'High Shade Variation';
-                ToolTip = 'High Shade Variation';
-                ApplicationArea = All;
-                Visible = true;
-                Importance = Standard;
-            }
-        }
-
-        moveafter("High Shade Variation"; "Sales Blocked", "Purchasing Blocked", Blocked)
+        moveafter("QC Inspection Required"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
 
         addafter(Blocked)
         {

@@ -391,7 +391,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
                 if CommentLine.Find('-') then begin
                     repeat
-                        if CommentLine."Popup" = TRUE THEN
+                        if CommentLine."Popup" = true then
                             Message('%1', CommentLine.Comment);
                     until CommentLine.Next = 0;
                 end;

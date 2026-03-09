@@ -44,6 +44,7 @@ pageextension 50047 TlySalesInvoiceSubform extends "Sales Invoice Subform"
                 Caption = 'Qty. to Ship';
                 ToolTip = 'Qty. to Ship';
                 ApplicationArea = All;
+                ShowMandatory = true; //TLY-SD - 03/09/2026
             }
             field("Qty. to Ship Case"; Rec."Qty. to Ship Case")
             {

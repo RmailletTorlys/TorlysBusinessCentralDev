@@ -18,6 +18,37 @@ pageextension 57011 TlyPurchPriceListLines extends "Purchase Price List Lines"
             }
         }
 
+        addafter(DirectUnitCost)
+        {
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+
+            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
+
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
+
+            field(SystemModifiedAt; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+            }
+        }
+
         modify("Variant Code")
         {
             Visible = false;
@@ -32,4 +63,7 @@ pageextension 57011 TlyPurchPriceListLines extends "Purchase Price List Lines"
             Visible = false;
         }
     }
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

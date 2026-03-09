@@ -222,7 +222,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Currency Factor"; "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code")
+        moveafter("Currency Factor"; "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code")
 
         addafter("Tax Area Code")
         {
@@ -597,10 +597,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             Importance = Additional;
         }
-        modify("Gen. Bus. Posting Group")
-        {
-            visible = false;
-        }
+
         modify("Customer Posting Group")
         {
             Importance = Additional;
@@ -783,6 +780,11 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         modify(BillToContactPhoneNo)
         {
             visible = false;
+        }
+
+        modify("Gen. Bus. Posting Group")
+        {
+            Editable = false;
         }
 
         modify(BillToContactMobilePhoneNo)

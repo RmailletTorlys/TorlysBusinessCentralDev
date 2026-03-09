@@ -3,7 +3,7 @@ codeunit 50299 TlyDocumentPrint
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Print", 'OnBeforeProcessPrintSalesOrder', '', false, false)]
     local procedure OnBeforeProcessPrintSalesOrder(var SalesHeader: Record "Sales Header"; Usage: Option "Order Confirmation","Work Order","Pick Instruction"; var IsHandled: Boolean)
     var
-        HolidayCalendar: Record TlyHolidayCalendar;
+        HolidayCalendar: Record TlyHolidays;
         SalesLine: Record "Sales Line";
         Item: Record "Item";
         ReportSelection: Record "Report Selections";

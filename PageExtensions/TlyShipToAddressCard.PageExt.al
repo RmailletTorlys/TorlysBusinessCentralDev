@@ -169,11 +169,6 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
             Visible = false;
         }
 
-        modify("Shipping Agent Service Code")
-        {
-            Visible = false;
-        }
-
         modify("Last Date Modified")
         {
             Visible = false;

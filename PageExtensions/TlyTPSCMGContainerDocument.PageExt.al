@@ -458,13 +458,9 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 Visible = Rec."Open PO Count" <> 0;
                 trigger OnAction()
                 var
-                    BookingInfo: Record TlyBookingInfo;
+                    ContainerHeader: Record "TPS CMG Container Header";
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    // CurrPage.SetSelectionFilter(BookingInfo);
-                    // if BookingInfo.Count > 1 then
-                    //     Error('You cannot print multiple pre-receiving reports.')
-                    // else
                     //     TorlysDocPrint.PrintReceivingPO(Rec);
                 end;
             }
@@ -477,14 +473,10 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 Visible = Rec."Open Transfer Count" <> 0;
                 trigger OnAction()
                 var
-                    BookingInfo: Record TlyBookingInfo;
+                    ContainerHeader: Record "TPS CMG Container Header";
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    // CurrPage.SetSelectionFilter(BookingInfo);
-                    // if BookingInfo.Count > 1 then
-                    //     Error('You cannot print multiple pre-receiving reports.')
-                    // else
-                    //     TorlysDocPrint.PrintReceivingTransfer(Rec);
+                    // TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
         }

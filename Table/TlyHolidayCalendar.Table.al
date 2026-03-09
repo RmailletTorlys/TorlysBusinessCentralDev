@@ -4,6 +4,7 @@ table 55199 TlyHolidayCalendar
     // LookupPageID = TlyHolidayCalendarList;
     DataClassification = CustomerContent;
     Caption = 'Holiday Calendar';
+    ObsoleteState = Pending;
 
     fields
     {

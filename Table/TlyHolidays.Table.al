@@ -3,7 +3,7 @@ table 55201 TlyHolidays
     DrillDownPageID = TlyHolidaysList;
     LookupPageID = TlyHolidaysList;
     DataClassification = CustomerContent;
-    Caption = 'Holiday Calendar';
+    Caption = 'Holidays';
 
     fields
     {

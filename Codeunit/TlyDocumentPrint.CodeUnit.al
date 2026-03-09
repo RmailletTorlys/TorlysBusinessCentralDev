@@ -217,18 +217,22 @@ codeunit 50299 TlyDocumentPrint
     end;
 
     procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
+    // procedure PrintReceivingPO(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var
         PurchaseLine: Record "Purchase Line";
     begin
         PurchaseLine.SetRange("Booking No.", BookingInfo."No.");
+        // PurchaseLine.SetRange("Booking No.", ContainerHeader."No.");
         Report.RunModal(50025, true, false, PurchaseLine);
     end;
 
     procedure PrintReceivingTransfer(BookingInfo: Record TlyBookingInfo): Boolean
+    // procedure PrintReceivingTransfer(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var
         TransferHeader: Record "Transfer Header";
     begin
         TransferHeader.SetRange("Booking No.", BookingInfo."No.");
+        // TransferHeader.SetRange("TPS CMG Container No.", ContainerHeader."No.");
         Report.RunModal(50019, true, false, TransferHeader);
     end;
 
@@ -269,7 +273,7 @@ codeunit 50299 TlyDocumentPrint
 
     // v3
     // this always existed, but now we modified and print after SH posts, therefore have 1 label if before post or after post
-    // this just wont let you print after invoiced as order will be deleted, but that is once in a blue moom
+    // this just wont let you print after invoiced as order will be deleted, but that is once in a blue moon
     procedure PrintSalesOrderLabel(SalesHeader: Record "Sales Header"): Boolean
     var
     // ReportSelectionWhse: Record "Report Selection Warehouse";

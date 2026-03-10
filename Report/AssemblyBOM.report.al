@@ -6,6 +6,7 @@ namespace Microsoft.Assembly.Reports;
 
 using Microsoft.Inventory.BOM;
 using Microsoft.Inventory.Item;
+using Microsoft.Warehouse.Structure;
 
 report 50040 "Assembly BOMs TORLYS"
 {
@@ -79,6 +80,20 @@ report 50040 "Assembly BOMs TORLYS"
                     IncludeCaption = true;
                 }
 
+                trigger OnAfterGetRecord()
+                begin
+                    BinLocation := '';
+                    BinContent.Reset();
+                    // BinContent.SetRange("Location Code", "Location Code");
+                    BinContent.SetRange("Item No.", "No.");
+                    if (BinContent.Find('-')) then begin
+                        repeat
+                            If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
+                                BinLocation := BinLocation + ' ' + BinContent."Bin Code";
+                            end;
+                        until BinContent.Next = 0;
+                    end;
+                end;
             }
         }
     }
@@ -111,5 +126,7 @@ report 50040 "Assembly BOMs TORLYS"
         BOMsCaptionLbl: Label 'BOMs';
         CurrReportPageNoCaptionLbl: Label 'Page';
         BOMCompAssemblyBOMCaptionLbl: Label 'BOM';
+        BinContent: Record "Bin Content";
+        BinLocation: Code[200];
 }
 

@@ -27,6 +27,10 @@ page 56003 "Sales Price Code API"
                     Caption = 'Description';
                 }
 
+                field(priceListOrder; Rec."Price List Order")
+                {
+                    Caption = 'Price List Order';
+                }
             }
         }
     }

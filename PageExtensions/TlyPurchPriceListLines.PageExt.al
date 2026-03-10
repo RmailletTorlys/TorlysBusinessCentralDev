@@ -53,12 +53,28 @@ pageextension 57011 TlyPurchPriceListLines extends "Purchase Price List Lines"
         {
             Visible = false;
         }
+        modify("Variant Code Lookup")
+        {
+            Visible = false;
+        }
 
         modify("Work Type Code")
         {
             Visible = false;
         }
         modify(VATBusPostingGrPrice)
+        {
+            Visible = false;
+        }
+        modify("Allow Invoice Disc.")
+        {
+            Visible = false;
+        }
+        modify("Allow Line Disc.")
+        {
+            Visible = false;
+        }
+        modify(PriceIncludesVAT)
         {
             Visible = false;
         }

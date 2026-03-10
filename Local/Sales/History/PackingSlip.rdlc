@@ -70,9 +70,6 @@ End Function
         <Field Name="ShippingAgent">
           <DataField>ShippingAgent</DataField>
         </Field>
-        <Field Name="Comment">
-          <DataField>Comment</DataField>
-        </Field>
         <Field Name="Tag_Name">
           <DataField>Tag_Name</DataField>
         </Field>

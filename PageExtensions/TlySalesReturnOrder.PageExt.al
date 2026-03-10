@@ -131,7 +131,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
             }
         }
 
-        moveafter("Return Claim No."; "Posting Date", "Location Code")
+        moveafter("Return Claim No."; "Posting Date", "Order Date", "Location Code")
 
         addafter("Location Code")
         {
@@ -162,19 +162,6 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Importance = Additional;
                 Editable = false;
-            }
-        }
-        moveafter("Entered By"; "Order Date")
-
-        addafter("Order Date")
-        {
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
             }
             field("Entered At"; Rec."Entered At")
             {

@@ -191,6 +191,24 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
+            field("Qty. on Hand (KRN)"; Rec."Qty. on Hand (KRN)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (KRN)';
+                ToolTip = 'Qty. on Hand (KRN)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
+            }
+            field("Qty. on Hand (ONWATER)"; Rec."Qty. on Hand (ONWATER)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (ONWATER)';
+                ToolTip = 'Qty. on Hand (ONWATER)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
+            }
             field("VMI Stock"; Rec."VMI Stock")
             {
                 ApplicationArea = Dimensions;

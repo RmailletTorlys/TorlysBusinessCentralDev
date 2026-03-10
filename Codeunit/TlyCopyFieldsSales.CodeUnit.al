@@ -15,18 +15,35 @@ codeunit 50019 TlyCopyFieldsSales
     end;
 
     // Customer --> Sales Header
-    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopySellToCustomerAddressFieldsFromCustomer', '', false, false)]
-    local procedure OnAfterCopySellToCustomerAddressFieldsFromCustomer(var SalesHeader: Record "Sales Header"; SellToCustomer: Record Customer; CurrentFieldNo: Integer; var SkipBillToContact: Boolean; var SkipSellToContact: Boolean)
+    // [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopySellToCustomerAddressFieldsFromCustomer', '', false, false)]
+    // local procedure OnAfterCopySellToCustomerAddressFieldsFromCustomer(var SalesHeader: Record "Sales Header"; SellToCustomer: Record Customer; CurrentFieldNo: Integer; var SkipBillToContact: Boolean; var SkipSellToContact: Boolean)
+    // begin
+    //     SalesHeader."Salesperson Commission" := SellToCustomer."Salesperson Commission";
+    //     SalesHeader."Salesperson Code 2" := SellToCustomer."Salesperson Code 2";
+    //     SalesHeader."Salesperson Commission 2" := SellToCustomer."Salesperson Commission 2";
+    //     SalesHeader."Salesperson Code 3" := SellToCustomer."Salesperson Code 3";
+    //     SalesHeader."Salesperson Commission 3" := SellToCustomer."Salesperson Commission 3";
+    //     // SalesHeader."Shipping Agent Code" := SellToCustomer."Shipping Agent Code";
+    //     // SalesHeader."Freight Zone Code" := SellToCustomer."Freight Zone Code";
+    //     // SalesHeader."Shipping Instructions" := SellToCustomer."Shipping Instructions";
+    //     // SalesHeader."Shipping Comment" := SellToCustomer."Shipping Comment";
+    // end;
+
+    // Customer --> Sales Header
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeUpdateShipToSalespersonCode', '', false, false)]
+    local procedure OnBeforeUpdateShipToSalespersonCode(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
+    var
+        SellToCust: Record Customer;
     begin
-        SalesHeader."Salesperson Commission" := SellToCustomer."Salesperson Commission";
-        SalesHeader."Salesperson Code 2" := SellToCustomer."Salesperson Code 2";
-        SalesHeader."Salesperson Commission 2" := SellToCustomer."Salesperson Commission 2";
-        SalesHeader."Salesperson Code 3" := SellToCustomer."Salesperson Code 3";
-        SalesHeader."Salesperson Commission 3" := SellToCustomer."Salesperson Commission 3";
-        // SalesHeader."Shipping Agent Code" := SellToCustomer."Shipping Agent Code";
-        // SalesHeader."Freight Zone Code" := SellToCustomer."Freight Zone Code";
-        // SalesHeader."Shipping Instructions" := SellToCustomer."Shipping Instructions";
-        // SalesHeader."Shipping Comment" := SellToCustomer."Shipping Comment";
+        IsHandled := true;
+
+        SellToCust.Get(SalesHeader."Sell-to Customer No.");
+        SalesHeader."Salesperson Code" := SellToCust."Salesperson Code";
+        SalesHeader."Salesperson Commission" := SellToCust."Salesperson Commission";
+        SalesHeader."Salesperson Code 2" := SellToCust."Salesperson Code 2";
+        SalesHeader."Salesperson Commission 2" := SellToCust."Salesperson Commission 2";
+        SalesHeader."Salesperson Code 3" := SellToCust."Salesperson Code 3";
+        SalesHeader."Salesperson Commission 3" := SellToCust."Salesperson Commission 3";
     end;
 
     // Ship-to Address --> Sales Header

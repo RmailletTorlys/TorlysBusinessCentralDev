@@ -74,7 +74,21 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
             }
         }
 
-        moveafter("Rebill Invoice No."; "Return Order No.", "Posting Date", "Location Code", "No. Printed")
+        moveafter("Rebill Invoice No."; "Return Order No.", "Posting Date")
+
+        addafter("Posting Date")
+        {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
+        }
+
+        moveafter("Order Date"; "Location Code", "No. Printed")
 
         addafter("No. Printed")
         {
@@ -85,22 +99,6 @@ pageextension 56660 TlyPostedReturnRcpt extends "Posted Return Receipt"
                 ApplicationArea = All;
                 Importance = Additional;
                 Editable = false;
-            }
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Standard;
-            }
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
             }
             field("Entered At"; Rec."Entered At")
             {

@@ -28,6 +28,14 @@ pageextension 51173 TlyDocumentAttachmentDetails extends "Document Attachment De
                 Editable = false;
                 Visible = true;
             }
+            field("Document Type"; Rec."Document Type")
+            {
+                ApplicationArea = All;
+                Caption = 'Document Type';
+                ToolTip = 'Document Type';
+                Editable = false;
+                Visible = true;
+            }
         }
 
         addafter("Attached Date")

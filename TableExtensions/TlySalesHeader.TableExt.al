@@ -100,13 +100,13 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50015; "Popup Modify Date"; Date)
         {
-            Caption = 'Warehouse Notify Modify Date';
+            Caption = 'Warehouse Notify Date';
             DataClassification = CustomerContent;
         }
 
         field(50016; "Popup Modify Time"; Time)
         {
-            Caption = 'Warehouse Notify Modify Time';
+            Caption = 'Warehouse Notify Time';
             DataClassification = CustomerContent;
         }
 
@@ -115,42 +115,42 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             Caption = 'Original Invoice No.';
             // TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
             DataClassification = CustomerContent;
-            // trigger OnValidate()
-            // var
-            //     SalesHeader: Record "Sales Header";
-            //     SalesCrMemo: Record "Sales Cr.Memo Header";
-            //     SalesInvoiceHeader: Record "Sales Invoice Header";
-            // begin
-            //     if ("Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
-            //         if "Original Invoice No." <> xRec."Original Invoice No." then begin
-            //             // Check open CM/RO
-            //             SalesHeader.Reset;
-            //             SalesHeader.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
-            //             SalesHeader.SetRange("Original Invoice No.", "Original Invoice No.");
-            //             SalesHeader.SetFilter("Document Type", '%1', "Document Type"::"Credit Memo");
-            //             if (SalesHeader.Find('-') and (SalesHeader."No." <> "No.")) then
-            //                 Message('Invoice number %1 exists on open credit memo %3. Please investigate!', "Original Invoice No.", SalesHeader."Document Type", SalesHeader."No.");
-            //             // Check posted CR
-            //             SalesCrMemo.Reset;
-            //             SalesCrMemo.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
-            //             SalesCrMemo.SetRange("Original Invoice No.", "Original Invoice No.");
-            //             if SalesCrMemo.Find('-') and (SalesCrMemo."No." <> "No.") then
-            //                 Message('Invoice number %1 exists on posted credit memo %2. Please investigate!', "Original Invoice No.", SalesCrMemo."No.");
-            //         end;
-            //     end;
+            trigger OnValidate()
+            var
+                SalesHeader: Record "Sales Header";
+                SalesCrMemo: Record "Sales Cr.Memo Header";
+                SalesInvoiceHeader: Record "Sales Invoice Header";
+            begin
+                if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
+                    if Rec."Original Invoice No." <> xRec."Original Invoice No." then begin
+                        // Check open CM/RO
+                        SalesHeader.Reset;
+                        SalesHeader.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
+                        SalesHeader.SetRange("Original Invoice No.", Rec."Original Invoice No.");
+                        SalesHeader.SetFilter("Document Type", '%1', Rec."Document Type"::"Credit Memo");
+                        if (SalesHeader.Find('-') and (SalesHeader."No." <> Rec."No.")) then
+                            Message('Invoice number %1 exists on open credit memo %3. Please investigate!', Rec."Original Invoice No.", SalesHeader."Document Type", SalesHeader."No.");
+                        // Check posted CR
+                        SalesCrMemo.Reset;
+                        SalesCrMemo.SetRange("Sell-to Customer No.", "Sell-to Customer No.");
+                        SalesCrMemo.SetRange("Original Invoice No.", "Original Invoice No.");
+                        if SalesCrMemo.Find('-') and (SalesCrMemo."No." <> "No.") then
+                            Message('Invoice number %1 exists on posted credit memo %2. Please investigate!', Rec."Original Invoice No.", SalesCrMemo."No.");
+                    end;
+                end;
 
-            //     if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
-            //         SalesInvoiceHeader.Get(Rec."Original Invoice No.");
-            //         Rec."External Document No." := SalesInvoiceHeader."External Document No.";
-            //         Rec."Tag Name" := SalesInvoiceHeader."Tag Name";
-            //         Rec."Salesperson Code" := SalesInvoiceHeader."Salesperson Code";
-            //         Rec."Salesperson Commission" := SalesInvoiceHeader."Salesperson Commission";
-            //         Rec."Salesperson Code 2" := SalesInvoiceHeader."Salesperson Code 2";
-            //         Rec."Salesperson Commission 2" := SalesInvoiceHeader."Salesperson Commission 2";
-            //         Rec."Salesperson Code 3" := SalesInvoiceHeader."Salesperson Code 3";
-            //         Rec."Salesperson Commission 3" := SalesInvoiceHeader."Salesperson Commission 3";
-            //     end;
-            // end;
+                //     if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
+                //         SalesInvoiceHeader.Get(Rec."Original Invoice No.");
+                //         Rec."External Document No." := SalesInvoiceHeader."External Document No.";
+                //         Rec."Tag Name" := SalesInvoiceHeader."Tag Name";
+                //         Rec."Salesperson Code" := SalesInvoiceHeader."Salesperson Code";
+                //         Rec."Salesperson Commission" := SalesInvoiceHeader."Salesperson Commission";
+                //         Rec."Salesperson Code 2" := SalesInvoiceHeader."Salesperson Code 2";
+                //         Rec."Salesperson Commission 2" := SalesInvoiceHeader."Salesperson Commission 2";
+                //         Rec."Salesperson Code 3" := SalesInvoiceHeader."Salesperson Code 3";
+                //         Rec."Salesperson Commission 3" := SalesInvoiceHeader."Salesperson Commission 3";
+                //     end;
+            end;
         }
         field(50018; "Rebill Invoice No."; Code[20])
         {
@@ -368,7 +368,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50060; "Pick Slip Printed At"; DateTime)
         {
-            Caption = 'Pick Sliped Print At';
+            Caption = 'Pick Slip Printed At';
             DataClassification = CustomerContent;
         }
 
@@ -391,7 +391,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
                 if CommentLine.Find('-') then begin
                     repeat
-                        if CommentLine."Popup" = TRUE THEN
+                        if CommentLine."Popup" = true then
                             Message('%1', CommentLine.Comment);
                     until CommentLine.Next = 0;
                 end;

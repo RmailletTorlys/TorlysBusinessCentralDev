@@ -49,19 +49,19 @@ codeunit 50015 TlyPostTransOrderShipment
     end;
 
 
-    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterUpdateWithWarehouseShipReceive', '', false, false)]
-    local procedure OnAfterUpdateWithWarehouseShipReceive(var TransferLine: Record "Transfer Line"; CurrentFieldNo: Integer)
-    var
-        Item: Record Item;
-    begin
-        // we want user to type in the Qty to Receive columns
-        TransferLine.Validate(TransferLine."Qty. to Receive", 0);
+    // [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterUpdateWithWarehouseShipReceive', '', false, false)]
+    // local procedure OnAfterUpdateWithWarehouseShipReceive(var TransferLine: Record "Transfer Line"; CurrentFieldNo: Integer)
+    // var
+    //     Item: Record Item;
+    // begin
+    //     // we want user to type in the Qty to Receive columns
+    //     TransferLine.Validate(TransferLine."Qty. to Receive", 0);
 
-        // only do this if has a compare UOM
-        Item.Get(TransferLine."Item No.");
-        if Item."Compare Unit of Measure" <> '' then begin
-            TransferLine.Validate(TransferLine."Qty. to Receive Case", 0);
-            TransferLine.Validate(TransferLine."Qty. to Receive Pallet", 0);
-        end;
-    end;
+    //     // only do this if has a compare UOM
+    //     Item.Get(TransferLine."Item No.");
+    //     if Item."Compare Unit of Measure" <> '' then begin
+    //         TransferLine.Validate(TransferLine."Qty. to Receive Case", 0);
+    //         TransferLine.Validate(TransferLine."Qty. to Receive Pallet", 0);
+    //     end;
+    // end;
 }

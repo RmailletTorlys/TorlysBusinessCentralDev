@@ -109,7 +109,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date", "Location Code", "Shipment Date")
+        moveafter("Temporary Hold"; "Posting Date", "Order Date", "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
         {
@@ -154,19 +154,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Importance = Additional;
                 Editable = false;
             }
-        }
-        moveafter("Entered By"; "Order Date")
 
-        addafter("Order Date")
-        {
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
             field("Entered At"; Rec."Entered At")
             {
                 Caption = 'Entered At';
@@ -234,7 +222,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Currency Factor"; "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code")
+        moveafter("Currency Factor"; "Gen. Bus. Posting Group", "Customer Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code")
 
         addafter("Tax Area Code")
         {
@@ -288,22 +276,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter(ShippingOptions; "Ship-to Code")
-
-        addafter("Ship-to Code")
-        {
-            field("Temporary Posting Hold"; Rec."Temporary Posting Hold")
-            {
-                Caption = 'Temporary Posting Hold';
-                ToolTip = 'Temporary Posting Hold';
-                ApplicationArea = All;
-                Importance = Additional;
-
-            }
-
-        }
-
-        moveafter("Shipping Agent Code"; "Shipping Agent Service Code")
+        moveafter(ShippingOptions; "Ship-to Code", "Shipping Agent Code", "Shipping Agent Service Code")
 
         addafter("Shipping Agent Service Code")
         {
@@ -359,22 +332,22 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     Importance = Standard;
                     Editable = false;
                 }
-                field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
-                {
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
-                field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
-                {
-                    Caption = 'Pick Slip Printed Time';
-                    ToolTip = 'Pick Slip Printed Time';
-                    ApplicationArea = All;
-                    Importance = Standard;
-                    Editable = false;
-                }
+                // field("Pick Slip Printed Date"; Rec."Pick Slip Printed Date")
+                // {
+                //     Caption = 'Pick Slip Printed Date';
+                //     ToolTip = 'Pick Slip Printed Date';
+                //     ApplicationArea = All;
+                //     Importance = Standard;
+                //     Editable = false;
+                // }
+                // field("Pick Slip Printed Time"; Rec."Pick Slip Printed Time")
+                // {
+                //     Caption = 'Pick Slip Printed Time';
+                //     ToolTip = 'Pick Slip Printed Time';
+                //     ApplicationArea = All;
+                //     Importance = Standard;
+                //     Editable = false;
+                // }
                 field("Pick Slip Printed At"; Rec."Pick Slip Printed At")
                 {
                     Caption = 'Pick Slip Printed At';
@@ -624,10 +597,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             Importance = Additional;
         }
-        modify("Gen. Bus. Posting Group")
-        {
-            visible = false;
-        }
+
         modify("Customer Posting Group")
         {
             Importance = Additional;
@@ -810,6 +780,11 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         modify(BillToContactPhoneNo)
         {
             visible = false;
+        }
+
+        modify("Gen. Bus. Posting Group")
+        {
+            Editable = false;
         }
 
         modify(BillToContactMobilePhoneNo)

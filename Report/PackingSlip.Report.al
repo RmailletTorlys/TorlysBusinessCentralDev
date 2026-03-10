@@ -21,10 +21,10 @@ report 50018 "Packing Slip"
             {
 
             }
-            column(Comment; Comment)
-            {
+            // column(Comment; Comment)
+            // {
 
-            }
+            // }
             column(Tag_Name; "Tag Name")
             {
 
@@ -626,6 +626,22 @@ report 50018 "Packing Slip"
 
                 TotalPieces := 0.0;
 
+                // salescommentline1.Reset();
+                // salescommentline1.SetRange("No.", "No.");
+                // salescommentline1.SetRange("Print On Shipment", true);
+
+                // // FindSet is used for looping through a set of records
+                // if salescommentline1.FindSet() then begin
+                //     repeat
+                //         // This is where you process EACH comment
+                //         // Example: Concatenate all comments into one string
+                //         AllComments := salescommentline1.Comment;
+
+                //     until salescommentline1.Next() = 0; // Moves to the next record; stops when 0
+                // end else begin
+                //     AllComments := '';
+                // end;
+
                 if LogInteractionVar then
                     if not CurrReport.Preview then
                         SegManagement.LogDocument(
@@ -787,6 +803,7 @@ report 50018 "Packing Slip"
         RespCenter: Record "Responsibility Center";
         TaxArea: Record "Tax Area";
         Cust: Record Customer;
+        salescommentline1: Record "Sales Comment Line";
         Item: Record Item;
         ItemBuffer: Record Item;
         ShippingAgent: Record "Shipping Agent";
@@ -833,6 +850,7 @@ report 50018 "Packing Slip"
         Text003Lbl: Label 'Shipping Agent';
         TaxRegNo: Text;
         TaxRegLabel: Text;
+        AllComments: Text;
         LogInteractionEnable: Boolean;
         DisplayAssemblyInformation: Boolean;
         AsmHeaderExists: Boolean;

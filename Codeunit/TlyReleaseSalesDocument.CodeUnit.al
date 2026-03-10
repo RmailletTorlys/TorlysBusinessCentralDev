@@ -55,6 +55,19 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesLine.SetRange("No.", '');
             if SalesLine.Find('-') then
                 Error('Line %1 has Type as Item, but no item entered. Either key in item or delete the line.', SalesLine."Line No.");
+
+            //check lines for channel, this seems to be the biggest miss on the lines, can add other dimensions later if wanted
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            if SalesLine.Find('-') then begin
+                repeat
+                    DimensionSetEntry.SetRange("Dimension Set ID", SalesLine."Dimension Set ID");
+                    DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+                    if DimensionSetEntry.IsEmpty then
+                        Error('Line %1 with item %2 has the Channel missing.', SalesLine."Line No.", SalesLine."No.");
+                until SalesLine.Next() = 0;
+            end;
         end;
 
         // these are for SI only
@@ -96,6 +109,19 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesLine.SetRange("No.", '');
             if SalesLine.Find('-') then
                 Error('Line %1 has Type as Item, but no item entered. Either key in item or delete the line.', SalesLine."Line No.");
+
+            //check lines for channel, this seems to be the biggest miss on the lines, can add other dimensions later if wanted
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            if SalesLine.Find('-') then begin
+                repeat
+                    DimensionSetEntry.SetRange("Dimension Set ID", SalesLine."Dimension Set ID");
+                    DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+                    if DimensionSetEntry.IsEmpty then
+                        Error('Line %1 with item %2 has the Channel missing.', SalesLine."Line No.", SalesLine."No.");
+                until SalesLine.Next() = 0;
+            end;
         end;
 
         // these are for CM and RO only
@@ -141,6 +167,19 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesLine.SetRange("No.", '');
             if SalesLine.Find('-') then
                 Error('Line %1 has Type as Item, but no item entered. Either key in item or delete the line.', SalesLine."Line No.");
+
+            //check lines for channel, this seems to be the biggest miss on the lines, can add other dimensions later if wanted
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            if SalesLine.Find('-') then begin
+                repeat
+                    DimensionSetEntry.SetRange("Dimension Set ID", SalesLine."Dimension Set ID");
+                    DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+                    if DimensionSetEntry.IsEmpty then
+                        Error('Line %1 with item %2 has the Channel missing.', SalesLine."Line No.", SalesLine."No.");
+                until SalesLine.Next() = 0;
+            end;
         end;
     end;
 

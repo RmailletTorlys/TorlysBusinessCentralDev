@@ -68,6 +68,10 @@ report 50006 "Orders to review pre-pick slip"
             {
 
             }
+            column(Pick_Slip_Printed_At; "Pick Slip Printed At")
+            {
+
+            }
             column(On_Hold; "On Hold")
             {
 
@@ -115,20 +119,22 @@ report 50006 "Orders to review pre-pick slip"
             trigger OnAfterGetRecord()
             begin
                 If "No. Pick Slips Printed" > 0 then
-                    If "Pick Slip Printed Date" > "Popup Modify Date" then
+                    // If "Pick Slip Printed Date" > "Popup Modify Date" then
+                    If "Pick Slip Printed At" > "Warehouse Notify At" then
                         ModifiedAfterPrint := False
                     else
-                        if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        // if "Pick Slip Printed Date" < "Popup Modify Date" then
+                        if "Pick Slip Printed At" < "Warehouse Notify At" then
                             ModifiedAfterPrint := true
                         else
-                            if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
-                                ModifiedAfterPrint := true
+                            // if (("Pick Slip Printed Date" = "Popup Modify Date") and ("Pick Slip Printed Time" <= "Popup Modify Time")) then
+                            // ModifiedAfterPrint := true
+                            // else
+                            // ModifiedAfterPrint := false;
+                            If ModifiedAfterPrint then
+                                RePrintPickSlip := 'Yes'
                             else
-                                ModifiedAfterPrint := false;
-                If ModifiedAfterPrint then
-                    RePrintPickSlip := 'Yes'
-                else
-                    RePrintPickSlip := '';
+                                RePrintPickSlip := '';
             end;
         }
     }

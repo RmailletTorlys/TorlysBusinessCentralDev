@@ -49,21 +49,21 @@ page 51009 TlyBookingInfo
                     ToolTip = 'Description';
                     Editable = false;
                 }
-                field("Appointment Date"; Rec."Appointment Date")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Appointment Date';
-                    ToolTip = 'Appointment Date';
-                    Editable = false;
-                }
+                // field("Appointment Date"; Rec."Appointment Date")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'Appointment Date';
+                //     ToolTip = 'Appointment Date';
+                //     Editable = false;
+                // }
 
-                field("Appointment Time"; Rec."Appointment Time")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Appointment Time';
-                    ToolTip = 'Appointment Time';
-                    Editable = false;
-                }
+                // field("Appointment Time"; Rec."Appointment Time")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'Appointment Time';
+                //     ToolTip = 'Appointment Time';
+                //     Editable = false;
+                // }
                 field("Appointment At"; Rec."Appointment At")
                 {
                     ApplicationArea = Basic, Suite;
@@ -80,21 +80,21 @@ page 51009 TlyBookingInfo
                     Editable = false;
                 }
 
-                field("Receipt Date"; Rec."Receipt Date")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Receipt Date';
-                    ToolTip = 'Receipt Date';
-                    Editable = false;
-                }
+                // field("Receipt Date"; Rec."Receipt Date")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'Receipt Date';
+                //     ToolTip = 'Receipt Date';
+                //     Editable = false;
+                // }
 
-                field("Receipt Time"; Rec."Receipt Time")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Receipt Time';
-                    ToolTip = 'Receipt Time';
-                    Editable = false;
-                }
+                // field("Receipt Time"; Rec."Receipt Time")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'Receipt Time';
+                //     ToolTip = 'Receipt Time';
+                //     Editable = false;
+                // }
                 field("Received At"; Rec."Received At")
                 {
                     ApplicationArea = Basic, Suite;
@@ -141,8 +141,8 @@ page 51009 TlyBookingInfo
                         if DatePage.RunModal() = Action::OK then
                             DatePage.GetRecord(Rec);
                         repeat
-                            Rec."Appointment Date" := DatePage.GetDateTime.Date();
-                            Rec."Appointment Time" := DatePage.GetDateTime.Time();
+                            // Rec."Appointment Date" := DatePage.GetDateTime.Date();
+                            // Rec."Appointment Time" := DatePage.GetDateTime.Time();
                             Rec."Appointment At" := DatePage.GetDateTime();
                             Rec.Modify(true);
                         until BookingInfo.Next() = 0;
@@ -175,8 +175,8 @@ page 51009 TlyBookingInfo
                             ReceiverPage.GetRecord(ReceiverRecord);
                         repeat
                             BookingInfo."Received By" := ReceiverRecord.Code;
-                            BookingInfo."Receipt Date" := WorkDate();
-                            BookingInfo."Receipt Time" := Time;
+                            // BookingInfo."Receipt Date" := WorkDate();
+                            // BookingInfo."Receipt Time" := Time;
                             BookingInfo."Received At" := CurrentDateTime;
                             BookingInfo.Modify(true);
                         until BookingInfo.Next() = 0;
@@ -233,10 +233,14 @@ page 51009 TlyBookingInfo
                 var
                     DocumentAttachmentRecord: Record "Document Attachment";
                     DocumentAttachmentPage: Page "Document Attachment Details";
+                    RecRef: RecordRef; //need this to establish record when attaching
                 begin
+                    RecRef.GetTable(Rec); //need this to establish record when attaching
+                    DocumentAttachmentPage.OpenForRecRef(RecRef); //need this to establish record when attaching
                     DocumentAttachmentRecord.Reset;
                     DocumentAttachmentRecord.SetFilter("Table ID", '55009');
                     DocumentAttachmentRecord.SetFilter("No.", Rec."No.");
+                    DocumentAttachmentRecord.SetFilter("Document Type", 'Booking Info');
                     DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
                     DocumentAttachmentPage.RunModal();
                 end;
@@ -249,40 +253,45 @@ page 51009 TlyBookingInfo
         view(TORToday)
         {
             Caption = 'TOR - Today';
-            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T'));
-            OrderBy = ascending("Appointment Date", "Appointment Time");
+            Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('T'));
+            // OrderBy = ascending("Appointment Date", "Appointment Time");
+            OrderBy = ascending("Appointment At");
         }
         view(TORTomorrow)
         {
             Caption = 'TOR - Tomorrow';
-            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('T+1D'));
-            OrderBy = ascending("Appointment Date", "Appointment Time");
+            Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('T+1D'));
+            // OrderBy = ascending("Appointment Date", "Appointment Time");
+            OrderBy = ascending("Appointment At");
         }
         view(TORFuture)
         {
             Caption = 'TOR - Future';
-            Filters = where("Location Code" = const('TOR'), "Appointment Date" = filter('>T+1D'));
-            OrderBy = ascending("Appointment Date", "Appointment Time");
+            Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('>T+1D'));
+            // OrderBy = ascending("Appointment Date", "Appointment Time");
+            OrderBy = ascending("Appointment At");
         }
         view(CALToday)
         {
             Caption = 'CAL - Today';
-            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('T'));
-            OrderBy = ascending("Appointment Date", "Appointment Time");
+            Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('T'));
+            // OrderBy = ascending("Appointment Date", "Appointment Time");
+            OrderBy = ascending("Appointment At");
         }
         view(CALTomorrow)
         {
             Caption = 'CAL - Tomorrow';
-            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('T+1D'));
-            OrderBy = ascending("Appointment Date", "Appointment Time");
+            Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('T+1D'));
+            // OrderBy = ascending("Appointment Date", "Appointment Time");
+            OrderBy = ascending("Appointment At");
         }
         view(CALFuture)
         {
             Caption = 'CAL - Future';
-            Filters = where("Location Code" = const('CAL'), "Appointment Date" = filter('>T+1D'));
-            OrderBy = ascending("Appointment Date", "Appointment Time");
+            Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('>T+1D'));
+            // OrderBy = ascending("Appointment Date", "Appointment Time");
+            OrderBy = ascending("Appointment At");
         }
-
     }
 
     trigger OnOpenPage()

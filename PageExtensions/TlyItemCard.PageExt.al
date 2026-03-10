@@ -152,6 +152,14 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Importance = Additional;
                 }
 
+                field("High Shade Variation"; Rec."High Shade Variation")
+                {
+                    Caption = 'High Shade Variation';
+                    ToolTip = 'High Shade Variation';
+                    ApplicationArea = All;
+                    Visible = true;
+                    Importance = Standard;
+                }
                 field("Production Date Required"; Rec."Production Date Required")
                 {
                     ApplicationArea = All;
@@ -160,24 +168,18 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     ToolTip = 'Production Date Required';
                     Importance = Additional;
                 }
+                field("QC Inspection Required"; Rec."QC Inspection Required")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'QC Inspection Required';
+                    ToolTip = 'QC Inspection Required';
+                    Importance = Additional;
+                }
             }
         }
 
-        moveafter("Production Date Required"; "Automatic Ext. Texts")
-
-        addafter("Automatic Ext. Texts")
-        {
-            field("High Shade Variation"; Rec."High Shade Variation")
-            {
-                Caption = 'High Shade Variation';
-                ToolTip = 'High Shade Variation';
-                ApplicationArea = All;
-                Visible = true;
-                Importance = Standard;
-            }
-        }
-
-        moveafter("High Shade Variation"; "Sales Blocked", "Purchasing Blocked", Blocked)
+        moveafter("QC Inspection Required"; "Automatic Ext. Texts", "Sales Blocked", "Purchasing Blocked", Blocked)
 
         addafter(Blocked)
         {
@@ -340,6 +342,66 @@ pageextension 50030 TlyItemCard extends "Item Card"
         }
 
         moveafter("Lead Time Calculation"; "Vendor No.", "Manufacturer Code", "Vendor Item No.")
+
+        addafter("Vendor Item No.")
+        {
+            field("BO - Backorder Status"; Rec."BO - Backorder Status")
+            {
+                Caption = 'BO - Backorder Status';
+                ToolTip = 'BO - Backorder Status';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Low Stock"; Rec."BO - Low Stock")
+            {
+                Caption = 'BO - Low Stock';
+                ToolTip = 'BO - Low Stock';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Quality Issue"; Rec."BO - Quality Issue")
+            {
+                Caption = 'BO - Quality Issue';
+                ToolTip = 'BO - Quality Issue';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Production Delay"; Rec."BO - Production Delay")
+            {
+                Caption = 'BO - Production Delay';
+                ToolTip = 'BO - Production Delay';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Spike In Sales"; Rec."BO - Spike In Sales")
+            {
+                Caption = 'BO - Spike In Sales';
+                ToolTip = 'BO - Spike In Sales';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Transit Delay"; Rec."BO - Transit Delay")
+            {
+                Caption = 'BO - Transit Delay';
+                ToolTip = 'BO - Transit Delay';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+            field("BO - Get Well Date"; Rec."BO - Get Well Date")
+            {
+                Caption = 'BO - Get Well Date';
+                ToolTip = 'BO - Get Well Date';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Standard;
+            }
+        }
 
         modify("Manufacturer Code")
         {
@@ -544,6 +606,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
             actionref(ItemAccessories_Promoted; ItemAccessories)
             { }
+            actionref(ItemAccessoriesReversal_Promoted; ItemAccessoriesReversal)
+            { }
             actionref(BinContent_Promoted; BinContent)
             { }
         }
@@ -574,6 +638,16 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Image = Order;
                 RunObject = Page "NTN Web Related Items";
                 RunPageLink = "No." = field("No.");
+                RunPageMode = View;
+            }
+            action(ItemAccessoriesReversal)
+            {
+                Caption = 'Item Accessories Reversal';
+                ToolTip = 'Item Accessories Reversal';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "Related Item No." = field("No.");
                 RunPageMode = View;
             }
             action(BinContent)

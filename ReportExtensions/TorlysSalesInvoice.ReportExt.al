@@ -56,6 +56,8 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             {
 
             }
+            column(AllComments; AllComments)
+            { }
             column(billtoaddrTly1; billtoaddrTly[1])
             { }
             column(billtoaddrTly2; billtoaddrTly[2])
@@ -103,7 +105,23 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
 
                 if "Currency Code" = '' then
                     currcode1 := 'CAD' else
-                    currcode1 := "Currency Code"
+                    currcode1 := "Currency Code";
+
+                SalesCommentLine.Reset();
+                SalesCommentLine.SetRange("No.", "No.");
+                SalesCommentLine.SetRange("Print On Invoice", true);
+
+                // FindSet is used for looping through a set of records
+                if SalesCommentLine.FindSet() then begin
+                    repeat
+                        // This is where you process EACH comment
+                        // Example: Concatenate all comments into one string
+                        AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
+
+                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                end else begin
+                    AllComments := '';
+                end;
             end;
         }
 
@@ -171,6 +189,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         DimMgmt: CodeUnit DimensionManagement;
         tempsalesline: Record "Sales Invoice Line" temporary;
         tempitem: Record Item;
+        salescommentline: Record "Sales Comment Line";
         tempcrossrefitem: Record "Item Reference";
         OrderedQuantity: Decimal;
         UnitPriceToPrint: Decimal;
@@ -180,6 +199,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         refitem: code[50];
         DescToPrint: Text;
         currcode1: Text;
+        AllComments: Text;
         ShortCutDimCode: array[8] of Code[20];
         billtoaddrTly: array[8] of Text;
         ShipToAddrTly: array[8] of Text;

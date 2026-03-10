@@ -103,7 +103,20 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
             }
         }
 
-        moveafter("Rebill Invoice No."; "Posting Date", "Location Code")
+        moveafter("Rebill Invoice No."; "Posting Date")
+
+        addafter("Posting Date")
+        {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
+        moveafter("Order Date"; "Location Code")
 
         addafter("Location Code")
         {
@@ -133,22 +146,6 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
             {
                 Caption = 'Entered By';
                 ToolTip = 'Entered By';
-                ApplicationArea = All;
-                Importance = Additional;
-                Editable = false;
-            }
-            field("Order Date"; Rec."Order Date")
-            {
-                Caption = 'Order Date';
-                ToolTip = 'Order Date';
-                ApplicationArea = All;
-                Importance = Additional;
-            }
-
-            field("Order Time"; Rec."Order Time")
-            {
-                Caption = 'Order Time';
-                ToolTip = 'Order Time';
                 ApplicationArea = All;
                 Importance = Additional;
                 Editable = false;

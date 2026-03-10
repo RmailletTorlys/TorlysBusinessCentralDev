@@ -12,6 +12,25 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 Editable = false;
             }
         }
+
+        addafter(Type)
+        {
+            field("Rank"; Rec."Rank")
+            {
+                ApplicationArea = All;
+                Caption = 'Rank';
+                ToolTip = 'Rank';
+                Editable = true;
+            }
+            field("Sell Order Rank"; Rec."Sell Order Rank")
+            {
+                ApplicationArea = All;
+                Caption = 'Sell Order Rank';
+                ToolTip = 'Sell Order Rank';
+                Editable = true;
+            }
+        }
+
         addafter("Related Item Description")
         {
             field("Inventory - TOR"; Rec."Inventory - TOR")

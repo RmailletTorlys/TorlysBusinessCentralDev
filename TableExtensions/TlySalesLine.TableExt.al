@@ -317,20 +317,42 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."Salesperson Code 3" where("No." = field("Document No.")));
         }
-        field(50032; "Tag Name"; Text[30])
+        field(50032; "Salesperson Commission"; Decimal)
+        {
+            Caption = 'Salesperson Commission';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Salesperson Commission" where("No." = field("Document No.")));
+        }
+        field(50033; "Salesperson Commission 2"; Decimal)
+        {
+            Caption = 'Salesperson Commission 2';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Salesperson Commission 2" where("No." = field("Document No.")));
+        }
+        field(50034; "Salesperson Commission 3"; Decimal)
+        {
+            Caption = 'Salesperson Commission 3';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Salesperson Commission 3" where("No." = field("Document No.")));
+        }
+        field(50035; "Tag Name"; Text[30])
         {
             Caption = 'Tag Name';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."Tag Name" where("No." = field("Document No.")));
         }
-        field(50033; "External Document No."; Code[35])
+        field(50036; "External Document No."; Code[35])
         {
             Caption = 'External Document No.';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."External Document No." where("No." = field("Document No.")));
         }
+
         modify("No.")
         {
             trigger OnBeforeValidate()

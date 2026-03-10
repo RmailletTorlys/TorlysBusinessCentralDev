@@ -1,4 +1,4 @@
-pageextension 50526 TlyPostedSalesInvoiceLines extends "Posted Sales Invoice Lines"
+pageextension 50526 TlyPostedSalesInvLines extends "Posted Sales Invoice Lines"
 {
     layout
     {
@@ -9,6 +9,26 @@ pageextension 50526 TlyPostedSalesInvoiceLines extends "Posted Sales Invoice Lin
                 Caption = 'Posting Date';
                 ToolTip = 'Posting Date';
                 ApplicationArea = All;
+            }
+        }
+
+        addafter("Sell-to Customer Name")
+        {
+            field("External Document No."; Rec."External Document No.")
+            {
+                Caption = 'External Document No.';
+                ToolTip = 'External Document No.';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Tag Name"; Rec."Tag Name")
+            {
+                Caption = 'Tag Name';
+                ToolTip = 'Tag Name';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
             }
         }
 

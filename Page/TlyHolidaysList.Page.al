@@ -1,11 +1,11 @@
-page 55199 TlyHolidayCalendarList
+page 55199 TlyHolidaysList
 {
-    Caption = 'Holiday Calendar';
+    Caption = 'Holidays';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = true;
-    SourceTable = TlyHolidayCalendar;
+    SourceTable = TlyHolidays;
 
     layout
     {

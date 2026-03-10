@@ -81,9 +81,16 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
                 Importance = Standard;
                 Editable = false;
             }
+            field("Container No."; Rec."TPS CMG Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
         }
 
-        moveafter("Booking No."; "Transfer Order No.", "Transfer Order Date")
+        moveafter("Container No."; "Transfer Order No.", "Transfer Order Date")
 
         addafter("Transfer Order Date")
         {

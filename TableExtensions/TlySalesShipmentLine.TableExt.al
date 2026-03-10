@@ -220,14 +220,14 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             Caption = 'Tag Name';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("Sales Header"."Tag Name" where("No." = field("Document No.")));
+            CalcFormula = lookup("Sales Shipment Header"."Tag Name" where("No." = field("Document No.")));
         }
         field(50036; "External Document No."; Code[35])
         {
             Caption = 'External Document No.';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("Sales Header"."External Document No." where("No." = field("Document No.")));
+            CalcFormula = lookup("Sales Shipment Header"."External Document No." where("No." = field("Document No.")));
         }
     }
 

@@ -41,6 +41,11 @@ page 56000 "Price List Lines API"
                     Caption = 'Source No.';
                 }
 
+                field(productdesc; Rec.Description)
+                {
+                    Caption = 'Description';
+                }
+
                 field(unitprice; Rec."Unit Price")
                 {
                     Caption = 'Unit Price';

@@ -104,6 +104,9 @@ codeunit 50299 TlyDocumentPrint
             ReportSelection.SetFilter("Report ID", '<>0');
             ReportSelection.Find('-');
             repeat
+                //popup if already printed
+                // if SalesHeader."No. Pick Slips Printed" > 0 then
+                // Error('%1 pick slip has already been printed %2 time(s). 2nd check', SalesHeader."No.", SalesHeader."No. Pick Slips Printed");
                 Report.RunModal(ReportSelection."Report ID", true, false, SalesHeader)
             until ReportSelection.Next() = 0;
         end else begin

@@ -26,11 +26,6 @@ page 56000 "Price List Lines API"
                     Caption = 'Price List Code';
                 }
 
-                field(description; Rec.Description)
-                {
-                    Caption = 'Description';
-                }
-
                 field(customerno; Rec."Assign-to No.")
                 {
                     Caption = 'Assign-to No.';
@@ -44,6 +39,11 @@ page 56000 "Price List Lines API"
                 field(productno; Rec."Product No.")
                 {
                     Caption = 'Source No.';
+                }
+
+                field(productdesc; Rec.Description)
+                {
+                    Caption = 'Description';
                 }
 
                 field(unitprice; Rec."Unit Price")

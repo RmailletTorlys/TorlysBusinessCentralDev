@@ -26,6 +26,11 @@ page 56000 "Price List Lines API"
                     Caption = 'Price List Code';
                 }
 
+                field(description; Rec.Description)
+                {
+                    Caption = 'Description';
+                }
+
                 field(customerno; Rec."Assign-to No.")
                 {
                     Caption = 'Assign-to No.';

@@ -39,11 +39,26 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
             Visible = false;
         }
 
+        modify("Variant Code Lookup")
+        {
+            Visible = false;
+        }
+
         modify("Work Type Code")
         {
             Visible = false;
         }
         modify(VATBusPostingGrPrice)
+        {
+            Visible = false;
+        }
+
+        modify("Allow Invoice Disc.")
+        {
+            Visible = false;
+        }
+
+        modify("Allow Line Disc.")
         {
             Visible = false;
         }

@@ -3,8 +3,22 @@ pageextension 55701 TlyStockkeepingUnitList extends "Stockkeeping Unit List"
     layout
     {
 
-        addafter(Description)
+        moveafter(Description; "Location Code", "Replenishment System")
+
+        addafter("Replenishment System")
         {
+            field("Vendor No."; Rec."Vendor No.")
+            {
+                ApplicationArea = All;
+                Caption = 'Vendor No.';
+                ToolTip = 'Vendor No.';
+            }
+            field("Vendor Item No."; Rec."Vendor Item No.")
+            {
+                ApplicationArea = All;
+                Caption = 'Vendor Item No.';
+                ToolTip = 'Vendor Item No.';
+            }
             field("Last Direct Cost"; Rec."Last Direct Cost")
             {
                 ApplicationArea = All;

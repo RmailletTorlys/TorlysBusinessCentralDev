@@ -235,7 +235,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             group("Credit Hold")
             {
                 Caption = 'Credit Hold';
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
                 actionref("Remove from Hold"; "Remove Credit Hold")
                 {
                 }
@@ -252,7 +252,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'Remove Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 var
                     SelectedOrders: Record "Sales Header";
@@ -324,31 +324,31 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'CR Hold - Past';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('<T'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldToday)
             {
                 Caption = 'CR Hold - Today';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldTomorrow)
             {
                 Caption = 'CR Hold - Tomorrow';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T+1D'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldFuture)
             {
                 Caption = 'CR Hold - Future';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('>T+1D'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldDirect)
             {
                 Caption = 'CR Hold - DIRECT';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Location Code" = filter('DIRECT'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             // view(Seperator2)
             // {
@@ -358,19 +358,19 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'MK Required, Not Staged (0)';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'), "No. Printed" = filter(0));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
             view(MKRequiredNotStagedNo0)
             {
                 Caption = 'MK Required, Not Staged (>0)';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('No'), "No. Printed" = filter(> 0));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
             view(MKRequiredStaged)
             {
                 Caption = 'MK Required, Staged';
                 Filters = where("MK Required" = filter('Yes'), "MK Staged" = filter('Yes'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::Marketing) or (UserDepartment = UserDepartment::Sampling) or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
             // view(Seperator3)
             // {
@@ -380,25 +380,25 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'Ship Today, Not Released';
                 Filters = where("Shipment Date" = filter('T'), "Status" = const(Open));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
             }
             view(ShipTodayAll)
             {
                 Caption = 'Ship Today, All';
                 Filters = where("Shipment Date" = filter('T'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
             }
             view(ShipTomorrowAll)
             {
                 Caption = 'Ship Tomorrow, All';
                 Filters = where("Shipment Date" = filter('T+1D'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
             }
             view(TSSNotReleased)
             {
                 Caption = 'TSS, Not Released';
                 Filters = where("No." = filter('NTN*|SS*'), "Status" = const(Open));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
             }
             // view(Seperator4)
             // {
@@ -409,7 +409,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Caption = 'To Be Invoiced';
                 Filters = where("Shipped Not Invoiced" = filter('Yes'), "Shipment Date" = filter('<T'));
                 OrderBy = ascending("Shipment Date", "Sell-to Customer No.", "Ship-to Code");
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable") or (UserDepartment = UserDepartment::"Warehouse CAL") or (UserDepartment = UserDepartment::"Warehouse TOR");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable") or (UserDepartment = UserDepartment::"Warehouse CAL") or (UserDepartment = UserDepartment::"Warehouse TOR");
             }
         }
     }

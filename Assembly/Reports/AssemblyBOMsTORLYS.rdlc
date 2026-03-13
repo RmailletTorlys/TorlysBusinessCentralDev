@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Position_BOMCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Position_BOMCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Position_BOMCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Type_BOMCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Type_BOMCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Type_BOMCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="No_BOMCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>No_BOMCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>No_BOMCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Description_BOMCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Description_BOMCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Description_BOMCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Quantityper_BOMCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Quantityper_BOMCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Quantityper_BOMCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="UnitofMeasureCode_BOMCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>UnitofMeasureCode_BOMCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>UnitofMeasureCode_BOMCompCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ItemTableCaptionItemFilter">
+          <DataField>ItemTableCaptionItemFilter</DataField>
+        </Field>
+        <Field Name="ItemFilter">
+          <DataField>ItemFilter</DataField>
+        </Field>
+        <Field Name="No_Item">
+          <DataField>No_Item</DataField>
+        </Field>
+        <Field Name="Description_Item">
+          <DataField>Description_Item</DataField>
+        </Field>
+        <Field Name="BOMsCaption">
+          <DataField>BOMsCaption</DataField>
+        </Field>
+        <Field Name="CurrReportPageNoCaption">
+          <DataField>CurrReportPageNoCaption</DataField>
+        </Field>
+        <Field Name="BOMCompAssemblyBOMCaption">
+          <DataField>BOMCompAssemblyBOMCaption</DataField>
+        </Field>
+        <Field Name="Position_BOMComp">
+          <DataField>Position_BOMComp</DataField>
+        </Field>
+        <Field Name="Type_BOMComp">
+          <DataField>Type_BOMComp</DataField>
+        </Field>
+        <Field Name="No_BOMComp">
+          <DataField>No_BOMComp</DataField>
+        </Field>
+        <Field Name="Description_BOMComp">
+          <DataField>Description_BOMComp</DataField>
+        </Field>
+        <Field Name="AssemblyBOM_BOMComp">
+          <DataField>AssemblyBOM_BOMComp</DataField>
+        </Field>
+        <Field Name="Quantityper_BOMComp">
+          <DataField>Quantityper_BOMComp</DataField>
+        </Field>
+        <Field Name="Quantityper_BOMCompFormat">
+          <DataField>Quantityper_BOMCompFormat</DataField>
+        </Field>
+        <Field Name="UnitofMeasureCode_BOMComp">
+          <DataField>UnitofMeasureCode_BOMComp</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

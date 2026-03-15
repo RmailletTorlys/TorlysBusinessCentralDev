@@ -196,11 +196,11 @@ page 51009 TlyBookingInfo
                     BookingInfo: Record TlyBookingInfo;
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    CurrPage.SetSelectionFilter(BookingInfo);
-                    if BookingInfo.Count > 1 then
-                        Error('You cannot print multiple pre-receiving reports.')
-                    else
-                        TorlysDocPrint.PrintReceivingPO(Rec);
+                    // CurrPage.SetSelectionFilter(BookingInfo);
+                    // if BookingInfo.Count > 1 then
+                    //     Error('You cannot print multiple pre-receiving reports.')
+                    // else
+                    //     TorlysDocPrint.PrintReceivingPO(Rec);
                 end;
             }
             action("Receiving Report (Transfer)")
@@ -215,11 +215,11 @@ page 51009 TlyBookingInfo
                     BookingInfo: Record TlyBookingInfo;
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    CurrPage.SetSelectionFilter(BookingInfo);
-                    if BookingInfo.Count > 1 then
-                        Error('You cannot print multiple pre-receiving reports.')
-                    else
-                        TorlysDocPrint.PrintReceivingTransfer(Rec);
+                    // CurrPage.SetSelectionFilter(BookingInfo);
+                    // if BookingInfo.Count > 1 then
+                    //     Error('You cannot print multiple pre-receiving reports.')
+                    // else
+                    //     TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
             action(Attachments)

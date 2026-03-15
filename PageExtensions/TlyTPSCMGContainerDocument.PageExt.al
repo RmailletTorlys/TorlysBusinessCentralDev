@@ -186,21 +186,21 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field(BookingNo; BookingNo)
-                {
-                    Caption = 'Booking No.';
-                    ToolTip = 'Booking No.';
-                    ApplicationArea = All;
-                    Editable = false;
-                    trigger OnDrillDown()
-                    var
-                        BookingInfo: Record TlyBookingInfo;
-                    begin
-                        BookingInfo.Reset;
-                        BookingInfo.SetRange("No.", BookingNo);
-                        Page.Run(51009, BookingInfo);
-                    end;
-                }
+                // field(BookingNo; BookingNo)
+                // {
+                //     Caption = 'Booking No.';
+                //     ToolTip = 'Booking No.';
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     trigger OnDrillDown()
+                //     var
+                //         BookingInfo: Record TlyBookingInfo;
+                //     begin
+                //         BookingInfo.Reset;
+                //         BookingInfo.SetRange("No.", BookingNo);
+                //         Page.Run(51009, BookingInfo);
+                //     end;
+                // }
                 // field(AppointmentDate; AppointmentDate)
                 // {
                 //     Caption = 'Appointment Date';
@@ -215,13 +215,13 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 //     ApplicationArea = All;
                 //     Editable = false;
                 // }
-                field(AppointmentAt; AppointmentAt)
-                {
-                    Caption = 'Appointment At';
-                    ToolTip = 'Appointment At';
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                // field(AppointmentAt; AppointmentAt)
+                // {
+                //     Caption = 'Appointment At';
+                //     ToolTip = 'Appointment At';
+                //     ApplicationArea = All;
+                //     Editable = false;
+                // }
                 field("Appointment At"; Rec."Appointment At")
                 {
                     Caption = 'Appointment At';
@@ -455,13 +455,13 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 Caption = 'Receiving Report (PO)';
                 Image = Print;
                 ToolTip = 'Receiving Report (PO)';
-                Visible = Rec."Open PO Count" <> 0;
+                // Visible = Rec."Open PO Count" <> 0;
                 trigger OnAction()
                 var
                     ContainerHeader: Record "TPS CMG Container Header";
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    //     TorlysDocPrint.PrintReceivingPO(Rec);
+                    TorlysDocPrint.PrintReceivingPO(Rec);
                 end;
             }
             action("Receiving Report (Transfer)")
@@ -470,13 +470,13 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 Caption = 'Receiving Report (Transfer)';
                 Image = Print;
                 ToolTip = 'Receiving Report (Transfer)';
-                Visible = Rec."Open Transfer Count" <> 0;
+                // Visible = Rec."Open Transfer Count" <> 0;
                 trigger OnAction()
                 var
                     ContainerHeader: Record "TPS CMG Container Header";
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    // TorlysDocPrint.PrintReceivingTransfer(Rec);
+                    TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
         }

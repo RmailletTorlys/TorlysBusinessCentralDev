@@ -97,15 +97,15 @@ pageextension 50137 TlyPostedPurchRcptSubform extends "Posted Purchase Rcpt. Sub
                 ToolTip = 'Container No. (NAV)';
                 ApplicationArea = All;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            // }
         }
 
-        moveafter("Booking No."; "Qty. Rcd. Not Invoiced", "Quantity Invoiced")
+        moveafter("Container No. (NAV)"; "Qty. Rcd. Not Invoiced", "Quantity Invoiced")
 
         addafter("Quantity Invoiced")
         {

@@ -22,5 +22,12 @@ tableextension 50459 TlySalesReceivablesSetup extends "Sales & Receivables Setup
             TableRelation = "G/L Account";
             ToolTip = 'Restocking G/L Acc. No.';
         }
+
+        field(50004; "Duty G/L Acc. No."; Code[20])
+        {
+            Caption = 'Duty G/L Acc. No.';
+            TableRelation = "G/L Account";
+            ToolTip = 'Duty G/L Acc. No.';
+        }
     }
 }

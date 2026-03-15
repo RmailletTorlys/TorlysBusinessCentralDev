@@ -1,24 +1,5 @@
-codeunit 50117 TlySalesShipInvHeaderEdit
+codeunit 50118 TlySalesInvoiceHeaderEdit
 {
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Shipment Header - Edit", 'OnBeforeSalesShptHeaderModify', '', false, false)]
-    local procedure OnBeforeSalesShptHeaderModify(var SalesShptHeader: Record "Sales Shipment Header"; FromSalesShptHeader: Record "Sales Shipment Header")
-    var
-        RemoveBOL: Boolean;
-    begin
-        RemoveBOL := Dialog.Confirm('This will just remove the BOL # from this SH, the BOL line will still be populated. Proceed?');
-        if RemoveBOL then begin
-            SalesShptHeader.Reset();
-            SalesShptHeader.SetRange("No.", SalesShptHeader."No.");
-            if SalesShptHeader.Find('-') then begin
-                SalesShptHeader."BOL No." := '';
-                // SalesShptHeader."Package Tracking No." := '';
-                // SalesShptHeader.Modify(true);
-                Message('BOL # removed from %1.', SalesShptHeader."No.");
-            end;
-        end;
-    end;
-
-
     [EventSubscriber(ObjectType::Page, Page::"Posted Sales Inv. - Update", 'OnAfterRecordChanged', '', false, false)]
     local procedure OnAfterRecordChanged(var SalesInvoiceHeader: Record "Sales Invoice Header"; xSalesInvoiceHeader: Record "Sales Invoice Header"; var IsChanged: Boolean)
     begin

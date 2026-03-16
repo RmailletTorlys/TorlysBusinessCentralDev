@@ -1013,7 +1013,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             group("Credit Hold")
             {
                 Caption = 'Credit Hold';
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
                 actionref("RemoveCreditHold"; "Remove Credit Hold")
                 {
                 }
@@ -1114,6 +1114,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Caption = 'Remove Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 begin
                     TorlysCreditHold.RemoveCreditHold(Rec, xRec);
@@ -1125,7 +1126,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Caption = 'Place On Credit Hold';
                 Image = Report;
                 ApplicationArea = All;
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Accounts Receivable");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
                 trigger OnAction()
                 begin
                     TorlysCreditHold.PlaceOnCreditHold(Rec, xRec);

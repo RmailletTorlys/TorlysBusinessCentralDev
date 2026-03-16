@@ -196,11 +196,11 @@ page 51009 TlyBookingInfo
                     BookingInfo: Record TlyBookingInfo;
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    CurrPage.SetSelectionFilter(BookingInfo);
-                    if BookingInfo.Count > 1 then
-                        Error('You cannot print multiple pre-receiving reports.')
-                    else
-                        TorlysDocPrint.PrintReceivingPO(Rec);
+                    // CurrPage.SetSelectionFilter(BookingInfo);
+                    // if BookingInfo.Count > 1 then
+                    //     Error('You cannot print multiple pre-receiving reports.')
+                    // else
+                    //     TorlysDocPrint.PrintReceivingPO(Rec);
                 end;
             }
             action("Receiving Report (Transfer)")
@@ -215,11 +215,11 @@ page 51009 TlyBookingInfo
                     BookingInfo: Record TlyBookingInfo;
                     TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    CurrPage.SetSelectionFilter(BookingInfo);
-                    if BookingInfo.Count > 1 then
-                        Error('You cannot print multiple pre-receiving reports.')
-                    else
-                        TorlysDocPrint.PrintReceivingTransfer(Rec);
+                    // CurrPage.SetSelectionFilter(BookingInfo);
+                    // if BookingInfo.Count > 1 then
+                    //     Error('You cannot print multiple pre-receiving reports.')
+                    // else
+                    //     TorlysDocPrint.PrintReceivingTransfer(Rec);
                 end;
             }
             action(Attachments)
@@ -257,17 +257,17 @@ page 51009 TlyBookingInfo
             // OrderBy = ascending("Appointment Date", "Appointment Time");
             OrderBy = ascending("Appointment At");
         }
-        view(TORTomorrow)
-        {
-            Caption = 'TOR - Tomorrow';
-            Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('T+1D'));
-            // OrderBy = ascending("Appointment Date", "Appointment Time");
-            OrderBy = ascending("Appointment At");
-        }
+        // view(TORTomorrow)
+        // {
+        //     Caption = 'TOR - Tomorrow';
+        //     Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('T+1D'));
+        //     // OrderBy = ascending("Appointment Date", "Appointment Time");
+        //     OrderBy = ascending("Appointment At");
+        // }
         view(TORFuture)
         {
             Caption = 'TOR - Future';
-            Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('>T+1D'));
+            Filters = where("Location Code" = const('TOR'), "Appointment At" = filter('>T'));
             // OrderBy = ascending("Appointment Date", "Appointment Time");
             OrderBy = ascending("Appointment At");
         }
@@ -278,17 +278,17 @@ page 51009 TlyBookingInfo
             // OrderBy = ascending("Appointment Date", "Appointment Time");
             OrderBy = ascending("Appointment At");
         }
-        view(CALTomorrow)
-        {
-            Caption = 'CAL - Tomorrow';
-            Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('T+1D'));
-            // OrderBy = ascending("Appointment Date", "Appointment Time");
-            OrderBy = ascending("Appointment At");
-        }
+        // view(CALTomorrow)
+        // {
+        //     Caption = 'CAL - Tomorrow';
+        //     Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('T+1D'));
+        //     // OrderBy = ascending("Appointment Date", "Appointment Time");
+        //     OrderBy = ascending("Appointment At");
+        // }
         view(CALFuture)
         {
             Caption = 'CAL - Future';
-            Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('>T+1D'));
+            Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('>T'));
             // OrderBy = ascending("Appointment Date", "Appointment Time");
             OrderBy = ascending("Appointment At");
         }

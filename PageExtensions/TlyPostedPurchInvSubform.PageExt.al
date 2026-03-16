@@ -114,15 +114,15 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
                 ToolTip = 'Container No. (NAV)';
                 ApplicationArea = All;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            // }
         }
 
-        moveafter("Booking No."; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
+        moveafter("Container No. (NAV)"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
 
         addafter("ShortcutDimCode[8]")
         {

@@ -76,20 +76,20 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Editable = false;
                 Importance = Standard;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-                Importance = Standard;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            //     Importance = Standard;
+            // }
             field("Container No."; Rec."TPS CMG Container No.")
             {
                 Caption = 'Container No.';
                 ToolTip = 'Container No.';
                 ApplicationArea = All;
                 Importance = Standard;
-                Editable = (Rec."Transfer Type" <> Rec."Transfer Type"::"Supplier Purchase");
+                // Editable = (Rec."Transfer Type" <> Rec."Transfer Type"::"Supplier Purchase");
             }
         }
 

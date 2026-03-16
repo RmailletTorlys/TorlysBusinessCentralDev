@@ -62,13 +62,19 @@ codeunit 50019 TlyCopyFieldsSales
     begin
         SalesLine."Discontinued Item" := Item."Discontinued Item";
         SalesLine."Clearance Item" := Item."Clearance Item";
+        SalesLine."Sales Price Code" := Item."Sales Price Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
     end;
 
-    // Sales Header --> Sales Line
+    // Sales Header (and Customer)  --> Sales Line
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterInitHeaderDefaults', '', false, false)]
     local procedure OnAfterInitHeaderDefaults(var SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header"; xSalesLine: Record "Sales Line")
+    var
+        Cust: Record Customer;
     begin
         SalesLine."Ship-to Code" := SalesHeader."Ship-to Code";
+        Cust.Get(SalesLine."Sell-to Customer No."); //TLY-SD - 03/11/2026 - makes more sense to be here
+        SalesLine."Default Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
+        SalesLine."Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateShipToCodeOnBeforeCopyShipToAddress', '', false, false)]

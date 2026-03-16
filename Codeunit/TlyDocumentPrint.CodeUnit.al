@@ -104,6 +104,9 @@ codeunit 50299 TlyDocumentPrint
             ReportSelection.SetFilter("Report ID", '<>0');
             ReportSelection.Find('-');
             repeat
+                //popup if already printed
+                // if SalesHeader."No. Pick Slips Printed" > 0 then
+                // Error('%1 pick slip has already been printed %2 time(s). 2nd check', SalesHeader."No.", SalesHeader."No. Pick Slips Printed");
                 Report.RunModal(ReportSelection."Report ID", true, false, SalesHeader)
             until ReportSelection.Next() = 0;
         end else begin
@@ -216,23 +219,23 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50031, true, false, SalesInvHeader)
     end;
 
-    procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
-    // procedure PrintReceivingPO(ContainerHeader: Record "TPS CMG Container Header"): Boolean
+    // procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
+    procedure PrintReceivingPO(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var
         PurchaseLine: Record "Purchase Line";
     begin
-        PurchaseLine.SetRange("Booking No.", BookingInfo."No.");
-        // PurchaseLine.SetRange("Booking No.", ContainerHeader."No.");
+        // PurchaseLine.SetRange("Booking No.", BookingInfo."No.");
+        PurchaseLine.SetRange("Container No.", ContainerHeader."No.");
         Report.RunModal(50025, true, false, PurchaseLine);
     end;
 
-    procedure PrintReceivingTransfer(BookingInfo: Record TlyBookingInfo): Boolean
-    // procedure PrintReceivingTransfer(ContainerHeader: Record "TPS CMG Container Header"): Boolean
+    // procedure PrintReceivingTransfer(BookingInfo: Record TlyBookingInfo): Boolean
+    procedure PrintReceivingTransfer(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var
         TransferHeader: Record "Transfer Header";
     begin
-        TransferHeader.SetRange("Booking No.", BookingInfo."No.");
-        // TransferHeader.SetRange("TPS CMG Container No.", ContainerHeader."No.");
+        // TransferHeader.SetRange("Booking No.", BookingInfo."No.");
+        TransferHeader.SetRange("TPS CMG Container No.", ContainerHeader."No.");
         Report.RunModal(50019, true, false, TransferHeader);
     end;
 

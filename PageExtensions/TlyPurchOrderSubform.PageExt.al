@@ -137,12 +137,12 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                 ToolTip = 'Container No. (NAV)';
                 ApplicationArea = All;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            // }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {
                 Caption = 'Outstanding Quantity';

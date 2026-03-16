@@ -10,7 +10,7 @@ report 50025 "Receiving Report PO"
     {
         dataitem("Purchase Line"; "Purchase Line")
         {
-            DataItemTableView = sorting("Booking No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
+            DataItemTableView = sorting("Container No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
             RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
             dataitem(TlyBookingInfo; TlyBookingInfo)
             {

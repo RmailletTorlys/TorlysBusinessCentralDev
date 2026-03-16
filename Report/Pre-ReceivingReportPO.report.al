@@ -12,25 +12,17 @@ report 50025 "Receiving Report PO"
         {
             DataItemTableView = sorting("Container No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
             RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
-            dataitem(TlyBookingInfo; TlyBookingInfo)
+            dataitem("TPS CMG Container Header"; "TPS CMG Container Header")
             {
-                DataItemLink = "No." = field("Booking No.");
+                DataItemLink = "No." = field("Container No.");
                 DataItemLinkReference = "Purchase Line";
 
-                column(Appointment_Date; "Appointment Date")
-                {
-
-                }
-                column(Appointment_Time; "Appointment Time")
-                {
-
-                }
                 column(Appointment_At; "Appointment At")
                 {
 
                 }
             }
-            column(Booking_No_; "Booking No.")
+            column(Booking_No_; "Container No.")
             {
 
             }

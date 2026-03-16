@@ -122,7 +122,7 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
             // }
         }
 
-        moveafter("Container No. (NAV)"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
+        moveafter("Container No. (NAV)"; "Tax Group Code", "Tax Area Code", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "ShortcutDimCode[4]", "ShortcutDimCode[5]", "ShortcutDimCode[6]", "ShortcutDimCode[7]", "ShortcutDimCode[8]")
 
         addafter("ShortcutDimCode[8]")
         {
@@ -167,11 +167,6 @@ pageextension 50139 TlyPostedPurchInvSubform extends "Posted Purch. Invoice Subf
         }
 
         modify("ShortcutDimCode[3]")
-        {
-            Visible = false;
-        }
-
-        modify("ShortcutDimCode[4]")
         {
             Visible = false;
         }

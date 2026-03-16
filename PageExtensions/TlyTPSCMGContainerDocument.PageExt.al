@@ -172,13 +172,13 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             group(WarehouseGrp)
             {
                 Caption = 'Warehouse';
-                field("Open PO Count"; Rec."Open PO Count")
-                {
-                    Caption = 'Open PO Count';
-                    ToolTip = 'Open PO Count';
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                // field("Open PO Count"; Rec."Open PO Count")
+                // {
+                //     Caption = 'Open PO Count';
+                //     ToolTip = 'Open PO Count';
+                //     ApplicationArea = All;
+                //     Editable = false;
+                // }
                 field("Open Transfer Count"; Rec."Open Transfer Count")
                 {
                     Caption = 'Open Transfer Count';
@@ -263,14 +263,18 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             Visible = false;
         }
+        modify("Shipping Agent From Port")
+        {
+            Visible = false;
+        }
         modify("Booking No.")
         {
             Visible = false;
         }
-        modify("In-transit Receiving Required")
-        {
-            Visible = false;
-        }
+        // modify("In-transit Receiving Required")
+        // {
+        //     Visible = false;
+        // }
         modify("Expected Shipment Date")
         {
             Visible = false;
@@ -331,10 +335,6 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             ShowMandatory = true;
         }
-        modify("Shipping Agent From Port")
-        {
-            Visible = false;
-        }
         modify("Port of loading")
         {
             Caption = 'Origin Port';
@@ -357,7 +357,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             group("Warehouse")
             {
-                Caption = 'Warehosue';
+                Caption = 'Warehouse';
                 actionref(BookAppointment; "Book Appointment")
                 { }
                 actionref(Received; "Warehouse Received")
@@ -470,7 +470,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 Caption = 'Receiving Report (Transfer)';
                 Image = Print;
                 ToolTip = 'Receiving Report (Transfer)';
-                // Visible = Rec."Open Transfer Count" <> 0;
+                Visible = Rec."Open Transfer Count" <> 0;
                 trigger OnAction()
                 var
                     ContainerHeader: Record "TPS CMG Container Header";

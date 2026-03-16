@@ -85,18 +85,18 @@ page 50563 TlyBackOrderFill
                     ToolTip = 'Shipment Date';
                     Editable = false;
                 }
-                // field("Shipping Instructions"; ShippingInstructions)
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Shipping Instructions';
-                //     ToolTip = 'Shipping Instructions';
-                //     Editable = false;
-                // }
-                field("Pick Slip Printed Date"; PickSlipPrintedDate)
+                field("Shipping Instructions"; ShippingInstructions)
                 {
                     ApplicationArea = All;
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
+                    Caption = 'Shipping Instructions';
+                    ToolTip = 'Shipping Instructions';
+                    Editable = false;
+                }
+                field("Pick Slip Printed At"; PickSlipPrintedAt)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pick Slip Printed At';
+                    ToolTip = 'Pick Slip Printed At';
                     Editable = false;
                 }
                 field("Transfer Order No."; Rec."Transfer Order No.")
@@ -135,14 +135,6 @@ page 50563 TlyBackOrderFill
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
-                field("Outstanding Quantity"; Rec."Outstanding Quantity")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Outstanding Quantity';
-                    ToolTip = 'Outstanding Quantity';
-                    Editable = false;
-                    StyleExpr = StyleExprTxt;
-                }
                 // field("Quantity Case"; Rec."Quantity Case")
                 // {
                 //     ApplicationArea = All;
@@ -157,6 +149,14 @@ page 50563 TlyBackOrderFill
                 //     ToolTip = 'Quantity Pallet';
                 //     Editable = false;
                 // }
+                field("Outstanding Quantity"; Rec."Outstanding Quantity")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Outstanding Quantity';
+                    ToolTip = 'Outstanding Quantity';
+                    Editable = false;
+                    StyleExpr = StyleExprTxt;
+                }
                 field("Qty. to Ship"; Rec."Qty. to Ship")
                 {
                     ApplicationArea = All;
@@ -246,7 +246,7 @@ page 50563 TlyBackOrderFill
         TagName: Text[30];
         OrderDate: Date;
         ShippingInstructions: Text[20];
-        PickSlipPrintedDate: Date;
+        PickSlipPrintedAt: DateTime;
 
     trigger OnAfterGetRecord()
     begin
@@ -256,7 +256,7 @@ page 50563 TlyBackOrderFill
         TagName := SalesHeader."Tag Name";
         OrderDate := SalesHeader."Order Date";
         ShippingInstructions := SalesHeader."Shipping Instructions";
-        PickSlipPrintedDate := SalesHeader."Pick Slip Printed Date";
+        PickSlipPrintedAt := SalesHeader."Pick Slip Printed At";
 
         if Rec."Qty. to Ship" <> Rec.Quantity then
             StyleExprTxt := 'Unfavorable'

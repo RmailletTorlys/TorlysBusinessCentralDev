@@ -85,13 +85,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             //     ApplicationArea = All;
             //     Editable = false;
             // }
-            field("Open PO Count"; Rec."Open PO Count")
-            {
-                Caption = 'Open PO Count';
-                ToolTip = 'Open PO Count';
-                ApplicationArea = All;
-                Editable = false;
-            }
+            // field("Open PO Count"; Rec."Open PO Count")
+            // {
+            //     Caption = 'Open PO Count';
+            //     ToolTip = 'Open PO Count';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
             field("Open Transfer Count"; Rec."Open Transfer Count")
             {
                 Caption = 'Open Transfer Count';
@@ -261,6 +261,114 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             Visible = false;
         }
     }
+
+    actions
+    {
+        addafter(Category_New)
+        {
+            group("Warehouse")
+            {
+                Caption = 'Warehouse';
+                actionref(BookAppointment; "Book Appointment")
+                { }
+                actionref(Received; "Warehouse Received")
+                { }
+                actionref(PrintReceivingPurchase; "Receiving Report (PO)")
+                { }
+                actionref(PrintReceivingTransfer; "Receiving Report (Transfer)")
+                { }
+            }
+        }
+        addlast(Purchase)
+        {
+            action("Book Appointment")
+            {
+                Caption = 'Book Appointment';
+                ToolTip = 'Book Appointment';
+                ApplicationArea = All;
+                Image = Calendar;
+                trigger OnAction()
+                var
+                    ContainerHeader: Record "TPS CMG Container Header";
+                    DatePage: Page "Date-Time Dialog";
+                begin
+                    CurrPage.SetSelectionFilter(ContainerHeader);
+                    if ContainerHeader.FindSet() then begin
+                        DatePage.LookupMode(true);
+                        if DatePage.RunModal() = Action::OK then
+                            DatePage.GetRecord(Rec);
+                        repeat
+                            Rec."Appointment At" := DatePage.GetDateTime();
+                            Rec.Modify(true);
+                        until ContainerHeader.Next() = 0;
+                    end;
+                    CurrPage.Update(true);
+                end;
+            }
+            action("Warehouse Received")
+            {
+                Caption = 'Warehouse Received';
+                ToolTip = 'Warehouse Received';
+                ApplicationArea = All;
+                Image = Receipt;
+                trigger OnAction()
+                var
+                    ContainerHeader: Record "TPS CMG Container Header";
+                    ReceiverPage: Page "Salespersons/Purchasers";
+                    ReceiverRecord: Record "Salesperson/Purchaser";
+                begin
+                    CurrPage.SetSelectionFilter(ContainerHeader);
+                    if ContainerHeader.FindSet() then begin
+                        ReceiverPage.LookupMode(true);
+                        ReceiverRecord.Reset;
+                        ReceiverRecord.SetFilter("Job Title", 'Warehouse Associate');
+                        ReceiverRecord.SetFilter("Order Shipping Location", ContainerHeader."Location Code");
+                        // ReceiverRecord.SetFilter("Code", '<>%1', ReceiverRecord.Code);
+                        ReceiverPage.SetTableView(ReceiverRecord);
+                        ReceiverPage.Caption('Choose RECEIVER below');
+                        if ReceiverPage.RunModal() = Action::LookupOK then
+                            ReceiverPage.GetRecord(ReceiverRecord);
+                        repeat
+                            ContainerHeader."Received By" := ReceiverRecord.Code;
+                            ContainerHeader."Received At" := CurrentDateTime;
+                            ContainerHeader.Modify(true);
+                        until ContainerHeader.Next() = 0;
+                    end;
+                    CurrPage.Update(true);
+                end;
+            }
+            action("Receiving Report (PO)")
+            {
+                ApplicationArea = All;
+                Caption = 'Receiving Report (PO)';
+                Image = Print;
+                ToolTip = 'Receiving Report (PO)';
+                // Visible = Rec."Open PO Count" <> 0;
+                trigger OnAction()
+                var
+                    ContainerHeader: Record "TPS CMG Container Header";
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintReceivingPO(Rec);
+                end;
+            }
+            action("Receiving Report (Transfer)")
+            {
+                ApplicationArea = All;
+                Caption = 'Receiving Report (Transfer)';
+                Image = Print;
+                ToolTip = 'Receiving Report (Transfer)';
+                Visible = Rec."Open Transfer Count" <> 0;
+                trigger OnAction()
+                var
+                    ContainerHeader: Record "TPS CMG Container Header";
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintReceivingTransfer(Rec);
+                end;
+            }
+        }
+    }
     views
     {
         addlast
@@ -342,13 +450,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     // AppointmentAt: DateTime;
     // Display: DateTime;
 
-    trigger OnOpenPage()
+    // trigger OnOpenPage()
     // var
     //     InputDate: Date;
     //     Tomorrow: Date;
-    begin
-        Rec.SetFilter("Status", '<>Completely Received');
-    end;
+    // begin
+    //     Rec.SetFilter("Status", '<>Completely Received');
+    // end;
 
     // begin
     //     InputDate := Today();

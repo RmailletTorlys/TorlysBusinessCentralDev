@@ -55,11 +55,11 @@ page 50559 TlyLinkedSOtoPO
                     ToolTip = 'Shipment Date';
                     Editable = false;
                 }
-                field("Pick Slip Printed Date"; PickSlipPrintedDate)
+                field("Pick Slip Printed At"; PickSlipPrintedAt)
                 {
                     ApplicationArea = All;
-                    Caption = 'Pick Slip Printed Date';
-                    ToolTip = 'Pick Slip Printed Date';
+                    Caption = 'Pick Slip Printed At';
+                    ToolTip = 'Pick Slip Printed At';
                     Editable = false;
                 }
 
@@ -110,7 +110,6 @@ page 50559 TlyLinkedSOtoPO
                     ToolTip = 'Qty. to Ship Pallet';
                     Editable = false;
                 }
-
             }
         }
     }
@@ -177,7 +176,10 @@ page 50559 TlyLinkedSOtoPO
             StyleExprTxt := '';
 
         SalesHeader.Get(Rec."Document Type", Rec."Document No.");
-        PickSlipPrintedDate := SalesHeader."Pick Slip Printed Date";
+        TagName := SalesHeader."Tag Name";
+        OrderDate := SalesHeader."Order Date";
+        ShippingInstructions := SalesHeader."Shipping Instructions";
+        PickSlipPrintedAt := SalesHeader."Pick Slip Printed At";
     end;
 
     trigger OnModifyRecord(): Boolean
@@ -191,5 +193,8 @@ page 50559 TlyLinkedSOtoPO
     var
         StyleExprTxt: Text;
         SalesHeader: Record "Sales Header";
-        PickSlipPrintedDate: Date;
+        TagName: Text[30];
+        OrderDate: Date;
+        ShippingInstructions: Text[20];
+        PickSlipPrintedAt: DateTime;
 }

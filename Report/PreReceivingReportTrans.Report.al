@@ -12,28 +12,20 @@ report 50019 "Receiving Report - Trans"
         dataitem("Transfer Header"; "Transfer Header")
         {
             DataItemTableView = sorting("No.");
-            RequestFilterFields = "Booking No.";
+            RequestFilterFields = "TPS CMG Container No.";
 
-            dataitem(TlyBookingInfo; TlyBookingInfo)
+            dataitem("TPS CMG Container Header"; "TPS CMG Container Header")
             {
                 DataItemLinkReference = "Transfer Header";
-                DataItemLink = "No." = field("Booking No.");
+                DataItemLink = "No." = field("TPS CMG Container No.");
 
-                column(Appointment_Date; "Appointment Date")
-                {
-
-                }
-                column(Appointment_Time; "Appointment Time")
-                {
-
-                }
                 column(Appointment_At; "Appointment At")
                 {
 
                 }
             }
 
-            column(Booking_No_; "Booking No.")
+            column(Booking_No_; "TPS CMG Container No.")
             {
 
             }

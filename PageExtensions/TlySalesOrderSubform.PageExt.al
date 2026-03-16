@@ -707,7 +707,6 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                             repeat
                                 TorlysAddSalesLineToTransLine.AddSalesLineToTransLine(SelectedLines, TransferOrderNumber);
                             until SelectedLines.Next() = 0;
-
                     end;
                 }
                 separator("Separator2")
@@ -752,7 +751,6 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 separator("Separator3")
                 {
                 }
-
                 action("Link To Transfer Order")
                 {
                     ToolTip = 'Link To Transfer Order';
@@ -788,6 +786,32 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                             Rec."Linked Transfer Order Line No." := 0;
                             Rec.Modify(true);
                         end;
+                    end;
+                }
+                separator("Separator4")
+                {
+                }
+                action("Add To Transfer Order (Marketing)")
+                {
+                    ToolTip = 'Add To Transfer Order (Marketing)';
+                    Caption = 'Add To Transfer Order (Marketing)';
+                    Image = TransferToLines;
+                    ApplicationArea = All;
+                    Visible = (Rec."Transfer Order No." = '') and (Rec."Linked Transfer Order No." = '') and (Rec."Linked Purchase Order No." = '');
+                    trigger OnAction()
+                    var
+                        SelectedLines: Record "Sales Line";
+                        TransferOrderNumber: Code[20];
+                        TorlysAddSalesLineToTransLine: Codeunit TlyAddSalesLineToTransLine;
+                    begin
+                        CurrPage.SetSelectionFilter(SelectedLines);
+                        if SelectedLines.FindSet() then
+                            TorlysAddSalesLineToTransLine.PresentModalMkt(SelectedLines, TransferOrderNumber);
+
+                        if TransferOrderNumber <> '' then
+                            repeat
+                                TorlysAddSalesLineToTransLine.AddSalesLineToTransLine(SelectedLines, TransferOrderNumber);
+                            until SelectedLines.Next() = 0;
                     end;
                 }
             }

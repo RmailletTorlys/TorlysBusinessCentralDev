@@ -78,13 +78,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
 
         addafter(Status)
         {
-            field(BookingNo; BookingNo)
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-                Editable = false;
-            }
+            // field(BookingNo; BookingNo)
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
             field("Open PO Count"; Rec."Open PO Count")
             {
                 Caption = 'Open PO Count';
@@ -336,16 +336,19 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     }
     var
         LookupUserId: Codeunit TlyLookupUserID;
-        BookingNo: Code[20];
-        AppointmentDate: Date;
-        AppointmentTime: Time;
-        AppointmentAt: DateTime;
+    // BookingNo: Code[20];
+    // AppointmentDate: Date;
+    // AppointmentTime: Time;
+    // AppointmentAt: DateTime;
     // Display: DateTime;
 
-    // trigger OnOpenPage()
+    trigger OnOpenPage()
     // var
     //     InputDate: Date;
     //     Tomorrow: Date;
+    begin
+        Rec.SetFilter("Status", '<>Completely Received');
+    end;
 
     // begin
     //     InputDate := Today();
@@ -355,21 +358,21 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     //     Message('%1', Display);
     // end;
 
-    trigger OnAfterGetRecord()
-    var
-        BookingInfo: Record TlyBookingInfo;
-    begin
-        BookingNo := '';
-        AppointmentDate := 0D;
-        AppointmentTime := 0T;
-        AppointmentAt := 0DT;
+    // trigger OnAfterGetRecord()
+    // var
+    //     BookingInfo: Record TlyBookingInfo;
+    // begin
+    //     BookingNo := '';
+    //     AppointmentDate := 0D;
+    //     AppointmentTime := 0T;
+    //     AppointmentAt := 0DT;
 
-        BookingInfo.Reset();
-        if BookingInfo.Get(Rec."No.") then begin
-            BookingNo := BookingInfo."No.";
-            AppointmentDate := BookingInfo."Appointment Date";
-            AppointmentTime := BookingInfo."Appointment Time";
-            AppointmentAt := BookingInfo."Appointment At";
-        end;
-    end;
+    //     BookingInfo.Reset();
+    //     if BookingInfo.Get(Rec."No.") then begin
+    //         BookingNo := BookingInfo."No.";
+    //         AppointmentDate := BookingInfo."Appointment Date";
+    //         AppointmentTime := BookingInfo."Appointment Time";
+    //         AppointmentAt := BookingInfo."Appointment At";
+    //     end;
+    // end;
 }

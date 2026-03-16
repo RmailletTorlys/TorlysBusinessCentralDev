@@ -494,26 +494,26 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
-        BookingNo: Code[20];
-        AppointmentDate: Date;
-        AppointmentTime: Time;
-        AppointmentAt: DateTime;
+    // BookingNo: Code[20];
+    // AppointmentDate: Date;
+    // AppointmentTime: Time;
+    // AppointmentAt: DateTime;
 
-    trigger OnAfterGetRecord()
-    var
-        BookingInfo: Record TlyBookingInfo;
-    begin
-        BookingNo := '';
-        AppointmentDate := 0D;
-        AppointmentTime := 0T;
-        AppointmentAt := 0DT;
+    // trigger OnAfterGetRecord()
+    // var
+    //     BookingInfo: Record TlyBookingInfo;
+    // begin
+    //     BookingNo := '';
+    //     AppointmentDate := 0D;
+    //     AppointmentTime := 0T;
+    //     AppointmentAt := 0DT;
 
-        BookingInfo.Reset();
-        if BookingInfo.Get(Rec."No.") then begin
-            BookingNo := BookingInfo."No.";
-            AppointmentDate := BookingInfo."Appointment Date";
-            AppointmentTime := BookingInfo."Appointment Time";
-            AppointmentAt := BookingInfo."Appointment At";
-        end;
-    end;
+    //     BookingInfo.Reset();
+    //     if BookingInfo.Get(Rec."No.") then begin
+    //         BookingNo := BookingInfo."No.";
+    //         AppointmentDate := BookingInfo."Appointment Date";
+    //         AppointmentTime := BookingInfo."Appointment Time";
+    //         AppointmentAt := BookingInfo."Appointment At";
+    //     end;
+    // end;
 }

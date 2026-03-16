@@ -85,12 +85,6 @@ End Function
         <Field Name="Grouped">
           <DataField>Grouped</DataField>
         </Field>
-        <Field Name="Appointment_Date">
-          <DataField>Appointment_Date</DataField>
-        </Field>
-        <Field Name="Appointment_Time">
-          <DataField>Appointment_Time</DataField>
-        </Field>
         <Field Name="Appointment_At">
           <DataField>Appointment_At</DataField>
         </Field>

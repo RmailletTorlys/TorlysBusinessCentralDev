@@ -259,7 +259,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Caption = 'View and Fill Joined SO';
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
-                Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Order Fullfillment");
+                Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Order Fullfillment") or (Rec."Transfer Type" = Rec."Transfer Type"::"Marketing");
                 RunObject = Page TlyJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(> 0);
             }

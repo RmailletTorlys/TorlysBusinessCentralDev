@@ -11,6 +11,12 @@ pageextension 50459 "TlySalesReceivablesSetup" extends "Sales & Receivables Setu
                 Caption = 'Restocking G/L Acc. No.';
                 ApplicationArea = All;
             }
+
+            field("Duty G/L Acc. No."; Rec."Duty G/L Acc. No.")
+            {
+                Caption = 'Duty G/L Acc. No.';
+                ApplicationArea = All;
+            }
         }
 
         addafter("Price List Nos.")

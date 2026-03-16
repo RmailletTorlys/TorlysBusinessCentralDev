@@ -219,23 +219,23 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50031, true, false, SalesInvHeader)
     end;
 
-    procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
-    // procedure PrintReceivingPO(ContainerHeader: Record "TPS CMG Container Header"): Boolean
+    // procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
+    procedure PrintReceivingPO(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var
         PurchaseLine: Record "Purchase Line";
     begin
-        PurchaseLine.SetRange("Booking No.", BookingInfo."No.");
-        // PurchaseLine.SetRange("Booking No.", ContainerHeader."No.");
+        // PurchaseLine.SetRange("Booking No.", BookingInfo."No.");
+        PurchaseLine.SetRange("Container No.", ContainerHeader."No.");
         Report.RunModal(50025, true, false, PurchaseLine);
     end;
 
-    procedure PrintReceivingTransfer(BookingInfo: Record TlyBookingInfo): Boolean
-    // procedure PrintReceivingTransfer(ContainerHeader: Record "TPS CMG Container Header"): Boolean
+    // procedure PrintReceivingTransfer(BookingInfo: Record TlyBookingInfo): Boolean
+    procedure PrintReceivingTransfer(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var
         TransferHeader: Record "Transfer Header";
     begin
-        TransferHeader.SetRange("Booking No.", BookingInfo."No.");
-        // TransferHeader.SetRange("TPS CMG Container No.", ContainerHeader."No.");
+        // TransferHeader.SetRange("Booking No.", BookingInfo."No.");
+        TransferHeader.SetRange("TPS CMG Container No.", ContainerHeader."No.");
         Report.RunModal(50019, true, false, TransferHeader);
     end;
 

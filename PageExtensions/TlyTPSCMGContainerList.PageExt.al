@@ -85,6 +85,20 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 ApplicationArea = All;
                 Editable = false;
             }
+            field("Open PO Count"; Rec."Open PO Count")
+            {
+                Caption = 'Open PO Count';
+                ToolTip = 'Open PO Count';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Open Transfer Count"; Rec."Open Transfer Count")
+            {
+                Caption = 'Open Transfer Count';
+                ToolTip = 'Open Transfer Count';
+                ApplicationArea = All;
+                Editable = false;
+            }
             // field(AppointmentDate; AppointmentDate)
             // {
             //     Caption = 'Appointment Date';
@@ -99,13 +113,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             //     ApplicationArea = All;
             //     Editable = false;
             // }
-            field(AppointmentAt; AppointmentAt)
-            {
-                Caption = 'Appointment At';
-                ToolTip = 'Appointment At';
-                ApplicationArea = All;
-                Editable = false;
-            }
+            // field(AppointmentAt; AppointmentAt)
+            // {
+            //     Caption = 'Appointment At';
+            //     ToolTip = 'Appointment At';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
             field("Appointment At"; Rec."Appointment At")
             {
                 Caption = 'Appointment At';

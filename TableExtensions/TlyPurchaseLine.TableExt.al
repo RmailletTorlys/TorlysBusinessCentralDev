@@ -220,12 +220,14 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Document No."), "Document Line No." = field("Line No.")));
+            Description = 'This is the flowfield from the container card.';
         }
 
         field(50018; "Container No. (NAV)"; Code[25])
         {
             Caption = 'Container No. (NAV)';
             DataClassification = CustomerContent;
+            Description = 'This is for data we brought over from NAV.';
         }
 
         field(50019; "Shipment Method Code"; Code[10])
@@ -245,6 +247,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             Caption = 'Container No. (TPS)';
             DataClassification = CustomerContent;
             TableRelation = "TPS CMG Container Header";
+            Description = 'This writes the value of the FlowField "Container No." into here at posting time.';
         }
         field(50021; "Notes"; Text[50])
         {

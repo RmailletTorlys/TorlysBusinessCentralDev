@@ -50,12 +50,12 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            // }
             field("Container No."; Rec."TPS CMG Container No.")
             {
                 Caption = 'Container No.';

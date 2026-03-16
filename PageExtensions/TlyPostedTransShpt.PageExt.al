@@ -73,14 +73,14 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
                 Editable = false;
                 Importance = Additional;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-                Importance = Standard;
-                Editable = false;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            //     Importance = Standard;
+            //     Editable = false;
+            // }
             field("Container No."; Rec."TPS CMG Container No.")
             {
                 Caption = 'Container No.';

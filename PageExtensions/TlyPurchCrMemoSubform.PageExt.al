@@ -97,6 +97,7 @@ pageextension 50098 TlyPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
                 Editable = true;
                 visible = false;
             }
+
             field("Previous ETA"; Rec."Previous ETA")
             {
                 Caption = 'Previous ETA';
@@ -105,12 +106,24 @@ pageextension 50098 TlyPurchCrMemoSubform extends "Purch. Cr. Memo Subform"
                 Editable = true;
                 visible = false;
             }
-            field("Booking No."; Rec."Booking No.")
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            //     visible = false;
+            // }
+            field("Container No. (NAV)"; Rec."Container No. (NAV)")
             {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
+                Caption = 'Container No. (NAV)';
+                ToolTip = 'Container No. (NAV)';
                 ApplicationArea = All;
-                visible = false;
+            }
+            field("Container No. (TPS)"; Rec."Container No. (TPS)")
+            {
+                Caption = 'Container No. (TPS)';
+                ToolTip = 'Container No. (TPS)';
+                ApplicationArea = All;
             }
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
             {

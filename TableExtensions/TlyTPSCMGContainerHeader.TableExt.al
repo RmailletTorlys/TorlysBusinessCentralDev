@@ -1,5 +1,9 @@
 tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
+
 {
+    LookupPageId = "TPS CMG Container List";
+    DrillDownPageId = "TPS CMG Container Document";
+
     fields
     {
         field(50001; "Port of Loading Date"; Date)

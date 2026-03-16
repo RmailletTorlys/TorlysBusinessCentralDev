@@ -1028,6 +1028,9 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             actionref("AddFreight"; "Add Freight")
             {
             }
+            actionref("AddDuty"; "Add Duty")
+            {
+            }
         }
 
         addfirst("F&unctions")
@@ -1170,6 +1173,46 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 trigger OnAction()
                 begin
                     InsertFreightLine.SOscreens(Rec);
+                end;
+            }
+            action("Add Duty")
+            {
+                ToolTip = 'Add Duty';
+                Caption = 'Add Duty';
+                Image = ItemLines;
+                ApplicationArea = All;
+                Description = 'TLY-SD - 03/15/2026';
+                trigger OnAction()
+                var
+                    SalesSetup: Record "Sales & Receivables Setup";
+                    SalesLine: Record "Sales Line";
+                begin
+                    SalesSetup.Get;
+
+                    // check open duty charge on this order
+                    SalesLine.Reset;
+                    SalesLine.SetRange("Document Type", Rec."Document Type");
+                    SalesLine.SetRange("Document No.", Rec."No.");
+                    SalesLine.SetRange(Type, SalesLine.Type::"G/L Account");
+                    SalesLine.SetFilter("No.", SalesSetup."Duty G/L Acc. No.");
+                    if SalesLine.Find('-') then
+                        Error('Duty line already exists, please remove before adding new.');
+
+                    // add duty line at $0
+                    SalesLine.Reset;
+                    SalesLine.SetRange("Document Type", Rec."Document Type");
+                    SalesLine.SetRange("Document No.", Rec."No.");
+                    SalesLine.Find('+');
+                    SalesLine.Init;
+                    SalesLine."Line No." := SalesLine."Line No." + 10000;
+                    SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
+                    SalesLine.Validate("No.", SalesSetup."Duty G/L Acc. No.");
+                    SalesLine.Validate(Description, 'Duty charge');
+                    SalesLine.Validate(Quantity, 1);
+                    // SalesLine.Validate("Qty. to Ship", 1);
+                    // SalesLine.Validate("Qty. to Invoice", 1);
+                    // SalesLine.Validate("Unit Price", FreightAmount);
+                    SalesLine.Insert;
                 end;
             }
         }

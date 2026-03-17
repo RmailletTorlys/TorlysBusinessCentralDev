@@ -43,9 +43,16 @@ pageextension 59307 TlyPurchOrderList extends "Purchase Order List"
                 ToolTip = 'Vendor Invoice No.';
                 ApplicationArea = All;
             }
+            field("TPS CMG Container No."; Rec."TPS CMG Container No.")
+            {
+                Caption = 'TPS CMG Container No.';
+                ToolTip = 'TPS CMG Container No.';
+                ApplicationArea = All;
+                Visible = false;
+            }
         }
 
-        moveafter("Vendor Invoice No."; "Currency Code")
+        moveafter("TPS CMG Container No."; "Currency Code")
 
         addafter("Currency Code")
         {
@@ -129,7 +136,7 @@ pageextension 59307 TlyPurchOrderList extends "Purchase Order List"
 
         modify("Order Address Code")
         {
-            Visible = true;
+            Visible = false;
         }
 
         modify("Buy-from Country/Region Code")

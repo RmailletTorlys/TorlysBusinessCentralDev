@@ -28,7 +28,7 @@ codeunit 50414 TlyInsertFreightLine
     begin
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then Error('Order is for pickup, therefore no freight charge.');
-        if Rec."Shipping Agent Code" = 'FEDEX' then Error('Order is for FedEx, therefore no freight charge.');
+        // if Rec."Shipping Agent Code" = 'FEDEX' then Error('Order is for FedEx, therefore no freight charge.');
         if Rec."Order Type" = 'CLAIM REPLACEMENT' then Error('Order is a claim replacement, therefore no freight charge.');
         if Rec."Freight Zone Code" = '' then Error('No freight zone code selected. Please choose before adding freight.');
 
@@ -182,20 +182,37 @@ codeunit 50414 TlyInsertFreightLine
         if OrderFreightCount > 0 then begin
             Message('Current freight on order = %1\Proposed freight should = %2\Please change manually if necessary!', OrderFreight, FreightAmount)
         end else begin
-            SalesLine.Reset;
-            SalesLine.SetRange("Document Type", Rec."Document Type");
-            SalesLine.SetRange("Document No.", Rec."No.");
-            SalesLine.Find('+');
-            SalesLine.Init;
-            SalesLine."Line No." := SalesLine."Line No." + 10000;
-            SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
-            SalesLine.Validate("No.", SalesSetup."Freight G/L Acc. No.");
-            SalesLine.Validate(Description, 'Freight charge');
-            SalesLine.Validate(Quantity, 1);
-            // SalesLine.Validate("Qty. to Ship", 1);
-            // SalesLine.Validate("Qty. to Invoice", 1);
-            SalesLine.Validate("Unit Price", FreightAmount);
-            SalesLine.Insert;
+            if Rec."Shipping Agent Code" = 'FEDEX' then begin
+                SalesLine.Reset;
+                SalesLine.SetRange("Document Type", Rec."Document Type");
+                SalesLine.SetRange("Document No.", Rec."No.");
+                SalesLine.Find('+');
+                SalesLine.Init;
+                SalesLine."Line No." := SalesLine."Line No." + 10000;
+                SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
+                SalesLine.Validate("No.", SalesSetup."Freight G/L Acc. No.");
+                SalesLine.Validate(Description, 'Freight charge - FedEx');
+                SalesLine.Validate(Quantity, 1);
+                // SalesLine.Validate("Qty. to Ship", 1);
+                // SalesLine.Validate("Qty. to Invoice", 1);
+                // SalesLine.Validate("Unit Price", FreightAmount);
+                SalesLine.Insert;
+            end else begin
+                SalesLine.Reset;
+                SalesLine.SetRange("Document Type", Rec."Document Type");
+                SalesLine.SetRange("Document No.", Rec."No.");
+                SalesLine.Find('+');
+                SalesLine.Init;
+                SalesLine."Line No." := SalesLine."Line No." + 10000;
+                SalesLine.Validate(Type, SalesLine.Type::"G/L Account");
+                SalesLine.Validate("No.", SalesSetup."Freight G/L Acc. No.");
+                SalesLine.Validate(Description, 'Freight charge');
+                SalesLine.Validate(Quantity, 1);
+                // SalesLine.Validate("Qty. to Ship", 1);
+                // SalesLine.Validate("Qty. to Invoice", 1);
+                SalesLine.Validate("Unit Price", FreightAmount);
+                SalesLine.Insert;
+            end;
         end;
     end;
 

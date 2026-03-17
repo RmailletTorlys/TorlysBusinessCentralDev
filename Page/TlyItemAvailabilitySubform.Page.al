@@ -3,7 +3,7 @@ page 50561 TlyItemAvailabilitySubform
     Caption = 'Item Availability';
     PageType = ListPart;
     SourceTable = "Location";
-    SourceTableView = where("Use As In-Transit" = const(false));
+    SourceTableView = sorting("Sort Order") where("Sort Order" = filter('>0'), "Use As In-Transit" = const(false));
     ApplicationArea = Basic, Suite;
     UsageCategory = Administration;
     Editable = false;
@@ -96,7 +96,6 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, TransferLine);
                     end;
                 }
-
                 field("Qty. in Transit"; Item."Qty. in Transit")
                 {
                     ApplicationArea = All;
@@ -114,7 +113,6 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, TransferLine);
                     end;
                 }
-
                 field("Qty. on Purch. Order"; Item."Qty. on Purch. Order")
                 {
                     ApplicationArea = All;

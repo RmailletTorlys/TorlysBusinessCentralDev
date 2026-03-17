@@ -124,12 +124,12 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             DataClassification = CustomerContent;
             Description = 'TLY-SD - 03/05/2026 - moving from Booking Info to do it all on the container now';
         }
-        field(50021; "Open PO Count"; Integer)
-        {
-            Caption = 'Open PO Count';
-            FieldClass = FlowField;
-            CalcFormula = count("Purchase Line" where("Container No." = field("No.")));
-        }
+        // field(50021; "Open PO Count"; Integer)
+        // {
+        //     Caption = 'Open PO Count';
+        //     FieldClass = FlowField;
+        //     CalcFormula = count("Purchase Line" where("Container No." = field("No.")));
+        // }
         field(50022; "Open Transfer Count"; Integer)
         {
             Caption = 'Open Transfer Count';

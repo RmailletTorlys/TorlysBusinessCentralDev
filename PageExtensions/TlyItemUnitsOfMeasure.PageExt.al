@@ -6,8 +6,6 @@ pageextension 55404 TlyItemUnitsOfMeasure extends "Item Units of Measure"
 
         addafter("Qty. per Unit of Measure")
         {
-
-
             field("Conversion Unit of Measure"; Rec."Conversion Unit of Measure")
             {
                 Caption = 'Conversion Unit of Measure';

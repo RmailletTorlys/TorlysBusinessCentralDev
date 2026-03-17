@@ -70,6 +70,10 @@ report 50019 "Receiving Report - Trans"
                 {
 
                 }
+                column(QCInspection; QCInspection)
+                {
+
+                }
                 column(QtyCase; QtyCase)
                 {
 
@@ -137,6 +141,9 @@ report 50019 "Receiving Report - Trans"
                             QtyBase := Quantity;
                     end;
 
+                    Item.Get("Transfer Line"."Item No.");
+                    QCInspection := Item."QC Inspection Required";
+
                     BinLocation := '';
                     BinContent.Reset();
                     BinContent.SetRange("Location Code", "Transfer-to Code");
@@ -193,6 +200,8 @@ report 50019 "Receiving Report - Trans"
         transferheader: Record "Transfer Header";
         BinContent: Record "Bin Content";
         bookinginfo: Record TlyBookingInfo;
+        Item: Record Item;
+        QCInspection: Boolean;
         HideQuantities: Boolean;
         ItemNumber: Code[20];
         CartageCompany: Code[20];

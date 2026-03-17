@@ -94,6 +94,9 @@ End Function
         <Field Name="itemno">
           <DataField>itemno</DataField>
         </Field>
+        <Field Name="QCInspection">
+          <DataField>QCInspection</DataField>
+        </Field>
         <Field Name="QtyPallet">
           <DataField>QtyPallet</DataField>
         </Field>
@@ -117,12 +120,6 @@ End Function
         </Field>
         <Field Name="Grouped">
           <DataField>Grouped</DataField>
-        </Field>
-        <Field Name="Appointment_Date">
-          <DataField>Appointment_Date</DataField>
-        </Field>
-        <Field Name="Appointment_Time">
-          <DataField>Appointment_Time</DataField>
         </Field>
         <Field Name="Appointment_At">
           <DataField>Appointment_At</DataField>

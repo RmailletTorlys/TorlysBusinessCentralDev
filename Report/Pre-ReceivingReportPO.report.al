@@ -54,6 +54,10 @@ report 50025 "Receiving Report PO"
             {
 
             }
+            column(QCInspection; QCInspection)
+            {
+
+            }
             column(QtyPallet; QtyPallet)
             {
 
@@ -111,6 +115,9 @@ report 50025 "Receiving Report PO"
                 end;
                 itemno := "Purchase Line"."No.";
 
+                Item.Get("Purchase Line"."No.");
+                QCInspection := Item."QC Inspection Required";
+
                 BinLocation := '';
                 BinContent.Reset();
                 BinContent.SetRange("Location Code", "Location Code");
@@ -164,6 +171,8 @@ report 50025 "Receiving Report PO"
     var
         Vendor: Record Vendor;
         BinContent: Record "Bin Content";
+        Item: Record Item;
+        QCInspection: Boolean;
         HideQuantities: Boolean;
         ItemNumber: Code[20];
         CartageCompany: Code[20];

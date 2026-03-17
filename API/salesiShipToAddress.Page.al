@@ -8,6 +8,7 @@ page 56101 salessiShipToAddress
     EntityName = 'salesiShipToAddress';
     EntitySetName = 'salesiShipToAddresses';
     SourceTable = "Ship-to Address";
+    SourceTableView = where("Customer No." = filter('<>Y-*&<>Z-*'), "Code" = filter('<>*SHOW&<>Y-*&<>Z-*'));
     DelayedInsert = true;
 
     layout

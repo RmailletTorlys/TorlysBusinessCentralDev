@@ -64,7 +64,7 @@ Page 56105 salesiSalesCredits
                     Caption = 'order_number';
                 }
 
-                field(TransactionType; Rec."Transaction Type")
+                field(TransactionType; 'CREDIT')
                 {
                     Caption = 'TransactionType';
                 }
@@ -109,7 +109,7 @@ Page 56105 salesiSalesCredits
                     Caption = 'Unit of Measure Code';
                 }
 
-                field(Chain; ChainName)
+                field(Chain; ShortcutDimCode[5])
                 {
                     Caption = 'Chain';
                 }
@@ -119,12 +119,12 @@ Page 56105 salesiSalesCredits
                     Caption = 'GLCode';
                 }
 
-                field(Department; Department)
+                field(Department; Rec."Shortcut Dimension 1 Code")
                 {
                     Caption = 'Department';
                 }
 
-                field(ShortcutDimension2; Rec."Shortcut Dimension 2 Code")
+                field(ShortcutDimension2; '')
                 {
                     Caption = 'ShortcutDimension2';
                 }
@@ -139,12 +139,12 @@ Page 56105 salesiSalesCredits
                     Caption = 'FriendlyName';
                 }
 
-                field(CustomerType; Rec."Shortcut Dimension 2 Code")
+                field(CustomerType; ShortcutDimCode[3])
                 {
                     Caption = 'CustomerType';
                 }
 
-                field(subChannel; ChannelCode)
+                field(subChannel; '')
                 {
                     Caption = 'subChannel';
                 }
@@ -154,7 +154,7 @@ Page 56105 salesiSalesCredits
                     Caption = 'ProgramNo';
                 }
 
-                field(promoCode; Rec."Sales Price Code")
+                field(promoCode; Rec."Price List")
                 {
                     Caption = 'promoCode';
 
@@ -185,12 +185,12 @@ Page 56105 salesiSalesCredits
                     Caption = 'Invoice Date';
                 }
 
-                field(ReasonCode; Rec.Type)
+                field(ReasonCode; ReasonCode)
                 {
                     Caption = 'ReasonCode';
                 }
 
-                field(ProgramTier; Rec."Sales Price Code")
+                field(ProgramTier; Rec."Price List")
                 {
                     Caption = 'Program Tier';
 
@@ -233,23 +233,25 @@ Page 56105 salesiSalesCredits
         Department: Text;
         PostingGroupGlCode: Text;
         PostingDate: Date;
-        ChannelCode: Code[10];
-
+        ReasonCode: Code[10];
+        ShortcutDimCode: array[8] of Code[20];
 
 
     trigger OnAfterGetRecord()
     begin
         SalesCrMemoHeader.Reset();
-        SalesCrMemoHeader.SetRange("No.", Rec."Document No.");
+        SalesCrMemoHeader.Get(Rec."Document No.");
 
         GPPG.Reset();
-        GPPG.SetRange("Code", Rec."Gen. Prod. Posting Group");
+        GPPG.Get(Rec."Gen. Prod. Posting Group");
 
         GenPostingSetup.Reset();
-        GenPostingSetup.SetRange("Gen. Prod. Posting Group", Rec."Gen. Prod. Posting Group");
+        GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group");
 
         Customer.Reset();
-        Customer.SetRange("No.", Rec."Sell-to Customer No.");
+        Customer.Get(Rec."Sell-to Customer No.");
+
+        Rec.ShowShortcutDimCode(ShortcutDimCode);
 
         CurrencyCode := SalesCrMemoHeader."Currency Code";
         CurrencyFactor := SalesCrMemoHeader."Currency Factor";
@@ -267,6 +269,8 @@ Page 56105 salesiSalesCredits
         PostingGroupGlCode := GenPostingSetup."Sales Account";
         ChainName := Customer."Chain Name";
         Department := Customer."Global Dimension 2 Code";
+        ReasonCode := SalesCrMemoHeader."Reason Code";
+
 
     end;
 

@@ -8,6 +8,7 @@ page 56100 salesiCustomer
     EntityName = 'salesiCustomer';
     EntitySetName = 'salesiCustomers';
     SourceTable = "Customer";
+    SourceTableView = where("No." = filter('<>Y-*&<>Z-*'));
     DelayedInsert = true;
 
     layout
@@ -16,6 +17,7 @@ page 56100 salesiCustomer
         {
             repeater(GroupName)
             {
+
                 field(account_number; Rec."No.")
                 {
                     Caption = 'Account Number';

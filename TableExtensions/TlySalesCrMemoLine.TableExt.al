@@ -225,6 +225,13 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Cr.Memo Header"."External Document No." where("No." = field("Document No.")));
         }
+        field(50037; "Entered At"; DateTime)
+        {
+            Caption = 'External Document No.';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
+        }
     }
 
     // trigger OnModify()

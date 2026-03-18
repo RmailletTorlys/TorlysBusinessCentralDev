@@ -65,12 +65,12 @@ Page 56104 salesiSalesInvoice
                     Caption = 'invoice_number';
                 }
 
-                field(order_number; Rec."No.")
+                field(order_number; Rec."Document No.")
                 {
                     Caption = 'order_number';
                 }
 
-                field(TransactionType; Rec."Transaction Type")
+                field(TransactionType; 'INVOICE')
                 {
                     Caption = 'TransactionType';
                 }
@@ -115,7 +115,7 @@ Page 56104 salesiSalesInvoice
                     Caption = 'UnitOfMeasureCode';
                 }
 
-                field(Chain; ChainName)
+                field(Chain; ShortcutDimCode[5])
                 {
                     Caption = 'Chain';
                 }
@@ -125,12 +125,12 @@ Page 56104 salesiSalesInvoice
                     Caption = 'GLCode';
                 }
 
-                field(Department; Department)
+                field(Department; Rec."Shortcut Dimension 1 Code")
                 {
                     Caption = 'Department';
                 }
 
-                field(ShortcutDimension2; Rec."Shortcut Dimension 2 Code")
+                field(ShortcutDimension2; '')
                 {
                     Caption = 'ShortcutDimension2';
                 }
@@ -145,12 +145,12 @@ Page 56104 salesiSalesInvoice
                     Caption = 'FriendlyName';
                 }
 
-                field(CustomerType; Rec."Shortcut Dimension 2 Code")
+                field(CustomerType; ShortcutDimCode[3])
                 {
                     Caption = 'CustomerType';
                 }
 
-                field(subChannel; rec."Shortcut Dimension 2 Code")
+                field(subChannel; '')
                 {
                     Caption = 'subChannel';
                 }
@@ -160,7 +160,7 @@ Page 56104 salesiSalesInvoice
                     Caption = 'ProgramNo';
                 }
 
-                field(PromoCode; Rec."Sales Price Code")
+                field(PromoCode; Rec."Price List")
                 {
                     Caption = 'PromoCode';
 
@@ -191,12 +191,12 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Invoice Date';
                 }
 
-                field(ReasonCode; Rec.Type)
+                field(ReasonCode; '')
                 {
                     Caption = 'ReasonCode';
                 }
 
-                field(ProgramTier; Rec."Sales Price Code")
+                field(ProgramTier; Rec."Price List")
                 {
                     Caption = 'Program Tier';
 
@@ -205,7 +205,6 @@ Page 56104 salesiSalesInvoice
                 field(TagName; TagName)
                 {
                     Caption = 'TagName';
-
                 }
 
                 field(ProjectName; Projectname)
@@ -218,7 +217,6 @@ Page 56104 salesiSalesInvoice
             }
         }
     }
-
     var
         SalesInvoiceHeader: Record "Sales Invoice Header";
         GPPG: Record "Gen. Product Posting Group";
@@ -239,25 +237,26 @@ Page 56104 salesiSalesInvoice
         Department: Text;
         PostingGroupGlCode: Text;
         PostingDate: Date;
+        ShortcutDimCode: array[8] of Code[20];
 
 
 
     trigger OnAfterGetRecord()
     begin
         SalesInvoiceHeader.Reset();
-        SalesInvoiceHeader.SetRange("No.", Rec."Document No.");
+        SalesInvoiceHeader.Get(Rec."Document No.");
 
         GPPG.Reset();
-        GPPG.SetRange("Code", Rec."Gen. Prod. Posting Group");
+        GPPG.Get(Rec."Gen. Prod. Posting Group");
 
         GenPostingSetup.Reset();
-        GenPostingSetup.SetRange("Gen. Prod. Posting Group", Rec."Gen. Prod. Posting Group");
+        GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group");
 
         Customer.Reset();
-        Customer.SetRange("No.", Rec."Sell-to Customer No.");
+        Customer.Get(Rec."Sell-to Customer No.");
 
 
-
+        Rec.ShowShortcutDimCode(ShortcutDimCode);
 
 
         CurrencyCode := SalesInvoiceHeader."Currency Code";
@@ -273,7 +272,6 @@ Page 56104 salesiSalesInvoice
         Reportable := GPPG."Reportable Group";
         PostingDate := SalesInvoiceHeader."Posting Date";
         PostingGroupGlCode := GenPostingSetup."Sales Account";
-        ChainName := Customer."Chain Name";
         Department := Customer."Global Dimension 2 Code";
 
     end;

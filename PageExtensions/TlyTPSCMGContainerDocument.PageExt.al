@@ -74,9 +74,9 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 ApplicationArea = All;
             }
         }
-        moveafter("Inland Terminal Date"; "Expected Receipt Date", "TPS Final Destination Location")
+        moveafter("Inland Terminal Date"; "Expected Receipt Date")
 
-        addafter("TPS Final Destination Location")
+        addafter("Expected Receipt Date")
         {
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
@@ -271,10 +271,10 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             Visible = false;
         }
-        // modify("In-transit Receiving Required")
-        // {
-        //     Visible = false;
-        // }
+        modify("In-transit Receiving Required")
+        {
+            Visible = false;
+        }
         modify("Expected Shipment Date")
         {
             Visible = false;
@@ -342,6 +342,10 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         modify("Port of Discharge")
         {
             Caption = 'Destination Port';
+        }
+        modify("TPS Final Destination Location")
+        {
+            Visible = false;
         }
     }
     actions

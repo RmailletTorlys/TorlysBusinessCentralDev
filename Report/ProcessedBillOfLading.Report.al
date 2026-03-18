@@ -63,6 +63,14 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
+            column(ShipAdd7; ShipToAddress[7])
+            {
+
+            }
+            column(ShipAdd8; ShipToAddress[8])
+            {
+
+            }
             column(Package_Tracking_No_; "Package Tracking No.")
             {
 

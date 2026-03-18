@@ -63,6 +63,14 @@ report 50009 "Processed Bill Of Lading"
             {
 
             }
+            column(ShipAdd7; ShipToAddress[7])
+            {
+
+            }
+            column(ShipAdd8; ShipToAddress[8])
+            {
+
+            }
             column(Package_Tracking_No_; "Package Tracking No.")
             {
 
@@ -302,7 +310,8 @@ report 50009 "Processed Bill Of Lading"
                     ShipToAddress[3] := "processed Bol Header"."Ship-to Address 2";
                     ShipToAddress[4] := "processed Bol Header"."Ship-to City";
                     ShipToAddress[5] := "processed Bol Header"."Ship-to County";
-                    ShipToAddress[6] := "processed Bol Header"."Ship-to Country/Region Code";
+                    ShipToAddress[6] := "processed Bol Header"."Ship-to Post Code";
+                    ShipToAddress[7] := "processed Bol Header"."Ship-to Country/Region Code";
                     //FormatAddress.BOLHeader(ShipToAddress, "Bol Header");
                     DestinationInstructions1 := "Shipping Comment";
                 end;

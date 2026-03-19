@@ -341,9 +341,9 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
-        moveafter("Lead Time Calculation"; "Vendor No.", "Manufacturer Code", "Vendor Item No.")
+        moveafter("Lead Time Calculation"; "Vendor No.", "Manufacturer Code", "Vendor Item No.", "Minimum Order Quantity")
 
-        addafter("Vendor Item No.")
+        addafter("Minimum Order Quantity")
         {
             field("BO - Backorder Status"; Rec."BO - Backorder Status")
             {
@@ -406,6 +406,12 @@ pageextension 50030 TlyItemCard extends "Item Card"
         modify("Manufacturer Code")
         {
             Visible = true;
+        }
+        modify("Minimum Order Quantity")
+        {
+            Visible = true;
+            Editable = true;
+            Enabled = true;
         }
         modify("Shelf No.")
         {

@@ -100,6 +100,12 @@ End Function
         <Field Name="ShipAdd6">
           <DataField>ShipAdd6</DataField>
         </Field>
+        <Field Name="ShipAdd7">
+          <DataField>ShipAdd7</DataField>
+        </Field>
+        <Field Name="ShipAdd8">
+          <DataField>ShipAdd8</DataField>
+        </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
         </Field>

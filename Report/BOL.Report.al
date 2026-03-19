@@ -63,6 +63,14 @@ report 50008 "Bill Of Lading"
             {
 
             }
+            column(ShipAdd7; ShipToAddress[7])
+            {
+
+            }
+            column(ShipAdd8; ShipToAddress[8])
+            {
+
+            }
             column(No_; "No.")
             {
 
@@ -306,7 +314,8 @@ report 50008 "Bill Of Lading"
                     ShipToAddress[3] := "Bol Header"."Ship-to Address 2";
                     ShipToAddress[4] := "Bol Header"."Ship-to City";
                     ShipToAddress[5] := "Bol Header"."Ship-to County";
-                    ShipToAddress[6] := "Bol Header"."Ship-to Country/Region Code";
+                    ShipToAddress[6] := "Bol Header"."Ship-to Post Code";
+                    ShipToAddress[7] := "Bol Header"."Ship-to Country/Region Code";
                     // FormatAddress.SalesShptShipTo(ShipToAddress, SalesShipmentHeader);
                     DestinationInstructions1 := "Shipping Comment";
                 end;

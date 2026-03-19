@@ -231,6 +231,13 @@ tableextension 56661 TlyReturnReceiptLine extends "Return Receipt Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Return Receipt Header"."External Document No." where("No." = field("Document No.")));
         }
+        field(50037; "Entered At"; DateTime)
+        {
+            Caption = 'External Document No.';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
+        }
     }
 
     // trigger OnModify()

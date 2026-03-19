@@ -104,7 +104,7 @@ pageextension 50050 TlyPurchOrder extends "Purchase Order"
 
         modify(ShippingOptionWithLocation)
         {
-            importance = Standard;
+            Importance = Standard;
         }
 
         modify("Posting Date")

@@ -131,6 +131,30 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
                 ApplicationArea = All;
                 Editable = false;
             }
+            field("TPS CMG Container No."; Rec."TPS CMG Container No.")
+            {
+                Caption = 'TPS CMG Container No.';
+                ToolTip = 'TPS CMG Container No.';
+                ApplicationArea = All;
+                Editable = true;
+                Visible = false;
+            }
+            field("TPS CMG Container Line No."; Rec."TPS CMG Container Line No.")
+            {
+                Caption = 'TPS CMG Container Line No.';
+                ToolTip = 'TPS CMG Container Line No.';
+                ApplicationArea = All;
+                Editable = true;
+                Visible = false;
+            }
+            field("TPS CMG BOL No."; Rec."TPS CMG BOL No.")
+            {
+                Caption = 'TPS CMG BOL No.';
+                ToolTip = 'TPS CMG BOL No.';
+                ApplicationArea = All;
+                Editable = true;
+                Visible = false;
+            }
             field("Container No. (NAV)"; Rec."Container No. (NAV)")
             {
                 Caption = 'Container No. (NAV)';

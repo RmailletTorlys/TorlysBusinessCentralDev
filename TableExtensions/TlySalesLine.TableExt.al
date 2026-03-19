@@ -352,6 +352,13 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."External Document No." where("No." = field("Document No.")));
         }
+        field(50037; "Entered At"; DateTime)
+        {
+            Caption = 'External Document No.';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
+        }
 
         modify("No.")
         {

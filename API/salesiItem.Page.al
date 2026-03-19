@@ -8,6 +8,7 @@ Page 56103 salesiItem
     EntityName = 'salesItem';
     EntitySetName = 'salesItems';
     DelayedInsert = true;
+    Editable = false;
     DataAccessIntent = ReadOnly;
 
     layout

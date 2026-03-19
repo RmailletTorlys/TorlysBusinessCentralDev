@@ -10,6 +10,7 @@ page 56004 "Torlys Items API"
     SourceTable = Item;
     SourceTableView = where("Gen. Prod. Posting Group" = filter('<>MK *'));
     DelayedInsert = true;
+    Editable = false;
     DataAccessIntent = ReadOnly;
 
     layout

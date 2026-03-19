@@ -10,6 +10,7 @@ page 56100 salesiCustomer
     SourceTable = "Customer";
     SourceTableView = where("No." = filter('<>Y-*&<>Z-*'));
     DelayedInsert = true;
+    Editable = false;
     DataAccessIntent = ReadOnly;
 
     layout

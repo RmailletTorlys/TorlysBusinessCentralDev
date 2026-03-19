@@ -9,6 +9,7 @@ page 56000 "Price List Lines API"
     EntitySetName = 'priceListLines';
     SourceTable = "Price List Line";
     DelayedInsert = true;
+    Editable = false;
     DataAccessIntent = ReadOnly;
 
     layout

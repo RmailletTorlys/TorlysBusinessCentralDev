@@ -9,6 +9,7 @@ page 56003 "Sales Price Code API"
     EntitySetName = 'salesPriceCodes';
     SourceTable = TlySalesPriceCode;
     DelayedInsert = true;
+    Editable = false;
     DataAccessIntent = ReadOnly;
 
     layout

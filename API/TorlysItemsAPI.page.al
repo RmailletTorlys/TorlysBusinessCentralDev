@@ -8,8 +8,10 @@ page 56004 "Torlys Items API"
     EntityName = 'torlysItem';
     EntitySetName = 'torlysItems';
     SourceTable = Item;
-    SourceTableView = where("Gen. Prod. Posting Group" = filter('MK-*'));
+    SourceTableView = where("Gen. Prod. Posting Group" = filter('<>MK *'));
     DelayedInsert = true;
+    Editable = false;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

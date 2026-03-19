@@ -9,6 +9,8 @@ page 56001 "Price List Header API"
     EntitySetName = 'priceListHeaders';
     SourceTable = "Price List Header";
     DelayedInsert = true;
+    Editable = false;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

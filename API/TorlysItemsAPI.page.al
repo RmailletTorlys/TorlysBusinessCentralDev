@@ -9,6 +9,7 @@ page 56004 "Torlys Items API"
     EntitySetName = 'torlysItems';
     SourceTable = Item;
     DelayedInsert = true;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

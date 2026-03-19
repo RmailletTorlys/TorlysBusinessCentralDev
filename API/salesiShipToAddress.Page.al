@@ -10,6 +10,7 @@ page 56101 salessiShipToAddress
     SourceTable = "Ship-to Address";
     SourceTableView = where("Customer No." = filter('<>Y-*&<>Z-*'), "Code" = filter('<>*SHOW&<>Y-*&<>Z-*'));
     DelayedInsert = true;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

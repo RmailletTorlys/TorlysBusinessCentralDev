@@ -8,6 +8,7 @@ Page 56105 salesiSalesCredits
     EntityName = 'salesCredit';
     EntitySetName = 'salesCredits';
     DelayedInsert = true;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

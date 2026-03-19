@@ -9,6 +9,7 @@ page 56002 "Programs API"
     EntitySetName = 'programs';
     SourceTable = "Item Category";
     DelayedInsert = true;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

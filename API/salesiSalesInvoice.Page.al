@@ -8,6 +8,7 @@ Page 56104 salesiSalesInvoice
     EntityName = 'salesInvoice';
     EntitySetName = 'salesInvoices';
     DelayedInsert = true;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

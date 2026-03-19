@@ -9,6 +9,7 @@ page 56102 salesiContacts
     EntitySetName = 'salesiContacts';
     SourceTable = "Contact";
     DelayedInsert = true;
+    DataAccessIntent = ReadOnly;
 
     layout
     {

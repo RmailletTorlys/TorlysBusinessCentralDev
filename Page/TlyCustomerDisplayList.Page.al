@@ -7,7 +7,6 @@ Page 51023 TlyCustomerDisplayList
     CardPageId = "Customer Display Card";
     Editable = false;
 
-
     layout
     {
         area(Content)

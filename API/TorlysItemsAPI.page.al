@@ -105,9 +105,21 @@ page 56004 "Torlys Items API"
 
                 }
 
+                field(clearanceItem; Rec."Clearance Item")
+                {
+                    Caption = 'Clearance Item';
+
+                }
+
                 field(discontinuedItem; Rec."Discontinued Item")
                 {
                     Caption = 'Discontinued Item';
+
+                }
+
+                field(specialItem; Rec."Special Item")
+                {
+                    Caption = 'Special Item';
 
                 }
 

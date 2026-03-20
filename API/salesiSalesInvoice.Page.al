@@ -245,37 +245,46 @@ Page 56104 salesiSalesInvoice
 
     trigger OnAfterGetRecord()
     begin
-        SalesInvoiceHeader.Reset();
-        SalesInvoiceHeader.Get(Rec."Document No.");
 
-        GPPG.Reset();
-        GPPG.Get(Rec."Gen. Prod. Posting Group");
+        if SalesInvoiceHeader.Get(Rec."Document No.") then begin
+            CurrencyCode := SalesInvoiceHeader."Currency Code";
+            CurrencyFactor := SalesInvoiceHeader."Currency Factor";
+            SystemUserId := SalesInvoiceHeader.SystemCreatedBy;
+            PaymentTermsCode := SalesInvoiceHeader."Payment Terms Code";
+            ShipmentMethodCode := SalesInvoiceHeader."Shipment Method Code";
+            ShippingAgentCode := SalesInvoiceHeader."Shipping Agent Code";
+            TagName := SalesInvoiceHeader."Tag Name";
+            ProjectName := SalesInvoiceHeader."Tag Name";
+            OrderDate := SalesInvoiceHeader."Order Date";
+            DocumentDate := SalesInvoiceHeader."Document Date";
+            PostingDate := SalesInvoiceHeader."Posting Date";
+        end else begin
+            Clear(SalesInvoiceHeader);
+            CurrencyCode := '';
+            OrderDate := 0D;
+            TagName := '';
+        end;
 
-        GenPostingSetup.Reset();
-        GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group");
 
-        Customer.Reset();
-        Customer.Get(Rec."Sell-to Customer No.");
+        if (Rec."Gen. Prod. Posting Group" <> '') and GPPG.Get(Rec."Gen. Prod. Posting Group") then
+            Reportable := GPPG."Reportable Group"
+        else
+            Reportable := false;
+
+
+        if GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group") then
+            PostingGroupGlCode := GenPostingSetup."Sales Account"
+        else
+            PostingGroupGlCode := '';
+
+
+        if Customer.Get(Rec."Sell-to Customer No.") then
+            Department := Customer."Global Dimension 2 Code"
+        else
+            Department := '';
 
 
         Rec.ShowShortcutDimCode(ShortcutDimCode);
-
-
-        CurrencyCode := SalesInvoiceHeader."Currency Code";
-        CurrencyFactor := SalesInvoiceHeader."Currency Factor";
-        SystemUserId := SalesInvoiceHeader.SystemCreatedBy;
-        PaymentTermsCode := SalesInvoiceHeader."Payment Terms Code";
-        ShipmentMethodCode := SalesInvoiceHeader."Shipment Method Code";
-        ShippingAgentCode := SalesInvoiceHeader."Shipping Agent Code";
-        TagName := SalesInvoiceHeader."Tag Name";
-        ProjectName := SalesInvoiceHeader."Tag Name";
-        OrderDate := SalesInvoiceHeader."Order Date";
-        DocumentDate := SalesInvoiceHeader."Document Date";
-        Reportable := GPPG."Reportable Group";
-        PostingDate := SalesInvoiceHeader."Posting Date";
-        PostingGroupGlCode := GenPostingSetup."Sales Account";
-        Department := Customer."Global Dimension 2 Code";
-
     end;
 
 

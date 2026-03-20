@@ -241,41 +241,58 @@ Page 56105 salesiSalesCredits
 
     trigger OnAfterGetRecord()
     begin
-        SalesCrMemoHeader.Reset();
-        SalesCrMemoHeader.Get(Rec."Document No.");
 
-        GPPG.Reset();
-        GPPG.Get(Rec."Gen. Prod. Posting Group");
+        if SalesCrMemoHeader.Get(Rec."Document No.") then begin
+            CurrencyCode := SalesCrMemoHeader."Currency Code";
+            CurrencyFactor := SalesCrMemoHeader."Currency Factor";
+            InvoiceNo := SalesCrMemoHeader."Original Invoice No.";
+            SystemUserId := SalesCrMemoHeader.SystemCreatedBy;
+            PaymentTermsCode := SalesCrMemoHeader."Payment Terms Code";
+            ShipmentMethodCode := SalesCrMemoHeader."Shipment Method Code";
+            ShippingAgentCode := SalesCrMemoHeader."Shipping Agent Code";
+            TagName := SalesCrMemoHeader."Tag Name";
+            ProjectName := SalesCrMemoHeader."Tag Name";
 
-        GenPostingSetup.Reset();
-        GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group");
 
-        Customer.Reset();
-        Customer.Get(Rec."Sell-to Customer No.");
+            if SalesCrMemoHeader."Entered At" <> 0DT then
+                OrderDate := DT2Date(SalesCrMemoHeader."Entered At")
+            else
+                OrderDate := 0D;
+
+            DocumentDate := SalesCrMemoHeader."Document Date";
+            PostingDate := SalesCrMemoHeader."Posting Date";
+            ReasonCode := SalesCrMemoHeader."Reason Code";
+        end else begin
+
+            Clear(SalesCrMemoHeader);
+            CurrencyCode := '';
+            InvoiceNo := '';
+            OrderDate := 0D;
+        end;
+
+
+        if GPPG.Get(Rec."Gen. Prod. Posting Group") then
+            Reportable := GPPG."Reportable Group"
+        else
+            Reportable := false;
+
+
+        if GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group") then
+            PostingGroupGlCode := GenPostingSetup."Sales Account"
+        else
+            PostingGroupGlCode := '';
+
+        if Customer.Get(Rec."Sell-to Customer No.") then begin
+            ChainName := Customer."Chain Name";
+            Department := Customer."Global Dimension 2 Code";
+        end else begin
+            ChainName := '';
+            Department := '';
+        end;
+
 
         Rec.ShowShortcutDimCode(ShortcutDimCode);
-
-        CurrencyCode := SalesCrMemoHeader."Currency Code";
-        CurrencyFactor := SalesCrMemoHeader."Currency Factor";
-        InvoiceNo := SalesCrMemoHeader."Original Invoice No.";
-        SystemUserId := SalesCrMemoHeader.SystemCreatedBy;
-        PaymentTermsCode := SalesCrMemoHeader."Payment Terms Code";
-        ShipmentMethodCode := SalesCrMemoHeader."Shipment Method Code";
-        ShippingAgentCode := SalesCrMemoHeader."Shipping Agent Code";
-        TagName := SalesCrMemoHeader."Tag Name";
-        ProjectName := SalesCrMemoHeader."Tag Name";
-        OrderDate := SalesCrMemoHeader."Entered At".Date();
-        DocumentDate := SalesCrMemoHeader."Document Date";
-        Reportable := GPPG."Reportable Group";
-        PostingDate := SalesCrMemoHeader."Posting Date";
-        PostingGroupGlCode := GenPostingSetup."Sales Account";
-        ChainName := Customer."Chain Name";
-        Department := Customer."Global Dimension 2 Code";
-        ReasonCode := SalesCrMemoHeader."Reason Code";
-
-
     end;
-
 
 
 }

@@ -1,11 +1,14 @@
 Page 51023 TlyCustomerDisplayList
 {
+    ApplicationArea = Basic, Suite, Assembly;
+    UsageCategory = Lists;
     Caption = 'Customer Displays';
     PageType = List;
     DataCaptionFields = CustLocationCode;
     SourceTable = TlyDisplayHeader;
     CardPageId = "Customer Display Card";
     Editable = false;
+    AdditionalSearchTerms = 'Displays, Customer Displays';
 
     layout
     {

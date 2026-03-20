@@ -34,6 +34,7 @@ Page 51024 "Customer Display Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer code.';
+                    TableRelation = "Ship-to Address".Code WHERE("Code" = FILTER('*SHOW'));
 
                     trigger onValidate()
                     begin

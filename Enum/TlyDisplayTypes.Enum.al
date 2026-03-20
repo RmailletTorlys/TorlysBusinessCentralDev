@@ -11,9 +11,9 @@ enum 50010 TlyDisplayTypes
     {
         Caption = 'Torlys Tower';
     }
-    value(2; OlympicDisplay)
+    value(2; TreeDisplay)
     {
-        Caption = 'Olympic Display';
+        Caption = 'Tree Display';
     }
 
     value(3; SignatureDisplay)

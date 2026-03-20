@@ -1,26 +1,28 @@
 codeunit 50027 TlyAddSalesLineToTransLine
 {
-    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnDeleteOnBeforeDeleteRelatedData', '', false, false)]
-    local procedure OnDeleteOnBeforeDeleteRelatedData(var TransferLine: Record "Transfer Line")
-    var
-        SalesLine: Record "Sales Line";
-    begin
-        SalesLine.Reset;
-        SalesLine.SetRange("Document No.", TransferLine."Sales Order No.");
-        SalesLine.SetRange("Line No.", TransferLine."Sales Order Line No.");
-        if SalesLine.Find('-') then
-            if TransferLine."Item No." <> '' then begin
-                Message('SUCCESS!\\%1 from %2 with a quantity of %3.\\Join will be broken with %4 line %5.', TransferLine."Item No.", TransferLine."Document No.", TransferLine.Quantity, TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
-                SalesLine.Validate(SalesLine."Transfer Order No.", '');
-                SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
-                SalesLine.Modify(true);
-            end else begin
-                Message('SUCCESS!\\%1 from %2.\Join will be broken with %3 line %4.', TransferLine."Description", TransferLine."Document No.", TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
-                SalesLine.Validate(SalesLine."Transfer Order No.", '');
-                SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
-                SalesLine.Modify(true);
-            end;
-    end;
+    // [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnDeleteOnBeforeDeleteRelatedData', '', false, false)]
+    // local procedure OnDeleteOnBeforeDeleteRelatedData(var TransferLine: Record "Transfer Line")
+    // var
+    // SalesLine: Record "Sales Line";
+    // begin
+    // this was the original, just a message before deleting, was causing issues
+    // moved this to the transfer line table itself
+    // SalesLine.Reset;
+    // SalesLine.SetRange("Document No.", TransferLine."Sales Order No.");
+    // SalesLine.SetRange("Line No.", TransferLine."Sales Order Line No.");
+    // if SalesLine.Find('-') then
+    //     if TransferLine."Item No." <> '' then begin
+    //         Message('SUCCESS!\\%1 from %2 with a quantity of %3.\\Join will be broken with %4 line %5.', TransferLine."Item No.", TransferLine."Document No.", TransferLine.Quantity, TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
+    //         SalesLine.Validate(SalesLine."Transfer Order No.", '');
+    //         SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
+    //         SalesLine.Modify(true);
+    //     end else begin
+    //         Message('SUCCESS!\\%1 from %2.\Join will be broken with %3 line %4.', TransferLine."Description", TransferLine."Document No.", TransferLine."Sales Order No.", TransferLine."Sales Order Line No.");
+    //         SalesLine.Validate(SalesLine."Transfer Order No.", '');
+    //         SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
+    //         SalesLine.Modify(true);
+    //     end;
+    // end;
 
     procedure PresentModal(Rec: Record "Sales Line"; var TransferOrderNumber: Code[20])
     var

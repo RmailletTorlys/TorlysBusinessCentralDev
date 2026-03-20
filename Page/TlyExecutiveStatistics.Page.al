@@ -9,6 +9,12 @@ page 51029 TlyExecutiveStatistics
     ModifyAllowed = false;
     RefreshOnActivate = true;
 
+    // still to add:
+    // freight charge and cost and margin - GL
+    // inventory on hand - GL
+    // inventory in transit - GL
+    // inventory by tick box???
+
     layout
     {
         area(Content)
@@ -433,7 +439,7 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", PrevMTDEOMStart, PrevMTDEOMEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 
     procedure GetSalesCurrYTD(): Decimal
@@ -453,7 +459,7 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", CurrYTDStart, CurrYTDEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 
     procedure GetSalesPrevYTD(): Decimal
@@ -473,7 +479,7 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDStart, PrevYTDEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 
     procedure GetSalesPrevYTDEOM(): Decimal
@@ -493,7 +499,7 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOMStart, PrevYTDEOMEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 
     procedure GetSalesPrevYTDEOY(): Decimal
@@ -513,6 +519,6 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 }

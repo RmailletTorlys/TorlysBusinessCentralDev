@@ -164,11 +164,8 @@ page 56101 salessiShipToAddress
     trigger OnAfterGetRecord()
     begin
         CustomerRec.Reset();
-        if Rec."Customer No." <> '' then begin
-            CustomerRec.Get(Rec."Customer No.");
-            CustomerRec.ShowShortcutDimCode(ShortcutDimCode);
-        end;
-
+        if Rec."Customer No." <> '' then
+            if CustomerRec.Get(Rec."Customer No.") then
+                CustomerRec.ShowShortcutDimCode(ShortcutDimCode)
     end;
-
 }

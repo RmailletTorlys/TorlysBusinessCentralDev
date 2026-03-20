@@ -289,7 +289,7 @@ page 56004 "Torlys Items API"
         NetAvailable := Rec.Inventory;
 
         if TORRec.Get(Rec."No.") then begin
-            TORRec.SetRange("Location Filter", 'TOR');
+            TORRec.SetRange("Location Filter", 'TOR|TMT');
             TORRec.CalcFields(
                 Inventory,
                 "Qty. on Sales Order",

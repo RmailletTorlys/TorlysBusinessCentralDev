@@ -1,8 +1,6 @@
 page 51029 TlyExecutiveStatistics
 {
     Caption = 'Executive Statistics';
-    // QueryCategory = 'Executive Statistics';
-    // AdditionalSearchTerms = 'Executive Statistics';
     PageType = Card;
     UsageCategory = Documents;
     ApplicationArea = All, Basic, Suite;
@@ -45,7 +43,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerCurrMTD; (GetSalesCurrMTD - GetCOGSCurrMTD) / GetSalesCurrMTD)
+                        field(MarginPerCurrMTD; GetMarginCurrMTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -78,7 +76,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerPrevMTD; (GetSalesPrevMTD - GetCOGSPrevMTD) / GetSalesPrevMTD)
+                        field(MarginPerPrevMTD; GetMarginPrevMTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -111,7 +109,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerPrevMTDEOM; (GetSalesPrevMTDEOM - GetCOGSPrevMTDEOM) / GetSalesPrevMTDEOM)
+                        field(MarginPerPrevMTDEOM; GetMarginPrevMTDEOM)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -151,7 +149,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerCurrYTD; (GetSalesCurrYTD - GetCOGSCurrYTD) / GetSalesCurrYTD)
+                        field(MarginPerCurrYTD; GetMarginCurrYTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -185,7 +183,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerPrevYTD; (GetSalesPrevYTD - GetCOGSPrevYTD) / GetSalesPrevYTD)
+                        field(MarginPerPrevYTD; GetMarginPrevYTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -218,7 +216,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerPrevYTDEOM; (GetSalesPrevYTDEOM - GetCOGSPrevYTDEOM) / GetSalesPrevYTDEOM)
+                        field(MarginPerPrevYTDEOM; GetMarginPrevYTDEOM)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -251,7 +249,7 @@ page 51029 TlyExecutiveStatistics
                             ToolTip = 'Margin $';
                             Editable = false;
                         }
-                        field(MarginPerPrevYTDEOY; (GetSalesPrevYTDEOY - GetCOGSPrevYTDEOY) / GetSalesPrevYTDEOY)
+                        field(MarginPerPrevYTDEOY; GetMarginPrevYTDEOY)
                         {
                             ApplicationArea = All;
                             Caption = 'Margin %';
@@ -289,6 +287,13 @@ page 51029 TlyExecutiveStatistics
         PrevYTDEOYStart: Date;
         PrevYTDEOYEnd: Date;
         PrevYTDEOY: Text[22];
+        GetMarginCurrMTD: Decimal;
+        GetMarginPrevMTD: Decimal;
+        GetMarginPrevMTDEOM: Decimal;
+        GetMarginCurrYTD: Decimal;
+        GetMarginPrevYTD: Decimal;
+        GetMarginPrevYTDEOM: Decimal;
+        GetMarginPrevYTDEOY: Decimal;
 
     trigger OnOpenPage()
     begin
@@ -332,6 +337,43 @@ page 51029 TlyExecutiveStatistics
         PrevYTDEOYStart := CalcDate('<-CY-1Y>', WorkDate());
         PrevYTDEOYEnd := CalcDate('<+CY-1Y>', WorkDate());
         PrevYTDEOY := StrSubstNo('%1..%2', Format(PrevYTDEOYStart, 0, '<Month,2>/<Day,2>/<Year4>'), Format(PrevYTDEOYEnd, 0, '<Month,2>/<Day,2>/<Year4>'));
+
+        // calculate margin - start
+        if GetSalesCurrMTD <> 0 then
+            GetMarginCurrMTD := (GetSalesCurrMTD - GetCOGSCurrMTD) / GetSalesCurrMTD
+        else
+            GetMarginCurrMTD := 0;
+
+        if GetSalesPrevMTD <> 0 then
+            GetMarginPrevMTD := (GetSalesPrevMTD - GetCOGSPrevMTD) / GetSalesPrevMTD
+        else
+            GetMarginPrevMTD := 0;
+
+        if GetSalesPrevMTDEOM <> 0 then
+            GetMarginPrevMTDEOM := (GetSalesPrevMTDEOM - GetCOGSPrevMTDEOM) / GetSalesPrevMTDEOM
+        else
+            GetMarginPrevMTDEOM := 0;
+
+        if GetSalesCurrYTD <> 0 then
+            GetMarginCurrYTD := (GetSalesCurrYTD - GetCOGSCurrYTD) / GetSalesCurrYTD
+        else
+            GetMarginCurrYTD := 0;
+
+        if GetSalesPrevYTD <> 0 then
+            GetMarginPrevYTD := (GetSalesPrevYTD - GetCOGSPrevYTD) / GetSalesPrevYTD
+        else
+            GetMarginPrevYTD := 0;
+
+        if GetSalesPrevYTDEOM <> 0 then
+            GetMarginPrevYTDEOM := (GetSalesPrevYTDEOM - GetCOGSPrevYTDEOM) / GetSalesPrevYTDEOM
+        else
+            GetMarginPrevYTDEOM := 0;
+
+        if GetSalesPrevYTDEOY <> 0 then
+            GetMarginPrevYTDEOY := (GetSalesPrevYTDEOY - GetCOGSPrevYTDEOY) / GetSalesPrevYTDEOY
+        else
+            GetMarginPrevYTDEOM := 0;
+        // calculate margin - end
     end;
 
     procedure GetSalesCurrMTD(): Decimal

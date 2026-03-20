@@ -69,4 +69,15 @@ tableextension 55740 TlyTransferHeader extends "Transfer Header"
             Description = 'TLY-SD - 03/06/2026 - will create a container for transfers, so need to validate against that table';
         }
     }
+
+    trigger OnBeforeDelete()
+    var
+        TransferLineCount: Record "Transfer Line";
+    begin
+        // TLY-SD - 03/20/2026 - add this here as an extra check
+        // can't delete if there are lines
+        TransferLineCount.Reset();
+        TransferLineCount.SetRange("Document No.", "No.");
+        if TransferLineCount.Find('-') then Error('Must delete lines before deleting header.');
+    end;
 }

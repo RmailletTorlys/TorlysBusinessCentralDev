@@ -53,6 +53,17 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
         CopyCommentsFromVendCardToPurchaseHeader();
     end;
 
+    trigger OnBeforeDelete()
+    var
+        PurchLineCount: Record "Purchase Line";
+    begin
+        // TLY-SD - 03/20/2026 - add this here as an extra check
+        // can't delete if there are lines
+        PurchLineCount.Reset();
+        PurchLineCount.SetRange("Document No.", "No.");
+        if PurchLineCount.Find('-') then Error('Must delete lines before deleting header.');
+    end;
+
     local procedure CopyCommentsFromVendCardToPurchaseHeader()
     var
         CommentLine: Record "Comment Line";

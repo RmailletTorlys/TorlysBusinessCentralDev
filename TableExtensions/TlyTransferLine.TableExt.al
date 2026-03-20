@@ -258,13 +258,34 @@ tableextension 55741 TlyTransferLine extends "Transfer Line"
         }
     }
 
-    // [IntegrationEvent(false, false)]
-    // procedure OnValidateQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
-    // begin
-    // end;
+    trigger OnBeforeDelete()
+    var
+        AllowChange: Boolean;
+        SalesLine: Record "Sales Line";
+    begin
+        // TLY-SD - 03/20/2026 - prompt to delete if tied to a SO
+        if Rec."Sales Order No." <> '' then
+            AllowChange := Dialog.Confirm('This order is tied to a transfer. Are you sure you want to delete?');
+        if not AllowChange then begin
+            Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."Item No.", Rec.Quantity, Rec."Sales Order No.", Rec."Sales Order Line No.");
+        end else begin
+            SalesLine.Reset;
+            SalesLine.SetRange("Document No.", Rec."Sales Order No.");
+            SalesLine.SetRange("Line No.", Rec."Sales Order Line No.");
+            if SalesLine.Find('-') then
+                if Rec."Item No." <> '' then begin
+                    Message('SUCCESS!\\%1 from %2 with a quantity of %3.\\Join will be broken with %4 line %5.', Rec."Item No.", Rec."Document No.", Rec.Quantity, Rec."Sales Order No.", Rec."Sales Order Line No.");
+                    SalesLine.Validate(SalesLine."Transfer Order No.", '');
+                    SalesLine.Validate(SalesLine."Transfer Order Line No.", 0);
+                    SalesLine.Modify(true);
+                end;
+        end;
+    end;
 
-    // [IntegrationEvent(false, false)]
-    // procedure OnValidateQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)
+    // trigger OnBeforeModify()
     // begin
+    //     // TLY-SD - 03/20/2026 - can't delete line if tied to SO?
+    //     if Rec."Sales Order No." <> '' then
+    //         Message('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."Item No.", Rec.Quantity, Rec."Sales Order No.", Rec."Sales Order Line No.");
     // end;
 }

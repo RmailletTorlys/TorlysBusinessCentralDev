@@ -469,6 +469,17 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         CopyCommentsFromCustCardToSalesHeader();
     end;
 
+    trigger OnBeforeDelete()
+    var
+        SalesLineCount: Record "Sales Line";
+    begin
+        // TLY-SD - 03/20/2026 - add this here as an extra check
+        // can't delete if there are lines
+        SalesLineCount.Reset();
+        SalesLineCount.SetRange("Document No.", "No.");
+        if SalesLineCount.Find('-') then Error('Must delete lines before deleting header.');
+    end;
+
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var
         DimMgt: Codeunit "DimensionManagement";

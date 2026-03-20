@@ -31,7 +31,7 @@ report 50015 "Shipping Manifest"
             {
                 DataItemLinkReference = "Shipping Agent";
                 DataItemLink = "Shipping Agent Code" = field(Code);
-                RequestFilterFields = "Pickup Date", "Transaction Type";
+                RequestFilterFields = "Pickup Date", "Transaction Type", "Location Code";
                 RequestFilterHeading = 'Processed BOL Header';
 
                 column(No_; "No.")
@@ -161,40 +161,42 @@ report 50015 "Shipping Manifest"
     }
     requestpage
     {
-        layout
-        {
-            area(Content)
-            {
-                group("Options")
-                {
-                    field(UserLocationCode; TempUserLocationCode)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Location Code';
-                        TableRelation = Location;
-                        ToolTip = 'Specifies the default location code for the report.';
-                    }
-                    // field(Pickupdate; PickupDate)
-                    // {
-                    //     ApplicationArea = All;
-                    //     Caption = 'PickUp Date';
-                    // }
-                    // field(TransType; TransType)
-                    // {
-                    //     ApplicationArea = All;
-                    //     Caption = 'Transcation Type';
-                    // }
+        SaveValues = true;
+        // layout
+        // {
+        //     area(Content)
+        //     {
+        //         group("Options")
+        //         {
+        //             field(UserLocationCode; TempUserLocationCode)
+        //             {
+        //                 ApplicationArea = All;
+        //                 Caption = 'Location Code';
+        //                 TableRelation = Location;
+        //                 ToolTip = 'Specifies the default location code for the report.';
+        //             }
+        //             // field(Pickupdate; PickupDate)
+        //             // {
+        //             //     ApplicationArea = All;
+        //             //     Caption = 'PickUp Date';
+        //             // }
+        //             // field(TransType; TransType)
+        //             // {
+        //             //     ApplicationArea = All;
+        //             //     Caption = 'Transcation Type';
+        //             // }
 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
 
-        trigger OnOpenPage()
-        begin
-            SetDefaultLocationCode();
-            // Pickupdate := Today;
-            // TransType := ProcessedBOL."Transaction Type"::Shipment;
-        end;
+        // trigger OnOpenPage()
+        // begin
+        //     SetDefaultLocationCode();
+        //     // Pickupdate := Today;
+        //     // "Torlys Processed BOL Header"."Pickup Date" := WorkDate();
+        //     // TransType := ProcessedBOL."Transaction Type"::Shipment;
+        // end;
     }
     var
         ShippingAgent: Record "Shipping Agent";

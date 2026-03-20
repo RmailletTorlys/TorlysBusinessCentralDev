@@ -538,6 +538,16 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     //     CheckEditCasePallet(Rec, xRec, EditCasePallet);
     // end;
 
+    trigger OnBeforeDelete()
+    var
+        AllowChange: Boolean;
+    begin
+        // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted
+        if Rec."Transfer Order No." <> '' then begin
+            Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+        end;
+    end;
+
     trigger OnAfterDelete()
     begin
         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) then begin
@@ -546,6 +556,18 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             UpdateWarehouseNotify;
         end;
     end;
+
+    // trigger OnBeforeModify()
+    // var
+    //     AllowChange: Boolean;
+    // begin
+    //     // TLY-SD - 03/20/2026 - can't delete line if tied to SO?
+    //     if Rec."Transfer Order No." <> '' then begin
+    //         AllowChange := Dialog.Confirm('This order is tied to a transfer. Are you sure you want to modify?');
+    //         if not AllowChange then
+    //             Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+    //     end;
+    // end;
 
     trigger OnModify()
     begin

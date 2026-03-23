@@ -13,7 +13,7 @@ query 56008 "Torlys Item In Transit API"
         {
             DataItemTableFilter = "Qty. in Transit" = filter('>0');
 
-            column(itemNo; "Item No.") { }
+            column(number; "Item No.") { }
             column(locationCode; "Transfer-to Code") { }
             column(receiptDate; "Receipt Date") { }
 

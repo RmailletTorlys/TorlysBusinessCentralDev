@@ -13,7 +13,7 @@ query 56006 "Torlys Item Sales Order API"
         {
             DataItemTableFilter = "Qty. to Ship (Base)" = filter('>0');
 
-            column(itemNo; "No.") { }
+            column(number; "No.") { }
             column(locationCode; "Location Code") { }
             column(qtyOnSalesOrder; "Outstanding Quantity")
             {

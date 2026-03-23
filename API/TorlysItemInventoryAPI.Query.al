@@ -13,7 +13,7 @@ query 56007 "Torlys Item Inventory API"
         {
             DataItemTableFilter = "Location Code" = filter('TOR|TMT|CAL');
 
-            column(itemNo; "Item No.") { }
+            column(number; "Item No.") { }
             column(locationCode; "Location Code") { }
             column(inventory; Quantity)
             {

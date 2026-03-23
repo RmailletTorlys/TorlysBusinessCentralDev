@@ -990,19 +990,19 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             {
                 Visible = true;
                 Caption = 'Customer History';
-                actionref("OpenSalesOrders"; "Open Sales Orders")
+                actionref(OpenSalesOrders; "Open Sales Orders")
                 {
                 }
-                actionref("PostedSalesInvoices"; "Posted Sales Invoices")
+                actionref(PostedSalesInvoices; "Posted Sales Invoices")
                 {
                 }
-                actionref("OpenCreditMemos"; "Open Credit Memos")
+                actionref(OpenCreditMemos; "Open Credit Memos")
                 {
                 }
-                actionref("OpenReturnOrders"; "Open Return Orders")
+                actionref(OpenReturnOrders; "Open Return Orders")
                 {
                 }
-                actionref("PostedCreditMemos"; "Posted Credit Memos")
+                actionref(PostedCreditMemos; "Posted Credit Memos")
                 {
                 }
             }

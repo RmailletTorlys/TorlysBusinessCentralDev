@@ -477,36 +477,9 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
 
     trigger OnAfterGetRecord()
     begin
-        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
         QuantityRemaining := Rec.Quantity - Rec."Quantity Linked";
     end;
-
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Purchase Line"; xRec: Record "Purchase Line"; var EditCasePallet: Boolean)
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityPallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToReceiveCase(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToReceivePallet(var Rec: Record "Purchase Line"; xRec: Record "Purchase Line")
-    // begin
-    // end;
 
     procedure CheckEditCasePallet(var Rec: Record "Purchase Line"): Boolean
     var

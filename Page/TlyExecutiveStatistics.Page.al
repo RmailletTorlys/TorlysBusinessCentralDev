@@ -265,6 +265,39 @@ page 51029 TlyExecutiveStatistics
                     }
                 }
             }
+            group(Invnetory)
+            {
+                Caption = 'Inventory Value';
+
+                field(InventOnHandNow; GetInventOnHandNow())
+                {
+                    ApplicationArea = All;
+                    Caption = 'Inventory $ - On Hand (Now)';
+                    ToolTip = 'Inventory $ - On Hand (Now)';
+                    Editable = false;
+                }
+                field(InventOnHandYearAgo; GetInventOnHandYearAgo())
+                {
+                    ApplicationArea = All;
+                    Caption = 'Inventory $ - On Hand (Year Ago)';
+                    ToolTip = 'Inventory $ - On Hand (Year Ago)';
+                    Editable = false;
+                }
+                field(InventInTransNow; GetInventInTransNow())
+                {
+                    ApplicationArea = All;
+                    Caption = 'Inventory $ - In Transit (Now)';
+                    ToolTip = 'Inventory $ - In Transit (Now)';
+                    Editable = false;
+                }
+                field(InventInTransYearAgo; GetInventInTransYearAgo())
+                {
+                    ApplicationArea = All;
+                    Caption = 'Inventory $ - In Transit (Year Ago)';
+                    ToolTip = 'Inventory $ - In Transit (Year Ago)';
+                    Editable = false;
+                }
+            }
         }
     }
     var
@@ -272,6 +305,8 @@ page 51029 TlyExecutiveStatistics
         COGSGLAcct: Code[20];
         FreightChargeGLAcct: Code[20];
         FreightCostGLAcct: Code[20];
+        InventOnHandGLAcct: Code[20];
+        InventInTransGLAcct: Code[20];
         CurrMTDStart: Date;
         CurrMTDEnd: Date;
         CurrMTD: Text[22];
@@ -308,6 +343,8 @@ page 51029 TlyExecutiveStatistics
         COGSGLAcct := '51100';
         FreightChargeGLAcct := '60700';
         FreightCostGLAcct := '60200';
+        InventOnHandGLAcct := '13100';
+        InventInTransGLAcct := '13500';
 
         // start of month to today - this year
         CurrMTDStart := CalcDate('<-CM>', WorkDate());
@@ -346,37 +383,37 @@ page 51029 TlyExecutiveStatistics
 
         // calculate margin - start
         if GetSalesCurrMTD <> 0 then
-            GetMarginCurrMTD := (GetSalesCurrMTD - GetCOGSCurrMTD) / GetSalesCurrMTD
+            GetMarginCurrMTD := ((GetSalesCurrMTD - GetCOGSCurrMTD) / GetSalesCurrMTD) * 100
         else
             GetMarginCurrMTD := 0;
 
         if GetSalesPrevMTD <> 0 then
-            GetMarginPrevMTD := (GetSalesPrevMTD - GetCOGSPrevMTD) / GetSalesPrevMTD
+            GetMarginPrevMTD := ((GetSalesPrevMTD - GetCOGSPrevMTD) / GetSalesPrevMTD) * 100
         else
             GetMarginPrevMTD := 0;
 
         if GetSalesPrevMTDEOM <> 0 then
-            GetMarginPrevMTDEOM := (GetSalesPrevMTDEOM - GetCOGSPrevMTDEOM) / GetSalesPrevMTDEOM
+            GetMarginPrevMTDEOM := ((GetSalesPrevMTDEOM - GetCOGSPrevMTDEOM) / GetSalesPrevMTDEOM) * 100
         else
             GetMarginPrevMTDEOM := 0;
 
         if GetSalesCurrYTD <> 0 then
-            GetMarginCurrYTD := (GetSalesCurrYTD - GetCOGSCurrYTD) / GetSalesCurrYTD
+            GetMarginCurrYTD := ((GetSalesCurrYTD - GetCOGSCurrYTD) / GetSalesCurrYTD) * 100
         else
             GetMarginCurrYTD := 0;
 
         if GetSalesPrevYTD <> 0 then
-            GetMarginPrevYTD := (GetSalesPrevYTD - GetCOGSPrevYTD) / GetSalesPrevYTD
+            GetMarginPrevYTD := ((GetSalesPrevYTD - GetCOGSPrevYTD) / GetSalesPrevYTD) * 100
         else
             GetMarginPrevYTD := 0;
 
         if GetSalesPrevYTDEOM <> 0 then
-            GetMarginPrevYTDEOM := (GetSalesPrevYTDEOM - GetCOGSPrevYTDEOM) / GetSalesPrevYTDEOM
+            GetMarginPrevYTDEOM := ((GetSalesPrevYTDEOM - GetCOGSPrevYTDEOM) / GetSalesPrevYTDEOM) * 100
         else
             GetMarginPrevYTDEOM := 0;
 
         if GetSalesPrevYTDEOY <> 0 then
-            GetMarginPrevYTDEOY := (GetSalesPrevYTDEOY - GetCOGSPrevYTDEOY) / GetSalesPrevYTDEOY
+            GetMarginPrevYTDEOY := ((GetSalesPrevYTDEOY - GetCOGSPrevYTDEOY) / GetSalesPrevYTDEOY) * 100
         else
             GetMarginPrevYTDEOM := 0;
         // calculate margin - end
@@ -399,7 +436,7 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", CurrMTDStart, CurrMTDEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 
     procedure GetSalesPrevMTD(): Decimal
@@ -419,7 +456,7 @@ page 51029 TlyExecutiveStatistics
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", PrevMTDStart, PrevMTDEnd);
         GLEntry.CalcSums(Amount);
-        exit(GLEntry.Amount * -1);
+        exit(GLEntry.Amount);
     end;
 
     procedure GetSalesPrevMTDEOM(): Decimal
@@ -518,6 +555,46 @@ page 51029 TlyExecutiveStatistics
     begin
         GLEntry.SetRange("G/L Account No.", COGSGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetInventOnHandNow(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", InventOnHandGLAcct);
+        GLEntry.SetRange("Posting Date", 0D, CurrMTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetInventInTransNow(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", InventInTransGLAcct);
+        GLEntry.SetRange("Posting Date", 0D, CurrMTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetInventOnHandYearAgo(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", InventOnHandGLAcct);
+        GLEntry.SetRange("Posting Date", 0D, PrevMTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetInventInTransYearAgo(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", InventInTransGLAcct);
+        GLEntry.SetRange("Posting Date", 0D, PrevMTDEnd);
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;

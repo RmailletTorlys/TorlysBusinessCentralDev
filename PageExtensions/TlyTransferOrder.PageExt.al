@@ -261,7 +261,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Image = Order;
                 Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Order Fullfillment") or (Rec."Transfer Type" = Rec."Transfer Type"::"Marketing");
                 RunObject = Page TlyJoinedSOtoTO;
-                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(> 0);
+                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(<> 0);
             }
             action("View and Fill Linked SO")
             {
@@ -271,7 +271,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Image = OrderTracking;
                 Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning") or (Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase");
                 RunObject = Page TlyLinkedSOtoTO;
-                RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(> 0);
+                RunPageLink = "Linked Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(<> 0);
             }
         }
 

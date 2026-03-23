@@ -409,6 +409,13 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
                 end;
             end;
         }
+        modify("Expected Receipt Date")
+        {
+            trigger OnAfterValidate()
+            begin
+                Rec."Previous ETA" := xRec."Expected Receipt Date"; //TLY-SD - 03/23/2026
+            end;
+        }
     }
 
     // [IntegrationEvent(false, false)]

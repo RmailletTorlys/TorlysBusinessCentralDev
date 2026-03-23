@@ -292,6 +292,15 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
                 Visible = true;
             }
 
+            field("Container No."; ContainerNo)
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
             field("Linked Transfer Order No."; Rec."Linked Transfer Order No.")
             {
                 Caption = 'Linked Transfer Order No.';
@@ -380,10 +389,12 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShippingInstructions: Text[20];
+        ContainerNo: Code[20];
 
     trigger OnAfterGetRecord()
     var
         SalesHeader: Record "Sales Header";
+        PurchLine: Record "Purchase Line";
     begin
         SalesHeader.Reset();
         if Rec."Document No." <> '' then begin
@@ -391,6 +402,17 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
             ShippingInstructions := SalesHeader."Shipping Instructions";
         end else begin
             ShippingInstructions := '';
+        end;
+
+        // pull Container # from PO line for linking and filling at receipt
+        // Rec.CalcFields(Rec."Container No.");
+        // ContainerNo := Rec."Container No."
+        PurchLine.Reset;
+        PurchLine.SetRange("Document No.", Rec."Linked Purchase Order No.");
+        PurchLine.SetRange("Line No.", Rec."Linked Purch. Order Line No.");
+        if PurchLine.Find('-') then begin
+            PurchLine.CalcFields(PurchLine."Container No.");
+            ContainerNo := PurchLine."Container No.";
         end;
     end;
 }

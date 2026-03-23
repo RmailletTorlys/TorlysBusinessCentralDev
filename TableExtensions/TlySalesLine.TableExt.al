@@ -359,6 +359,14 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
         }
+        field(50038; "Container No."; Code[20])
+        {
+            Caption = 'Container No.';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Purchase Line"."Container No." where("Document Type" = const(Order), "Document No." = field("Linked Purchase Order No."), "Line No." = field("Linked Purch. Order Line No.")));
+            Description = 'This is the flowfield from the purchase line.';
+        }
 
         modify("No.")
         {

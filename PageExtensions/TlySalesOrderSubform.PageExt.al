@@ -239,6 +239,15 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 Visible = true;
             }
 
+            field("Container No."; ContainerNo)
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
             field("Linked Transfer Order No."; Rec."Linked Transfer Order No.")
             {
                 Caption = 'Linked Transfer Order No.';
@@ -644,6 +653,15 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                     RunObject = Page "Posted Sales Credit Memo Lines";
                     RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "No." = field("No.");
                 }
+                action("Posted Sales Invoices MPO")
+                {
+                    Caption = 'Posted Sales Invoices MPO';
+                    ToolTip = 'View posted sales invoices for this customer and this item';
+                    ApplicationArea = All;
+                    Image = Invoice;
+                    RunObject = Page "Posted Sales Invoice Lines";
+                    RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "No." = field("No."), "Master Project Order No." = field("Document No.");
+                }
             }
             group(OrderJoining)
             {
@@ -839,6 +857,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         UserEditQTS: Boolean;
         EditQTS: Boolean;
         UnitCostEdit: Boolean;
+        ContainerNo: Code[20];
 
     trigger OnOpenPage()
     begin
@@ -847,23 +866,29 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         if UserSetup."SO Qty. to Ship Edit" then UserEditQTS := true;
     end;
 
-    // trigger OnAfterGetCurrRecord()
-    // begin
-    //     UserSetup.Get(UserId);
-    //     if UserSetup."SO Qty. to Ship Edit" then EditQTS := true;
-    // end;
-
     trigger OnAfterGetRecord()
     var
         Item: Record Item;
+        PurchLine: Record "Purchase Line";
     begin
-        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
         EditQTS := CheckEditQTS(Rec);
 
         if (Rec.Type = Rec.Type::Item) and (Rec."No." <> '') then begin
             Item.Get(Rec."No.");
             UnitCostEdit := Item."Allow SO Unit Cost Edit"
+        end;
+
+        // pull Container # from PO line for linking and filling at receipt
+        // Rec.CalcFields(Rec."Container No.");
+        // ContainerNo := Rec."Container No."''
+        PurchLine.Reset;
+        PurchLine.SetRange("Document No.", Rec."Linked Purchase Order No.");
+        PurchLine.SetRange("Line No.", Rec."Linked Purch. Order Line No.");
+        if PurchLine.Find('-') then begin
+            PurchLine.CalcFields(PurchLine."Container No.");
+            ContainerNo := PurchLine."Container No.";
+            // ContainerNo := Rec."Container No.";
         end;
     end;
 
@@ -874,31 +899,6 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
 
         UserModifiedUnitPrice := true;
     end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Sales Line"; xRec: Record "Sales Line"; var EditCasePallet: Boolean)
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToShipCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToShipPallet(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
-    // begin
-    // end;
 
     procedure CheckEditCasePallet(var SalesLine: Record "Sales Line"): Boolean
     var

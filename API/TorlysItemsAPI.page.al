@@ -318,6 +318,22 @@ page 56004 "Torlys Items API"
 
         if TORRec.Get(Rec."No.") then begin
             TORRec.SetFilter("Location Filter", 'TOR|TMT');
+            TORRec.CalcFields(
+                Inventory,
+                "Qty. on Sales Order (TOR)",
+                "Qty. to Ship",
+                "Qty. to Ship (Transfer)",
+                "Qty. in Transit",
+                "Qty. on Purch. Order"
+            );
+
+            TorQtyOnHand := TORRec.Inventory;
+            TorQtyOnSalesOrder := TORRec."Qty. on Sales Order";
+            TorQtyToShip := TORRec."Qty. to Ship";
+            TorQtyToShipTransfer := TORRec."Qty. to Ship (Transfer)";
+            TORQtyInTransitTransfer := TORRec."Qty. in Transit";
+            TorQtyOnSalesOrder := TORRec."Qty. on Sales Order";
+            TorNetAvailabled := TORRec.Inventory - TORRec."Qty. on Sales Order (TOR)" - TORRec."Qty. to Ship";
             TorQtyToShipTransfer := TORRec."Qty. to Ship (Transfer)";
             TorNetAvailabled := TORRec.Inventory - TORRec."Qty. to Ship" - TORRec."Qty. to Ship (Transfer)";
 
@@ -344,29 +360,45 @@ page 56004 "Torlys Items API"
             end;
         end;
 
-        CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
-        CALNetAvailabled := CALRec.Inventory - CALRec."Qty. to Ship" - CALRec."Qty. to Ship (Transfer)";
+        if CALRec.Get(Rec."No.") then begin
+            CALRec.SetFilter("Location Filter", 'CAL');
+            CALRec.CalcFields(
+                Inventory,
+                "Qty. on Sales Order (CAL)",
+                "Qty. to Ship",
+                "Qty. to Ship (Transfer)",
+                "Qty. in Transit",
+                "Qty. on Purch. Order"
+            );
 
-        if CALRec."Qty. in Transit" <> 0 then begin
-            CALRec.SetRange("Date Filter", BaseDate, BaseDate + 15);
-            CALRec.CalcFields("Qty. in Transit");
-            CAL_OnPo0_15 := CALRec."Qty. in Transit";
+            CALQtyOnHand := CALRec.Inventory;
+            CALQtyOnSalesOrder := CALRec."Qty. on Sales Order";
+            CALQtyToShip := CALRec."Qty. to Ship";
+            CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
+            CALNetAvailabled := CALRec.Inventory - CALRec."Qty. on Sales Order (CAL)" - CALRec."Qty. to Ship";
 
-            CALRec.SetRange("Date Filter", BaseDate + 16, BaseDate + 30);
-            CALRec.CalcFields("Qty. in Transit");
-            CAL_OnPo16_30 := CALRec."Qty. in Transit";
+            if CALRec."Qty. in Transit" <> 0 then begin
+                CALRec.SetRange("Date Filter", BaseDate, BaseDate + 15);
+                CALRec.CalcFields("Qty. in Transit");
+                CAL_OnPo0_15 := CALRec."Qty. in Transit";
 
-            CALRec.SetRange("Date Filter", BaseDate + 31, BaseDate + 60);
-            CALRec.CalcFields("Qty. in Transit");
-            CAL_OnPo31_60 := CALRec."Qty. in Transit";
+                CALRec.SetRange("Date Filter", BaseDate + 16, BaseDate + 30);
+                CALRec.CalcFields("Qty. in Transit");
+                CAL_OnPo16_30 := CALRec."Qty. in Transit";
 
-            CALRec.SetRange("Date Filter", BaseDate + 61, BaseDate + 90);
-            CALRec.CalcFields("Qty. in Transit");
-            CAL_OnPo61_90 := CALRec."Qty. in Transit";
+                CALRec.SetRange("Date Filter", BaseDate + 31, BaseDate + 60);
+                CALRec.CalcFields("Qty. in Transit");
+                CAL_OnPo31_60 := CALRec."Qty. in Transit";
 
-            CALRec.SetFilter("Date Filter", '>%1', BaseDate + 90);
-            CALRec.CalcFields("Qty. in Transit");
-            CAL_OnPo91_plus := CALRec."Qty. in Transit";
+                CALRec.SetRange("Date Filter", BaseDate + 61, BaseDate + 90);
+                CALRec.CalcFields("Qty. in Transit");
+                CAL_OnPo61_90 := CALRec."Qty. in Transit";
+
+                CALRec.SetFilter("Date Filter", '>%1', BaseDate + 90);
+                CALRec.CalcFields("Qty. in Transit");
+                CAL_OnPo91_plus := CALRec."Qty. in Transit";
+            end;
         end;
     end;
+
 }

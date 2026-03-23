@@ -413,6 +413,8 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
         if PurchLine.Find('-') then begin
             PurchLine.CalcFields(PurchLine."Container No.");
             ContainerNo := PurchLine."Container No.";
+        end else begin
+            ContainerNo := '';
         end;
     end;
 }

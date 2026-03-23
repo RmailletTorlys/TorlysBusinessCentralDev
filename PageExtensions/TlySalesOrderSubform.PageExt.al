@@ -889,6 +889,8 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
             PurchLine.CalcFields(PurchLine."Container No.");
             ContainerNo := PurchLine."Container No.";
             // ContainerNo := Rec."Container No.";
+        end else begin
+            ContainerNo := '';
         end;
     end;
 

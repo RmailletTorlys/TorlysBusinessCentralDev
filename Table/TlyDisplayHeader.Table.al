@@ -24,13 +24,19 @@ Table 51057 TlyDisplayHeader
             Caption = 'Location Address';
 
         }
-        field(5; "PowerUp"; Enum TlyClub)
+        field(5; "PowerUp"; Text[20])
         {
             Caption = 'Club';
             ToolTip = 'Specifies the Club that the customer is assigned to.';
             DataClassification = CustomerContent;
         }
-        field(6; "Power Up Level"; Enum TlyPowerUpLevel)
+        // field(6; "PowerUpLevel"; Enum TlyPowerUpLevel)
+        // {
+        //     Caption = 'Power Up Level';
+        //     ToolTip = 'Specifies the Power Up level that the customer is assigned to.';
+        //     DataClassification = CustomerContent;
+        // }
+        field(6; "PowerUpLevel"; Text[20])
         {
             Caption = 'Power Up Level';
             ToolTip = 'Specifies the Power Up level that the customer is assigned to.';

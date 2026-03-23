@@ -39,7 +39,7 @@ page 56007 "TlySalespersonPurchaser API"
                     Caption = 'Phone No.';
                 }
 
-                field(email; Rec.Email)
+                field(email; Rec."Search E-Mail")
                 {
                     Caption = 'Email';
                 }

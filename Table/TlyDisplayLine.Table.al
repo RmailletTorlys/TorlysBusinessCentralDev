@@ -4,19 +4,20 @@ Table 51058 TlyDisplayLine
     Caption = 'Display Line';
     DrillDownPageId = "Customer Display Subform";
     LookupPageId = "Customer Display Subform";
+
     Fields
     {
-        field(1; "LineNo."; Integer)
+        field(1; "Line No."; Integer)
         {
             Caption = 'Line No.';
 
         }
-        field(2; "CustNo."; Code[10])
+        field(2; "Customer No."; Code[10])
         {
             Caption = 'Customer No.';
 
         }
-        field(3; "CustLocationCode"; Code[10])
+        field(3; "Ship-to Code"; Code[10])
         {
             Caption = 'Customer Location';
 
@@ -42,12 +43,11 @@ Table 51058 TlyDisplayLine
 
     Keys
     {
-        key(Key1; "LineNo.", "CustNo.", CustLocationCode, "Display Type", "Item Category Code")
+        key(Key1; "Line No.", "Customer No.", "Ship-to Code", "Display Type", "Item Category Code")
         {
             Clustered = true;
         }
     }
-
 
     procedure PopulateDescription(DisplayRec: Record TlyDisplayLine)
     var
@@ -64,11 +64,10 @@ Table 51058 TlyDisplayLine
         DisplayLine: Record TlyDisplayLine;
         NextLineNo: Integer;
     begin
-        DisplayLine.SetRange("CustNo.", "CustNo");
-        DisplayLine.SetRange("CustLocationCode", LocationCode);
+        DisplayLine.SetRange("Customer No.", "CustNo");
+        DisplayLine.SetRange("Ship-to Code", LocationCode);
         if "DisplayLine".FindLast() then
-            NextLineNo := DisplayLine."LineNo.";
-
+            NextLineNo := DisplayLine."Line No.";
         NextLineNo += 10000;
         exit(NextLineNo);
     end;

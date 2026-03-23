@@ -4,74 +4,72 @@ Table 51057 TlyDisplayHeader
     Caption = 'Display Header';
     Fields
     {
-        field(1; "CustNo."; Code[10])
+        field(1; "Customer No."; Code[10])
         {
             Caption = 'Customer No.';
             TableRelation = Customer;
         }
-        field(2; "CustName"; Text[100])
+        field(2; "Customer Name"; Text[100])
         {
             Caption = 'Customer Name';
 
         }
-        field(3; "CustLocationCode"; Code[10])
+        field(3; "Ship-to Code"; Code[10])
         {
-            Caption = 'Location Code';
-            TableRelation = "Ship-to Address".Code where("Customer No." = field("CustNo."));
+            Caption = 'Ship-to Code';
+            TableRelation = "Ship-to Address".Code where("Customer No." = field("Customer No."));
         }
         field(4; "CustAddress"; Code[100])
         {
             Caption = 'Location Address';
 
         }
-        field(5; "PowerUp"; Text[20])
+        field(5; "Club"; Enum TlyClub)
         {
-            Caption = 'Power Up Member';
+            Caption = 'Club';
+            ToolTip = 'Specifies the Club that the customer is assigned to.';
+            DataClassification = CustomerContent;
         }
-        field(6; "PowerUpLevel"; Text[20])
+        field(6; "Power Up Level"; Enum TlyPowerUpLevel)
         {
             Caption = 'Power Up Level';
+            ToolTip = 'Specifies the Power Up level that the customer is assigned to.';
+            DataClassification = CustomerContent;
         }
-
-
     }
 
     Keys
     {
-        key(Key1; "CustNo.", "CustLocationCode")
+        key(Key1; "Customer No.", "Ship-to Code")
         {
             Clustered = true;
         }
     }
 
-    procedure GetDisplayHeaderInfo(DisplayHeaderRec: Record TlyDisplayHeader)
-    var
-        Customer: Record Customer;
+    // procedure GetDisplayHeaderInfo(DisplayHeaderRec: Record TlyDisplayHeader)
+    // var
+    //     Customer: Record Customer;
+    // begin
+    //     Rec := DisplayHeaderRec;
+    //     if Customer.Get(Rec."Customer No.") then begin
+    //         Customer.SetFilter("No.", Rec."Customer No.");
+    //         Customer.FindFirst();
+    //         Rec."Customer Name" := Customer.Name;
+    //         Rec.PowerUp := Format(Customer."CLUB");
+    //         Rec.PowerUpLevel := Format(Customer."Power Up Level");
+    //     end;
+    // end;
 
-    begin
-        Rec := DisplayHeaderRec;
-        if Customer.Get(Rec."CustNo.") then begin
-            Customer.SetFilter("No.", Rec."CustNo.");
-            Customer.FindFirst();
-            Rec.CustName := Customer.Name;
-            Rec.PowerUp := Format(Customer."CLUB");
-            Rec.PowerUpLevel := Format(Customer."Power Up Level");
-        end;
-    end;
-
-    procedure GetShipToAddressInfo(DisplayHeaderRec: Record TlyDisplayHeader)
-    var
-        ShipToAddress: Record "Ship-to Address";
-    begin
-        Rec := DisplayHeaderRec;
-        if ShipToAddress.Get(Rec."CustNo.", Rec."CustLocationCode") then begin
-            ShipToAddress.SetFilter("Customer No.", Rec."CustNo.");
-            ShipToAddress.SetFilter("Code", Rec."CustLocationCode");
-            ShipToAddress.FindFirst();
-            Rec.CustAddress := ShipToAddress.Address;
-        end;
-    end;
-
-
-
+    // procedure GetShipToAddressInfo(DisplayHeaderRec: Record TlyDisplayHeader)
+    // var
+    //     ShipToAddress: Record "Ship-to Address";
+    // begin
+    //     Rec := DisplayHeaderRec;
+    //     if ShipToAddress.Get(Rec."Customer No.", Rec."Ship-to Code") then begin
+    //         ShipToAddress.SetFilter("Customer No.", Rec."Customer No.");
+    //         ShipToAddress.SetFilter("Code", Rec."Ship-to Code");
+    //         ShipToAddress.FindFirst();
+    //         Rec.CustAddress := ShipToAddress.Address;
+    //     end;
+    // end;
 }

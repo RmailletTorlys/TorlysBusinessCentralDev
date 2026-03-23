@@ -862,7 +862,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Customer Displays';
                 Image = Database;
                 RunObject = Page TlyCustomerDisplayList;
-                RunPageLink = "CustNo." = field("No.");
+                RunPageLink = "Customer No." = field("No.");
                 ToolTip = 'View or edit customer display programs for this customer.';
             }
         }

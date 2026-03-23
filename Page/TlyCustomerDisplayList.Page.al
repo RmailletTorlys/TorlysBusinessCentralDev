@@ -4,7 +4,7 @@ Page 51023 TlyCustomerDisplayList
     UsageCategory = Lists;
     Caption = 'Customer Displays';
     PageType = List;
-    DataCaptionFields = CustLocationCode;
+    // DataCaptionFields = CustLocationCode;
     SourceTable = TlyDisplayHeader;
     CardPageId = "Customer Display Card";
     Editable = false;
@@ -17,12 +17,12 @@ Page 51023 TlyCustomerDisplayList
             repeater(General)
             {
 
-                field("Customer No."; Rec."CustNo.")
+                field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer number.';
                 }
-                field("Customer Location"; Rec."CustLocationCode")
+                field("Customer Location"; Rec."Ship-to Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer  code.';
@@ -34,12 +34,12 @@ Page 51023 TlyCustomerDisplayList
                     ToolTip = 'Specifies the customer address.';
                 }
 
-                field("Power Up Member"; Rec.PowerUp)
+                field("Power Up Member"; Rec.Club)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the PowerUp ID.';
                 }
-                field("Power Up Level"; Rec."PowerUpLevel")
+                field("Power Up Level"; Rec."Power Up Level")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the PowerUp ID.';

@@ -18,14 +18,14 @@ Page 51025 "Customer Display Subform"
         {
             repeater(DisplayLines)
             {
-                field("Customer No."; Rec."CustNo.")
+                field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer number.';
                     Visible = false;
                 }
 
-                field("Customer Location"; Rec."CustLocationCode")
+                field("Customer Location"; Rec."Ship-to Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer location code.';
@@ -41,7 +41,6 @@ Page 51025 "Customer Display Subform"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the program number.';
-
                     trigger OnValidate()
                     begin
                         Rec.PopulateDescription(Rec);

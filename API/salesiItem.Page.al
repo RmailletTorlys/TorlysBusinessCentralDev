@@ -173,13 +173,13 @@ Page 56103 salesiItem
     begin
 
         Rec.CalcFields(Rec.Inventory);
-        NetAvailable := Rec.Inventory;
+        NetAvailable := Rec.Inventory - Rec."Qty. to Ship" - Rec."Qty. to Ship (Transfer)";
 
 
         TORRec.Reset();
 
         if TORRec.Get(Rec."No.") then begin
-            TORRec.SetRange("Location Filter", 'TOR|TMT');
+            TORRec.SetFilter("Location Filter", 'TOR|TMT');
             TORRec.CalcFields(
                 Inventory,
                 "Qty. on Sales Order",
@@ -195,7 +195,7 @@ Page 56103 salesiItem
             TorQtyToShip := TORRec."Qty. to Ship";
             TorQtyToShipTransfer := TORRec."Qty. to Ship (Transfer)";
             TORQtyInTransitTransfer := TORRec."Qty. in Transit";
-            TorQtyOnPo := TORRec."Qty. on Purch. Order";
+            TorQtyOnPo := TORRec."Qty. in Transit";
 
 
             TorNetAvailabled := TorQtyOnHand - TorQtyToShip - TorQtyToShipTransfer;
@@ -204,7 +204,7 @@ Page 56103 salesiItem
 
         CALRec.Reset();
         if CALRec.Get(Rec."No.") then begin
-            CALRec.SetRange("Location Filter", 'CAL');
+            CALRec.SetFilter("Location Filter", 'CAL');
             CALRec.CalcFields(
                 Inventory,
                 "Qty. on Sales Order",
@@ -219,7 +219,7 @@ Page 56103 salesiItem
             CALQtyToShip := CALRec."Qty. to Ship";
             CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
             CALQtyInTransitTransfer := CALRec."Qty. in Transit";
-            CALQtyOnPo := CALRec."Qty. on Purch. Order";
+            CALQtyOnPo := CALRec."Qty. in Transit";
 
 
             CALNetAvailabled := CALQtyOnHand - CALQtyToShip - CALQtyToShipTransfer;

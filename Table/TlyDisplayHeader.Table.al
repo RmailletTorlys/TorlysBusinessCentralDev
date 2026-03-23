@@ -4,27 +4,27 @@ Table 51057 TlyDisplayHeader
     Caption = 'Display Header';
     Fields
     {
-        field(1; "Customer No."; Code[10])
+        field(1; "CustNo."; Code[10])
         {
             Caption = 'Customer No.';
             TableRelation = Customer;
         }
-        field(2; "Customer Name"; Text[100])
+        field(2; "CustName"; Text[100])
         {
             Caption = 'Customer Name';
 
         }
-        field(3; "Ship-to Code"; Code[10])
+        field(3; "CustLocationCode"; Code[10])
         {
             Caption = 'Ship-to Code';
-            TableRelation = "Ship-to Address".Code where("Customer No." = field("Customer No."));
+            TableRelation = "Ship-to Address".Code where("Customer No." = field("CustNo."));
         }
         field(4; "CustAddress"; Code[100])
         {
             Caption = 'Location Address';
 
         }
-        field(5; "Club"; Enum TlyClub)
+        field(5; "PowerUp"; Enum TlyClub)
         {
             Caption = 'Club';
             ToolTip = 'Specifies the Club that the customer is assigned to.';
@@ -40,7 +40,7 @@ Table 51057 TlyDisplayHeader
 
     Keys
     {
-        key(Key1; "Customer No.", "Ship-to Code")
+        key(Key1; "CustNo.", "CustLocationCode")
         {
             Clustered = true;
         }

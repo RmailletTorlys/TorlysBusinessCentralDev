@@ -853,24 +853,23 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
             }
         }
 
+        // addafter(ShipToAddresses)
+        // {
+        //     action(Displays)
+        //     {
+        //         ApplicationArea = Basic, Suite;
+        //         Caption = 'Customer Displays';
+        //         Image = Database;
+        //         RunObject = Page TlyCustomerDisplayList;
+        //         RunPageLink = "Customer No." = field("No.");
+        //         ToolTip = 'View or edit customer display programs for this customer.';
+        //     }
+        // }
 
-        addafter(ShipToAddresses)
-        {
-            action(Displays)
-            {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Customer Displays';
-                Image = Database;
-                RunObject = Page TlyCustomerDisplayList;
-                RunPageLink = "Customer No." = field("No.");
-                ToolTip = 'View or edit customer display programs for this customer.';
-            }
-        }
-
-        addafter(ShipToAddresses_Promoted)
-        {
-            actionref(Displays_Promoted; Displays) { }
-        }
+        // addafter(ShipToAddresses_Promoted)
+        // {
+        //     actionref(Displays_Promoted; Displays) { }
+        // }
 
         addfirst(Category_Report)
         {

@@ -286,65 +286,68 @@ page 56004 "Torlys Items API"
         BaseDate: Date;
 
 
-
-    trigger OnAfterGetCurrRecord()
+    trigger OnOpenPage()
     begin
-
-        Rec.CalcFields(Inventory);
         BaseDate := WorkDate();
+        Rec.SetAutoCalcFields(Inventory);
+    end;
+
+    trigger OnAfterGetRecord()
+    begin
+        // Reset variables to prevent carry-over from previous records
+        TorQtyOnHand := 0;
+        TorQtyOnSalesOrder := 0;
+        TorQtyToShipTransfer := 0;
+        TorNetAvailabled := 0;
+        TOR_OnPo0_15 := 0;
+        TOR_OnPo16_30 := 0;
+        TOR_OnPo31_60 := 0;
+        TOR_OnPo61_90 := 0;
+        TOR_OnPo91_plus := 0;
+
+        CALQtyOnHand := 0;
+        CALQtyOnSalesOrder := 0;
+        CALQtyToShipTransfer := 0;
+        CALNetAvailabled := 0;
+        CAL_OnPo0_15 := 0;
+        CAL_OnPo16_30 := 0;
+        CAL_OnPo31_60 := 0;
+        CAL_OnPo61_90 := 0;
+        CAL_OnPo91_plus := 0;
+
 
         if TORRec.Get(Rec."No.") then begin
             TORRec.SetFilter("Location Filter", 'TOR|TMT');
-            TORRec.CalcFields(
-                Inventory,
-                "Qty. to Ship",
-                "Qty. to Ship (Transfer)",
-                "Qty. in Transit",
-                "Qty. on Purch. Order"
-
-            );
-
-            TorQtyOnHand := TORRec.Inventory;
-            TorQtyOnSalesOrder := TORRec."Qty. to Ship";
             TorQtyToShipTransfer := TORRec."Qty. to Ship (Transfer)";
             TorNetAvailabled := TORRec.Inventory - TORRec."Qty. to Ship" - TORRec."Qty. to Ship (Transfer)";
-            TORRec.SetRange("Date Filter", BaseDate, BaseDate + 15);
-            TORRec.CalcFields("Qty. in Transit");
-            TOR_OnPo0_15 := TORRec."Qty. in Transit";
 
-            TORRec.SetRange("Date Filter", BaseDate + 16, BaseDate + 30);
-            TORRec.CalcFields("Qty. in Transit");
-            TOR_OnPo16_30 := TORRec."Qty. in Transit";
+            if TORRec."Qty. in Transit" <> 0 then begin
+                TORRec.SetRange("Date Filter", BaseDate, BaseDate + 15);
+                TORRec.CalcFields("Qty. in Transit");
+                TOR_OnPo0_15 := TORRec."Qty. in Transit";
 
+                TORRec.SetRange("Date Filter", BaseDate + 16, BaseDate + 30);
+                TORRec.CalcFields("Qty. in Transit");
+                TOR_OnPo16_30 := TORRec."Qty. in Transit";
 
-            TORRec.SetRange("Date Filter", BaseDate + 31, BaseDate + 60);
-            TORRec.CalcFields("Qty. in Transit");
-            TOR_OnPo31_60 := TORRec."Qty. in Transit";
+                TORRec.SetRange("Date Filter", BaseDate + 31, BaseDate + 60);
+                TORRec.CalcFields("Qty. in Transit");
+                TOR_OnPo31_60 := TORRec."Qty. in Transit";
 
-            TORRec.SetRange("Date Filter", BaseDate + 61, BaseDate + 90);
-            TORRec.CalcFields("Qty. in Transit");
-            TOR_OnPo61_90 := TORRec."Qty. in Transit";
+                TORRec.SetRange("Date Filter", BaseDate + 61, BaseDate + 90);
+                TORRec.CalcFields("Qty. in Transit");
+                TOR_OnPo61_90 := TORRec."Qty. in Transit";
 
-            TORRec.SetFilter("Date Filter", '>%1', BaseDate + 90);
-            TORRec.CalcFields("Qty. in Transit");
-            TOR_OnPo91_plus := TORRec."Qty. in Transit";
+                TORRec.SetFilter("Date Filter", '>%1', BaseDate + 90);
+                TORRec.CalcFields("Qty. in Transit");
+                TOR_OnPo91_plus := TORRec."Qty. in Transit";
+            end;
         end;
 
+        CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
+        CALNetAvailabled := CALRec.Inventory - CALRec."Qty. to Ship" - CALRec."Qty. to Ship (Transfer)";
 
-        if CALRec.Get(Rec."No.") then begin
-            CALRec.SetFilter("Location Filter", 'CAL');
-            CALRec.CalcFields(
-                Inventory,
-                "Qty. to Ship",
-                "Qty. to Ship (Transfer)",
-                "Qty. in Transit",
-                "Qty. on Purch. Order"
-            );
-
-            CALQtyOnHand := CALRec.Inventory;
-            CALQtyOnSalesOrder := CALRec."Qty. to Ship";
-            CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
-            CALNetAvailabled := CALRec.Inventory - CALRec."Qty. to Ship" - CALRec."Qty. to Ship (Transfer)";
+        if CALRec."Qty. in Transit" <> 0 then begin
             CALRec.SetRange("Date Filter", BaseDate, BaseDate + 15);
             CALRec.CalcFields("Qty. in Transit");
             CAL_OnPo0_15 := CALRec."Qty. in Transit";
@@ -352,7 +355,6 @@ page 56004 "Torlys Items API"
             CALRec.SetRange("Date Filter", BaseDate + 16, BaseDate + 30);
             CALRec.CalcFields("Qty. in Transit");
             CAL_OnPo16_30 := CALRec."Qty. in Transit";
-
 
             CALRec.SetRange("Date Filter", BaseDate + 31, BaseDate + 60);
             CALRec.CalcFields("Qty. in Transit");
@@ -367,5 +369,4 @@ page 56004 "Torlys Items API"
             CAL_OnPo91_plus := CALRec."Qty. in Transit";
         end;
     end;
-
 }

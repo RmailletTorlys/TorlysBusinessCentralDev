@@ -33,5 +33,37 @@ tableextension 51641 TlyNTNRelatedItem extends "NTN Related Item"
             DataClassification = CustomerContent;
             OptionMembers = " ",A,B,C,D;
         }
+
+        field(50010; "Item - Web Enabled"; Boolean)
+        {
+            Caption = 'Item - Web Enabled';
+            ToolTip = 'Item - Web Enabled';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."NTN Web Enabled" where("No." = field("No.")));
+        }
+
+        field(50011; "Item - Discontinued Item"; Boolean)
+        {
+            Caption = 'Item - Discontinued Item';
+            ToolTip = 'Item - Discontinued Item';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Discontinued Item" where("No." = field("No.")));
+        }
+
+        field(50020; "Related - Web Enabled"; Boolean)
+        {
+            Caption = 'Related - Web Enabled';
+            ToolTip = 'Related - Web Enabled';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."NTN Web Enabled" where("No." = field("Related Item No.")));
+        }
+
+        field(50021; "Related - Discontinued Item"; Boolean)
+        {
+            Caption = 'Related - Discontinued Item';
+            ToolTip = 'Related - Discontinued Item';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Discontinued Item" where("No." = field("Related Item No.")));
+        }
     }
 }

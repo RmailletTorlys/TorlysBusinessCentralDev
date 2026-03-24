@@ -483,7 +483,6 @@ tableextension 50027 TlyItem extends Item
             Description = 'TLY-SD - 03/06/2026 - requested by JK';
         }
     }
-
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var
         Dimension: Record "Default Dimension";

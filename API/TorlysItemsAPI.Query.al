@@ -20,6 +20,7 @@ query 56005 "Torlys Items API"
             column(sunsetItem; "Sunset Item") { }
             column(discontinuedItem; "Discontinued Item") { }
             column(newItem; "New Item") { }
+            column(unitPrice; "Unit Price") { }
             column(clearanceItem; "Clearance Item") { }
             column(onHandTOR; "Qty. on Hand (TOR)") { }
             column(onHandTMT; "Qty. on Hand (TMT)") { }

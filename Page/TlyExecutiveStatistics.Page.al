@@ -21,11 +21,12 @@ page 51029 TlyExecutiveStatistics
         {
             group(Month)
             {
-                Caption = 'Month';
+                Caption = 'Sales by Month';
                 grid(Months)
                 {
-                    group("Current MTD")
+                    group(CurrentMTD1)
                     {
+                        Caption = 'Current MTD';
                         field(CurrMTD; CurrMTD)
                         {
                             ApplicationArea = All;
@@ -57,8 +58,9 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group("Previous MTD")
+                    group(PreviousMTD1)
                     {
+                        Caption = 'Previous MTD';
                         field(PrevMTD; PrevMTD)
                         {
                             ApplicationArea = All;
@@ -90,8 +92,9 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group("EOM Previous Year")
+                    group(EOMPreviousYear1)
                     {
+                        Caption = 'EOM Previous Year';
                         field(PrevMTDEOM; PrevMTDEOM)
                         {
                             ApplicationArea = All;
@@ -127,11 +130,12 @@ page 51029 TlyExecutiveStatistics
             }
             group(Year)
             {
-                Caption = 'Year';
+                Caption = 'Sales by Year';
                 grid(Years)
                 {
-                    group("Current YTD")
+                    group(CurrentYTD1)
                     {
+                        Caption = 'Current YTD';
                         field(CurrYTD; CurrYTD)
                         {
                             ApplicationArea = All;
@@ -163,8 +167,9 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group("Previous YTD")
+                    group(PreviousYTD1)
                     {
+                        Caption = 'Previous YTD';
                         field(PrevYTD; PrevYTD)
                         {
                             ApplicationArea = All;
@@ -197,8 +202,9 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group("EOM Previous Year1")
+                    group(EOMPreviousYear2)
                     {
+                        Caption = 'EOM Previous Year';
                         field(PrevYTDEOM; PrevYTDEOM)
                         {
                             ApplicationArea = All;
@@ -230,8 +236,9 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group("EOY Previous Year")
+                    group(EOYPreviousYear1)
                     {
+                        Caption = 'EOY Previous Year';
                         field(PrevYTDEOY; PrevYTDEOY)
                         {
                             ApplicationArea = All;
@@ -268,7 +275,6 @@ page 51029 TlyExecutiveStatistics
             group(Invnetory)
             {
                 Caption = 'Inventory Value';
-
                 field(InventOnHandNow; GetInventOnHandNow())
                 {
                     ApplicationArea = All;

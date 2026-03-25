@@ -548,11 +548,15 @@ tableextension 50037 TlySalesLine extends "Sales Line"
 
     trigger OnBeforeDelete()
     var
-        AllowChange: Boolean;
+        TransferLine: Record "Transfer Line";
     begin
-        // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted
+        // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted, but if transfer doesn't exist allow to delete
         if Rec."Transfer Order No." <> '' then begin
-            Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+            TransferLine.Reset();
+            TransferLine.SetRange("Document No.", "Transfer Order No.");
+            TransferLine.SetRange("Line No.", "Transfer Order Line No.");
+            if TransferLine.Find('-') then
+                Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
         end;
     end;
 

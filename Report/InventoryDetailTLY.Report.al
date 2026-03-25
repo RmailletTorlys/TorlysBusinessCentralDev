@@ -11,7 +11,7 @@ report 50024 "Inventory Detail TLY"
         dataitem(Item; Item)
         {
             DataItemTableView = sorting("Gen. Prod. Posting Group");
-            RequestFilterFields = "No.", "Gen. Prod. Posting Group", "Location Filter";
+            RequestFilterFields = "No.", "Gen. Prod. Posting Group", "Item Category Code", "Location Filter";
 
             column(Gen__Prod__Posting_Group; "Gen. Prod. Posting Group")
             {

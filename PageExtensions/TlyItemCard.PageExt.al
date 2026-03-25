@@ -616,6 +616,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             { }
             actionref(BinContent_Promoted; BinContent)
             { }
+            actionref(Turnover_Promoted; ItemTurnover)
+            { }
         }
 
         addafter(ApplyTemplate)
@@ -664,6 +666,14 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Image = BinContent;
                 RunObject = Page "Bin Content";
                 RunPageLink = "Item No." = field("No.");
+            }
+            action(ItemTurnover)
+            {
+                Caption = 'Item Turnover';
+                ToolTip = 'View a detailed account of item turnover by periods after you have set the relevant filters for location and variant.';
+                ApplicationArea = All;
+                Image = "Report";
+                RunObject = Report "Item Turnover";
             }
         }
     }

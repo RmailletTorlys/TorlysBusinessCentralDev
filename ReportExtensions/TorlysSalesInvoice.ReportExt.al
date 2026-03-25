@@ -181,6 +181,11 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             end;
         }
     }
+    trigger OnPreReport()
+    begin
+        HideLinesWithZeroQuantity := True;
+    end;
+
 
     var
         ItemNoTemp: Record Item;

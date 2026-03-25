@@ -194,6 +194,18 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
         }
     }
 
+    // views
+    // {
+    //     addlast
+    //     {
+    //         view(ReturnedNotInvoiced)
+    //         {
+    //             Caption = 'Returned Not Invoiced';
+    //             Filters = where(qty = filter('Yes'));
+    //         }
+    //         }
+    // }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 

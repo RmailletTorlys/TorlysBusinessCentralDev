@@ -56,5 +56,10 @@ tableextension 55744 TlyTransferShipmentHeader extends "Transfer Shipment Header
             DataClassification = CustomerContent;
             TableRelation = TlyBookingInfo;
         }
+        modify("TPS CMG Container No.")
+        {
+            TableRelation = "TPS CMG Container Header";
+            Description = 'TLY-SD - 03/25/2026 - will create a container for transfers, so need to validate against that table';
+        }
     }
 }

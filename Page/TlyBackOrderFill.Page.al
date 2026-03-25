@@ -133,7 +133,7 @@ page 50563 TlyBackOrderFill
                     Caption = 'Quantity';
                     ToolTip = 'Quantity';
                     Editable = false;
-                    StyleExpr = StyleExprTxt;
+                    // StyleExpr = StyleExprTxt;
                 }
                 // field("Quantity Case"; Rec."Quantity Case")
                 // {
@@ -266,7 +266,7 @@ page 50563 TlyBackOrderFill
 
     trigger OnModifyRecord(): Boolean
     begin
-        if Rec."Qty. to Ship" <> Rec.Quantity then
+        if Rec."Qty. to Ship" <> Rec."Outstanding Quantity" then
             StyleExprTxt := 'Unfavorable'
         else
             StyleExprTxt := '';

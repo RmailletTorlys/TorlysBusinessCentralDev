@@ -669,11 +669,17 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
             action(ItemTurnover)
             {
-                Caption = 'Item Turnover';
+                ApplicationArea = Suite;
+                Caption = 'T&urnover';
+                Image = Turnover;
+                RunObject = Page "Item Turnover";
+                RunPageLink = "No." = field("No."),
+                                      "Global Dimension 1 Filter" = field("Global Dimension 1 Filter"),
+                                      "Global Dimension 2 Filter" = field("Global Dimension 2 Filter"),
+                                      "Location Filter" = field("Location Filter"),
+                                      "Drop Shipment Filter" = field("Drop Shipment Filter"),
+                                      "Variant Filter" = field("Variant Filter");
                 ToolTip = 'View a detailed account of item turnover by periods after you have set the relevant filters for location and variant.';
-                ApplicationArea = All;
-                Image = "Report";
-                RunObject = Report "Item Turnover";
             }
         }
     }

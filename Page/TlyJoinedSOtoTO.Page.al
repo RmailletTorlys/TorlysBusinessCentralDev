@@ -70,7 +70,7 @@ page 50557 TlyJoinedSOtoTO
                     Caption = 'Quantity';
                     ToolTip = 'Quantity';
                     Editable = false;
-                    StyleExpr = StyleExprTxt;
+                    // StyleExpr = StyleExprTxt;
                 }
 
                 field("Quantity Case"; Rec."Quantity Case")
@@ -86,6 +86,14 @@ page 50557 TlyJoinedSOtoTO
                     Caption = 'Quantity Pallet';
                     ToolTip = 'Quantity Pallet';
                     Editable = false;
+                }
+                field("Outstanding Quantity"; Rec."Outstanding Quantity")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Outstanding Quantity';
+                    ToolTip = 'Outstanding Quantity';
+                    Editable = false;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Qty. to Ship"; Rec."Qty. to Ship")
@@ -193,7 +201,7 @@ page 50557 TlyJoinedSOtoTO
 
     trigger OnModifyRecord(): Boolean
     begin
-        if Rec."Qty. to Ship" <> Rec.Quantity then
+        if Rec."Qty. to Ship" <> Rec."Outstanding Quantity" then
             StyleExprTxt := 'Unfavorable'
         else
             StyleExprTxt := '';

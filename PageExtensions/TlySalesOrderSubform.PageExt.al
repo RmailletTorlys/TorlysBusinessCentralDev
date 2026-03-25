@@ -727,6 +727,28 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                             until SelectedLines.Next() = 0;
                     end;
                 }
+                action("Delete Line From Transfer Order")
+                {
+                    ToolTip = 'Delete Line From Transfer Order';
+                    Caption = 'Delete Line From Transfer Order';
+                    Image = RemoveLine;
+                    ApplicationArea = All;
+                    Visible = (Rec."Transfer Order No." <> '');
+                    trigger OnAction()
+                    var
+                        TransferLine: Record "Transfer Line";
+                    begin
+                        if Rec."Transfer Order No." = '' then
+                            Error('ERROR!\This line is not joined to a transfer order')
+                        else begin
+                            TransferLine.Reset();
+                            TransferLine.SetRange("Document No.", Rec."Transfer Order No.");
+                            TransferLine.SetRange("Line No.", Rec."Transfer Order Line No.");
+                            if TransferLine.Find('-') then
+                                TransferLine.Delete(true);
+                        end;
+                    end;
+                }
                 separator("Separator2")
                 {
                 }

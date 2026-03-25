@@ -236,6 +236,16 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
         }
+
+        // 50038??????????
+
+        field(50039; "Reason Code"; Code[10])
+        {
+            Caption = 'Reason Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Reason Code" where("No." = field("Document No.")));
+        }
     }
 
 

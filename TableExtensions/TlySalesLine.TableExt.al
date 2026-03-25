@@ -367,6 +367,13 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             CalcFormula = lookup("Purchase Line"."Container No." where("Document Type" = const(Order), "Document No." = field("Linked Purchase Order No."), "Line No." = field("Linked Purch. Order Line No.")));
             Description = 'This is the flowfield from the purchase line.';
         }
+        field(50039; "Reason Code"; Code[10])
+        {
+            Caption = 'Reason Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Reason Code" where("No." = field("Document No.")));
+        }
 
         modify("No.")
         {
@@ -553,10 +560,10 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted, but if transfer doesn't exist allow to delete
         if Rec."Transfer Order No." <> '' then begin
             TransferLine.Reset();
-            TransferLine.SetRange("Document No.", "Transfer Order No.");
-            TransferLine.SetRange("Line No.", "Transfer Order Line No.");
+            TransferLine.SetRange("Document No.", Rec."Transfer Order No.");
+            TransferLine.SetRange("Line No.", Rec."Transfer Order Line No.");
             if TransferLine.Find('-') then
-                Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+                Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4. Please break the join first.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
         end;
     end;
 

@@ -16,6 +16,7 @@ query 56005 "Torlys Items API"
             column(number; "No.") { }
             column(displayName; Description) { }
             column(itemCategoryCode; "Item Category Code") { }
+            column(salesPriceCode; "Sales Price Code") { }
             column(currentItem; "Current Item") { }
             column(sunsetItem; "Sunset Item") { }
             column(discontinuedItem; "Discontinued Item") { }

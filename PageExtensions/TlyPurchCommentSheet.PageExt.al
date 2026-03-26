@@ -10,9 +10,16 @@ pageextension 50068 TlyPurchCommentSheet extends "Purch. Comment Sheet"
                 ToolTip = 'Created By';
                 ApplicationArea = All;
             }
+            field("Entered By"; Rec."Entered By")
+            {
+                Caption = 'Entered By';
+                ToolTip = 'Entered By';
+                ApplicationArea = All;
+                Editable = false;
+            }
         }
 
-        moveafter("Created By"; Comment)
+        moveafter("Entered By"; Comment)
 
         addafter(Comment)
         {

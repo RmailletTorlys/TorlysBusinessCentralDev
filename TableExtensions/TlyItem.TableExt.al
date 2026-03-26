@@ -6,12 +6,30 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'New Item';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "New Item" = true then
+                    if "Current Item" = true then
+                        Error('Item cannot be NEW and CURRENT')
+                    else if "Sunset Item" = true then
+                        Error('Item cannot be NEW and SUNSET')
+                    else if "Discontinued Item" = true then Error('Item cannot be NEW and DISCONTINUED')
+            end;
         }
 
         field(50002; "Current Item"; Boolean)
         {
             Caption = 'Current Item';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "Current Item" = true then
+                    if "New Item" = true then
+                        Error('Item cannot be CURRENT and NEW')
+                    else if "Sunset Item" = true then
+                        Error('Item cannot be CURRENT and SUNSET')
+                    else if "Discontinued Item" = true then Error('Item cannot be CURRENT and DISCONTINUED');
+            end;
         }
 
         field(50003; "Special Item"; Boolean)
@@ -30,6 +48,18 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Discontinued Item';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "Discontinued Item" = true then
+                    if "New Item" = true then
+                        Error('Item cannot be DISCONTINUED and NEW')
+                    else if "Current Item" = true then
+                        Error('Item cannot be DISCONTINUED and CURRENT')
+                    else if "Sunset Item" = true then Error('Item cannot be DISCONTINUED and SUNSET');
+
+                if ("Discontinued Item" = false) and (CopyStr("No.", 1, 2) = 'Z-') then
+                    Error('If this sku is no longer DISCONTINUED, you must un-Z it!');
+            end;
         }
 
         field(50006; "Discontinued Date"; Date)
@@ -54,6 +84,15 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Sunset Item';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "Sunset Item" = true then
+                    if "New Item" = true then
+                        Error('Item cannot be SUNSET and NEW')
+                    else if "Current Item" = true then
+                        Error('Item cannot be SUNSET and CURRENT')
+                    else if "Discontinued Item" = true then Error('Item cannot be SUNSET and DISCONTINUED')
+            end;
         }
 
         field(50011; "Sunset Date"; Date)
@@ -483,6 +522,15 @@ tableextension 50027 TlyItem extends Item
             Description = 'TLY-SD - 03/06/2026 - requested by JK';
         }
     }
+
+    trigger OnBeforeRename()
+    begin
+        if (CopyStr("No.", 1, 2) = 'Z-') and (Rec."Discontinued Item" = false) then
+            Error('You cannot Z out a sku until it is marked DISCONTINUED!');
+        if (CopyStr("No.", 1, 2) = 'Z-') and (Rec."NTN Web Enabled" = true) then
+            Error('You cannot Z out a sku until it is not WEB ENABLED!');
+    end;
+
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var
         Dimension: Record "Default Dimension";
@@ -515,13 +563,6 @@ tableextension 50027 TlyItem extends Item
             until Dimension.Next() = 0;
     end;
 
-    // procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
-    // var
-    //     DimMgt: Codeunit "DimensionManagement";
-    // begin
-    //     DimMgt.defa("")("Dimension Set ID", ShortcutDimCode);
-    // end;
-
     local procedure ClearShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var
         i: Integer;
@@ -529,13 +570,4 @@ tableextension 50027 TlyItem extends Item
         for i := 1 to 8 do
             ShortcutDimCode[i] := '';
     end;
-
-
 }
-
-
-/*
-
-·         Qty. to Receive (transfer) (Decimal, CalcFormula=”Transfer Line”.”Qty. to Receive (Base)”)
-
-*/

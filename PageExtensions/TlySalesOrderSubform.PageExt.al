@@ -458,6 +458,10 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         {
             Visible = false;
         }
+        modify("Line Amount")
+        {
+            Editable = false;
+        }
 
         modify("Invoice Discount Amount")
         {

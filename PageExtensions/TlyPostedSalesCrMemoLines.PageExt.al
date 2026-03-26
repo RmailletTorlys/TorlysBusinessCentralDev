@@ -1,4 +1,4 @@
-pageextension 50526 TlyPostedSalesInvLines extends "Posted Sales Invoice Lines"
+pageextension 50527 TlyPostedSalesCrMemoLines extends "Posted Sales Credit Memo Lines"
 {
     layout
     {
@@ -26,6 +26,30 @@ pageextension 50526 TlyPostedSalesInvLines extends "Posted Sales Invoice Lines"
             {
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Reason Code"; Rec."Reason Code")
+            {
+                Caption = 'Reason Code';
+                ToolTip = 'Reason Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Original Invoice No."; OriginalInvoiceNo)
+            {
+                Caption = 'Original Invoice No.';
+                ToolTip = 'Original Invoice No.';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Rebill Invoice No."; RebillInvoiceNo)
+            {
+                Caption = 'Rebill Invoice No.';
+                ToolTip = 'Rebill Invoice No.';
                 ApplicationArea = All;
                 Editable = false;
                 Visible = true;
@@ -152,41 +176,6 @@ pageextension 50526 TlyPostedSalesInvLines extends "Posted Sales Invoice Lines"
                 ApplicationArea = All;
                 Visible = true;
             }
-            field("Builder Description"; Rec."Builder Description")
-            {
-                Caption = 'Builder Description';
-                ToolTip = 'Builder Description';
-                ApplicationArea = All;
-                Visible = true;
-            }
-            field("Master Project Order No."; Rec."Master Project Order No.")
-            {
-                Caption = 'Master Project Order No.';
-                ToolTip = 'Master Project Order No.';
-                ApplicationArea = All;
-                Visible = true;
-            }
-            field("Master Project Order Line No."; Rec."Master Project Order Line No.")
-            {
-                Caption = 'Master Project Order Line No.';
-                ToolTip = 'Master Project Order Line No.';
-                ApplicationArea = All;
-                Visible = true;
-            }
-            field("Purchasing Code"; Rec."Purchasing Code")
-            {
-                Caption = 'Purchasing Code';
-                ToolTip = 'Purchasing Code';
-                ApplicationArea = All;
-                Visible = true;
-            }
-            field("Drop Shipment"; Rec."Drop Shipment")
-            {
-                Caption = 'Drop Shipment';
-                ToolTip = 'Drop Shipment';
-                ApplicationArea = All;
-                Visible = true;
-            }
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';
@@ -233,4 +222,21 @@ pageextension 50526 TlyPostedSalesInvLines extends "Posted Sales Invoice Lines"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        OriginalInvoiceNo: Code[20];
+        RebillInvoiceNo: Code[20];
+
+    trigger OnAfterGetRecord()
+    var
+        SalesCrHeader: Record "Sales Cr.Memo Header";
+    begin
+        SalesCrHeader.Reset();
+        if Rec."Document No." <> '' then begin
+            SalesCrHeader.Get(Rec."Document No.");
+            OriginalInvoiceNo := SalesCrHeader."Original Invoice No.";
+            RebillInvoiceNo := SalesCrHeader."Rebill Invoice No.";
+        end else begin
+            OriginalInvoiceNo := '';
+            RebillInvoiceNo := '';
+        end;
+    end;
 }

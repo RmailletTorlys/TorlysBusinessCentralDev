@@ -5,6 +5,7 @@ page 51025 TlyCustomerDisplays
     PageType = List;
     RefreshOnActivate = true;
     ShowFilter = false;
+    // SourceTable = TlyDisplays;
     SourceTable = TlyCustomerDisplays;
     SourceTableView = sorting("Customer No.", "Ship-to Code", "Item Category Code") order(ascending);
     UsageCategory = Administration;

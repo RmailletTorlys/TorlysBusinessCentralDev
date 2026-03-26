@@ -27,9 +27,9 @@ page 51029 TlyExecutiveStatistics
             group(SalesMonth)
             {
                 Caption = 'Sales by Month';
-                grid(Months)
+                grid(SalesMonth1)
                 {
-                    group(SalesCurrentMTD1)
+                    group(SalesMonthCurrentMTD)
                     {
                         Caption = 'Current MTD';
                         field(DateCurrMTD; CurrMTD)
@@ -63,10 +63,11 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group(SalesPreviousMTD1)
+                    group(SalesMonthPreviousMTD)
                     {
                         Caption = 'Previous MTD';
-                        field(DatePrevMTD1; PrevMTD)
+                        Visible = false;
+                        field(DatePrevMTD; PrevMTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Previous MTD';
@@ -97,7 +98,7 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group(SalesEOMPreviousYear1)
+                    group(SalesMonthEOMPreviousYear)
                     {
                         Caption = 'EOM Previous Year';
                         field(DatePrevMTDEOM; PrevMTDEOM)
@@ -136,9 +137,9 @@ page 51029 TlyExecutiveStatistics
             group(SalesYear)
             {
                 Caption = 'Sales by Year';
-                grid(Years)
+                grid(SalesYear1)
                 {
-                    group(SalesCurrentYTD1)
+                    group(SalesYearCurrentYTD)
                     {
                         Caption = 'Current YTD';
                         field(DateCurrYTD; CurrYTD)
@@ -172,9 +173,10 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group(SalesPreviousYTD1)
+                    group(SalesYearPreviousYTD)
                     {
                         Caption = 'Previous YTD';
+                        Visible = false;
                         field(DatePrevYTD; PrevYTD)
                         {
                             ApplicationArea = All;
@@ -183,7 +185,6 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                             ShowCaption = false;
                             RowSpan = 2;
-
                         }
                         field(SalesPrevYTD; GetSalesPrevYTD)
                         {
@@ -207,7 +208,7 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group(SalesEOMPreviousYear2)
+                    group(SalesYearEOMPreviousYear)
                     {
                         Caption = 'EOM Previous Year';
                         field(DatePrevYTDEOM; PrevYTDEOM)
@@ -241,7 +242,7 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group(SalesEOYPreviousYear1)
+                    group(SalesYearEOYPreviousYear)
                     {
                         Caption = 'EOY Previous Year';
                         field(DatePrevYTDEOY; PrevYTDEOY)
@@ -280,12 +281,12 @@ page 51029 TlyExecutiveStatistics
             group(FreightMonth)
             {
                 Caption = 'Freight by Month';
-                grid(FreightMonths)
+                grid(FreightMonth1)
                 {
-                    group(CurrentMTD2)
+                    group(FreightMonthCurrentMTD)
                     {
                         Caption = 'Current MTD';
-                        field(CurrMTD1; CurrMTD)
+                        field(DateCurrMTD1; CurrMTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Current MTD';
@@ -309,10 +310,11 @@ page 51029 TlyExecutiveStatistics
                             Editable = false;
                         }
                     }
-                    group(FreightPrevMTD1)
+                    group(FreightMonthPreviousMTD)
                     {
                         Caption = 'Previous MTD';
-                        field(DatePrevMTD; PrevMTD)
+                        Visible = false;
+                        field(DatePrevMTD1; PrevMTD)
                         {
                             ApplicationArea = All;
                             Caption = 'Previous MTD';
@@ -333,6 +335,149 @@ page 51029 TlyExecutiveStatistics
                             ApplicationArea = All;
                             Caption = 'Margin $';
                             ToolTip = 'Margin $';
+                            Editable = false;
+                        }
+                    }
+                    group(FreightMonthEOMPreviousYear)
+                    {
+                        Caption = 'EOM Previous Year';
+                        field(DatePrevMTDEOM1; PrevMTDEOM)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Previous MTD EOM';
+                            ToolTip = 'Previous MTD EOM';
+                            Editable = false;
+                            ShowCaption = false;
+                            RowSpan = 2;
+                        }
+                        field(FreightChargePrevMTDEOM; GetFreightChargePrevMTDEOM)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Charge $';
+                            ToolTip = 'Charge $';
+                            Editable = false;
+                        }
+                        field(FreightCostPrevMTDEOM; GetFreightCostPrevMTDEOM)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Cost $';
+                            ToolTip = 'Cost $';
+                            Editable = false;
+                        }
+                    }
+                }
+            }
+            group(FreightYear)
+            {
+                Caption = 'Freight by Year';
+                grid(FreightYear1)
+                {
+                    group(FreightYearCurrentYTD)
+                    {
+                        Caption = 'Current YTD';
+                        field(DateCurrYTD1; CurrYTD)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Current YTD';
+                            ToolTip = 'Current YTD';
+                            Editable = false;
+                            ShowCaption = false;
+                            RowSpan = 2;
+                        }
+                        field(FreightChargeCurrYTD; GetFreightChargeCurrYTD)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Charge $';
+                            ToolTip = 'Charge $';
+                            Editable = false;
+                        }
+                        field(FreightCostCurrYTD; GetFreightCostCurrYTD)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Cost $';
+                            ToolTip = 'Cost $';
+                            Editable = false;
+                        }
+                    }
+                    group(FreightYearPreviousYTD)
+                    {
+                        Caption = 'Previous YTD';
+                        Visible = false;
+                        field(DatePrevYTD1; PrevYTD)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Previous YTD';
+                            ToolTip = 'Previous YTD';
+                            Editable = false;
+                            ShowCaption = false;
+                            RowSpan = 2;
+                        }
+                        field(FreightChargePrevYTD; GetFreightChargePrevYTD)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Charge $';
+                            ToolTip = 'Charge $';
+                            Editable = false;
+                        }
+                        field(FreightCostPrevYTD; GetFreightCostPrevYTD)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Cost $';
+                            ToolTip = 'Cost $';
+                            Editable = false;
+                        }
+                    }
+                    group(FreightYearEOMPreviousYear)
+                    {
+                        Caption = 'EOM Previous Year';
+                        field(DatePrevYTDEOM1; PrevYTDEOM)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Previous YTD EOM';
+                            ToolTip = 'Previous YTD EOM';
+                            Editable = false;
+                            ShowCaption = false;
+                            RowSpan = 2;
+                        }
+                        field(FreightChargePrevYTDEOM; GetFreightChargePrevYTDEOM)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Charge $';
+                            ToolTip = 'Charge $';
+                            Editable = false;
+                        }
+                        field(FreightCostPrevYTDEOM; GetFreightCostPrevYTDEOM)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Cost $';
+                            ToolTip = 'Cost $';
+                            Editable = false;
+                        }
+                    }
+                    group(FreightYearEOYPreviousYear)
+                    {
+                        Caption = 'EOY Previous Year';
+                        field(DatePrevYTDEOY1; PrevYTDEOY)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Previous YTD EOM';
+                            ToolTip = 'Previous YTD EOM';
+                            Editable = false;
+                            ShowCaption = false;
+                            RowSpan = 2;
+                        }
+                        field(FreightChargePrevYTDEOY; GetFreightChargePrevYTDEOY)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Charge $';
+                            ToolTip = 'Charge $';
+                            Editable = false;
+                        }
+                        field(FreightCostPrevYTDEOY; GetFreightCostPrevYTDEOY)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Cost $';
+                            ToolTip = 'Cost $';
                             Editable = false;
                         }
                     }
@@ -370,26 +515,6 @@ page 51029 TlyExecutiveStatistics
                     Editable = false;
                 }
             }
-            // group(SalesMonth1)
-            //     {
-            //         Caption = 'Sales by Month11';
-            //         grid(Months1)
-            //         {
-            //             group(SalesCurrentMTD11)
-            //             {
-            //                 Caption = 'Current MTD';
-            //                 field(DateCurrMTD1; CurrMTD)
-            //                 {
-            //                     ApplicationArea = All;
-            //                     Caption = 'Current MTD';
-            //                     ToolTip = 'Current MTD';
-            //                     Editable = false;
-            //                     ShowCaption = false;
-            //                 }
-
-            //             }
-            //         }
-            //     }
         }
     }
     var
@@ -510,6 +635,8 @@ page 51029 TlyExecutiveStatistics
             GetMarginPrevYTDEOM := 0;
         // calculate margin - end
     end;
+
+    //////////////////////// Sales/COGS - start ////////////////////////
 
     procedure GetSalesCurrMTD(): Decimal
     var
@@ -651,6 +778,10 @@ page 51029 TlyExecutiveStatistics
         exit(GLEntry.Amount);
     end;
 
+    //////////////////////// Sales/COGS - end ////////////////////////
+
+    //////////////////////// Freight - start ////////////////////////
+
     procedure GetFreightChargeCurrMTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
@@ -667,6 +798,26 @@ page 51029 TlyExecutiveStatistics
     begin
         GLEntry.SetRange("G/L Account No.", FreightCostGLAcct);
         GLEntry.SetRange("Posting Date", CurrMTDStart, CurrMTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetFreightChargePrevMTDEOM(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightChargeGLAcct);
+        GLEntry.SetRange("Posting Date", PrevMTDEOMStart, PrevMTDEOMEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount * -1);
+    end;
+
+    procedure GetFreightCostPrevMTDEOM(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightCostGLAcct);
+        GLEntry.SetRange("Posting Date", PrevMTDEOMStart, PrevMTDEOMEnd);
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
@@ -690,6 +841,90 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
+
+    procedure GetFreightChargeCurrYTD(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightChargeGLAcct);
+        GLEntry.SetRange("Posting Date", CurrYTDStart, CurrYTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount * -1);
+    end;
+
+    procedure GetFreightCostCurrYTD(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightCostGLAcct);
+        GLEntry.SetRange("Posting Date", CurrYTDStart, CurrYTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetFreightChargePrevYTD(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightChargeGLAcct);
+        GLEntry.SetRange("Posting Date", PrevYTDStart, PrevYTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount * -1);
+    end;
+
+    procedure GetFreightCostPrevYTD(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightCostGLAcct);
+        GLEntry.SetRange("Posting Date", PrevYTDStart, PrevYTDEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetFreightChargePrevYTDEOM(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightChargeGLAcct);
+        GLEntry.SetRange("Posting Date", PrevYTDEOMStart, PrevYTDEOMEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount * -1);
+    end;
+
+    procedure GetFreightCostPrevYTDEOM(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightCostGLAcct);
+        GLEntry.SetRange("Posting Date", PrevYTDEOMStart, PrevYTDEOMEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    procedure GetFreightChargePrevYTDEOY(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightChargeGLAcct);
+        GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount * -1);
+    end;
+
+    procedure GetFreightCostPrevYTDEOY(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", FreightCostGLAcct);
+        GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    //////////////////////// Freight - end ////////////////////////
+
+    //////////////////////// Inventory - start ////////////////////////
 
     procedure GetInventOnHandNow(): Decimal
     var
@@ -730,4 +965,6 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
+
+    //////////////////////// Inventory - end ////////////////////////
 }

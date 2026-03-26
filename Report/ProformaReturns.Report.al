@@ -490,8 +490,8 @@ report 50034 "Proforma Returns"
                                             AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
                                         ELSE IF (UseListPrice) THEN
                                             AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
-                                        ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
-                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
+                                        ELSE IF (BackoutDuty) then //AND (Item3."Tariff Charge Required") THEN
+                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) // 1.25)
                                                                 * "Qty. to Ship")
                                         ELSE
                                             AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
@@ -733,11 +733,22 @@ report 50034 "Proforma Returns"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Exclude Backorder';
                     }
+                    field(BackoutDuty; BackoutDuty)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Backout Duty';
+                    }
+                    field(DutyPercentage; DutyPercentage)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Duty Percentage';
+                    }
                     field(RemoveDuty; RemoveDuty)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Remove Duty Lines';
                     }
+
                     field(RemoveFreight; RemoveFreight)
                     {
                         ApplicationArea = Basic, Suite;
@@ -884,6 +895,7 @@ report 50034 "Proforma Returns"
         RemoveFreight: Boolean;
         RemoveDuty: Boolean;
         BackoutDuty: Boolean;
+        DutyPercentage: Decimal;
         OrderShipped: Boolean;
         NoCopies: Integer;
         NoLoops: Integer;

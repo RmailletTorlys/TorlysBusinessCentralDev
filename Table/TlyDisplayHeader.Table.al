@@ -2,6 +2,7 @@ Table 51057 TlyDisplayHeader
 {
     DataClassification = CustomerContent;
     Caption = 'Display Header';
+    ObsoleteState = Pending;
     Fields
     {
         field(1; "CustNo."; Code[10])

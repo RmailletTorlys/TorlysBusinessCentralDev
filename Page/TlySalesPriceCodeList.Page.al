@@ -2,14 +2,13 @@ page 52003 TlySalesPriceCodeList
 {
     ApplicationArea = Basic, Suite;
     Caption = 'Sales Price Codes';
-    // CardPageID = "Torlys Sales Price Code Card";
-    InsertAllowed = true;
     PageType = List;
     RefreshOnActivate = true;
     ShowFilter = false;
     SourceTable = TlySalesPriceCode;
     SourceTableView = SORTING(Code) ORDER(Ascending);
     UsageCategory = Administration;
+    InsertAllowed = true;
 
     layout
     {

@@ -185,28 +185,28 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
         }
     }
 
-    // actions
-    // {
-    //     addbefore(Category_Shipping_SCX)
-    //     {
-    //         actionref(ViewDisplays; Displays)
-    //         {
+    actions
+    {
+        addbefore(Category_Shipping_SCX)
+        {
+            actionref(ViewDisplays; Displays)
+            {
 
-    //         }
-    //     }
-    //     addfirst("&Address")
-    //     {
-    //         action(Displays)
-    //         {
-    //             ApplicationArea = Basic, Suite;
-    //             Caption = 'Customer Displays';
-    //             Image = Database;
-    //             RunObject = Page TlyCustomerDisplayList;
-    //             RunPageLink = "CustNo." = field("Customer No."), "CustLocationCode" = field("Code");
-    //             ToolTip = 'View or edit customer display programs for this customer.';
-    //         }
-    //     }
-    // }
+            }
+        }
+        addfirst("&Address")
+        {
+            action(Displays)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Customer Displays';
+                Image = Database;
+                RunObject = Page TlyCustomerDisplays;
+                RunPageLink = "Customer No." = field("Customer No."), "Ship-to Code" = field("Code");
+                ToolTip = 'View or edit customer display programs for this ship-to.';
+            }
+        }
+    }
 
     // trigger OnNewRecord(BelowxRec: Boolean)
     // var

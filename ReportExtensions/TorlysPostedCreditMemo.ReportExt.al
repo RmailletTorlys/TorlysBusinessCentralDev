@@ -50,6 +50,7 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
         {
             trigger OnAfterAfterGetRecord()
             begin
+                billaddr(billtoaddrTly, Header);
                 if "Pre-Assigned No. Series" = 'S-CM' then begin
                     // ROandPreALabel := 'Credit Memo No.';
                     ROandPreALabel := 'Pre-Assigned No.';
@@ -103,6 +104,22 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
             {
 
             }
+            column(billtoaddrTly1; billtoaddrTly[1])
+            { }
+            column(billtoaddrTly2; billtoaddrTly[2])
+            { }
+            column(billtoaddrTly3; billtoaddrTly[3])
+            { }
+            column(billtoaddrTly4; billtoaddrTly[4])
+            { }
+            column(billtoaddrTly5; billtoaddrTly[5])
+            { }
+            column(billtoaddrTly6; billtoaddrTly[6])
+            { }
+            column(billtoaddrTly7; billtoaddrTly[7])
+            { }
+            column(billtoaddrTly8; billtoaddrTly[8])
+            { }
         }
 
         add(Line)
@@ -153,5 +170,14 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
         roandPreassignNo: text;
         TempDesc: Text;
         refitem: code[50];
+        billtoaddrTly: array[8] of Text;
+        FormatAddr1: Codeunit "Format Address";
 
+    local procedure billaddr(var AddrArray: array[8] of Text[100]; var CrMemoHeader: Record "Sales Cr.Memo Header")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', CrMemoHeader."Bill-to Name", CrMemoHeader."Bill-to Name 2", CrMemoHeader."Bill-to Address", CrMemoHeader."Bill-to Address 2",
+            CrMemoHeader."Bill-to City", CrMemoHeader."Bill-to Post Code", '', CrMemoHeader."Bill-to Country/Region Code");
+    end;
 }

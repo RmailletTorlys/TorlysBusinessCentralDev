@@ -261,9 +261,17 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
+            field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
+            {
+                Caption = 'Outbound Duty % to US';
+                ToolTip = 'Outbound Duty % to US';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Additional;
+            }
         }
 
-        moveafter("Replacement Cost Date"; "Last Direct Cost")
+        moveafter("Outbound Duty % to US"; "Last Direct Cost")
 
         addafter("Last Direct Cost")
         {

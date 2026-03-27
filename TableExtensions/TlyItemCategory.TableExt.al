@@ -43,6 +43,11 @@ tableextension 55722 TlyItemCategory extends "Item Category"
             Caption = 'US Exclusive';
             DataClassification = CustomerContent;
         }
+        field(50009; "Outbound Duty % to US"; Decimal)
+        {
+            Caption = 'Outbound Duty % to US';
+            DataClassification = CustomerContent;
+        }
     }
 
 }

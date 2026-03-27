@@ -37,6 +37,22 @@ report 50018 "Packing Slip"
             {
 
             }
+            column(selltoaddr1; selltoaddr[1])
+            { }
+            column(selltoaddr2; selltoaddr[2])
+            { }
+            column(selltoaddr3; selltoaddr[3])
+            { }
+            column(selltoaddr4; selltoaddr[4])
+            { }
+            column(selltoaddr5; selltoaddr[5])
+            { }
+            column(selltoaddr6; selltoaddr[6])
+            { }
+            column(selltoaddr7; selltoaddr[7])
+            { }
+            column(selltoaddr8; selltoaddr[8])
+            { }
             dataitem("Sales Shipment Line"; "Sales Shipment Line")
             {
                 DataItemLink = "Document No." = field("No.");
@@ -183,22 +199,22 @@ report 50018 "Packing Slip"
                     column(ShipToAddress7; ShipToAddress[7])
                     {
                     }
-                    column(selltoaddr1; selltoaddr[1])
-                    { }
-                    column(selltoaddr2; selltoaddr[2])
-                    { }
-                    column(selltoaddr3; selltoaddr[3])
-                    { }
-                    column(selltoaddr4; selltoaddr[4])
-                    { }
-                    column(selltoaddr5; selltoaddr[5])
-                    { }
-                    column(selltoaddr6; selltoaddr[6])
-                    { }
-                    column(selltoaddr7; selltoaddr[7])
-                    { }
-                    column(selltoaddr8; selltoaddr[8])
-                    { }
+                    // column(selltoaddr1; selltoaddr[1])
+                    // { }
+                    // column(selltoaddr2; selltoaddr[2])
+                    // { }
+                    // column(selltoaddr3; selltoaddr[3])
+                    // { }
+                    // column(selltoaddr4; selltoaddr[4])
+                    // { }
+                    // column(selltoaddr5; selltoaddr[5])
+                    // { }
+                    // column(selltoaddr6; selltoaddr[6])
+                    // { }
+                    // column(selltoaddr7; selltoaddr[7])
+                    // { }
+                    // column(selltoaddr8; selltoaddr[8])
+                    // { }
 
                     column(ShipToAddrTly1; ShipToAddrTly[1])
                     { }

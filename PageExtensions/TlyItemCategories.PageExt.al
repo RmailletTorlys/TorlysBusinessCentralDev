@@ -49,6 +49,14 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
 
             }
 
+            field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
+            {
+                ApplicationArea = All;
+                Caption = 'Outbound Duty % to US';
+                ToolTip = 'Outbound Duty % to US';
+
+            }
+
             field(SystemCreatedBy; Rec.SystemCreatedBy)
             {
                 ApplicationArea = All;

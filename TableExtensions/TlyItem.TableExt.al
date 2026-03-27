@@ -521,6 +521,13 @@ tableextension 50027 TlyItem extends Item
             DataClassification = CustomerContent;
             Description = 'TLY-SD - 03/06/2026 - requested by JK';
         }
+        field(50063; "Outbound Duty % to US"; Decimal)
+        {
+            Caption = 'Outbound Duty % to US';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Item Category"."Outbound Duty % to US" where("Code" = field("Item Category Code")));
+            Editable = false;
+        }
     }
 
     trigger OnBeforeRename()

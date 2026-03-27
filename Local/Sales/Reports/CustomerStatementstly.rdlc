@@ -73,6 +73,30 @@ End Function
         <Field Name="Customer_Global_Dimension_2_Filter">
           <DataField>Customer_Global_Dimension_2_Filter</DataField>
         </Field>
+        <Field Name="billtoaddrTly1">
+          <DataField>billtoaddrTly1</DataField>
+        </Field>
+        <Field Name="billtoaddrTly2">
+          <DataField>billtoaddrTly2</DataField>
+        </Field>
+        <Field Name="billtoaddrTly3">
+          <DataField>billtoaddrTly3</DataField>
+        </Field>
+        <Field Name="billtoaddrTly4">
+          <DataField>billtoaddrTly4</DataField>
+        </Field>
+        <Field Name="billtoaddrTly5">
+          <DataField>billtoaddrTly5</DataField>
+        </Field>
+        <Field Name="billtoaddrTly6">
+          <DataField>billtoaddrTly6</DataField>
+        </Field>
+        <Field Name="billtoaddrTly7">
+          <DataField>billtoaddrTly7</DataField>
+        </Field>
+        <Field Name="billtoaddrTly8">
+          <DataField>billtoaddrTly8</DataField>
+        </Field>
         <Field Name="CompanyInformation_Picture">
           <DataField>CompanyInformation_Picture</DataField>
         </Field>

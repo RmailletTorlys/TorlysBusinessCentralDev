@@ -20,6 +20,22 @@ report 50036 "Customer Statements TLY"
             column(Customer_Global_Dimension_2_Filter; "Global Dimension 2 Filter")
             {
             }
+            column(billtoaddrTly1; billtoaddrTly[1])
+            { }
+            column(billtoaddrTly2; billtoaddrTly[2])
+            { }
+            column(billtoaddrTly3; billtoaddrTly[3])
+            { }
+            column(billtoaddrTly4; billtoaddrTly[4])
+            { }
+            column(billtoaddrTly5; billtoaddrTly[5])
+            { }
+            column(billtoaddrTly6; billtoaddrTly[6])
+            { }
+            column(billtoaddrTly7; billtoaddrTly[7])
+            { }
+            column(billtoaddrTly8; billtoaddrTly[8])
+            { }
             dataitem(HeaderFooter; "Integer")
             {
                 DataItemTableView = sorting(Number) where(Number = const(1));
@@ -553,6 +569,7 @@ report 50036 "Customer Statements TLY"
                 CurrReport.PageNo := 1;
 
                 FormatAddress.Customer(CustomerAddress, Customer);
+                billaddr(billtoaddrTly, Customer);
                 StatementComplete := false;
 
                 if LogInteraction then
@@ -827,6 +844,8 @@ report 50036 "Customer Statements TLY"
         ChosenOutputMethod: Integer;
         PrintIfEmailIsMissing: Boolean;
         ShowPrintIfEmailIsMissing: Boolean;
+        FormatAddr1: Codeunit "Format Address";
+        billtoaddrTly: array[8] of Text;
 
     protected var
         CompanyInformation: Record "Company Information";
@@ -887,6 +906,14 @@ report 50036 "Customer Statements TLY"
             else
                 ChosenOutputMethod := SupportedOutputMethod;
         end;
+    end;
+
+    local procedure billaddr(var AddrArray: array[8] of Text[100]; var Customer: Record "Customer")
+    var
+    begin
+        FormatAddr1.FormatAddr(
+            AddrArray, '', Customer."Name", '', Customer."Address", Customer."Address 2",
+            Customer."City", Customer."Post Code", '', Customer."Country/Region Code");
     end;
 }
 

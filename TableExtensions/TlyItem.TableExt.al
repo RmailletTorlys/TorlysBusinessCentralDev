@@ -408,11 +408,11 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Replacement Cost';
             FieldClass = FlowField;
-            CalcFormula = Lookup(TlyReplacementCosts."Unit Cost" where("Item No." = field("No."), "Date" = field("Replacement Cost Date")));
+            CalcFormula = Lookup(TlyReplacementCosts."Unit Cost (LCY)" where("Item No." = field("No."), "Date" = field("Replacement Cost (Date)")));
             Editable = false;
         }
 
-        field(50049; "Replacement Cost Date"; Date)
+        field(50049; "Replacement Cost (Date)"; Date)
         {
             Caption = 'Replacement Cost Date';
             FieldClass = FlowField;

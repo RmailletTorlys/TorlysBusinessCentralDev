@@ -71,6 +71,14 @@ pageextension 50052 TlyPurchCrMemo extends "Purchase Credit Memo"
 
         moveafter("Currency Factor"; "Vendor Posting Group", "Payment Method Code", "Payment Terms Code", "Due Date", "Pmt. Discount Date", "Payment Discount %", "Tax Liable", "Tax Area Code", "Tax Exemption No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code")
 
+        modify("Buy-from Vendor Name")
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via name which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
+        }
         modify("Posting Date")
         {
             Importance = Promoted;

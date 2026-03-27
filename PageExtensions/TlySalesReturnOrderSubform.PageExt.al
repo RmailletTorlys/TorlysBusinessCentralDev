@@ -170,6 +170,14 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
 
         }
 
+        modify(Description)
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via description which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
+        }
         modify("Unit Cost (LCY)")
         {
             Visible = true;

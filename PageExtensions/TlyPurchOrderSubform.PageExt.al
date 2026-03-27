@@ -290,6 +290,14 @@ pageextension 50054 TlyPurchOrderSubform extends "Purchase Order Subform"
             }
         }
 
+        modify(Description)
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via description which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
+        }
         modify("Reserved Quantity")
         {
             Visible = false;

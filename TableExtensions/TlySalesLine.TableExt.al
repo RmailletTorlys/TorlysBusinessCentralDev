@@ -165,12 +165,14 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             Caption = 'Sales Price Code';
             DataClassification = CustomerContent;
             Editable = false;
+            TableRelation = TlySalesPriceCode;
         }
 
         field(50010; "Default Price List"; Code[20])
         {
             Caption = 'Default Price List';
             DataClassification = CustomerContent;
+            TableRelation = "Price List Header";
             Editable = false;
         }
 
@@ -178,6 +180,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         {
             Caption = 'Price List';
             DataClassification = CustomerContent;
+            TableRelation = "Price List Header";
             Editable = false;
         }
 

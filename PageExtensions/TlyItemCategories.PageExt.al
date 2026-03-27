@@ -57,36 +57,39 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
 
             }
 
-            field(SystemCreatedBy; Rec.SystemCreatedBy)
+            field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
-                Caption = 'System Created By';
-                ToolTip = 'System Created By';
+                Caption = 'Created By';
+                ToolTip = 'Created By';
                 Editable = false;
             }
 
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
                 ApplicationArea = All;
-                Caption = 'System Created At';
-                ToolTip = 'System Created At';
+                Caption = 'Created At';
+                ToolTip = 'Created At';
                 Editable = false;
             }
 
-            field(SystemModifiedBy; Rec.SystemModifiedBy)
+            field("SystemModifiedy"; LookupUserId.UserId(Rec."SystemModifiedBy"))
             {
                 ApplicationArea = All;
-                Caption = 'System Modified By';
-                ToolTip = 'System Modified By';
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
                 Editable = false;
             }
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
                 ApplicationArea = All;
-                Caption = 'System Modified At';
-                ToolTip = 'System Modified At';
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
                 Editable = false;
             }
         }
     }
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

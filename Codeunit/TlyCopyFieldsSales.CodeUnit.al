@@ -72,9 +72,11 @@ codeunit 50019 TlyCopyFieldsSales
         Cust: Record Customer;
     begin
         SalesLine."Ship-to Code" := SalesHeader."Ship-to Code";
-        Cust.Get(SalesLine."Sell-to Customer No."); //TLY-SD - 03/11/2026 - makes more sense to be here
-        SalesLine."Default Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
-        SalesLine."Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
+        if SalesLine."Type" = SalesLine."Type"::Item then begin
+            Cust.Get(SalesLine."Sell-to Customer No."); //TLY-SD - 03/11/2026 - makes more sense to be here
+            SalesLine."Default Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
+            SalesLine."Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
+        end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateShipToCodeOnBeforeCopyShipToAddress', '', false, false)]

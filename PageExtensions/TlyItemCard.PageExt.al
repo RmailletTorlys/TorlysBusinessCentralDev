@@ -245,7 +245,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         addafter("Cost is Posted to G/L")
         {
-            field("Replacement Cost"; Rec."Replacement Cost (LCY)")
+            field("Replacement Cost"; Rec."Replacement Cost")
             {
                 Caption = 'Replacement Cost';
                 ToolTip = 'The cost of replacement of the current item.';
@@ -253,7 +253,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
-            field("Replacement Cost Date"; Rec."Replacement Cost (Date)")
+            field("Replacement Cost Date"; Rec."Replacement Cost Date")
             {
                 Caption = 'Replacement Cost Date';
                 ToolTip = 'The date that the replacement cost is valid as of.';

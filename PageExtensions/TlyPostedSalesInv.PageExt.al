@@ -488,6 +488,9 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
                 actionref("PostedSalesInvoices"; "Posted Sales Invoices")
                 {
                 }
+                actionref("PostedSalesInvoicesPLEdit"; "Posted Sales Invoices - PL Edit")
+                {
+                }
                 actionref("OpenCreditMemos"; "Open Credit Memos")
                 {
                 }
@@ -519,6 +522,16 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
                 Image = Invoice;
                 RunObject = Page "Posted Sales Invoice Lines";
                 RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+            }
+            action("Posted Sales Invoices - PL Edit")
+            {
+                Caption = 'Posted Sales Invoices - PL Edit';
+                ToolTip = 'View posted sales invoices for this customer';
+                ApplicationArea = All;
+                Image = Invoice;
+                RunObject = Page TlyPstdSalesInvoiceLinesPLEdit;
+                RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No."), "Document No." = field("No.");
+                Visible = UserDepartment = UserDepartment::IT;
             }
             action("Open Credit Memos")
             {
@@ -552,11 +565,16 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
-
-
-
-    var
         ShortcutDimCode: array[8] of Code[20];
+        UserDepartment: Enum TlyUserDepartment;
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if UserSetup.Get(UserId) then
+            UserDepartment := UserSetup.Department;
+    end;
 
     trigger OnAfterGetRecord()
     begin

@@ -1,5 +1,7 @@
 pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
 {
+    Editable = false;
+
     layout
     {
         moveafter("No."; "Order No.")

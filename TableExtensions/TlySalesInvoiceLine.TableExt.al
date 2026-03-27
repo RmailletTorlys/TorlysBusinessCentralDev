@@ -57,28 +57,29 @@ tableextension 50113 TlySalesInvoiceLine extends "Sales Invoice Line"
             Caption = 'Sales Price Code';
             DataClassification = CustomerContent;
             Editable = false;
+            TableRelation = TlySalesPriceCode;
         }
 
         field(50010; "Default Price List"; Code[20])
         {
             Caption = 'Default Price List';
             DataClassification = CustomerContent;
-            Editable = false;
+            Editable = true;
+            TableRelation = "Price List Header";
         }
 
         field(50011; "Price List"; Code[20])
         {
             Caption = 'Price List';
             DataClassification = CustomerContent;
-            Editable = false;
-
+            Editable = true;
+            TableRelation = "Price List Header";
         }
 
         field(50012; "Override Unit Price"; Boolean)
         {
             Caption = 'Override Unit Price';
             DataClassification = CustomerContent;
-
         }
 
         field(50013; "OverrideSOUnitPriceModDate"; Date)

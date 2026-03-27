@@ -30,7 +30,7 @@ table 55102 TlyReplacementCosts
             Caption = 'Date';
             DataClassification = CustomerContent;
         }
-        field(5; "Unit Cost"; Decimal)
+        field(5; "Unit Cost (LCY)"; Decimal)
         {
             Caption = 'Unit Cost';
             DataClassification = CustomerContent;
@@ -43,6 +43,5 @@ table 55102 TlyReplacementCosts
         {
             Clustered = true;
         }
-
     }
 }

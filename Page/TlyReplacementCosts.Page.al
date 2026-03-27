@@ -39,7 +39,7 @@ page 55102 TlyReplacementCosts
                     Caption = 'Date';
                     ToolTip = 'Date';
                 }
-                field("Unit Cost"; Rec."Unit Cost")
+                field("Unit Cost"; Rec."Unit Cost (LCY)")
                 {
                     ApplicationArea = All;
                     Caption = 'Unit Cost';

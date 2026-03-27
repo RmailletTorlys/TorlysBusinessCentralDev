@@ -253,7 +253,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
-            field("Replacement Cost Date"; Rec."Replacement Cost Date")
+            field("Replacement Cost Date"; Rec."Replacement Cost (Date)")
             {
                 Caption = 'Replacement Cost Date';
                 ToolTip = 'The date that the replacement cost is valid as of.';

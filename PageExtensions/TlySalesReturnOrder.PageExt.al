@@ -59,13 +59,13 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ShowMandatory = true;
                 trigger OnValidate()
                 begin
-                    if ShortcutDimCode[3] = 'RETAIL' then MustReturnDate := WorkDate() + 14;
-                    if ShortcutDimCode[3] = 'BUILDER' then MustReturnDate := WorkDate() + 28;
-                    if ShortcutDimCode[3] = 'COMMERCIAL' then MustReturnDate := WorkDate() + 28;
-                    if ShortcutDimCode[3] = 'HOSPITALITY' then MustReturnDate := WorkDate() + 28;
-                    if ShortcutDimCode[3] = 'DISTRIBUTOR' then MustReturnDate := WorkDate() + 24;
-                    if ShortcutDimCode[3] = 'RENTAL' then MustReturnDate := WorkDate() + 28;
-                    if ShortcutDimCode[3] = 'INSURANCE' then MustReturnDate := WorkDate() + 28;
+                    // if ShortcutDimCode[3] = 'RETAIL' then Rec."Return Must Return By Date" := WorkDate() + 14;
+                    // if ShortcutDimCode[3] = 'BUILDER' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    // if ShortcutDimCode[3] = 'COMMERCIAL' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    // if ShortcutDimCode[3] = 'HOSPITALITY' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    // if ShortcutDimCode[3] = 'DISTRIBUTOR' then Rec."Return Must Return By Date" := WorkDate() + 24;
+                    // if ShortcutDimCode[3] = 'RENTAL' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    // if ShortcutDimCode[3] = 'INSURANCE' then Rec."Return Must Return By Date" := WorkDate() + 28;
 
                     if (ShortcutDimCode[3] = '') and (Rec.Status = Rec.Status::Released) then
                         Error('Cannot delete if order released')
@@ -92,19 +92,27 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Importance = Standard;
                 ShowMandatory = true;
-                // trigger OnValidate()
+                trigger OnValidate()
                 // // have to do this on the screen and not the table
                 // var
                 //     SalesInvoiceHeader: Record "Sales Invoice Header";
                 //     DimensionSetEntry: Record "Dimension Set Entry";
-                // begin
-                //     SalesInvoiceHeader.Get(Rec."Original Invoice No.");
-                //     DimensionSetEntry.Reset();
-                //     DimensionSetEntry.SetRange("Dimension Set ID", SalesInvoiceHeader."Dimension Set ID");
-                //     DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
-                //     if DimensionSetEntry.Find('-') then
-                //         ShortcutDimCode[3] := DimensionSetEntry."Dimension Value Code";
-                // end;
+                begin
+                    //     SalesInvoiceHeader.Get(Rec."Original Invoice No.");
+                    //     DimensionSetEntry.Reset();
+                    //     DimensionSetEntry.SetRange("Dimension Set ID", SalesInvoiceHeader."Dimension Set ID");
+                    //     DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+                    //     if DimensionSetEntry.Find('-') then
+                    //         ShortcutDimCode[3] := DimensionSetEntry."Dimension Value Code";
+                    if ShortcutDimCode[3] = 'RETAIL' then Rec."Return Must Return By Date" := WorkDate() + 14;
+                    if ShortcutDimCode[3] = 'BUILDER' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'COMMERCIAL' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'HOSPITALITY' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'DISTRIBUTOR' then Rec."Return Must Return By Date" := WorkDate() + 24;
+                    if ShortcutDimCode[3] = 'RENTAL' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    if ShortcutDimCode[3] = 'INSURANCE' then Rec."Return Must Return By Date" := WorkDate() + 28;
+                    if ShortcutDimCode[3] = '' then Rec."Return Must Return By Date" := WorkDate() + 14;
+                end;
             }
 
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")
@@ -114,13 +122,12 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ApplicationArea = All;
                 Importance = Standard;
             }
-            field("Must Return Date"; MustReturnDate)
+            field("Must Return Date"; Rec."Return Must Return By Date")
             {
-                Caption = 'Must Return Date';
-                ToolTip = 'Must Return Date';
+                Caption = 'Return Must Return Date';
+                ToolTip = 'Return Must Return Date';
                 ApplicationArea = All;
                 Importance = Standard;
-                Editable = false;
             }
             field("Return Claim No."; Rec."Return Claim No.")
             {
@@ -396,6 +403,14 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
         {
             Importance = Standard;
             Visible = true;
+        }
+        modify("Sell-to Customer Name")
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via name which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
         }
 
         modify("Your Reference")
@@ -883,7 +898,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
-        MustReturnDate: Date;
+    // MustReturnDate: Date;
 
     trigger OnAfterGetRecord()
     begin

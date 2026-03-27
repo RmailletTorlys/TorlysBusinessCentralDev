@@ -335,6 +335,11 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             Caption = 'Warehouse Notify At';
             DataClassification = CustomerContent;
         }
+        field(50062; "Return Must Return By Date"; Date)
+        {
+            Caption = 'Return Must Return By Date';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

@@ -178,6 +178,14 @@ pageextension 55741 TlyTransferOrderSubform extends "Transfer Order Subform"
             }
         }
 
+        modify(Description)
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via description which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
+        }
         modify("Reserved Quantity Inbnd.")
         {
             Visible = false;
@@ -239,44 +247,8 @@ pageextension 55741 TlyTransferOrderSubform extends "Transfer Order Subform"
 
     trigger OnAfterGetRecord()
     begin
-        // OnAfterGetRecordCheckEditCasePallet(Rec, xRec, EditCasePallet);
         EditCasePallet := CheckEditCasePallet(Rec);
     end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAfterGetRecordCheckEditCasePallet(Rec: Record "Transfer Line"; xRec: Record "Transfer Line"; var EditCasePallet: Boolean)
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQuantityPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToShipCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToShipPallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToReceiveCase(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    // begin
-    // end;
-
-    // [IntegrationEvent(false, false)]
-    // local procedure OnValidateQtyToReceivePallet(var Rec: Record "Transfer Line"; xRec: Record "Transfer Line")
-    // begin
-    // end;
 
     procedure CheckEditCasePallet(var Rec: Record "Transfer Line"): Boolean
     var

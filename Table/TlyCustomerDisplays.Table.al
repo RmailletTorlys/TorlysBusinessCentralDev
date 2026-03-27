@@ -1,5 +1,4 @@
-// table 51059 TlyCustomerDisplays
-table 51059 TlyDisplays
+table 51060 TlyCustomerDisplays
 {
     DataClassification = CustomerContent;
     Caption = 'Customer Displays';
@@ -13,7 +12,7 @@ table 51059 TlyDisplays
             Caption = 'Customer No.';
             TableRelation = "Customer";
         }
-        field(2; "Ship-to Code"; Code[20])
+        field(2; "Ship-to Code"; Code[10])
         {
             Caption = 'Ship-to Code';
             TableRelation = "Ship-to Address".Code where("Customer No." = field("Customer No."));
@@ -111,11 +110,11 @@ table 51059 TlyDisplays
         }
     }
 
-    // keys
-    // {
-    //     key(Key1; "Customer No.", "Ship-to Code", "Display Type", "Item Category Code")
-    //     {
-    //         Clustered = true;
-    //     }
-    // }
+    keys
+    {
+        key(Key1; "Customer No.", "Ship-to Code", "Display Type", "Item Category Code")
+        {
+            Clustered = true;
+        }
+    }
 }

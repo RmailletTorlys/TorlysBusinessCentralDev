@@ -15,5 +15,18 @@ tableextension 55748 TlyInventoryCommentLine extends "Inventory Comment Line"
             ToolTip = 'Popup';
             DataClassification = CustomerContent;
         }
+        field(50020; "Entered By"; Code[50])
+        {
+            Caption = 'Entered By';
+            ToolTip = 'Entered By';
+            Editable = false;
+            Description = 'TLY-SD - 03/25/2026';
+        }
     }
+
+    trigger OnBeforeInsert()
+    begin
+        Date := WorkDate();
+        "Entered By" := UserId; //TLY-SD - 03/25/2026
+    end;
 }

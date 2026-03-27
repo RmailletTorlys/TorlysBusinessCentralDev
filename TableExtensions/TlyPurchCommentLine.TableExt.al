@@ -36,9 +36,18 @@ tableextension 50043 TlyPurchCommentLine extends "Purch. Comment Line"
             Caption = 'Print on Purchase Credit Memo';
             ToolTip = 'Specifies whether the comment line should be printed on the Purchase Credit Memo.';
         }
+        field(50020; "Entered By"; Code[50])
+        {
+            Caption = 'Entered By';
+            ToolTip = 'Entered By';
+            Editable = false;
+            Description = 'TLY-SD - 03/25/2026';
+        }
     }
+
     trigger OnBeforeInsert()
     begin
         Date := WorkDate();
+        "Entered By" := UserId; //TLY-SD - 03/25/2026
     end;
 }

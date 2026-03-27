@@ -137,6 +137,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                         if SalesCrMemo.Find('-') and (SalesCrMemo."No." <> "No.") then
                             Message('Invoice number %1 exists on posted credit memo %2. Please investigate!', Rec."Original Invoice No.", SalesCrMemo."No.");
                     end;
+                    "Return Must Return By Date" := WorkDate() + 14; //TLY-SD - 03/26/2026
                 end;
 
                 //     if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
@@ -161,14 +162,14 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         field(50020; "Qty. to Ship"; Decimal)
         {
             Caption = 'Qty. to ship';
-            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Document No." = field("No.")));
             FieldClass = FlowField;
         }
 
         field(50021; "Outstanding Quantity"; Decimal)
         {
             Caption = 'Outstanding Quantity';
-            CalcFormula = Sum("Sales Line"."Outstanding Quantity" where("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Sales Line"."Outstanding Quantity" where("Document No." = field("No.")));
             FieldClass = FlowField;
         }
 
@@ -375,6 +376,12 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         field(50061; "Warehouse Notify At"; DateTime)
         {
             Caption = 'Warehouse Notify At';
+            DataClassification = CustomerContent;
+        }
+
+        field(50062; "Return Must Return By Date"; Date)
+        {
+            Caption = 'Return Must Return By Date';
             DataClassification = CustomerContent;
         }
 

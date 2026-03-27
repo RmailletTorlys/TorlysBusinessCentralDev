@@ -468,6 +468,14 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             Importance = Standard;
             Visible = true;
         }
+        modify("Sell-to Customer Name")
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via name which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
+        }
 
         modify("Your Reference")
         {

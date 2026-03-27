@@ -4,6 +4,7 @@ Table 51058 TlyDisplayLine
     Caption = 'Display Line';
     // DrillDownPageId = "Customer Display Subform";
     // LookupPageId = "Customer Display Subform";
+    ObsoleteState = Pending;
 
     Fields
     {

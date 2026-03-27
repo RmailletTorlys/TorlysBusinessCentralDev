@@ -336,6 +336,11 @@ tableextension 56660 TlyReturnReceiptHeader extends "Return Receipt Header"
             Caption = 'Warehouse Notify At';
             DataClassification = CustomerContent;
         }
+        field(50062; "Return Must Return By Date"; Date)
+        {
+            Caption = 'Return Must Return By Date';
+            DataClassification = CustomerContent;
+        }
     }
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var

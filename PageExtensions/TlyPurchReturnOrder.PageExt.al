@@ -83,6 +83,14 @@ pageextension 56640 TlyPurchReturnOrder extends "Purchase Return Order"
             Visible = true;
             Caption = 'Vendor No.';
         }
+        modify("Buy-from Vendor Name")
+        {
+            //TLY-SD - 03/26/2026 - added here so user can't find records via name which can mess stuff up
+            trigger OnLookup(var Text: Text): Boolean
+            begin
+                //do nothing
+            end;
+        }
 
         modify("Buy-from Contact No.")
         {

@@ -108,8 +108,8 @@ report 50032 "B13 Purchase Returns"
                     // TariffNote := item."Customs/Tariff Note";
                     If CostInsteadOfPrice then
                         NetPrice := "Unit Cost (LCY)"
-                    else if (BackoutDuty) and (Item3."Tariff Charge Required") then
-                        NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / 1.25)
+                    else if (BackoutDuty) then //and (Item3."Tariff Charge Required") then
+                        NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / (1 + (DutyPercentage * 0.01))) //1.25)
                     else
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
 
@@ -258,6 +258,16 @@ report 50032 "B13 Purchase Returns"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Exclude Backorder';
                     }
+                    field(BackoutDuty; BackoutDuty)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Backout Duty';
+                    }
+                    field(DutyPercentage; DutyPercentage)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Duty Percentage';
+                    }
                     // field(RemoveFreight; RemoveFreight)
                     // {
                     //     ApplicationArea = Basic, Suite;
@@ -297,6 +307,7 @@ report 50032 "B13 Purchase Returns"
         OrderShipped: Boolean;
         RemoveDuty: Boolean;
         BackoutDuty: Boolean;
+        DutyPercentage: Decimal;
         IgnoreBackorder: Boolean;
         LastFieldNo: Integer;
         TariffQuantity: Decimal;

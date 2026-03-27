@@ -397,7 +397,7 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
         PurchLine: Record "Purchase Line";
     begin
         SalesHeader.Reset();
-        if Rec."Document No." <> '' then begin
+        if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Document No." <> '') then begin
             SalesHeader.Get('1', Rec."Document No.");
             ShippingInstructions := SalesHeader."Shipping Instructions";
         end else begin

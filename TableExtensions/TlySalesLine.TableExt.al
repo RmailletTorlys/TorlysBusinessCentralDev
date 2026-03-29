@@ -367,7 +367,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             Caption = 'Container No.';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("Purchase Line"."Container No." where("Document Type" = const(Order), "Document No." = field("Linked Purchase Order No."), "Line No." = field("Linked Purch. Order Line No.")));
+            CalcFormula = lookup("TPS CMG Container Line"."Container No." where("Document No." = field("Linked Purchase Order No."), "Document Line No." = field("Linked Purch. Order Line No.")));
             Description = 'This is the flowfield from the purchase line.';
         }
         field(50039; "Reason Code"; Code[10])

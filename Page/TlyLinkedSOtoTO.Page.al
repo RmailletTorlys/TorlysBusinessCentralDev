@@ -118,6 +118,27 @@ page 50558 TlyLinkedSOtoTO
                     ToolTip = 'Qty. to Ship Pallet';
                     Editable = false;
                 }
+                field("Linked Transfer Order No."; Rec."Linked Transfer Order No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Linked Transfer Order No.';
+                    ToolTip = 'Linked Transfer Order No.';
+                    Editable = false;
+                }
+                field("Linked Purchase Order No."; Rec."Linked Purchase Order No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Linked Purchase Order No.';
+                    ToolTip = 'Linked Purchase Order No.';
+                    Editable = false;
+                }
+                field("Container No."; Rec."Container No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Container No.';
+                    ToolTip = 'Container No.';
+                    Editable = false;
+                }
             }
         }
     }
@@ -156,6 +177,19 @@ page 50558 TlyLinkedSOtoTO
                 //         //     until SelectedSalesLine.Next() = 0;
                 //     end;
             }
+            // action(FilterByTR)
+            // {
+            //     Caption = 'Filter by Transfer Order #';
+            //     ToolTip = 'Filter by Transfer Order #';
+            //     ApplicationArea = All;
+            //     Image = Filter;
+            //     trigger OnAction()
+            //     begin
+            //         Rec.Reset();
+            //         Rec.SetRangeFilter("Temporary Hold", '0');
+            //         "Linked Transfer Order No." = field("No."), Type = const(Item), "Outstanding Quantity" = filter(<> 0);
+            //     end;
+            // }
             action(PopulateQtyToShip)
             {
                 ApplicationArea = Warehouse;

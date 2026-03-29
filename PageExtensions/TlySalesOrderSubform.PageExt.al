@@ -239,12 +239,11 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 Visible = true;
             }
 
-            field("Container No."; ContainerNo)
+            field("Container No."; Rec."Container No.")
             {
                 Caption = 'Container No.';
                 ToolTip = 'Container No.';
                 ApplicationArea = All;
-                Editable = false;
                 Visible = true;
             }
 
@@ -903,7 +902,6 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
     trigger OnAfterGetRecord()
     var
         Item: Record Item;
-        PurchLine: Record "Purchase Line";
     begin
         EditCasePallet := CheckEditCasePallet(Rec);
         EditQTS := CheckEditQTS(Rec);
@@ -911,20 +909,6 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         if (Rec.Type = Rec.Type::Item) and (Rec."No." <> '') then begin
             Item.Get(Rec."No.");
             UnitCostEdit := Item."Allow SO Unit Cost Edit"
-        end;
-
-        // pull Container # from PO line for linking and filling at receipt
-        // Rec.CalcFields(Rec."Container No.");
-        // ContainerNo := Rec."Container No."''
-        PurchLine.Reset;
-        PurchLine.SetRange("Document No.", Rec."Linked Purchase Order No.");
-        PurchLine.SetRange("Line No.", Rec."Linked Purch. Order Line No.");
-        if PurchLine.Find('-') then begin
-            PurchLine.CalcFields(PurchLine."Container No.");
-            ContainerNo := PurchLine."Container No.";
-            // ContainerNo := Rec."Container No.";
-        end else begin
-            ContainerNo := '';
         end;
     end;
 

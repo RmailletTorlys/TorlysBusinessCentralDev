@@ -26,7 +26,7 @@ page 51029 TlyExecutiveStatistics
         {
             group(RevenueMonth)
             {
-                Caption = 'Revenue by Month';
+                Caption = 'Total Revenue by Month';
                 grid(RevenueMonth2)
                 {
                     group(RevenueMonthCurrentMTD)
@@ -94,7 +94,7 @@ page 51029 TlyExecutiveStatistics
             }
             group(RevenueYear)
             {
-                Caption = 'Revenue by Year';
+                Caption = 'Total Revenue by Year';
                 grid(RevenueYear2)
                 {
                     group(RevenueYearCurrentYTD)
@@ -182,7 +182,7 @@ page 51029 TlyExecutiveStatistics
             }
             group(SalesMonth)
             {
-                Caption = 'Sales by Month';
+                Caption = 'Product Sales by Month';
                 grid(SalesMonth1)
                 {
                     group(SalesMonthCurrentMTD)
@@ -292,7 +292,7 @@ page 51029 TlyExecutiveStatistics
             }
             group(SalesYear)
             {
-                Caption = 'Sales by Year';
+                Caption = 'Product Sales by Year';
                 grid(SalesYear1)
                 {
                     group(SalesYearCurrentYTD)
@@ -798,8 +798,9 @@ page 51029 TlyExecutiveStatistics
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
+        // GLEntry.SetFilter("G/L Account No.", '*');
         GLEntry.SetRange("Posting Date", CurrMTDStart, CurrMTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
@@ -821,6 +822,7 @@ page 51029 TlyExecutiveStatistics
     begin
         // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevMTDStart, PrevMTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
@@ -842,6 +844,7 @@ page 51029 TlyExecutiveStatistics
     begin
         // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevMTDEOMStart, PrevMTDEOMEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
@@ -863,6 +866,7 @@ page 51029 TlyExecutiveStatistics
     begin
         // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", CurrYTDStart, CurrYTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
@@ -884,6 +888,7 @@ page 51029 TlyExecutiveStatistics
     begin
         // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDStart, PrevYTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
@@ -905,6 +910,7 @@ page 51029 TlyExecutiveStatistics
     begin
         // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOMStart, PrevYTDEOMEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
@@ -926,6 +932,7 @@ page 51029 TlyExecutiveStatistics
     begin
         // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);

@@ -487,20 +487,20 @@ report 50034 "Proforma Returns"
                                     Item3.GET("No.");
                                     IF (NOT OrderShipped) THEN BEGIN
                                         IF (CostInsteadOfPrice) THEN
-                                            AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
+                                            AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity"
                                         ELSE IF (UseListPrice) THEN
-                                            AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
+                                            AmountExclInvDisc := "Unit Price" * "Quantity"
                                         ELSE IF (BackoutDuty) then //AND (Item3."Tariff Charge Required") THEN
                                             AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) // 1.25)
-                                                                * "Qty. to Ship")
+                                                                * "Quantity")
                                         ELSE
-                                            AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
+                                            AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity");
 
                                         QtyOrderedNo := "Quantity";
-                                        IF "Qty. to Ship" = 0 THEN
+                                        IF "Quantity" = 0 THEN
                                             UnitPriceToPrint := 0  // so it won't print
                                         ELSE
-                                            UnitPriceToPrint := ROUND(AmountExclInvDisc / "Qty. to Ship", 0.00001);
+                                            UnitPriceToPrint := ROUND(AmountExclInvDisc / "Quantity", 0.00001);
 
                                         IF AdditionalWeight = 0 THEN BEGIN
                                             Weight1Label := 'Net Weight (LB)';
@@ -529,7 +529,7 @@ report 50034 "Proforma Returns"
                                     IF Type = Type::Item THEN BEGIN
                                         IF Item.GET("No.") THEN BEGIN
                                             CountryOfOrigin := Item."Country/Region of Origin Code";
-                                            // ICProgramNo := Item.;
+                                            ICProgramNo := Item."Item Category Code";
                                             TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
                                             IF UsePurchasesTariff THEN
                                                 TariffNo := Item."Tariff No."
@@ -543,6 +543,22 @@ report 50034 "Proforma Returns"
                                         CountryOfOrigin := '';
                                         TariffNo := '';
                                     END;
+
+                                    IF ICProgramNo = 'HWC-20' THEN
+                                        TariffNote := 'Subject to ADD case to 25.62% and CVD of 1.5%'
+                                    ELSE IF ICProgramNo = 'HWC-22' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-12' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-21' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-23' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-26' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE
+                                        TariffNote := '';
+
                                     TotalPieces := CalcTotalPieces;
                                 end;
                             end;

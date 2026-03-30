@@ -118,6 +118,20 @@ page 50559 TlyLinkedSOtoPO
                     ToolTip = 'Qty. to Ship Pallet';
                     Editable = false;
                 }
+                field("Linked Purchase Order No."; Rec."Linked Purchase Order No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Linked Purchase Order No.';
+                    ToolTip = 'Linked Purchase Order No.';
+                    Editable = false;
+                }
+                field("Container No."; Rec."Container No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Container No.';
+                    ToolTip = 'Container No.';
+                    Editable = false;
+                }
             }
         }
     }

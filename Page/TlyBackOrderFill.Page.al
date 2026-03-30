@@ -120,6 +120,13 @@ page 50563 TlyBackOrderFill
                     ToolTip = 'Linked Purchase Order No.';
                     Editable = false;
                 }
+                field("Container No."; Rec."Container No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Container No.';
+                    ToolTip = 'Container No.';
+                    Editable = false;
+                }
                 field("Container No. (NAV)"; Rec."Container No. (NAV)")
                 {
                     ApplicationArea = All;

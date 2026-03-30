@@ -219,6 +219,28 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50031, true, false, SalesInvHeader)
     end;
 
+    procedure PrintB13SalesFromRO(SalesHeader: Record "Sales Header"): Boolean
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.SetRange("Document No.", SalesHeader."No.");
+        Report.RunModal(50033, true, false, SalesLine)
+    end;
+
+    procedure PrintB13PurchaseFromRO(SalesHeader: Record "Sales Header"): Boolean
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.SetRange("Document No.", SalesHeader."No.");
+        Report.RunModal(50032, true, false, SalesLine)
+    end;
+
+    procedure PrintProformaFromRO(SalesHeader: Record "Sales Header"): Boolean
+    begin
+        SalesHeader.SetRange("No.", SalesHeader."No.");
+        Report.RunModal(50034, true, false, SalesHeader)
+    end;
+
     // procedure PrintReceivingPO(BookingInfo: Record TlyBookingInfo): Boolean
     procedure PrintReceivingPO(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var

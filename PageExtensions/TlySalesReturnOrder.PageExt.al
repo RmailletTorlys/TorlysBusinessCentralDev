@@ -717,12 +717,24 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
     actions
     {
 
+        addlast(Category_Category10)
+        {
+            actionref(Proforma_Promoted; "Proforma")
+            {
+            }
+            actionref(B13_Sales; "B13 Sales")
+            {
+            }
+            actionref(B13_Purchase; "B13 Purchase")
+            {
+            }
+        }
+
         addafter(Category_Category6)
         {
             actionref(WarehouseReceive; "Warehouse Receive")
             {
             }
-
         }
 
         addbefore(Category_New)
@@ -756,6 +768,46 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
             }
         }
 
+        addlast(Approval)
+        {
+
+            action("Proforma")
+            {
+                Caption = 'Print Proforma';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintProformaFromRO(Rec);
+                end;
+            }
+            action("B13 Sales")
+            {
+                Caption = 'Print B13 Sales';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintB13SalesFromRO(Rec);
+                end;
+            }
+            action("B13 Purchase")
+            {
+                Caption = 'Print B13 Purchase';
+                Image = Print;
+                ApplicationArea = Basic, Suite;
+                trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
+                begin
+                    TorlysDocPrint.PrintB13PurchaseFromRO(Rec);
+                end;
+            }
+        }
         addfirst("P&osting")
         {
             action("Warehouse Receive")

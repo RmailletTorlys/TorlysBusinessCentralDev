@@ -11,7 +11,7 @@ report 50037 "Inventory Summary TLY"
         dataitem("Item Ledger Entry"; "Item Ledger Entry")
         {
             DataItemTableView = sorting("Location Code", "Shortcut Dimension 4 Code", "Item No.") where(Open = const(True));
-            RequestFilterFields = "Location Code", "Item No.", "Shortcut Dimension 4 Code";
+            RequestFilterFields = "Location Code", "Item No.", "Shortcut Dimension 4 Code", "Item Category Code";
 
             column(CompanyInformation; CompanyInformation.Name)
             {

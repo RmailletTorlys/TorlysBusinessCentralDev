@@ -2,9 +2,14 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
 {
     layout
     {
-
         addafter("Unit Price")
         {
+            field("Stocking Pallet Price"; Rec."Stocking Pallet Price")
+            {
+                Caption = 'Stocking Pallet Price';
+                ToolTip = 'Stocking Pallet Price';
+                ApplicationArea = All;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

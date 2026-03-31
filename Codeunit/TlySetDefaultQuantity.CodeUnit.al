@@ -50,23 +50,26 @@ codeunit 50017 TlySetDefaultQuantity
                             end;
                         SalesLine."Qty. to Ship Case" := Round((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases and round up
                     end;
-                    SalesLine."Qty. to Invoice" := SalesLine."Qty. to Ship"; //TLY-SD - 03/27/2026 - added this in, is needed
-                    SalesLine."Qty. to Invoice (Base)" := SalesLine."Qty. to Ship (Base)"; //TLY-SD - 03/27/2026 - added this in, is needed
+                    // SalesLine."Qty. to Invoice" := SalesLine."Qty. to Ship"; //TLY-SD - 03/27/2026 - added this in, is needed
+                    // SalesLine."Qty. to Invoice (Base)" := SalesLine."Qty. to Ship (Base)"; //TLY-SD - 03/27/2026 - added this in, is needed
+                    SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
                 end else begin
                     // if Shipment Date is not within 45 days
                     SalesLine."Qty. to Ship" := 0;
                     SalesLine."Qty. to Ship (Base)" := 0;
                     SalesLine."Qty. to Ship Case" := 0; //our field
                     SalesLine."Qty. to Ship Pallet" := 0; //our field
-                    SalesLine."Qty. to Invoice" := 0;
-                    SalesLine."Qty. to Invoice (Base)" := 0;
+                    // SalesLine."Qty. to Invoice" := 0;
+                    // SalesLine."Qty. to Invoice (Base)" := 0;
+                    SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
                 end;
             end else begin
                 // want G/L Account to populate "Qty. to Ship/Invoice"
                 SalesLine."Qty. to Ship" := SalesLine."Outstanding Quantity";
                 SalesLine."Qty. to Ship (Base)" := SalesLine."Outstanding Qty. (Base)";
-                SalesLine."Qty. to Invoice" := SalesLine."Outstanding Quantity";
-                SalesLine."Qty. to Invoice (Base)" := SalesLine."Outstanding Qty. (Base)";
+                // SalesLine."Qty. to Invoice" := SalesLine."Outstanding Quantity";
+                // SalesLine."Qty. to Invoice (Base)" := SalesLine."Outstanding Qty. (Base)";
+                SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
             end;
         end;
         if SalesLine."Document Type" = SalesLine."Document Type"::"Return Order" then begin
@@ -76,14 +79,16 @@ codeunit 50017 TlySetDefaultQuantity
                 SalesLine."Return Qty. to Receive (Base)" := 0;
                 SalesLine."Return Qty. to Receive Case" := 0; //our field
                 SalesLine."Return Qty. to Receive Pallet" := 0; //our field
-                SalesLine."Qty. to Invoice" := 0;
-                SalesLine."Qty. to Invoice (Base)" := 0;
+                // SalesLine."Qty. to Invoice" := 0;
+                // SalesLine."Qty. to Invoice (Base)" := 0;
+                SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
             end else begin
                 // want G/L Account to populate "Return Qty. to Receive/Invoice" fully
                 SalesLine."Return Qty. to Receive" := SalesLine."Outstanding Quantity";
                 SalesLine."Return Qty. to Receive (Base)" := SalesLine."Outstanding Qty. (Base)";
-                SalesLine."Qty. to Invoice" := SalesLine."Outstanding Quantity";
-                SalesLine."Qty. to Invoice (Base)" := SalesLine."Outstanding Qty. (Base)";
+                // SalesLine."Qty. to Invoice" := SalesLine."Outstanding Quantity";
+                // SalesLine."Qty. to Invoice (Base)" := SalesLine."Outstanding Qty. (Base)";
+                SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
             end;
         end;
         // end; //TLY-SD - 03/27/2026 - don't need this, is pointless

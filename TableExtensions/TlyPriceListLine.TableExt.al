@@ -17,5 +17,11 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             DataClassification = CustomerContent;
             TableRelation = "Shipment Method";
         }
+        field(50003; "Stocking Pallet Price"; Decimal)
+        {
+            Caption = 'Stocking Pallet Price';
+            ToolTip = 'Stocking Pallet Price';
+            DataClassification = CustomerContent;
+        }
     }
 }

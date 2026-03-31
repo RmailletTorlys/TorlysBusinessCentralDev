@@ -26,7 +26,7 @@ page 51029 TlyExecutiveStatistics
         {
             group(RevenueMonth)
             {
-                Caption = 'Revenue by Month';
+                Caption = 'Total Revenue by Month';
                 grid(RevenueMonth2)
                 {
                     group(RevenueMonthCurrentMTD)
@@ -44,8 +44,8 @@ page 51029 TlyExecutiveStatistics
                         field(RevenueCurrMTD; GetRevenueCurrMTD)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
@@ -65,14 +65,15 @@ page 51029 TlyExecutiveStatistics
                         field(RevenuePrevMTD; GetRevenuePrevMTD)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
                     group(RevenueMonthEOMPreviousYear)
                     {
                         Caption = 'EOM Previous Year';
+                        Visible = false;
                         field(DatePrevMTDEOM2; PrevMTDEOM)
                         {
                             ApplicationArea = All;
@@ -85,8 +86,8 @@ page 51029 TlyExecutiveStatistics
                         field(RevenuePrevMTDEOM; GetRevenuePrevMTDEOM)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
@@ -94,7 +95,7 @@ page 51029 TlyExecutiveStatistics
             }
             group(RevenueYear)
             {
-                Caption = 'Revenue by Year';
+                Caption = 'Total Revenue by Year';
                 grid(RevenueYear2)
                 {
                     group(RevenueYearCurrentYTD)
@@ -112,8 +113,8 @@ page 51029 TlyExecutiveStatistics
                         field(RevenueCurrYTD; GetRevenueCurrYTD)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
@@ -133,14 +134,15 @@ page 51029 TlyExecutiveStatistics
                         field(RevenuePrevYTD; GetRevenuePrevYTD)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
                     group(RevenueYearEOMPreviousYear)
                     {
                         Caption = 'EOM Previous Year';
+                        Visible = false;
                         field(DatePrevYTDEOM2; PrevYTDEOM)
                         {
                             ApplicationArea = All;
@@ -153,14 +155,15 @@ page 51029 TlyExecutiveStatistics
                         field(RevenuePrevYTDEOM; GetRevenuePrevYTDEOM)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
                     group(RevenueYearEOYPreviousYear)
                     {
                         Caption = 'EOY Previous Year';
+                        Visible = false;
                         field(DatePrevYTDEOY2; PrevYTDEOY)
                         {
                             ApplicationArea = All;
@@ -173,8 +176,8 @@ page 51029 TlyExecutiveStatistics
                         field(RevenuePrevYTDEOY; GetRevenuePrevYTDEOY)
                         {
                             ApplicationArea = All;
-                            Caption = 'Revenue $';
-                            ToolTip = 'Revenue $';
+                            Caption = 'Total Revenue $';
+                            ToolTip = 'Total Revenue $';
                             Editable = false;
                         }
                     }
@@ -182,7 +185,7 @@ page 51029 TlyExecutiveStatistics
             }
             group(SalesMonth)
             {
-                Caption = 'Sales by Month';
+                Caption = 'Product Sales by Month';
                 grid(SalesMonth1)
                 {
                     group(SalesMonthCurrentMTD)
@@ -292,7 +295,7 @@ page 51029 TlyExecutiveStatistics
             }
             group(SalesYear)
             {
-                Caption = 'Sales by Year';
+                Caption = 'Product Sales by Year';
                 grid(SalesYear1)
                 {
                     group(SalesYearCurrentYTD)
@@ -671,6 +674,71 @@ page 51029 TlyExecutiveStatistics
                     Editable = false;
                 }
             }
+            group(OtherStats)
+            {
+                Caption = 'Other Stats';
+                grid(OtherStats1)
+                {
+                    group(SalesOrders)
+                    {
+                        Caption = 'Sales Orders';
+                        field(ShippedNotInvoiced; GetShippedNotInvoiced())
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Shipped Not Invoiced $';
+                            ToolTip = 'Shipped Not Invoiced $';
+                            Editable = false;
+                        }
+                        field(OpenSO; GetOpenSO())
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Open Sales Orders $';
+                            ToolTip = 'Open Sales Orders $';
+                            Editable = false;
+                        }
+                    }
+                    group(PurchaseOrders)
+                    {
+                        Caption = 'Purchase Orders';
+                        field(ReceivedNotInvoiced; GetReceivedNotInvoiced())
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Received Not Invoiced $';
+                            ToolTip = 'Received Not Invoiced $';
+                            Editable = false;
+                        }
+                        field(OpenPO; GetOpenPO())
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Open Purchase Orders $';
+                            ToolTip = 'Open Purchase Orders $';
+                            Editable = false;
+                        }
+                    }
+                    group(AccountsReceivable)
+                    {
+                        Caption = 'Accounts Receivable';
+                        field(OpenAR; GetOpenAR())
+                        {
+                            ApplicationArea = All;
+                            Caption = 'AR Balance $';
+                            ToolTip = 'AR Balance $';
+                            Editable = false;
+                        }
+                    }
+                    group(AccountsPayable)
+                    {
+                        Caption = 'Accounts Payable';
+                        field(OpenAP; GetOpenAP())
+                        {
+                            ApplicationArea = All;
+                            Caption = 'AP Balance $';
+                            ToolTip = 'AP Balance $';
+                            Editable = false;
+                        }
+                    }
+                }
+            }
         }
     }
     var
@@ -680,6 +748,10 @@ page 51029 TlyExecutiveStatistics
         FreightCostGLAcct: Code[20];
         InventOnHandGLAcct: Code[20];
         InventInTransGLAcct: Code[20];
+        ARGLAcctStart: Code[20];
+        ARGLAcctEnd: Code[20];
+        APGLAcctStart: Code[20];
+        APGLAcctEnd: Code[20];
         CurrMTDStart: Date;
         CurrMTDEnd: Date;
         CurrMTD: Text[22];
@@ -718,6 +790,10 @@ page 51029 TlyExecutiveStatistics
         FreightCostGLAcct := '60200';
         InventOnHandGLAcct := '13100';
         InventInTransGLAcct := '13500';
+        ARGLAcctStart := '12000';
+        ARGLAcctEnd := '12999';
+        APGLAcctStart := '21000';
+        APGLAcctEnd := '21999';
 
         // start of month to today - this year
         CurrMTDStart := CalcDate('<-CM>', WorkDate());
@@ -798,148 +874,78 @@ page 51029 TlyExecutiveStatistics
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", CurrMTDStart, CurrMTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSCurrMTD(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", CurrMTDStart, CurrMTDEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     procedure GetRevenuePrevMTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevMTDStart, PrevMTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSPrevMTD(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", PrevMTDStart, PrevMTDEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     procedure GetRevenuePrevMTDEOM(): Decimal
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevMTDEOMStart, PrevMTDEOMEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSPrevMTDEOM(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", PrevMTDEOMStart, PrevMTDEOMEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     procedure GetRevenueCurrYTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", CurrYTDStart, CurrYTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSCurrYTD(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", CurrYTDStart, CurrYTDEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     procedure GetRevenuePrevYTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDStart, PrevYTDEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSPrevYTD(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", PrevYTDStart, PrevYTDEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     procedure GetRevenuePrevYTDEOM(): Decimal
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOMStart, PrevYTDEOMEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSPrevYTDEOM(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", PrevYTDEOMStart, PrevYTDEOMEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     procedure GetRevenuePrevYTDEOY(): Decimal
     var
         GLEntry: Record "G/L Entry";
     begin
-        // GLEntry.SetRange("G/L Account No.", SalesGLAcct);
         GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
+        GLEntry.SetFilter("Gen. Posting Type", 'Sale');
         GLEntry.SetFilter("Document Type", 'Invoice|Credit Memo');
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
-    // procedure GetCOGSPrevYTDEOY(): Decimal
-    // var
-    //     GLEntry: Record "G/L Entry";
-    // begin
-    //     GLEntry.SetRange("G/L Account No.", COGSGLAcct);
-    //     GLEntry.SetRange("Posting Date", PrevYTDEOYStart, PrevYTDEOYEnd);
-    //     GLEntry.CalcSums(Amount);
-    //     exit(GLEntry.Amount);
-    // end;
 
     //////////////////////// Revenue - end ////////////////////////
 
@@ -1277,4 +1283,84 @@ page 51029 TlyExecutiveStatistics
     end;
 
     //////////////////////// Inventory - end ////////////////////////
+
+
+    //////////////////////// Shipped Not Invoiced - start ////////////////////////
+    procedure GetShippedNotInvoiced(): Decimal
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.SetFilter("Document Type", 'Order');
+        SalesLine.SetFilter("Sell-to Customer No.", '<>Y-J1000&<>Y-X1000');
+        SalesLine.CalcSums("Shipped Not Invoiced (LCY)");
+        exit(SalesLine."Shipped Not Invoiced (LCY)");
+    end;
+
+    //////////////////////// Shipped Not Invoiced - end ////////////////////////
+
+
+    //////////////////////// Open Sales Orders - start ////////////////////////
+    procedure GetOpenSO(): Decimal
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.SetFilter("Document Type", 'Order');
+        SalesLine.SetFilter("Sell-to Customer No.", '<>Y-J1000&<>Y-X1000');
+        SalesLine.CalcSums("Outstanding Amount (LCY)");
+        exit(SalesLine."Outstanding Amount (LCY)");
+    end;
+
+    //////////////////////// Open Sales Orders - end ////////////////////////
+
+
+    //////////////////////// Received Not Invoiced - start ////////////////////////
+    procedure GetReceivedNotInvoiced(): Decimal
+    var
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchLine.SetFilter("Document Type", 'Order');
+        PurchLine.CalcSums("Amt. Rcd. Not Invoiced (LCY)");
+        exit(PurchLine."Amt. Rcd. Not Invoiced (LCY)");
+    end;
+
+    //////////////////////// Received Not Invoiced - end ////////////////////////
+
+
+    //////////////////////// Open Purchase Orders - start ////////////////////////
+    procedure GetOpenPO(): Decimal
+    var
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchLine.SetFilter("Document Type", 'Order');
+        PurchLine.CalcSums("Outstanding Amount (LCY)");
+        exit(PurchLine."Outstanding Amount (LCY)");
+    end;
+
+    //////////////////////// Open Purchase Orders - end ////////////////////////
+
+
+    //////////////////////// Open Accounts Receivable - start ////////////////////////
+    procedure GetOpenAR(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", ARGLAcctStart, ARGLAcctEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    //////////////////////// Open Accounts Receivable - end ////////////////////////
+
+
+    //////////////////////// Open Accounts Payable - start ////////////////////////
+    procedure GetOpenAP(): Decimal
+    var
+        GLEntry: Record "G/L Entry";
+    begin
+        GLEntry.SetRange("G/L Account No.", APGLAcctStart, APGLAcctEnd);
+        GLEntry.CalcSums(Amount);
+        exit(GLEntry.Amount);
+    end;
+
+    //////////////////////// Open Accounts Payable - end ////////////////////////
 }

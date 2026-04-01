@@ -1,4 +1,4 @@
-codeunit 57000 TlySLPriceListTriggers
+codeunit 57000 TlySalesPriceListTriggers
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;

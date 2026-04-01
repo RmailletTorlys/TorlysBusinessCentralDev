@@ -57,7 +57,7 @@ permissionset 50000 TorlysPermissions
         table TlyHolidays = X,
         codeunit TlyPriceAssetSalesPriceCode = X,
         codeunit TlyPriceSourceSalesPriceCode = X,
-        codeunit TlySLPriceListTriggers = X,
+        codeunit TlySalesPriceListTriggers = X,
         codeunit TlySalesLinePrice = X,
         codeunit TlyPriceCalcBufferMgt = X,
         codeunit TlyPriceCodeSourcePriceCalc = X,

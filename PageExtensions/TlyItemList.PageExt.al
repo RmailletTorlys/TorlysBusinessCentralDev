@@ -146,6 +146,24 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = false;
             }
+            field("Qty. on Hand (TMT)"; Rec."Qty. on Hand (TMT)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (TMT)';
+                ToolTip = 'Qty. on Hand (TMT)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Qty. on Hand (SCANGLOBAL)"; Rec."Qty. on Hand (SCANGLOBAL)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (SCANGLOBAL)';
+                ToolTip = 'Qty. on Hand (SCANGLOBAL)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = false;
+            }
             field("Qty. on Hand (CAL)"; Rec."Qty. on Hand (CAL)")
             {
                 ApplicationArea = Dimensions;
@@ -173,24 +191,7 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = false;
             }
-            field("Qty. on Hand (TMT)"; Rec."Qty. on Hand (TMT)")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Qty. on Hand (TMT)';
-                ToolTip = 'Qty. on Hand (TMT)';
-                DecimalPlaces = 2;
-                Editable = false;
-                Visible = true;
-            }
-            field("Qty. on Hand (SCAN)"; Rec."Qty. on Hand (SCANGLOBAL)")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Qty. on Hand (SCANGLOBAL)';
-                ToolTip = 'Qty. on Hand (SCANGLOBAL)';
-                DecimalPlaces = 2;
-                Editable = false;
-                Visible = true;
-            }
+
             field("Qty. on Hand (KRN)"; Rec."Qty. on Hand (KRN)")
             {
                 ApplicationArea = Dimensions;

@@ -14,4 +14,11 @@ codeunit 57015 TlyPurchasePriceListTriggers
         //     PriceListLine."Shipment Method Code" := PriceCalculationBuffer."Shipment Method Code";
         PriceListLine.SetRange("Shipment Method Code", PriceCalculationBuffer."Shipment Method Code");
     end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purchase Line - Price", 'OnAfterIsPriceUpdateNeeded', '', false, false)]
+    local procedure OnAfterIsPriceUpdateNeeded(AmountType: Enum "Price Amount Type"; FoundPrice: Boolean; CalledByFieldNo: Integer; PurchaseLine: Record "Purchase Line"; var Result: Boolean; IsSKU: Boolean)
+    begin
+        Result := (CalledByFieldNo = PurchaseLine.FieldNo("Shipment Method Code"));
+    end;
 }

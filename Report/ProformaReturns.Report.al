@@ -485,13 +485,16 @@ report 50034 "Proforma Returns"
 
                                 If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
                                     Item3.GET("No.");
+                                    Item3.CalcFields("Outbound Duty % to US"); //TLY-SD - 04/01/2025
                                     IF (NOT OrderShipped) THEN BEGIN
                                         IF (CostInsteadOfPrice) THEN
                                             AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity"
                                         ELSE IF (UseListPrice) THEN
                                             AmountExclInvDisc := "Unit Price" * "Quantity"
                                         ELSE IF (BackoutDuty) then //AND (Item3."Tariff Charge Required") THEN
-                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) // 1.25)
+                                            // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) // 1.25)
+                                            //                     * "Quantity")
+                                                                AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) // 1.25)
                                                                 * "Quantity")
                                         ELSE
                                             AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity");
@@ -754,22 +757,22 @@ report 50034 "Proforma Returns"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Backout Duty';
                     }
-                    field(DutyPercentage; DutyPercentage)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Duty Percentage';
-                    }
-                    field(RemoveDuty; RemoveDuty)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Remove Duty Lines';
-                    }
+                    // field(DutyPercentage; DutyPercentage)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Duty Percentage';
+                    // }
+                    // field(RemoveDuty; RemoveDuty)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Remove Duty Lines';
+                    // }
 
-                    field(RemoveFreight; RemoveFreight)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Remove Freight Lines';
-                    }
+                    // field(RemoveFreight; RemoveFreight)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Remove Freight Lines';
+                    // }
                     field(CostInsteadOfPrice; CostInsteadOfPrice)
                     {
                         ApplicationArea = Basic, Suite;
@@ -833,6 +836,11 @@ report 50034 "Proforma Returns"
         end else
             Pieces := 0;
         exit(Pieces);
+    end;
+
+    trigger OnInitReport()
+    begin
+        BackoutDuty := true;
     end;
 
     var

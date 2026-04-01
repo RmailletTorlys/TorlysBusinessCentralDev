@@ -2,6 +2,17 @@ pageextension 50392 TlyPhysInventoryJournal extends "Phys. Inventory Journal"
 {
     layout
     {
+        addafter(Description)
+        {
+            field("Item Category Code"; Rec."Item Category Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Item Category Code';
+                ToolTip = 'Item Category Code';
+                Editable = false;
+            }
+        }
+
         moveafter("Location Code"; "Unit of Measure Code")
 
         addafter("Qty. (Calculated)")

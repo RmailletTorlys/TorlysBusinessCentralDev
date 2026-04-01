@@ -104,12 +104,13 @@ report 50029 "B13 Purchase Invoice"
                     TariffNetWeightKG := 0;
                     TariffLineAmount := 0;
 
-                    // item3.get("No.");
+                    Item3.Get("No.");
+                    Item3.CalcFields("Outbound Duty % to US"); //TLY-SD - 04/01/2025
                     // TariffNote := item."Customs/Tariff Note";
                     If CostInsteadOfPrice then
                         NetPrice := "Unit Cost (LCY)"
                     else if (BackoutDuty) then
-                        NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / (1 + (DutyPercentage * 0.01))) //1.25)
+                        NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
                     else
                         NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
 
@@ -219,11 +220,11 @@ report 50029 "B13 Purchase Invoice"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Backout Duty';
                     }
-                    field(DutyPercentage; DutyPercentage)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Duty Percentage';
-                    }
+                    // field(DutyPercentage; DutyPercentage)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Duty Percentage';
+                    // }
                     // field(RemoveFreight; RemoveFreight)
                     // {
                     //     ApplicationArea = Basic, Suite;
@@ -252,8 +253,14 @@ report 50029 "B13 Purchase Invoice"
         exit(UserDetails."User Name");
     end;
 
+    trigger OnInitReport()
+    begin
+        BackoutDuty := true;
+    end;
+
     var
         SalesLine: Record "Sales Line";
+        Item3: Record Item;
         Item2: Record Item;
         ItemUOM: Record "Item Unit of Measure";
         SalesHeader: Record "Sales Header";

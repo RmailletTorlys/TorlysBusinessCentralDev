@@ -183,7 +183,7 @@ page 50559 TlyLinkedSOtoPO
                     CurrPage.SetSelectionFilter(SelectedSalesLine);
                     if SelectedSalesLine.FindSet() then
                         repeat
-                            SelectedSalesLine.Validate(SelectedSalesLine."Qty. to Ship", SelectedSalesLine.Quantity);
+                            SelectedSalesLine.Validate(SelectedSalesLine."Qty. to Ship", SelectedSalesLine."Outstanding Quantity");
                             SelectedSalesLine.Modify(true);
                         until SelectedSalesLine.Next() = 0;
                 end;
@@ -192,7 +192,7 @@ page 50559 TlyLinkedSOtoPO
     }
     trigger OnAfterGetRecord()
     begin
-        if Rec."Qty. to Ship" <> Rec.Quantity then
+        if Rec."Qty. to Ship" <> Rec."Outstanding Quantity" then
             StyleExprTxt := 'Unfavorable'
         else
             StyleExprTxt := '';

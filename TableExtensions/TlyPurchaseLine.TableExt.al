@@ -354,7 +354,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
                 QtyPerPallet: Decimal;
                 TempQuantity: Decimal;
             begin
-                if Rec.Type = Rec.Type::Item THEN BEGIN //only run check for items
+                if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
                     if Item."Compare Unit of Measure" <> '' then begin
                         QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //get the SF per case

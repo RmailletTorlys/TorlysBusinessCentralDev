@@ -494,6 +494,20 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             Visible = false;
         }
+
+        modify(ShipContainer)
+        {
+            Visible = Rec."Location Code" <> 'DIRECT';
+        }
+
+        modify(ReceiveContainer)
+        {
+            Visible = Rec."Location Code" <> 'DIRECT';
+        }
+        modify(UndoShipContainer)
+        {
+            Visible = Rec."Location Code" <> 'DIRECT';
+        }
     }
 
     var

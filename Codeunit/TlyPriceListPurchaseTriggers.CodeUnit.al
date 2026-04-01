@@ -1,5 +1,5 @@
 
-codeunit 57015 TlyPurchasePriceListTriggers
+codeunit 57015 TlyPriceListPurchaseTriggers
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purchase Line - Price", 'OnAfterFillBuffer', '', false, false)]
     local procedure OnAfterFillBuffer(var PriceCalculationBuffer: Record "Price Calculation Buffer"; PurchaseHeader: Record "Purchase Header"; PurchaseLine: Record "Purchase Line")
@@ -21,4 +21,10 @@ codeunit 57015 TlyPurchasePriceListTriggers
     // begin
     //     Result := (CalledByFieldNo = PurchaseLine.FieldNo("Shipment Method Code"));
     // end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Price List Management", 'OnAfterSetHeadersFilters', '', false, false)]
+    local procedure OnAfterSetHeadersFilters(PriceListLine: Record "Price List Line"; var DuplicatePriceListLine: Record "Price List Line")
+    begin
+        DuplicatePriceListLine.SetRange("Shipment Method Code", PriceListLine."Shipment Method Code");
+    end;
 }

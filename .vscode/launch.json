@@ -10,10 +10,7 @@
             "environmentName": "Sandbox_DEV",
             // "environmentName": "TORLYS_BC_Test",
             // "startupObjectId": 9305, //sales order list
-            // "startupObjectId": 42, //sales order card
-            // "startupObjectId": 43, //sales invoice card
-            // "startupObjectId": 9302, //sales credit memo list
-            "startupObjectId": 5742,
+            "startupObjectId": 7017,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

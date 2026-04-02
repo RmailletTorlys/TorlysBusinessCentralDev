@@ -1,5 +1,7 @@
 pageextension 57001 TlyPriceListLines extends "Price List Lines"
 {
+    //SourceTableView = sorting("Source Type", "Product No.");
+
     layout
     {
         addafter("Unit Price")

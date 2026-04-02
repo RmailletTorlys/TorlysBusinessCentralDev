@@ -2,9 +2,10 @@
 table 51059 TlyDisplays
 {
     DataClassification = CustomerContent;
-    Caption = 'Customer Displays';
-    DrillDownPageId = TlyCustomerDisplays;
-    LookupPageId = TlyCustomerDisplays;
+    Caption = 'Displays';
+    // DrillDownPageId = TlyCustomerDisplays;
+    // LookupPageId = TlyCustomerDisplays;
+    ObsoleteState = Pending;
 
     fields
     {

@@ -1,4 +1,4 @@
-codeunit 57004 TlySalesLinePrice implements "Line With Price"
+codeunit 57004 TlyPriceSalesLineWithPrice implements "Line With Price"
 {
     var
         SalesHeader: Record "Sales Header";

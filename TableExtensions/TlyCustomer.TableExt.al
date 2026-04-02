@@ -286,6 +286,12 @@ tableextension 50018 TlyCustomer extends Customer
             CalcFormula = exist("Price List Line" where("Source No." = field("No."), "Product No." = filter('DI-01A')));
         }
 
+        field(50042; "Stocking Pallet Price On PL"; Boolean)
+        {
+            Caption = 'Stocking Pallet Price On PL';
+            DataClassification = CustomerContent;
+        }
+
         modify("Credit Limit (LCY)")
         {
             trigger OnAfterValidate()

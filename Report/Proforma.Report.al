@@ -478,13 +478,16 @@ report 50026 "Proforma"
                                 // Message('tempsalesline %1', TempSalesLine);
                                 If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
                                     Item3.GET("No.");
+                                    Item3.CalcFields("Outbound Duty % to US"); //TLY-SD - 04/01/2025
                                     IF (OrderShipped) THEN BEGIN
                                         IF (CostInsteadOfPrice) THEN
                                             AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
                                         ELSE IF (UseListPrice) THEN
                                             AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
                                         ELSE IF (BackoutDuty) THEN //AND (Item3."Tariff Charge Required") THEN
-                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
+                                                                   // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
+                                                                   // * "Quantity Shipped")
+                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
                                                                 * "Quantity Shipped")
                                         ELSE begin
                                             AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
@@ -544,13 +547,16 @@ report 50026 "Proforma"
 
                                 If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
                                     Item3.GET("No.");
+                                    Item3.CalcFields("Outbound Duty % to US"); //TLY-SD - 04/01/2025
                                     IF (NOT OrderShipped) THEN BEGIN
                                         IF (CostInsteadOfPrice) THEN
                                             AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
                                         ELSE IF (UseListPrice) THEN
                                             AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
                                         ELSE IF (BackoutDuty) THEN //AND (Item3."Tariff Charge Required") THEN
-                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
+                                            // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
+                                            //                     * "Qty. to Ship")
+                                                                AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
                                                                 * "Qty. to Ship")
                                         ELSE
                                             AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
@@ -799,21 +805,21 @@ report 50026 "Proforma"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Backout Duty';
                     }
-                    field(DutyPercentage; DutyPercentage)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Duty Percentage';
-                    }
-                    field(RemoveDuty; RemoveDuty)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Remove Duty Lines';
-                    }
-                    field(RemoveFreight; RemoveFreight)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Remove Freight Lines';
-                    }
+                    // field(DutyPercentage; DutyPercentage)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Duty Percentage';
+                    // }
+                    // field(RemoveDuty; RemoveDuty)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Remove Duty Lines';
+                    // }
+                    // field(RemoveFreight; RemoveFreight)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Remove Freight Lines';
+                    // }
                     field(CostInsteadOfPrice; CostInsteadOfPrice)
                     {
                         ApplicationArea = Basic, Suite;
@@ -877,6 +883,11 @@ report 50026 "Proforma"
         end else
             Pieces := 0;
         exit(Pieces);
+    end;
+
+    trigger OnInitReport()
+    begin
+        BackoutDuty := true;
     end;
 
     var

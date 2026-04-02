@@ -1,4 +1,4 @@
-codeunit 57000 TlySLPriceListTriggers
+codeunit 57000 TlyPriceListSalesTriggers
 {
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
@@ -25,7 +25,7 @@ codeunit 57000 TlySLPriceListTriggers
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterGetLineWithPrice', '', true, true)]
     local procedure OnAfterGetLineWithPrice(var LineWithPrice: Interface "Line With Price")
     var
-        TorlysLineWithPrice: Codeunit TlySalesLinePrice;
+        TorlysLineWithPrice: Codeunit TlyPriceSalesLineWithPrice;
     begin
         LineWithPrice := TorlysLineWithPrice;
     end;

@@ -10,7 +10,7 @@
             "environmentName": "Sandbox_DEV",
             // "environmentName": "TORLYS_BC_Test",
             // "startupObjectId": 9305, //sales order list
-            "startupObjectId": 7017,
+            "startupObjectId": 5742,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

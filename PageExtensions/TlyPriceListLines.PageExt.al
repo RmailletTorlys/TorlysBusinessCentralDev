@@ -8,8 +8,8 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         {
             field("Stocking Pallet Price"; Rec."Stocking Pallet Price")
             {
-                Caption = 'Stocking Pallet Price';
-                ToolTip = 'Stocking Pallet Price';
+                Caption = 'Pallet Price';
+                ToolTip = 'Pallet Price';
                 ApplicationArea = All;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))

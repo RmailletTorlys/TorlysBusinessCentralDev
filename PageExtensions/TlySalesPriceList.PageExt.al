@@ -2,6 +2,15 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
 {
     layout
     {
+        addafter(Description)
+        {
+            field("Price List Type"; Rec."Price List Type")
+            {
+                Caption = 'Price List Type';
+                ApplicationArea = All;
+            }
+        }
+
         addafter(AssignToNo)
         {
             field("National Property Management"; Rec."National Property Management")

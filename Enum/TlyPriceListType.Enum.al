@@ -9,43 +9,45 @@ Enum 50009 TlyPriceListType
         Caption = ' ';
     }
 
-    value(1; "Customer")
+    value(1; "Tier")
     {
-        Caption = 'Customer';
+        Caption = 'Tier';
     }
 
-    value(2; "Project")
+    value(2; "Tier QC")
     {
-        Caption = 'Project';
+        Caption = 'Tier QC';
     }
 
-    value(3; "Promo")
+    value(3; "Tier US")
     {
-        Caption = 'Promo';
+        Caption = 'Tier US';
     }
 
     value(4; "Insurance")
     {
         Caption = 'Insurance';
     }
-
     value(5; "Buying Group")
     {
         Caption = 'Buying Group';
     }
 
-    value(6; "Tiers")
+    value(6; "Promo")
     {
-        Caption = 'Tiers';
+        Caption = 'Promo';
+    }
+    value(7; "Customer")
+    {
+        Caption = 'Customer';
     }
 
-    value(7; "Tiers QC")
+    value(8; "Project")
     {
-        Caption = 'Tiers QC';
+        Caption = 'Project';
     }
 
-    value(8; "Tiers US")
-    {
-        Caption = 'Tiers US';
-    }
+
+
+
 }

@@ -440,6 +440,12 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 Filters = where("Location Code" = const('CAL'), "Appointment At" = filter('>T'));
                 OrderBy = ascending("Appointment At");
             }
+            view(DIRECT)
+            {
+                Caption = 'DIRECT';
+                Filters = where("Location Code" = const('DIRECT'));
+                OrderBy = ascending("Expected Receipt Date");
+            }
         }
     }
     var

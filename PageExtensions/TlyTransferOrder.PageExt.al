@@ -227,7 +227,7 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
         }
         modify("Shipping Agent Code")
         {
-            ShowMandatory = true;
+            // ShowMandatory = true; //TLY-SD - 04/02/2026 - removed per KM
             Editable = true;
         }
     }

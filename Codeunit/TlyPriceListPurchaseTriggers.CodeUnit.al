@@ -29,5 +29,6 @@ codeunit 57015 TlyPriceListPurchaseTriggers
         // these are the extra checks we want to run when verifying price lists (both sales and purchases)
         DuplicatePriceListLine.SetRange("Shipment Method Code", PriceListLine."Shipment Method Code"); //this is for purchases, never use this field for sales
         DuplicatePriceListLine.SetRange("Ending Date", PriceListLine."Ending Date"); //this is for sales, but doesn't hurt applying to purchases
+        // DuplicatePriceListLine.SetRange("Price List Code", PriceListLine."Price List Code"); //this is for sales so we can have duplicates across multiple price lists, but doesn't hurt applying to purchases
     end;
 }

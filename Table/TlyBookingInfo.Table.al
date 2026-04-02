@@ -2,8 +2,9 @@ table 55009 TlyBookingInfo
 {
     DataClassification = CustomerContent;
     Caption = 'Booking Info';
-    LookupPageId = TlyBookingInfo;
-    DrillDownPageId = TlyBookingInfo;
+    // LookupPageId = TlyBookingInfo;
+    // DrillDownPageId = TlyBookingInfo;
+    ObsoleteState = Pending;
 
     fields
     {

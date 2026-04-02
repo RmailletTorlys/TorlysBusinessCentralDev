@@ -13,7 +13,7 @@ codeunit 57009 TlyReleaseTransferDocument
         TransferHeader.TestField("Shortcut Dimension 2 Code");
         TransferHeader.TestField("Shipment Date");
         TransferHeader.TestField("Receipt Date");
-        TransferHeader.TestField("Shipping Agent Code");
+        // TransferHeader.TestField("Shipping Agent Code"); //TLY-SD - 04/02/2026 - removed per KM
 
         //check that all lines are allocated
         TransferLine.Reset();

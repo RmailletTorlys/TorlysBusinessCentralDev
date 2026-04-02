@@ -771,7 +771,7 @@ report 50026 "Proforma"
     }
     requestpage
     {
-        SaveValues = true;
+        // SaveValues = true;
         layout
         {
             area(Content)

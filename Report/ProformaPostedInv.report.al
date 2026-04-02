@@ -768,7 +768,7 @@ report 50031 "Proforma INV"
     }
     requestpage
     {
-        SaveValues = true;
+        // SaveValues = true;
         layout
         {
             area(Content)

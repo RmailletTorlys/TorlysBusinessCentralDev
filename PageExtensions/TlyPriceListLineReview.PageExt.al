@@ -26,10 +26,10 @@ pageextension 57005 TlyPriceListLineReview extends "Price List Line Review"
 
         addafter("Unit Price")
         {
-            // field("Pallet Price"; Rec."Pallet Price")
+            // field("Full Pallet Price"; Rec."Full Pallet Price")
             // {
-            //     Caption = 'Pallet Price';
-            //     ToolTip = 'Pallet Price';
+            //     Caption = 'Full Pallet Price';
+            //     ToolTip = 'Full Pallet Price';
             //     ApplicationArea = All;
             //     Visible = Rec."Price Type" = Rec."Price Type"::Sale;
             // }

@@ -288,7 +288,7 @@ tableextension 50018 TlyCustomer extends Customer
 
         field(50042; "Stocking Pallet Price On PL"; Boolean)
         {
-            Caption = 'Stocking Pallet Price On PL';
+            Caption = 'Full Pallet Price On PL';
             DataClassification = CustomerContent;
         }
 

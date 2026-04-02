@@ -33,9 +33,9 @@ Enum 50009 TlyPriceListType
         Caption = 'Buying Group';
     }
 
-    value(6; "Promo")
+    value(6; "National Promo")
     {
-        Caption = 'Promo';
+        Caption = 'National Promo';
     }
     value(7; "Customer")
     {

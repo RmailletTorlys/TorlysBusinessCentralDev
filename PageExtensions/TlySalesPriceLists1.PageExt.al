@@ -24,19 +24,19 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
     {
         addlast
         {
-            view(TiersAll)
+            view(Tier)
             {
                 Caption = 'Tier - non QC/US';
                 // Filters = where("Code" = filter('TIER*&<>*QC&<>*US'));
                 Filters = where("Price List Type" = filter('Tier'));
             }
-            view(TiersQC)
+            view(TierQC)
             {
                 Caption = 'Tier - QC';
                 // Filters = where("Code" = filter('TIER*&*QC'));
                 Filters = where("Price List Type" = filter('Tier QC'));
             }
-            view(TiersUS)
+            view(TierUS)
             {
                 Caption = 'Tier - US';
                 // Filters = where("Code" = filter('TIER*&*US'));
@@ -55,23 +55,29 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 // Filters = where("Code" = filter('ROOM*'));
                 Filters = where("Price List Type" = filter('Buying Group'));
             }
-            view(Promos)
+            view(NationalPromo)
             {
-                Caption = 'Promo';
+                Caption = 'National Promo';
                 // Filters = where("Source Type" = filter('All Customers'), "Code" = filter('<>TIER*&<>CLEARANCE&<>INSURANCE*&<>ROOM*&<>CLEARANCE'));
-                Filters = where("Price List Type" = filter('Promo'));
+                Filters = where("Price List Type" = filter('National Promo'));
             }
-            view(Customers)
+            view(Customer)
             {
                 Caption = 'Customer';
                 // Filters = where("Source Type" = filter('Customer'));
                 Filters = where("Price List Type" = filter('Customer'));
             }
-            view(Projects)
+            view(Project)
             {
                 Caption = 'Project';
                 // Filters = where("Code" = filter('PRJ*'));
                 Filters = where("Price List Type" = filter('Project'));
+            }
+            view(NoType)
+            {
+                Caption = 'No Type';
+                // Filters = where("Code" = filter('PRJ*'));
+                Filters = where("Price List Type" = filter(" "));
             }
             view(Clearance)
             {

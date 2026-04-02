@@ -261,12 +261,12 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'Remove Regular Price On PL';
             }
-            field("Stocking Pallet Price On PL"; Rec."Stocking Pallet Price On PL")
+            field("Full Pallet Price On PL"; Rec."Stocking Pallet Price On PL")
             {
                 ApplicationArea = All;
-                Caption = 'Stocking Pallet Price On PL';
+                Caption = 'Full Pallet Price On PL';
                 Visible = true;
-                ToolTip = 'Stocking Pallet Price On PL';
+                ToolTip = 'Full Pallet Price On PL';
             }
         }
 

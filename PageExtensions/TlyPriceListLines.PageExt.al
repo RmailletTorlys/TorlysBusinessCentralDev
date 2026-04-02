@@ -6,10 +6,10 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
     {
         addafter("Unit Price")
         {
-            field("Stocking Pallet Price"; Rec."Stocking Pallet Price")
+            field("Full Pallet Price"; Rec."Stocking Pallet Price")
             {
-                Caption = 'Pallet Price';
-                ToolTip = 'Pallet Price';
+                Caption = 'Full Pallet Price';
+                ToolTip = 'Full Pallet Price';
                 ApplicationArea = All;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))

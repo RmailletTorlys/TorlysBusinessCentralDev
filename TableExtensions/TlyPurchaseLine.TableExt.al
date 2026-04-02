@@ -238,7 +238,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnValidate()
             begin
                 if Type = Type::Item then
-                    // UpdateDirectUnitCostByField(FieldNo("Shipment Method Code"));
+                    // this is for when changing the Shipment Method Code, we want to refresh price
                     UpdateDirectUnitCost(FieldNo("Shipment Method Code"));
             end;
         }

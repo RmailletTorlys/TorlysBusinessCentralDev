@@ -19,8 +19,8 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
         }
         field(50003; "Stocking Pallet Price"; Decimal)
         {
-            Caption = 'Pallet Price';
-            ToolTip = 'Pallet Price';
+            Caption = 'Full Pallet Price';
+            ToolTip = 'Full Pallet Price';
             DataClassification = CustomerContent;
         }
     }

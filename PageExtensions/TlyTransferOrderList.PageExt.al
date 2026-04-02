@@ -92,6 +92,27 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
+            field("Total Weight"; TotalWeight)
+            {
+                Caption = 'Total Weight';
+                ToolTip = 'Total Weight';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("To Ship Weight"; ToShipWeight)
+            {
+                Caption = 'To Ship Weight';
+                ToolTip = 'To Ship Weight';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("To Receive Weight"; ToReceiveWeight)
+            {
+                Caption = 'To Receive Weight';
+                ToolTip = 'To Receive Weight';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -194,6 +215,29 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
         }
     }
 
+    trigger OnAfterGetRecord()
+    var
+        TransferLine: Record "Transfer Line";
+    begin
+        TotalWeight := 0;
+        ToShipWeight := 0;
+        ToReceiveWeight := 0;
+
+        TransferLine.Reset();
+        TransferLine.SetRange("Document No.", Rec."No.");
+        TransferLine.SetFilter("Derived From Line No.", '0');
+        if TransferLine.Find('-') then begin
+            repeat
+                TotalWeight := TotalWeight + (TransferLine."Net Weight" * TransferLine.Quantity);
+                ToShipWeight := ToShipWeight + (TransferLine."Net Weight" * TransferLine."Qty. to Ship");
+                ToReceiveWeight := ToReceiveWeight + (TransferLine."Net Weight" * TransferLine."Qty. to Receive");
+            until TransferLine.Next() = 0;
+        end;
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        TotalWeight: Decimal;
+        ToShipWeight: Decimal;
+        ToReceiveWeight: Decimal;
 }

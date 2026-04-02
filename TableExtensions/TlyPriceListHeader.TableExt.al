@@ -11,5 +11,12 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
             ToolTip = 'National Property Management';
             DataClassification = CustomerContent;
         }
+
+        field(50002; "Price List Type"; Enum TlyPriceListType)
+        {
+            Caption = 'Price List Type';
+            ToolTip = 'Price List Type';
+            DataClassification = CustomerContent;
+        }
     }
 }

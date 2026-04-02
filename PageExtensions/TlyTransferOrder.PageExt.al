@@ -164,6 +164,34 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
             }
         }
 
+        addfirst(Shipment)
+        {
+            field("Total Weight"; TotalWeight)
+            {
+                Caption = 'Total Weight';
+                ToolTip = 'Total Weight';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
+            field("To Ship Weight"; ToShipWeight)
+            {
+                Caption = 'To Ship Weight';
+                ToolTip = 'To Ship Weight';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
+            field("To Receive Weight"; ToReceiveWeight)
+            {
+                Caption = 'To Receive Weight';
+                ToolTip = 'To Receive Weight';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Standard;
+            }
+        }
+
         modify("Assigned User ID")
         {
             Visible = false;
@@ -341,6 +369,30 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
             // }
         }
     }
+
+    trigger OnAfterGetRecord()
+    var
+        TransferLine: Record "Transfer Line";
+    begin
+        TotalWeight := 0;
+        ToShipWeight := 0;
+        ToReceiveWeight := 0;
+
+        TransferLine.Reset();
+        TransferLine.SetRange("Document No.", Rec."No.");
+        TransferLine.SetFilter("Derived From Line No.", '0');
+        if TransferLine.Find('-') then begin
+            repeat
+                TotalWeight := TotalWeight + (TransferLine."Net Weight" * TransferLine.Quantity);
+                ToShipWeight := ToShipWeight + (TransferLine."Net Weight" * TransferLine."Qty. to Ship");
+                ToReceiveWeight := ToReceiveWeight + (TransferLine."Net Weight" * TransferLine."Qty. to Receive");
+            until TransferLine.Next() = 0;
+        end;
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        TotalWeight: Decimal;
+        ToShipWeight: Decimal;
+        ToReceiveWeight: Decimal;
 }

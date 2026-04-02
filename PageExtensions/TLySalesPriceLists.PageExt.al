@@ -2,6 +2,15 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
 {
     layout
     {
+        addafter(Description)
+        {
+            field("Price List Type"; Rec."Price List Type")
+            {
+                Caption = 'Price List Type';
+                ApplicationArea = All;
+            }
+        }
+
         addbefore("Starting Date")
         {
             field("National Property Management"; Rec."National Property Management")
@@ -17,48 +26,57 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
         {
             view(TiersAll)
             {
-                Caption = 'Tiers - non QC/US';
-                Filters = where("Code" = filter('TIER*&<>*QC&<>*US'));
+                Caption = 'Tier - non QC/US';
+                // Filters = where("Code" = filter('TIER*&<>*QC&<>*US'));
+                Filters = where("Price List Type" = filter('Tier'));
             }
             view(TiersQC)
             {
-                Caption = 'Tiers - QC';
-                Filters = where("Code" = filter('TIER*&*QC'));
+                Caption = 'Tier - QC';
+                // Filters = where("Code" = filter('TIER*&*QC'));
+                Filters = where("Price List Type" = filter('Tier QC'));
             }
             view(TiersUS)
             {
-                Caption = 'Tiers - US';
-                Filters = where("Code" = filter('TIER*&*US'));
+                Caption = 'Tier - US';
+                // Filters = where("Code" = filter('TIER*&*US'));
+                Filters = where("Price List Type" = filter('Tier US'));
+            }
+
+            view(Insurance)
+            {
+                Caption = 'Insurance';
+                // Filters = where("Code" = filter('INSURANCE*'));
+                Filters = where("Price List Type" = filter('Insurance'));
+            }
+            view(BuyingGroup)
+            {
+                Caption = 'Buying Group';
+                // Filters = where("Code" = filter('ROOM*'));
+                Filters = where("Price List Type" = filter('Buying Group'));
+            }
+            view(Promos)
+            {
+                Caption = 'Promo';
+                // Filters = where("Source Type" = filter('All Customers'), "Code" = filter('<>TIER*&<>CLEARANCE&<>INSURANCE*&<>ROOM*&<>CLEARANCE'));
+                Filters = where("Price List Type" = filter('Promo'));
+            }
+            view(Customers)
+            {
+                Caption = 'Customer';
+                // Filters = where("Source Type" = filter('Customer'));
+                Filters = where("Price List Type" = filter('Customer'));
+            }
+            view(Projects)
+            {
+                Caption = 'Project';
+                // Filters = where("Code" = filter('PRJ*'));
+                Filters = where("Price List Type" = filter('Project'));
             }
             view(Clearance)
             {
                 Caption = 'Clearance';
                 Filters = where("Code" = filter('CLEARANCE'));
-            }
-            view(Insurance)
-            {
-                Caption = 'Insurance';
-                Filters = where("Code" = filter('INSURANCE*'));
-            }
-            view(Retail2)
-            {
-                Caption = 'Retail 2.0';
-                Filters = where("Code" = filter('ROOM*'));
-            }
-            view(Promos)
-            {
-                Caption = 'Promos';
-                Filters = where("Source Type" = filter('All Customers'), "Code" = filter('<>TIER*&<>CLEARANCE&<>INSURANCE*&<>ROOM*&<>CLEARANCE'));
-            }
-            view(Customers)
-            {
-                Caption = 'Customers';
-                Filters = where("Source Type" = filter('Customer'));
-            }
-            view(Projects)
-            {
-                Caption = 'Projects';
-                Filters = where("Code" = filter('PRJ*'));
             }
             view(NotActive)
             {

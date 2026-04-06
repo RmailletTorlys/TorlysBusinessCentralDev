@@ -5,7 +5,7 @@ table 51059 TlyDisplays
     Caption = 'Displays';
     // DrillDownPageId = TlyCustomerDisplays;
     // LookupPageId = TlyCustomerDisplays;
-    ObsoleteState = Pending;
+    ObsoleteState = Removed;
 
     fields
     {

@@ -60,7 +60,7 @@ tableextension 55740 TlyTransferHeader extends "Transfer Header"
         {
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
-            TableRelation = TlyBookingInfo;
+            // TableRelation = TlyBookingInfo;
         }
 
         modify("TPS CMG Container No.")

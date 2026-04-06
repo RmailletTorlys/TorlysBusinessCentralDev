@@ -199,7 +199,7 @@ report 50019 "Receiving Report - Trans"
         Vendor: Record Vendor;
         transferheader: Record "Transfer Header";
         BinContent: Record "Bin Content";
-        bookinginfo: Record TlyBookingInfo;
+        // bookinginfo: Record TlyBookingInfo;
         Item: Record Item;
         QCInspection: Boolean;
         HideQuantities: Boolean;

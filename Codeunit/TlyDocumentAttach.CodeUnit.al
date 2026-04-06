@@ -8,13 +8,13 @@ codeunit 51100 TlyDocumentAttach
         DocumentNo: Code[20];
     begin
         case RecRef.Number of
-            Database::TlyBookingInfo:
-                begin
-                    FieldRef := RecRef.Field(1);
-                    DocumentNo := FieldRef.Value;
-                    DocumentAttachment.Validate("No.", DocumentNo);
-                    DocumentAttachment.Validate("Document Type", "Attachment Document Type"::"Booking Info");
-                end;
+            // Database::TlyBookingInfo:
+            //     begin
+            //         FieldRef := RecRef.Field(1);
+            //         DocumentNo := FieldRef.Value;
+            //         DocumentAttachment.Validate("No.", DocumentNo);
+            //         DocumentAttachment.Validate("Document Type", "Attachment Document Type"::"Booking Info");
+            //     end;
             Database::"TPS CMG Container Header":
                 begin
                     FieldRef := RecRef.Field(1);

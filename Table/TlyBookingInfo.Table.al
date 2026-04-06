@@ -4,7 +4,7 @@ table 55009 TlyBookingInfo
     Caption = 'Booking Info';
     // LookupPageId = TlyBookingInfo;
     // DrillDownPageId = TlyBookingInfo;
-    ObsoleteState = Pending;
+    ObsoleteState = Removed;
 
     fields
     {

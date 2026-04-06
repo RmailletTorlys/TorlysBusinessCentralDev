@@ -185,6 +185,13 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
                 ApplicationArea = All;
                 Importance = Additional;
             }
+            field("Original Invoice No."; Rec."Original Invoice No.")
+            {
+                Caption = 'Original Invoice No.';
+                ToolTip = 'Original Invoice No.';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
         }
 
         addbefore("Ship-to Name")

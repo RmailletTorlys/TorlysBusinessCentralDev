@@ -274,6 +274,13 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Importance = Additional;
             }
+            field("Original Invoice No."; Rec."Original Invoice No.")
+            {
+                Caption = 'Original Invoice No.';
+                ToolTip = 'Original Invoice No.';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
         }
 
         moveafter(ShippingOptions; "Ship-to Code", "Shipping Agent Code", "Shipping Agent Service Code")

@@ -415,6 +415,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                             DatePage.GetRecord(Rec);
                         repeat
                             Rec."Appointment At" := DatePage.GetDateTime();
+                            Rec.Validate(Rec."Expected Receipt Date", DT2Date(DatePage.GetDateTime())); //update Expected Receipt Date when Appotinment booked
                             Rec.Modify(true);
                         until ContainerHeader.Next() = 0;
                     end;

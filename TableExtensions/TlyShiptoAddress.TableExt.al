@@ -103,4 +103,11 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
         }
     }
 
+    fieldgroups
+    {
+        addlast(DropDown; "Shipping Agent Code")
+        {
+        }
+    }
+
 }

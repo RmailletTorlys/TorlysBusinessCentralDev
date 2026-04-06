@@ -42,6 +42,7 @@ tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
             // TableRelation = TlyBookingInfo;
+            ObsoleteState = Pending;
         }
 
         field(50008; "SH BOL No."; Code[20])

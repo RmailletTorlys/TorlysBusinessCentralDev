@@ -43,6 +43,7 @@ tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
             // TableRelation = TlyBookingInfo;
+            ObsoleteState = Pending;
         }
 
         field(50008; "SH BOL No."; Code[20])

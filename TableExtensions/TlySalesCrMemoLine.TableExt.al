@@ -240,7 +240,7 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
             Caption = 'Reason Code';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("Sales Header"."Reason Code" where("No." = field("Document No.")));
+            CalcFormula = lookup("Sales Cr.Memo Header"."Reason Code" where("No." = field("Document No.")));
         }
     }
 

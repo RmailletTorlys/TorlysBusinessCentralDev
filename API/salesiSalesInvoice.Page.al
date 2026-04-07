@@ -57,7 +57,7 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Total Line Cost';
                 }
 
-                field(PostingDateHeader; PostingDate)
+                field(PostingDateHeader; Rec."Posting Date")
                 {
                     Caption = 'Posting Date';
                 }
@@ -67,7 +67,7 @@ Page 56104 salesiSalesInvoice
                     Caption = 'invoice_number';
                 }
 
-                field(order_number; Rec."Document No.")
+                field(order_number; Rec."Order No.")
                 {
                     Caption = 'order_number';
                 }
@@ -82,7 +82,7 @@ Page 56104 salesiSalesInvoice
                     Caption = 'SalespersonCode';
                 }
 
-                field(CreatedBy; Rec.SystemCreatedBy)
+                field(CreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
                 {
                     Caption = 'CreaatedBy';
                 }
@@ -167,13 +167,12 @@ Page 56104 salesiSalesInvoice
                     Caption = 'PromoCode';
 
                 }
-
-                field(SalespersonCode2; Rec."Salesperson Code 2")
+                field(SalespersonCode2; SalespersonCode2)
                 {
                     Caption = 'Salesperson Code 2';
                 }
 
-                field("SalespersonCode3"; Rec."Salesperson Code 3")
+                field("SalespersonCode3"; SalespersonCode3)
                 {
                     Caption = 'Salesperson Code 3';
                 }
@@ -215,7 +214,19 @@ Page 56104 salesiSalesInvoice
 
                 }
 
+                field(project_number; Rec."Price List")
+                {
+                    Caption = 'Project Number';
+                }
 
+                field(natl_prop_mgt; '0')
+                {
+                    Caption = 'National PM';
+                }
+                field(Gen_Prod_Posting_Group; Rec."Gen. Prod. Posting Group")
+                {
+                    Caption = 'Gen. Prod. Posting Group';
+                }
             }
         }
     }
@@ -239,9 +250,11 @@ Page 56104 salesiSalesInvoice
         Department: Text;
         PostingGroupGlCode: Text;
         PostingDate: Date;
+        SalespersonCode: Code[10];
+        SalespersonCode2: Code[10];
+        SalespersonCode3: Code[10];
         ShortcutDimCode: array[8] of Code[20];
-
-
+        LookupUserId: Codeunit TlyLookupUserID;
 
     trigger OnAfterGetRecord()
     begin
@@ -249,7 +262,7 @@ Page 56104 salesiSalesInvoice
         if SalesInvoiceHeader.Get(Rec."Document No.") then begin
             CurrencyCode := SalesInvoiceHeader."Currency Code";
             CurrencyFactor := SalesInvoiceHeader."Currency Factor";
-            SystemUserId := SalesInvoiceHeader.SystemCreatedBy;
+            SystemUserId := LookupUserId.UserId(SalesInvoiceHeader.SystemCreatedBy);
             PaymentTermsCode := SalesInvoiceHeader."Payment Terms Code";
             ShipmentMethodCode := SalesInvoiceHeader."Shipment Method Code";
             ShippingAgentCode := SalesInvoiceHeader."Shipping Agent Code";
@@ -258,6 +271,9 @@ Page 56104 salesiSalesInvoice
             OrderDate := SalesInvoiceHeader."Order Date";
             DocumentDate := SalesInvoiceHeader."Document Date";
             PostingDate := SalesInvoiceHeader."Posting Date";
+            SalespersonCode := SalesInvoiceHeader."Salesperson Code";
+            SalespersonCode2 := SalesInvoiceHeader."Salesperson Code 2";
+            SalespersonCode3 := SalesInvoiceHeader."Salesperson Code 3";
         end else begin
             Clear(SalesInvoiceHeader);
             CurrencyCode := '';
@@ -265,33 +281,21 @@ Page 56104 salesiSalesInvoice
             TagName := '';
         end;
 
-
         if (Rec."Gen. Prod. Posting Group" <> '') and GPPG.Get(Rec."Gen. Prod. Posting Group") then
             Reportable := GPPG."Reportable Group"
         else
             Reportable := false;
-
 
         if GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group") then
             PostingGroupGlCode := GenPostingSetup."Sales Account"
         else
             PostingGroupGlCode := '';
 
-
         if Customer.Get(Rec."Sell-to Customer No.") then
             Department := Customer."Global Dimension 2 Code"
         else
             Department := '';
 
-
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
-
-
 }
-
-
-
-
-

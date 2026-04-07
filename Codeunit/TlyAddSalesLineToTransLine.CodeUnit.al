@@ -35,6 +35,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
+            TransferHeader.FilterGroup(2);
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Order Fulfillment');
             TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
@@ -45,8 +46,10 @@ codeunit 50027 TlyAddSalesLineToTransLine
         end else if Rec.Type = Rec.Type::" " then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
+            TransferHeader.FilterGroup(2);
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Order Fulfillment');
+            // TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
             TransferOrders.SetTableView(TransferHeader);
             if TransferOrders.RunModal() = Action::LookupOK then
                 TransferOrders.GetRecord(TransferHeader);
@@ -127,6 +130,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
+            TransferHeader.FilterGroup(2);
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Marketing');
             TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
@@ -137,6 +141,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
         end else if Rec.Type = Rec.Type::" " then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
+            TransferHeader.FilterGroup(2);
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Marketing');
             TransferOrders.SetTableView(TransferHeader);

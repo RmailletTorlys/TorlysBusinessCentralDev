@@ -52,11 +52,11 @@ Page 56105 salesiSalesCredits
                     Caption = 'Total Line Cost';
                 }
 
-                field(PostingDateHeader; PostingDate)
+                field(PostingDateHeader; Rec."Posting Date")
                 {
                     Caption = 'Posting Date';
                 }
-                field(invoice_number; InvoiceNo)
+                field(invoice_number; Rec."Document No.")
                 {
                     Caption = 'invoice_number';
                 }
@@ -71,12 +71,12 @@ Page 56105 salesiSalesCredits
                     Caption = 'TransactionType';
                 }
 
-                field(SalespersonCode; Rec."Salesperson Code")
+                field(SalespersonCode; SalespersonCode)
                 {
                     Caption = 'SalespersonCode';
                 }
 
-                field(CreatedBy; Rec.SystemCreatedBy)
+                field(CreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
                 {
                     Caption = 'CreaatedBy';
                 }
@@ -162,12 +162,12 @@ Page 56105 salesiSalesCredits
 
                 }
 
-                field(SalespersonCode2; Rec."Salesperson Code 2")
+                field(SalespersonCode2; SalespersonCode2)
                 {
                     Caption = 'Salesperson Code 2';
                 }
 
-                field("SalespersonCode3"; Rec."Salesperson Code 3")
+                field("SalespersonCode3"; SalespersonCode3)
                 {
                     Caption = 'Salesperson Code 3';
                 }
@@ -201,16 +201,24 @@ Page 56105 salesiSalesCredits
                 field(TagName; TagName)
                 {
                     Caption = 'TagName';
-
                 }
 
                 field(ProjectName; Projectname)
                 {
                     Caption = 'ProjectName';
-
                 }
-
-
+                field(project_number; Rec."Price List")
+                {
+                    Caption = 'Project Number';
+                }
+                field(natl_prop_mgt; '0')
+                {
+                    Caption = 'National PM';
+                }
+                field(Gen_Prod_Posting_Group; Rec."Gen. Prod. Posting Group")
+                {
+                    Caption = 'Gen. Prod. Posting Group';
+                }
             }
         }
     }
@@ -236,8 +244,11 @@ Page 56105 salesiSalesCredits
         PostingGroupGlCode: Text;
         PostingDate: Date;
         ReasonCode: Code[10];
+        SalespersonCode: Code[10];
+        SalespersonCode2: Code[10];
+        SalespersonCode3: Code[10];
         ShortcutDimCode: array[8] of Code[20];
-
+        LookupUserId: Codeunit TlyLookupUserID;
 
     trigger OnAfterGetRecord()
     begin
@@ -246,36 +257,34 @@ Page 56105 salesiSalesCredits
             CurrencyCode := SalesCrMemoHeader."Currency Code";
             CurrencyFactor := SalesCrMemoHeader."Currency Factor";
             InvoiceNo := SalesCrMemoHeader."Original Invoice No.";
-            SystemUserId := SalesCrMemoHeader.SystemCreatedBy;
+            SystemUserId := LookupUserId.UserId(SalesCrMemoHeader.SystemCreatedBy);
             PaymentTermsCode := SalesCrMemoHeader."Payment Terms Code";
             ShipmentMethodCode := SalesCrMemoHeader."Shipment Method Code";
             ShippingAgentCode := SalesCrMemoHeader."Shipping Agent Code";
             TagName := SalesCrMemoHeader."Tag Name";
             ProjectName := SalesCrMemoHeader."Tag Name";
-
+            SalespersonCode := SalesCrMemoHeader."Salesperson Code";
+            SalespersonCode2 := SalesCrMemoHeader."Salesperson Code 2";
+            SalespersonCode3 := SalesCrMemoHeader."Salesperson Code 3";
+            DocumentDate := SalesCrMemoHeader."Document Date";
+            PostingDate := SalesCrMemoHeader."Posting Date";
+            ReasonCode := SalesCrMemoHeader."Reason Code";
 
             if SalesCrMemoHeader."Entered At" <> 0DT then
                 OrderDate := DT2Date(SalesCrMemoHeader."Entered At")
             else
                 OrderDate := 0D;
-
-            DocumentDate := SalesCrMemoHeader."Document Date";
-            PostingDate := SalesCrMemoHeader."Posting Date";
-            ReasonCode := SalesCrMemoHeader."Reason Code";
         end else begin
-
             Clear(SalesCrMemoHeader);
             CurrencyCode := '';
             InvoiceNo := '';
             OrderDate := 0D;
         end;
 
-
         if GPPG.Get(Rec."Gen. Prod. Posting Group") then
             Reportable := GPPG."Reportable Group"
         else
             Reportable := false;
-
 
         if GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group") then
             PostingGroupGlCode := GenPostingSetup."Sales Account"
@@ -290,9 +299,6 @@ Page 56105 salesiSalesCredits
             Department := '';
         end;
 
-
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
-
 }

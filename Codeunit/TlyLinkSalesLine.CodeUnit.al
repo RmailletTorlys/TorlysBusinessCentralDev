@@ -10,7 +10,7 @@ codeunit 50021 TlyLinkSalesLine
 
         PurchaseLines.LookupMode(true);
         PurchaseLine.Reset;
-        PurchaseLine.FilterGroup(2);
+        PurchaseLine.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
         PurchaseLine.SetRange("Location Code", Rec."Location Code");
         PurchaseLine.SetRange("No.", Rec."No.");
         PurchaseLine.SetFilter("Outstanding Quantity", '<>0');
@@ -44,7 +44,7 @@ codeunit 50021 TlyLinkSalesLine
 
         TransferLines.LookupMode(true);
         TransferLine.Reset;
-        TransferLine.FilterGroup(2);
+        TransferLine.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
         TransferLine.SetRange("Transfer-to Code", Rec."Location Code");
         TransferLine.SetRange("Item No.", Rec."No.");
         TransferLine.SetFilter("Qty. in Transit", '<>0');

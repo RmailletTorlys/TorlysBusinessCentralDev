@@ -703,10 +703,9 @@ pageextension 50030 TlyItemCard extends "Item Card"
         CurrPage.Editable := false;
 
         if UserSetup.Get(UserId) then begin
-            if (UserSetup.Department = UserSetup.Department::"Supply Chain") or (UserSetup.Department = UserSetup.Department::PID) then
+            if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::Executive) or (UserSetup.Department = UserSetup.Department::"Supply Chain") or (UserSetup.Department = UserSetup.Department::PID) then
                 CurrPage.Editable := true;
         end;
-
     end;
 
     trigger OnAfterGetRecord()

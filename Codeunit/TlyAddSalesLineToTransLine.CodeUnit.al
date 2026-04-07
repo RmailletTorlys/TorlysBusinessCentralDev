@@ -28,14 +28,24 @@ codeunit 50027 TlyAddSalesLineToTransLine
     var
         TransferOrders: Page "Transfer Orders";
         TransferHeader: Record "Transfer Header";
+        Item: Record Item;
     begin
         if Rec."Transfer Order No." <> '' then
             Error('ERROR!\\%1 from %2 with a quantity of %3 is already joined to %4 line %5.\\Delete from transfer in order to change.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
 
+        Item.Reset();
+        Item.Get(Rec."No.");
+        Item.SetRange("Location Filter", Rec."Location Code");
+        // if Item.Find('-') then begin
+        Item.CalcFields(Inventory);
+        // end;
+        if Item.Inventory < Rec."Quantity" then
+            Error('ERROR!\\Line not joined to transfer, not enough inventory.');
+
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
-            TransferHeader.FilterGroup(2);
+            TransferHeader.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Order Fulfillment');
             TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
@@ -46,7 +56,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
         end else if Rec.Type = Rec.Type::" " then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
-            TransferHeader.FilterGroup(2);
+            TransferHeader.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Order Fulfillment');
             // TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
@@ -130,7 +140,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
-            TransferHeader.FilterGroup(2);
+            TransferHeader.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Marketing');
             TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
@@ -141,7 +151,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
         end else if Rec.Type = Rec.Type::" " then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
-            TransferHeader.FilterGroup(2);
+            TransferHeader.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetFilter("Transfer Type", 'Marketing');
             TransferOrders.SetTableView(TransferHeader);

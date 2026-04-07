@@ -2,6 +2,8 @@ table 55008 TlyClaimsTrackingLine
 {
     DataClassification = CustomerContent;
     Caption = 'Claims Tracking Line';
+    DrillDownPageId = TlyClaimsTrackingList;
+    LookupPageId = TlyClaimsTrackingList;
 
     fields
     {
@@ -13,7 +15,6 @@ table 55008 TlyClaimsTrackingLine
         field(2; "Claim No."; Code[20])
         {
             Caption = 'Document No.';
-
         }
 
         field(3; "Claim Line No."; Integer)

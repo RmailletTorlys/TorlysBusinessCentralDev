@@ -2,9 +2,9 @@ page 55019 TlyClaimsTrackingSubform
 {
     PageType = ListPart;
     ApplicationArea = All;
-    UsageCategory = Tasks;
+    // UsageCategory = Tasks;
     SourceTable = TlyClaimsTrackingLine;
-    Caption = 'Claims Tracking Lines';
+    Caption = 'Claims Tracking Subform';
     Editable = true;
     LinksAllowed = false;
 

@@ -5,7 +5,7 @@ page 51006 TlyProcBillOfLading
     PageType = Document;
     RefreshOnActivate = true;
     SourceTable = TlyProcessedBillOfLadingHeader;
-    UsageCategory = Documents;
+    // UsageCategory = Documents;
     Editable = false;
     ApplicationArea = Basic, Suite;
 

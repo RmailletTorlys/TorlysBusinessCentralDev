@@ -2,7 +2,7 @@ page 51018 TlyClaimsTracking
 {
     PageType = Card;
     ApplicationArea = All;
-    UsageCategory = Tasks;
+    // UsageCategory = Tasks;
     SourceTable = TlyClaimsTrackingHeader;
     Caption = 'Claims Tracking';
     Editable = false;

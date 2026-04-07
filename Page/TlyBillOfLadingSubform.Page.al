@@ -11,7 +11,6 @@ page 51004 TlyBillOfLadingSubform
     ModifyAllowed = false;
     InsertAllowed = false;
 
-
     layout
     {
         area(content)

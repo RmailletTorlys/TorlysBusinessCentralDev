@@ -1,13 +1,13 @@
 page 55020 TlyClaimsTrackingList
 {
+    ApplicationArea = Basic, Suite, Assembly;
+    UsageCategory = Lists;
     Caption = 'Claims Tracking';
-    PageType = List;
     CardPageId = TlyClaimsTracking;
-    QueryCategory = 'Claims Tracking';
-    ApplicationArea = All;
-    UsageCategory = Tasks;
+    DataCaptionFields = "No.";
+    Editable = false;
+    PageType = List;
     SourceTable = TlyClaimsTrackingHeader;
-    SourceTableView = SORTING("No.") ORDER(Ascending);
 
     layout
     {

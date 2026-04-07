@@ -28,19 +28,25 @@ codeunit 50027 TlyAddSalesLineToTransLine
     var
         TransferOrders: Page "Transfer Orders";
         TransferHeader: Record "Transfer Header";
+        LocationCode: Code[10];
         Item: Record Item;
     begin
         if Rec."Transfer Order No." <> '' then
             Error('ERROR!\\%1 from %2 with a quantity of %3 is already joined to %4 line %5.\\Delete from transfer in order to change.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
 
+        LocationCode := '';
+        if Rec."Location Code" = 'TOR' then
+            LocationCode := 'CAL'
+        else if Rec."Location Code" = 'CAL' then
+            LocationCode := 'TOR';
+
         Item.Reset();
         Item.Get(Rec."No.");
-        Item.SetRange("Location Filter", Rec."Location Code");
-        // if Item.Find('-') then begin
-        Item.CalcFields(Inventory);
-        // end;
-        if Item.Inventory < Rec."Quantity" then
+        Item.SetRange("Location Filter", LocationCode);
+        Item.CalcFields(Inventory, "Qty. to Ship", "Qty. to Ship (Transfer)");
+        if (Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)") < Rec."Quantity" then
             Error('ERROR!\\Line not joined to transfer, not enough inventory.');
+        // Error('ERROR!\\Line not joined to transfer, not enough inventory.\\Order Quantity = %1.\\Inventory = %2.', Rec.Quantity, (Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)"));
 
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);

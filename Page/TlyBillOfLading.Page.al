@@ -5,7 +5,7 @@ page 51002 TlyBillOfLading
     PageType = Card;
     RefreshOnActivate = true;
     SourceTable = TlyBillOfLadingHeader;
-    UsageCategory = Documents;
+    // UsageCategory = Documents;
     ApplicationArea = Basic, Suite;
     Permissions = tabledata "Sales Shipment Header" = rm;
     DeleteAllowed = true;

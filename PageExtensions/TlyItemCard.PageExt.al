@@ -696,6 +696,19 @@ pageextension 50030 TlyItemCard extends "Item Card"
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
 
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        CurrPage.Editable := false;
+
+        if UserSetup.Get(UserId) then begin
+            if (UserSetup.Department = UserSetup.Department::"Supply Chain") or (UserSetup.Department = UserSetup.Department::PID) then
+                CurrPage.Editable := true;
+        end;
+
+    end;
+
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);

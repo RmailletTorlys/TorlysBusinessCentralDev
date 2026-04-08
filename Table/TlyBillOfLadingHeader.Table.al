@@ -505,5 +505,4 @@ table 55002 TlyBillOfLadingHeader
         Rec."Piece Count" := PieceCount;
 
     end;
-
 }

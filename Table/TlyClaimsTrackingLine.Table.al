@@ -10,6 +10,7 @@ table 55008 TlyClaimsTrackingLine
         field(1; "Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type';
+            // ObsoleteState = Removed;
         }
 
         field(2; "Claim No."; Code[20])
@@ -25,7 +26,6 @@ table 55008 TlyClaimsTrackingLine
 
         field(4; "Type"; Enum "Sales Line Type")
         {
-
             Caption = 'Type';
         }
 

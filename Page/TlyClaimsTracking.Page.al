@@ -1,12 +1,12 @@
 page 51018 TlyClaimsTracking
 {
-    PageType = Card;
-    ApplicationArea = All;
-    // UsageCategory = Tasks;
-    SourceTable = TlyClaimsTrackingHeader;
     Caption = 'Claims Tracking';
-    Editable = false;
-    LinksAllowed = false;
+    PageType = Card;
+    RefreshOnActivate = true;
+    SourceTable = TlyClaimsTrackingHeader;
+    ApplicationArea = Basic, Suite;
+    DeleteAllowed = true;
+    InsertAllowed = true;
 
     layout
     {
@@ -15,12 +15,19 @@ page 51018 TlyClaimsTracking
             group(General)
             {
                 Caption = 'General';
+
                 field("No."; Rec."No.")
                 {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the unique number of the claim.';
+                    ApplicationArea = Basic, Suite;
+                    ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
+                    Caption = 'No.';
+                    Editable = false;
+                    // trigger OnAssistEdit()
+                    // begin
+                    //     if Rec.AssistEdit(xRec) then
+                    //         CurrPage.Update();
+                    // end;
                 }
-
                 field("Customer No."; Rec."Sell-to Customer No.")
                 {
                     ApplicationArea = All;
@@ -44,30 +51,4 @@ page 51018 TlyClaimsTracking
             }
         }
     }
-
-
-
-    procedure AssistEdit(ClaimsHeader: Record TlyClaimsTrackingHeader) Result: Boolean
-    var
-        SalesSetup: Record "Sales & Receivables Setup";
-        NoSeries: Codeunit "No. Series";
-        IsHandled: Boolean;
-
-    begin
-        IsHandled := false;
-        OnBeforeAssistEdit(Rec, ClaimsHeader, IsHandled, Result);
-        if IsHandled then
-            exit;
-
-        SalesSetup.FindFirst();
-        if not SalesSetup.IsEmpty() then
-            Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
-
-        exit(true);
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeAssistEdit(Rec: Record TlyClaimsTrackingHeader; ClaimsHeader: Record TlyClaimsTrackingHeader; var IsHandled: Boolean; var Result: Boolean)
-    begin
-    end;
 }

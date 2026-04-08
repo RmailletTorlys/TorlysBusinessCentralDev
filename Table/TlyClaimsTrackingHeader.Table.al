@@ -15,6 +15,7 @@ table 55007 TlyClaimsTrackingHeader
         {
             DataClassification = CustomerContent;
             Caption = 'Sell-to Customer No.';
+            TableRelation = Customer;
         }
 
         field(3; "Sell-to Customer Name"; Text[100])
@@ -112,6 +113,17 @@ table 55007 TlyClaimsTrackingHeader
             DataClassification = CustomerContent;
             Caption = 'Location Code';
         }
+        field(19; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            DataClassification = CustomerContent;
+            TableRelation = "No. Series";
+        }
+        field(20; "Original Order No."; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Original Order No.';
+        }
     }
 
     keys
@@ -121,4 +133,25 @@ table 55007 TlyClaimsTrackingHeader
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        SalesSetup.FindFirst();
+        if not SalesSetup.IsEmpty() then
+            Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
+    end;
+
+    // procedure AssistEdit(OldClaimHeader: Record TlyClaimsTrackingHeader) Result: Boolean
+    // var
+    //     SalesSetup: Record "Sales & Receivables Setup";
+    //     NoSeries: Codeunit "No. Series";
+    // begin
+    //     SalesSetup.FindFirst();
+    //     if not SalesSetup.IsEmpty() then
+    //         Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
+    //     exit(true);
+    // end;
 }

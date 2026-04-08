@@ -26,11 +26,10 @@ codeunit 57009 TlyReleaseTransferDocument
                 TRQuantityShipped += TransferLine."Quantity Shipped";
             until TransferLine.Next() = 0;
             // Message('qty %1 to ship %2 shipped %3', TRQuantity, TRQtytoShip, TRQuantityShipped);
-            if TRQtytoShip <> 0 then begin
-                if TRQuantity <> TRQtytoShip then
-                    Error('Transfer is not fully allocated.');
-            end
-
+            // if TRQtytoShip <> 0 then begin
+            if TRQuantity <> (TRQtytoShip + TRQuantityShipped) then
+                Error('Transfer is not fully allocated.');
+            // end
         end;
     end;
 

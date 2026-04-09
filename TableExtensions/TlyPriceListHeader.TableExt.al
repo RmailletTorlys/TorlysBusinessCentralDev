@@ -7,8 +7,8 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
     {
         field(50001; "National Property Management"; Boolean)
         {
-            Caption = 'National Property Management';
-            ToolTip = 'National Property Management';
+            Caption = 'National PM';
+            ToolTip = 'National PM';
             DataClassification = CustomerContent;
         }
 

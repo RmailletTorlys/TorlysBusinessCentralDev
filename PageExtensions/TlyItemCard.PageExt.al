@@ -14,7 +14,6 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 ApplicationArea = All;
                 Visible = true;
                 Importance = Standard;
-
             }
         }
 
@@ -36,7 +35,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         addafter("Net Weight")
         {
-            field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
+            field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;
                 Caption = 'Created By';
@@ -44,7 +43,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 ToolTip = 'This field is the user who created the customer account.';
                 Importance = Additional;
             }
-            field("SystemCreatedAt"; Rec."SystemCreatedAt")
+            field("Created At"; Rec."SystemCreatedAt")
             {
                 ApplicationArea = All;
                 Caption = 'Created At';
@@ -53,14 +52,14 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Importance = Additional;
             }
 
-            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
+            field("Modified By"; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
                 Importance = Additional;
             }
-            field("SystemModifiedAt"; Rec."SystemModifiedAt")
+            field("Modified At"; Rec."SystemModifiedAt")
             {
                 ApplicationArea = All;
                 Caption = 'Modified At';
@@ -349,6 +348,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
+        movefirst(Replenishment; "Stockkeeping Unit Exists")
+
         moveafter("Lead Time Calculation"; "Vendor No.", "Manufacturer Code", "Vendor Item No.", "Minimum Order Quantity")
 
         addafter("Minimum Order Quantity")
@@ -609,6 +610,11 @@ pageextension 50030 TlyItemCard extends "Item Card"
         {
             ShowMandatory = true;
         }
+        modify("Stockkeeping Unit Exists")
+        {
+            Visible = true;
+            Importance = Standard;
+        }
     }
 
     actions
@@ -622,9 +628,11 @@ pageextension 50030 TlyItemCard extends "Item Card"
             { }
             actionref(ItemAccessoriesReversal_Promoted; ItemAccessoriesReversal)
             { }
-            actionref(BinContent_Promoted; BinContent)
+            actionref(BinContent_Promoted; "&Bin Contents")
             { }
-            actionref(Turnover_Promoted; ItemTurnover)
+            actionref(StockkeepingUnits_Promoted; "Stockkeepin&g Units")
+            { }
+            actionref(Turnover_Promoted; "T&urnover")
             { }
         }
 
@@ -666,29 +674,48 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 RunPageLink = "Related Item No." = field("No.");
                 RunPageMode = View;
             }
-            action(BinContent)
-            {
-                Caption = 'Bin Content';
-                ToolTip = 'Bin Content';
-                ApplicationArea = All;
-                Image = BinContent;
-                RunObject = Page "Bin Content";
-                RunPageLink = "Item No." = field("No.");
-            }
-            action(ItemTurnover)
-            {
-                ApplicationArea = Suite;
-                Caption = 'T&urnover';
-                Image = Turnover;
-                RunObject = Page "Item Turnover";
-                RunPageLink = "No." = field("No."),
-                                      "Global Dimension 1 Filter" = field("Global Dimension 1 Filter"),
-                                      "Global Dimension 2 Filter" = field("Global Dimension 2 Filter"),
-                                      "Location Filter" = field("Location Filter"),
-                                      "Drop Shipment Filter" = field("Drop Shipment Filter"),
-                                      "Variant Filter" = field("Variant Filter");
-                ToolTip = 'View a detailed account of item turnover by periods after you have set the relevant filters for location and variant.';
-            }
+            // action(BinContent)
+            // {
+            //     Caption = 'Bin Content';
+            //     ToolTip = 'Bin Content';
+            //     ApplicationArea = All;
+            //     Image = BinContent;
+            //     RunObject = Page "Bin Content";
+            //     RunPageLink = "Item No." = field("No.");
+            // }
+            // action(StockkeepingUnits)
+            // {
+            //     Caption = 'Stockkeeping Units';
+            //     ToolTip = 'Open the item''s SKUs to view or edit instances of the item at different locations or with different variants. ';
+            //     ApplicationArea = All;
+            //     Image = SKU;
+            //     RunObject = Page "Stockkeeping Unit List";
+            //     RunPageLink = "Item No." = field("No.");
+            //     RunPageView = sorting("Item No.");
+            // }
+            // action(ItemTurnover)
+            // {
+            //     ApplicationArea = Suite;
+            //     Caption = 'T&urnover';
+            //     Image = Turnover;
+            //     RunObject = Page "Item Turnover";
+            //     RunPageLink = "No." = field("No."),
+            //                           "Global Dimension 1 Filter" = field("Global Dimension 1 Filter"),
+            //                           "Global Dimension 2 Filter" = field("Global Dimension 2 Filter"),
+            //                           "Location Filter" = field("Location Filter"),
+            //                           "Drop Shipment Filter" = field("Drop Shipment Filter"),
+            //                           "Variant Filter" = field("Variant Filter");
+            //     ToolTip = 'View a detailed account of item turnover by periods after you have set the relevant filters for location and variant.';
+            // }
+        }
+
+        modify(ApplyTemplate_Promoted)
+        {
+            Visible = false;
+        }
+        modify("&Create Stockkeeping Unit_Promoted")
+        {
+            Visible = false;
         }
     }
 

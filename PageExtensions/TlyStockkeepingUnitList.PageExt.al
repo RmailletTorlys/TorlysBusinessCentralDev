@@ -19,6 +19,12 @@ pageextension 55701 TlyStockkeepingUnitList extends "Stockkeeping Unit List"
                 Caption = 'Vendor Item No.';
                 ToolTip = 'Vendor Item No.';
             }
+            field("Lead Time Calculation"; Rec."Lead Time Calculation")
+            {
+                ApplicationArea = All;
+                Caption = 'Lead Time Calculation';
+                ToolTip = 'Lead Time Calculation';
+            }
             field("Last Direct Cost"; Rec."Last Direct Cost")
             {
                 ApplicationArea = All;
@@ -30,6 +36,12 @@ pageextension 55701 TlyStockkeepingUnitList extends "Stockkeeping Unit List"
                 ApplicationArea = All;
                 Caption = 'Unit Cost';
                 ToolTip = 'Unit Cost';
+            }
+            field("Safety Stock"; Rec."Safety Stock Quantity")
+            {
+                ApplicationArea = All;
+                Caption = 'Safety Stock';
+                ToolTip = 'Safety Stock';
             }
         }
         addafter(Inventory)
@@ -51,13 +63,6 @@ pageextension 55701 TlyStockkeepingUnitList extends "Stockkeeping Unit List"
                 ApplicationArea = All;
                 Caption = 'Qty. in Transit';
                 ToolTip = 'Qty. in Transit';
-            }
-
-            field("Safety Stock"; Rec."Safety Stock Quantity")
-            {
-                ApplicationArea = All;
-                Caption = 'Safety Stock';
-                ToolTip = 'Safety Stock';
             }
 
             // add fields here about physical inventory counting

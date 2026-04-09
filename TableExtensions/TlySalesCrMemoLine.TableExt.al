@@ -242,6 +242,13 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Cr.Memo Header"."Reason Code" where("No." = field("Document No.")));
         }
+        field(50040; "National PM"; Boolean)
+        {
+            Caption = 'National PM';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Price List Header"."National Property Management" where("Code" = field("Price List")));
+        }
     }
 
     // trigger OnModify()

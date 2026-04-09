@@ -13,9 +13,9 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
 
         addafter(AssignToNo)
         {
-            field("National Property Management"; Rec."National Property Management")
+            field("National PM"; Rec."National Property Management")
             {
-                Caption = 'National Property Management';
+                Caption = 'National PM';
                 ApplicationArea = All;
             }
         }

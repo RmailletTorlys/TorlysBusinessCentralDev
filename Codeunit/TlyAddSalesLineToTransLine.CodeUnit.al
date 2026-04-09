@@ -51,9 +51,9 @@ codeunit 50027 TlyAddSalesLineToTransLine
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);
             TransferHeader.Reset;
+            TransferHeader.SetFilter("Transfer Type", 'Order Fulfillment');
             TransferHeader.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
             TransferHeader.SetFilter(Status, 'Open');
-            TransferHeader.SetFilter("Transfer Type", 'Order Fulfillment');
             TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
             TransferOrders.SetTableView(TransferHeader);
             if TransferOrders.RunModal() = Action::LookupOK then

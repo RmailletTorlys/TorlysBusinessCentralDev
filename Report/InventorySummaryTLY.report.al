@@ -146,12 +146,12 @@ report 50037 "Inventory Summary TLY"
                     field(PrintDetail; PrintDetail)
                     {
                         ApplicationArea = Basic, Suite;
-                        Caption = 'Print Details';
+                        Caption = 'Print item detail';
                     }
                     field(ShowProductOnly; ShowProductOnly)
                     {
                         ApplicationArea = Basic, Suite;
-                        Caption = 'Show Product Only';
+                        Caption = 'Show product only (no marketing items)';
                     }
                 }
             }

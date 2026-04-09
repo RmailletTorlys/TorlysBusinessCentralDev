@@ -377,6 +377,13 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."Reason Code" where("No." = field("Document No.")));
         }
+        field(50040; "National PM"; Boolean)
+        {
+            Caption = 'National PM';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Price List Header"."National Property Management" where("Code" = field("Price List")));
+        }
 
         modify("No.")
         {
@@ -403,12 +410,13 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
                 CommentLine.SetRange("No.", "No.");
                 CommentLine.SetRange("Copy to Sales Order", true);
-                IF CommentLine.Find('-') then begin
+                if CommentLine.Find('-') then begin
                     SalesCommentLine.Reset();
                     SalesCommentLine.SetCurrentKey("Document Type", "No.");
                     SalesCommentLine.SetRange("Document Type", "Document Type");
                     SalesCommentLine.SetRange("No.", "Document No.");
-                    if SalesCommentLine.Find('+') then LineNo := SalesCommentLine."Line No.";
+                    if SalesCommentLine.Find('+') then
+                        LineNo := SalesCommentLine."Line No.";
                     LineNo += 10000;
                     repeat
                         SalesCommentLine.Init();
@@ -446,12 +454,22 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         {
             trigger OnBeforeValidate()
             var
+                TransferLine: Record "Transfer Line";
                 Item: Record Item;
                 UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
                 TempQuantity: Decimal;
             begin
+                // TLY-SD - 04/08/2026 - can't modify until line on TO is deleted
+                if Rec."Transfer Order No." <> '' then begin
+                    TransferLine.Reset();
+                    TransferLine.SetRange("Document No.", Rec."Transfer Order No.");
+                    TransferLine.SetRange("Line No.", Rec."Transfer Order Line No.");
+                    if TransferLine.Find('-') then
+                        Error('Cannot be modified. %1 with a quantity of %2 is joined to %3 line %4. Please break the join first.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+                end;
+
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
                     if Item."Compare Unit of Measure" <> '' then begin
@@ -560,7 +578,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     var
         TransferLine: Record "Transfer Line";
     begin
-        // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted, but if transfer doesn't exist allow to delete
+        // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted
         if Rec."Transfer Order No." <> '' then begin
             TransferLine.Reset();
             TransferLine.SetRange("Document No.", Rec."Transfer Order No.");

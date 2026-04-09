@@ -355,7 +355,6 @@ pageextension 50050 TlyPurchOrder extends "Purchase Order"
         {
             Visible = false;
         }
-
     }
     // actions
     // {

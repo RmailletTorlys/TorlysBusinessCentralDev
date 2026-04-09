@@ -2,7 +2,7 @@ page 50561 TlyItemAvailabilitySubform
 {
     Caption = 'Item Availability';
     PageType = ListPart;
-    SourceTable = "Location";
+    SourceTable = Location;
     SourceTableView = sorting("Sort Order") where("Sort Order" = filter('>0'), "Use As In-Transit" = const(false));
     ApplicationArea = Basic, Suite;
     UsageCategory = Administration;
@@ -144,6 +144,9 @@ page 50561 TlyItemAvailabilitySubform
         }
     }
 
+    var
+        Item: Record Item;
+
     trigger OnAfterGetRecord()
     begin
         if Item."No." <> '' then begin
@@ -171,7 +174,4 @@ page 50561 TlyItemAvailabilitySubform
             Item.CalcFields(Inventory, "Qty. on Sales Order", "Qty. to Ship", "Qty. to Ship (Transfer)", "Qty. in Transit", "Qty. on Purch. Order");
         end;
     end;
-
-    var
-        Item: Record Item;
 }

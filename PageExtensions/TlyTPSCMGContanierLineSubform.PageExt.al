@@ -2,7 +2,9 @@ pageextension 59741 TlyTPSCMGContanierLineSubform extends "TPS CMG Contanier Lin
 {
     layout
     {
-        addafter("Quantity Shipped")
+        moveafter("Item Description"; "Unit of Measure Code", Quantity, "Source Quantity", "Qty. to Ship", "Quantity Shipped", "Qty. to Receive", "Quantity Received", Weight, Cube)
+
+        addafter(Cube)
         {
             field("Quantity Linked via PO"; Rec."Quantity Linked via PO")
             {
@@ -54,5 +56,38 @@ pageextension 59741 TlyTPSCMGContanierLineSubform extends "TPS CMG Contanier Lin
         {
             Visible = false;
         }
+
+        modify("Quantity")
+        {
+            Caption = 'Container Quantity';
+        }
+
+        modify("Source Quantity")
+        {
+            Caption = 'PO Quantity';
+        }
+
+        modify("Qty. to Ship")
+        {
+            Caption = 'PO Qty. to Ship';
+        }
+
+        modify("Quantity Shipped")
+        {
+            Caption = 'PO Quantity Shipped';
+        }
+
+        modify("Qty. to Receive")
+        {
+            Caption = 'TR Qty. to Receive';
+        }
+
+        modify("Quantity Received")
+        {
+            Caption = 'TR Quantity Received';
+        }
+
+
+
     }
 }

@@ -11,8 +11,6 @@ page 50566 TlyCheckPriceAndAvailability
     {
         area(Content)
         {
-            // repeater(GroupName)
-            // {
             field("No."; Rec."No.")
             {
                 ApplicationArea = All;
@@ -27,22 +25,17 @@ page 50566 TlyCheckPriceAndAvailability
                 ToolTip = 'Description';
                 Editable = false;
             }
-            // }
-
-            part(TorlysItemAvailabilitySubform; TlyItemAvailabilitySubform)
+            part(TlyItemAvailabilitySubform; TlyItemAvailabilitySubform)
             {
                 ApplicationArea = All;
                 Editable = false;
-                // Enabled = true;
-                // SubPageLink = "BOL No." = field("No.");
-                // UpdatePropagation = Both;
             }
         }
     }
+
     trigger OnAfterGetRecord()
     begin
         Rec.SetRange(Rec."No.");
-        // UpdateSubForm;
-        CurrPage.TorlysItemAvailabilitySubform.Page.SetItemNo(Rec);
+        CurrPage.TlyItemAvailabilitySubform.Page.SetItemNo(Rec);
     end;
 }

@@ -127,7 +127,35 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             }
         }
 
-        moveafter("Order Comment"; "Shipping Agent Code", "Payment Terms Code", "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("Order Comment"; "Shipping Agent Code", "Payment Terms Code")
+
+        addafter("Payment Terms Code")
+        {
+            field("Outstanding Quantity"; Rec."Outstanding Quantity")
+            {
+                ApplicationArea = All;
+                Caption = 'Outstanding Quantity';
+                ToolTip = 'Outstanding Quantity';
+                Editable = false;
+                Width = 0;
+            }
+            field("Qty. to Ship."; Rec."Qty. to Ship")
+            {
+                ApplicationArea = All;
+                Caption = 'Qty. to Ship';
+                ToolTip = 'Qty. to Ship';
+                Editable = false;
+            }
+            field("Fully Allocated"; FullyAllocated)
+            {
+                ApplicationArea = All;
+                Caption = 'Fully Allocated';
+                ToolTip = 'Fully Allocated';
+                Editable = false;
+            }
+        }
+
+        moveafter("Fully Allocated"; "Amt. Ship. Not Inv. (LCY) Base", Amount)
 
         addafter(Amount)
         {
@@ -201,6 +229,11 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         modify("Amount Including VAT")
         {
             Visible = false;
+        }
+
+        modify(Amount)
+        {
+            Caption = 'Total Amount';
         }
 
         modify("Shipment Date")
@@ -324,30 +357,35 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'CR Hold - Past';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('<T'));
+                OrderBy = ascending("Bill-to Customer No.");
                 Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldToday)
             {
                 Caption = 'CR Hold - Today';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T'));
+                OrderBy = ascending("Bill-to Customer No.");
                 Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldTomorrow)
             {
                 Caption = 'CR Hold - Tomorrow';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('T+1D'));
+                OrderBy = ascending("Bill-to Customer No.");
                 Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldFuture)
             {
                 Caption = 'CR Hold - Future';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Shipment Date" = filter('>T+1D'));
+                OrderBy = ascending("Bill-to Customer No.");
                 Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             view(CRHoldDirect)
             {
                 Caption = 'CR Hold - DIRECT';
                 Filters = where("Temporary Hold" = filter('No'), "Status" = const(Released), "On Hold" = filter('CR'), "Location Code" = filter('DIRECT'));
+                OrderBy = ascending("Bill-to Customer No.");
                 Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Accounts Receivable");
             }
             // view(Seperator2)
@@ -419,6 +457,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         TorlysCreditHold: Codeunit TlyCreditHold;
         CollectorID: Code[20];
         UserDepartment: Enum TlyUserDepartment;
+        FullyAllocated: Text[3];
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -437,6 +476,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
 
+        // get Collector ID from customer card
         Customer.Reset();
         if Rec."Sell-to Customer No." <> '' then begin
             Customer.Get(Rec."Sell-to Customer No.");
@@ -444,5 +484,12 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         end else begin
             CollectorID := '';
         end;
+
+        // Set if order is Fully Allocated or not
+        Clear(FullyAllocated);
+        if Rec."Outstanding Quantity" <> Rec."Qty. to Ship" then
+            FullyAllocated := 'No'
+        else
+            FullyAllocated := 'Yes';
     end;
 }

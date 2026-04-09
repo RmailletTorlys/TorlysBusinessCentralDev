@@ -13,9 +13,9 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
 
         addbefore("Starting Date")
         {
-            field("National Property Management"; Rec."National Property Management")
+            field("National PM"; Rec."National Property Management")
             {
-                Caption = 'National Property Management';
+                Caption = 'National PM';
                 ApplicationArea = All;
             }
         }

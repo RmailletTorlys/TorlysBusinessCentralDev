@@ -112,6 +112,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 ApplicationArea = All;
                 Editable = UnitCostEdit;
                 Visible = true;
+                StyleExpr = LowMargin;
             }
         }
 
@@ -487,6 +488,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
 
         modify("Unit Price")
         {
+            StyleExpr = LowMargin;
             trigger OnBeforeValidate()
             begin
                 if Rec.Type <> Rec.Type::Item then
@@ -501,9 +503,16 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
             end;
         }
 
+        modify(Quantity)
+        {
+            StyleExpr = NotFullyAllocated;
+        }
+
         modify("Qty. to Ship")
         {
             Editable = EditQTS;
+            ShowMandatory = not IsCommentLine;
+            StyleExpr = NotFullyAllocated;
             trigger OnBeforeValidate()
             begin
                 if (UserEditQTS = false) and (Rec."Qty. to Ship" <> 0) then Error('You can only set this to 0.');
@@ -891,6 +900,8 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         EditQTS: Boolean;
         UnitCostEdit: Boolean;
         ContainerNo: Code[20];
+        LowMargin: Text;
+        NotFullyAllocated: Text;
 
     trigger OnOpenPage()
     begin
@@ -909,6 +920,41 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         if (Rec.Type = Rec.Type::Item) and (Rec."No." <> '') then begin
             Item.Get(Rec."No.");
             UnitCostEdit := Item."Allow SO Unit Cost Edit"
+        end;
+
+        if (Rec.Type = Rec.Type::Item) and (Rec."Unit Price" <> 0) then begin
+            if (((Rec."Unit Price" - Rec."Unit Cost") / (Rec."Unit Price")) < 0.2) or (Rec."Unit Cost" = 0) then begin
+                LowMargin := 'Unfavorable'
+            end else begin
+                LowMargin := '';
+            end;
+        end else begin
+            LowMargin := '';
+        end;
+
+        if Rec."Outstanding Quantity" <> Rec."Qty. to Ship" then begin
+            NotFullyAllocated := 'Unfavorable'
+        end else begin
+            NotFullyAllocated := '';
+        end;
+    end;
+
+    trigger OnModifyRecord(): Boolean
+    begin
+        if (Rec.Type = Rec.Type::Item) and (Rec."Unit Price" <> 0) then begin
+            if (((Rec."Unit Price" - Rec."Unit Cost") / (Rec."Unit Price")) < 0.2) or (Rec."Unit Cost" = 0) then begin
+                LowMargin := 'Unfavorable'
+            end else begin
+                LowMargin := '';
+            end;
+        end else begin
+            LowMargin := '';
+        end;
+
+        if Rec."Outstanding Quantity" <> Rec."Qty. to Ship" then begin
+            NotFullyAllocated := 'Unfavorable'
+        end else begin
+            NotFullyAllocated := '';
         end;
     end;
 

@@ -113,6 +113,10 @@ report 50005 "Sales Order Label"
             {
 
             }
+            column(Ship_to_Code; "Ship-to Code")
+            {
+
+            }
 
             dataitem(CopyLoop; Integer)
             {

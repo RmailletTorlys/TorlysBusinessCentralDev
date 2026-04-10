@@ -41,6 +41,7 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
         {
             Caption = 'Order Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
         }
 
         field(50007; "Order Type"; Text[20])

@@ -385,6 +385,24 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             CalcFormula = lookup("Price List Header"."National Property Management" where("Code" = field("Price List")));
         }
 
+        // field 50041 - "Shipping Agent Code" flow field on "Sales Shipment Line"
+
+        field(50042; "Order Date"; Date)
+        {
+            Caption = 'Order Date';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Order Date" where("No." = field("Document No.")));
+        }
+
+        field(50043; "Shipping Instructions"; Text[20])
+        {
+            Caption = 'Shipping Instructions';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Shipping Instructions" where("No." = field("Document No.")));
+        }
+
         modify("No.")
         {
             trigger OnBeforeValidate()

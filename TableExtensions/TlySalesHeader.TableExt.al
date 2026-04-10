@@ -41,6 +41,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         {
             Caption = 'Order Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
         }
 
         field(50007; "Order Type"; Text[20])
@@ -471,7 +472,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     begin
         "Entered By" := UserId;
         "Entered At" := CurrentDateTime;
-        "Order Time" := Time;
+        // "Order Time" := Time;
         Rec.Modify(true);
         CopyCommentsFromCustCardToSalesHeader();
     end;

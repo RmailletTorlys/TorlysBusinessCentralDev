@@ -42,6 +42,7 @@ tableextension 56660 TlyReturnReceiptHeader extends "Return Receipt Header"
         {
             Caption = 'Order Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
         }
 
         field(50007; "Order Type"; Text[20])

@@ -4,6 +4,14 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
     {
         addafter("Sell-to Customer Name")
         {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
             field("External Document No."; Rec."External Document No.")
             {
                 Caption = 'External Document No.';
@@ -76,7 +84,7 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
         addafter("Shipment Date")
         {
 
-            field("Shipping Instructions"; ShippingInstructions)
+            field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
@@ -388,20 +396,20 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
-        ShippingInstructions: Text[20];
-        ContainerNo: Code[20];
+    // ShippingInstructions: Text[20];
+    // ContainerNo: Code[20];
 
-    trigger OnAfterGetRecord()
-    var
-        SalesHeader: Record "Sales Header";
-    begin
-        SalesHeader.Reset();
-        if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Document No." <> '') then begin
-            SalesHeader.Get('1', Rec."Document No.");
-            ShippingInstructions := SalesHeader."Shipping Instructions";
-        end else begin
-            ShippingInstructions := '';
-        end;
-    end;
+    // trigger OnAfterGetRecord()
+    // var
+    //     SalesHeader: Record "Sales Header";
+    // begin
+    //     SalesHeader.Reset();
+    //     if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Document No." <> '') then begin
+    //         SalesHeader.Get('1', Rec."Document No.");
+    //         ShippingInstructions := SalesHeader."Shipping Instructions";
+    //     end else begin
+    //         ShippingInstructions := '';
+    //     end;
+    // end;
 }
 

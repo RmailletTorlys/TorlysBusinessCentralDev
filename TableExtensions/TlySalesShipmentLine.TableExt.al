@@ -168,6 +168,11 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             Editable = false;
             // TableRelation = "Sales Line"."Line No." where("Document No." = field("Master Project Order No."));
         }
+
+        // field 50026 - "MPO Qty. on Sales Order" flow filter on "Sales Line"
+
+        // field 50027 - "MPO Quantity Invoiced" flow filter on "Sales Line"
+
         field(50028; "Container No. (NAV)"; Code[25])
         {
             Caption = 'Container No. (NAV)';
@@ -237,7 +242,7 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
         }
 
-        // 50038??????????
+        // field 50038 - "Container No." flow field on "Sales Line"
 
         field(50039; "Reason Code"; Code[10])
         {
@@ -260,6 +265,22 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Shipment Header"."Shipping Agent Code" where("No." = field("Document No.")));
+        }
+
+        field(50042; "Order Date"; Date)
+        {
+            Caption = 'Order Date';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Shipment Header"."Order Date" where("No." = field("Document No.")));
+        }
+
+        field(50043; "Shipping Instructions"; Text[20])
+        {
+            Caption = 'Shipping Instructions';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Shipping Instructions" where("No." = field("Document No.")));
         }
     }
 

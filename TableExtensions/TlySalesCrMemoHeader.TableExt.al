@@ -41,6 +41,7 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
         {
             Caption = 'Order Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
         }
 
         field(50007; "Order Type"; Text[20])

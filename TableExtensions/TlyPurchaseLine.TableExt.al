@@ -156,6 +156,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
             // TableRelation = TlyBookingInfo;
+            ObsoleteState = Removed;
         }
 
         field(50008; "SH BOL No."; Code[20])

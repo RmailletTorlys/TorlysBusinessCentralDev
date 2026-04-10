@@ -395,13 +395,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             {
                 Caption = 'Completly Shipped';
                 Filters = where(Status = filter('Completely Shipped'));
-                OrderBy = ascending("Expected Receipt Date");
+                OrderBy = descending("Expected Receipt Date");
             }
             view(CompletlyReceived)
             {
                 Caption = 'Completly Received';
                 Filters = where(Status = filter('Completely Received'));
-                OrderBy = ascending("Expected Receipt Date");
+                OrderBy = descending("Expected Receipt Date");
             }
             view(TORToday)
             {

@@ -327,7 +327,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Caption = 'Web Suggested Price';
                 ToolTip = 'Web Suggested Price';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = false;
                 Importance = Standard;
             }
             field("Sales Price Code"; Rec."Sales Price Code")
@@ -730,7 +730,9 @@ pageextension 50030 TlyItemCard extends "Item Card"
         CurrPage.Editable := false;
 
         if UserSetup.Get(UserId) then begin
-            if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::Executive) or (UserSetup.Department = UserSetup.Department::"Supply Chain") or (UserSetup.Department = UserSetup.Department::PID) then
+            if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::Executive) or
+                (UserSetup.Department = UserSetup.Department::"Supply Chain") or (UserSetup.Department = UserSetup.Department::PID) or
+                (UserSetup.Department = UserSetup.Department::Marketing) then
                 CurrPage.Editable := true;
         end;
     end;

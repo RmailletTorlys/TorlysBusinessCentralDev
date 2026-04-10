@@ -415,6 +415,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             trigger OnAfterValidate()
             begin
                 Rec."Previous ETA" := xRec."Expected Receipt Date"; //TLY-SD - 03/23/2026
+                Rec."Planned Receipt Date" := xRec."Planned Receipt Date"; //TLY-SD - 04/09/2026 - per KM dont want "Planned Receipt Date" changing when "Expected Recipt Date" changed
             end;
         }
     }

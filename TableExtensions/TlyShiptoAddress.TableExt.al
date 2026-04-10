@@ -105,9 +105,8 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
 
     fieldgroups
     {
-        addlast(DropDown; "Shipping Agent Code")
+        addlast(DropDown; "Location Code", "Shipping Agent Code", "Freight Zone Code", "Shipping Comment", "Ships On - Monday", "Ships On - Tuesday", "Ships On - Wednesday", "Ships On - Thursday", "Ships On - Friday")
         {
         }
     }
-
 }

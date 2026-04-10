@@ -236,10 +236,88 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
             trigger OnAfterAfterGetRecord()
             var
+                SalesLine: Record "Sales Line";
+                HolidayCalendar: Record TlyHolidays;
                 BarcodeSymbology: Enum "Barcode Symbology";
                 BarcodeFontProvider: Interface "Barcode Font Provider";
                 BarcodeStrings: Code[20];
             begin
+                //must be released
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                if "Sales Header".Status <> "Sales Header".Status::Released then
+                    CurrReport.Skip();
+
+                //must not be on credit hold
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                if "Sales Header"."On Hold" <> '' then
+                    CurrReport.Skip();
+
+                //shipment date must not be in past
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                if "Sales Header"."Shipment Date" < WorkDate() then
+                    CurrReport.Skip();
+
+                //shipment date must not be on weekend
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                if Date2DWY("Sales Header"."Shipment Date", 1) > 5 then
+                    CurrReport.Skip();
+
+                //shipment date must not be too far in the future, unless it is a holiday 
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                HolidayCalendar.Reset();
+                HolidayCalendar.SetRange("Last Work Day", WorkDate());
+                if HolidayCalendar.Find('-') THEN BEGIN
+                    if ("Sales Header"."Shipment Date" - WorkDate() > HolidayCalendar."Days until next working day") then
+                        CurrReport.Skip();
+                end else begin
+                    if (Date2DWY(WorkDate(), 1) < 5) AND ("Sales Header"."Shipment Date" - WorkDate() > 1) then //weekday print 1 day in advance
+                        CurrReport.Skip()
+                    else
+                        if (Date2DWY(WorkDate(), 1) = 5) AND ("Sales Header"."Shipment Date" - WorkDate() > 3) then //Friday print 3 days in advance
+                            CurrReport.Skip();
+                end;
+
+                //must have something allocated
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                "Sales Header".CalcFields("Qty. to Ship");
+                if "Sales Header"."Qty. to Ship" < 1 then
+                    CurrReport.Skip();
+
+                //if not fully allocated and not marked partial, can't print
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                "Sales Header".CalcFields("Outstanding Quantity", "Qty. to Ship");
+                if ("Sales Header"."Outstanding Quantity" <> "Sales Header"."Qty. to Ship") and ("Sales Header"."Shipping Advice" = "Sales Header"."Shipping Advice"::Complete) then
+                    CurrReport.Skip();
+
+                //must have inventory before printing
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                SalesLine.Reset();
+                SalesLine.SetRange("Document Type", "Sales Header"."Document Type");
+                SalesLine.SetRange("Document No.", "Sales Header"."No.");
+                SalesLine.SetFilter(Type, 'Item');
+                SalesLine.SetFilter("Qty. to Ship", '>0');
+                if SalesLine.Find('-') then
+                    repeat
+                        Item.Reset();
+                        Item.Get(SalesLine."No.");
+                        Item.SetFilter("Location Filter", SalesLine."Location Code");
+                        Item.CalcFields(Inventory);
+                        if SalesLine."Qty. to Ship" > Item.Inventory then
+                            CurrReport.Skip();
+                    until SalesLine.Next() = 0;
+
+                //location code on header must be same on all lines
+                //this is in doc print codeunit and in pick slip report for when printing multiples
+                SalesLine.Reset();
+                SalesLine.SetRange("Document Type", "Sales Header"."Document Type");
+                SalesLine.SetRange("Document No.", "Sales Header"."No.");
+                SalesLine.SetFilter("Qty. to Ship", '>0');
+                if SalesLine.Find('-') then
+                    repeat
+                        if SalesLine."Location Code" <> "Sales Header"."Location Code" then
+                            CurrReport.Skip();
+                    until SalesLine.Next() = 0;
+
                 // "Sales Header".Reset();
                 // Declare the barcode provider using the barcode provider interface and enum
                 BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;

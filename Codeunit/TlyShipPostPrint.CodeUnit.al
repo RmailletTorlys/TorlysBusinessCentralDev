@@ -21,6 +21,7 @@ codeunit 50012 TlyShipPostPrint
         InsertFreightLine: Codeunit TlyInsertFreightLine;
         TorlysDocPrint: Codeunit TlyDocumentPrint;
         PrevShipConfirm: Boolean;
+        HolidayCalendar: Record TlyHolidays;
 
     local procedure "Code"()
     begin
@@ -44,6 +45,28 @@ codeunit 50012 TlyShipPostPrint
         // if (SalesHeader."Pick Slip Printed Date" = SalesHeader."Popup Modify Date")
         //     and (SalesHeader."Pick Slip Printed Time" < SalesHeader."Popup Modify Time") then
         //     Error('A %1 on %2 was changed since last pick slip print, please re-print!', SalesHeader."Warehouse Notify Modify Field", SalesHeader."No.");
+
+        // shipment date must not be in past
+        if SalesHeader."Shipment Date" < WorkDate() then
+            Error('Shipment date must not be in the past!');
+
+        // shipment date must not be on weekend
+        if Date2DWY(SalesHeader."Shipment Date", 1) > 5 then
+            Error('Shipment date must not be on the weekend!');
+
+        // shipment date must not be too far in the future, unless it is a holiday 
+        HolidayCalendar.Reset();
+        HolidayCalendar.SetRange("Last Work Day", WorkDate());
+        if HolidayCalendar.Find('-') then begin
+            if (SalesHeader."Shipment Date" - WorkDate() > HolidayCalendar."Days until next working day") then
+                Error('Shipment date is too far in the future!');
+        end else begin
+            if (Date2DWY(WorkDate(), 1) < 5) AND (SalesHeader."Shipment Date" - WorkDate() > 1) then //weekday print 1 day in advance
+                Error('Shipment date is too far in the future!')
+            else
+                if (Date2DWY(WorkDate(), 1) = 5) AND (SalesHeader."Shipment Date" - WorkDate() > 3) then //Friday print 3 days in advance
+                    Error('Shipment date is too far in the future!');
+        end;
         // custom to us - end
 
         // checking if something already posted against this that is not yet invoiced
@@ -52,6 +75,7 @@ codeunit 50012 TlyShipPostPrint
             PrevShipConfirm := Dialog.Confirm('This order already has a shipment that is not yet invocied. Proceed?');
             if PrevShipConfirm then begin
                 // START of posting routine, should move to a procedure for calling in multiple spots
+                // in this CU twice
                 if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
                     if not Confirm(Text1020001, false, SalesHeader."No.", SalesHeader."Sell-to Customer No.") then begin
                         SalesHeader."Shipping No." := '-1';
@@ -81,11 +105,13 @@ codeunit 50012 TlyShipPostPrint
                     // moved this to the shipping screen as to only get 1 label if printing multiple orders and change to always print SO label
                 end;
                 // END of posting routine, should move to a procedure for calling in multiple spots
+                // in this CU twice
             end else begin
                 Message('Go check out what is on %1 and come back.', SalesHeader."Last Shipping No.")
             end;
         end else begin
             // START of posting routine, should move to a procedure for calling in multiple spots
+            // in this CU twice
             if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
                 if not Confirm(Text1020001, false, SalesHeader."No.", SalesHeader."Sell-to Customer No.") then begin
                     SalesHeader."Shipping No." := '-1';
@@ -115,6 +141,7 @@ codeunit 50012 TlyShipPostPrint
                 // moved this to the shipping screen as to only get 1 label if printing multiple orders and change to always print SO label
             end;
             // END of posting routine, should move to a procedure for calling in multiple spots
+            // in this CU twice
         end;
     end;
 

@@ -330,6 +330,7 @@ page 52001 TlyOrdersToBeShippedList
             { }
             group("Posted Documents")
             {
+
                 actionref("View Shipments"; ViewShipments)
                 { }
                 actionref("Remove BOL # from SH/OR"; RemoveBOL)
@@ -341,6 +342,8 @@ page 52001 TlyOrdersToBeShippedList
                 actionref("View Invoices"; ViewInvoices)
                 { }
             }
+            actionref("Shipment Summary"; ShipmentSummary)
+            { }
         }
 
         area(Processing)
@@ -1300,6 +1303,16 @@ page 52001 TlyOrdersToBeShippedList
                             Page.Run(Page::"Posted Sales Invoices", TempSalesInvoiceHeader);
                         end;
                     }
+                }
+                action(ShipmentSummary)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Shipment Summary';
+                    Image = Shipment;
+                    RunObject = Page TlyShipmentSummary;
+                    // RunPageLink = "Shipment Date" = field("Shipment Date");
+                    // RunPageView = sorting("Order No.");
+                    ToolTip = 'View shipment summary for today.';
                 }
             }
         }

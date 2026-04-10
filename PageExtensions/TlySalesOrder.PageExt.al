@@ -15,6 +15,21 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Editable = ShipToOptions = ShipToOptions::"Alternate Shipping Address";
                 ShowMandatory = Rec."Temporary Hold" = false;
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    ShipToTable: Record "Ship-to Address";
+                    ShipToList: Page "Ship-to Address List";
+                begin
+                    ShipToTable.Reset();
+                    ShipToTable.FilterGroup(2);
+                    ShipToTable.SetRange("Customer No.", Rec."Sell-to Customer No.");
+                    ShipToList.SetTableView(ShipToTable);
+                    ShipToList.LookupMode(true);
+                    if ShipToList.RunModal() = Action::LookupOK then begin
+                        ShipToList.GetRecord(ShipToTable);
+                        Rec.Validate("Ship-to Code", ShipToTable."Code");
+                    end;
+                end;
             }
         }
 

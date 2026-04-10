@@ -79,15 +79,12 @@ pageextension 59741 TlyTPSCMGContanierLineSubform extends "TPS CMG Contanier Lin
 
         modify("Qty. to Receive")
         {
-            Caption = 'TR Qty. to Receive';
+            Caption = 'TR Quantity';
         }
 
         modify("Quantity Received")
         {
             Caption = 'TR Quantity Received';
         }
-
-
-
     }
 }

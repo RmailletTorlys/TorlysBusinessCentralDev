@@ -22,25 +22,30 @@ codeunit 50299 TlyDocumentPrint
             // ERROR('Pick slip printing not allowed from this computer!');
 
             //must be released
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             if SalesHeader.Status <> SalesHeader.Status::Released then
                 Error('Order must be released!');
 
             //must not be on credit hold
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             if SalesHeader."On Hold" <> '' then
                 Error('Order must not be on credit hold!');
 
             //shipment date must not be in past
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             if SalesHeader."Shipment Date" < WorkDate() then
                 Error('Shipment date must not be in the past!');
 
             //shipment date must not be on weekend
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             if Date2DWY(SalesHeader."Shipment Date", 1) > 5 then
                 Error('Shipment date must not be on the weekend!');
 
             //shipment date must not be too far in the future, unless it is a holiday 
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             HolidayCalendar.Reset();
             HolidayCalendar.SetRange("Last Work Day", WorkDate());
-            if HolidayCalendar.Find('-') THEN BEGIN
+            if HolidayCalendar.Find('-') then begin
                 if (SalesHeader."Shipment Date" - WorkDate() > HolidayCalendar."Days until next working day") then
                     Error('Shipment date is too far in the future!');
             end else begin
@@ -52,16 +57,19 @@ codeunit 50299 TlyDocumentPrint
             end;
 
             //must have something allocated
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             SalesHeader.CalcFields("Qty. to Ship");
             if SalesHeader."Qty. to Ship" < 1 then
                 Error('Order is not allocated!');
 
-            //if not fully allocated and not marked partial, can't print (NEW)
+            //if not fully allocated and not marked partial, can't print
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             SalesHeader.CalcFields("Outstanding Quantity", "Qty. to Ship");
             if (SalesHeader."Outstanding Quantity" <> SalesHeader."Qty. to Ship") and (SalesHeader."Shipping Advice" = SalesHeader."Shipping Advice"::Complete) then
                 Error('Order is not fully allocated and not marked partial!');
 
             //must have inventory before printing
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             SalesLine.Reset();
             SalesLine.SetRange("Document Type", SalesHeader."Document Type");
             SalesLine.SetRange("Document No.", SalesHeader."No.");
@@ -73,12 +81,13 @@ codeunit 50299 TlyDocumentPrint
                     Item.Get(SalesLine."No.");
                     Item.SetFilter("Location Filter", SalesLine."Location Code");
                     Item.CalcFields(Inventory);
-                    IF SalesLine."Qty. to Ship" > Item.Inventory THEN
+                    if SalesLine."Qty. to Ship" > Item.Inventory then
                         Error('There is not enough inventory of %1 in %2.\Allocated quantity = %3.\NAV on hand = %4.\Please contact purchasing!',
                                 Item."No.", SalesLine."Location Code", SalesLine."Qty. to Ship", Item.Inventory);
                 until SalesLine.Next() = 0;
 
             //location code on header must be same on all lines
+            //this is in doc print codeunit when printing singles and in pick slip report for when printing multiples
             SalesLine.Reset();
             SalesLine.SetRange("Document Type", SalesHeader."Document Type");
             SalesLine.SetRange("Document No.", SalesHeader."No.");

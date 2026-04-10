@@ -254,6 +254,13 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Price List Header"."National Property Management" where("Code" = field("Price List")));
         }
+        field(50041; "Shipping Agent Code"; Code[10])
+        {
+            Caption = 'Shipping Agent Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Shipment Header"."Shipping Agent Code" where("No." = field("Document No.")));
+        }
     }
 
 

@@ -455,6 +455,8 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             trigger OnBeforeValidate()
             var
                 TransferLine: Record "Transfer Line";
+                LinkedTransferLine: Record "Transfer Line";
+                LinkedPurchaseLine: Record "Purchase Line";
                 Item: Record Item;
                 UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
@@ -468,6 +470,24 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                     TransferLine.SetRange("Line No.", Rec."Transfer Order Line No.");
                     if TransferLine.Find('-') then
                         Error('Cannot be modified. %1 with a quantity of %2 is joined to %3 line %4. Please break the join first.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+                end;
+
+                // TLY-SD - 04/09/2026 - can't modify until line on TO link is broken
+                if Rec."Linked Transfer Order No." <> '' then begin
+                    LinkedTransferLine.Reset();
+                    LinkedTransferLine.SetRange("Document No.", Rec."Linked Transfer Order No.");
+                    LinkedTransferLine.SetRange("Line No.", Rec."Linked Transfer Order Line No.");
+                    if LinkedTransferLine.Find('-') then
+                        Error('Cannot be modified. %1 with a quantity of %2 is linked to %3 line %4. Please break the link first.', Rec."No.", Rec.Quantity, Rec."Linked Transfer Order No.", Rec."Linked Transfer Order Line No.");
+                end;
+
+                // TLY-SD - 04/09/2026 - can't modify until line on PO link is broken
+                if Rec."Linked Purchase Order No." <> '' then begin
+                    LinkedPurchaseLine.Reset();
+                    LinkedPurchaseLine.SetRange("Document No.", Rec."Linked Purchase Order No.");
+                    LinkedPurchaseLine.SetRange("Line No.", Rec."Linked Purch. Order Line No.");
+                    if LinkedPurchaseLine.Find('-') then
+                        Error('Cannot be modified. %1 with a quantity of %2 is linked to %3 line %4. Please break the link first.', Rec."No.", Rec.Quantity, Rec."Linked Purchase Order No.", Rec."Linked Purch. Order Line No.");
                 end;
 
                 if Rec.Type = Rec.Type::Item then begin //only run check for items

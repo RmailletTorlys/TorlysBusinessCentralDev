@@ -136,6 +136,9 @@ End Function
         <Field Name="BOL_No_">
           <DataField>BOL_No_</DataField>
         </Field>
+        <Field Name="Ship_to_Code">
+          <DataField>Ship_to_Code</DataField>
+        </Field>
         <Field Name="NoCopies">
           <DataField>NoCopies</DataField>
         </Field>

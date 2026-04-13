@@ -14,11 +14,6 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
                 ToolTip = 'Quantity Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQuantityCase(Rec, xRec);
-                //     CurrPage.Update(true);
-                // end;
             }
 
             field("Quantity Pallet"; Rec."Quantity Pallet")
@@ -27,11 +22,6 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
                 ToolTip = 'Quantity Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQuantityPallet(Rec, xRec);
-                //     CurrPage.Update(true);
-                // end;
             }
 
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
@@ -52,11 +42,10 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
                 ToolTip = 'Return Qty. to Receive Case';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQtyToReceiveCase(Rec, xRec);
-                //     CurrPage.Update(true);
-                // end;
+                trigger OnValidate()
+                begin
+                    InsertDamageLine;
+                end;
             }
 
             field("Return Qty. to Receive Pallet"; Rec."Return Qty. to Receive Pallet")
@@ -65,11 +54,6 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
                 ToolTip = 'Return Qty. to Receive Pallet';
                 ApplicationArea = All;
                 Editable = EditCasePallet;
-                // trigger OnValidate()
-                // begin
-                //     OnValidateQtyToReceivePallet(Rec, xRec);
-                //     CurrPage.Update(true);
-                // end;
             }
         }
         addafter("Return Qty. to Receive Pallet")
@@ -166,8 +150,6 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
                 ApplicationArea = All;
                 Visible = true;
             }
-
-
         }
 
         modify(Description)
@@ -257,6 +239,13 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
         modify("Invoice Disc. Pct.")
         {
             Visible = false;
+        }
+        modify("Return Qty. to Receive")
+        {
+            trigger OnAfterValidate()
+            begin
+                InsertDamageLine;
+            end;
         }
     }
 
@@ -362,5 +351,52 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
         Item.Get(Rec."No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
+    end;
+
+    procedure InsertDamageLine()
+    var
+        Item: Record Item;
+        DamagedQty: Integer;
+        TlyReturnOrderDamage: Page TlyReturnOrderDamage;
+        Window: Dialog;
+        SalesLine: Record "Sales Line";
+    begin
+        Item.Get(Rec."No.");
+        DamagedQty := 0;
+        TlyReturnOrderDamage.PresentModal(Rec."Document No.", Rec."No.", Rec.Description, Rec.Quantity);
+        if TlyReturnOrderDamage.RunModal() = Action::OK then begin
+            DamagedQty := TlyReturnOrderDamage.GetQuantity();
+        end;
+
+        if DamagedQty > 0 then begin
+            SalesLine.Init();
+            SalesLine.Reset();
+            SalesLine.SetRange("Document Type", Rec."Document Type");
+            SalesLine.SetRange("Document No.", Rec."Document No.");
+            SalesLine.SetRange("No.", Rec."No.");
+            SalesLine.Find('+');
+            SalesLine."Line No." := SalesLine."Line No." + 100000;
+            SalesLine.Type := SalesLine.Type::Item;
+            SalesLine."No." := Rec."No.";
+            SalesLine.Validate(Description, SalesLine.Description);
+            // SalesLine.Validate("Quantity Pallet", 0);
+            if Item."Compare Unit of Measure" = '' then begin
+                SalesLine.Validate(Quantity, DamagedQty * -1);
+                SalesLine.Validate("Return Qty. to Receive", DamagedQty * -1);
+                // SalesLine.Validate("Qty. to Invoice", DamagedQty * -1);
+            end else begin
+                SalesLine.Validate("Quantity Case", DamagedQty * -1);
+                SalesLine.Validate("Return Qty. to Receive Case", DamagedQty * -1);
+                // SalesLine.Validate("Qty. to Invoice", DamagedQty * -1);
+            end;
+            // SalesLine.Validate("Return Qty. to Receive Pallet", 0);
+            // SalesLine.InitQtyToReceive;
+            // SalesLine.InitQtyToInvoice;
+            SalesLine.Validate(Amount, 0);
+            SalesLine."Appl.-from Item Entry" := 0;
+            SalesLine."Location Code" := Rec."Location Code";
+            SalesLine.Insert();
+            CurrPage.Update();
+        end;
     end;
 }

@@ -231,17 +231,38 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                     ApplicationArea = All;
                     Importance = Additional;
                 }
-                field("Received By"; Rec."Received By")
+                field("Return Received By"; Rec."Received By")
                 {
-                    Caption = 'Received By';
-                    ToolTip = 'Received By';
+                    Caption = 'Return Received By';
+                    ToolTip = 'Return Received By';
                     ApplicationArea = All;
                     Importance = Additional;
                 }
-                field("Put Away Date"; Rec."Put Away Date")
+                field("Return Damaged Detected"; Rec."Return Damaged Detected")
                 {
-                    Caption = 'Put Away Date';
-                    ToolTip = 'Put Away Date';
+                    Caption = 'Return Damaged Detected';
+                    ToolTip = 'Return Damaged Detected';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+                field("Return Bin Location"; Rec."Return Bin Location")
+                {
+                    Caption = 'Return Bin Location';
+                    ToolTip = 'Return Bin Location';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+                field("Return Put Away By"; Rec."Return Put Away By")
+                {
+                    Caption = 'Return Put Away By';
+                    ToolTip = 'Return Put Away By';
+                    ApplicationArea = All;
+                    Importance = Additional;
+                }
+                field("Return Put Away Date"; Rec."Put Away Date")
+                {
+                    Caption = 'Return Put Away Date';
+                    ToolTip = 'Return Put Away Date';
                     ApplicationArea = All;
                     Importance = Additional;
                 }

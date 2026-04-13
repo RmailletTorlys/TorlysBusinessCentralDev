@@ -19,12 +19,12 @@ page 56101 salessiShipToAddress
         {
             repeater(GroupName)
             {
-                field(account_number; Rec."Customer No.")
+                field(CustomerNo; Rec."Customer No.")
                 {
-                    Caption = 'Account Number';
+                    Caption = 'Customer No.';
                 }
 
-                field(ShipTo; Rec.Code)
+                field(ShipToCode; Rec.Code)
                 {
                     Caption = 'Ship-to Code';
                 }
@@ -94,7 +94,7 @@ page 56101 salessiShipToAddress
                     Caption = 'Parent Account Number';
                 }
 
-                field(Salesperson_Code; Rec."Salesperson Code")
+                field(Salesperson_Code; CustomerRec."Salesperson Code")
                 {
                     Caption = 'Salesperson Code';
                 }
@@ -104,20 +104,20 @@ page 56101 salessiShipToAddress
                     Caption = 'Chain Name';
                 }
 
-                field(Gen_Bus_Posting_Group; CustomerRec."Gen. Bus. Posting Group")
-                {
-                    Caption = 'Gen. Bus. Posting Group';
-                }
+                // field(Gen_Bus_Posting_Group; CustomerRec."Gen. Bus. Posting Group")
+                // {
+                //     Caption = 'Gen. Bus. Posting Group';
+                // }
 
-                field(VAT_Bus_Posting_Group; CustomerRec."VAT Bus. Posting Group")
-                {
-                    Caption = 'VAT Bus. Posting Group';
-                }
+                // field(VAT_Bus_Posting_Group; CustomerRec."VAT Bus. Posting Group")
+                // {
+                //     Caption = 'VAT Bus. Posting Group';
+                // }
 
-                field(Customer_Posting_Group; CustomerRec."Customer Posting Group")
-                {
-                    Caption = 'Customer Posting Group';
-                }
+                // field(Customer_Posting_Group; CustomerRec."Customer Posting Group")
+                // {
+                //     Caption = 'Customer Posting Group';
+                // }
 
                 field(Department; ShortcutDimCode[3])
                 {
@@ -159,7 +159,6 @@ page 56101 salessiShipToAddress
     var
         CustomerRec: Record Customer;
         ShortcutDimCode: array[8] of Code[20];
-
 
     trigger OnAfterGetRecord()
     begin

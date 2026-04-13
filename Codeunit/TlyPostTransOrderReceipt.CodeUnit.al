@@ -36,7 +36,7 @@ codeunit 50016 TlyPostTransOrderReceipt
         TransferReceiptHeader."BOL No." := TransferHeader."BOL No.";
         TransferReceiptHeader."Package Tracking No." := TransferHeader."Package Tracking No.";
         TransferReceiptHeader."Shipping Comment" := TransferHeader."Shipping Comment";
-        TransferReceiptHeader."Booking No." := TransferHeader."Booking No.";
+        // TransferReceiptHeader."Booking No." := TransferHeader."Booking No.";
     end;
 
 

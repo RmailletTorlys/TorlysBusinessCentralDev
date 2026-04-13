@@ -25,204 +25,195 @@ Page 56103 salesiItem
                 {
                     Caption = 'Description';
                 }
-                field(Category; Rec."Item Category Code")
+                // field(ItemCategoryCode1; '')
+                // {
+                //     Caption = 'Item Category Code 1 NA';
+                // }
+
+                // field(Class; '')
+                // {
+                //     Caption = 'Class';
+                // }
+
+                field(VendorNo; Rec."Vendor No.")
+                {
+                    Caption = 'Vendor No.';
+                }
+
+                // field(BaseUnitOfMeasure; Rec."Base Unit of Measure")
+                // {
+                //     Caption = 'Base Unit of Measure';
+                // }
+
+                // field(ItemCategoryCode2; '')
+                // {
+                //     Caption = 'Item Category Code 2 NA';
+                // }
+
+                // field(Category; '')
+                // {
+                //     Caption = 'Category NA';
+                // }
+
+                // field(CountryOfOrigin; Rec."Country/Region of Origin Code")
+                // {
+                //     Caption = 'Country Of Origin';
+                // }
+
+                field(Category; Rec."Gen. Prod. Posting Group")
                 {
                     Caption = 'Category';
                 }
 
-                field(Class; Rec."Gen. Prod. Posting Group")
-                {
-                    Caption = 'Class';
-                }
-
-                field(Vendor_No_; Rec."Vendor No.")
-                {
-                    Caption = 'Vendor Number';
-                }
-
-                field(Base_Unit_of_Measure; Rec."Base Unit of Measure")
-                {
-                    Caption = 'Base Unit of Measure';
-                }
-
-                field(Item_Category_Code; Rec."Item Category Code")
+                field(ItemCategoryCode; Rec."Item Category Code")
                 {
                     Caption = 'Item Category Code';
                 }
 
-                field(Product_Group_Code; Rec."Gen. Prod. Posting Group")
-                {
-                    Caption = 'Product Group Code';
-                }
+                // field(NetAvailable; '0')
+                // {
+                //     Caption = 'Net Available';
+                // }
 
-                field(Country_Region_of_Origin; Rec."Country/Region of Origin Code")
-                {
-                    Caption = 'Country/Region of Origin';
-                }
+                // field(TOR_NetAvailable; '0')
+                // {
+                //     Caption = 'TOR Net Available';
+                // }
 
-                field(PG1; Rec."Gen. Prod. Posting Group")
-                {
-                    Caption = 'PG1';
-                }
-                field(PG2; Rec."Item Category Code")
-                {
-                    Caption = 'PG2';
-                }
+                // field(TOR_QtyOnHand; '0')
+                // {
+                //     Caption = 'TOR Qty On Hand';
+                // }
 
-                field(NetAvailable; NetAvailable)
-                {
-                    Caption = 'Net Available';
+                // field(TOR_QtyOnSalesOrder; '0')
+                // {
+                //     Caption = 'TOR Qty On Sales Order';
+                // }
 
-                }
+                // field(TOR_QtyToShip; '0')
+                // {
+                //     Caption = 'TOR Qty To Ship';
+                // }
 
-                field(TOR_NetAvailable; TorNetAvailabled)
-                {
-                    Caption = 'TOR Net Available';
-                }
+                // field(TOR_QtyToShip_Transfer; '0')
+                // {
+                //     Caption = 'TOR Qty To Ship Transfer';
+                // }
 
-                field(TOR_QtyOnHand; TorQtyOnHand)
-                {
-                    Caption = 'TOR Qty On Hand';
-                }
+                // field(TOR_QtyInTransit_Transfer; '0')
+                // {
+                //     Caption = 'TOR Qty In Transit Transfer';
+                // }
 
-                field(TOR_QtyOnSalesOrder; TorQtyOnSalesOrder)
-                {
-                    Caption = 'TOR Qty On Sales Order';
-                }
+                // field(TOR_QtyOnPO; '0')
+                // {
+                //     Caption = 'TOR Qty On PO';
+                // }
 
-                field(TOR_QtyToShip; TorQtyToShip)
-                {
-                    Caption = 'TOR Qty To Ship';
-                }
+                // field(CAL_NetAvailable; '0')
+                // {
+                //     Caption = 'CAL Net Available';
+                // }
 
-                field(TOR_QtyToShip_Transfer; TorQtyToShipTransfer)
-                {
-                    Caption = 'TOR Qty To Ship Transfer';
-                }
+                // field(CAL_QtyOnHand; '0')
+                // {
+                //     Caption = 'CAL Qty On Hand';
+                // }
 
-                field(TOR_QtyInTransit_Transfer; TORQtyInTransitTransfer)
-                {
-                    Caption = 'TOR Qty In Transit Transfer';
-                }
+                // field(CAL_QtyOnSalesOrder; '0')
+                // {
+                //     Caption = 'CAL Qty On Sales Order';
+                // }
 
-                field(TOR_QtyOnPO; TorQtyOnPo)
-                {
-                    Caption = 'TOR Qty On PO';
-                }
+                // field(CAL_QtyToShip; '0')
+                // {
+                //     Caption = 'CAL Qty To Ship';
+                // }
 
-                field(CAL_NetAvailable; CalNetAvailabled)
-                {
-                    Caption = 'CAL Net Available';
-                }
+                // field(CAL_QtyToShip_Transfer; '0')
+                // {
+                //     Caption = 'CAL Qty To Ship Transfer';
+                // }
 
-                field(CAL_QtyOnHand; CalQtyOnHand)
-                {
-                    Caption = 'CAL Qty On Hand';
-                }
+                // field(CAL_QtyInTransit_Transfer; '0')
+                // {
+                //     Caption = 'CAL Qty In Transit Transfer';
+                // }
 
-                field(CAL_QtyOnSalesOrder; CalQtyOnSalesOrder)
-                {
-                    Caption = 'CAL Qty On Sales Order';
-                }
-
-                field(CAL_QtyToShip; CalQtyToShip)
-                {
-                    Caption = 'CAL Qty To Ship';
-                }
-
-                field(CAL_QtyToShip_Transfer; CalQtyToShipTransfer)
-                {
-                    Caption = 'CAL Qty To Ship Transfer';
-                }
-
-                field(CAL_QtyInTransit_Transfer; CALQtyInTransitTransfer)
-                {
-                    Caption = 'CAL Qty In Transit Transfer';
-                }
-
-                field(CAL_QtyOnPO; CalQtyOnPo)
-                {
-                    Caption = 'CAL Qty On PO';
-                }
-
-
+                // field(CAL_QtyOnPO; '0')
+                // {
+                //     Caption = 'CAL Qty On PO';
+                // }
             }
         }
     }
-    var
-        TORRec: Record Item;
-        CALRec: Record Item;
-        NetAvailable: Decimal;
-        TorNetAvailabled: Decimal;
-        TorQtyOnHand: Decimal;
-        TorQtyOnSalesOrder: Decimal;
-        TorQtyToShip: Decimal;
-        TorQtyToShipTransfer: Decimal;
-        TORQtyInTransitTransfer: Decimal;
-        TorQtyOnPo: Decimal;
-        CALNetAvailabled: Decimal;
-        CALQtyOnHand: Decimal;
-        CALQtyOnSalesOrder: Decimal;
-        CALQtyToShip: Decimal;
-        CALQtyToShipTransfer: Decimal;
-        CALQtyInTransitTransfer: Decimal;
-        CALQtyOnPo: Decimal;
+    // var
+    // TORRec: Record Item;
+    // CALRec: Record Item;
+    // NetAvailable: Decimal;
+    // TorNetAvailabled: Decimal;
+    // TorQtyOnHand: Decimal;
+    // TorQtyOnSalesOrder: Decimal;
+    // TorQtyToShip: Decimal;
+    // TorQtyToShipTransfer: Decimal;
+    // TORQtyInTransitTransfer: Decimal;
+    // TorQtyOnPo: Decimal;
+    // CALNetAvailabled: Decimal;
+    // CALQtyOnHand: Decimal;
+    // CALQtyOnSalesOrder: Decimal;
+    // CALQtyToShip: Decimal;
+    // CALQtyToShipTransfer: Decimal;
+    // CALQtyInTransitTransfer: Decimal;
+    // CALQtyOnPo: Decimal;
 
+    // trigger OnAfterGetCurrRecord()
+    // begin
+    //     Rec.CalcFields(Rec.Inventory);
+    //     NetAvailable := Rec.Inventory - Rec."Qty. to Ship" - Rec."Qty. to Ship (Transfer)";
 
-    trigger OnAfterGetCurrRecord()
-    begin
+    //     TORRec.Reset();
 
-        Rec.CalcFields(Rec.Inventory);
-        NetAvailable := Rec.Inventory - Rec."Qty. to Ship" - Rec."Qty. to Ship (Transfer)";
+    //     if TORRec.Get(Rec."No.") then begin
+    //         TORRec.SetFilter("Location Filter", 'TOR|TMT');
+    //         TORRec.CalcFields(
+    //             Inventory,
+    //             "Qty. on Sales Order",
+    //             "Qty. to Ship",
+    //             "Qty. to Ship (Transfer)",
+    //             "Qty. in Transit",
+    //             "Qty. on Purch. Order"
+    //         );
 
+    //         TorQtyOnHand := TORRec.Inventory;
+    //         TorQtyOnSalesOrder := TORRec."Qty. on Sales Order";
+    //         TorQtyToShip := TORRec."Qty. to Ship";
+    //         TorQtyToShipTransfer := TORRec."Qty. to Ship (Transfer)";
+    //         TORQtyInTransitTransfer := TORRec."Qty. in Transit";
+    //         TorQtyOnPo := TORRec."Qty. in Transit";
 
-        TORRec.Reset();
+    //         TorNetAvailabled := TorQtyOnHand - TorQtyToShip - TorQtyToShipTransfer;
+    //     end;
 
-        if TORRec.Get(Rec."No.") then begin
-            TORRec.SetFilter("Location Filter", 'TOR|TMT');
-            TORRec.CalcFields(
-                Inventory,
-                "Qty. on Sales Order",
-                "Qty. to Ship",
-                "Qty. to Ship (Transfer)",
-                "Qty. in Transit",
-                "Qty. on Purch. Order"
-            );
+    //     CALRec.Reset();
+    //     if CALRec.Get(Rec."No.") then begin
+    //         CALRec.SetFilter("Location Filter", 'CAL');
+    //         CALRec.CalcFields(
+    //             Inventory,
+    //             "Qty. on Sales Order",
+    //             "Qty. to Ship",
+    //             "Qty. to Ship (Transfer)",
+    //             "Qty. in Transit",
+    //             "Qty. on Purch. Order"
+    //         );
 
+    //         CALQtyOnHand := CALRec.Inventory;
+    //         CALQtyOnSalesOrder := CALRec."Qty. on Sales Order";
+    //         CALQtyToShip := CALRec."Qty. to Ship";
+    //         CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
+    //         CALQtyInTransitTransfer := CALRec."Qty. in Transit";
+    //         CALQtyOnPo := CALRec."Qty. in Transit";
 
-            TorQtyOnHand := TORRec.Inventory;
-            TorQtyOnSalesOrder := TORRec."Qty. on Sales Order";
-            TorQtyToShip := TORRec."Qty. to Ship";
-            TorQtyToShipTransfer := TORRec."Qty. to Ship (Transfer)";
-            TORQtyInTransitTransfer := TORRec."Qty. in Transit";
-            TorQtyOnPo := TORRec."Qty. in Transit";
-
-
-            TorNetAvailabled := TorQtyOnHand - TorQtyToShip - TorQtyToShipTransfer;
-        end;
-
-
-        CALRec.Reset();
-        if CALRec.Get(Rec."No.") then begin
-            CALRec.SetFilter("Location Filter", 'CAL');
-            CALRec.CalcFields(
-                Inventory,
-                "Qty. on Sales Order",
-                "Qty. to Ship",
-                "Qty. to Ship (Transfer)",
-                "Qty. in Transit",
-                "Qty. on Purch. Order"
-            );
-
-            CALQtyOnHand := CALRec.Inventory;
-            CALQtyOnSalesOrder := CALRec."Qty. on Sales Order";
-            CALQtyToShip := CALRec."Qty. to Ship";
-            CALQtyToShipTransfer := CALRec."Qty. to Ship (Transfer)";
-            CALQtyInTransitTransfer := CALRec."Qty. in Transit";
-            CALQtyOnPo := CALRec."Qty. in Transit";
-
-
-            CALNetAvailabled := CALQtyOnHand - CALQtyToShip - CALQtyToShipTransfer;
-        end;
-    end;
+    //         CALNetAvailabled := CALQtyOnHand - CALQtyToShip - CALQtyToShipTransfer;
+    //     end;
+    // end;
 }

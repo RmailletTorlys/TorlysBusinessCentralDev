@@ -105,15 +105,15 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
                 ToolTip = 'Container No. (NAV)';
                 ApplicationArea = All;
             }
-            field("Booking No."; Rec."Booking No.")
-            {
-                Caption = 'Booking No.';
-                ToolTip = 'Booking No.';
-                ApplicationArea = All;
-            }
+            // field("Booking No."; Rec."Booking No.")
+            // {
+            //     Caption = 'Booking No.';
+            //     ToolTip = 'Booking No.';
+            //     ApplicationArea = All;
+            // }
         }
 
-        moveafter("Booking No."; "Outstanding Quantity")
+        moveafter("Container No. (NAV)"; "Outstanding Quantity")
 
         addafter("Outstanding Quantity")
         {

@@ -34,7 +34,7 @@ codeunit 50015 TlyPostTransOrderShipment
         TransferShipmentHeader."BOL No." := TransferHeader."BOL No.";
         TransferShipmentHeader."Package Tracking No." := TransferHeader."Package Tracking No.";
         TransferShipmentHeader."Shipping Comment" := TransferHeader."Shipping Comment";
-        TransferShipmentHeader."Booking No." := TransferHeader."Booking No.";
+        // TransferShipmentHeader."Booking No." := TransferHeader."Booking No.";
     end;
 
 

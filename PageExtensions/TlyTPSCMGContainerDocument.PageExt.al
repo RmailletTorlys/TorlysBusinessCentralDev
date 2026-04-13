@@ -350,9 +350,14 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
     }
     actions
     {
+        addlast(Category_Category5)
+        {
+            actionref(ForceClose_Promoted; "Force Close")
+            { }
+        }
+
         addlast(Category_Process)
         {
-
             actionref(Attachments_Promoted; Attachments)
             { }
         }
@@ -395,6 +400,19 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     DocumentAttachmentRecord.SetFilter("Document Type", 'TPS Container');
                     DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
                     DocumentAttachmentPage.RunModal();
+                end;
+            }
+            action("Force Close")
+            {
+                ApplicationArea = All;
+                Caption = 'Force Close';
+                Image = Close;
+                ToolTip = 'Force Close';
+                Visible = (UserDepartment = UserDepartment::IT);
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::"Completely Received";
+                    Rec.Modify();
                 end;
             }
             action("Book Appointment")
@@ -513,6 +531,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        UserDepartment: Enum TlyUserDepartment;
     // BookingNo: Code[20];
     // AppointmentDate: Date;
     // AppointmentTime: Time;
@@ -535,4 +554,12 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
     //         AppointmentAt := BookingInfo."Appointment At";
     //     end;
     // end;
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if UserSetup.Get(UserId) then
+            UserDepartment := UserSetup.Department;
+    end;
 }

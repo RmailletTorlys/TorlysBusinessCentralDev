@@ -25,15 +25,27 @@ page 50998 TlyReturnOrderDamage
                 ApplicationArea = All;
                 Editable = false;
             }
-            field(Quantity; Quantity)
+            field(UOM; UOM)
             {
-                Caption = 'Quantity Total';
+                Caption = 'Unit of Measure Code';
                 ApplicationArea = All;
                 Editable = false;
             }
-            field(DamagedQty; DamagedQty)
+            field(Quantity; Quantity)
             {
-                Caption = 'Quantity Damaged';
+                Caption = 'Quantity';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field(QuantityCase; QuantityCase)
+            {
+                Caption = 'Quantity Case';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field(QuantityDamaged; QuantityDamaged)
+            {
+                Caption = 'Quantity Damaged (Case/Each)';
                 ApplicationArea = All;
                 Editable = true;
             }
@@ -44,19 +56,23 @@ page 50998 TlyReturnOrderDamage
         DocumentNo: Code[20];
         ItemNo: Code[20];
         ItemDescription: Text[100];
+        UOM: Code[10];
         Quantity: Decimal;
-        DamagedQty: Decimal;
+        QuantityCase: Integer;
+        QuantityDamaged: Decimal;
 
-    procedure PresentModal(ReturnDocumentNo: Code[20]; ReturnItemNo: Code[20]; ReturnDescription: Text[50]; ReturnQuantity: Decimal)
+    procedure PresentModal(ReturnDocumentNo: Code[20]; ReturnItemNo: Code[20]; ReturnDescription: Text[50]; ReturnUOM: Code[10]; ReturnQuantity: Decimal; ReturnQuantityCase: Integer)
     begin
         DocumentNo := ReturnDocumentNo;
         ItemNo := ReturnItemNo;
         ItemDescription := ReturnDescription;
+        UOM := ReturnUOM;
         Quantity := ReturnQuantity;
+        QuantityCase := ReturnQuantityCase;
     end;
 
     procedure GetQuantity(): Decimal
     begin
-        exit(DamagedQty)
+        exit(QuantityDamaged)
     end;
 }

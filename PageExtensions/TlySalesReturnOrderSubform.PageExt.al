@@ -363,7 +363,7 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
     begin
         Item.Get(Rec."No.");
         DamagedQty := 0;
-        TlyReturnOrderDamage.PresentModal(Rec."Document No.", Rec."No.", Rec.Description, Rec.Quantity);
+        TlyReturnOrderDamage.PresentModal(Rec."Document No.", Rec."No.", Rec.Description, Rec."Unit of Measure Code", Rec.Quantity, Rec."Quantity Case");
         if TlyReturnOrderDamage.RunModal() = Action::OK then begin
             DamagedQty := TlyReturnOrderDamage.GetQuantity();
         end;

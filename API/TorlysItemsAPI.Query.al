@@ -22,7 +22,7 @@ query 56005 "Torlys Items API"
             column(discontinuedItem; "Discontinued Item") { }
             column(newItem; "New Item") { }
             column(unitPrice; "Unit Price") { }
-            column(replacementCost; "Replacement Cost (LCY)") { }
+            column(replacementCost; "Replacement Cost") { }
             column(clearanceItem; "Clearance Item") { }
             column(onHandTOR; "Qty. on Hand (TOR)") { }
             column(onHandTMT; "Qty. on Hand (TMT)") { }

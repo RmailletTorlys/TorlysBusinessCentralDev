@@ -23,12 +23,15 @@ report 50041 "Display Report"
             { }
             column(No_; "Customer No.")
             { }
-            column(Salesperson_Code; Customer."Salesperson Code")
+            column(Salesperson_Code; TM)
+            { }
+            column(Comments; Comments)
             { }
 
             trigger OnAfterGetRecord()
             begin
-
+                Customer.get(TlyCustomerDisplays."Customer No.");
+                TM := Customer."Salesperson Code";
             end;
         }
     }
@@ -44,4 +47,5 @@ report 50041 "Display Report"
     }
     var
         Customer: Record Customer;
+        TM: Text;
 }

@@ -82,6 +82,9 @@ End Function
         <Field Name="Salesperson_Code">
           <DataField>Salesperson_Code</DataField>
         </Field>
+        <Field Name="Comments">
+          <DataField>Comments</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

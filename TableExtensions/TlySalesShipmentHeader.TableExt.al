@@ -362,11 +362,11 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             TableRelation = "Bin".Code where("Location Code" = field("Location Code"));
         }
 
-        // field(50066; "Requested Shipment Date"; Date)
-        // {
-        //     Caption = 'Requested Shipment Date';
-        //     DataClassification = CustomerContent;
-        // }
+        field(50066; "Requested Shipment Date"; Date)
+        {
+            Caption = 'Requested Shipment Date';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

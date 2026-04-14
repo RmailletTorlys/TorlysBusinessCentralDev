@@ -18,43 +18,43 @@ page 56005 "Item Unit of Measure API"
         {
             repeater(GroupName)
             {
-                field(ItemNo; Rec."Item No.")
+                field("number"; Rec."Item No.")
                 {
-                    Caption = 'Item No.';
+                    Caption = 'Number';
                 }
-                field(UOMCode; Rec.Code)
+                field("code"; Rec.Code)
                 {
-                    Caption = 'UOM Code';
+                    Caption = 'Code';
                 }
-                field(QtyPerUOM; Rec."Qty. per Unit of Measure")
+                field("qty_uom"; Rec."Qty. per Unit of Measure")
                 {
-                    Caption = 'Qty. per UOM';
+                    Caption = 'Qty. per Unit of Measure';
                 }
-                field(ConversionUOM; Rec."Conversion Unit of Measure")
+                field("conversion_uom"; Rec."Conversion Unit of Measure")
                 {
-                    Caption = 'Conversion UUOM';
+                    Caption = 'Conversion Unit of Measure';
                 }
-                field(ConversionQty; Rec."Conversion Quantity")
+                field("conversion_qty"; Rec."Conversion Quantity")
                 {
-                    Caption = 'Conversion Qty.';
+                    Caption = 'Conversion Quantity';
                 }
-                field(Height; Rec."Height")
+                field("height"; Rec."Height")
                 {
                     Caption = 'Height';
                 }
-                field(Width; Rec."Width")
+                field("width"; Rec."Width")
                 {
                     Caption = 'Width';
                 }
-                field(Length; Rec."length")
+                field("length"; Rec."length")
                 {
-                    Caption = 'Length';
+                    Caption = 'Depth';
                 }
-                field(Cubage; Rec."Cubage")
+                field("cubage"; Rec."Cubage")
                 {
                     Caption = 'Cubage';
                 }
-                field(Weight; Rec."Weight")
+                field("weight"; Rec."Weight")
                 {
                     Caption = 'Weight';
                 }

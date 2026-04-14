@@ -363,11 +363,11 @@ tableextension 56660 TlyReturnReceiptHeader extends "Return Receipt Header"
             TableRelation = "Bin".Code where("Location Code" = field("Location Code"));
         }
 
-        // field(50066; "Requested Shipment Date"; Date)
-        // {
-        //     Caption = 'Requested Shipment Date';
-        //     DataClassification = CustomerContent;
-        // }
+        field(50066; "Requested Shipment Date"; Date)
+        {
+            Caption = 'Requested Shipment Date';
+            DataClassification = CustomerContent;
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

@@ -19,12 +19,12 @@ page 56002 "Programs API"
             repeater(GroupName)
             {
 
-                field(ItemCategory; Rec.Code)
+                field(code; Rec.Code)
                 {
-                    Caption = 'Item Category Code';
+                    Caption = 'Program Code';
                 }
 
-                field(Description; Rec."Description")
+                field(description; Rec."Description")
                 {
                     Caption = 'Description';
                 }

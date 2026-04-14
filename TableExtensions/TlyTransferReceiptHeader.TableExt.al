@@ -55,7 +55,7 @@ tableextension 55746 TlyTransferReceiptHeader extends "Transfer Receipt Header"
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
             // TableRelation = TlyBookingInfo;
-            ObsoleteState = Pending;
+            ObsoleteState = Removed;
         }
 
         modify("TPS CMG Container No.")

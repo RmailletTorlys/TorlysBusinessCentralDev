@@ -52,6 +52,10 @@ page 56000 "Price List Lines API"
                 {
                     Caption = 'Unit Price';
                 }
+                field(palletprice; Rec."Stocking Pallet Price")
+                {
+                    Caption = 'Pallet Price';
+                }
 
                 field(pricestatus; Rec.Status)
                 {

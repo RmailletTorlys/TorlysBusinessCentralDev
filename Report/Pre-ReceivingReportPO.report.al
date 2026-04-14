@@ -11,7 +11,7 @@ report 50025 "Receiving Report PO"
         dataitem("Purchase Line"; "Purchase Line")
         {
             DataItemTableView = sorting("Container No.") where("Document Type" = filter(Order), Type = Filter(Item | "G/L Account"));
-            RequestFilterFields = "Document No.", "Expected Receipt Date", "Booking No.";
+            RequestFilterFields = "Document No.", "Expected Receipt Date", "Container No.";
             dataitem("TPS CMG Container Header"; "TPS CMG Container Header")
             {
                 DataItemLink = "No." = field("Container No.");

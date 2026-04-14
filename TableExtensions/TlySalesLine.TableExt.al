@@ -27,6 +27,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                     Rec."Quantity Case" := Round((TempQuantity / QtyPerCase), 1, '>'); //apply remaining amount to cases            
                     Rec.Validate(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
                 end;
+                ApplyFullPalletPrice(); //TLY-SD - 04/13/2026
             end;
         }
 
@@ -48,6 +49,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                     QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //get the SF per pallet
                     Rec.Validate(Rec.Quantity, ((QtyPerPallet * Rec."Quantity Pallet" + QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure");
                 end;
+                ApplyFullPalletPrice(); //TLY-SD - 04/13/2026
             end;
         }
 
@@ -385,6 +387,32 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             CalcFormula = lookup("Price List Header"."National Property Management" where("Code" = field("Price List")));
         }
 
+        // field 50041 - "Shipping Agent Code" flow field on "Sales Shipment Line"
+
+        field(50042; "Order Date"; Date)
+        {
+            Caption = 'Order Date';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Order Date" where("No." = field("Document No.")));
+        }
+
+        field(50043; "Shipping Instructions"; Text[20])
+        {
+            Caption = 'Shipping Instructions';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Shipping Instructions" where("No." = field("Document No.")));
+        }
+
+        // field(50044; "Requested Shipment Date"; Date)
+        // {
+        //     Caption = 'Requested Shipment Date';
+        //     Editable = false;
+        //     FieldClass = FlowField;
+        //     CalcFormula = lookup("Sales Header"."Requested Shipment Date" where("No." = field("Document No.")));
+        // }
+
         modify("No.")
         {
             trigger OnBeforeValidate()
@@ -650,6 +678,25 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             SalesHeader."Warehouse Notify At" := CurrentDateTime;
             SalesHeader."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
             SalesHeader.Modify(true);
+        end;
+    end;
+
+    procedure ApplyFullPalletPrice();
+    //TLY-SD - 04/13/2026
+    var
+        PriceListLine: Record "Price List Line";
+    begin
+        // Message('Pallet price check time 1, PL=%1, SPC=%2.', Rec."Price List", Rec."Sales Price Code");
+        if (Rec."Quantity Pallet" > 0) and (Rec."Quantity Case" = 0) then begin
+            // Message('Pallet price check time 2, PL=%1, SPC=%2.', Rec."Price List", Rec."Sales Price Code");
+            PriceListLine.Reset();
+            PriceListLine.SetRange("Price List Code", Rec."Price List");
+            PriceListLine.SetRange("Product No.", Rec."Sales Price Code");
+            PriceListLine.SetFilter("Ending Date", '');
+            if PriceListLine.Find('-') then begin
+                Rec.Validate("Unit Price", PriceListLine."Stocking Pallet Price");
+                Message('Full pallet price has been applied!');
+            end;
         end;
     end;
 }

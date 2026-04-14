@@ -43,7 +43,7 @@ tableextension 50121 TlyPurchRcptLine extends "Purch. Rcpt. Line"
             Caption = 'Booking No.';
             DataClassification = CustomerContent;
             // TableRelation = TlyBookingInfo;
-            ObsoleteState = Pending;
+            ObsoleteState = Removed;
         }
 
         field(50008; "SH BOL No."; Code[20])

@@ -260,6 +260,14 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50025, true, false, PurchaseLine);
     end;
 
+    procedure PrintReceivingPOFromPO(PurchaseHeader: Record "Purchase Header"): Boolean
+    var
+        PurchaseLine: Record "Purchase Line";
+    begin
+        PurchaseLine.SetRange("Document No.", PurchaseHeader."No.");
+        Report.RunModal(50025, true, false, PurchaseLine);
+    end;
+
     // procedure PrintReceivingTransfer(BookingInfo: Record TlyBookingInfo): Boolean
     procedure PrintReceivingTransfer(ContainerHeader: Record "TPS CMG Container Header"): Boolean
     var

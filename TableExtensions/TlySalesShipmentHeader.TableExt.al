@@ -41,6 +41,7 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
         {
             Caption = 'Order Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
         }
 
         field(50007; "Order Type"; Text[20])
@@ -340,6 +341,32 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             Caption = 'Return Must Return By Date';
             DataClassification = CustomerContent;
         }
+
+        field(50063; "Return Damaged Detected"; Boolean)
+        {
+            Caption = 'Return Damaged Detected';
+            DataClassification = CustomerContent;
+        }
+
+        field(50064; "Return Put Away By"; Code[20])
+        {
+            Caption = 'Return Put Away By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
+        }
+
+        field(50065; "Return Bin Location"; Code[20])
+        {
+            Caption = 'Return Bin Location';
+            DataClassification = CustomerContent;
+            TableRelation = "Bin".Code where("Location Code" = field("Location Code"));
+        }
+
+        // field(50066; "Requested Shipment Date"; Date)
+        // {
+        //     Caption = 'Requested Shipment Date';
+        //     DataClassification = CustomerContent;
+        // }
     }
 
     keys

@@ -17,19 +17,19 @@ Page 56104 salesiSalesInvoice
         {
             repeater(Group)
             {
-                field(sellToCustomerNo; Rec."Sell-to Customer No.")
+                field(SellToCustomerNo; Rec."Sell-to Customer No.")
                 {
-                    Caption = 'Item Number';
+                    Caption = 'Sell-to Customer No.';
                 }
 
-                field(shipTo; Rec."Ship-to Code")
+                field(ShipToCode; Rec."Ship-to Code")
                 {
-                    Caption = 'Description';
+                    Caption = 'Ship-to Code';
                 }
 
-                field(prod_code; Rec."No.")
+                field(ItemNo; Rec."No.")
                 {
-                    Caption = 'prod_code';
+                    Caption = 'Item No.';
                 }
 
                 field(Quantity; Rec."Quantity")
@@ -42,100 +42,100 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Amount';
                 }
 
+                field(Cost; Rec."Quantity" * Rec."Unit Cost")
+                {
+                    Caption = 'Cost';
+                }
+
                 field(CurrencyCode; CurrencyCode)
                 {
                     Caption = 'Currency Code';
                 }
 
-                field(CurrencyFactor; CurrencyFactor)
+                // field(CurrencyFactor; CurrencyFactor)
+                // {
+                //     Caption = 'Currency Factor';
+                // }
+
+                // field(PostingDateHeader; Rec."Posting Date")
+                // {
+                //     Caption = 'Posting Date';
+                // }
+
+                field(DocumentNo; Rec."Document No.")
                 {
-                    Caption = 'Currency Factor';
+                    Caption = 'Document No.';
                 }
 
-                field(Total_Line_Cost; Rec."Line Amount")
+                field(OrderNo; Rec."Order No.")
                 {
-                    Caption = 'Total Line Cost';
-                }
-
-                field(PostingDateHeader; Rec."Posting Date")
-                {
-                    Caption = 'Posting Date';
-                }
-
-                field(invoice_number; Rec."Document No.")
-                {
-                    Caption = 'invoice_number';
-                }
-
-                field(order_number; Rec."Order No.")
-                {
-                    Caption = 'order_number';
+                    Caption = 'Order No.';
                 }
 
                 field(TransactionType; 'INVOICE')
                 {
-                    Caption = 'TransactionType';
+                    Caption = 'Transaction Type';
                 }
 
                 field(SalespersonCode; Rec."Salesperson Code")
                 {
-                    Caption = 'SalespersonCode';
+                    Caption = 'Salesperson Code';
                 }
 
-                field(CreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
-                {
-                    Caption = 'CreaatedBy';
-                }
+                // field(EnteredBy; EnteredBy)
+                // {
+                //     Caption = 'CreaatedBy';
+                // }
 
-                field(UserId; SystemUserId)
-                {
-                    Caption = 'UserId';
-                }
+                // field(UserId; CreatedBy)
+                // {
+                //     Caption = 'UserId';
+                // }
 
-                field(PaymentTermsCode; PaymentTermsCode)
-                {
-                    Caption = 'PaymentTermsCode';
-                }
+                // field(PaymentTermsCode; PaymentTermsCode)
+                // {
+                //     Caption = 'PaymentTermsCode';
+                // }
 
-                field(ShipmentMethodCode; ShipmentMethodCode)
-                {
-                    Caption = 'ShipmentMethodCode';
-                }
+                // field(ShipmentMethodCode; ShipmentMethodCode)
+                // {
+                //     Caption = 'ShipmentMethodCode';
+                // }
 
-                field(ShippingAgentCode; ShippingAgentCode)
-                {
-                    Caption = 'ShippingAgentCode';
-                }
+                // field(ShippingAgentCode; ShippingAgentCode)
+                // {
+                //     Caption = 'ShippingAgentCode';
+                // }
 
                 field(LocationCode; Rec."Location Code")
                 {
                     Caption = 'Location Code';
                 }
 
-                field(UnitOfMeasureCode; Rec."Unit of Measure Code")
+                // field(UnitOfMeasureCode; Rec."Unit of Measure Code")
+                // {
+                //     Caption = 'UnitOfMeasureCode';
+                // }
+
+                field(BuyingGroup; ShortcutDimCode[5])
                 {
-                    Caption = 'UnitOfMeasureCode';
+                    Caption = 'BuyingGroup';
                 }
 
-                field(Chain; ShortcutDimCode[5])
+                // field(GLCode; PostingGroupGlCode)
+                // {
+                //     Caption = 'GLCode';
+                // }
+
+                field(Region; Rec."Shortcut Dimension 1 Code")
                 {
-                    Caption = 'Chain';
+                    Caption = 'Region';
                 }
 
-                field(GLCode; PostingGroupGlCode)
-                {
-                    Caption = 'GLCode';
-                }
-
-                field(Department; Rec."Shortcut Dimension 1 Code")
-                {
-                    Caption = 'Department';
-                }
-
-                field(ShortcutDimension2; '')
-                {
-                    Caption = 'ShortcutDimension2';
-                }
+                // field(ShortcutDimension2; '')
+                // {
+                //     Caption = 'ShortcutDimension2';
+                // }
 
                 field(Reportable; Reportable)
                 {
@@ -147,9 +147,9 @@ Page 56104 salesiSalesInvoice
                     Caption = 'FriendlyName';
                 }
 
-                field(CustomerType; ShortcutDimCode[3])
+                field(Channel; ShortcutDimCode[3])
                 {
-                    Caption = 'CustomerType';
+                    Caption = 'Channel';
                 }
 
                 field(subChannel; '')
@@ -157,9 +157,9 @@ Page 56104 salesiSalesInvoice
                     Caption = 'subChannel';
                 }
 
-                field(ProgramNo; Rec."Item Category Code")
+                field(ItemCategoryCode; Rec."Item Category Code")
                 {
-                    Caption = 'ProgramNo';
+                    Caption = 'Item Category Code';
                 }
 
                 field(PromoCode; Rec."Price List")
@@ -177,7 +177,7 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Salesperson Code 3';
                 }
 
-                field(PostingDateLine; Rec."Posting Date")
+                field(PostingDate; Rec."Posting Date")
                 {
                     Caption = 'Posting Date';
                 }
@@ -187,10 +187,10 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Order Date';
                 }
 
-                field(InvoiceDate; DocumentDate)
-                {
-                    Caption = 'Invoice Date';
-                }
+                // field(InvoiceDate; DocumentDate)
+                // {
+                //     Caption = 'Invoice Date';
+                // }
 
                 field(ReasonCode; '')
                 {
@@ -211,7 +211,6 @@ Page 56104 salesiSalesInvoice
                 field(ProjectName; Projectname)
                 {
                     Caption = 'ProjectName';
-
                 }
 
                 field(project_number; Rec."Price List")
@@ -219,11 +218,11 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Project Number';
                 }
 
-                field(natl_prop_mgt; '0')
+                field(NationalPM; '0')
                 {
                     Caption = 'National PM';
                 }
-                field(Gen_Prod_Posting_Group; Rec."Gen. Prod. Posting Group")
+                field(PostingGroup; Rec."Gen. Prod. Posting Group")
                 {
                     Caption = 'Gen. Prod. Posting Group';
                 }
@@ -236,19 +235,19 @@ Page 56104 salesiSalesInvoice
         GenPostingSetup: Record "General Posting Setup";
         Customer: Record Customer;
         CurrencyCode: Code[10];
-        CurrencyFactor: Decimal;
-        SystemUserId: Text;
-        PaymentTermsCode: Code[10];
-        ShipmentMethodCode: Code[10];
-        ShippingAgentCode: Code[10];
+        // CurrencyFactor: Decimal;
+        // SystemUserId: Text;
+        // PaymentTermsCode: Code[10];
+        // ShipmentMethodCode: Code[10];
+        // ShippingAgentCode: Code[10];
         Reportable: Boolean;
         TagName: Text;
         Projectname: Text;
         ChainName: Text;
         OrderDate: Date;
-        DocumentDate: Date;
+        // DocumentDate: Date;
         Department: Text;
-        PostingGroupGlCode: Text;
+        // PostingGroupGlCode: Text;
         PostingDate: Date;
         SalespersonCode: Code[10];
         SalespersonCode2: Code[10];
@@ -261,15 +260,15 @@ Page 56104 salesiSalesInvoice
 
         if SalesInvoiceHeader.Get(Rec."Document No.") then begin
             CurrencyCode := SalesInvoiceHeader."Currency Code";
-            CurrencyFactor := SalesInvoiceHeader."Currency Factor";
-            SystemUserId := LookupUserId.UserId(SalesInvoiceHeader.SystemCreatedBy);
-            PaymentTermsCode := SalesInvoiceHeader."Payment Terms Code";
-            ShipmentMethodCode := SalesInvoiceHeader."Shipment Method Code";
-            ShippingAgentCode := SalesInvoiceHeader."Shipping Agent Code";
+            // CurrencyFactor := SalesInvoiceHeader."Currency Factor";
+            // SystemUserId := LookupUserId.UserId(SalesInvoiceHeader.SystemCreatedBy);
+            // PaymentTermsCode := SalesInvoiceHeader."Payment Terms Code";
+            // ShipmentMethodCode := SalesInvoiceHeader."Shipment Method Code";
+            // ShippingAgentCode := SalesInvoiceHeader."Shipping Agent Code";
             TagName := SalesInvoiceHeader."Tag Name";
             ProjectName := SalesInvoiceHeader."Tag Name";
             OrderDate := SalesInvoiceHeader."Order Date";
-            DocumentDate := SalesInvoiceHeader."Document Date";
+            // DocumentDate := SalesInvoiceHeader."Document Date";
             PostingDate := SalesInvoiceHeader."Posting Date";
             SalespersonCode := SalesInvoiceHeader."Salesperson Code";
             SalespersonCode2 := SalesInvoiceHeader."Salesperson Code 2";
@@ -286,10 +285,10 @@ Page 56104 salesiSalesInvoice
         else
             Reportable := false;
 
-        if GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group") then
-            PostingGroupGlCode := GenPostingSetup."Sales Account"
-        else
-            PostingGroupGlCode := '';
+        // if GenPostingSetup.Get(Rec."Gen. Bus. Posting Group", Rec."Gen. Prod. Posting Group") then
+        //     PostingGroupGlCode := GenPostingSetup."Sales Account"
+        // else
+        //     PostingGroupGlCode := '';
 
         if Customer.Get(Rec."Sell-to Customer No.") then
             Department := Customer."Global Dimension 2 Code"

@@ -164,6 +164,11 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
             Editable = false;
             // TableRelation = "Sales Line"."Line No." where("Document No." = field("Master Project Order No."));
         }
+
+        // field 50026 - "MPO Qty. on Sales Order" flow filter on "Sales Line"
+
+        // field 50027 - "MPO Quantity Invoiced" flow filter on "Sales Line"
+
         field(50028; "Container No. (NAV)"; Code[25])
         {
             Caption = 'Container No. (NAV)';
@@ -233,7 +238,7 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
             CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));
         }
 
-        // 50038??????????
+        // field 50038 - "Container No." flow field on "Sales Line"
 
         field(50039; "Reason Code"; Code[10])
         {
@@ -249,6 +254,26 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Price List Header"."National Property Management" where("Code" = field("Price List")));
         }
+
+        // field 50041 - "Shipping Agent Code" flow field on "Sales Shipment Line"
+
+        // field 50042 - "Order Date" flow field on "Sales Line"
+
+        field(50043; "Shipping Instructions"; Text[20])
+        {
+            Caption = 'Shipping Instructions';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Cr.Memo Header"."Shipping Instructions" where("No." = field("Document No.")));
+        }
+
+        // field(50044; "Requested Shipment Date"; Date)
+        // {
+        //     Caption = 'Requested Shipment Date';
+        //     Editable = false;
+        //     FieldClass = FlowField;
+        //     CalcFormula = lookup("Sales Cr.Memo Header"."Requested Shipment Date" where("No." = field("Document No.")));
+        // }
     }
 
     // trigger OnModify()

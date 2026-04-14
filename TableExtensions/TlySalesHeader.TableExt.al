@@ -405,11 +405,11 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             TableRelation = "Bin".Code where("Location Code" = field("Location Code"));
         }
 
-        // field(50066; "Requested Shipment Date"; Date)
-        // {
-        //     Caption = 'Requested Shipment Date';
-        //     DataClassification = CustomerContent;
-        // }
+        field(50066; "Requested Shipment Date"; Date)
+        {
+            Caption = 'Requested Shipment Date';
+            DataClassification = CustomerContent;
+        }
 
         modify("Sell-to Customer No.")
         {
@@ -473,6 +473,14 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                             Error('Customer PO # %1 exists on invoice # %2!', "External Document No.", SalesInvoiceHeader."No.");
                     end;
                 end;
+            end;
+        }
+
+        modify("Shipment Date")
+        {
+            trigger OnAfterValidate()
+            begin
+                Rec."Requested Shipment Date" := Rec."Shipment Date";
             end;
         }
 

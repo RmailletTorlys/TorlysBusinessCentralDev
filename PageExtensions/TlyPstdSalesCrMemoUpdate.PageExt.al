@@ -10,6 +10,18 @@ pageextension 51354 TlyPstdSalesCrMemoUpdate extends "Pstd. Sales Cr. Memo - Upd
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
             }
+            field("Original Invoice No."; Rec."Original Invoice No.")
+            {
+                Caption = 'Original Invoice No.';
+                ToolTip = 'Original Invoice No.';
+                ApplicationArea = All;
+            }
+            field("Rebill Invoice No."; Rec."Rebill Invoice No.")
+            {
+                Caption = 'Rebill Invoice No.';
+                ToolTip = 'Rebill Invoice No.';
+                ApplicationArea = All;
+            }
             field("Salesperson Code"; Rec."Salesperson Code")
             {
                 Caption = 'Salesperson Code';

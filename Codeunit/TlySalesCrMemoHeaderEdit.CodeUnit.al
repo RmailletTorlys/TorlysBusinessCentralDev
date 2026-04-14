@@ -4,6 +4,8 @@ codeunit 50119 TlySalesCrMemoHeaderEdit
     local procedure OnAfterRecordChanged(var SalesCrMemoHeader: Record "Sales Cr.Memo Header"; xSalesCrMemoHeader: Record "Sales Cr.Memo Header"; var IsChanged: Boolean)
     begin
         IsChanged := (SalesCrMemoHeader."Tag Name" <> xSalesCrMemoHeader."Tag Name") or
+        (SalesCrMemoHeader."Original Invoice No." <> xSalesCrMemoHeader."Original Invoice No.") or
+        (SalesCrMemoHeader."Rebill Invoice No." <> xSalesCrMemoHeader."Rebill Invoice No.") or
         (SalesCrMemoHeader."Salesperson Code" <> xSalesCrMemoHeader."Salesperson Code") or
         (SalesCrMemoHeader."Salesperson Commission" <> xSalesCrMemoHeader."Salesperson Commission") or
           (SalesCrMemoHeader."Salesperson Code 2" <> xSalesCrMemoHeader."Salesperson Code 2") or
@@ -19,6 +21,8 @@ codeunit 50119 TlySalesCrMemoHeaderEdit
         SalesCrMemoHeader.SetRange("No.", SalesCrMemoHeader."No.");
         if SalesCrMemoHeader.Find('-') then begin
             SalesCrMemoHeader."Tag Name" := FromSalesCrMemoHeader."Tag Name";
+            SalesCrMemoHeader."Original Invoice No." := FromSalesCrMemoHeader."Original Invoice No.";
+            SalesCrMemoHeader."Rebill Invoice No." := FromSalesCrMemoHeader."Rebill Invoice No.";
             SalesCrMemoHeader."Salesperson Code" := FromSalesCrMemoHeader."Salesperson Code";
             SalesCrMemoHeader."Salesperson Commission" := FromSalesCrMemoHeader."Salesperson Commission";
             SalesCrMemoHeader."Salesperson Code 2" := FromSalesCrMemoHeader."Salesperson Code 2";

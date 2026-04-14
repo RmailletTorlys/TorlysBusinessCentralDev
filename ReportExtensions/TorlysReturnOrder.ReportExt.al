@@ -40,7 +40,10 @@ reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
             {
 
             }
+            column(Return_Damaged_Detected; "Return Damaged Detected")
+            {
 
+            }
         }
 
         add("Sales line")

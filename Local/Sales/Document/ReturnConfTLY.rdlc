@@ -109,6 +109,9 @@ End Function
         <Field Name="TMName">
           <DataField>TMName</DataField>
         </Field>
+        <Field Name="Return_Damaged_Detected">
+          <DataField>Return_Damaged_Detected</DataField>
+        </Field>
         <Field Name="CompanyAddress_1_">
           <DataField>CompanyAddress_1_</DataField>
         </Field>

@@ -72,6 +72,10 @@ report 50035 "Return Conf TLY"
             {
 
             }
+            column(Return_Damaged_Detected; "Return Damaged Detected")
+            {
+
+            }
             dataitem("Sales Line"; "Sales Line")
             {
                 DataItemLink = "Document No." = field("No.");

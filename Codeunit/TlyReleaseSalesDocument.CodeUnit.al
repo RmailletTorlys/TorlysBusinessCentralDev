@@ -39,7 +39,6 @@ codeunit 57006 TlyReleaseSalesDocument
                 Error('Buying Group must be populated before releasing.'); //code added on screen to not allow delete if released                
 
             SalesHeader.TestField("Order Type"); //code added on screen to not allow delete if released
-            // SalesHeader.TestField("Requested Shipment Date"); //code exists to not allow delete if released
             SalesHeader.TestField("Shipment Date"); //code exists to not allow delete if released
             SalesHeader.TestField("Temporary Hold", false); //code added on screen to not allow delete if released
             SalesHeader.TestField("Shipping Instructions"); //code added on screen to not allow delete if released

@@ -124,29 +124,28 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
-        moveafter("Temporary Hold"; "Posting Date", "Order Date", "Location Code")//, "Requested Delivery Date")
-
-        // addafter("Requested Delivery Date")
-        // {
-        //     field("Requested Shipment Date"; Rec."Requested Shipment Date")
-        //     {
-        //         Caption = 'Requested Shipment Date';
-        //         ToolTip = 'Requested Shipment Date';
-        //         ApplicationArea = All;
-        //         Importance = Standard;
-        //         ShowMandatory = Rec."Temporary Hold" = false;
-        //         trigger OnValidate()
-        //         begin
-        //             if (Rec."Requested Shipment Date" = 0D) and (Rec.Status = Rec.Status::Released) then
-        //                 Error('Cannot delete if order released');
-        //         end;
-        //     }
-        // }
-
-        moveafter("Location Code"; "Shipment Date")
-        // moveafter("Requested Shipment Date"; "Shipment Date")
+        moveafter("Temporary Hold"; "Posting Date", "Order Date", "Location Code", "Shipment Date")
 
         addafter("Shipment Date")
+        {
+            field("Requested Shipment Date"; Rec."Requested Shipment Date")
+            {
+                Caption = 'Requested Shipment Date';
+                ToolTip = 'Requested Shipment Date';
+                ApplicationArea = All;
+                Importance = Additional;
+                // ShowMandatory = (Rec."Location Code" <> 'DIRECT');
+                trigger OnValidate()
+                begin
+                    if (Rec."Requested Shipment Date" = 0D) and (Rec.Status = Rec.Status::Released) and (Rec."Location Code" <> 'DIRECT') then
+                        Error('Cannot delete if order released');
+                end;
+            }
+        }
+
+        moveafter("Requested Shipment Date"; "Requested Delivery Date")
+
+        addafter("Requested Delivery Date")
         {
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
@@ -623,16 +622,16 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             end;
         }
 
-        // modify("Requested Delivery Date")
-        // {
-        //     ShowMandatory = Rec."Location Code" = 'DIRECT';
-        //     Importance = Additional;
-        //     trigger OnBeforeValidate()
-        //     begin
-        //         if (Rec."Requested Delivery Date" = 0D) and (Rec.Status = Rec.Status::Released) and (Rec."Location Code" = 'DIRECT') then
-        //             Error('Cannot delete if order released');
-        //     end;
-        // }
+        modify("Requested Delivery Date")
+        {
+            // ShowMandatory = Rec."Location Code" = 'DIRECT';
+            Importance = Additional;
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."Requested Delivery Date" = 0D) and (Rec.Status = Rec.Status::Released) and (Rec."Location Code" = 'DIRECT') then
+                    Error('Cannot delete if order released');
+            end;
+        }
 
         modify("Payment Terms Code")
         {
@@ -1290,8 +1289,10 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             begin
                 if (ShipToOptions <> ShipToOptions::"Custom Address") and (Rec."Ship-to Code" = '') then
                     Error('Ship-to Code not selected');
-                // if (Rec."Requested Delivery Date" = 0D) and (Rec."Location Code" = 'DIRECT') then
-                //     Error('Requested Delivery Date not selected');
+                if (Rec."Requested Shipment Date" = 0D) and (Rec."Location Code" <> 'DIRECT') then
+                    Error('Requested Shipment Date not selected');
+                if (Rec."Requested Delivery Date" = 0D) and (Rec."Location Code" = 'DIRECT') then
+                    Error('Requested Delivery Date not selected');
             end;
         }
     }

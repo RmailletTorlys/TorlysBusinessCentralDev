@@ -48,7 +48,7 @@ Page 56105 salesiSalesCredits
                 }
 
                 // field(Total_Line_Cost; Rec."Line Amount")
-                field(Total_Line_Cost; Rec.Quantity * Rec."Unit Cost")
+                field(Total_Line_Cost; Rec.Quantity * Rec."Unit Cost (LCY)")
                 {
                     Caption = 'Total Line Cost';
                 }

@@ -108,6 +108,13 @@ table 51060 TlyCustomerDisplays
         {
             Caption = 'Comments';
         }
+        field(17; "Salesperson Code"; Code[20])
+        {
+            Caption = 'Salesperson Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Customer"."Salesperson Code" where("No." = field("Customer No.")));
+        }
     }
 
     keys

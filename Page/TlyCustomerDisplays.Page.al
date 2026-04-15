@@ -33,6 +33,14 @@ page 51025 TlyCustomerDisplays
                     ToolTip = 'Specifies the customer location code.';
                 }
 
+                field("Salesperson Code"; Rec."Salesperson Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer location code.';
+                    Visible = false;
+                    Editable = false;
+                }
+
                 field("Name"; Rec."Name")
                 {
                     Caption = 'Name';

@@ -787,11 +787,11 @@ report 50031 "Proforma INV"
                     //     ApplicationArea = Basic, Suite;
                     //     Caption = 'Print Company Address';
                     // }
-                    field(OrderShipped; OrderShipped)
-                    {
-                        ApplicationArea = basic, suite;
-                        Caption = 'Is Order Shipped?';
-                    }
+                    // field(OrderShipped; OrderShipped)
+                    // {
+                    //     ApplicationArea = basic, suite;
+                    //     Caption = 'Is Order Shipped?';
+                    // }
                     field(IgnoreBackorder; IgnoreBackorder)
                     {
                         ApplicationArea = Basic, Suite;

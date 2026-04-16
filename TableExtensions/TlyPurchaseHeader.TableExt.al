@@ -46,6 +46,33 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
                     MessageIfPurchLinesExist(FieldCaption("Shipment Method Code"));
             end;
         }
+
+        modify("Vendor Invoice No.")
+        {
+            trigger OnAfterValidate()
+            var
+                PurchHeader: Record "Purchase Header";
+                PurchInvHeader: Record "Purch. Inv. Header";
+            begin
+                if ("Document Type" in ["Document Type"::Order, "Document Type"::Invoice]) then begin
+                    if "Vendor Invoice No." <> xRec."Vendor Invoice No." then begin
+                        // Check open PO/PI
+                        PurchHeader.Reset();
+                        PurchHeader.SetRange("Buy-from Vendor No.", "Buy-from Vendor No.");
+                        PurchHeader.SetRange("Vendor Invoice No.", "Vendor Invoice No.");
+                        PurchHeader.SetFilter("Document Type", '%1|%2', "Document Type"::Order, "Document Type"::Invoice);
+                        if (PurchHeader.Find('-') and (PurchHeader."No." <> "No.")) then
+                            Error('Vendor Invoice # %1 exists on order # %2!', "Vendor Invoice No.", PurchHeader."No.");
+                        // Check posted invoices
+                        PurchInvHeader.Reset();
+                        PurchInvHeader.SetRange("Buy-from Vendor No.", "Buy-from Vendor No.");
+                        PurchInvHeader.SetRange("Vendor Invoice No.", "Vendor Invoice No.");
+                        if (PurchInvHeader.Find('-')) then
+                            Error('Vendor Invoice # %1 exists on invoice # %2!', "Vendor Invoice No.", PurchInvHeader."No.");
+                    end;
+                end;
+            end;
+        }
     }
 
     trigger OnAfterInsert()

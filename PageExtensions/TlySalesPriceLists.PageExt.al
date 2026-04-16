@@ -18,6 +18,11 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 Caption = 'National PM';
                 ApplicationArea = All;
             }
+            field("National PM Brand"; Rec."National PM Brand")
+            {
+                Caption = 'National PM Brand';
+                ApplicationArea = All;
+            }
         }
     }
     views

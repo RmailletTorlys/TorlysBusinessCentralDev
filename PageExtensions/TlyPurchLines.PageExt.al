@@ -2,6 +2,16 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
 {
     layout
     {
+        addafter("Buy-from Vendor Name")
+        {
+            field("Order Date"; Rec."Order Date")
+            {
+                Caption = 'Order Date';
+                ToolTip = 'Order Date';
+                ApplicationArea = All;
+            }
+        }
+
         addafter("No.")
         {
             field("Vendor Item No."; Rec."Vendor Item No.")

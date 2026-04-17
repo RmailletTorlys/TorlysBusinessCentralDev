@@ -78,6 +78,12 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 // Filters = where("Code" = filter('PRJ*'));
                 Filters = where("Price List Type" = filter('Project'));
             }
+            view(NationalPM)
+            {
+                Caption = 'National PM';
+                // Filters = where("Code" = filter('PRJ*'));
+                Filters = where("National Property Management" = filter('Yes'));
+            }
             view(NoType)
             {
                 Caption = 'No Type';

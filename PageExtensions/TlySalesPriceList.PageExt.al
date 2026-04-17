@@ -23,7 +23,7 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
             {
                 Caption = 'National PM Brand';
                 ApplicationArea = All;
-                Editable = (Rec."National Property Management" = true);
+                // Editable = (Rec."National Property Management" = true);
             }
         }
 

@@ -54,6 +54,19 @@ page 50560 TlyItemAvailability
                 Editable = false;
             }
 
+            group(TSSAvailability)
+            {
+                Caption = 'TSS Availability';
+                part(NTNItemAvailabilitySubform; "NTN Item Availability")
+                {
+                    ApplicationArea = All;
+                    Enabled = true;
+                    SubPageLink = "No." = field("No.");
+                    // UpdatePropagation = Both;
+                    Editable = false;
+                }
+            }
+
             group(PricingAll)
             {
                 Caption = 'Pricing - non QC/US';

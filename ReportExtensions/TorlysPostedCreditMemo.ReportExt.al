@@ -75,6 +75,12 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                 end else begin
                     AllComments := '';
                 end;
+
+
+                IF ("Bill-to Customer No." = 'C500') OR ("Bill-to Customer No." = 'E900') THEN
+                    SellToAddress := "Sell-to Address"
+                ELSE
+                    SellToAddress := '';
             end;
         }
 
@@ -119,6 +125,8 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
             column(billtoaddrTly7; billtoaddrTly[7])
             { }
             column(billtoaddrTly8; billtoaddrTly[8])
+            { }
+            column(SellToAddress; SellToAddress)
             { }
         }
 
@@ -172,6 +180,7 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
         refitem: code[50];
         billtoaddrTly: array[8] of Text;
         FormatAddr1: Codeunit "Format Address";
+        SellToAddress: Text;
 
     local procedure billaddr(var AddrArray: array[8] of Text[100]; var CrMemoHeader: Record "Sales Cr.Memo Header")
     var

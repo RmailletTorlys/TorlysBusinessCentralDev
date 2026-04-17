@@ -21,6 +21,7 @@ query 56008 "Torlys Item In Transit API"
             {
                 Method = Sum;
             }
+
         }
     }
 }

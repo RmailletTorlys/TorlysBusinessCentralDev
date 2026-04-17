@@ -114,9 +114,11 @@ report 50023 "B13 Sales"
                     If CostInsteadOfPrice then
                         NetPrice := "Unit Cost (LCY)"
                     else if (BackoutDuty) then //and (Item3."Tariff Charge Required") then
-                        NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
+                        // NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
+                        NetPrice := ("Unit Price" / (1 + (Item3."Outbound Duty % to US" * 0.01)))
                     else
-                        NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
+                        // NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
+                        NetPrice := "Unit Price";
 
                     SalesHeader.get("Document Type", "Document No.");
                     If OrderShipped then begin

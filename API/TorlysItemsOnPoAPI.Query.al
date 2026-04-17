@@ -15,7 +15,7 @@ query 56009 "Torlys Items On Po API"
 
             column(number; "No.") { }
             column(locationCode; "Location Code") { }
-            column(receiptDate; "Shipment Date") { }
+            column(receiptDate; "Expected Receipt Date") { }
 
             column(qtyOnPo; "Quantity (Base)")
             {

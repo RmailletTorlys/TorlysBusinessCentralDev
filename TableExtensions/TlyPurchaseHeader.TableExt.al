@@ -54,9 +54,9 @@ tableextension 50038 TlyPurchaseHeader extends "Purchase Header"
                 PurchHeader: Record "Purchase Header";
                 PurchInvHeader: Record "Purch. Inv. Header";
             begin
-                if ("Document Type" in ["Document Type"::Order, "Document Type"::Invoice]) then begin
+                if ("Document Type" = "Document Type"::Invoice) then begin
                     if "Vendor Invoice No." <> xRec."Vendor Invoice No." then begin
-                        // Check open PO/PI
+                        // Check open PI
                         PurchHeader.Reset();
                         PurchHeader.SetRange("Buy-from Vendor No.", "Buy-from Vendor No.");
                         PurchHeader.SetRange("Vendor Invoice No.", "Vendor Invoice No.");

@@ -39,7 +39,7 @@ codeunit 50052 "WeightAlertBuffer"
         EmailMsg: Codeunit "Email Message";
         Email: Codeunit Email;
     begin
-        EmailMsg.Create('sameer.patel@torlys.com', 'Weight Update: ' + DocNo,
+        EmailMsg.Create('purchasing@torlys.com', 'Weight Update: ' + DocNo,
             'The total weight for order ' + DocNo + ' is now ' + Format(Total) + ' lb.');
         Email.Send(EmailMsg);
     end;

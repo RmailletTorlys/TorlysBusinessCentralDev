@@ -283,7 +283,7 @@ tableextension 50018 TlyCustomer extends Customer
             Caption = 'Marketing Items Zero Charge';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = exist("Price List Line" where("Source No." = field("Default Price List Code"), "Product No." = filter('DI-01A')));
+            CalcFormula = exist("Price List Line" where("Price List Code" = field("Default Price List Code"), "Product No." = filter('DI-01A')));
         }
 
         field(50042; "Stocking Pallet Price On PL"; Boolean)

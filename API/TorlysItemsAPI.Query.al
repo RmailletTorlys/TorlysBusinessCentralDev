@@ -26,6 +26,7 @@ query 56005 "Torlys Items API"
             column(onHandTOR; "Qty. on Hand (TOR)") { }
             column(onHandTMT; "Qty. on Hand (TMT)") { }
             column(onHandCAL; "Qty. on Hand (CAL)") { }
+            column(onPo; "Qty. on Purch. Order") { }
         }
     }
 }

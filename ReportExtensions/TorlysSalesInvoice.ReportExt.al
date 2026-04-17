@@ -91,7 +91,8 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             { }
             column(ShipToAddrTly8; ShipToAddrTly[8])
             { }
-
+            column(SellToAddress; SellToAddress)
+            { }
         }
 
         modify(Header)
@@ -122,6 +123,12 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
                 end else begin
                     AllComments := '';
                 end;
+
+
+                IF ("Bill-to Customer No." = 'C500') OR ("Bill-to Customer No." = 'E900') THEN
+                    SellToAddress := "Sell-to Address"
+                ELSE
+                    SellToAddress := '';
             end;
         }
 
@@ -209,6 +216,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         billtoaddrTly: array[8] of Text;
         ShipToAddrTly: array[8] of Text;
         FormatAddr1: Codeunit "Format Address";
+        SellToAddress: Text;
 
     local procedure billaddr(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
     var

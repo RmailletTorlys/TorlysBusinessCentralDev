@@ -139,7 +139,7 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
                 RunObject = Page TlyJoinedSOtoTO;
-                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
+                RunPageLink = "Transfer Order No." = field("Transfer Order No."), Type = const(Item);
             }
         }
     }

@@ -1,7 +1,6 @@
 // // February 2, 2026 - DVP copied this from NAV and made slight changes
 // // they didnt add the main calc "CalculateInventoryAvailability"
-// // April 14, 2026 - SD added back "CalculateInventoryAvailability"
-// // also took this and added to our extensions (as opposed to DVPs) so we can modify as we see fit
+// // April 14, 2026 - SD added back "CalculateInventoryAvailability" and cleaned up some of the other procedures
 
 // codeunit 52231 TlyNTNInventorySynch
 // {

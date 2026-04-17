@@ -18,6 +18,13 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 Caption = 'National PM';
                 ApplicationArea = All;
             }
+
+            field("National PM Brand"; Rec."National PM Brand")
+            {
+                Caption = 'National PM Brand';
+                ApplicationArea = All;
+                Editable = (Rec."National Property Management" = true);
+            }
         }
 
         modify(Tax)

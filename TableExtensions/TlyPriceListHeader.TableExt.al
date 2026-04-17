@@ -18,5 +18,13 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
             ToolTip = 'Price List Type';
             DataClassification = CustomerContent;
         }
+
+        field(50003; "National PM Brand"; Text[20])
+        {
+            Caption = 'National PM Brand';
+            ToolTip = 'National PM Brand';
+            DataClassification = CustomerContent;
+            TableRelation = TlyNationalPMBrand;
+        }
     }
 }

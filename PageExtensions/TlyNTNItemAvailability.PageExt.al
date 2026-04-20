@@ -4,7 +4,7 @@ pageextension 51669 TlyNTNItemAvailability extends "NTN Item Availability"
     {
         modify("Web Inventory")
         {
-            Caption = 'Currently Available'
+            Caption = 'Currently Available';
         }
 
         // modify("Web Inventory Bucket 1")

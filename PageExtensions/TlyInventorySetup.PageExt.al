@@ -4,10 +4,10 @@ pageextension 50461 TlyInventorySetup extends "Inventory Setup"
     {
         addafter("Allow Inventory Adjustment")
         {
-            field("Transfer Alert Weight"; Rec."Transfer Order Alert Weight")
+            field("Transfer Order Alert Weight"; Rec."Transfer Order Alert Weight")
             {
-                Caption = 'Transfer Alert Weight';
-                ToolTip = 'Transfer Alert Weight';
+                Caption = 'Transfer Order Alert Weight';
+                ToolTip = 'Transfer Order Alert Weight';
                 ApplicationArea = All;
             }
         }

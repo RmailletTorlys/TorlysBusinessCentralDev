@@ -72,6 +72,13 @@ pageextension 55752 TlyPostedTransShptList extends "Posted Transfer Shipments"
                 Editable = false;
                 Importance = Additional;
             }
+            field("Container No."; Rec."TPS CMG Container No.")
+            {
+                Caption = 'Container No.';
+                ToolTip = 'Container No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';

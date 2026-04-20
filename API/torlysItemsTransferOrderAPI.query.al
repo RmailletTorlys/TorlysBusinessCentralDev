@@ -14,11 +14,7 @@ query 56010 "TorlysItemsTransferOrderAPI"
             DataItemTableFilter = "Qty. to Ship (Base)" = filter('>0');
 
             column(number; "Item No.") { }
-            column(locationCode; "Transfer-to Code") { }
-            column(qtyOnSalesOrder; "Outstanding Quantity")
-            {
-                Method = Sum;
-            }
+            column(locationCode; "Transfer-From Code") { }
             column(qtyToShipTransfer; "Qty. to Ship (Base)")
             {
                 Method = Sum;

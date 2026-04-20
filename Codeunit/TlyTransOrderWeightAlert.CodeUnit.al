@@ -1,4 +1,4 @@
-codeunit 50052 "WeightAlertBuffer"
+codeunit 50052 TlyTransOrderWeightAlert
 {
     SingleInstance = true;
 
@@ -11,8 +11,11 @@ codeunit 50052 "WeightAlertBuffer"
     var
         TransLine: Record "Transfer Line";
         CurrentTotalWeight: Decimal;
+        InventortySetup: Record "Inventory Setup";
     begin
         if Rec."Document No." = '' then exit;
+
+        InventortySetup.Get();
 
         CurrentTotalWeight := Rec.Quantity * Rec."Net Weight";
         TransLine.SetRange("Document No.", Rec."Document No.");
@@ -22,8 +25,8 @@ codeunit 50052 "WeightAlertBuffer"
                 CurrentTotalWeight += (TransLine.Quantity * TransLine."Net Weight");
             until TransLine.Next() = 0;
 
-        // 2. Logic: Only alert if weight is over 1000 AND it is different from the last alert
-        if (CurrentTotalWeight > 1000) and
+        // 2. Logic: Only alert if weight is over "Alert Weight" on "Inventory Setup" AND it is different from the last alert
+        if (CurrentTotalWeight > InventortySetup."Transfer Order Alert Weight") and
            ((Rec."Document No." <> LastAlertedDoc) or (CurrentTotalWeight <> LastAlertedWeight))
         then begin
             SendWeightEmail(Rec."Document No.", CurrentTotalWeight);
@@ -39,8 +42,8 @@ codeunit 50052 "WeightAlertBuffer"
         EmailMsg: Codeunit "Email Message";
         Email: Codeunit Email;
     begin
-        EmailMsg.Create('purchasing@torlys.com', 'Weight Update: ' + DocNo,
-            'The total weight for order ' + DocNo + ' is now ' + Format(Total) + ' lb.');
+        EmailMsg.Create('purchasing@torlys.com', 'Transfer Order Weight Alert: ' + DocNo,
+            'The total weight for order ' + DocNo + ' is over the alert weight and is now ' + Format(Total) + ' lbs.');
         Email.Send(EmailMsg);
     end;
 }

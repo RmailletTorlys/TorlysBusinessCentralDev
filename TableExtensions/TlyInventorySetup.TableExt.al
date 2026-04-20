@@ -2,10 +2,10 @@ tableextension 50313 TlyInventorySetup extends "Inventory Setup"
 {
     fields
     {
-        field(50001; "Transfer Alert Weight"; Decimal)
+        field(50001; "Transfer Order Alert Weight"; Decimal)
         {
-            Caption = 'Transfer Alert Weight';
-            ToolTip = 'Transfer Alert Weight';
+            Caption = 'Transfer Order Alert Weight';
+            ToolTip = 'Transfer Order Alert Weight';
             DataClassification = CustomerContent;
         }
     }

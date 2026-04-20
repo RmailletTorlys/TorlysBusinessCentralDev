@@ -1,4 +1,4 @@
-codeunit 50050 "Tly Temp Hold Order Delete"
+codeunit 50050 TlyTempHoldOrderDelete
 {
     trigger OnRun()
     begin

@@ -61,7 +61,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 Caption = 'Container No.';
                 ToolTip = 'Container No.';
                 ApplicationArea = All;
-                Importance = Standard;
+                Editable = false;
             }
             field("Completely Shipped"; Rec."Completely Shipped")
             {

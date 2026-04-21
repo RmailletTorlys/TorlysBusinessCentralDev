@@ -242,7 +242,7 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
         }
         modify("Return Qty. to Receive")
         {
-            trigger OnAfterValidate()
+            trigger OnBeforeValidate()
             begin
                 InsertDamageLine;
             end;

@@ -88,7 +88,6 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
                 Caption = 'Container No.';
                 ToolTip = 'Container No.';
                 ApplicationArea = All;
-                Importance = Standard;
                 // Editable = (Rec."Transfer Type" <> Rec."Transfer Type"::"Supplier Purchase");
             }
         }
@@ -164,33 +163,33 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
             }
         }
 
-        addfirst(Shipment)
-        {
-            field("Total Weight"; TotalWeight)
-            {
-                Caption = 'Total Weight';
-                ToolTip = 'Total Weight';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Standard;
-            }
-            field("To Ship Weight"; ToShipWeight)
-            {
-                Caption = 'To Ship Weight';
-                ToolTip = 'To Ship Weight';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Standard;
-            }
-            field("To Receive Weight"; ToReceiveWeight)
-            {
-                Caption = 'To Receive Weight';
-                ToolTip = 'To Receive Weight';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Standard;
-            }
-        }
+        // addfirst(Shipment)
+        // {
+        //     field("Total Weight"; TotalWeight)
+        //     {
+        //         Caption = 'Total Weight';
+        //         ToolTip = 'Total Weight';
+        //         ApplicationArea = All;
+        //         Editable = false;
+        //         Importance = Standard;
+        //     }
+        //     field("To Ship Weight"; ToShipWeight)
+        //     {
+        //         Caption = 'To Ship Weight';
+        //         ToolTip = 'To Ship Weight';
+        //         ApplicationArea = All;
+        //         Editable = false;
+        //         Importance = Standard;
+        //     }
+        //     field("To Receive Weight"; ToReceiveWeight)
+        //     {
+        //         Caption = 'To Receive Weight';
+        //         ToolTip = 'To Receive Weight';
+        //         ApplicationArea = All;
+        //         Editable = false;
+        //         Importance = Standard;
+        //     }
+        // }
 
         modify("Assigned User ID")
         {

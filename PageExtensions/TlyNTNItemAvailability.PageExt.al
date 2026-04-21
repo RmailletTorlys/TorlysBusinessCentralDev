@@ -2,6 +2,36 @@ pageextension 51669 TlyNTNItemAvailability extends "NTN Item Availability"
 {
     layout
     {
+        modify("Web Inventory")
+        {
+            Caption = 'Currently Available';
+        }
+
+        // modify("Web Inventory Bucket 1")
+        // {
+        //     Caption = 'Avail. to ship in 1-7 days'
+        // }
+
+        // modify("Web Inventory Bucket 2")
+        // {
+        //     Caption = 'Avail. to ship in 8-14 days'
+        // }
+
+        // modify("Web Inventory Bucket 3")
+        // {
+        //     Caption = 'Avail. to ship in 15-21 days'
+        // }
+
+        // modify("Web Inventory Bucket 4")
+        // {
+        //     Caption = 'Avail. to ship in 16-28 days'
+        // }
+
+        // modify("Web Inventory Bucket 5")
+        // {
+        //     Caption = 'Avail. to ship in 29-35 days'
+        // }
+
         modify("Variant No.")
         {
             Visible = false;

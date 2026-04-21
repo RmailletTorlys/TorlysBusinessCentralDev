@@ -128,6 +128,12 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
             actionref(SOJoin; "View and Fill Joined SO")
             {
             }
+            actionref(LinkededSOviaCT; "View and Fill Linked SO via PO#")
+            {
+            }
+            actionref(LinkededSOviaTR; "View and Fill Linked SO via TR#")
+            {
+            }
         }
 
         addlast("&Receipt")
@@ -139,7 +145,27 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 ToolTip = 'View and Fill Joined SO';
                 Image = Order;
                 RunObject = Page TlyJoinedSOtoTO;
-                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
+                RunPageLink = "Transfer Order No." = field("Transfer Order No."), Type = const(Item);
+            }
+            action("View and Fill Linked SO via PO#")
+            {
+                ApplicationArea = Location;
+                Caption = 'View and Fill Linked SO via PO#';
+                ToolTip = 'View and Fill Linked SO via PO#';
+                Image = OrderTracking;
+                // Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning") or (Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase");
+                RunObject = Page TlyLinkedSOtoTO;
+                RunPageLink = "Container No." = field("TPS CMG Container No."), "Outstanding Quantity" = filter(<> 0);
+            }
+            action("View and Fill Linked SO via TR#")
+            {
+                ApplicationArea = Location;
+                Caption = 'View and Fill Linked SO via TR#';
+                ToolTip = 'View and Fill Linked SO via TR#';
+                Image = OrderTracking;
+                // Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning") or (Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase");
+                RunObject = Page TlyLinkedSOtoTO;
+                RunPageLink = "Linked Transfer Order No." = field("Transfer Order No."), "Outstanding Quantity" = filter(<> 0);
             }
         }
     }

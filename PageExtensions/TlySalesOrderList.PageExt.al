@@ -66,6 +66,17 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             }
         }
 
+        addafter("Collector ID") // Places the column after the total amount
+        {
+            field("Shipping Total Excl. VAT"; Rec."Shipping Total Excl. VAT")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the shipping total including VAT from the order statistics.';
+                Visible = true;
+                Editable = false;
+            }
+        }
+
         moveafter("Collector ID"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
         // moveafter("Salesperson Code"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 

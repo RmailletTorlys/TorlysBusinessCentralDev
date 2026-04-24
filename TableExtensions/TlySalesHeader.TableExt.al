@@ -411,6 +411,17 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
+        field(50067; "Shipping Total Excl. VAT"; Decimal)
+        {
+            Caption = 'Shipping Total Incl. VAT';
+            Editable = false;
+            CalcFormula = sum("Sales Line"."Outstanding Amount"
+                          where("Document Type" = field("Document Type"),
+                                 "Document No." = field("No."), "Qty. to Ship" = Filter(<> 0),
+                                 Type = const(Item)));
+            FieldClass = FlowField;
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()

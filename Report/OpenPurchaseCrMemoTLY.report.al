@@ -29,7 +29,7 @@ report 50043 "Open Purchase - Credit Memo"
     {
         dataitem("Purchase Header"; "Purchase Header")
         {
-            DataItemTableView = sorting("No.");
+            DataItemTableView = sorting("No.") where("Document Type" = filter("Credit Memo"));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Purchase Cr. Memo';
             column(No_; "No.")

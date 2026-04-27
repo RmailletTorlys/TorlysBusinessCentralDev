@@ -569,7 +569,7 @@ report 50043 "Open Purchase - Credit Memo"
                                 MoreLines := Next(-1) <> 0;
                             if not MoreLines then
                                 CurrReport.Break();
-                            // SetFilter("Line No.", '<=%1', "Line No.");
+                            SetFilter("Line No.", '<=%1', "Line No.");
 
                             PurchCrMemoLine.SetRange("Document No.", "Purchase header"."No.");
                             PurchCrMemoLine.SetFilter(Type, '<>%1', 0);

@@ -457,7 +457,7 @@ report 50043 "Open Purchase - Credit Memo"
                         column(Qty_PurchCrMemoLineCaption; FieldCaption(Quantity))
                         {
                         }
-                        column(UOM_PurchCrMemoLineCaption; FieldCaption("Unit of Measure"))
+                        column(UOM_PurchCrMemoLineCaption; FieldCaption("Unit of Measure Code"))
                         {
                         }
                         column(VATId_PurchCrMemoLineCaption; FieldCaption("VAT Identifier"))

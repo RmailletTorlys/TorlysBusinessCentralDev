@@ -558,30 +558,55 @@ report 50043 "Open Purchase - Credit Memo"
                             end;
                         end;
 
+                        // trigger OnPreDataItem()
+                        // var
+                        //     PurchCrMemoLine: Record "Purchase Line";
+                        //     VATIdentifier: Code[20];
+                        // begin
+                        //     TempVATAmountLine.DeleteAll();
+                        //     MoreLines := Find('+');
+                        //     while MoreLines and (Description = '') and ("No." = '') and (Quantity = 0) and (Amount = 0) do
+                        //         MoreLines := Next(-1) <> 0;
+                        //     if not MoreLines then
+                        //         CurrReport.Break();
+                        //     SetFilter("Line No.", '<=%1', "Line No.");
+
+                        //     PurchCrMemoLine.SetRange("Document No.", "Purchase header"."No.");
+                        //     PurchCrMemoLine.SetFilter(Type, '<>%1', 0);
+                        //     VATAmountText := '';
+                        //     if PurchCrMemoLine.Find('-') then begin
+                        //         VATAmountText := StrSubstNo(Text012, PurchCrMemoLine."VAT %");
+                        //         VATIdentifier := PurchCrMemoLine."VAT Identifier";
+                        //         repeat
+                        //             if (PurchCrMemoLine."VAT Identifier" <> VATIdentifier) and (PurchCrMemoLine.Quantity <> 0) then
+                        //                 VATAmountText := Text013;
+                        //         until PurchCrMemoLine.Next() = 0;
+                        //     end;
+                        //     AllowInvDiscount := Format("Purchase Line"."Allow Invoice Disc.");
+                        //     FirstLineHasBeenOutput := false;
+                        //     DummyCompanyInfo.Picture := CompanyInfo.Picture;
+                        // end;
                         trigger OnPreDataItem()
                         var
                             PurchCrMemoLine: Record "Purchase Line";
                             VATIdentifier: Code[20];
                         begin
                             TempVATAmountLine.DeleteAll();
-                            MoreLines := Find('+');
-                            while MoreLines and (Description = '') and ("No." = '') and (Quantity = 0) and (Amount = 0) do
-                                MoreLines := Next(-1) <> 0;
-                            if not MoreLines then
-                                CurrReport.Break();
-                            SetFilter("Line No.", '<=%1', "Line No.");
 
-                            PurchCrMemoLine.SetRange("Document No.", "Purchase header"."No.");
+                            PurchCrMemoLine.SetRange("Document No.", "Purchase Header"."No.");
                             PurchCrMemoLine.SetFilter(Type, '<>%1', 0);
+
                             VATAmountText := '';
                             if PurchCrMemoLine.Find('-') then begin
                                 VATAmountText := StrSubstNo(Text012, PurchCrMemoLine."VAT %");
                                 VATIdentifier := PurchCrMemoLine."VAT Identifier";
                                 repeat
-                                    if (PurchCrMemoLine."VAT Identifier" <> VATIdentifier) and (PurchCrMemoLine.Quantity <> 0) then
+                                    if (PurchCrMemoLine."VAT Identifier" <> VATIdentifier) and
+                                       (PurchCrMemoLine.Quantity <> 0) then
                                         VATAmountText := Text013;
                                 until PurchCrMemoLine.Next() = 0;
                             end;
+
                             AllowInvDiscount := Format("Purchase Line"."Allow Invoice Disc.");
                             FirstLineHasBeenOutput := false;
                             DummyCompanyInfo.Picture := CompanyInfo.Picture;

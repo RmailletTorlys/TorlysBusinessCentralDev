@@ -9,21 +9,17 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 Caption = 'Price List Type';
                 ApplicationArea = All;
             }
-        }
-
-        addafter(AssignToNo)
-        {
             field("National PM"; Rec."National Property Management")
             {
                 Caption = 'National PM';
                 ApplicationArea = All;
             }
 
-            field("National PM Brand"; Rec."National PM Brand")
+            field("Project Builder/Brand"; Rec."Project Builder/Brand")
             {
-                Caption = 'National PM Brand';
+                Caption = 'Project Builder/Brand';
                 ApplicationArea = All;
-                // Editable = (Rec."National Property Management" = true);
+                Editable = (Rec."Price List Type" = Rec."Price List Type"::Project);
             }
         }
 

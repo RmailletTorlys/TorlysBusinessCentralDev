@@ -1,12 +1,11 @@
-page 55088 TlyNationalPMBrand
+page 55089 TlyProjectBuilderBrand
 {
-    Caption = 'National PM Brand';
+    Caption = 'Project Builder Brand';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = true;
-    SourceTable = TlyNationalPMBrand;
-    // ObsoleteState = Removed;
+    SourceTable = TlyProjectBuilderBrand;
 
     layout
     {

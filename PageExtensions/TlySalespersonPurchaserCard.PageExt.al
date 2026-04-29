@@ -34,6 +34,19 @@ pageextension 55116 TlySalespersonPurchaserCard extends "Salesperson/Purchaser C
                 ToolTip = 'Intranet - View Manager Pricing';
                 ApplicationArea = All;
             }
+
+            field("Commission Guarantee Monthly"; Rec."Commission Guarantee Monthly")
+            {
+                Caption = 'Commission Guarantee Monthly';
+                ToolTip = 'Commission Guarantee Monthly';
+                ApplicationArea = All;
+            }
+            field("Commission Percentage Share"; Rec."Commission Percentage Share")
+            {
+                Caption = 'Commission Percentage Share';
+                ToolTip = 'Commission Percentage Share';
+                ApplicationArea = All;
+            }
         }
         moveafter("View Mgr Pricing - Intranet"; Blocked)
 

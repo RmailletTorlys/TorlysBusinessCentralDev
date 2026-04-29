@@ -2,6 +2,17 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
 {
     layout
     {
+        addafter("Unit Price")
+        {
+            field("Unit Price Tier"; Rec."Unit Price Tier")
+            {
+                Caption = 'Unit Price Tier';
+                ToolTip = 'Unit Price Tier';
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
+
         moveafter("Source No."; "Starting Date", "Ending Date")
 
         addafter("Price List Code")
@@ -20,6 +31,12 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
             {
                 Caption = 'Full Pallet Price';
                 ToolTip = 'Full Pallet Price';
+                ApplicationArea = All;
+            }
+            field("Full Pallet Price Tier"; Rec."Full Pallet Price Tier")
+            {
+                Caption = 'Full Pallet Price Tier';
+                ToolTip = 'Full Pallet Price Tier';
                 ApplicationArea = All;
             }
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))

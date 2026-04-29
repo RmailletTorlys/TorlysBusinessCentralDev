@@ -345,6 +345,13 @@ pageextension 50031 TlyItemList extends "Item List"
                 ToolTip = 'Tariff No. (Sales)';
                 Visible = true;
             }
+            field("QC Inspection Required"; Rec."QC Inspection Required")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'QC Inspection Required';
+                ToolTip = 'QC Inspection Required';
+                Visible = true;
+            }
         }
 
         moveafter("Tariff No. (Sales)"; "Vendor No.", "Vendor Item No.")

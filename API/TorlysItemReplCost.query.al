@@ -1,4 +1,4 @@
-query 56011 "Torlys Item Repl. Cost API"
+query 56011 "Torlys Item Repl. Cost"
 {
     QueryType = API;
     APIPublisher = 'torlys';
@@ -11,13 +11,20 @@ query 56011 "Torlys Item Repl. Cost API"
     {
         dataitem(TlyReplacementCosts; TlyReplacementCosts)
         {
-
             column(vendorNo; "Vendor No.") { }
             column(itemNo; "Item No.") { }
             column(unitOfMeasureCode; "Unit of Measure Code") { }
             column(date; "Date") { }
             column(unitCostLCY; "Unit Cost (LCY)") { }
 
+            dataitem(Item; Item)
+            {
+
+                DataItemLink = "No." = TlyReplacementCosts."Item No.";
+                SqlJoinType = LeftOuterJoin;
+
+                column(itemCategoryCode; "Sales Price Code") { }
+            }
         }
     }
 }

@@ -223,7 +223,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
     begin
         FormatAddr1.FormatAddr(
             AddrArray, '', SalesInvoiceHeader."Bill-to Name", SalesInvoiceHeader."Bill-to Name 2", SalesInvoiceHeader."Bill-to Address", SalesInvoiceHeader."Bill-to Address 2",
-            SalesInvoiceHeader."Bill-to City", SalesInvoiceHeader."Bill-to Post Code", '', SalesInvoiceHeader."Bill-to Country/Region Code");
+            SalesInvoiceHeader."Bill-to City", SalesInvoiceHeader."Bill-to Post Code", SalesInvoiceHeader."Bill-to County", SalesInvoiceHeader."Bill-to Country/Region Code");
     end;
 
     local procedure ShipAddrTly(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
@@ -231,6 +231,6 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
     begin
         FormatAddr1.FormatAddr(
             AddrArray, '', SalesInvoiceHeader."Ship-to Name", SalesInvoiceHeader."Ship-to Name 2", SalesInvoiceHeader."Ship-to Address", SalesInvoiceHeader."Ship-to Address 2",
-            SalesInvoiceHeader."Ship-to City", SalesInvoiceHeader."Ship-to Post Code", '', SalesInvoiceHeader."Ship-to Country/Region Code");
+            SalesInvoiceHeader."Ship-to City", SalesInvoiceHeader."Ship-to Post Code", SalesInvoiceHeader."Ship-to County", SalesInvoiceHeader."Ship-to Country/Region Code");
     end;
 }

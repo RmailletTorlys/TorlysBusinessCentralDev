@@ -1,8 +1,8 @@
-pageextension 51662 TlyNTNWebCompContactCard extends "NTN Web Comp. Contact Card"
+pageextension 51660 TlyNTNWebCustContactCard extends "NTN Web Cust. Contact Card"
 {
     layout
     {
-        addafter("Salesperson Code")
+        addafter("No.")
         {
             field("Customer No."; Rec."Customer No.")
             {

@@ -37,7 +37,7 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             ToolTip = 'Full Pallet Price Tier';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("Price List Line"."Price List Code" where("Product No." = field("Product No."), "Stocking Pallet Price" = field("Stocking Pallet Price"), "Price List Code" = filter('TIER*')));
+            CalcFormula = lookup("Price List Line"."Price List Code" where("Product No." = field("Product No."), "Stocking Pallet Price" = field("Unit Price"), "Price List Code" = filter('TIER*')));
         }
     }
 }

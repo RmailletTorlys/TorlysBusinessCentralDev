@@ -23,6 +23,43 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
             }
         }
 
+        // moveafter("Project Builder/Brand"; SourceType, SourceNo, CurrencyCode, StartingDate, EndingDate)//, LineDefaults, AllowUpdatingDefaults, View, AmountType, Status)
+
+        addafter(Status)
+        {
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
+            field(SystemModifiedAt; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+        }
+
         modify(Tax)
         {
             Visible = false;
@@ -50,6 +87,25 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
         modify(AllowUpdatingDefaults)
         {
             Importance = Standard;
+            // Visible = true;
         }
+
+        // modify(View)
+        // {
+        //     Visible = false;
+        // }
+
+        // modify(LineDefaults)
+        // {
+        //     Visible = false;
+        // }
+
+        // modify(AmountType)
+        // {
+        //     Visible = true;
+        // }
     }
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

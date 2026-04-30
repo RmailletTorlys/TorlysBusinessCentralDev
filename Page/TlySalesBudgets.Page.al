@@ -91,6 +91,14 @@ page 52017 TlySalesBudgets
                     TableRelation = TlyNationalPMBrand;
                 }
 
+                field("Project Builder/Brand"; Rec."Project Builder/Brand")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Project Builder/Brand';
+                    ToolTip = 'Project Builder/Brand';
+                    TableRelation = TlyProjectBuilderBrand;
+                }
+
                 field("Starting Date"; Rec."Starting Date")
                 {
                     ApplicationArea = All;

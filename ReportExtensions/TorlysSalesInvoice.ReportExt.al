@@ -108,6 +108,19 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
                     currcode1 := 'CAD' else
                     currcode1 := "Currency Code";
 
+                If "Currency Code" = '' then begin
+                    paymentinfo[1] := 'E-Transfer email: credit@torlys.com, maximum transfer accepted: 25K';
+                    PaymentInfo[2] := 'CDN EFT Information: Beneficiary Name: TORLYS Inc.';
+                    PaymentInfo[3] := 'Beneficiary Add: 1900 Derry Road East, Mississauga, ON, L5S1Y6';
+                    PaymentInfo[4] := 'Beneficiary Acc: 88-82215 -> Transit#: 00002 -> Bank#: 010 -> Bank: CIBC -> Swift: CIBCCATT';
+                    PaymentInfo[5] := 'Bank Add: Commerce Court West, 199 Bay Street West 4th Floor, Toronto, ON, M5L1A2';
+                end else if "Currency Code" = 'USD' then begin
+                    PaymentInfo[1] := 'USD EFT Information: Beneficiary Name: TORLYS Inc.';
+                    PaymentInfo[2] := 'Beneficiary Add: 1900 Derry Road East, Mississauga, ON, L5S1Y6';
+                    PaymentInfo[3] := 'Beneficiary Acc: 2882094 -> ABA#: 0710-0648-6 -> Bank ID: 071006486 -> Bank: CIBC Bank USA -> Swift: PVTBUS44';
+                    PaymentInfo[4] := 'Bank Add: 120 South LaSalle Street Chicago, IL, 60603, USA';
+                end;
+
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");
                 SalesCommentLine.SetRange("Print On Invoice", true);
@@ -217,6 +230,7 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
         ShipToAddrTly: array[8] of Text;
         FormatAddr1: Codeunit "Format Address";
         SellToAddress: Text;
+        PaymentInfo: array[5] of text;
 
     local procedure billaddr(var AddrArray: array[8] of Text[100]; var SalesInvoiceHeader: Record "Sales Invoice Header")
     var

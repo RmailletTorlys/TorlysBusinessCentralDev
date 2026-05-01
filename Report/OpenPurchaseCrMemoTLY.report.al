@@ -801,12 +801,12 @@ report 50043 "Open Purchase - Credit Memo"
                         OutputNo += 1;
                     end;
 
-                    TotalSubTotal := 0;
-                    TotalInvoiceDiscountAmount := 0;
-                    TotalAmount := 0;
-                    TotalAmountVAT := 0;
-                    TotalAmountInclVAT := 0;
-                    TotalPaymentDiscountOnVAT := 0;
+                    // TotalSubTotal := 0;
+                    // TotalInvoiceDiscountAmount := 0;
+                    // TotalAmount := 0;
+                    // TotalAmountVAT := 0;
+                    // TotalAmountInclVAT := 0;
+                    // TotalPaymentDiscountOnVAT := 0;
                 end;
 
                 trigger OnPostDataItem()
@@ -827,6 +827,14 @@ report 50043 "Open Purchase - Credit Memo"
 
             trigger OnAfterGetRecord()
             begin
+
+                TotalSubTotal := 0;
+                TotalInvoiceDiscountAmount := 0;
+                TotalAmount := 0;
+                TotalAmountVAT := 0;
+                TotalAmountInclVAT := 0;
+                TotalPaymentDiscountOnVAT := 0;
+
                 FirstLineHasBeenOutput := false;
                 CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault("Language Code");
                 CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault("Format Region");

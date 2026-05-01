@@ -93,6 +93,16 @@ reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
             { }
             column(SellToAddress; SellToAddress)
             { }
+            column(PaymentInfo1; PaymentInfo[1])
+            { }
+            column(PaymentInfo2; PaymentInfo[2])
+            { }
+            column(PaymentInfo3; PaymentInfo[3])
+            { }
+            column(PaymentInfo4; PaymentInfo[4])
+            { }
+            column(PaymentInfo5; PaymentInfo[5])
+            { }
         }
 
         modify(Header)

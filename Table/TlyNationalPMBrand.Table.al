@@ -2,9 +2,10 @@ table 55088 TlyNationalPMBrand
 {
     DataClassification = CustomerContent;
     Caption = 'National PM Brand';
-    LookupPageId = TlyNationalPMBrand;
-    DrillDownPageId = TlyNationalPMBrand;
-    // ObsoleteState = Removed;
+    // LookupPageId = TlyNationalPMBrand;
+    // DrillDownPageId = TlyNationalPMBrand;
+    ObsoleteState = Removed;
+    ObsoleteReason = 'Changed to "Project Builder/Brand" table';
 
     fields
     {

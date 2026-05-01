@@ -24,8 +24,10 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
             Caption = 'National PM Brand';
             ToolTip = 'National PM Brand';
             DataClassification = CustomerContent;
-            TableRelation = TlyNationalPMBrand;
+            // TableRelation = TlyNationalPMBrand;
             ObsoleteState = Removed;
+            ObsoleteReason = 'Changed to Project Builder/Brand';
+
         }
 
         field(50004; "Project Builder/Brand"; Text[20])

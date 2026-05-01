@@ -83,13 +83,13 @@ page 52017 TlySalesBudgets
                     ToolTip = 'National PM';
                 }
 
-                field("National PM Brand"; Rec."National PM Brand")
-                {
-                    ApplicationArea = All;
-                    Caption = 'National PM Brand';
-                    ToolTip = 'National PM Brand';
-                    TableRelation = TlyNationalPMBrand;
-                }
+                // field("National PM Brand"; Rec."National PM Brand")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'National PM Brand';
+                //     ToolTip = 'National PM Brand';
+                //     TableRelation = TlyNationalPMBrand;
+                // }
 
                 field("Project Builder/Brand"; Rec."Project Builder/Brand")
                 {

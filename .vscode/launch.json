@@ -9,8 +9,8 @@
             "environmentType": "Sandbox",
             "environmentName": "Sandbox_DEV",
             // "environmentName": "TORLYS_BC_Test",
-            "startupObjectId": 9305, //sales order list
-            // "startupObjectId": 9304,
+            // "startupObjectId": 9305, //sales order list
+            "startupObjectId": 7015,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

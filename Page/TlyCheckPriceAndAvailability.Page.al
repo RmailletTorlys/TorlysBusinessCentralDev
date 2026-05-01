@@ -98,6 +98,14 @@ page 50566 TlyCheckPriceAndAvailability
                     Editable = false;
                     QuickEntry = false;
                 }
+                field(CustomerCutPriceTier; GetCustomerCutPriceTier)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Customer Cut Price Tier';
+                    ToolTip = 'Customer Cut Price Tier';
+                    Editable = false;
+                    QuickEntry = false;
+                }
                 field(CustomerPalletPrice; GetCustomerPalletPrice)
                 {
                     ApplicationArea = All;
@@ -106,11 +114,27 @@ page 50566 TlyCheckPriceAndAvailability
                     Editable = false;
                     QuickEntry = false;
                 }
+                field(CustomerPalletPriceTier; GetCustomerPalletPriceTier)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Customer Full Pallet Price Tier';
+                    ToolTip = 'Customer Full Pallet Price Tier';
+                    Editable = false;
+                    QuickEntry = false;
+                }
                 field(InsurancePrice; GetInsurancePrice)
                 {
                     ApplicationArea = All;
                     Caption = 'Insurance Price';
                     ToolTip = 'Insurance Price';
+                    Editable = false;
+                    QuickEntry = false;
+                }
+                field(InsurancePriceTier; GetInsurancePriceTier)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Insurance Price Tier';
+                    ToolTip = 'Insurance Price Tier';
                     Editable = false;
                     QuickEntry = false;
                 }
@@ -128,6 +152,18 @@ page 50566 TlyCheckPriceAndAvailability
                 ApplicationArea = All;
                 Editable = false;
             }
+            //             group(TSSAvailability)
+            // {
+            //     Caption = 'TSS Availability';
+            //     part(NTNItemAvailabilitySubform; "NTN Item Availability")
+            //     {
+            //         ApplicationArea = All;
+            //         Enabled = true;
+            //         SubPageLink = "No." = field(Item."No.");
+            //         // UpdatePropagation = Both;
+            //         Editable = false;
+            //     }
+            // }
             group(PricingAll)
             {
                 Caption = 'Pricing - non QC/US';
@@ -499,6 +535,16 @@ page 50566 TlyCheckPriceAndAvailability
             exit(PriceListLine."Unit Price");
     end;
 
+    procedure GetCustomerCutPriceTier(): Code[20]
+    var
+        PriceListLine: Record "Price List Line";
+    begin
+        PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+        PriceListLine.SetRange("Asset No.", ItemPriceCode);
+        if PriceListLine.Find('-') then
+            exit(PriceListLine."Unit Price Tier");
+    end;
+
     procedure GetCustomerPalletPrice(): Decimal
     var
         PriceListLine: Record "Price List Line";
@@ -509,6 +555,16 @@ page 50566 TlyCheckPriceAndAvailability
             exit(PriceListLine."Stocking Pallet Price");
     end;
 
+    procedure GetCustomerPalletPriceTier(): Code[20]
+    var
+        PriceListLine: Record "Price List Line";
+    begin
+        PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+        PriceListLine.SetRange("Asset No.", ItemPriceCode);
+        if PriceListLine.Find('-') then
+            exit(PriceListLine."Full Pallet Price Tier");
+    end;
+
     procedure GetInsurancePrice(): Decimal
     var
         PriceListLine: Record "Price List Line";
@@ -517,6 +573,16 @@ page 50566 TlyCheckPriceAndAvailability
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
+    end;
+
+    procedure GetInsurancePriceTier(): Code[20]
+    var
+        PriceListLine: Record "Price List Line";
+    begin
+        PriceListLine.SetFilter("Price List Code", 'INSURANCE');
+        PriceListLine.SetRange("Asset No.", ItemPriceCode);
+        if PriceListLine.Find('-') then
+            exit(PriceListLine."Unit Price Tier");
     end;
 
     procedure GetClearancePrice(): Decimal

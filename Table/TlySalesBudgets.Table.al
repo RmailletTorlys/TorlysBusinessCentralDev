@@ -98,6 +98,12 @@ table 52017 TlySalesBudgets
             Caption = 'Budget - Margin %';
             DataClassification = CustomerContent;
         }
+        field(16; "Project Builder/Brand"; Text[30])
+        {
+            Caption = 'Project Builder/Brand';
+            DataClassification = CustomerContent;
+            TableRelation = TlyProjectBuilderBrand;
+        }
     }
 
     keys

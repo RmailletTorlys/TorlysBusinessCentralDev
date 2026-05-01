@@ -9,21 +9,51 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 Caption = 'Price List Type';
                 ApplicationArea = All;
             }
-        }
-
-        addbefore("Starting Date")
-        {
             field("National PM"; Rec."National Property Management")
             {
                 Caption = 'National PM';
                 ApplicationArea = All;
             }
-            field("National PM Brand"; Rec."National PM Brand")
+            field("Project Builder/Brand"; Rec."Project Builder/Brand")
             {
-                Caption = 'National PM Brand';
+                Caption = 'Project Builder/Brand';
                 ApplicationArea = All;
             }
         }
+
+        moveafter("Project Builder/Brand"; SourceType, SourceNo, "Currency Code", "Starting Date", "Ending Date", "Allow Updating Defaults", Defines, Status)
+
+        addafter(Status)
+        {
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+
+            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
+
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
+
+            field(SystemModifiedAt; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+            }
+        }
+
     }
     views
     {
@@ -102,4 +132,7 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
             }
         }
     }
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

@@ -98,7 +98,7 @@ page 56100 salesiCustomer
                     Caption = 'Salesperson Code';
                 }
 
-                field(Chain; Rec."Chain Name")
+                field(Chain; ShortcutDimCode[5])
                 {
                     Caption = 'Chain';
                 }

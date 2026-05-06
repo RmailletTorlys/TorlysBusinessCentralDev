@@ -69,57 +69,57 @@ page 56101 salessiShipToAddress
                     Caption = 'Phone No.';
                 }
 
-                field(FaxNo; Rec."Fax No.")
+                field(FaxNo; '')
                 {
                     Caption = 'Fax No.';
                 }
 
-                field(Email; Rec."E-Mail")
+                field(Email; '')
                 {
                     Caption = 'E-Mail';
                 }
 
-                field(Website; Rec."Home Page")
+                field(Website; '')
                 {
                     Caption = 'Website';
                 }
 
-                field(Contact; Rec.Contact)
+                field(Contact; '')
                 {
                     Caption = 'Contact';
                 }
 
-                field(parent_account_number; Rec."Customer No.")
+                field(parent_account_number; Customer."Bill-to Customer No.")
                 {
                     Caption = 'Parent Account Number';
                 }
 
-                field(Salesperson_Code; Rec."Salesperson Code")
+                field(Salesperson_Code; Customer."Salesperson Code")
                 {
                     Caption = 'Salesperson Code';
                 }
 
-                field(Chain; CustomerRec."Chain Name")
+                field(Chain; ShortcutDimCode[5])
                 {
                     Caption = 'Chain Name';
                 }
 
-                field(Gen_Bus_Posting_Group; CustomerRec."Gen. Bus. Posting Group")
+                field(Gen_Bus_Posting_Group; Customer."Gen. Bus. Posting Group")
                 {
                     Caption = 'Gen. Bus. Posting Group';
                 }
 
-                field(VAT_Bus_Posting_Group; CustomerRec."VAT Bus. Posting Group")
+                field(VAT_Bus_Posting_Group; Customer."VAT Bus. Posting Group")
                 {
                     Caption = 'VAT Bus. Posting Group';
                 }
 
-                field(Customer_Posting_Group; CustomerRec."Customer Posting Group")
+                field(Customer_Posting_Group; Customer."Customer Posting Group")
                 {
                     Caption = 'Customer Posting Group';
                 }
 
-                field(Department; ShortcutDimCode[3])
+                field(Department; ShortcutDimCode[1])
                 {
                     Caption = 'Department';
                 }
@@ -129,27 +129,27 @@ page 56101 salessiShipToAddress
                     Caption = 'Location';
                 }
 
-                field(Customer_Type; ShortcutDimCode[2])
+                field(Customer_Type; ShortcutDimCode[3])
                 {
                     Caption = 'Customer Type';
                 }
 
-                field(Torlys_Club; CustomerRec.Club)
+                field(Torlys_Club; Customer.Club)
                 {
                     Caption = 'Torlys Club';
                 }
 
-                field(Salesperson_Code_2; CustomerRec."Salesperson Code 2")
+                field(Salesperson_Code_2; Customer."Salesperson Code 2")
                 {
                     Caption = 'Salesperson Code 2';
                 }
 
-                field(Salesperson_Code_3; CustomerRec."Salesperson Code 3")
+                field(Salesperson_Code_3; Customer."Salesperson Code 3")
                 {
                     Caption = 'Salesperson Code 3';
                 }
 
-                field(DBA; CustomerRec.DBA)
+                field(DBA; Customer.DBA)
                 {
                     Caption = 'DBA';
                 }
@@ -157,15 +157,15 @@ page 56101 salessiShipToAddress
         }
     }
     var
-        CustomerRec: Record Customer;
+        Customer: Record Customer;
         ShortcutDimCode: array[8] of Code[20];
-
 
     trigger OnAfterGetRecord()
     begin
-        CustomerRec.Reset();
+        Customer.Reset();
+        Clear(ShortcutDimCode);
         if Rec."Customer No." <> '' then
-            if CustomerRec.Get(Rec."Customer No.") then
-                CustomerRec.ShowShortcutDimCode(ShortcutDimCode)
+            if Customer.Get(Rec."Customer No.") then
+                Customer.ShowShortcutDimCode(ShortcutDimCode)
     end;
 }

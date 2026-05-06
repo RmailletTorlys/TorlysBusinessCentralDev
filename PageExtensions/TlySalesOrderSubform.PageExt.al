@@ -623,6 +623,16 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                     SalesLine.Insert;
                 end;
             }
+            action(ItemAccessoriesReversal)
+            {
+                Caption = 'Item Accessories Reversal';
+                ToolTip = 'Item Accessories Reversal';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "Related Item No." = field("No.");
+                RunPageMode = View;
+            }
             group(CustomerItemHistory)
             {
                 Visible = true;

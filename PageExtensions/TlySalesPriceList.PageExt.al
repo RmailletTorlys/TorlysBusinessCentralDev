@@ -21,6 +21,11 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 ApplicationArea = All;
                 Editable = (Rec."Price List Type" = Rec."Price List Type"::Project);
             }
+            field("Shared Commission"; Rec."Shared Commission")
+            {
+                Caption = 'Shared Commission';
+                ApplicationArea = All;
+            }
         }
 
         // moveafter("Project Builder/Brand"; SourceType, SourceNo, CurrencyCode, StartingDate, EndingDate)//, LineDefaults, AllowUpdatingDefaults, View, AmountType, Status)

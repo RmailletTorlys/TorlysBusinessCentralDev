@@ -5,8 +5,6 @@ table 55096 TlyCommentType
     LookupPageId = TlyCommentType;
     DrillDownPageId = TlyCommentType;
 
-
-
     fields
     {
         field(1; "Code"; Code[20])

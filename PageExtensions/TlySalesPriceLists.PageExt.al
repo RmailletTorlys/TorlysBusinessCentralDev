@@ -26,9 +26,9 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
             }
         }
 
-        moveafter("Shared Commission"; SourceType, SourceNo, "Currency Code", "Starting Date", "Ending Date", "Allow Updating Defaults", Defines, Status)
+        moveafter("Shared Commission"; SourceType, SourceNo, Defines, Status, "Currency Code", "Starting Date", "Ending Date", "Allow Updating Defaults")
 
-        addafter(Status)
+        addafter("Allow Updating Defaults")
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {

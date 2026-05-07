@@ -89,7 +89,8 @@ page 56101 salessiShipToAddress
                     Caption = 'Contact';
                 }
 
-                field(parent_account_number; Customer."Bill-to Customer No.")
+                // field(parent_account_number; Customer."Bill-to Customer No.")
+                field(parent_account_number; Rec."Customer No.")
                 {
                     Caption = 'Parent Account Number';
                 }

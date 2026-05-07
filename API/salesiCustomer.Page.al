@@ -90,7 +90,8 @@ page 56100 salesiCustomer
                     Caption = 'Contact';
                 }
 
-                field(parent_account_number; Rec."Bill-to Customer No.")
+                // field(parent_account_number; Rec."Bill-to Customer No.")
+                field(parent_account_number; Rec."No.")
                 {
                     Caption = 'Parent Account Number';
                 }

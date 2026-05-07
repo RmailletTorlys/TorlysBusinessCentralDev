@@ -911,11 +911,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             { }
         }
 
-        modify(SendEmailConfirmation)
-        {
-            Visible = false;
-        }
-
         addbefore("Print Confirmation")
         {
             action(SendEmailConfirmationTLY)
@@ -976,7 +971,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     EmailMsg.AddAttachment('Order_' + Rec."No." + '.pdf', 'application/pdf', InStr);
 
                     // Note: In v27.2, use OpenInEditor
-                    Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::Default);
+                    Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::"Sales Order");
                 end;
             }
         }
@@ -1277,6 +1272,10 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     SalesLine.Insert;
                 end;
             }
+        }
+        modify(SendEmailConfirmation)
+        {
+            Visible = false;
         }
         modify("Pick Instruction")
         {

@@ -42,6 +42,14 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
                 Editable = false;
                 Visible = true;
             }
+            field("Salesperson Code"; Rec."Salesperson Code")
+            {
+                Caption = 'Salesperson Code';
+                ToolTip = 'Salesperson Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
         }
 
         addafter("No.")

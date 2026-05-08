@@ -38,6 +38,14 @@ pageextension 50525 TlyPostedSalesShipmentLines extends "Posted Sales Shipment L
                 Editable = false;
                 Visible = true;
             }
+            field("Salesperson Code"; Rec."Salesperson Code")
+            {
+                Caption = 'Salesperson Code';
+                ToolTip = 'Salesperson Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
         }
 
         addafter("No.")

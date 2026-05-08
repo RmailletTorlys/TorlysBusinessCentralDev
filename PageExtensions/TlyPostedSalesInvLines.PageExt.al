@@ -12,6 +12,22 @@ pageextension 50526 TlyPostedSalesInvLines extends "Posted Sales Invoice Lines"
             }
         }
 
+        moveafter("Posting Date"; "Sell-to Customer No.")
+
+        addafter("Sell-to Customer No.")
+        {
+            field("Ship-to Code"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
+        moveafter("Ship-to Code"; "Sell-to Customer Name")
+
         addafter("Sell-to Customer Name")
         {
             field("External Document No."; Rec."External Document No.")

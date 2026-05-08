@@ -4,7 +4,8 @@ page 52012 TlyShipmentSummary
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Sales Shipment Header";
+    // SourceTable = "Sales Shipment Header";
+    SourceTable = "Sales Header";
     SourceTableTemporary = true;
     InsertAllowed = false;
     ModifyAllowed = false;
@@ -68,22 +69,39 @@ page 52012 TlyShipmentSummary
         }
     }
 
+    // trigger OnOpenPage()
+    // var
+    //     ShipmentHeader: Record "Sales Shipment Header";
+    // begin
+    //     if ShipmentHeader.FindSet() then
+    //         repeat
+    //             if not Rec.Get(ShipmentHeader."No.") then begin
+    //                 Rec.SetRange("Shipping Agent Code", ShipmentHeader."Shipping Agent Code");
+    //                 Rec.SetRange("Shipment Date", WorkDate());
+    //                 if Rec.IsEmpty() then begin
+    //                     Rec.TransferFields(ShipmentHeader);
+    //                     Rec.Insert();
+    //                 end;
+    //                 Rec.SetRange("Shipping Agent Code");
+    //             end;
+    //         until ShipmentHeader.Next() = 0;
+    // end;
     trigger OnOpenPage()
     var
-        ShipmentHeader: Record "Sales Shipment Header";
+        SalesHeader: Record "Sales Header";
     begin
-        if ShipmentHeader.FindSet() then
+        if SalesHeader.FindSet() then
             repeat
-                if not Rec.Get(ShipmentHeader."No.") then begin
-                    Rec.SetRange("Shipping Agent Code", ShipmentHeader."Shipping Agent Code");
+                if not Rec.Get(SalesHeader."No.") then begin
+                    Rec.SetRange("Shipping Agent Code", SalesHeader."Shipping Agent Code");
                     Rec.SetRange("Shipment Date", WorkDate());
                     if Rec.IsEmpty() then begin
-                        Rec.TransferFields(ShipmentHeader);
+                        Rec.TransferFields(SalesHeader);
                         Rec.Insert();
                     end;
                     Rec.SetRange("Shipping Agent Code");
                 end;
-            until ShipmentHeader.Next() = 0;
+            until SalesHeader.Next() = 0;
     end;
 
     procedure GetOrderCount(): Integer

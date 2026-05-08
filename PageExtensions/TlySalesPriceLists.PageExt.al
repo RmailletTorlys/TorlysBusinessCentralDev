@@ -19,11 +19,16 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 Caption = 'Project Builder/Brand';
                 ApplicationArea = All;
             }
+            field("Shared Commission"; Rec."Shared Commission")
+            {
+                Caption = 'Shared Commission';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Project Builder/Brand"; SourceType, SourceNo, "Currency Code", "Starting Date", "Ending Date", "Allow Updating Defaults", Defines, Status)
+        moveafter("Shared Commission"; SourceType, SourceNo, Defines, Status, "Currency Code", "Starting Date", "Ending Date", "Allow Updating Defaults")
 
-        addafter(Status)
+        addafter("Allow Updating Defaults")
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {

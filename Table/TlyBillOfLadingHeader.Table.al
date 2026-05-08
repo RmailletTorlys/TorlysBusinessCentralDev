@@ -2,6 +2,8 @@ table 55002 TlyBillOfLadingHeader
 {
     DataClassification = CustomerContent;
     Caption = 'BOL Header';
+    DrillDownPageId = TlyBillOfLading;
+    LookupPageId = TlyBillOfLadingList;
     Permissions = tabledata "Sales Shipment Header" = rm;
 
     fields

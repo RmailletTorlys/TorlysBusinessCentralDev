@@ -21,18 +21,23 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 ApplicationArea = All;
                 Editable = (Rec."Price List Type" = Rec."Price List Type"::Project);
             }
+            field("Shared Commission"; Rec."Shared Commission")
+            {
+                Caption = 'Shared Commission';
+                ApplicationArea = All;
+            }
         }
 
         // moveafter("Project Builder/Brand"; SourceType, SourceNo, CurrencyCode, StartingDate, EndingDate)//, LineDefaults, AllowUpdatingDefaults, View, AmountType, Status)
 
-        addafter(Status)
+        addafter(AllowUpdatingDefaults)
         {
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
                 ToolTip = 'Created By';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
             }
 
             field(SystemCreatedAt; Rec.SystemCreatedAt)
@@ -40,7 +45,7 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 Caption = 'Created At';
                 ToolTip = 'Created At';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
             }
 
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
@@ -48,7 +53,7 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
             }
 
             field(SystemModifiedAt; Rec.SystemModifiedAt)
@@ -56,7 +61,7 @@ pageextension 57016 TlySalesPriceList extends "Sales Price List"
                 Caption = 'Modified At';
                 ToolTip = 'Modified At';
                 ApplicationArea = All;
-                Importance = Additional;
+                Importance = Standard;
             }
         }
 

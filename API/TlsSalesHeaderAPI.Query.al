@@ -41,6 +41,7 @@ Query 56013 TlySalesHeaderAPI
             column(shipToCity; "Ship-to City") { }
             column(shipToCountry; "Ship-to Country/Region Code") { }
             column(shipToState; "Ship-to County") { }
+            column(totalAmountExclTax; Amount) { }
             column(shipToPostCode; "Ship-to Post Code") { }
             column(shortcutDimension1Code; "Shortcut Dimension 1 Code") { }
             column(shortcutDimension2Code; "Shortcut Dimension 2 Code") { }

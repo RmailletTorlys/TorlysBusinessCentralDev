@@ -12,7 +12,7 @@ report 50023 "B13 Sales"
         {
             DataItemTableView = sorting("Country/Region of Origin Code", "Tariff No.");
             RequestFilterFields = "Country/Region of Origin Code", "Tariff No.";
-            PrintOnlyIfDetail = true;
+            // PrintOnlyIfDetail = true;
             RequestFilterHeading = 'Item';
 
             column(FilterString; FilterString)

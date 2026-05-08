@@ -48,7 +48,7 @@ pageextension 55116 TlySalespersonPurchaserCard extends "Salesperson/Purchaser C
                 ApplicationArea = All;
             }
         }
-        moveafter("View Mgr Pricing - Intranet"; Blocked)
+        moveafter("Commission Percentage Share"; Blocked)
 
         modify("Commission %")
         {

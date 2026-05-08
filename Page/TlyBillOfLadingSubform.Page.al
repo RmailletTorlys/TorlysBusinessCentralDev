@@ -5,8 +5,10 @@ page 51004 TlyBillOfLadingSubform
     DelayedInsert = true;
     LinksAllowed = false;
     MultipleNewLines = true;
+    // UsageCategory = Lists;
     PageType = ListPart;
     SourceTable = TlyBillOfLadingLine;
+    // Editable = false;
     DeleteAllowed = true;
     ModifyAllowed = false;
     InsertAllowed = false;
@@ -150,4 +152,41 @@ page 51004 TlyBillOfLadingSubform
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            group(Fun)
+            {
+                Caption = 'Page';
+
+                action(EditInExcel)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Edit in Excel';
+                    Image = Excel;
+                    // Visible = IsSaaSExcelAddinEnabled;
+                    ToolTip = 'Send the data in the sub page to an Excel file for analysis or editing';
+                    AccessByPermission = System "Allow Action Export To Excel" = X;
+
+                    trigger OnAction()
+                    var
+                        EditinExcel: Codeunit "Edit in Excel";
+                        EditinExcelFilters: Codeunit "Edit in Excel Filters";
+                    begin
+                        EditinExcelFilters.AddFieldV2('BOL_No', Enum::"Edit in Excel Filter Type"::Equal, Rec."BOL No.", Enum::"Edit in Excel Edm Type"::"Edm.String");
+
+                        EditinExcel.EditPageInExcel(
+                            'BOL_Line',
+                            page::TlyBillOfLadingSubform,
+                            EditinExcelFilters,
+                            StrSubstNo(ExcelFileNameTxt, Rec."BOL No."));
+                    end;
+                }
+            }
+        }
+    }
+    var
+        ExcelFileNameTxt: Label 'BOL %1 - Lines', Comment = '%1 = document number, ex. 10000';
+
 }

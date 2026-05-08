@@ -172,6 +172,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
         add("sales Line")
         {
+            column(IsAboveComment; IsAboveComment)
+            {
+
+            }
             column(Document_No_; "Document No.")
             {
 
@@ -242,6 +246,9 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 BarcodeFontProvider: Interface "Barcode Font Provider";
                 BarcodeStrings: Code[20];
             begin
+                if SalesLine."No." = 'MK-REQ END' then
+                    if SalesLine.Get(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") then
+                        MKEndLine := SalesLine."Line No.";
                 //must be released
                 //this is in doc print codeunit and in pick slip report for when printing multiples
                 if "Sales Header".Status <> "Sales Header".Status::Released then
@@ -473,6 +480,8 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
             trigger OnAfterAfterGetRecord()
             begin
+                If "Line No." <= MKEndLine then
+                    IsAboveComment := True;
                 If Type = Type::Item then
                     If "Qty. to Ship" = 0 then
                         If (Quantity - "Quantity Shipped" = 0) then
@@ -590,6 +599,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         }
     }
 
+
     requestpage
     {
         layout
@@ -600,6 +610,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             }
         }
     }
+    // trigger OnPreReport()
+    // begin
+    //     IsAboveComment := ;
+    // end;
 
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
@@ -680,5 +694,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         Text007Lbl: Label 'Total Tax:';
         Text008Lbl: Label 'Tax:';
         Text009Lbl: Label 'Pick Slip printed by %1 on %2 at %3';
+        IsAboveComment: Boolean;
+        MKEndLine: Integer;
 #pragma warning restore AA0470
 }

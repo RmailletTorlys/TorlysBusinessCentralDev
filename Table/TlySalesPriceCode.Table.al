@@ -32,6 +32,11 @@ table 50007 TlySalesPriceCode
             Caption = 'Price List Order';
             DataClassification = CustomerContent;
         }
+        field(6; "Regular Price"; Decimal)
+        {
+            Caption = 'Regular Price';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

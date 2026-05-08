@@ -19,6 +19,44 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
                 Caption = 'Project Builder/Brand';
                 ApplicationArea = All;
             }
+            field("Shared Commission"; Rec."Shared Commission")
+            {
+                Caption = 'Shared Commission';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Shared Commission"; SourceType, SourceNo, Defines, Status, "Currency Code", "Starting Date", "Ending Date", "Allow Updating Defaults")
+
+        addafter("Allow Updating Defaults")
+        {
+            field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
+            {
+                Caption = 'Created By';
+                ToolTip = 'Created By';
+                ApplicationArea = All;
+            }
+
+            field(SystemCreatedAt; Rec.SystemCreatedAt)
+            {
+                Caption = 'Created At';
+                ToolTip = 'Created At';
+                ApplicationArea = All;
+            }
+
+            field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
+            {
+                Caption = 'Modified By';
+                ToolTip = 'Modified By';
+                ApplicationArea = All;
+            }
+
+            field(SystemModifiedAt; Rec.SystemModifiedAt)
+            {
+                Caption = 'Modified At';
+                ToolTip = 'Modified At';
+                ApplicationArea = All;
+            }
         }
 
     }
@@ -99,4 +137,7 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
             }
         }
     }
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
 }

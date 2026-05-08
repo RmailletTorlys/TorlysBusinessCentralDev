@@ -24,10 +24,12 @@ page 56100 salesiCustomer
                 {
                     Caption = 'Account Number';
                 }
+
                 field(shipToCode; Rec."Ship-to Code")
                 {
                     Caption = 'Ship-to Code';
                 }
+
                 field(Name; Rec.Name)
                 {
                     Caption = 'Name';
@@ -68,27 +70,28 @@ page 56100 salesiCustomer
                     Caption = 'Phone No.';
                 }
 
-                field(FaxNo; Rec."Fax No.")
+                field(FaxNo; '')
                 {
                     Caption = 'Fax No.';
                 }
 
-                field(Email; Rec."E-Mail")
+                field(Email; '')
                 {
                     Caption = 'Email';
                 }
 
-                field(Website; Rec."Home Page")
+                field(Website; '')
                 {
                     Caption = 'Website';
                 }
 
-                field(Contact; Rec.Contact)
+                field(Contact; '')
                 {
                     Caption = 'Contact';
                 }
 
-                field(parent_account_number; Rec."Bill-to Customer No.")
+                // field(parent_account_number; Rec."Bill-to Customer No.")
+                field(parent_account_number; Rec."No.")
                 {
                     Caption = 'Parent Account Number';
                 }
@@ -98,7 +101,7 @@ page 56100 salesiCustomer
                     Caption = 'Salesperson Code';
                 }
 
-                field(Chain; Rec."Chain Name")
+                field(Chain; ShortcutDimCode[5])
                 {
                     Caption = 'Chain';
                 }
@@ -118,10 +121,9 @@ page 56100 salesiCustomer
                     Caption = 'Customer Posting Group';
                 }
 
-                field(Department; ShortcutDimCode[2])
+                field(Department; ShortcutDimCode[1])
                 {
                     Caption = 'Department';
-
                 }
 
                 field(Location; Rec."Location Code")
@@ -159,10 +161,8 @@ page 56100 salesiCustomer
     var
         ShortcutDimCode: array[8] of Code[20];
 
-
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
 }

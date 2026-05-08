@@ -2,6 +2,20 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
 {
     layout
     {
+        addafter("Sell-to Customer No.")
+        {
+            field("Ship-to Code"; Rec."Ship-to Code")
+            {
+                Caption = 'Ship-to Code';
+                ToolTip = 'Ship-to Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
+        moveafter("Ship-to Code"; "Sell-to Customer Name")
+
         addafter("Sell-to Customer Name")
         {
             field("Order Date"; Rec."Order Date")

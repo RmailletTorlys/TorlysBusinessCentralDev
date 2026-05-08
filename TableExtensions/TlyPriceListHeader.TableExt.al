@@ -24,8 +24,9 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
             Caption = 'National PM Brand';
             ToolTip = 'National PM Brand';
             DataClassification = CustomerContent;
-            TableRelation = TlyNationalPMBrand;
+            // TableRelation = TlyNationalPMBrand;
             ObsoleteState = Removed;
+            ObsoleteReason = 'Changed to Project Builder/Brand';
         }
 
         field(50004; "Project Builder/Brand"; Text[20])
@@ -34,6 +35,13 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
             ToolTip = 'Project Builder/Brand';
             DataClassification = CustomerContent;
             TableRelation = TlyProjectBuilderBrand;
+        }
+
+        field(50005; "Shared Commission"; Boolean)
+        {
+            Caption = 'Shared Commission';
+            ToolTip = 'Shared Commission';
+            DataClassification = CustomerContent;
         }
     }
 }

@@ -28,6 +28,12 @@ page 52003 TlySalesPriceCodeList
                     Caption = 'Description';
                     ToolTip = 'Description of the sales price.';
                 }
+                field("Regular Price"; Rec."Regular Price")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Regular Price';
+                    ToolTip = 'Regular Price';
+                }
                 field("Price List Order"; Rec."Price List Order")
                 {
                     ApplicationArea = All;

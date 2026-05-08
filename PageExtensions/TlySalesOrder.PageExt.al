@@ -911,11 +911,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             { }
         }
 
-        modify(SendEmailConfirmation)
-        {
-            Visible = false;
-        }
-
         addbefore("Print Confirmation")
         {
             action(SendEmailConfirmationTLY)
@@ -926,6 +921,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
                 trigger OnAction()
                 var
+                    NTNOrderDetail: Record "NTN Web Order Detail";
                     CustomReportSelection: Record "Custom Report Selection";
                     SalesHeader: Record "Sales Header";
                     EmailMsg: Codeunit "Email Message";
@@ -937,13 +933,19 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     EmailAddr: Text;
                     ReportID: Integer;
                 begin
+                    // Get email address if SS order
+                    NTNOrderDetail.SetRange("No.", Rec."No.");
+                    if NTNOrderDetail.FindFirst() then begin
+                        EmailAddr := NTNOrderDetail."Web Customer E-mail";
+                    end;
+
                     // 1. Get Layout details for the BILL-TO Customer
                     CustomReportSelection.SetRange("Source Type", Database::Customer);
                     CustomReportSelection.SetRange("Source No.", Rec."Sell-to Customer No.");
                     CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
 
                     if CustomReportSelection.FindFirst() then begin
-                        EmailAddr := CustomReportSelection."Send To Email";
+                        if EmailAddr = '' then EmailAddr := CustomReportSelection."Send To Email";
                         ReportID := CustomReportSelection."Report ID";
                     end;
 
@@ -969,7 +971,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     EmailMsg.AddAttachment('Order_' + Rec."No." + '.pdf', 'application/pdf', InStr);
 
                     // Note: In v27.2, use OpenInEditor
-                    Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::Default);
+                    Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::"Sales Order");
                 end;
             }
         }
@@ -1270,6 +1272,10 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     SalesLine.Insert;
                 end;
             }
+        }
+        modify(SendEmailConfirmation)
+        {
+            Visible = false;
         }
         modify("Pick Instruction")
         {

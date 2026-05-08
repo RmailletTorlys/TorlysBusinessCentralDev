@@ -448,8 +448,8 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                     LineNo += 10000;
                     repeat
                         SalesCommentLine.Init();
-                        SalesCommentLine."Document Type" := "Document Type";
-                        SalesCommentLine."No." := "Document No.";
+                        SalesCommentLine."Document Type" := Rec."Document Type";
+                        SalesCommentLine."No." := Rec."Document No.";
                         SalesCommentLine."Comment Type" := CommentLine."Comment Type";
                         SalesCommentLine."Line No." := LineNo;
                         LineNo += 10000;
@@ -625,7 +625,14 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     trigger OnBeforeDelete()
     var
         TransferLine: Record "Transfer Line";
+    // SalesCommentLine: Record "Sales Comment Line";
     begin
+        // SalesCommentLine.SetRange("Document Type", "Document Type");
+        // SalesCommentLine.SetRange("No.", "Document No.");
+        // SalesCommentLine.SetRange("Document Line No.", "Line No.");
+        // if not SalesCommentLine.IsEmpty then
+        //     SalesCommentLine.DeleteAll();
+
         // TLY-SD - 03/20/2026 - can't delete until line on TO is deleted
         if Rec."Transfer Order No." <> '' then begin
             TransferLine.Reset();
@@ -639,7 +646,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     trigger OnAfterDelete()
     begin
         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) then begin
-            // if not SkipHeaderModify then begin //this is here so user can delete order on header as opposed to lines then header
+            // if not SkipHeaderModify then begin //this is here so user can delete order on header as opposed to lines then header, but we want this as a double check
             WarehouseNotifyFieldChanged := 'Line Deleted';
             UpdateWarehouseNotify;
         end;

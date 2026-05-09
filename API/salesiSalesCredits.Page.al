@@ -26,22 +26,27 @@ Page 56105 salesiSalesCredits
                 {
                     Caption = 'Description';
                 }
+
                 field(prod_code; Rec."No.")
                 {
                     Caption = 'prod_code';
                 }
+
                 field(Quantity; Rec."Quantity (Base)")
                 {
                     Caption = 'Quantity';
                 }
+
                 field(CurrencyCode; CurrencyCode)
                 {
                     Caption = 'Currency Code';
                 }
+
                 field(CurrencyFactor; CurrencyFactor)
                 {
                     Caption = 'Currency Factor';
                 }
+
                 field(sales_value; Rec."Amount")
                 {
                     Caption = 'sales_value';
@@ -160,7 +165,6 @@ Page 56105 salesiSalesCredits
                 field(promoCode; Rec."Price List")
                 {
                     Caption = 'promoCode';
-
                 }
 
                 field(SalespersonCode2; SalespersonCode2)
@@ -204,18 +208,21 @@ Page 56105 salesiSalesCredits
                     Caption = 'TagName';
                 }
 
-                field(ProjectName; Projectname)
+                field(ProjectName; ProjectBuilderBrand)
                 {
                     Caption = 'ProjectName';
                 }
+
                 field(project_number; Rec."Price List")
                 {
                     Caption = 'Project Number';
                 }
-                field(natl_prop_mgt; '0')
+
+                field(natl_prop_mgt; NationalPM)
                 {
                     Caption = 'National PM';
                 }
+
                 field(Gen_Prod_Posting_Group; Rec."Gen. Prod. Posting Group")
                 {
                     Caption = 'Gen. Prod. Posting Group';
@@ -241,7 +248,7 @@ Page 56105 salesiSalesCredits
         ChainName: Text;
         OrderDate: Date;
         DocumentDate: Date;
-        Department: Text;
+        // Department: Text;
         PostingGroupGlCode: Text;
         PostingDate: Date;
         ReasonCode: Code[10];
@@ -250,6 +257,9 @@ Page 56105 salesiSalesCredits
         SalespersonCode3: Code[10];
         ShortcutDimCode: array[8] of Code[20];
         LookupUserId: Codeunit TlyLookupUserID;
+        PriceListHeader: Record "Price List Header";
+        NationalPM: Boolean;
+        ProjectBuilderBrand: Text[30];
 
     trigger OnAfterGetRecord()
     begin
@@ -292,12 +302,22 @@ Page 56105 salesiSalesCredits
         else
             PostingGroupGlCode := '';
 
-        if Customer.Get(Rec."Sell-to Customer No.") then begin
-            ChainName := Customer."Chain Name";
-            Department := Customer."Global Dimension 2 Code";
+        // if Customer.Get(Rec."Sell-to Customer No.") then begin
+        //     ChainName := Customer."Chain Name";
+        //     Department := Customer."Global Dimension 2 Code";
+        // end else begin
+        //     ChainName := '';
+        //     Department := '';
+        // end;
+
+        PriceListHeader.Reset();
+        PriceListHeader.SetRange(Code, Rec."Price List");
+        if PriceListHeader.Find('-') then begin
+            NationalPM := PriceListHeader."National Property Management";
+            ProjectBuilderBrand := PriceListHeader."Project Builder/Brand";
         end else begin
-            ChainName := '';
-            Department := '';
+            NationalPM := false;
+            ProjectBuilderBrand := '';
         end;
 
         Rec.ShowShortcutDimCode(ShortcutDimCode);

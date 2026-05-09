@@ -201,7 +201,6 @@ Page 56104 salesiSalesInvoice
                 field(ProgramTier; Rec."Price List")
                 {
                     Caption = 'Program Tier';
-
                 }
 
                 field(TagName; TagName)
@@ -209,10 +208,9 @@ Page 56104 salesiSalesInvoice
                     Caption = 'TagName';
                 }
 
-                field(ProjectName; Projectname)
+                field(ProjectName; ProjectBuilderBrand)
                 {
                     Caption = 'ProjectName';
-
                 }
 
                 field(project_number; Rec."Price List")
@@ -220,10 +218,11 @@ Page 56104 salesiSalesInvoice
                     Caption = 'Project Number';
                 }
 
-                field(natl_prop_mgt; '0')
+                field(natl_prop_mgt; NationalPM)
                 {
                     Caption = 'National PM';
                 }
+
                 field(Gen_Prod_Posting_Group; Rec."Gen. Prod. Posting Group")
                 {
                     Caption = 'Gen. Prod. Posting Group';
@@ -248,7 +247,7 @@ Page 56104 salesiSalesInvoice
         ChainName: Text;
         OrderDate: Date;
         DocumentDate: Date;
-        Department: Text;
+        // Department: Text;
         PostingGroupGlCode: Text;
         PostingDate: Date;
         SalespersonCode: Code[10];
@@ -256,6 +255,9 @@ Page 56104 salesiSalesInvoice
         SalespersonCode3: Code[10];
         ShortcutDimCode: array[8] of Code[20];
         LookupUserId: Codeunit TlyLookupUserID;
+        PriceListHeader: Record "Price List Header";
+        NationalPM: Boolean;
+        ProjectBuilderBrand: Text[30];
 
     trigger OnAfterGetRecord()
     begin
@@ -292,10 +294,20 @@ Page 56104 salesiSalesInvoice
         else
             PostingGroupGlCode := '';
 
-        if Customer.Get(Rec."Sell-to Customer No.") then
-            Department := Customer."Global Dimension 2 Code"
-        else
-            Department := '';
+        // if Customer.Get(Rec."Sell-to Customer No.") then
+        //     Department := Customer."Global Dimension 2 Code"
+        // else
+        //     Department := '';
+
+        PriceListHeader.Reset();
+        PriceListHeader.SetRange(Code, Rec."Price List");
+        if PriceListHeader.Find('-') then begin
+            NationalPM := PriceListHeader."National Property Management";
+            ProjectBuilderBrand := PriceListHeader."Project Builder/Brand";
+        end else begin
+            NationalPM := false;
+            ProjectBuilderBrand := '';
+        end;
 
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;

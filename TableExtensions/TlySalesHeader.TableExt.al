@@ -413,7 +413,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
 
         field(50067; "Shipping Total Incl. VAT"; Decimal)
         {
-            Caption = 'Shipping Total Incl. VAT';
+            Caption = 'Shipping Total Incl. Tax';
             Editable = false;
             CalcFormula = sum("Sales Line"."Outstanding Amount"
                           where("Document Type" = field("Document Type"),
@@ -517,6 +517,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         "Entered By" := UserId;
         "Entered At" := CurrentDateTime;
         // "Order Time" := Time;
+        Rec."Requested Shipment Date" := Rec."Shipment Date"; //TLY-SD - 05/08/2026
         Rec.Modify(true);
         CopyCommentsFromCustCardToSalesHeader();
     end;

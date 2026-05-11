@@ -258,7 +258,7 @@ Page 56105 salesiSalesCredits
         ShortcutDimCode: array[8] of Code[20];
         LookupUserId: Codeunit TlyLookupUserID;
         PriceListHeader: Record "Price List Header";
-        NationalPM: Boolean;
+        NationalPM: Text[3];
         ProjectBuilderBrand: Text[30];
 
     trigger OnAfterGetRecord()
@@ -313,10 +313,13 @@ Page 56105 salesiSalesCredits
         PriceListHeader.Reset();
         PriceListHeader.SetRange(Code, Rec."Price List");
         if PriceListHeader.Find('-') then begin
-            NationalPM := PriceListHeader."National Property Management";
+            if PriceListHeader."National Property Management" then
+                NationalPM := 'Yes'
+            else
+                NationalPM := '';
             ProjectBuilderBrand := PriceListHeader."Project Builder/Brand";
         end else begin
-            NationalPM := false;
+            NationalPM := '';
             ProjectBuilderBrand := '';
         end;
 

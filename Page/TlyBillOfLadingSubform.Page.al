@@ -10,7 +10,7 @@ page 51004 TlyBillOfLadingSubform
     SourceTable = TlyBillOfLadingLine;
     // Editable = false;
     DeleteAllowed = true;
-    ModifyAllowed = false;
+    // ModifyAllowed = false;
     InsertAllowed = false;
 
     layout
@@ -70,7 +70,7 @@ page 51004 TlyBillOfLadingSubform
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to address';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Ship-to Address 2"; Rec."Ship-to Address 2")
                 {

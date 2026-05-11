@@ -939,7 +939,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                         EmailAddr := NTNOrderDetail."Web Customer E-mail";
                     end;
 
-                    // 1. Get Layout details for the BILL-TO Customer
+                    // 1. to change email to Sell-to as default uses Bill-to
                     CustomReportSelection.SetRange("Source Type", Database::Customer);
                     CustomReportSelection.SetRange("Source No.", Rec."Sell-to Customer No.");
                     CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");

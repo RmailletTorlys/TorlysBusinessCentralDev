@@ -180,37 +180,76 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
         addlast(Line)
         {
-            dataitem("BOM Component"; "BOM Component")
+            dataitem(BOMComponentLoop; Integer)
             {
-                DataItemLinkReference = Line;
-                DataItemLink = "Parent Item No." = FIELD("No.");
+                DataItemTableView = sorting(Number);
 
-                column(BOMItemNo; "No.")
-                {
+                column(BOMItemNo; TempBOMComponent."No.") { }
+                column(BOMDescription; TempBOMComponent.Description) { }
 
-                }
-                column(BOMDescription; Description)
-                {
+                trigger OnPreDataItem()
+                var
+                    BOMComponentRec: Record "BOM Component";
+                begin
+                    TempBOMComponent.Reset();
+                    TempBOMComponent.DeleteAll();
 
-                }
+                    // Fill temporary buffer only if the parent sales line is a physical Item
+                    if Line.Type = Line.Type::Item then begin
+                        BOMComponentRec.SetRange("Parent Item No.", Line."No.");
+                        if BOMComponentRec.FindSet() then begin
+                            repeat
+                                TempBOMComponent.Init();
+                                TempBOMComponent := BOMComponentRec;
+                                TempBOMComponent.Insert();
+                            until BOMComponentRec.Next() = 0;
+                        end;
+                    end;
+
+                    // Set the Integer loop size exactly to the number of BOM items found
+                    SetRange(Number, 1, TempBOMComponent.Count());
+                end;
 
                 trigger OnAfterGetRecord()
                 begin
-                    BOMItemNo := '';
-                    BOMDescription := '';
-                    if Type = Type::Item then begin
-                        "BOM Component".SetRange("Parent Item No.", Line."No.");
-                        if "BOM Component".FindFirst() then begin
-                            repeat
-                                BOMItemNo := "BOM Component"."No.";
-                                If item.get("BOM Component"."No.") then
-                                    BOMDescription := Item.Description;
-                            until "BOM Component".Next() = 0;
-                        end;
-                    end;
+                    if Number = 1 then
+                        TempBOMComponent.FindSet()
+                    else
+                        TempBOMComponent.Next();
                 end;
-
             }
+            // dataitem("BOM Component"; "BOM Component")
+            // {
+            //     // DataItemLinkReference = Line;
+            //     // DataItemLink = "Parent Item No." = FIELD("No.");
+
+            //     // column(BOMItemNo; "No.")
+            //     // {
+
+            //     // }
+            //     // column(BOMDescription; Description)
+            //     // {
+
+            //     // }
+
+            //     // // trigger OnAfterGetRecord()
+            //     // // begin
+            //     // //     BOMItemNo := '';
+            //     // //     BOMDescription := '';
+            //     // //     if Type = Type::Item then begin
+            //     // //         "BOM Component".SetRange("Parent Item No.", Line."No.");
+            //     // //         if "BOM Component".FindFirst() then begin
+            //     // //             repeat
+            //     // //                 BOMItemNo := "BOM Component"."No.";
+            //     // //                 If item.get("BOM Component"."No.") then
+            //     // //                     BOMDescription := Item.Description;
+            //     // //             until "BOM Component".Next() = 0;
+            //     // //         end;
+            //     // //     end;
+            //     // // end;
+
+
+            // }
         }
 
         add(Header)
@@ -351,6 +390,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         mkquantity1: Decimal;
         mklocationtext: text;
         mkquantitytest: Text;
+        TempBOMComponent: Record "BOM Component" temporary;
 
 
     procedure SetQtyConst(No_: Code[20])

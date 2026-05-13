@@ -112,6 +112,7 @@ table 51060 TlyCustomerDisplays
         {
             Caption = 'Salesperson Code';
             Editable = false;
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Flooring Consultant'));
             FieldClass = FlowField;
             CalcFormula = lookup("Customer"."Salesperson Code" where("No." = field("Customer No.")));
         }

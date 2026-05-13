@@ -92,7 +92,7 @@ page 52012 TlyShipmentSummary
     begin
         if SalesHeader.FindSet() then
             repeat
-                if not Rec.Get(SalesHeader."No.") then begin
+                if not Rec.Get('1', SalesHeader."No.") then begin
                     Rec.SetRange("Shipping Agent Code", SalesHeader."Shipping Agent Code");
                     Rec.SetRange("Shipment Date", WorkDate());
                     if Rec.IsEmpty() then begin

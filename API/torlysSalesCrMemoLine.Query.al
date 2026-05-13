@@ -10,9 +10,8 @@ Query 56014 TlySalesCrMemoLineAPI
 
     elements
     {
-        dataitem(salesCrMemoLine; "Sales Line")
+        dataitem(salesCrMemoLine; "Sales Cr.Memo Line")
         {
-            DataItemTableFilter = "Document Type" = filter('Credit Memo');
             column(documentNumber; "Document No.") { }
             column(type; "Type") { }
             column(number; "No.") { }
@@ -24,7 +23,6 @@ Query 56014 TlySalesCrMemoLineAPI
             column(totalAmountExclTax; Amount) { }
             column(shortcutDimension1Code; "Shortcut Dimension 1 Code") { }
             column(shortcutDimension2Code; "Shortcut Dimension 2 Code") { }
-            column(currencyCode; "Currency Code") { }
             column(salesperson; "Salesperson Code") { }
             column(shipmentDate; "Shipment Date") { }
 

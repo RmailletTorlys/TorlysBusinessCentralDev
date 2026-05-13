@@ -2,6 +2,12 @@ reportextension 50700 "TorlysPurchaseReceipt" extends "Purchase Receipt NA"
 {
     dataset
     {
+        add("Purch. Rcpt. Header")
+        {
+            column(Posting_Date; "Posting Date")
+            {
+            }
+        }
         add("Purch. Rcpt. Line")
         {
             column(Direct_Unit_Cost; "Direct Unit Cost")

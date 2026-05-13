@@ -194,21 +194,21 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
 
                 }
 
-                trigger OnAfterGetRecord()
-                begin
-                    BOMItemNo := '';
-                    BOMDescription := '';
-                    if Type = Type::Item then begin
-                        "BOM Component".SetRange("Parent Item No.", Line."No.");
-                        if "BOM Component".FindFirst() then begin
-                            repeat
-                                BOMItemNo := "BOM Component"."No.";
-                                If item.get("BOM Component"."No.") then
-                                    BOMDescription := Item.Description;
-                            until "BOM Component".Next() = 0;
-                        end;
-                    end;
-                end;
+                // trigger OnAfterGetRecord()
+                // begin
+                //     BOMItemNo := '';
+                //     BOMDescription := '';
+                //     if Type = Type::Item then begin
+                //         "BOM Component".SetRange("Parent Item No.", Line."No.");
+                //         if "BOM Component".FindFirst() then begin
+                //             repeat
+                //                 BOMItemNo := "BOM Component"."No.";
+                //                 If item.get("BOM Component"."No.") then
+                //                     BOMDescription := Item.Description;
+                //             until "BOM Component".Next() = 0;
+                //         end;
+                //     end;
+                // end;
 
             }
         }

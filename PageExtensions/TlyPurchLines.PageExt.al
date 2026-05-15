@@ -64,6 +64,13 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
                 ApplicationArea = All;
             }
 
+            field("Notes"; Rec."Notes")
+            {
+                Caption = 'Notes';
+                ToolTip = 'Notes';
+                ApplicationArea = All;
+            }
+
             field("Production Date"; Rec."Production Date")
             {
                 Caption = 'Production Date';

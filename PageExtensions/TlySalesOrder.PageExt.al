@@ -913,6 +913,67 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         addbefore("Print Confirmation")
         {
+            // action(SendEmailConfirmationTLY)
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Caption = 'Email Confirmation';
+            //     Image = Email;
+
+            //     trigger OnAction()
+            //     var
+            //         NTNOrderDetail: Record "NTN Web Order Detail";
+            //         CustomReportSelection: Record "Custom Report Selection";
+            //         SalesHeader: Record "Sales Header";
+            //         EmailMsg: Codeunit "Email Message";
+            //         Email: Codeunit "Email";
+            //         TempBlob: Codeunit "Temp Blob";
+            //         OutStr: OutStream;
+            //         InStr: InStream;
+            //         RecipientList: List of [Text];
+            //         EmailAddr: Text;
+            //         ReportID: Integer;
+            //     begin
+            //         // Get email address if SS order
+            //         NTNOrderDetail.SetRange("No.", Rec."No.");
+            //         if NTNOrderDetail.FindFirst() then begin
+            //             EmailAddr := NTNOrderDetail."Web Customer E-mail";
+            //         end;
+
+            //         // 1. to change email to Sell-to as default uses Bill-to
+            //         CustomReportSelection.SetRange("Source Type", Database::Customer);
+            //         CustomReportSelection.SetRange("Source No.", Rec."Sell-to Customer No.");
+            //         CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
+
+            //         if CustomReportSelection.FindFirst() then begin
+            //             if EmailAddr = '' then EmailAddr := CustomReportSelection."Send To Email";
+            //             ReportID := CustomReportSelection."Report ID";
+            //         end;
+
+            //         // 2. Fallbacks if Layout is missing
+            //         if EmailAddr = '' then EmailAddr := Rec."Sell-to E-Mail";
+            //         if ReportID = 0 then ReportID := Report::"Standard Sales - Order Conf.";
+
+            //         // 3. Handle multiple emails (split by semicolon)
+            //         if EmailAddr.Contains(';') then
+            //             RecipientList := EmailAddr.Split(';')
+            //         else
+            //             RecipientList.Add(EmailAddr);
+
+            //         // 4. Generate the Attachment
+            //         SalesHeader.SetRange("Document Type", Rec."Document Type");
+            //         SalesHeader.SetRange("No.", Rec."No.");
+            //         TempBlob.CreateOutStream(OutStr);
+            //         Report.SaveAs(ReportID, '', ReportFormat::Pdf, OutStr, SalesHeader);
+            //         TempBlob.CreateInStream(InStr);
+
+            //         // 5. Create and Open Editor
+            //         EmailMsg.Create(RecipientList, 'Order Confirmation ' + Rec."No.", '', true);
+            //         EmailMsg.AddAttachment('Order_' + Rec."No." + '.pdf', 'application/pdf', InStr);
+
+            //         // Note: In v27.2, use OpenInEditor
+            //         Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::"Sales Order");
+            //     end;
+            // }
             action(SendEmailConfirmationTLY)
             {
                 ApplicationArea = Basic, Suite;
@@ -924,22 +985,27 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     NTNOrderDetail: Record "NTN Web Order Detail";
                     CustomReportSelection: Record "Custom Report Selection";
                     SalesHeader: Record "Sales Header";
+                    ReportSelections: Record "Report Selections";
                     EmailMsg: Codeunit "Email Message";
                     Email: Codeunit "Email";
-                    TempBlob: Codeunit "Temp Blob";
+                    TempBlobPDF: Codeunit "Temp Blob";
+                    TempBlobBody: Codeunit "Temp Blob";
                     OutStr: OutStream;
                     InStr: InStream;
+                    BodyInStream: InStream;
                     RecipientList: List of [Text];
                     EmailAddr: Text;
+                    CustEmailAddress250: Text[250];
                     ReportID: Integer;
+                    BodyText: Text;
                 begin
-                    // Get email address if SS order
+                    // 1. Get custom web order email address if it exists
                     NTNOrderDetail.SetRange("No.", Rec."No.");
                     if NTNOrderDetail.FindFirst() then begin
                         EmailAddr := NTNOrderDetail."Web Customer E-mail";
                     end;
 
-                    // 1. to change email to Sell-to as default uses Bill-to
+                    // 2. Fetch Customer Specific Layout Overrides
                     CustomReportSelection.SetRange("Source Type", Database::Customer);
                     CustomReportSelection.SetRange("Source No.", Rec."Sell-to Customer No.");
                     CustomReportSelection.SetRange(Usage, CustomReportSelection.Usage::"S.Order");
@@ -949,28 +1015,59 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                         ReportID := CustomReportSelection."Report ID";
                     end;
 
-                    // 2. Fallbacks if Layout is missing
+                    // 3. Fallbacks if Custom Layout Settings are missing
                     if EmailAddr = '' then EmailAddr := Rec."Sell-to E-Mail";
                     if ReportID = 0 then ReportID := Report::"Standard Sales - Order Conf.";
 
-                    // 3. Handle multiple emails (split by semicolon)
+                    // Format variable to clean length for parameter reference
+                    CustEmailAddress250 := CopyStr(EmailAddr, 1, MaxStrLen(CustEmailAddress250));
+
+                    // 4. Handle multiple emails (split by semicolon)
                     if EmailAddr.Contains(';') then
                         RecipientList := EmailAddr.Split(';')
                     else
                         RecipientList.Add(EmailAddr);
 
-                    // 4. Generate the Attachment
+                    // 5. Generate the PDF Attachment
                     SalesHeader.SetRange("Document Type", Rec."Document Type");
                     SalesHeader.SetRange("No.", Rec."No.");
-                    TempBlob.CreateOutStream(OutStr);
+                    TempBlobPDF.CreateOutStream(OutStr);
                     Report.SaveAs(ReportID, '', ReportFormat::Pdf, OutStr, SalesHeader);
-                    TempBlob.CreateInStream(InStr);
+                    TempBlobPDF.CreateInStream(InStr);
 
-                    // 5. Create and Open Editor
-                    EmailMsg.Create(RecipientList, 'Order Confirmation ' + Rec."No.", '', true);
+                    // 6. Extract HTML Text Body Content from Report Layout Settings
+                    SalesHeader.Reset();
+                    // CRITICAL: Re-apply filters so the rendering engine knows exactly which document to process
+                    SalesHeader.SetRange("Document Type", Rec."Document Type");
+                    SalesHeader.SetRange("No.", Rec."No.");
+                    if SalesHeader.FindFirst() then; // Establish record pointer stability for the Variant parameter
+
+                    // This variable must be cleared before execution to prevent the platform fallback behavior
+                    BodyText := '';
+
+                    // Triggers the standard BC engine to compile your selected Word email layout
+                    if ReportSelections.GetEmailBodyTextForCust(
+                        TempBlobBody,
+                        ReportSelections.Usage::"S.Order",
+                        SalesHeader, // Passes the safely filtered record instance
+                        Rec."Sell-to Customer No.",
+                        CustEmailAddress250,
+                        BodyText
+                    ) then begin
+                        // Read generated content out from Blob stream into BodyText string variable
+                        TempBlobBody.CreateInStream(BodyInStream);
+                        BodyInStream.ReadText(BodyText);
+                    end;
+
+                    // Fallback protection if layout evaluation fails to return text content
+                    if BodyText = '' then
+                        BodyText := 'Please find your order confirmation attached.';
+
+                    // 7. Create Email with HTML Body content
+                    EmailMsg.Create(RecipientList, 'Order Confirmation ' + Rec."No.", BodyText, true);
                     EmailMsg.AddAttachment('Order_' + Rec."No." + '.pdf', 'application/pdf', InStr);
 
-                    // Note: In v27.2, use OpenInEditor
+                    // 8. Open Editor
                     Email.OpenInEditor(EmailMsg, Enum::"Email Scenario"::"Sales Order");
                 end;
             }

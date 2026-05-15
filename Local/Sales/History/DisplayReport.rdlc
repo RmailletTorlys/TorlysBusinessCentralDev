@@ -64,8 +64,20 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
         <Field Name="Ship_to_Code">
           <DataField>Ship_to_Code</DataField>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+        </Field>
+        <Field Name="Salesperson_Code">
+          <DataField>Salesperson_Code</DataField>
+        </Field>
+        <Field Name="Salesperson_Name">
+          <DataField>Salesperson_Name</DataField>
         </Field>
         <Field Name="Display_Type">
           <DataField>Display_Type</DataField>
@@ -75,12 +87,6 @@ End Function
         </Field>
         <Field Name="Item_Category_Description">
           <DataField>Item_Category_Description</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Salesperson_Code">
-          <DataField>Salesperson_Code</DataField>
         </Field>
         <Field Name="Comments">
           <DataField>Comments</DataField>

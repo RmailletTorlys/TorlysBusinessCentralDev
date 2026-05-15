@@ -50,7 +50,6 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             {
 
             }
-
         }
 
         modify(Header)
@@ -112,6 +111,8 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         modify(Line)
         {
             trigger OnAfterAfterGetRecord()
+            var
+                BOM: Record "BOM Component";
             begin
                 if "Gen. Bus. Posting Group" <> 'IFS' then begin
                     TotalWeight += ("Net Weight" * Quantity);
@@ -151,6 +152,19 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                     ParentBinLocationLabel := 'Bin(s): ';
                 end;
 
+                // BOMItemNo := '';
+                // BOMDescription := '';
+                // if Type = Type::Item then begin
+                //     BOM.SetRange(BOM."Parent Item No.", "No.");
+                //     if BOM.FindFirst() then begin
+                //         repeat
+                //             BOMItemNo := BOM."No.";
+                //             If item.get(BOM."No.") then
+                //                 BOMDescription := Item.Description;
+                //         until BOM.Next() = 0;
+                //     end;
+                // end;
+
                 Clear(TempDesc);
                 if "Item Reference No." <> '' then begin
                     Clear(ItemNoTemp);
@@ -164,8 +178,79 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
             End;
         }
 
+        addlast(Line)
+        {
+            dataitem(BOMComponentLoop; Integer)
+            {
+                DataItemTableView = sorting(Number);
+
+                column(BOMItemNo; TempBOMComponent."No.") { }
+                column(BOMDescription; TempBOMComponent.Description) { }
+
+                trigger OnPreDataItem()
+                var
+                    BOMComponentRec: Record "BOM Component";
+                begin
+                    TempBOMComponent.Reset();
+                    TempBOMComponent.DeleteAll();
+
+                    // Fill temporary buffer only if the parent sales line is a physical Item
+                    if Line.Type = Line.Type::Item then begin
+                        BOMComponentRec.SetRange("Parent Item No.", Line."No.");
+                        if BOMComponentRec.FindSet() then begin
+                            repeat
+                                TempBOMComponent.Init();
+                                TempBOMComponent := BOMComponentRec;
+                                TempBOMComponent.Insert();
+                            until BOMComponentRec.Next() = 0;
+                        end;
+                    end;
+
+                    // Set the Integer loop size exactly to the number of BOM items found
+                    SetRange(Number, 1, TempBOMComponent.Count());
+                end;
+
+                trigger OnAfterGetRecord()
+                begin
+                    if Number = 1 then
+                        TempBOMComponent.FindSet()
+                    else
+                        TempBOMComponent.Next();
+                end;
+            }
+            // dataitem("BOM Component"; "BOM Component")
+            // {
+            //     // DataItemLinkReference = Line;
+            //     // DataItemLink = "Parent Item No." = FIELD("No.");
+
+            //     // column(BOMItemNo; "No.")
+            //     // {
+
+            //     // }
+            //     // column(BOMDescription; Description)
+            //     // {
+
+            //     // }
+
+            //     // // trigger OnAfterGetRecord()
+            //     // // begin
+            //     // //     BOMItemNo := '';
+            //     // //     BOMDescription := '';
+            //     // //     if Type = Type::Item then begin
+            //     // //         "BOM Component".SetRange("Parent Item No.", Line."No.");
+            //     // //         if "BOM Component".FindFirst() then begin
+            //     // //             repeat
+            //     // //                 BOMItemNo := "BOM Component"."No.";
+            //     // //                 If item.get("BOM Component"."No.") then
+            //     // //                     BOMDescription := Item.Description;
+            //     // //             until "BOM Component".Next() = 0;
+            //     // //         end;
+            //     // //     end;
+            //     // // end;
 
 
+            // }
+        }
 
         add(Header)
         {
@@ -290,8 +375,10 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         AllComments: Text;
         TempDesc: Text;
         ItemDescription: Text;
+        BOMDescription: Text;
         ParentBinLocationLabel: Text;
         ParentBinLocation: Code[100];
+        BOMItemNo: Code[25];
         ShortCutDimCode: array[8] of Code[20];
         selltoaddr: array[8] of Text;
         ShipToAddrTly: array[8] of Text;
@@ -303,6 +390,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         mkquantity1: Decimal;
         mklocationtext: text;
         mkquantitytest: Text;
+        TempBOMComponent: Record "BOM Component" temporary;
 
 
     procedure SetQtyConst(No_: Code[20])

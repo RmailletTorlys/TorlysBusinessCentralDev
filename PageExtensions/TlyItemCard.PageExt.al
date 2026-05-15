@@ -77,13 +77,21 @@ pageextension 50030 TlyItemCard extends "Item Card"
             {
                 Caption = 'Attributes';
                 Visible = IsInventoriable;
+                field("In Catalogue"; Rec."In Catalogue")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+                    Caption = 'In Catalogue';
+                    ToolTip = 'In Catalogue';
+                    Importance = Standard;
+                }
                 field("Launch Date"; Rec."Launch Date")
                 {
                     ApplicationArea = All;
                     Visible = true;
                     Caption = 'Launch Date';
                     ToolTip = 'Date the Item launched';
-                    Importance = Standard;
+                    Importance = Additional;
                 }
                 field("New Item"; Rec."New Item")
                 {
@@ -91,9 +99,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'New Item';
                     ToolTip = 'Specifies if this item is a new item for selling purposes.';
-                    Importance = Promoted;
+                    Importance = Standard;
                 }
-
                 field("Current Item"; Rec."Current Item")
                 {
                     ApplicationArea = All;

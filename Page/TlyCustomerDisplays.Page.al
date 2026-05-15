@@ -33,19 +33,11 @@ page 51025 TlyCustomerDisplays
                     ToolTip = 'Specifies the customer location code.';
                 }
 
-                field("Salesperson Code"; Rec."Salesperson Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the customer location code.';
-                    Visible = false;
-                    Editable = false;
-                }
-
                 field("Name"; Rec."Name")
                 {
                     Caption = 'Name';
                     ApplicationArea = All;
-                    Visible = false;
+                    // Visible = false;
                     Editable = false;
                 }
                 field("Name 2"; Rec."Name 2")
@@ -98,6 +90,20 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+                field("Salesperson Code"; Rec."Salesperson Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer location code.';
+                    // Visible = false;
+                    Editable = false;
+                }
+                field("Salesperson Name"; SalespersonName)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer location code.';
+                    // Visible = false;
+                    Editable = false;
+                }
                 field("Club"; Rec."Club")
                 {
                     Caption = 'Club';
@@ -136,4 +142,20 @@ page 51025 TlyCustomerDisplays
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    var
+        Salesperson: Record "Salesperson/Purchaser";
+    begin
+        Rec.CalcFields(Rec."Salesperson Code");
+        if Rec."Salesperson Code" <> '' then begin
+            Salesperson.Get(Rec."Salesperson Code");
+            SalespersonName := Salesperson."Name";
+        end else begin
+            SalespersonName := '';
+        end;
+    end;
+
+    var
+        SalespersonName: Text[50];
 }

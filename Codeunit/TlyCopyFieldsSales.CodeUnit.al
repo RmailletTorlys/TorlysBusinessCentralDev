@@ -82,6 +82,8 @@ codeunit 50019 TlyCopyFieldsSales
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateShipToCodeOnBeforeCopyShipToAddress', '', false, false)]
     local procedure OnValidateShipToCodeOnBeforeCopyShipToAddress(var SalesHeader: Record "Sales Header"; var xSalesHeader: Record "Sales Header"; var CopyShipToAddress: Boolean)
     begin
-        SalesHeader.UpdateSalesLinesByFieldNo(SalesHeader.FieldNo("Ship-to Code"), false)
+        // had to remove the first line and change to the second line for when changing ship-to on an order with existing lines
+        // SalesHeader.UpdateSalesLinesByFieldNo(SalesHeader.FieldNo("Ship-to Code"), false);
+        SalesHeader.RecreateSalesLines(SalesHeader.FieldCaption("Ship-to Code"));
     end;
 }

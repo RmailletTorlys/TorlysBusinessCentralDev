@@ -65,21 +65,18 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
                 selladdr(selltoaddr, Header);
                 ShipAddrTly(ShipToAddrTly, Header);
 
+                // display order header comments in body of document - START
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");
                 SalesCommentLine.SetRange("Print On Order Confirmation", true);
-
-                // FindSet is used for looping through a set of records
                 if SalesCommentLine.FindSet() then begin
                     repeat
-                        // This is where you process EACH comment
-                        // Example: Concatenate all comments into one string
                         AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
-
-                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                    until SalesCommentLine.Next() = 0;
                 end else begin
                     AllComments := '';
                 end;
+                // display order header comments in body of document - END
 
                 if "MK Required" then
                     MKREQUIRED := 'MK REQUIRED'

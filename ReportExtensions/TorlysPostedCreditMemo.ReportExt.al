@@ -60,22 +60,18 @@ reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit 
                     roandPreassignNo := "Return Order No."
                 end;
 
+                // display order header comments in body of document - START
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");
                 SalesCommentLine.SetRange("Print On Credit Memo", true);
-
-                // FindSet is used for looping through a set of records
                 if SalesCommentLine.FindSet() then begin
                     repeat
-                        // This is where you process EACH comment
-                        // Example: Concatenate all comments into one string
                         AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
-
-                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                    until SalesCommentLine.Next() = 0;
                 end else begin
                     AllComments := '';
                 end;
-
+                // display order header comments in body of document - END
 
                 IF ("Bill-to Customer No." = 'C500') OR ("Bill-to Customer No." = 'E900') THEN
                     SellToAddress := "Sell-to Address"

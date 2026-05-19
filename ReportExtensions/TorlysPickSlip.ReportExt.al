@@ -442,24 +442,20 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 // end Else
                 //     NotesMessages := '';
 
+                // display order header comments in body of document - START
                 SalesCommentLine.Reset();
                 SalesCommentLine.SetRange("No.", "No.");
                 SalesCommentLine.SetRange("Print On Pick Ticket", true);
-
-                // FindSet is used for looping through a set of records
                 if SalesCommentLine.FindSet() then begin
                     NotesMessages := 'SEE NOTES';
                     repeat
-                        // This is where you process EACH comment
-                        // Example: Concatenate all comments into one string
                         AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
-
-                    until SalesCommentLine.Next() = 0; // Moves to the next record; stops when 0
+                    until SalesCommentLine.Next() = 0;
                 end else begin
                     NotesMessages := '';
                     AllComments := '';
                 end;
-
+                // display order header comments in body of document - END
 
                 case Date2DWY("Shipment Date", 1) of
                     1:

@@ -17,6 +17,7 @@ Query 56015 TlySalesInvoiceLineAPI
             column(number; "No.") { }
             column(externalDocumentNumber; "External Document No.") { }
             column(creditMemoDate; "SystemCreatedAt") { }
+            column(programNo; "Item Category Code") { }
             column(postingDate; "Posting Date") { }
             column(customerNumber; "Sell-to Customer No.") { }
             column(customerName; "Sell-to Customer Name") { }

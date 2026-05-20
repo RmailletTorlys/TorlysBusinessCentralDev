@@ -59,8 +59,8 @@ codeunit 50017 TlySetDefaultQuantity
                     SalesLine."Qty. to Ship (Base)" := 0;
                     SalesLine."Qty. to Ship Case" := 0; //our field
                     SalesLine."Qty. to Ship Pallet" := 0; //our field
-                    // SalesLine."Qty. to Invoice" := 0;
-                    // SalesLine."Qty. to Invoice (Base)" := 0;
+                                                          // SalesLine."Qty. to Invoice" := 0;
+                                                          // SalesLine."Qty. to Invoice (Base)" := 0;
                     SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
                 end;
             end else begin
@@ -79,8 +79,8 @@ codeunit 50017 TlySetDefaultQuantity
                 SalesLine."Return Qty. to Receive (Base)" := 0;
                 SalesLine."Return Qty. to Receive Case" := 0; //our field
                 SalesLine."Return Qty. to Receive Pallet" := 0; //our field
-                // SalesLine."Qty. to Invoice" := 0;
-                // SalesLine."Qty. to Invoice (Base)" := 0;
+                                                                // SalesLine."Qty. to Invoice" := 0;
+                                                                // SalesLine."Qty. to Invoice (Base)" := 0;
                 SalesLine.InitQtyToInvoice; //TLY-SD - 03/31/2026 - changed the above 2 lines to this
             end else begin
                 // want G/L Account to populate "Return Qty. to Receive/Invoice" fully

@@ -35,16 +35,29 @@ pageextension 50014 TlySalespersonPurchaserList extends "Salespersons/Purchasers
                 ToolTip = 'Manager';
                 ApplicationArea = All;
             }
-            field("View Margin - Intranet"; Rec."View Margin - Intranet")
+            field("Intranet - View Margin"; Rec."View Margin - Intranet")
             {
                 Caption = 'Intranet - View Margin';
                 ToolTip = 'Intranet - View Margin';
                 ApplicationArea = All;
             }
-            field("View Mgr Pricing - Intranet"; Rec."View Mgr Pricing - Intranet")
+            field("Intranet - View Manager Pricing"; Rec."View Mgr Pricing - Intranet")
             {
                 Caption = 'Intranet - View Manager Pricing';
                 ToolTip = 'Intranet - View Manager Pricing';
+                ApplicationArea = All;
+            }
+            field("Intranet - Edit Pallet Pricing"; Rec."Intranet - Edit Pallet Pricing")
+            {
+                Caption = 'Intranet - Edit Pallet Pricing';
+                ToolTip = 'Intranet - Edit Pallet Pricing';
+                ApplicationArea = All;
+            }
+
+            field("Intranet - Edit Project Pricing"; Rec."Intranet - Edit Proj. Pricing")
+            {
+                Caption = 'Intranet - Edit Project Pricing';
+                ToolTip = 'Intranet - Edit Project Pricing';
                 ApplicationArea = All;
             }
             field("Blocked"; Rec."Blocked")

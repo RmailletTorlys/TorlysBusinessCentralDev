@@ -845,9 +845,9 @@ report 50026 "Proforma"
         }
     }
 
-    procedure CalcTotalPieces() ReturnValue: decimal
+    procedure CalcTotalPieces() ReturnValue: Decimal
     var
-        item2: Record Item;
+        Item2: Record Item;
         ItemUOM: Record "Item Unit of Measure";
         Pieces: Decimal;
         PerPallet: Decimal;
@@ -861,28 +861,27 @@ report 50026 "Proforma"
     begin
         If TempSalesLine."Quantity Shipped" <> 0 then begin
             Item2.Get(TempSalesLine."No.");
-
-            PerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-            PerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
-
-            TempQuantity := ROUND(TempSalesLine."Quantity Shipped" * TempSalesLine."Qty. per Unit of Measure", 0.01, '<');
-            QtyShippedPallet := 0;
-
-            WHILE TempQuantity >= PerPallet DO BEGIN
-                QtyShippedPallet := QtyShippedPallet + 1;
-                TempQuantity := TempQuantity - PerPallet;
-            END;
-
-            CalculatedCase := TempQuantity / PerCase;
-            QtyShippedCase := ROUND(CalculatedCase, 1.0, '<');
-            QtyShippedSingles := ROUND((TempQuantity - (QtyShippedCase * PerCase)), 1.0, '>');
-
-            Pieces := QtyShippedSingles + QtyShippedCase;
-            IF QtyShippedPallet <> 0 THEN
-                Pieces += PerPallet / PerCase * QtyShippedPallet;
-        end else
-            Pieces := 0;
-        exit(Pieces);
+            if Item2."Compare Unit of Measure" <> '' then begin
+                PerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                PerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
+                TempQuantity := ROUND(TempSalesLine."Quantity Shipped" * TempSalesLine."Qty. per Unit of Measure", 0.01, '<');
+                QtyShippedPallet := 0;
+                while TempQuantity >= PerPallet do begin
+                    QtyShippedPallet := QtyShippedPallet + 1;
+                    TempQuantity := TempQuantity - PerPallet;
+                end;
+                CalculatedCase := TempQuantity / PerCase;
+                QtyShippedCase := ROUND(CalculatedCase, 1.0, '<');
+                QtyShippedSingles := ROUND((TempQuantity - (QtyShippedCase * PerCase)), 1.0, '>');
+                Pieces := QtyShippedSingles + QtyShippedCase;
+                IF QtyShippedPallet <> 0 THEN
+                    Pieces += PerPallet / PerCase * QtyShippedPallet;
+            end else begin
+                // Pieces := 0;
+                Pieces += TempSalesLine."Quantity Shipped";
+                exit(Pieces);
+            end;
+        end;
     end;
 
     trigger OnInitReport()

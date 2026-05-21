@@ -58,6 +58,13 @@ page 50999 TlySalesOrderShipment
                     ToolTip = 'Specifies the name of the customer to whom the sales document is being sold.';
                     Caption = 'Customer Name';
                 }
+                field("Payment Terms Code"; Rec."Payment Terms Code")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Payment Terms Code';
+                    Caption = 'Payment Terms Code';
+                }
                 field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;

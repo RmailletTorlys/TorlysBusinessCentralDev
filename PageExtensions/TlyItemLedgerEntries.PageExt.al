@@ -2,6 +2,8 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
 {
     layout
     {
+        moveafter(Description; "Source No.")
+
         addafter("TPS CMG Container No.")
         {
             field("Reason Code"; Rec."Reason Code")
@@ -30,6 +32,10 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
                 ToolTip = 'Created At';
                 Importance = Additional;
             }
+        }
+        modify("Source No.")
+        {
+            Visible = true;
         }
     }
     var

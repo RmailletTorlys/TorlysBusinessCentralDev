@@ -136,7 +136,7 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Qty. to Ship';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)" where("No." = field("No."), "Location Code" = field("Location Filter")));
+            CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)" where("Document Type" = const(Order), "No." = field("No."), "Location Code" = field("Location Filter")));
             Editable = false;
         }
 

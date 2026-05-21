@@ -14,8 +14,6 @@ codeunit 50095 TlyInitQtyToRecPurchLine
     local procedure OnAfterInitQtyToShip(var PurchLine: Record "Purchase Line"; CurrFieldNo: Integer)
     var
     begin
-
-
         if PurchLine."Document Type" = PurchLine."Document Type"::"Return Order" then begin
             PurchLine."Return Qty. to Ship Case" := 0;
             PurchLine."Return Qty. to Ship Pallet" := 0;

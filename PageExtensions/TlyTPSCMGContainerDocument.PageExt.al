@@ -2,7 +2,19 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
 {
     layout
     {
-        moveafter("No."; Description, "Receipt location", "Container Type")
+        moveafter("No."; Description)
+
+        addafter(Description)
+        {
+            field("Vendor No."; Rec."Vendor No.")
+            {
+                Caption = 'Vendor No.';
+                ToolTip = 'Vendor No.';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Vendor No."; "Receipt location", "Container Type")
 
         addafter("Container Type")
         {
@@ -120,12 +132,6 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             {
                 Caption = 'Freight';
 
-                field("Vendor No."; Rec."Vendor No.")
-                {
-                    Caption = 'Vendor No.';
-                    ToolTip = 'Vendor No.';
-                    ApplicationArea = All;
-                }
                 field("Manufacturer Code"; Rec."Manufacturer Code")
                 {
                     Caption = 'Manufacturer Code';

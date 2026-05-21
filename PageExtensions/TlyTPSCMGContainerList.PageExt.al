@@ -2,7 +2,19 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
 {
     layout
     {
-        moveafter("Container No."; Description, "Receipt location", "Posting Date", "Container Type")
+        moveafter("Container No."; Description)
+
+        addafter(Description)
+        {
+            field("Vendor No."; Rec."Vendor No.")
+            {
+                Caption = 'Vendor No.';
+                ToolTip = 'Vendor No.';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Vendor No."; "Receipt location", "Posting Date", "Container Type")
 
         addafter("Container Type")
         {

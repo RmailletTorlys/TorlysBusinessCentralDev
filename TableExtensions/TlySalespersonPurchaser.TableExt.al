@@ -43,6 +43,16 @@ tableextension 50013 TlySalespersonPurchaser extends "Salesperson/Purchaser"
             Caption = 'Commission Percentage Share';
             DataClassification = CustomerContent;
         }
+        field(50008; "Intranet - Edit Pallet Pricing"; Boolean)
+        {
+            Caption = 'Intranet - Edit Pallet Pricing';
+            DataClassification = CustomerContent;
+        }
+        field(50009; "Intranet - Edit Proj. Pricing"; Boolean)
+        {
+            Caption = 'Intranet - Edit Project Pricing';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {

@@ -1,6 +1,6 @@
 page 52012 TlyShipmentSummary
 {
-    Caption = 'Shipment Summary for Today';
+    Caption = 'Shipment Summary';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
@@ -69,6 +69,58 @@ page 52012 TlyShipmentSummary
         }
     }
 
+    actions
+    {
+        area(Promoted)
+        {
+            actionref(Tomorrow; ShowTomorrow)
+            { }
+        }
+        area(Navigation)
+        {
+            action(ShowTomorrow)
+            {
+                Caption = 'Show Tomorrow';
+                ToolTip = 'Show Tomorrow';
+                ApplicationArea = All;
+                Image = Filter;
+                trigger OnAction()
+                var
+                    UserSetup: Record "User Setup";
+                    SalesHeader: Record "Sales Header";
+                begin
+                    Rec.Reset();
+                    CurrPage.Update(false);
+
+                    UserSetup.Get(UserId);
+                    if UserSetup."Default Location Code" = 'TOR' then
+                        LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+                    else if UserSetup."Default Location Code" = 'CAL' then
+                        LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+                    if Date2DWY(WorkDate(), 1) = 5 then
+                        ShipmentDate := WorkDate() + 3
+                    else
+                        ShipmentDate := WorkDate() + 1;
+
+                    if SalesHeader.FindSet() then
+                        repeat
+                            if not Rec.Get('1', SalesHeader."No.") then begin
+                                Rec.SetRange("Shipping Agent Code", SalesHeader."Shipping Agent Code");
+                                Rec.SetFilter("Location Code", LocationCode);
+                                Rec.SetRange("Shipment Date", ShipmentDate);
+                                if Rec.IsEmpty() then begin
+                                    Rec.TransferFields(SalesHeader);
+                                    Rec.Insert();
+                                end;
+                                Rec.SetRange("Shipping Agent Code");
+                            end;
+                        until SalesHeader.Next() = 0;
+                end;
+            }
+        }
+    }
+
     // trigger OnOpenPage()
     // var
     //     ShipmentHeader: Record "Sales Shipment Header";
@@ -86,15 +138,26 @@ page 52012 TlyShipmentSummary
     //             end;
     //         until ShipmentHeader.Next() = 0;
     // end;
+
     trigger OnOpenPage()
     var
+        UserSetup: Record "User Setup";
         SalesHeader: Record "Sales Header";
     begin
+        UserSetup.Get(UserId);
+        if UserSetup."Default Location Code" = 'TOR' then
+            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+        else if UserSetup."Default Location Code" = 'CAL' then
+            LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+        ShipmentDate := WorkDate();
+
         if SalesHeader.FindSet() then
             repeat
                 if not Rec.Get('1', SalesHeader."No.") then begin
                     Rec.SetRange("Shipping Agent Code", SalesHeader."Shipping Agent Code");
-                    Rec.SetRange("Shipment Date", WorkDate());
+                    Rec.SetFilter("Location Code", LocationCode);
+                    Rec.SetRange("Shipment Date", ShipmentDate);
                     if Rec.IsEmpty() then begin
                         Rec.TransferFields(SalesHeader);
                         Rec.Insert();
@@ -111,7 +174,8 @@ page 52012 TlyShipmentSummary
     begin
         SalesHeader.SetFilter("Document Type", 'Order');
         SalesHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        SalesHeader.SetRange("Shipment Date", WorkDate());
+        SalesHeader.SetFilter("Location Code", LocationCode);
+        SalesHeader.SetRange("Shipment Date", ShipmentDate);
         if SalesHeader.Find('-') then
             repeat
                 OrderCount := SalesHeader.Count;
@@ -126,7 +190,8 @@ page 52012 TlyShipmentSummary
     begin
         SalesLine.SetFilter("Document Type", 'Order');
         SalesLine.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        SalesLine.SetRange("Shipment Date", WorkDate());
+        SalesLine.SetFilter("Location Code", LocationCode);
+        SalesLine.SetRange("Shipment Date", ShipmentDate);
         if SalesLine.Find('-') then
             repeat
                 OrderQuantity += SalesLine."Qty. to Ship";
@@ -141,7 +206,8 @@ page 52012 TlyShipmentSummary
     begin
         SalesLine.Reset();
         SalesLine.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        SalesLine.SetRange("Shipment Date", WorkDate());
+        SalesLine.SetFilter("Location Code", LocationCode);
+        SalesLine.SetRange("Shipment Date", ShipmentDate);
         if SalesLine.Find('-') then
             repeat
                 OrderWeight += (SalesLine."Qty. to Ship" * SalesLine."Net Weight");
@@ -156,7 +222,8 @@ page 52012 TlyShipmentSummary
     begin
         ShipmentHeader.Reset();
         ShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        ShipmentHeader.SetRange("Shipment Date", WorkDate());
+        ShipmentHeader.SetFilter("Location Code", LocationCode);
+        ShipmentHeader.SetRange("Shipment Date", ShipmentDate);
         if ShipmentHeader.Find('-') then
             repeat
                 ShipmentCount := ShipmentHeader.Count;
@@ -171,7 +238,8 @@ page 52012 TlyShipmentSummary
     begin
         ShipmentLine.Reset();
         ShipmentLine.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        ShipmentLine.SetRange("Shipment Date", WorkDate());
+        ShipmentLine.SetFilter("Location Code", LocationCode);
+        ShipmentLine.SetRange("Shipment Date", ShipmentDate);
         if ShipmentLine.Find('-') then
             repeat
                 ShipmentQuantity += ShipmentLine.Quantity;
@@ -186,11 +254,16 @@ page 52012 TlyShipmentSummary
     begin
         ShipmentLine.Reset();
         ShipmentLine.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-        ShipmentLine.SetRange("Shipment Date", WorkDate());
+        ShipmentLine.SetFilter("Location Code", LocationCode);
+        ShipmentLine.SetRange("Shipment Date", ShipmentDate);
         if ShipmentLine.Find('-') then
             repeat
                 ShipmentWeight += (ShipmentLine.Quantity * ShipmentLine."Net Weight");
             until ShipmentLine.Next() = 0;
         exit(ShipmentWeight);
     end;
+
+    var
+        LocationCode: Code[25];
+        ShipmentDate: Date;
 }

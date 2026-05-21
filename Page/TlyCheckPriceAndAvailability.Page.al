@@ -529,40 +529,48 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-        PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        if PriceListLine.Find('-') then
-            exit(PriceListLine."Unit Price");
+        if CustomerPriceList <> '' then begin
+            PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+            PriceListLine.SetRange("Asset No.", ItemPriceCode);
+            if PriceListLine.Find('-') then
+                exit(PriceListLine."Unit Price");
+        end;
     end;
 
     procedure GetCustomerCutPriceTier(): Code[20]
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-        PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        if PriceListLine.Find('-') then
-            exit(PriceListLine."Unit Price Tier");
+        if CustomerPriceList <> '' then begin
+            PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+            PriceListLine.SetRange("Asset No.", ItemPriceCode);
+            if PriceListLine.Find('-') then
+                exit(PriceListLine."Unit Price Tier");
+        end;
     end;
 
     procedure GetCustomerPalletPrice(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-        PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        if PriceListLine.Find('-') then
-            exit(PriceListLine."Stocking Pallet Price");
+        if CustomerPriceList <> '' then begin
+            PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+            PriceListLine.SetRange("Asset No.", ItemPriceCode);
+            if PriceListLine.Find('-') then
+                exit(PriceListLine."Stocking Pallet Price");
+        end;
     end;
 
     procedure GetCustomerPalletPriceTier(): Code[20]
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-        PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        if PriceListLine.Find('-') then
-            exit(PriceListLine."Full Pallet Price Tier");
+        if CustomerPriceList <> '' then begin
+            PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+            PriceListLine.SetRange("Asset No.", ItemPriceCode);
+            if PriceListLine.Find('-') then
+                exit(PriceListLine."Full Pallet Price Tier");
+        end;
     end;
 
     procedure GetInsurancePrice(): Decimal

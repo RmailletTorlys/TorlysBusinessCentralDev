@@ -859,7 +859,8 @@ report 50026 "Proforma"
         QtyShippedSingles: Decimal;
         CalculatedCase: Decimal;
     begin
-        If TempSalesLine."Quantity Shipped" <> 0 then begin
+        // If TempSalesLine."Quantity Shipped" <> 0 then begin
+        if OrderShipped then begin
             Item2.Get(TempSalesLine."No.");
             if Item2."Compare Unit of Measure" <> '' then begin
                 PerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
@@ -879,6 +880,28 @@ report 50026 "Proforma"
             end else begin
                 // Pieces := 0;
                 Pieces += TempSalesLine."Quantity Shipped";
+                exit(Pieces);
+            end;
+        end else begin
+            Item2.Get(TempSalesLine."No.");
+            if Item2."Compare Unit of Measure" <> '' then begin
+                PerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+                PerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
+                TempQuantity := ROUND(TempSalesLine."Quantity" * TempSalesLine."Qty. per Unit of Measure", 0.01, '<');
+                QtyShippedPallet := 0;
+                while TempQuantity >= PerPallet do begin
+                    QtyShippedPallet := QtyShippedPallet + 1;
+                    TempQuantity := TempQuantity - PerPallet;
+                end;
+                CalculatedCase := TempQuantity / PerCase;
+                QtyShippedCase := ROUND(CalculatedCase, 1.0, '<');
+                QtyShippedSingles := ROUND((TempQuantity - (QtyShippedCase * PerCase)), 1.0, '>');
+                Pieces := QtyShippedSingles + QtyShippedCase;
+                if QtyShippedPallet <> 0 THEN
+                    Pieces += PerPallet / PerCase * QtyShippedPallet;
+            end else begin
+                // Pieces := 0;
+                Pieces += TempSalesLine."Quantity";
                 exit(Pieces);
             end;
         end;

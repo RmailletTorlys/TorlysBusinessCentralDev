@@ -1727,7 +1727,6 @@ page 52001 TlyOrdersToBeShippedList
         UserSetup.Get(UserId);
         if UserSetup."Default Location Code" = 'TOR' then
             Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUATOR', 'CLAIMS TOR')
-
         else
             if UserSetup."Default Location Code" = 'CAL' then
                 Rec.SetFilter("Location Code", '%1|%2|%3', UserSetup."Default Location Code", 'QUACAL', 'CLAIMS CAL');

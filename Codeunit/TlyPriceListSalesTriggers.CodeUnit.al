@@ -3,11 +3,16 @@ codeunit 57000 TlyPriceListSalesTriggers
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
+    // this is validating price on the page
     [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterNoOnAfterValidate', '', true, true)]
     local procedure OnAfterNoOnAfterValidate(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line")
     begin
         UpdateUnitPrice(SalesLine);
     end;
+
+    //this is validating price on the table
+    // ????????????????
+    // ????????????????
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterGetAssetType', '', false, false)]
     local procedure OnAfterGetAssetType(SalesLine: Record "Sales Line"; var AssetType: Enum "Price Asset Type")

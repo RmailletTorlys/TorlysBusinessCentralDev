@@ -86,4 +86,13 @@ codeunit 50019 TlyCopyFieldsSales
         // SalesHeader.UpdateSalesLinesByFieldNo(SalesHeader.FieldNo("Ship-to Code"), false);
         SalesHeader.RecreateSalesLines(SalesHeader.FieldCaption("Ship-to Code"));
     end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", OnCreateSalesLineOnBeforeTransferFieldsFromTempSalesLine, '', false, false)]
+    local procedure OnCreateSalesLineOnBeforeTransferFieldsFromTempSalesLine(var SalesLine: Record "Sales Line"; var TempSalesLine: Record "Sales Line" temporary; var SalesHeader: Record "Sales Header")
+    begin
+        // these fields don't map over in the process, so we add manually
+        // SalesLine."Qty. to Ship" := TempSalesLine."Qty. to Ship";
+        SalesLine."Price List" := TempSalesLine."Price List";
+        SalesLine."Unit Price" := TempSalesLine."Unit Price";
+    end;
 }

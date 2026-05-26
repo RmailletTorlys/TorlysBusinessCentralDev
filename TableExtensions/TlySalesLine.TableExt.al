@@ -621,7 +621,6 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     // begin
     //     CheckEditCasePallet(Rec, xRec, EditCasePallet);
     // end;
-
     trigger OnBeforeDelete()
     var
         TransferLine: Record "Transfer Line";
@@ -663,7 +662,6 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     //             Error('Cannot be deleted. %1 with a quantity of %2 is joined to %3 line %4.', Rec."No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
     //     end;
     // end;
-
     trigger OnModify()
     begin
         if ((Rec.Quantity) <> (xRec.Quantity)) then
@@ -700,6 +698,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             PriceListLine.SetRange("Price List Code", Rec."Price List");
             PriceListLine.SetRange("Product No.", Rec."Sales Price Code");
             PriceListLine.SetFilter("Ending Date", '');
+            PriceListLine.SetFilter("Stocking Pallet Price", '<>0'); //TLY-SD - 05/26/2026 - this was needed as was bringing over $0
             if PriceListLine.Find('-') then begin
                 Rec.Validate("Unit Price", PriceListLine."Stocking Pallet Price");
                 Message('Full pallet price has been applied!');

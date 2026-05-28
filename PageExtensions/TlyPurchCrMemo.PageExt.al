@@ -17,7 +17,20 @@ pageextension 50052 TlyPurchCrMemo extends "Purchase Credit Memo"
 
         moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from")
 
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Cr. Memo No.", Status)
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
+
+        addafter("Document Date")
+        {
+            field("Vendor Invoice No."; Rec."Vendor Invoice No.")
+            {
+                Caption = 'Vendor Invoice No.';
+                ToolTip = 'Vendor Invoice No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+        }
+
+        moveafter("Vendor Invoice No."; "Vendor Cr. Memo No.", Status)
 
         addafter(Status)
         {

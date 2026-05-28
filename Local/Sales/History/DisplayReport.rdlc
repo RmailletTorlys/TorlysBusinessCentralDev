@@ -73,6 +73,9 @@ End Function
         <Field Name="Name">
           <DataField>Name</DataField>
         </Field>
+        <Field Name="LocationCode">
+          <DataField>LocationCode</DataField>
+        </Field>
         <Field Name="Salesperson_Code">
           <DataField>Salesperson_Code</DataField>
         </Field>

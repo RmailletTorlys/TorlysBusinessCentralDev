@@ -10,7 +10,7 @@ report 50041 "Display Report"
     {
         dataitem(TlyCustomerDisplays; TlyCustomerDisplays)
         {
-            RequestFilterFields = "Customer No.", "Ship-to Code", "Salesperson Code", "Display Type", "Item Category Code";
+            RequestFilterFields = "Customer No.", "Ship-to Code", "Location Code", "Salesperson Code", "Display Type", "Item Category Code";
             RequestFilterHeading = 'Customer Display Report';
 
             column(No_; "Customer No.")
@@ -20,6 +20,8 @@ report 50041 "Display Report"
             column(Name; "Name")
             { }
             // column(Salesperson_Code; TM)
+            column(LocationCode; "Location Code")
+            { }
             column(Salesperson_Code; "Salesperson Code")
             { }
             column(Salesperson_Name; SalespersonName)

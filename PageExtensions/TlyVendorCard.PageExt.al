@@ -1,6 +1,6 @@
 pageextension 50026 TlyVendorCard extends "Vendor Card"
 {
-    DeleteAllowed = false;
+    // DeleteAllowed = false;
 
     layout
     {
@@ -259,4 +259,16 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        CurrPage.Editable := false;
+
+        if UserSetup.Get(UserId) then begin
+            if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::"Accounts Payable") then
+                CurrPage.Editable := true;
+        end;
+    end;
 }

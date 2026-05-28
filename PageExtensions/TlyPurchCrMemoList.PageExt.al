@@ -17,7 +17,17 @@ pageextension 59309 TlyPurchCrMemoList extends "Purchase Credit Memos"
 
         moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date")
 
-        moveafter("Document Date"; "Vendor Cr. Memo No.", "Currency Code")
+        addafter("Document Date")
+        {
+            field("Vendor Invoice No."; Rec."Vendor Invoice No.")
+            {
+                Caption = 'Vendor Invoice No.';
+                ToolTip = 'Vendor Invoice No.';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Vendor Invoice No."; "Vendor Cr. Memo No.", "Currency Code")
 
         addafter("Currency Code")
         {

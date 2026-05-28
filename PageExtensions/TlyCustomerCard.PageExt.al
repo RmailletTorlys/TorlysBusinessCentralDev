@@ -1,7 +1,7 @@
 
 pageextension 50021 TlyCustomerCard extends "Customer Card"
 {
-    DeleteAllowed = false;
+    // DeleteAllowed = false;
 
     layout
     {
@@ -899,7 +899,17 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         DocumentMailing: Codeunit "Document-Mailing";
         R: Report 10072;
 
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        CurrPage.Editable := false;
 
+        if UserSetup.Get(UserId) then begin
+            if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::"Accounts Receivable") then
+                CurrPage.Editable := true;
+        end;
+    end;
 
     trigger OnAfterGetRecord()
     begin

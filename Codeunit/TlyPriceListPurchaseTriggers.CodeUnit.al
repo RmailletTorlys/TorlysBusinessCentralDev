@@ -17,19 +17,22 @@ codeunit 57015 TlyPriceListPurchaseTriggers
     end;
 
 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purchase Line - Price", 'OnAfterIsPriceUpdateNeeded', '', false, false)]
-    // local procedure OnAfterIsPriceUpdateNeeded(AmountType: Enum "Price Amount Type"; FoundPrice: Boolean; CalledByFieldNo: Integer; PurchaseLine: Record "Purchase Line"; var Result: Boolean; IsSKU: Boolean)
-    // begin
-    //     Result := (CalledByFieldNo = PurchaseLine.FieldNo("Shipment Method Code"));
-    // end;
-
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Price List Management", 'OnAfterSetHeadersFilters', '', false, false)]
     local procedure OnAfterSetHeadersFilters(PriceListLine: Record "Price List Line"; var DuplicatePriceListLine: Record "Price List Line")
     begin
         // these are the extra checks we want to run when verifying price lists (both sales and purchases)
         DuplicatePriceListLine.SetRange("Shipment Method Code", PriceListLine."Shipment Method Code"); //this is for purchases, never use this field for sales
         DuplicatePriceListLine.SetRange("Ending Date", PriceListLine."Ending Date"); //this is for sales, but doesn't hurt applying to purchases
-        // DuplicatePriceListLine.SetRange("Price List Code", PriceListLine."Price List Code"); //this is for sales so we can have duplicates across multiple price lists, but doesn't hurt applying to purchases, can't get this to work
-        DuplicatePriceListLine.SetRange("Line No.", PriceListLine."Line No."); //TLY-SD - 05/27-2026 - just put this here as a small chance it creates a duplicate
+        // TLY-SD - 05/27/2026 - these 2 lines might now be useless with the changes below, but we will keep
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Price List Management", 'OnBeforeResolveDuplicatePrices', '', false, false)]
+    local procedure OnBeforeResolveDuplicatePrices(PriceListHeader: Record "Price List Header"; var Resolved: Boolean; var IsHandled: Boolean)
+    begin
+        //TLY-SD - 05/27/2026 - this appears to skip the validation process of duplicate price lists
+        IsHandled := true;
+
+        Resolved := true;
     end;
 }

@@ -40,6 +40,7 @@ page 51025 TlyCustomerDisplays
                     // Visible = false;
                     Editable = false;
                 }
+
                 field("Name 2"; Rec."Name 2")
                 {
                     Caption = 'Name 2';
@@ -47,6 +48,7 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+
                 field("Address"; Rec.Address)
                 {
                     Caption = 'Address';
@@ -54,6 +56,7 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+
                 field("Address 2"; Rec."Address 2")
                 {
                     Caption = 'Address 2';
@@ -61,6 +64,7 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+
                 field("City"; Rec.City)
                 {
                     Caption = 'City';
@@ -68,6 +72,7 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+
                 field("County"; Rec.County)
                 {
                     Caption = 'County';
@@ -83,6 +88,7 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+
                 field("Post Code"; Rec."Post Code")
                 {
                     Caption = 'Post Code';
@@ -90,6 +96,13 @@ page 51025 TlyCustomerDisplays
                     Visible = false;
                     Editable = false;
                 }
+
+                field("Location Code"; Rec."Location Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer location code.';
+                }
+
                 field("Salesperson Code"; Rec."Salesperson Code")
                 {
                     ApplicationArea = All;
@@ -97,6 +110,7 @@ page 51025 TlyCustomerDisplays
                     // Visible = false;
                     Editable = false;
                 }
+
                 field("Salesperson Name"; SalespersonName)
                 {
                     ApplicationArea = All;
@@ -104,6 +118,7 @@ page 51025 TlyCustomerDisplays
                     // Visible = false;
                     Editable = false;
                 }
+
                 field("Club"; Rec."Club")
                 {
                     Caption = 'Club';
@@ -124,16 +139,19 @@ page 51025 TlyCustomerDisplays
                     ApplicationArea = All;
                     ToolTip = 'Specifies the display type.';
                 }
+
                 field("Item Category Code"; Rec."Item Category Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the program number.';
                 }
+
                 field("Item Category Description"; Rec."Item Category Description")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the description.';
                 }
+
                 field("Comments"; Rec.Comments)
                 {
                     ApplicationArea = All;

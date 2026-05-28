@@ -116,6 +116,14 @@ table 51060 TlyCustomerDisplays
             FieldClass = FlowField;
             CalcFormula = lookup("Customer"."Salesperson Code" where("No." = field("Customer No.")));
         }
+
+        field(18; "Location Code"; Code[10])
+        {
+            Caption = 'Location Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Ship-to Address"."Location Code" where("Code" = field("Ship-to Code")));
+        }
     }
 
     keys

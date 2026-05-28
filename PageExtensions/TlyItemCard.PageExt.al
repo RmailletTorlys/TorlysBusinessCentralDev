@@ -1,6 +1,6 @@
 pageextension 50030 TlyItemCard extends "Item Card"
 {
-    DeleteAllowed = false;
+    // DeleteAllowed = false;
 
     layout
     {

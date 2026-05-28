@@ -251,6 +251,7 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             TableRelation = "TPS CMG Container Header";
             Description = 'This writes the value of the FlowField "Container No." into here at posting time.';
         }
+
         field(50021; "Notes"; Text[50])
         {
             Caption = 'Notes';

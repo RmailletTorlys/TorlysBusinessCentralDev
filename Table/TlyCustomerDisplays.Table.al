@@ -121,6 +121,7 @@ table 51060 TlyCustomerDisplays
         {
             Caption = 'Location Code';
             Editable = false;
+            TableRelation = Location;
             FieldClass = FlowField;
             CalcFormula = lookup("Ship-to Address"."Location Code" where("Code" = field("Ship-to Code")));
         }

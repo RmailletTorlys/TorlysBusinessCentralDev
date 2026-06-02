@@ -130,7 +130,7 @@ codeunit 50299 TlyDocumentPrint
     end;
 
     procedure PrintSummaryPickSlip(SalesHeader: Record "Sales Header"): Boolean
-    var
+    // var
     // ReportSelectionWhse: Record "Report Selection Warehouse";
     begin
         SalesHeader.SetRange("Sell-to Customer No.", SalesHeader."Sell-to Customer No.");

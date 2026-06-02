@@ -154,6 +154,18 @@ report 50007 "Summary Pick Slip Transfer TLY"
                         }
                         column(Qty_per_Unit_of_Measure_Case; ItemCaseUOM.Get("Item No.", 'CASE'))
                         { }
+                        column(QtyPerPallet; QtyPerPallet)
+                        {
+
+                        }
+                        column(QtyPerCase; QtyPerCase)
+                        {
+
+                        }
+                        column(CompareUOM; CompareUOM)
+                        {
+
+                        }
 
 
                         // trigger OnPreDataItem()
@@ -182,21 +194,38 @@ report 50007 "Summary Pick Slip Transfer TLY"
                             //     ToShipCase := Abs("Qty. to Ship Case");
                             //     ToShipPallet := Abs("Qty. to Ship Pallet");
                             // end;
-                            ItemCaseUOM.Reset();
-                            ItemCaseUOM.SetFilter(ItemCaseUOM."Item No.", Transfer_Line."Item No.");
-                            ItemCaseUOM.SetFilter(Code, 'CASE');
-                            If ItemCaseUOM.Find('-') then
-                                caseQTY := ItemCaseUOM."Qty. per Unit of Measure"
-                            else
-                                caseQTY := 10000;
+                            // ItemCaseUOM.Reset();
+                            // ItemCaseUOM.SetFilter(ItemCaseUOM."Item No.", Transfer_Line."Item No.");
+                            // ItemCaseUOM.SetFilter(Code, 'CASE');
+                            // If ItemCaseUOM.Find('-') then
+                            //     caseQTY := ItemCaseUOM."Qty. per Unit of Measure"
+                            // else
+                            //     caseQTY := 10000;
 
-                            ItempalletUOM.Reset();
-                            ItempalletUOM.SetFilter(ItemPalletUOM."Item No.", Transfer_Line."Item No.");
-                            ItempalletUOM.SetFilter(Code, 'PALLET');
-                            If ItemPalletUOM.Find('-') then
-                                palletQTY := ItemPalletUOM."Qty. per Unit of Measure"
-                            else
-                                palletQTY := 10000;
+                            // ItempalletUOM.Reset();
+                            // ItempalletUOM.SetFilter(ItemPalletUOM."Item No.", Transfer_Line."Item No.");
+                            // ItempalletUOM.SetFilter(Code, 'PALLET');
+                            // If ItemPalletUOM.Find('-') then
+                            //     palletQTY := ItemPalletUOM."Qty. per Unit of Measure"
+                            // else
+                            //     palletQTY := 10000;
+
+                            //TLY-SD - 06/02/2026 - this is to pull the summed quantity by case and pallet
+                            Item1.Reset();
+                            CompareUOM := '';
+                            QtyPerCase := 0;
+                            QtyPerPallet := 0;
+
+                            Item1.Get("Item No."); //get the item record
+                            if Item1."Compare Unit of Measure" <> '' then begin
+                                CompareUOM := Item1."Compare Unit of Measure";
+                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item1, 'CASE'); //get the SF per case
+                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item1, 'PALLET'); //get the SF per pallet        
+                            end else begin
+                                CompareUOM := 'NONE';
+                                QtyPerCase := 1;
+                                QtyPerPallet := 1;
+                            end;
 
                             TotalWeight := 0;
                             ToShipWeight := 0;
@@ -218,7 +247,6 @@ report 50007 "Summary Pick Slip Transfer TLY"
 
                             ItemNoCount := Transfer_Line.Count;
                         end;
-
                     }
 
                     trigger OnPreDataItem()
@@ -284,4 +312,9 @@ report 50007 "Summary Pick Slip Transfer TLY"
         PrintTime: Time;
         caseQTY: Decimal;
         palletQTY: Decimal;
+        Item1: Record Item;
+        CompareUOM: Code[20];
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
+        UOMMgt: Codeunit "Unit of Measure Management";
 }

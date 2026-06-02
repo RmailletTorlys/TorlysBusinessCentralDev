@@ -166,6 +166,21 @@ End Function
         <Field Name="Qty_per_Unit_of_Measure_Case">
           <DataField>Qty_per_Unit_of_Measure_Case</DataField>
         </Field>
+        <Field Name="QtyPerPallet">
+          <DataField>QtyPerPallet</DataField>
+        </Field>
+        <Field Name="QtyPerPalletFormat">
+          <DataField>QtyPerPalletFormat</DataField>
+        </Field>
+        <Field Name="QtyPerCase">
+          <DataField>QtyPerCase</DataField>
+        </Field>
+        <Field Name="QtyPerCaseFormat">
+          <DataField>QtyPerCaseFormat</DataField>
+        </Field>
+        <Field Name="CompareUOM">
+          <DataField>CompareUOM</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

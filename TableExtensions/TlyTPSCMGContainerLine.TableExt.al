@@ -27,7 +27,7 @@ tableextension 59742 TlyTPSCMGContainerLine extends "TPS CMG Container Line"
         }
         field(50004; "Transfer Order Line No."; Integer)
         {
-            Caption = 'Transfer Order No.';
+            Caption = 'Transfer Order Line No.';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Transfer Line"."Line No." where("TPS CMG Container No." = field("Container No."), "TPS CMG Container Line No." = field("Line No.")));

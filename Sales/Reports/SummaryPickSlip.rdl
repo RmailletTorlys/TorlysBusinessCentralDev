@@ -175,6 +175,21 @@ End Function
         <Field Name="caseQTYFormat">
           <DataField>caseQTYFormat</DataField>
         </Field>
+        <Field Name="QtyPerPallet">
+          <DataField>QtyPerPallet</DataField>
+        </Field>
+        <Field Name="QtyPerPalletFormat">
+          <DataField>QtyPerPalletFormat</DataField>
+        </Field>
+        <Field Name="QtyPerCase">
+          <DataField>QtyPerCase</DataField>
+        </Field>
+        <Field Name="QtyPerCaseFormat">
+          <DataField>QtyPerCaseFormat</DataField>
+        </Field>
+        <Field Name="CompareUOM">
+          <DataField>CompareUOM</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

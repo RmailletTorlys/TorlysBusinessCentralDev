@@ -32,6 +32,10 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+            column(NotesMessages; NotesMessages)
+            {
+
+            }
             column(EncodedText; EncodedText)
             {
 
@@ -449,7 +453,7 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 if SalesCommentLine.FindSet() then begin
                     NotesMessages := 'SEE NOTES';
                     repeat
-                        AllComments := AllComments + ' --- ' + SalesCommentLine.Comment;
+                        AllComments := AllComments + SalesCommentLine.Comment + ' - ';
                     until SalesCommentLine.Next() = 0;
                 end else begin
                     NotesMessages := '';

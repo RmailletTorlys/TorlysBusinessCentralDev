@@ -125,7 +125,7 @@ report 50021 "Summary PickSlip"
                         {
 
                         }
-                        column(Qty_per_Unit_of_Measure_Pallet; ItemCaseUOM.Get("No.", 'CASE'))
+                        column(Qty_per_Unit_of_Measure_Pallet; ItemPalletUOM.Get("No.", 'PALLET'))
                         {
 
                         }
@@ -147,7 +147,18 @@ report 50021 "Summary PickSlip"
                         {
 
                         }
+                        column(QtyPerPallet; QtyPerPallet)
+                        {
 
+                        }
+                        column(QtyPerCase; QtyPerCase)
+                        {
+
+                        }
+                        column(CompareUOM; CompareUOM)
+                        {
+
+                        }
 
                         trigger OnAfterGetRecord()
                         begin
@@ -199,7 +210,6 @@ report 50021 "Summary PickSlip"
                             //         end;
 
                             // If (Sales_line.Type = Type::Item) and (("Qty. to Ship Case" > 0) or ("Qty. to Ship Pallet" > 0)) then begin
-
                             //     ItemCaseUOM.Get("No.", 'CASE');
                             //     ItemPalletUOM.Get("No.", 'PALLET');
                             //     ToShipSingle := "Qty. to Ship (Base)" - (Round(("Qty. to Ship (Base)" / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<') * ItemCaseUOM."Qty. per Unit of Measure");
@@ -207,22 +217,38 @@ report 50021 "Summary PickSlip"
                             //     ToShipPallet := Round("Qty. to Ship (Base)" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');
                             // end;
 
-                            ItemCaseUOM.Reset();
-                            ItemCaseUOM.SetFilter("Item No.", "No.");
-                            ItemCaseUOM.SetFilter(Code, 'CASE');
-                            If ItemCaseUOM.Find('-') then
-                                caseQTY := ItemCaseUOM."Qty. per Unit of Measure"
-                            else
-                                caseQTY := 10000;
+                            //TLY-SD - 06/02/2026 - this is to pull the summed quantity by case and pallet
+                            Item1.Reset();
+                            CompareUOM := '';
+                            QtyPerCase := 0;
+                            QtyPerPallet := 0;
 
-                            ItempalletUOM.Reset();
-                            ItempalletUOM.SetFilter("Item No.", "No.");
-                            ItempalletUOM.SetFilter(Code, 'PALLET');
-                            If ItemPalletUOM.Find('-') then
-                                palletQTY := ItemPalletUOM."Qty. per Unit of Measure"
-                            else
-                                palletQTY := 10000;
+                            Item1.Get("No."); //get the item record
+                            if Item1."Compare Unit of Measure" <> '' then begin
+                                CompareUOM := Item1."Compare Unit of Measure";
+                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item1, 'CASE'); //get the SF per case
+                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item1, 'PALLET'); //get the SF per pallet        
+                            end else begin
+                                CompareUOM := 'NONE';
+                                QtyPerCase := 1;
+                                QtyPerPallet := 1;
+                            end;
 
+                            // ItemCaseUOM.Reset();
+                            // ItemCaseUOM.SetFilter("Item No.", "No.");
+                            // ItemCaseUOM.SetFilter(Code, 'CASE');
+                            // If ItemCaseUOM.Find('-') then
+                            //     caseQTY := ItemCaseUOM."Qty. per Unit of Measure"
+                            // else
+                            //     caseQTY := 10000;
+
+                            // ItempalletUOM.Reset();
+                            // ItempalletUOM.SetFilter("Item No.", "No.");
+                            // ItempalletUOM.SetFilter(Code, 'PALLET');
+                            // If ItemPalletUOM.Find('-') then
+                            //     palletQTY := ItemPalletUOM."Qty. per Unit of Measure"
+                            // else
+                            //     palletQTY := 10000;
 
                             TotalWeight := 0;
 
@@ -250,7 +276,6 @@ report 50021 "Summary PickSlip"
 
                         PrintDate := Today;
                         PrintTime := Time;
-
                     end;
 
                     trigger OnAfterGetRecord()
@@ -300,8 +325,6 @@ report 50021 "Summary PickSlip"
         ItemCaseUOM: Record "Item Unit of Measure";
         ItemPalletUOM: Record "Item Unit of Measure";
         BinContent: Record "Bin Content";
-
-
         OrderString: text[1000];
         NoLoops: Integer;
         NoCopies: Integer;
@@ -321,4 +344,9 @@ report 50021 "Summary PickSlip"
         ItemNoCount: Integer;
         caseQTY: Decimal;
         palletQTY: Decimal;
+        Item1: Record Item;
+        CompareUOM: Code[20];
+        QtyPerCase: Decimal;
+        QtyPerPallet: Decimal;
+        UOMMgt: Codeunit "Unit of Measure Management";
 }

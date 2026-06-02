@@ -379,6 +379,9 @@ report 50035 "Return Conf TLY"
                             else
                                 TempSalesLine.Next();
 
+                            RecCaseQty := 0;
+                            RecPalletQty := 0;
+
                             if TempSalesLine.Type = TempSalesLine.Type::" " then begin
                                 TempSalesLine."No." := '';
                                 TempSalesLine."Unit of Measure" := '';
@@ -387,13 +390,12 @@ report 50035 "Return Conf TLY"
                                 TempSalesLine.Quantity := 0;
                                 RecCaseQty := 0;
                                 RecPalletQty := 0;
-
                             end;
 
-                            If (TempSalesLine."Quantity Pallet" > 0) or (TempSalesLine."Quantity Case" > 0) then
+                            If (TempSalesLine."Quantity Pallet" <> 0) or (TempSalesLine."Quantity Case" <> 0) then
                                 if TempSalesLine.Type = TempSalesLine.Type::Item then begin
                                     ItemCaseUOM.get(TempSalesLine."No.", 'CASE');
-                                    ItemPalletUOM.Get(TempSalesLine."No.", 'Pallet');
+                                    ItemPalletUOM.Get(TempSalesLine."No.", 'PALLET');
                                     RecCaseQty := Round(((TempSalesLine."Return Qty. Received" - (ItemPalletUOM."Qty. per Unit of Measure" *
                                                  (Round(TempSalesLine."Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<')))) / ItemCaseUOM."Qty. per Unit of Measure"), 1, '<');
                                     RecPalletQty := Round(TempSalesLine."Return Qty. Received" / ItemPalletUOM."Qty. per Unit of Measure", 1, '<');

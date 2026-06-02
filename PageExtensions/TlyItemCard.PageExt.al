@@ -628,16 +628,17 @@ pageextension 50030 TlyItemCard extends "Item Card"
     {
         addlast(Category_Process)
         {
-            actionref(ItemAvailability_Promoted; ItemAvailability)
-            {
-            }
+            actionref(StockkeepingUnits_Promoted; "Stockkeepin&g Units")
+            { }
+            actionref(ItemAttributes_Promoted; Attributes)
+            { }
             actionref(ItemAccessories_Promoted; ItemAccessories)
             { }
             actionref(ItemAccessoriesReversal_Promoted; ItemAccessoriesReversal)
             { }
-            actionref(BinContent_Promoted; "&Bin Contents")
+            actionref(ItemAvailability_Promoted; ItemAvailability)
             { }
-            actionref(StockkeepingUnits_Promoted; "Stockkeepin&g Units")
+            actionref(BinContent_Promoted; "&Bin Contents")
             { }
             actionref(Turnover_Promoted; "T&urnover")
             { }

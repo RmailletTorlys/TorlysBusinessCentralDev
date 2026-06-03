@@ -27,7 +27,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Salesperson Commission';
                 Visible = true;
                 ToolTip = 'This field is the commission percentage assigned to the salesperson.';
-
+                Importance = Additional;
             }
 
             field("Salesperson Code 2"; Rec."Salesperson Code 2")
@@ -682,6 +682,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         // {
         //     Visible = false;
         // }
+
+        modify("Salesperson Code")
+        {
+            Importance = Standard;
+        }
     }
 
     actions

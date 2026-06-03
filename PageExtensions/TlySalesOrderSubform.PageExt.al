@@ -775,7 +775,17 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                             TransferLine.SetRange("Document No.", Rec."Transfer Order No.");
                             TransferLine.SetRange("Line No.", Rec."Transfer Order Line No.");
                             if TransferLine.Find('-') then
-                                TransferLine.Delete(true);
+                                if TransferLine."Qty. in Transit" <> 0 then begin
+                                    Message('SUCCESS!\\%1 from %2 with a quantity of %3.\\Join will be broken with %4 line %5.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Transfer Order No.", Rec."Transfer Order Line No.");
+                                    TransferLine."Sales Order No." := '';
+                                    TransferLine."Sales Order Line No." := 0;
+                                    TransferLine.Modify(true);
+                                    Rec.Validate(Rec."Transfer Order No.", '');
+                                    Rec.Validate(Rec."Transfer Order Line No.", 0);
+                                    Rec.Modify(true);
+                                end else begin
+                                    TransferLine.Delete(true);
+                                end;
                         end;
                     end;
                 }

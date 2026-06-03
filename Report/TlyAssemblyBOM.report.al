@@ -1,10 +1,10 @@
-report 50040 "Assembly BOMs TORLYS"
+report 50040 TlyAssemblyBOM
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Assembly/Reports/AssemblyBOMsTORLYS.rdlc';
-    AdditionalSearchTerms = 'Assembly BOMs TORLYS';
+    // AdditionalSearchTerms = 'Assembly BOMs TORLYS';
     ApplicationArea = Assembly;
-    Caption = 'BOMs';
+    Caption = 'Assembly BOM';
     UsageCategory = ReportsAndAnalysis;
 
     dataset
@@ -12,7 +12,7 @@ report 50040 "Assembly BOMs TORLYS"
         dataitem(Item; Item)
         {
             PrintOnlyIfDetail = true;
-            RequestFilterFields = "No.", "Search Description";
+            RequestFilterFields = "No.";//, "Search Description";
             column(CompanyName; COMPANYPROPERTY.DisplayName())
             {
             }
@@ -37,6 +37,13 @@ report 50040 "Assembly BOMs TORLYS"
             column(BOMCompAssemblyBOMCaption; BOMCompAssemblyBOMCaptionLbl)
             {
             }
+            column(ParentBinLocation; ParentBinLocation)
+            {
+            }
+            column(ParentMOQ; ParentMOQ)
+            {
+            }
+
             dataitem("BOM Component"; "BOM Component")
             {
                 CalcFields = "Assembly BOM";
@@ -69,20 +76,44 @@ report 50040 "Assembly BOMs TORLYS"
                 {
                     IncludeCaption = true;
                 }
+                column(ChildBinLocation; ChildBinLocation)
+                {
+                }
 
                 trigger OnAfterGetRecord()
                 begin
-                    BinLocation := '';
-                    BinContent.Reset();
-                    // BinContent.SetRange("Location Code", "Location Code");
-                    BinContent.SetRange("Item No.", "No.");
-                    if (BinContent.Find('-')) then begin
+                    ParentBinLocation := '';
+                    ParentBinContent.Reset();
+                    // ParentBinContent.SetRange("Location Code", "Location Code");
+                    ParentBinContent.SetRange("Item No.", "Parent Item No.");
+                    if (ParentBinContent.Find('-')) then begin
                         repeat
-                            If StrPos(BinLocation, BinContent."Bin Code") = 0 then begin
-                                BinLocation := BinLocation + ' ' + BinContent."Bin Code";
+                            If StrPos(ParentBinLocation, ParentBinContent."Bin Code") = 0 then begin
+                                ParentBinLocation := ParentBinLocation + ' ' + ParentBinContent."Bin Code";
                             end;
-                        until BinContent.Next = 0;
+                        until ParentBinContent.Next = 0;
                     end;
+
+                    ChildBinLocation := '';
+                    ChildBinContent.Reset();
+                    // ChildBinContent.SetRange("Location Code", "Location Code");
+                    ChildBinContent.SetRange("Item No.", "No.");
+                    if (ChildBinContent.Find('-')) then begin
+                        repeat
+                            If StrPos(ChildBinLocation, ChildBinContent."Bin Code") = 0 then begin
+                                ChildBinLocation := ChildBinLocation + ' ' + ChildBinContent."Bin Code";
+                            end;
+                        until ChildBinContent.Next = 0;
+                    end;
+
+                    ParentMOQ := '';
+                    CommentLine.Reset;
+                    CommentLine.SetRange("No.", "Parent Item No.");
+                    CommentLine.SetFilter("Comment Type", 'MOQ');
+                    if CommentLine.Find('-') then
+                        ParentMOQ := CommentLine.Comment
+                    else
+                        ParentMOQ := '';
                 end;
             }
         }
@@ -116,7 +147,10 @@ report 50040 "Assembly BOMs TORLYS"
         BOMsCaptionLbl: Label 'BOMs';
         CurrReportPageNoCaptionLbl: Label 'Page';
         BOMCompAssemblyBOMCaptionLbl: Label 'BOM';
-        BinContent: Record "Bin Content";
-        BinLocation: Code[200];
+        ParentBinContent: Record "Bin Content";
+        ParentBinLocation: Code[200];
+        ChildBinContent: Record "Bin Content";
+        ChildBinLocation: Code[200];
+        ParentMOQ: Text;
+        CommentLine: Record "Comment Line";
 }
-

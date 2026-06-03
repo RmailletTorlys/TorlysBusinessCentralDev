@@ -335,6 +335,6 @@ codeunit 50299 TlyDocumentPrint
         Item: Record Item;
     begin
         Item.SetRange("No.", AssemblyBOM."Parent Item No.");
-        Report.RunModal(801, true, false, Item);
+        Report.RunModal(50040, true, false, Item);
     end;
 }

@@ -144,6 +144,12 @@ End Function
         <Field Name="BOMCompAssemblyBOMCaption">
           <DataField>BOMCompAssemblyBOMCaption</DataField>
         </Field>
+        <Field Name="ParentBinLocation">
+          <DataField>ParentBinLocation</DataField>
+        </Field>
+        <Field Name="ParentMOQ">
+          <DataField>ParentMOQ</DataField>
+        </Field>
         <Field Name="Position_BOMComp">
           <DataField>Position_BOMComp</DataField>
         </Field>
@@ -167,6 +173,9 @@ End Function
         </Field>
         <Field Name="UnitofMeasureCode_BOMComp">
           <DataField>UnitofMeasureCode_BOMComp</DataField>
+        </Field>
+        <Field Name="ChildBinLocation">
+          <DataField>ChildBinLocation</DataField>
         </Field>
       </Fields>
       <Query>

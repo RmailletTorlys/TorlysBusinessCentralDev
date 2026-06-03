@@ -386,7 +386,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
             }
         }
 
-        moveafter("Ship-to Code"; "Location Code", "Reserve", "Shipping Advice")
+        moveafter("Ship-to Code"; "Location Code", "Shipment Method Code", "Shipping Agent Code", "Shipping Agent Service Code", "Reserve", "Shipping Advice")
 
         addafter("Shipping Advice")
         {
@@ -601,10 +601,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
-        modify("Shipping Agent Service Code")
-        {
-            Visible = false;
-        }
+
         modify("Base Calendar Code")
         {
             Visible = false;
@@ -681,10 +678,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Importance = Additional;
         }
-        modify("Shipping Agent Code")
-        {
-            Visible = false;
-        }
+        // modify("Shipping Agent Code")
+        // {
+        //     Visible = false;
+        // }
     }
 
     actions

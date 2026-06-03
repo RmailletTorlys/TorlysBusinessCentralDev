@@ -7,9 +7,9 @@
             "type": "al",
             "tenant": "8e814182-a16b-4579-954b-adbc4658aada",
             "environmentType": "Sandbox",
-            // "environmentName": "Sandbox_DEV",
-            // "environmentName": "TORLYS_BC_Test",
-            "environmentName": "TORLYS_BC_UAT",
+            "environmentName": "TORLYS_BC_DEV", //current DEV environment
+            // "environmentName": "TORLYS_BC_UAT", //current UAT environment
+            // "environmentName": "TORLYS_BC_Test", //only used for UAT NTN
             "startupObjectId": 9305, //sales order list
             // "startupObjectId": 7015,
             "startupObjectType": "Page",

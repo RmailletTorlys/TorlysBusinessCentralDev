@@ -60,6 +60,8 @@ codeunit 50021 TlyLinkSalesLine
             // Message('to cont # = %1.', TransferLine."TPS CMG Container No.");
             ContainerLine.Reset;
             ContainerLine.SetRange("Container No.", TransferLine."TPS CMG Container No.");
+            ContainerLine.SetRange("Transfer Order No.", TransferLine."Document No.");
+            ContainerLine.SetRange("Transfer Order Line No.", TransferLine."Line No.");
             if ContainerLine.Find('-') then begin
                 ContainerLine.CalcFields("Transfer Order No.", "Transfer Order Line No.");
                 // Message('%1, %2, %3, %4.', TransferLine."TPS CMG Container No.", ContainerLine."Container No.", ContainerLine."Transfer Order No.", ContainerLine."Transfer Order Line No.");

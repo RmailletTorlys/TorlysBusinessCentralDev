@@ -252,8 +252,6 @@ pageextension 55741 TlyTransferOrderSubform extends "Transfer Order Subform"
         EditCasePallet: Boolean;
         QuantityRemaining: Decimal;
 
-
-
     trigger OnAfterGetRecord()
     begin
         EditCasePallet := CheckEditCasePallet(Rec);

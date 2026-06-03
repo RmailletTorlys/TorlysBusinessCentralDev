@@ -132,6 +132,12 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
                 ToolTip = 'Quantity Linked';
                 ApplicationArea = All;
             }
+            field("Quantity Remaining"; QuantityRemaining)
+            {
+                Caption = 'Quantity Remaining';
+                ToolTip = 'Quantity Remaining';
+                ApplicationArea = All;
+            }
             field("Qty. to Ship Linked"; Rec."Qty. to Ship Linked")
             {
                 Caption = 'Qty. to Ship Linked';
@@ -192,4 +198,10 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
     }
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        QuantityRemaining: Decimal;
+
+    trigger OnAfterGetRecord()
+    begin
+        QuantityRemaining := Rec.Quantity - Rec."Quantity Linked";
+    end;
 }

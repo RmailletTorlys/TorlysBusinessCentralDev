@@ -153,6 +153,30 @@ End Function
         <Field Name="ParentMOQ">
           <DataField>ParentMOQ</DataField>
         </Field>
+        <Field Name="QtyOnSO">
+          <DataField>QtyOnSO</DataField>
+        </Field>
+        <Field Name="QtyOnSOFormat">
+          <DataField>QtyOnSOFormat</DataField>
+        </Field>
+        <Field Name="QtyOnPO">
+          <DataField>QtyOnPO</DataField>
+        </Field>
+        <Field Name="QtyOnPOFormat">
+          <DataField>QtyOnPOFormat</DataField>
+        </Field>
+        <Field Name="Inventory">
+          <DataField>Inventory</DataField>
+        </Field>
+        <Field Name="InventoryFormat">
+          <DataField>InventoryFormat</DataField>
+        </Field>
+        <Field Name="Sales3M">
+          <DataField>Sales3M</DataField>
+        </Field>
+        <Field Name="Sales3MFormat">
+          <DataField>Sales3MFormat</DataField>
+        </Field>
         <Field Name="QtyRequired">
           <DataField>QtyRequired</DataField>
         </Field>

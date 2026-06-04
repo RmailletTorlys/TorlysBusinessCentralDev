@@ -308,6 +308,13 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Importance = Additional;
             }
+            field("Customer Price Group"; Rec."Customer Price Group")
+            {
+                Caption = 'Customer Price Group';
+                ToolTip = 'Customer Price Group';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
             field("Original Invoice No."; Rec."Original Invoice No.")
             {
                 Caption = 'Original Invoice No.';

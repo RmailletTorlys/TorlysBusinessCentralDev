@@ -183,7 +183,12 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 TableRelation = "Tax Area";
                 Visible = true;
             }
+        }
 
+        moveafter("Tax Area Code"; "Customer Price Group")
+
+        addafter("Customer Price Group")
+        {
             field("Default Price List"; Rec."Default Price List Code")
             {
                 ApplicationArea = All;
@@ -220,13 +225,11 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 end;
             }
 
-
-
-            field("Power Up Code"; Rec."Power Up Level")
+            field("Power Up Level"; Rec."Power Up Level")
             {
                 ApplicationArea = All;
-                Caption = 'Power Up Code';
-                ToolTip = 'Power Up Code';
+                Caption = 'Power Up Level';
+                ToolTip = 'Power Up Level';
                 Visible = false;
             }
 
@@ -397,10 +400,7 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 ToolTip = 'System Modified At';
                 Visible = false;
             }
-
         }
-
-
 
         modify("Salesperson Code")
         {
@@ -431,11 +431,18 @@ pageextension 50022 TlyCustomerList extends "Customer List"
         {
             Visible = false;
         }
+
         modify("Sales (LCY)")
         {
             Visible = false;
         }
+
         modify("Post Code")
+        {
+            Visible = true;
+        }
+
+        modify("Customer Price Group")
         {
             Visible = true;
         }

@@ -46,6 +46,18 @@ report 50040 TlyAssemblyBOM
             column(ParentMOQ; ParentMOQ)
             {
             }
+            column(QtyOnSO; QtyOnSO)
+            {
+            }
+            column(QtyOnPO; QtyOnPO)
+            {
+            }
+            column(Inventory; Inventory)
+            {
+            }
+            column(Sales3M; Sales3M)
+            {
+            }
             column(QtyRequired; QtyRequired)
             {
             }
@@ -131,8 +143,9 @@ report 50040 TlyAssemblyBOM
                         Inventory := ParentItem.Inventory;
                         ParentItem.SetRange("Date Filter", WorkDate() - 90, WorkDate());
                         ParentItem.CalcFields("Sales (Qty.)");
-                        Sales := ParentItem."Sales (Qty.)";
-                        QtyRequired := (Round(((QtyOnSO + QtyOnPO + Sales) - Inventory) / ParentMOQDec, 1, '>') * ParentMOQDec);
+                        Sales3M := ParentItem."Sales (Qty.)";
+                        // QtyRequired := (Round(((QtyOnSO + QtyOnPO + Sales) - Inventory) / ParentMOQDec, 1, '>') * ParentMOQDec);
+                        QtyRequired := QtyOnPO;
                     end;
                 end;
             }
@@ -178,6 +191,6 @@ report 50040 TlyAssemblyBOM
         QtyOnSO: Decimal;
         QtyOnPO: Decimal;
         Inventory: Decimal;
-        Sales: Decimal;
+        Sales3M: Decimal;
         QtyRequired: Decimal;
 }

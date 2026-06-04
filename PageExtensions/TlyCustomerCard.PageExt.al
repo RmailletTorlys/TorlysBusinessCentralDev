@@ -245,7 +245,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
             }
         }
 
-        addfirst(PricesandDiscounts)
+        movefirst(PricesandDiscounts; "Customer Price Group")
+
+        addafter("Customer Price Group")
         {
             field("Default Price List Code"; Rec."Default Price List Code")
             {
@@ -541,10 +543,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
-        modify("Customer Price Group")
-        {
-            Visible = false;
-        }
+
         modify("Customer Disc. Group")
         {
             Visible = false;

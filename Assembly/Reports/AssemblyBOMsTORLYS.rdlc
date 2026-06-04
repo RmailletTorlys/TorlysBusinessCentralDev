@@ -135,6 +135,9 @@ End Function
         <Field Name="Description_Item">
           <DataField>Description_Item</DataField>
         </Field>
+        <Field Name="Description2_Item">
+          <DataField>Description2_Item</DataField>
+        </Field>
         <Field Name="BOMsCaption">
           <DataField>BOMsCaption</DataField>
         </Field>
@@ -149,6 +152,12 @@ End Function
         </Field>
         <Field Name="ParentMOQ">
           <DataField>ParentMOQ</DataField>
+        </Field>
+        <Field Name="QtyRequired">
+          <DataField>QtyRequired</DataField>
+        </Field>
+        <Field Name="QtyRequiredFormat">
+          <DataField>QtyRequiredFormat</DataField>
         </Field>
         <Field Name="Position_BOMComp">
           <DataField>Position_BOMComp</DataField>

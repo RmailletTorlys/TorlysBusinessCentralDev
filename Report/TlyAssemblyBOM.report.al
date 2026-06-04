@@ -28,6 +28,9 @@ report 50040 TlyAssemblyBOM
             column(Description_Item; Description)
             {
             }
+            column(Description2_Item; "Description 2")
+            {
+            }
             column(BOMsCaption; BOMsCaptionLbl)
             {
             }
@@ -41,6 +44,9 @@ report 50040 TlyAssemblyBOM
             {
             }
             column(ParentMOQ; ParentMOQ)
+            {
+            }
+            column(QtyRequired; QtyRequired)
             {
             }
 
@@ -89,7 +95,7 @@ report 50040 TlyAssemblyBOM
                     if (ParentBinContent.Find('-')) then begin
                         repeat
                             If StrPos(ParentBinLocation, ParentBinContent."Bin Code") = 0 then begin
-                                ParentBinLocation := ParentBinLocation + ' ' + ParentBinContent."Bin Code";
+                                ParentBinLocation := ParentBinLocation + '  ' + ParentBinContent."Bin Code";
                             end;
                         until ParentBinContent.Next = 0;
                     end;
@@ -101,7 +107,7 @@ report 50040 TlyAssemblyBOM
                     if (ChildBinContent.Find('-')) then begin
                         repeat
                             If StrPos(ChildBinLocation, ChildBinContent."Bin Code") = 0 then begin
-                                ChildBinLocation := ChildBinLocation + ' ' + ChildBinContent."Bin Code";
+                                ChildBinLocation := ChildBinLocation + '  ' + ChildBinContent."Bin Code";
                             end;
                         until ChildBinContent.Next = 0;
                     end;
@@ -113,7 +119,21 @@ report 50040 TlyAssemblyBOM
                     if CommentLine.Find('-') then
                         ParentMOQ := CommentLine.Comment
                     else
-                        ParentMOQ := '';
+                        Error('%1 needs MOQ setup in comments section on Item Card!', "Parent Item No.");
+
+                    if ParentMOQ <> '' then Evaluate(ParentMOQDec, ParentMOQ);
+                    ParentItem.Reset;
+                    ParentItem.SetRange("No.", "Parent Item No.");
+                    if ParentItem.Find('-') then begin
+                        ParentItem.CalcFields(ParentItem."Qty. on Sales Order", ParentItem."Qty. on Purch. Order", ParentItem.Inventory);
+                        QtyOnSO := ParentItem."Qty. on Sales Order";
+                        QtyOnPO := ParentItem."Qty. on Purch. Order";
+                        Inventory := ParentItem.Inventory;
+                        ParentItem.SetRange("Date Filter", WorkDate() - 90, WorkDate());
+                        ParentItem.CalcFields("Sales (Qty.)");
+                        Sales := ParentItem."Sales (Qty.)";
+                        QtyRequired := (Round(((QtyOnSO + QtyOnPO + Sales) - Inventory) / ParentMOQDec, 1, '>') * ParentMOQDec);
+                    end;
                 end;
             }
         }
@@ -153,4 +173,11 @@ report 50040 TlyAssemblyBOM
         ChildBinLocation: Code[200];
         ParentMOQ: Text;
         CommentLine: Record "Comment Line";
+        ParentMOQDec: Decimal;
+        ParentItem: Record Item;
+        QtyOnSO: Decimal;
+        QtyOnPO: Decimal;
+        Inventory: Decimal;
+        Sales: Decimal;
+        QtyRequired: Decimal;
 }

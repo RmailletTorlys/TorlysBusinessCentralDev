@@ -1,4 +1,4 @@
-report 50021 "Summary PickSlip"
+report 50021 TlySummaryPickSlip
 {
     Caption = 'Summary Pick Slip';
     PreviewMode = PrintLayout;

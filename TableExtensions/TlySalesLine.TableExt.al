@@ -41,7 +41,6 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -91,7 +90,6 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -413,6 +411,14 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         //     CalcFormula = lookup("Sales Header"."Requested Shipment Date" where("No." = field("Document No.")));
         // }
 
+        field(50045; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Currency Factor" where("No." = field("Document No.")));
+        }
+
         modify("No.")
         {
             trigger OnBeforeValidate()
@@ -439,13 +445,15 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 CommentLine.SetRange("No.", "No.");
                 CommentLine.SetRange("Copy to Sales Order", true);
                 if CommentLine.Find('-') then begin
+                    Message('%1 - %2 - %3', LineNo, Rec."Document No.", SalesCommentLine."No.");
                     SalesCommentLine.Reset();
                     SalesCommentLine.SetCurrentKey("Document Type", "No.");
-                    SalesCommentLine.SetRange("Document Type", "Document Type");
-                    SalesCommentLine.SetRange("No.", "Document No.");
-                    if SalesCommentLine.Find('+') then
-                        LineNo := SalesCommentLine."Line No.";
+                    SalesCommentLine.SetRange("Document Type", Rec."Document Type");
+                    SalesCommentLine.SetRange("No.", Rec."Document No.");
+                    if SalesCommentLine.Find('+') then LineNo := SalesCommentLine."Line No.";
+                    Message('%1 - %2 - %3', LineNo, Rec."Document No.", SalesCommentLine."No.");
                     LineNo += 10000;
+                    Message('%1 - %2 - %3', LineNo, Rec."Document No.", SalesCommentLine."No.");
                     repeat
                         SalesCommentLine.Init();
                         SalesCommentLine."Document Type" := Rec."Document Type";

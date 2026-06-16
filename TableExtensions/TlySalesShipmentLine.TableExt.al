@@ -227,13 +227,15 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Shipment Header"."Tag Name" where("No." = field("Document No.")));
         }
-        field(50036; "External Document No."; Code[35])
-        {
-            Caption = 'External Document No.';
-            Editable = false;
-            FieldClass = FlowField;
-            CalcFormula = lookup("Sales Shipment Header"."External Document No." where("No." = field("Document No.")));
-        }
+        // field(50036; "External Document No."; Code[35])
+        // {
+        //     Caption = 'External Document No.';
+        //     Editable = false;
+        //     FieldClass = FlowField;
+        //     CalcFormula = lookup("Sales Shipment Header"."External Document No." where("No." = field("Document No.")));
+        //     ObsoleteState = Removed;
+        //     ObsoleteReason = 'Added in 28.0';
+        // }
         field(50037; "Entered At"; DateTime)
         {
             Caption = 'External Document No.';
@@ -290,16 +292,21 @@ tableextension 50111 TlySalesShipmentLine extends "Sales Shipment Line"
         //     FieldClass = FlowField;
         //     CalcFormula = lookup("Sales Shipment Header"."Requested Shipment Date" where("No." = field("Document No.")));
         // }
-    }
 
+        field(50045; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Shipment Header"."Currency Factor" where("No." = field("Document No.")));
+        }
+    }
 
     // trigger OnModify()
     // begin
     //     if ((Rec.Quantity) <> (xRec.Quantity)) then
     //         Rec.Validate(Quantity);
-
     // end;
-
 
     // [IntegrationEvent(false, false)]
     // procedure OnValidateQuantityCase(var Rec: Record "Sales Line"; xRec: Record "Sales Line"; CallingFieldNo: Integer; relatedQtyFieldNo: Integer)

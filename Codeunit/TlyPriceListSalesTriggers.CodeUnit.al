@@ -11,8 +11,9 @@ codeunit 57000 TlyPriceListSalesTriggers
     end;
 
     //this is validating price on the table
-    // ????????????????
-    // ????????????????
+    //pricing on the table uses "UpdateUnitPriceByField" procedure which fires on change of:
+    //item #, quantity, customer price group, work type code, variant code, unit of measure code, quantity base, customer discount group
+    //TlyPriceSalesLineWithPrice.CodeUnit makes it not do it qhen quantity is changed
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterGetAssetType', '', false, false)]
     local procedure OnAfterGetAssetType(SalesLine: Record "Sales Line"; var AssetType: Enum "Price Asset Type")
@@ -59,41 +60,40 @@ codeunit 57000 TlyPriceListSalesTriggers
     begin
         if SalesLine."Type" <> SalesLine.Type::Item then
             exit;
-        Customer.Reset();
-        Customer.Get(SalesLine."Sell-to Customer No.");
+
+        //TLY-SD - 06/05/2026 - got rid of some of the below as this is not needed here, but not now, maybe later
+        Customer.Reset(); //can be commented out i think
+        Customer.Get(SalesLine."Sell-to Customer No."); //can be commented out i think
         Item.Reset();
         Item.Get(SalesLine."No.");
-
-        SalesLine."Sales Price Code" := Item."Sales Price Code";
-        SalesLine."Default Price List" := Customer."Default Price List Code";
-        SalesLine."Price List" := Customer."Default Price List Code";
-        SalesLine."Unit Price" := 0;
-
-        Commit();
+        SalesLine."Sales Price Code" := Item."Sales Price Code"; //can be commented out i think
+        SalesLine."Default Price List" := Customer."Default Price List Code"; //can be commented out i think
+        SalesLine."Price List" := Customer."Default Price List Code"; //can be commented out i think
+        SalesLine."Unit Price" := 0; //can be commented out i think
+        Commit(); //can be commented out i think
 
         PriceListLine.Reset();
         PriceListLine.SetRange("Price List Code", SalesLine."Price List");
         PriceListLine.SetRange("Product No.", SalesLine."No.");
-
         if (PriceListLine.FindFirst())
         then begin
-
-            SalesLine."Unit Price" := PriceListLine."Unit Price";
+            // SalesLine."Unit Price" := PriceListLine."Unit Price";
+            SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
             Commit();
             exit;
         end;
 
         PriceListLine.SetRange("Product No.", SalesLine."Sales Price Code");
-
         if (PriceListLine.FindFirst())
         then begin
-
-            SalesLine."Unit Price" := PriceListLine."Unit Price";
+            // SalesLine."Unit Price" := PriceListLine."Unit Price";
+            SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
             Commit();
             exit;
         end;
 
-        SalesLine."Unit Price" := Item."Unit Price";
+        // SalesLine."Unit Price" := Item."Unit Price";
+        SalesLine.Validate("Unit Price", Item."Unit Price");
         Commit();
     end;
 }

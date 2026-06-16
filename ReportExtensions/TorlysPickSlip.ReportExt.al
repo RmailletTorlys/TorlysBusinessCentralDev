@@ -565,31 +565,35 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                 if ("Qty. to Ship Case" = 0) and ("Qty. to Ship Pallet" = 0) then
                     TotalPieces := TotalPieces + "Qty. to Ship";
 
-                If ("Gen. Prod. Posting Group" = 'MOULDINGS') then
-                    IF ("Item Category Code" <> 'ACC-86') AND (TempSalesLine."Item Category Code" <> 'ACC-107') AND
-                    ("Item Category Code" <> 'ACC-108') THEN BEGIN
-                        //"To Ship - Singles" := 0;
-                        "Qty. to Ship Case" := 0;
-                        "Qty. to Ship Pallet" := 0
-                    end;
+                // TLY-SD - 06/11/2025 - not needed, item card takes case of this
+                // If ("Gen. Prod. Posting Group" = 'MOULDINGS') then
+                //     IF ("Item Category Code" <> 'ACC-86') AND (TempSalesLine."Item Category Code" <> 'ACC-107') AND
+                //     ("Item Category Code" <> 'ACC-108') THEN BEGIN
+                //         //"To Ship - Singles" := 0;
+                //         "Qty. to Ship Case" := 0;
+                //         "Qty. to Ship Pallet" := 0
+                //     end;
 
-                IF "Gen. Prod. Posting Group" = 'MQ MOULDINGS' THEN BEGIN
-                    //"To Ship - Singles" := 0;
-                    "Qty. to Ship Case" := 0;
-                    "Qty. to Ship Pallet" := 0
-                END;
+                // TLY-SD - 06/11/2025 - not needed, item card takes case of this
+                // IF "Gen. Prod. Posting Group" = 'MQ MOULDINGS' THEN BEGIN
+                //     //"To Ship - Singles" := 0;
+                //     "Qty. to Ship Case" := 0;
+                //     "Qty. to Ship Pallet" := 0
+                // END;
 
-                IF "Gen. Prod. Posting Group" = 'SS MOULDINGS' THEN BEGIN
-                    //"To Ship - Singles" := 0;
-                    "Qty. to Ship Case" := 0;
-                    "Qty. to Ship Pallet" := 0
-                END;
+                // TLY-SD - 06/11/2025 - not needed, item card takes case of this
+                // IF "Gen. Prod. Posting Group" = 'SS MOULDINGS' THEN BEGIN
+                //     //"To Ship - Singles" := 0;
+                //     "Qty. to Ship Case" := 0;
+                //     "Qty. to Ship Pallet" := 0
+                // END;
 
-                IF "Gen. Prod. Posting Group" = 'UNDERLAYMENT' THEN BEGIN
-                    //"To Ship - Singles" := 0;
-                    "Qty. to Ship Case" := 0;
-                    "Qty. to Ship Pallet" := 0
-                END;
+                // TLY-SD - 06/11/2025 - not needed, item card takes case of this
+                // IF "Gen. Prod. Posting Group" = 'UNDERLAYMENT' THEN BEGIN
+                //     //"To Ship - Singles" := 0;
+                //     "Qty. to Ship Case" := 0;
+                //     "Qty. to Ship Pallet" := 0
+                // END;
 
                 ParentBinLocationLabel := '';
                 ParentBinLocation := '';
@@ -608,7 +612,6 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
 
         }
     }
-
 
     requestpage
     {

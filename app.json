@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.26.6.6",
+    "version": "1.26.6.7",
 
     "brief": "",
     "description": "",
@@ -59,7 +59,7 @@
     ],
     "screenshots": [],
     "platform": "1.0.0.0",
-    "application": "27.1.41698.41831",
+    "application": "28.0.46665.48257",
     "idRanges": [
         {
             "from": 50000,

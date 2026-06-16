@@ -1,6 +1,6 @@
-report 50007 "Summary Pick Slip Transfer TLY"
+report 50007 TlySummaryPickSlipTransfer
 {
-    Caption = 'Summary Pick Slip Transfer TLY';
+    Caption = 'Summary Pick Slip Transfer';
     PreviewMode = PrintLayout;
     WordMergeDataItem = CopyLoop;
     RDLCLayout = './Sales/Reports/SummaryPickSlipTransferTLY.rdl';

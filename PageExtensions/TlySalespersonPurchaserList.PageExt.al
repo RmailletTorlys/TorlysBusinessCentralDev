@@ -10,16 +10,9 @@ pageextension 50014 TlySalespersonPurchaserList extends "Salespersons/Purchasers
                 ToolTip = 'Job Title';
                 ApplicationArea = All;
             }
-
-            field("Order Shipping Location"; Rec."Order Shipping Location")
-            {
-                Caption = 'Order Shipping Location';
-                ToolTip = 'Order Shipping Location';
-                ApplicationArea = All;
-            }
         }
 
-        moveafter("Order Shipping Location"; "Phone No.")
+        moveafter("Job Title"; "Phone No.")
 
         addafter("Phone No.")
         {
@@ -58,6 +51,12 @@ pageextension 50014 TlySalespersonPurchaserList extends "Salespersons/Purchasers
             {
                 Caption = 'Intranet - Edit Project Pricing';
                 ToolTip = 'Intranet - Edit Project Pricing';
+                ApplicationArea = All;
+            }
+            field("Order Shipping Location"; Rec."Order Shipping Location")
+            {
+                Caption = 'Order Shipping Location';
+                ToolTip = 'Order Shipping Location';
                 ApplicationArea = All;
             }
             field("Blocked"; Rec."Blocked")

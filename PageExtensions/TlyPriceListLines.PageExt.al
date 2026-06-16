@@ -1,6 +1,6 @@
 pageextension 57001 TlyPriceListLines extends "Price List Lines"
 {
-    //SourceTableView = sorting("Source Type", "Product No.");
+    // SourceTableView = sorting("Source Type", "Product No.");
 
     layout
     {
@@ -80,7 +80,30 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         {
             Visible = false;
         }
+
+        modify("Minimum Quantity")
+        {
+            Visible = false;
+        }
+
+        modify("Unit of Measure Code")
+        {
+            Visible = false;
+        }
     }
+
+    // views
+    // {
+    //     addlast
+    //     {
+    //         view(CRHoldPast)
+    //         {
+    //             Caption = 'CR Hold - Past';
+    //             Filters = where("Ending Date" = filter(' '));
+    //             OrderBy = ascending("Source Type", "Product No.");
+    //         }
+    //     }
+    // }
 
     var
         LookupUserId: Codeunit TlyLookupUserID;

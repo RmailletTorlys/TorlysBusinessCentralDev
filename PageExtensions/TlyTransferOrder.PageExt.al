@@ -235,6 +235,9 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
     {
         addlast(Category_Category6)
         {
+            actionref(ChangeLog; "Change Log")
+            {
+            }
             actionref(PopulateQtyToReceive; "Populate Qty. to Receive")
             {
             }
@@ -251,6 +254,15 @@ pageextension 55740 TlyTransferOrder extends "Transfer Order"
 
         addlast(Documents)
         {
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 1 Value" = field("No.");
+            }
             action("Populate Qty. to Receive")
             {
                 ApplicationArea = Location;

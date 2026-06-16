@@ -41,7 +41,6 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
                 UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record
@@ -91,7 +90,6 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
                 UOMMgt: Codeunit "Unit of Measure Management";
                 QtyPerCase: Decimal;
                 QtyPerPallet: Decimal;
-
             begin
                 if Rec.Type = Rec.Type::Item then begin //only run check for items
                     Item.Get(Rec."No."); //get the item record

@@ -324,6 +324,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                 //do nothing
             end;
         }
+
         modify("Item Reference No.")
         {
             Visible = true;

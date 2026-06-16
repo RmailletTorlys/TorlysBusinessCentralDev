@@ -1,6 +1,6 @@
-report 50027 "Transfer Label"
+report 50027 TlyTransferOrderLabel
 {
-    Caption = 'Transfer Label';
+    Caption = 'Transfer Order Label';
     PreviewMode = PrintLayout;
     WordMergeDataItem = TransferHeader;
     RDLCLayout = './Sales/Reports/Transfer Label.rdlc';

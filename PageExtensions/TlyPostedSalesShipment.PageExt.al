@@ -432,6 +432,12 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
 
     actions
     {
+        addlast(Category_Category5)
+        {
+            actionref(ChangeLog; "Change Log")
+            { }
+        }
+
         addfirst("F&unctions")
         {
             action(RemoveBOL)
@@ -446,6 +452,15 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 begin
                     ShipmentHeaderEdit.Run(Rec);
                 end;
+            }
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 2 Value" = field("Order No.");
             }
         }
     }

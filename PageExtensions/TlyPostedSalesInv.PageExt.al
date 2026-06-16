@@ -442,6 +442,11 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
             {
             }
         }
+        addlast(Category_Category4)
+        {
+            actionref(ChangeLog; "Change Log")
+            { }
+        }
 
         addlast("&Electronic Document")
         {
@@ -566,6 +571,15 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
                 Image = PostedCreditMemo;
                 RunObject = Page "Posted Sales Credit Memo Lines";
                 RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
+            }
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 2 Value" = field("Order No.");
             }
         }
     }

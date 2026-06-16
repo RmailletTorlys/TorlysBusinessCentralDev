@@ -1145,6 +1145,12 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             }
         }
 
+        addlast(Category_Category8)
+        {
+            actionref(ChangeLog; "Change Log")
+            { }
+        }
+
         addbefore(Category_New)
         {
             group("Customer History")
@@ -1375,6 +1381,16 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                     // SalesLine.Validate("Unit Price", FreightAmount);
                     SalesLine.Insert;
                 end;
+            }
+
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 2 Value" = field("No.");
             }
         }
         modify(SendEmailConfirmation)

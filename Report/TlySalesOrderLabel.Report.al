@@ -1,4 +1,4 @@
-report 50005 "Sales Order Label"
+report 50005 TlySalesOrderLabel
 {
     Caption = 'Sales Order Label';
     PreviewMode = PrintLayout;

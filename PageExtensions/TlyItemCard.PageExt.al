@@ -5,19 +5,21 @@ pageextension 50030 TlyItemCard extends "Item Card"
     layout
     {
         //Item Group Start
-        addafter("No.")
-        {
-            field("No. 2"; Rec."No. 2")
-            {
-                Caption = 'No. 2';
-                ToolTip = 'Specifies the collection that the item belongs to.';
-                ApplicationArea = All;
-                Visible = true;
-                Importance = Standard;
-            }
-        }
+        // addafter("No.")
+        // {
+        //     field("No. 2"; Rec."No. 2")
+        //     {
+        //         Caption = 'No. 2';
+        //         ToolTip = 'Specifies the collection that the item belongs to.';
+        //         ApplicationArea = All;
+        //         Visible = true;
+        //         Importance = Standard;
+        //     }
+        // }
 
-        moveafter("No. 2"; Description, "Description 2", Type)
+        // moveafter("No. 2"; Description, "Description 2", Type)
+
+        moveafter("No."; "No. 2", Description, "Description 2", Type)
 
         addafter("Base Unit of Measure")
         {
@@ -321,7 +323,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 ToolTip = 'Tariff No. for Sales Purposes.';
                 ApplicationArea = All;
                 Visible = true;
-                Importance = Additional;
+                Importance = Standard;
+                ShowMandatory = true;
             }
         }
 
@@ -621,6 +624,21 @@ pageextension 50030 TlyItemCard extends "Item Card"
         {
             Visible = true;
             Importance = Standard;
+        }
+
+        modify("Tariff No.")
+        {
+            ShowMandatory = true;
+        }
+
+        modify("Country/Region of Origin Code")
+        {
+            ShowMandatory = true;
+        }
+
+        modify("No. 2")
+        {
+            Visible = true;
         }
     }
 

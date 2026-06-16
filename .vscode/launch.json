@@ -7,9 +7,9 @@
             "type": "al",
             "tenant": "8e814182-a16b-4579-954b-adbc4658aada",
             "environmentType": "Sandbox",
-            "environmentName": "TORLYS_BC_DEV", //current DEV environment - created April 1, 2026
+            // "environmentName": "TORLYS_BC_DEV", //current DEV environment - created April 1, 2026
             // "environmentName": "TORLYS_BC_UAT", //current UAT environment - created April 1, 2026
-            // "environmentName": "TORLYS_BC_NTN", //only used for UAT NTN - created April 3, 2026
+            "environmentName": "TORLYS_BC_NTN", //only used for UAT NTN - created April 3, 2026
             "startupObjectId": 31,
             "startupObjectType": "Page",
             "breakOnError": "All",

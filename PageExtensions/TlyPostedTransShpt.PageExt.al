@@ -125,6 +125,9 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
     {
         addlast(Category_Category4)
         {
+            actionref(ChangeLog; "Change Log")
+            {
+            }
             actionref(SOJoin; "View and Fill Joined SO")
             {
             }
@@ -132,6 +135,15 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
 
         addlast("&Shipment")
         {
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 1 Value" = field("Transfer Order No.");
+            }
             action("View and Fill Joined SO")
             {
                 ApplicationArea = Location;

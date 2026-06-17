@@ -137,8 +137,6 @@ report 50023 "B13 Sales"
                             OrderUOM := 'M3';
                         end;
 
-
-
                         NetWeightLB := "Quantity Shipped" * "Net Weight";
                         NetWeightKG := "Quantity Shipped" * "Net Weight" * 0.453592;
                         LineAmount := "Quantity Shipped" * NetPrice;

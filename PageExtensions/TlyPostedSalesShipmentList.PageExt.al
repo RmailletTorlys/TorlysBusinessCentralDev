@@ -51,9 +51,11 @@ pageextension 50142 TlyPostedSalesShipmentList extends "Posted Sales Shipments"
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        // moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code") //remove this once on 28.0
+        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.") //bring this back once on 28.0
 
-        addafter("External Document No.")
+        addafter("External Document No.") //bring this back once on 28.0
+        // addafter("Location Code") //remove this once on 28.0
         {
             field("Tag Name"; Rec."Tag Name")
             {
@@ -147,10 +149,10 @@ pageextension 50142 TlyPostedSalesShipmentList extends "Posted Sales Shipments"
             Visible = true;
         }
 
-        modify("External Document No.")
-        {
-            Visible = true;
-        }
+        // modify("External Document No.")
+        // {
+        //     Visible = true;
+        // }
 
         modify("Document Date")
         {

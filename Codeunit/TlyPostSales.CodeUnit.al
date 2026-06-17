@@ -14,12 +14,14 @@ codeunit 50030 TlyPostSales
     begin
         //this is to not allocate quantities for partial shipments when shipping or invoicing
         if (SalesLine.Type = SalesLine.Type::Item) and (SalesLine."Document Type" = SalesLine."Document Type"::Order) then begin
-            // Message('here i am');
+            // Message('here i am running OnAfterInitQtyToShip2 from TlyPostSales');
+            // Message('Round 1. QTS = %1', SalesLine."Qty. to Ship");
             SalesLine."Qty. to Ship" := 0;
             SalesLine."Qty. to Ship (Base)" := 0;
             SalesLine."Qty. to Ship Case" := 0;
             SalesLine."Qty. to Ship Pallet" := 0;
             SalesLine.Modify(true);
+            // Message('Round 2. QTS = %1', SalesLine."Qty. to Ship");
         end;
     end;
 }

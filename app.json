@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.26.6.7",
+    "version": "1.26.6.9",
 
     "brief": "",
     "description": "",
@@ -16,43 +16,43 @@
         {
             "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
             "name": "Sustainability",
-            "version": "27.2.42879.42994",
+            "version": "28.0.46665.48257",
             "publisher": "Microsoft"
         },
         {
             "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
             "name": "E-Document Core",
-            "version": "27.2.42879.43521",
+            "version": "28.0.46665.51365",
             "publisher": "Microsoft"
         },
         {
             "id": "e036113a-c9ad-4354-ab15-213d62be5127",
             "name": "Container Management",
-            "version": "1.0.245.0",
+            "version": "1.0.249.0",
             "publisher": "Ternpoint Solutions LP"
         },
         {
             "id": "8c70d081-5c33-431c-a585-66ed91a6f257",
             "name": "Lanham App Library",
-            "version": "18.1.5.0",
+            "version": "28.2.0.0",
             "publisher": "Lanham Associates"
         },
         {
             "id": "bd6ded48-b30c-48b3-b0a2-7e561d3c0d19",
             "name": "Shipping Connector",
-            "version": "4.6.11.0",
+            "version": "4.8.2.0",
             "publisher": "Software Grotto"
         },
         {
             "id": "9f5a78d6-7644-413a-92e5-588c20a191e0",
             "name": "Shipping Connector Documentation Library",
-            "version": "4.6.11.0",
+            "version": "4.8.2.0",
             "publisher": "Software Grotto"
         },
         {
             "id": "24aff131-8f2b-4fde-86f3-07a1e67fbe26",
             "name": "Nav-to-Net 10",
-            "version": "10.12.20251016.1",
+            "version": "10.12.20260224.1",
             "publisher": "Digital Vantage Point"
         }
 

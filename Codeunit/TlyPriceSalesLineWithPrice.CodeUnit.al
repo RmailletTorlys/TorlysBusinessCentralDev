@@ -213,7 +213,6 @@ codeunit 57004 TlyPriceSalesLineWithPrice implements "Line With Price"
     local procedure AddCustomerSources()
     var
         Item: Record Item;
-
     begin
         PriceSourceList.Add(Enum::"Price Source Type"::"All Customers");
         // PriceSourceList.Add(Enum::"Price Source Type"::Customer, SalesHeader."Bill-to Customer No."); // bill-to is standard, but we use sell-to
@@ -233,8 +232,8 @@ codeunit 57004 TlyPriceSalesLineWithPrice implements "Line With Price"
 
     local procedure GetDocumentDate() DocumentDate: Date;
     begin
-        DocumentDate := SalesLine.GetDateForCalculations(SalesHeader); //datecalc is standard, but we want based on workdate
-        // DocumentDate := WorkDate(); //datecalc is standard, but we want based on workdate
+        // DocumentDate := SalesLine.GetDateForCalculations(SalesHeader); //TLY-SD - 06/16/2026 - datecalc is standard, but we want based on workdate
+        DocumentDate := WorkDate(); //TLY-SD - 06/16/2026 - datecalc is standard, but we want based on workdate
         OnAfterGetDocumentDate(DocumentDate, SalesHeader, SalesLine);
     end;
 

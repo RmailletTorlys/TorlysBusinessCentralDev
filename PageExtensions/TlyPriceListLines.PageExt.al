@@ -90,6 +90,11 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         {
             Visible = false;
         }
+
+        modify(PriceIncludesVAT)
+        {
+            Visible = false;
+        }
     }
 
     // views

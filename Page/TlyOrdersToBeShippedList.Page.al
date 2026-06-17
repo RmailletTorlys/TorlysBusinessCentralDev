@@ -270,6 +270,8 @@ page 52001 TlyOrdersToBeShippedList
         {
             group("Change View")
             {
+                actionref("Pickups"; PickupsOnly)
+                { }
                 actionref("Today All"; TodayAll)
                 { }
                 actionref("Today Pickup"; TodayPickup)
@@ -330,7 +332,6 @@ page 52001 TlyOrdersToBeShippedList
             { }
             group("Posted Documents")
             {
-
                 actionref("View Shipments"; ViewShipments)
                 { }
                 actionref("Remove BOL # from SH/OR"; RemoveBOL)
@@ -352,6 +353,34 @@ page 52001 TlyOrdersToBeShippedList
             {
                 Caption = 'Views';
                 Image = View;
+                action(PickupsOnly)
+                {
+                    Caption = 'Pickups';
+                    ToolTip = 'Pickups';
+                    ApplicationArea = All;
+                    Image = Filter;
+                    trigger OnAction()
+                    var
+                        UserSetup: Record "User Setup";
+                        LocationCode: Code[25];
+                        ShipmentDate: Date;
+                    begin
+                        UserSetup.Get(UserId);
+                        if UserSetup."Default Location Code" = 'TOR' then
+                            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+                        else
+                            if UserSetup."Default Location Code" = 'CAL' then
+                                LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+                        Rec.Reset();
+                        Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed At", "No.");
+                        Rec.SetFilter("Document Type", 'Order');
+                        Rec.SetFilter(Status, 'Released');
+                        Rec.SetFilter("Temporary Hold", '0');
+                        Rec.SetFilter("Location Code", LocationCode);
+                        Rec.SetFilter("Shipping Agent Code", 'PU');
+                    end;
+                }
                 action(TodayAll)
                 {
                     Caption = 'Today All';

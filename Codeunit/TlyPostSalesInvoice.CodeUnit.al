@@ -9,7 +9,7 @@ codeunit 50028 TlyPostSalesInvoice
         UOMMgt: Codeunit "Unit of Measure Management";
         TempQuantity: Decimal;
     begin
-        // quantity case and pallet dont transfer properly if invoice is  partial
+        // quantity case and pallet dont transfer properly if invoice is partial
         if SalesLine.Type = SalesLine.Type::Item then begin //only run check for items
             Item.Get(SalesLine."No."); //get the item record
             if Item."Compare Unit of Measure" <> '' then begin

@@ -379,19 +379,13 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
             SalesLine.Type := SalesLine.Type::Item;
             SalesLine."No." := Rec."No.";
             SalesLine.Validate(Description, SalesLine.Description);
-            // SalesLine.Validate("Quantity Pallet", 0);
             if Item."Compare Unit of Measure" = '' then begin
                 SalesLine.Validate(Quantity, DamagedQty * -1);
                 SalesLine.Validate("Return Qty. to Receive", DamagedQty * -1);
-                // SalesLine.Validate("Qty. to Invoice", DamagedQty * -1);
             end else begin
                 SalesLine.Validate("Quantity Case", DamagedQty * -1);
                 SalesLine.Validate("Return Qty. to Receive Case", DamagedQty * -1);
-                // SalesLine.Validate("Qty. to Invoice", DamagedQty * -1);
             end;
-            // SalesLine.Validate("Return Qty. to Receive Pallet", 0);
-            // SalesLine.InitQtyToReceive;
-            // SalesLine.InitQtyToInvoice;
             SalesLine.Validate(Amount, 0);
             SalesLine."Appl.-from Item Entry" := 0;
             SalesLine."Location Code" := Rec."Location Code";

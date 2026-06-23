@@ -77,7 +77,7 @@ page 51004 TlyBillOfLadingSubform
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the second line of the address of the ship-to address.';
                     Caption = 'Ship-to Address 2';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Ship-to City"; Rec."Ship-to City")
                 {

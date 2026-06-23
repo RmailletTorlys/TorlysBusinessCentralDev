@@ -131,6 +131,47 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
             end;
         }
 
+        addlast("Purchase Line")
+        {
+            dataitem(BOMComponentLoop; Integer)
+            {
+                DataItemTableView = sorting(Number);
+
+                column(BOMItemNo; TempBOMComponent."No.") { }
+                column(BOMDescription; TempBOMComponent.Description) { }
+
+                trigger OnPreDataItem()
+                var
+                    BOMComponentRec: Record "BOM Component";
+                begin
+                    TempBOMComponent.Reset();
+                    TempBOMComponent.DeleteAll();
+
+                    // Fill temporary buffer only if the parent sales line is a physical Item
+                    if "Purchase Line".Type = "Purchase Line".Type::Item then begin
+                        BOMComponentRec.SetRange("Parent Item No.", "Purchase Line"."No.");
+                        if BOMComponentRec.FindSet() then begin
+                            repeat
+                                TempBOMComponent.Init();
+                                TempBOMComponent := BOMComponentRec;
+                                TempBOMComponent.Insert();
+                            until BOMComponentRec.Next() = 0;
+                        end;
+                    end;
+
+                    // Set the Integer loop size exactly to the number of BOM items found
+                    SetRange(Number, 1, TempBOMComponent.Count());
+                end;
+
+                trigger OnAfterGetRecord()
+                begin
+                    if Number = 1 then
+                        TempBOMComponent.FindSet()
+                    else
+                        TempBOMComponent.Next();
+                end;
+            }
+        }
     }
 
     var
@@ -147,5 +188,5 @@ reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Ord
         qyantitycasetext: Text;
         quantitypallettext: Text;
         unitpricetext: Text;
-
+        TempBOMComponent: Record "BOM Component" temporary;
 }

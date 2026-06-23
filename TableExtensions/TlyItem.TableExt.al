@@ -528,6 +528,44 @@ tableextension 50027 TlyItem extends Item
             CalcFormula = lookup("Item Category"."Outbound Duty % to US" where("Code" = field("Item Category Code")));
             Editable = false;
         }
+
+        modify("Vendor No.")
+        {
+            trigger OnAfterValidate()
+            var
+                SKU: Record "Stockkeeping Unit";
+                SKUcount: Integer;
+            begin
+                //TLY-SD - 06/18/2026 - when using SKU, doesn't update this field
+                SKU.Reset();
+                SKU.SetRange("Item No.", Rec."No.");
+                if SKU.Find('-') then begin
+                    repeat
+                        SKU."Vendor No." := Rec."Vendor No.";
+                        SKU.Modify(true);
+                    until SKU.Next() = 0;
+                end;
+            end;
+        }
+
+        modify("Vendor Item No.")
+        {
+            trigger OnAfterValidate()
+            var
+                SKU: Record "Stockkeeping Unit";
+                SKUcount: Integer;
+            begin
+                //TLY-SD - 06/18/2026 - when using SKU, doesn't update this field
+                SKU.Reset();
+                SKU.SetRange("Item No.", Rec."No.");
+                if SKU.Find('-') then begin
+                    repeat
+                        SKU."Vendor Item No." := Rec."Vendor Item No.";
+                        SKU.Modify(true);
+                    until SKU.Next() = 0;
+                end;
+            end;
+        }
     }
 
     trigger OnBeforeRename()

@@ -67,10 +67,10 @@ page 50560 TlyItemAvailability
                 }
             }
 
-            group(PricingAll)
+            group(PricingCA)
             {
-                Caption = 'Pricing - non QC/US';
-                grid(PricingAll1)
+                Caption = 'Pricing - CA';
+                grid(PricingCA1)
                 {
                     // group(InsuranceAll1)
                     // {
@@ -84,86 +84,86 @@ page 50560 TlyItemAvailability
                     //         ShowCaption = false;
                     //     }
                     // }
-                    group(MGR1All1)
+                    group(MGR1CA1)
                     {
                         Caption = 'MGR1';
-                        field(MGR1All2; GetMGR1All)
+                        field(MGR1CA2; GetMGR1CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'MGR1 - non QC/US';
-                            ToolTip = 'MGR1 - non QC/US';
+                            Caption = 'MGR1 - CA';
+                            ToolTip = 'MGR1 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(MGR2All1)
+                    group(MGR2CA1)
                     {
                         Caption = 'MGR2';
-                        field(MGR2All2; GetMGR2All)
+                        field(MGR2CA2; GetMGR2CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'MGR2 - non QC/US';
-                            ToolTip = 'MGR2 - non QC/US';
+                            Caption = 'MGR2 - CA';
+                            ToolTip = 'MGR2 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(MGR3All1)
+                    group(MGR3CA1)
                     {
                         Caption = 'MGR3';
-                        field(MGR3All2; GetMGR3All)
+                        field(MGR3CA2; GetMGR3CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'MGR3 - non QC/US';
-                            ToolTip = 'MGR3 - non QC/US';
+                            Caption = 'MGR3 - CA';
+                            ToolTip = 'MGR3 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(TM1All1)
+                    group(TM1CA1)
                     {
                         Caption = 'TM1';
-                        field(TM1All2; GetTM1All)
+                        field(TM1CA2; GetTM1CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'TM1 - non QC/US';
-                            ToolTip = 'TM1 - non QC/US';
+                            Caption = 'TM1 - CA';
+                            ToolTip = 'TM1 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(TM2All1)
+                    group(TM2CA1)
                     {
                         Caption = 'TM2';
-                        field(TM2All2; GetTM2All)
+                        field(TM2CA2; GetTM2CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'TM2 - non QC/US';
-                            ToolTip = 'TM2 - non QC/US';
+                            Caption = 'TM2 - CA';
+                            ToolTip = 'TM2 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(TM3All1)
+                    group(TM3CA1)
                     {
                         Caption = 'TM3';
-                        field(TM3All2; GetTM3All)
+                        field(TM3CA2; GetTM3CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'TM3 - non QC/US';
-                            ToolTip = 'TM3 - non QC/US';
+                            Caption = 'TM3 - CA';
+                            ToolTip = 'TM3 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(TM4All1)
+                    group(TM4CA1)
                     {
                         Caption = 'TM4';
-                        field(TM4All2; GetTM4All)
+                        field(TM4CA2; GetTM4CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'TM4 - non QC/US';
-                            ToolTip = 'TM4 - non QC/US';
+                            Caption = 'TM4 - CA';
+                            ToolTip = 'TM4 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
@@ -171,23 +171,23 @@ page 50560 TlyItemAvailability
                     group(TM5All1)
                     {
                         Caption = 'TM5';
-                        field(TM5All2; GetTM5All)
+                        field(TM5CA2; GetTM5CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'TM5 - non QC/US';
-                            ToolTip = 'TM5 - non QC/US';
+                            Caption = 'TM5 - CA';
+                            ToolTip = 'TM5 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
                     }
-                    group(TM6All1)
+                    group(TM6CA1)
                     {
                         Caption = 'TM6';
-                        field(TM6All2; GetTM6All)
+                        field(TM6CA2; GetTM6CA)
                         {
                             ApplicationArea = All;
-                            Caption = 'TM6 - non QC/US';
-                            ToolTip = 'TM6 - non QC/US';
+                            Caption = 'TM6 - CA';
+                            ToolTip = 'TM6 - CA';
                             Editable = false;
                             ShowCaption = false;
                         }
@@ -463,95 +463,115 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'INSURANCE');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetMGR1All(): Decimal
+    procedure GetMGR1CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-MGR1');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetMGR2All(): Decimal
+    procedure GetMGR2CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-MGR2');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetMGR3All(): Decimal
+    procedure GetMGR3CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-MGR3');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetTM1All(): Decimal
+    procedure GetTM1CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM1');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetTM2All(): Decimal
+    procedure GetTM2CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM2');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetTM3All(): Decimal
+    procedure GetTM3CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM3');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetTM4All(): Decimal
+    procedure GetTM4CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM4');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetTM5All(): Decimal
+    procedure GetTM5CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM5');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
 
-    procedure GetTM6All(): Decimal
+    procedure GetTM6CA(): Decimal
     var
         PriceListLine: Record "Price List Line";
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM6');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -562,6 +582,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetRange("Price List Code", 'TIER-MGR1-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -572,6 +594,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetRange("Price List Code", 'TIER-MGR2-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -582,6 +606,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-MGR3-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -592,6 +618,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM1-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -602,6 +630,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM2-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -612,6 +642,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM3-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -622,6 +654,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM4-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -632,6 +666,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM5-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -642,6 +678,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM6-QC');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -652,6 +690,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetRange("Price List Code", 'TIER-MGR1-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -662,6 +702,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetRange("Price List Code", 'TIER-MGR2-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -672,6 +714,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-MGR3-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -682,6 +726,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM1-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -692,6 +738,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM2-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -702,6 +750,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM3-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -712,6 +762,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM4-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -722,6 +774,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM5-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
@@ -732,6 +786,8 @@ page 50560 TlyItemAvailability
     begin
         PriceListLine.SetFilter("Price List Code", 'TIER-TM6-US');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;

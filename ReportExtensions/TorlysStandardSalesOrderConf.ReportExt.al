@@ -109,7 +109,7 @@ reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - O
         {
             trigger OnAfterAfterGetRecord()
             var
-                BOM: Record "BOM Component";
+            // BOM: Record "BOM Component";
             begin
                 if "Gen. Bus. Posting Group" <> 'IFS' then begin
                     TotalWeight += ("Net Weight" * Quantity);

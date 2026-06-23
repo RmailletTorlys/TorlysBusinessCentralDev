@@ -61,25 +61,28 @@ codeunit 57000 TlyPriceListSalesTriggers
         if SalesLine."Type" <> SalesLine.Type::Item then
             exit;
 
-        //TLY-SD - 06/05/2026 - got rid of some of the below as this is not needed here, but not now, maybe later
-        Customer.Reset(); //can be commented out i think
-        Customer.Get(SalesLine."Sell-to Customer No."); //can be commented out i think
+        //TLY-SD - 06/17/2026 - got rid of some of the below as this is not needed here
+        // Customer.Reset();
+        // Customer.Get(SalesLine."Sell-to Customer No.");
         Item.Reset();
         Item.Get(SalesLine."No.");
-        SalesLine."Sales Price Code" := Item."Sales Price Code"; //can be commented out i think
-        SalesLine."Default Price List" := Customer."Default Price List Code"; //can be commented out i think
-        SalesLine."Price List" := Customer."Default Price List Code"; //can be commented out i think
-        SalesLine."Unit Price" := 0; //can be commented out i think
-        Commit(); //can be commented out i think
+        // SalesLine."Sales Price Code" := Item."Sales Price Code";
+        // SalesLine."Default Price List" := Customer."Default Price List Code";
+        // SalesLine."Price List" := Customer."Default Price List Code";
+        // SalesLine."Unit Price" := 0;
+        // Commit();
 
         PriceListLine.Reset();
         PriceListLine.SetRange("Price List Code", SalesLine."Price List");
         PriceListLine.SetRange("Product No.", SalesLine."No.");
-        if (PriceListLine.FindFirst())
-        then begin
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/17/2026 - added
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/17/2026 - added
+        // if (PriceListLine.FindFirst())
+        // then begin
+        if PriceListLine.Find('-') then begin
             // SalesLine."Unit Price" := PriceListLine."Unit Price";
             SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
-            Commit();
+            // Commit(); //TLY-SD - 06/17/2026 - removed
             exit;
         end;
 
@@ -88,12 +91,12 @@ codeunit 57000 TlyPriceListSalesTriggers
         then begin
             // SalesLine."Unit Price" := PriceListLine."Unit Price";
             SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
-            Commit();
+            // Commit(); //TLY-SD - 06/17/2026 - removed
             exit;
         end;
 
         // SalesLine."Unit Price" := Item."Unit Price";
         SalesLine.Validate("Unit Price", Item."Unit Price");
-        Commit();
+        // Commit(); //TLY-SD - 06/17/2026 - removed
     end;
 }

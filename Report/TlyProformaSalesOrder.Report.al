@@ -1,4 +1,4 @@
-report 50026 "Proforma"
+report 50026 TlyProformaSalesOrder
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Local/Sales/History/Proforma.rdlc';

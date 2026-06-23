@@ -97,18 +97,23 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         }
     }
 
-    // views
-    // {
-    //     addlast
-    //     {
-    //         view(CRHoldPast)
-    //         {
-    //             Caption = 'CR Hold - Past';
-    //             Filters = where("Ending Date" = filter(' '));
-    //             OrderBy = ascending("Source Type", "Product No.");
-    //         }
-    //     }
-    // }
+    actions
+    {
+        addlast(Processing)
+        {
+            action(ShowCurrent)
+            {
+                ApplicationArea = All;
+                Caption = 'Show Current Only';
+                trigger OnAction()
+                begin
+                    Rec.Reset();
+                    Rec.SetCurrentKey("Product No.");
+                    Rec.SetFilter("Ending Date", '%1|>%2', 0D, WorkDate());
+                end;
+            }
+        }
+    }
 
     var
         LookupUserId: Codeunit TlyLookupUserID;

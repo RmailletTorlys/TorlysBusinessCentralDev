@@ -1,4 +1,4 @@
-reportextension 52700 "TorlysBOM" extends "Assembly BOMs"
+reportextension 52700 TlyAssemblyBOM extends "Assembly BOMs"
 {
     dataset
     {

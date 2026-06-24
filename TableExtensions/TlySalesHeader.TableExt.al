@@ -420,6 +420,8 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                                  "Document No." = field("No."), "Qty. to Ship" = Filter(<> 0),
                                  Type = const(Item)));
             FieldClass = FlowField;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 06/23/2026. Never correct, just did a calculated field on the SO list instead.';
         }
 
         modify("Sell-to Customer No.")

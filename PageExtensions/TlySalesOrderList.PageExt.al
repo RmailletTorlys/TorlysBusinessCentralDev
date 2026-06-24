@@ -14,6 +14,14 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Editable = false;
                 ToolTip = 'Display if an order is currently on Credit Hold';
             }
+            field("Collector ID"; CollectorID)
+            {
+                Caption = 'Collector ID';
+                ToolTip = 'Collector ID';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
             field("Order Date"; Rec."Order Date")
             {
                 Caption = 'Order Date';
@@ -52,33 +60,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Salesperson Code")
-
-        addafter("Salesperson Code")
-        {
-            field("Collector ID"; CollectorID)
-            {
-                Caption = 'Collector ID';
-                ToolTip = 'Collector ID';
-                ApplicationArea = All;
-                Visible = true;
-                Editable = false;
-            }
-        }
-
-        addafter("Collector ID") // Places the column after the total amount
-        {
-            field("Shipping Total Incl. VAT"; Rec."Shipping Total Incl. VAT")
-            {
-                ApplicationArea = All;
-                ToolTip = 'Specifies the shipping total including VAT from the order statistics.';
-                Visible = true;
-                Editable = false;
-            }
-        }
-
-        moveafter("Collector ID"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
-        // moveafter("Salesperson Code"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        moveafter("Ship-to County"; "Salesperson Code", "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 
         addafter("External Document No.")
         {
@@ -164,9 +146,30 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 ToolTip = 'Fully Allocated';
                 Editable = false;
             }
+            field("To Ship Amount ($)"; ToShipAmount)
+            {
+                ApplicationArea = All;
+                Caption = 'To Ship Amount ($)';
+                ToolTip = 'To Ship Amount ($)';
+                Editable = false;
+            }
         }
 
-        moveafter("Fully Allocated"; "Amt. Ship. Not Inv. (LCY) Base", Amount)
+        moveafter("To Ship Amount ($)"; "Amt. Ship. Not Inv. (LCY)")
+
+        addafter("Amt. Ship. Not Inv. (LCY)")
+        {
+            field("Outstanding Amount ($)"; Rec."Outstanding Amount ($)")
+            {
+                ApplicationArea = All;
+                Caption = 'Outstanding Amount ($)';
+                ToolTip = 'Outstanding Amount ($)';
+                Editable = false;
+                Visible = false;
+            }
+        }
+
+        moveafter("Outstanding Amount ($)"; Amount)
 
         addafter(Amount)
         {
@@ -244,7 +247,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
 
         modify(Amount)
         {
-            Caption = 'Total Amount';
+            Caption = 'Total Amount ($)';
         }
 
         modify("Shipment Date")
@@ -449,6 +452,13 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Filters = where("No." = filter('NTN*|SS*'), "Status" = const(Open));
                 Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
             }
+            view(PickupOnly)
+            {
+                Caption = 'Pickup Only';
+                Filters = where("Shipping Agent Code" = filter('PU'));
+                OrderBy = ascending("Shipment Date");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
+            }
             // view(Seperator4)
             // {
             //     Caption = '--------------------';
@@ -469,6 +479,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         CollectorID: Code[20];
         UserDepartment: Enum TlyUserDepartment;
         FullyAllocated: Text[3];
+        ToShipAmount: Decimal;
 
     protected var
         ShortcutDimCode: array[8] of Code[20];
@@ -484,6 +495,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
     trigger OnAfterGetRecord()
     var
         Customer: Record Customer;
+        SalesLine: Record "Sales Line";
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
 
@@ -502,5 +514,17 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             FullyAllocated := 'No'
         else
             FullyAllocated := 'Yes';
+
+        // Get value of allocated order
+        Clear(ToShipAmount);
+        SalesLine.Reset();
+        SalesLine.SetRange("Document Type", Rec."Document Type");
+        SalesLine.SetRange("Document No.", Rec."No.");
+        SalesLine.SetFilter("Type", 'Item');
+        SalesLine.SetFilter("Qty. to Ship", '>0');
+        if SalesLine.Find('-') then
+            repeat
+                ToShipAmount := ToShipAmount + (SalesLine."Qty. to Ship" * SalesLine."Unit Price")
+            until SalesLine.Next() = 0;
     end;
 }

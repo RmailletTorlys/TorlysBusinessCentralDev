@@ -492,13 +492,13 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
             StyleExpr = LowMargin;
             trigger OnBeforeValidate()
             begin
-                if Rec.Type <> Rec.Type::Item then
-                    exit;
-                PrepareUserModifiedUnitPrice();
-
-                if ((Rec."Unit Price") <> (xRec."Unit Price")) and (xRec."Unit Price" <> 0) and (UserModifiedUnitPrice) then begin
+                // TLY-SD - 06/23/2026 - removed, was never used
+                // if Rec.Type <> Rec.Type::Item then
+                //     exit;
+                // PrepareUserModifiedUnitPrice();
+                if ((Rec."Unit Price") <> (xRec."Unit Price")) then begin //and (xRec."Unit Price" <> 0) and (UserModifiedUnitPrice) then begin
                     Rec."Price List" := '';
-                    UserModifiedUnitPrice := false;
+                    // UserModifiedUnitPrice := false;
                     CurrPage.Update();
                 end;
             end;
@@ -979,13 +979,14 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
         end;
     end;
 
-    procedure PrepareUserModifiedUnitPrice()
-    begin
-        if Rec.Type <> Rec.Type::Item then
-            exit;
+    // TLY-SD - 06/23/2026 - removed, was never used
+    // procedure PrepareUserModifiedUnitPrice()
+    // begin
+    //     if Rec.Type <> Rec.Type::Item then
+    //         exit;
 
-        UserModifiedUnitPrice := true;
-    end;
+    //     UserModifiedUnitPrice := true;
+    // end;
 
     procedure CheckEditCasePallet(var SalesLine: Record "Sales Line"): Boolean
     var

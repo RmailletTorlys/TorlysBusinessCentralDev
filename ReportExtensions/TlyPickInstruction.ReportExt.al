@@ -1,4 +1,4 @@
-reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
+reportextension 51000 TlyPickInstruction extends "Pick Instruction"
 {
     dataset
     {
@@ -228,6 +228,9 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
             {
 
             }
+
+            column(ProductionDateRequired; ProductionDateRequired)
+            { }
         }
 
         modify("Sales Header")
@@ -608,8 +611,16 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
                     UNTIL ParentBinContent.NEXT() = 0;
                     ParentBinLocationLabel := 'Bin(s): ';
                 END;
-            end;
 
+                ProductionDateRequired := false;
+                Item1.Reset;
+                Item1.SetRange("No.", "No.");
+                Item1.SetFilter("Production Date Required", 'Yes');
+                if Item1.Find('-') then
+                    ProductionDateRequired := true
+                else
+                    ProductionDateRequired := false;
+            end;
         }
     }
 
@@ -709,6 +720,8 @@ reportextension 51000 "TorlysPickSlip" extends "Pick Instruction"
         Text009Lbl: Label 'Pick Slip printed by %1 on %2 at %3';
         IsAboveComment: Boolean;
         MKEndLine: Integer;
+        ProductionDateRequired: Boolean;
+        Item1: Record Item;
 
 #pragma warning restore AA0470
 }

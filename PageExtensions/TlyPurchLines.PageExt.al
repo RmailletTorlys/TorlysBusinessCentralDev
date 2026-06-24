@@ -200,14 +200,19 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
                 ApplicationArea = All;
                 Editable = false;
             }
+            // }
 
-            field("Drop Shipment"; Rec."Drop Shipment")
-            {
-                Caption = 'Drop Shipment';
-                ToolTip = 'Drop Shipment';
-                ApplicationArea = All;
-                Editable = false;
-            }
+            // moveafter("Tax Area Code"; "Drop Shipment") //use on 28.1
+
+            // addafter("Drop Shipment") //use on 28.1
+            // {
+            // field("Drop Shipment"; Rec."Drop Shipment")
+            // {
+            //     Caption = 'Drop Shipment';
+            //     ToolTip = 'Drop Shipment';
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
 
             field("Sales Order No."; Rec."Sales Order No.")
             {

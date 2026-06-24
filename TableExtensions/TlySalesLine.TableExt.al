@@ -188,24 +188,32 @@ tableextension 50037 TlySalesLine extends "Sales Line"
         {
             Caption = 'Override Unit Price';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 06/23/2026. Was never used.';
         }
 
         field(50013; "OverrideSOUnitPriceModDate"; Date)
         {
             Caption = 'Override Unit Price Modified Date';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 06/23/2026. Was never used.';
         }
 
         field(50014; "OverrideSOUnitPriceModTime"; Time)
         {
             Caption = 'Override Unit Price Modified Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 06/23/2026. Was never used.';
         }
 
         field(50015; "OverrideSOUnitPriceModUserID"; Text[2048])
         {
             Caption = 'Override Unit Price Modified User ID';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 06/23/2026. Was never used.';
         }
 
         field(50016; "Discontinued Item"; Boolean)

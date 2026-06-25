@@ -129,5 +129,13 @@ tableextension 50125 TlyPurchCrMemoLine extends "Purch. Cr. Memo Line"
             Caption = 'Notes';
             DataClassification = CustomerContent;
         }
+
+        field(50022; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Purch. Cr. Memo Hdr."."Currency Factor" where("No." = field("Document No.")));
+        }
     }
 }

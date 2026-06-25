@@ -274,6 +274,14 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
         //     FieldClass = FlowField;
         //     CalcFormula = lookup("Sales Cr.Memo Header"."Requested Shipment Date" where("No." = field("Document No.")));
         // }
+
+        field(50045; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Cr.Memo Header"."Currency Factor" where("No." = field("Document No.")));
+        }
     }
 
     // trigger OnModify()

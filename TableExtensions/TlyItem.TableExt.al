@@ -574,6 +574,8 @@ tableextension 50027 TlyItem extends Item
             Error('You cannot Z out a sku until it is marked DISCONTINUED!');
         if (CopyStr("No.", 1, 2) = 'Z-') and (Rec."NTN Web Enabled" = true) then
             Error('You cannot Z out a sku until it is not WEB ENABLED!');
+        if (CopyStr("No.", 1, 2) = 'Z-') and (Rec."In Catalogue" = true) then
+            Error('You cannot Z out a sku until it is not IN CATALOGUE!');
     end;
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

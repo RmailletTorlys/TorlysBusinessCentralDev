@@ -130,5 +130,13 @@ tableextension 56651 TlyReturnShipmentLine extends "Return Shipment Line"
             Caption = 'Notes';
             DataClassification = CustomerContent;
         }
+
+        field(50022; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Return Shipment Header"."Currency Factor" where("No." = field("Document No.")));
+        }
     }
 }

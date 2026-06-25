@@ -256,6 +256,14 @@ tableextension 50039 TlyPurchaseLine extends "Purchase Line"
             DataClassification = CustomerContent;
         }
 
+        field(50022; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Purchase Header"."Currency Factor" where("No." = field("Document No.")));
+        }
+
         modify("No.")
         {
             trigger OnAfterValidate()

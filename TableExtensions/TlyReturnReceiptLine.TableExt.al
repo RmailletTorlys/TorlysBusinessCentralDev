@@ -282,6 +282,14 @@ tableextension 56661 TlyReturnReceiptLine extends "Return Receipt Line"
         //     FieldClass = FlowField;
         //     CalcFormula = lookup("Return Receipt Header"."Requested Shipment Date" where("No." = field("Document No.")));
         // }
+
+        field(50045; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Return Receipt Header"."Currency Factor" where("No." = field("Document No.")));
+        }
     }
 
     // trigger OnModify()

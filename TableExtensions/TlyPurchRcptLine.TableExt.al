@@ -130,5 +130,13 @@ tableextension 50121 TlyPurchRcptLine extends "Purch. Rcpt. Line"
             Caption = 'Notes';
             DataClassification = CustomerContent;
         }
+
+        field(50022; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Purch. Rcpt. Header"."Currency Factor" where("No." = field("Document No.")));
+        }
     }
 }

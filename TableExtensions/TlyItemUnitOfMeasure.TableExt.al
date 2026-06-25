@@ -16,4 +16,11 @@ tableextension 55404 TlyItemUnitOfMeasure extends "Item Unit of Measure"
         }
     }
 
+
+    fieldgroups
+    {
+        addlast(DropDown; Cubage, Weight)
+        {
+        }
+    }
 }

@@ -19,9 +19,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         // moveafter("No. 2"; Description, "Description 2", Type)
 
-        moveafter("No."; "No. 2", Description, "Description 2", Type) //bring this back this once one 28.0
-
-        // moveafter("No."; Description, "Description 2", Type) //remove this once one 28.0
+        moveafter("No."; "No. 2", Description, "Description 2", Type)
 
         addafter("Base Unit of Measure")
         {
@@ -73,6 +71,10 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
         //Item Group End
+
+        //NTN Group Start
+
+        //NTN Group End
 
         //Attributes Group Start
         addafter("Item")
@@ -151,7 +153,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'Special Item';
                     ToolTip = 'Specifies if this item is a special item and only stocked for specified purposes. Please refer to the notes section for details.';
-                    Importance = Additional;
+                    Importance = Standard;
                 }
                 field("Clearance Item"; Rec."Clearance Item")
                 {
@@ -159,7 +161,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'Clearance Item';
                     ToolTip = 'Specifies if this item is no longer being actively replenished and no longer marketed but the stock level is above 10,000 Sq. Ft.';
-                    Importance = Additional;
+                    Importance = Standard;
                 }
 
                 field("High Shade Variation"; Rec."High Shade Variation")
@@ -176,7 +178,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'Production Date Required';
                     ToolTip = 'Production Date Required';
-                    Importance = Additional;
+                    Importance = Standard;
                 }
                 field("QC Inspection Required"; Rec."QC Inspection Required")
                 {
@@ -184,7 +186,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                     Visible = true;
                     Caption = 'QC Inspection Required';
                     ToolTip = 'QC Inspection Required';
-                    Importance = Additional;
+                    Importance = Standard;
                 }
             }
         }
@@ -424,52 +426,170 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
+        modify("Sales Blocked")
+        {
+            Importance = Additional;
+        }
+
+        modify("Purchasing Blocked")
+        {
+            Importance = Additional;
+        }
+
+        modify("Blocked")
+        {
+            Importance = Additional;
+        }
+
+        modify("NTN Web Search Rank")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Qty. on Web Order")
+        {
+            Visible = false;
+        }
+
+        modify("NTN NAV Modified by")
+        {
+            Visible = false;
+        }
+
+        modify("NTN NAV Modified Date")
+        {
+            Visible = false;
+        }
+
+        modify("NTN NAV Created Date")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Previously Modified Date")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Master Item")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Web Variant Enabled")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Web Suggested Price")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Display Line Discount")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Display Sales Price Brackets")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Item Template")
+        {
+            Visible = false;
+        }
+
+        modify("NTN Print Template")
+        {
+            Visible = false;
+        }
+
+        // modify("NTN Web Enabled")
+        // {
+        //     Importance = Additional;
+        // }
+
+        //         modify(NTNInventory)
+        // {
+        //     Importance = Additional;
+        // }
+
+        modify("NTN Display Only")
+        {
+            Importance = Additional;
+        }
+
+        modify("NTN Staging")
+        {
+            Importance = Additional;
+        }
+
+
+
+        modify(NTNTemplates)
+        {
+            Visible = false;
+        }
+
         modify("Manufacturer Code")
         {
             Visible = true;
         }
+
         modify("Minimum Order Quantity")
         {
             Visible = true;
             Editable = true;
             Enabled = true;
         }
+
         modify("Shelf No.")
         {
             Visible = false;
         }
+
         modify("Created From Nonstock Item")
         {
             Visible = false;
         }
+
         modify("Search Description")
         {
             Visible = false;
         }
+
         modify("Qty. on Assembly Order")
         {
             Visible = false;
         }
+
         modify("Qty. on Asm. Component")
         {
             Visible = false;
         }
+
         modify(StockoutWarningDefaultNo)
         {
             Visible = false;
         }
+
         modify(StockoutWarningDefaultYes)
         {
             Visible = false;
         }
+
         modify(PreventNegInventoryDefaultNo)
         {
             Visible = false;
         }
+
         modify(PreventNegInventoryDefaultYes)
         {
             Visible = false;
         }
+
         modify("Unit Volume")
         {
             Visible = false;
@@ -638,7 +758,6 @@ pageextension 50030 TlyItemCard extends "Item Card"
             ShowMandatory = true;
         }
 
-        // bring this back once on 28.0
         modify("No. 2")
         {
             Visible = true;

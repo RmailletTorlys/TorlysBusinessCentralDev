@@ -130,5 +130,13 @@ tableextension 50123 TlyPurchInvLine extends "Purch. Inv. Line"
             Caption = 'Notes';
             DataClassification = CustomerContent;
         }
+
+        field(50022; "Currency Factor"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Purch. Inv. Header"."Currency Factor" where("No." = field("Document No.")));
+        }
     }
 }

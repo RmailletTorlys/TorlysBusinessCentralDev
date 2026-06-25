@@ -47,6 +47,44 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Inventory - CAL';
                 Editable = false;
             }
+            field("Item - In Catalogue"; Rec."Item - In Catalogue")
+            {
+                ApplicationArea = All;
+                Caption = 'Item - In Catalogue';
+                ToolTip = 'Item - In Catalogue';
+                Editable = false;
+            }
+            field("Item - Web Enabled"; Rec."Item - Web Enabled")
+            {
+                ApplicationArea = All;
+                Caption = 'Item - Web Enabled';
+                ToolTip = 'Item - Web Enabled';
+                Editable = false;
+            }
+            field("Related - In Catalogue"; Rec."Related - In Catalogue")
+            {
+                ApplicationArea = All;
+                Caption = 'Related - In Catalogue';
+                ToolTip = 'Related - In Catalogue';
+                Editable = false;
+            }
+            field("Related - Web Enabled"; Rec."Related - Web Enabled")
+            {
+                ApplicationArea = All;
+                Caption = 'Related - Web Enabled';
+                ToolTip = 'Related - Web Enabled';
+                Editable = false;
+            }
+        }
+
+        modify("Prediction Override")
+        {
+            Visible = false;
+        }
+
+        modify("Prediction Exclusion")
+        {
+            Visible = false;
         }
     }
 }

@@ -219,6 +219,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
+        // moveafter("Inventory Value"; "Qty. on Sales Order")
+
         addafter("Qty. on Sales Order")
         {
             field("Qty. to Ship"; Rec."Qty. to Ship")
@@ -251,7 +253,44 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
-        moveafter("Qty. to Ship (Transfer)"; "Qty. on Purch. Order")
+        moveafter("Qty. to Ship (Transfer)"; "Qty. in Transit", "Qty. on Purch. Order")
+
+        addafter("Qty. on Purch. Order")
+        {
+            field("Sales (Qty.)"; Rec."Sales (Qty.)")
+            {
+                Caption = 'Sales (Qty.)';
+                ToolTip = 'Sales (Qty.)';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Additional;
+            }
+
+            field("Sales (Qty.) - 90D"; Rec."Sales (Qty.) - 90D")
+            {
+                Caption = 'Sales (Qty.) - 90D';
+                ToolTip = 'Sales (Qty.) - 90D';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Additional;
+            }
+            field("Purchases (Qty.)"; Rec."Purchases (Qty.)")
+            {
+                Caption = 'Purchases (Qty.)';
+                ToolTip = 'Purchases (Qty.)';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Additional;
+            }
+            field("Purchases (Qty.) - 90D"; Rec."Purchases (Qty.) - 90D")
+            {
+                Caption = 'Purchases (Qty.) - 90D';
+                ToolTip = 'Purchases (Qty.) - 90D';
+                ApplicationArea = All;
+                Visible = true;
+                Importance = Additional;
+            }
+        }
 
         moveafter("Costing Method"; "Inventory Value Zero", "Standard Cost", "Unit Cost", "Cost is Adjusted", "Cost is Posted to G/L")
 
@@ -883,6 +922,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 (UserSetup.Department = UserSetup.Department::Marketing) then
                 CurrPage.Editable := true;
         end;
+
+        Rec.SetRange(Rec."90D Filter", WorkDate() - 90, WorkDate());
     end;
 
     trigger OnAfterGetRecord()

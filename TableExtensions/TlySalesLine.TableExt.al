@@ -452,38 +452,39 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 //but it does the below first, then fires the "RestoreSalesCommentLine" procedure on the Sales Header table which writes back the same data using
                 //the same line # because it stored them in temp
                 //for now, let's just get rid of this and see if anyone complains about these comments not showing up
-                // CommentLine.Reset();
-                // CommentLine.SetCurrentKey("Table Name", "No.", "Line No.");
-                // CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
-                // CommentLine.SetRange("No.", "No.");
-                // CommentLine.SetRange("Copy to Sales Order", true);
-                // if CommentLine.Find('-') then begin
-                // SalesCommentLine.Reset();
-                // SalesCommentLine.SetCurrentKey("Document Type", "No.");
-                // SalesCommentLine.SetRange("Document Type", Rec."Document Type");
-                // SalesCommentLine.SetRange("No.", Rec."Document No.");
-                // if SalesCommentLine.Find('+') then LineNo := SalesCommentLine."Line No.";
-                //     LineNo += 10000;
-                //     repeat
-                //         SalesCommentLine.Init();
-                //         SalesCommentLine."Document Type" := Rec."Document Type";
-                //         SalesCommentLine."No." := Rec."Document No.";
-                //         SalesCommentLine."Comment Type" := CommentLine."Comment Type";
-                //         SalesCommentLine."Line No." := LineNo;
-                //         LineNo += 10000;
-                //         SalesCommentLine.Date := CommentLine.Date;
-                //         SalesCommentLine.Comment := CommentLine.Comment;
-                //         SalesCommentLine."Print On Quote" := CommentLine."Print On Quote";
-                //         SalesCommentLine."Print On Pick Ticket" := CommentLine."Print On Pick Ticket";
-                //         SalesCommentLine."Print On Order Confirmation" := CommentLine."Print On Order Confirmation";
-                //         SalesCommentLine."Print On Shipment" := CommentLine."Print On Shipment";
-                //         SalesCommentLine."Print On Invoice" := CommentLine."Print On Invoice";
-                //         SalesCommentLine."Print On Credit Memo" := CommentLine."Print On Credit Memo";
-                //         SalesCommentLine."Print On Return Authorization" := CommentLine."Print On Return Authorization";
-                //         SalesCommentLine."Print On Return Receipt" := CommentLine."Print On Return Receipt";
-                //         SalesCommentLine.Insert(true);
-                //     until CommentLine.Next = 0;
-                // end;
+                //TLY-SD - 06/26/2026 - I changed the code for changing the ship-to, so brought this back as a test
+                CommentLine.Reset();
+                CommentLine.SetCurrentKey("Table Name", "No.", "Line No.");
+                CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);
+                CommentLine.SetRange("No.", "No.");
+                CommentLine.SetRange("Copy to Sales Order", true);
+                if CommentLine.Find('-') then begin
+                    SalesCommentLine.Reset();
+                    SalesCommentLine.SetCurrentKey("Document Type", "No.");
+                    SalesCommentLine.SetRange("Document Type", Rec."Document Type");
+                    SalesCommentLine.SetRange("No.", Rec."Document No.");
+                    if SalesCommentLine.Find('+') then LineNo := SalesCommentLine."Line No.";
+                    LineNo += 10000;
+                    repeat
+                        SalesCommentLine.Init();
+                        SalesCommentLine."Document Type" := Rec."Document Type";
+                        SalesCommentLine."No." := Rec."Document No.";
+                        SalesCommentLine."Comment Type" := CommentLine."Comment Type";
+                        SalesCommentLine."Line No." := LineNo;
+                        LineNo += 10000;
+                        SalesCommentLine.Date := CommentLine.Date;
+                        SalesCommentLine.Comment := CommentLine.Comment;
+                        SalesCommentLine."Print On Quote" := CommentLine."Print On Quote";
+                        SalesCommentLine."Print On Pick Ticket" := CommentLine."Print On Pick Ticket";
+                        SalesCommentLine."Print On Order Confirmation" := CommentLine."Print On Order Confirmation";
+                        SalesCommentLine."Print On Shipment" := CommentLine."Print On Shipment";
+                        SalesCommentLine."Print On Invoice" := CommentLine."Print On Invoice";
+                        SalesCommentLine."Print On Credit Memo" := CommentLine."Print On Credit Memo";
+                        SalesCommentLine."Print On Return Authorization" := CommentLine."Print On Return Authorization";
+                        SalesCommentLine."Print On Return Receipt" := CommentLine."Print On Return Receipt";
+                        SalesCommentLine.Insert(true);
+                    until CommentLine.Next = 0;
+                end;
 
                 CommentLine.Reset();
                 CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Item);

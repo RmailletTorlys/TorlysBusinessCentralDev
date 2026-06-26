@@ -9,9 +9,9 @@ Enum 50009 TlyPriceListType
         Caption = ' ';
     }
 
-    value(1; "Tier")
+    value(1; "Tier CA")
     {
-        Caption = 'Tier';
+        Caption = 'Tier CA';
     }
 
     value(2; "Tier QC")

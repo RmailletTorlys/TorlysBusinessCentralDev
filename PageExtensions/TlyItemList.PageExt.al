@@ -286,11 +286,29 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
+            field("Sales (Qty.) - 90D"; Rec."Sales (Qty.) - 90D")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Sales (Qty.) - 90D';
+                ToolTip = 'Sales (Qty.) - 90D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
             field("Purchases (Qty.)"; Rec."Purchases (Qty.)")
             {
                 ApplicationArea = Dimensions;
                 Caption = 'Purchases (Qty.)';
                 ToolTip = 'Purchases (Qty.)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Purchases (Qty.) - 90D"; Rec."Purchases (Qty.) - 90D")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Purchases (Qty.) - 90D';
+                ToolTip = 'Purchases (Qty.) - 90D';
                 DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;
@@ -468,10 +486,14 @@ pageextension 50031 TlyItemList extends "Item List"
         }
     }
 
-
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange(Rec."90D Filter", WorkDate() - 90, WorkDate());
+    end;
 
     trigger OnAfterGetRecord()
     begin

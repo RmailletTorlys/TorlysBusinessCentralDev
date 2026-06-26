@@ -424,6 +424,13 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             ObsoleteReason = 'Removed 06/23/2026. Never correct, just did a calculated field on the SO list instead.';
         }
 
+        field(50068; "MK Staged By"; Code[20])
+        {
+            Caption = 'MK Staged By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()

@@ -50,9 +50,8 @@ codeunit 50019 TlyCopyFieldsSales
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopyShipToCustomerAddressFieldsFromShipToAddr', '', false, false)]
     local procedure OnAfterCopyShipToCustomerAddressFieldsFromShipToAddr(var SalesHeader: Record "Sales Header"; ShipToAddress: Record "Ship-to Address"; xSalesHeader: Record "Sales Header")
     begin
-        SalesHeader."Shipping Agent Code" := ShipToAddress."Shipping Agent Code";
+        // SalesHeader."Shipping Agent Code" := ShipToAddress."Shipping Agent Code"; //TLY-SD - 06/26/2026 - it does this out of the box so I am not sure why I added it, but we will remove for now
         SalesHeader."Freight Zone Code" := ShipToAddress."Freight Zone Code";
-        // SalesHeader."Shipping Instructions" := ShipToAddress."Shipping Instructions";
         SalesHeader."Shipping Comment" := ShipToAddress."Shipping Comment";
     end;
 
@@ -83,15 +82,26 @@ codeunit 50019 TlyCopyFieldsSales
     local procedure OnValidateShipToCodeOnBeforeCopyShipToAddress(var SalesHeader: Record "Sales Header"; var xSalesHeader: Record "Sales Header"; var CopyShipToAddress: Boolean)
     begin
         // had to remove the first line and change to the second line for when changing ship-to on an order with existing lines
-        // SalesHeader.UpdateSalesLinesByFieldNo(SalesHeader.FieldNo("Ship-to Code"), false);
-        SalesHeader.RecreateSalesLines(SalesHeader.FieldCaption("Ship-to Code"));
+        //TLY-SD - 06/26/2026 - then brought it back and removed the second line, and added "OnUpdateSalesLineByChangedFieldName" below
+        SalesHeader.UpdateSalesLinesByFieldNo(SalesHeader.FieldNo("Ship-to Code"), false);
+        // SalesHeader.RecreateSalesLines(SalesHeader.FieldCaption("Ship-to Code"));
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnUpdateSalesLineByChangedFieldName', '', false, false)]
+    local procedure OnUpdateSalesLineByChangedFieldName(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; ChangedFieldName: Text[100]; ChangedFieldNo: Integer; xSalesHeader: Record "Sales Header")
+    //TLY-SD - 06/26/2026 - need this in conjunction with "OnValidateShipToCodeOnBeforeCopyShipToAddress" above
+    begin
+        case ChangedFieldNo of
+            SalesHeader.FieldNo("Ship-to Code"):
+                if SalesLine.Type <> SalesLine.Type::" " then
+                    SalesLine.Validate("Ship-to Code", SalesHeader."Ship-to Code");
+        end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", OnCreateSalesLineOnBeforeTransferFieldsFromTempSalesLine, '', false, false)]
     local procedure OnCreateSalesLineOnBeforeTransferFieldsFromTempSalesLine(var SalesLine: Record "Sales Line"; var TempSalesLine: Record "Sales Line" temporary; var SalesHeader: Record "Sales Header")
     begin
         // these fields don't map over in the process, so we add manually
-        // SalesLine."Qty. to Ship" := TempSalesLine."Qty. to Ship";
         SalesLine."Price List" := TempSalesLine."Price List";
         SalesLine."Unit Price" := TempSalesLine."Unit Price";
     end;

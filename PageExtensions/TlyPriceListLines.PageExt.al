@@ -6,7 +6,7 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
     {
         addafter("Unit Price")
         {
-            field("Unit Price Tier"; Rec."Unit Price Tier")
+            field("Unit Price Tier"; UnitPriceTier)
             {
                 Caption = 'Unit Price Tier';
                 ToolTip = 'Unit Price Tier';
@@ -115,6 +115,45 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         }
     }
 
+    trigger OnAfterGetRecord()
+    var
+        Customer: Record "Customer";
+        PriceLine: Record "Price List Line";
+    begin
+        if Rec."Assign-to No." <> '' then begin
+            Customer.Get(Rec."Assign-to No.");
+            // if Customer."Customer Price Group" = 'CA' then begin
+            PriceLine.Reset();
+            PriceLine.SetFilter("Price List Code", 'TIER*');
+            PriceLine.SetFilter("Assign-to No.", Customer."Customer Price Group");
+            PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
+            PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+            PriceLine.SetRange("Unit Price", Rec."Unit Price");
+            if PriceLine.Find('-') then
+                UnitPriceTier := PriceLine."Price List Code";
+            // end else if Customer."Customer Price Group" = 'QC' then begin
+            //     PriceLine.Reset();
+            //     PriceLine.SetFilter("Price List Code", '*QC');
+            //     PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
+            //     PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+            //     PriceLine.SetRange("Unit Price", Rec."Unit Price");
+            //     if PriceLine.Find('-') then
+            //         UnitPriceTier := PriceLine."Price List Code";
+            // end else if Customer."Customer Price Group" = 'US' then begin
+            //     PriceLine.Reset();
+            //     PriceLine.SetFilter("Price List Code", '*US');
+            //     PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
+            //     PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+            //     PriceLine.SetRange("Unit Price", Rec."Unit Price");
+            //     if PriceLine.Find('-') then
+            //         UnitPriceTier := PriceLine."Price List Code";
+            // end else begin
+            //     UnitPriceTier := 'rubbish';
+        end;
+        // end;
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        UnitPriceTier: Code[20];
 }

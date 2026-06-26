@@ -368,6 +368,15 @@ tableextension 56660 TlyReturnReceiptHeader extends "Return Receipt Header"
             Caption = 'Requested Shipment Date';
             DataClassification = CustomerContent;
         }
+
+        //50067 was used on sales header, then i got rid of it
+
+        field(50068; "MK Staged By"; Code[20])
+        {
+            Caption = 'MK Staged By';
+            DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
+        }
     }
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])

@@ -66,19 +66,19 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
         {
             view(Tier)
             {
-                Caption = 'Tier - non QC/US';
+                Caption = 'Tier CA';
                 // Filters = where("Code" = filter('TIER*&<>*QC&<>*US'));
-                Filters = where("Price List Type" = filter('Tier'));
+                Filters = where("Price List Type" = filter('Tier CA'));
             }
             view(TierQC)
             {
-                Caption = 'Tier - QC';
+                Caption = 'Tier QC';
                 // Filters = where("Code" = filter('TIER*&*QC'));
                 Filters = where("Price List Type" = filter('Tier QC'));
             }
             view(TierUS)
             {
-                Caption = 'Tier - US';
+                Caption = 'Tier US';
                 // Filters = where("Code" = filter('TIER*&*US'));
                 Filters = where("Price List Type" = filter('Tier US'));
             }

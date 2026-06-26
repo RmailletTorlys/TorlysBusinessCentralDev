@@ -4,7 +4,7 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
     {
         addafter("Buy-from Vendor Name")
         {
-            field("Order Date"; Rec."Order Date")
+            field("Order Date"; OrderDate)
             {
                 Caption = 'Order Date';
                 ToolTip = 'Order Date';
@@ -318,6 +318,7 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
     }
     var
         QuantityRemaining: Decimal;
+        OrderDate: Date;
 
     trigger OnOpenPage()
     begin
@@ -325,8 +326,13 @@ pageextension 50518 TlyPurchLines extends "Purchase Lines"
     end;
 
     trigger OnAfterGetRecord()
+    var
+        PurchHead: Record "Purchase Header";
     begin
         QuantityRemaining := Rec.Quantity - Rec."Quantity Linked";
+
+        PurchHead.Get(Rec."Document Type", Rec."Document No.");
+        OrderDate := PurchHead."Order Date";
     end;
 
     var

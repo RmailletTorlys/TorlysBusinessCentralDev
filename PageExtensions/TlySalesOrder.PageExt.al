@@ -493,6 +493,12 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                         ToolTip = 'MK Staged Location';
                         ApplicationArea = All;
                     }
+                    field("MK Staged By"; Rec."MK Staged By")
+                    {
+                        Caption = 'MK Staged By';
+                        ToolTip = 'MK Staged By';
+                        ApplicationArea = All;
+                    }
 
                     field("MK Intransit"; Rec."MK Intransit")
                     {

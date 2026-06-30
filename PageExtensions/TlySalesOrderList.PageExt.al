@@ -80,7 +80,17 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
+                Visible = false;
+                Editable = false;
+            }
+
+            field("Channel Code"; Rec."Channel Code")
+            {
+                Caption = 'Channel Code';
+                ToolTip = 'Channel Code';
+                ApplicationArea = All;
                 Visible = true;
+                Editable = false;
             }
             field("Order Type"; Rec."Order Type")
             {
@@ -475,14 +485,13 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        ShortcutDimCode: array[8] of Code[20];
         TorlysCreditHold: Codeunit TlyCreditHold;
         CollectorID: Code[20];
         UserDepartment: Enum TlyUserDepartment;
         FullyAllocated: Text[3];
         ToShipAmount: Decimal;
-
-    protected var
-        ShortcutDimCode: array[8] of Code[20];
+        ChannelCode: Code[20];
 
     trigger OnOpenPage()
     var

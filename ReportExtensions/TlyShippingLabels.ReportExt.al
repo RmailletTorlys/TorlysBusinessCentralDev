@@ -1,4 +1,4 @@
-reportextension 51200 "TorlysShippingLabel" extends "Shipping Labels"
+reportextension 51200 TlyShippingLabels extends "Shipping Labels"
 {
     dataset
     {

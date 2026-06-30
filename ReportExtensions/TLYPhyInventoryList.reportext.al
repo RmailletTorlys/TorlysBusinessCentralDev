@@ -1,4 +1,4 @@
-reportextension 51700 "TorlysPhyInventoryList" extends "Phys. Inventory List"
+reportextension 51700 TlyPhyInventoryList extends "Phys. Inventory List"
 {
     dataset
     {

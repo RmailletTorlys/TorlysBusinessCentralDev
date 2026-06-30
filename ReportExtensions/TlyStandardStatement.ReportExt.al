@@ -1,4 +1,4 @@
-reportextension 51600 "TorlysCustomerStatementNew" extends "Standard Statement"
+reportextension 51600 TlyStandardStatement extends "Standard Statement"
 {
     dataset
     {

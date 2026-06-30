@@ -1,4 +1,4 @@
-pageextension 55730 TlyItemCategories extends "Item Categories"
+pageextension 55733 TlyItemCategoryCard extends "Item Category Card"
 {
     layout
     {
@@ -63,6 +63,7 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 Caption = 'Created By';
                 ToolTip = 'Created By';
                 Editable = false;
+                Importance = Additional;
             }
 
             field(SystemCreatedAt; Rec.SystemCreatedAt)
@@ -71,6 +72,7 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 Caption = 'Created At';
                 ToolTip = 'Created At';
                 Editable = false;
+                Importance = Additional;
             }
 
             field("SystemModifiedy"; LookupUserId.UserId(Rec."SystemModifiedBy"))
@@ -79,6 +81,7 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 Caption = 'Modified By';
                 ToolTip = 'Modified By';
                 Editable = false;
+                Importance = Additional;
             }
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
@@ -86,6 +89,28 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 Caption = 'Modified At';
                 ToolTip = 'Modified At';
                 Editable = false;
+                Importance = Additional;
+            }
+        }
+
+        modify("Parent Category")
+        {
+            Visible = false;
+        }
+
+        modify(Attributes)
+        {
+            Visible = false;
+        }
+
+        addafter(Attributes)
+        {
+            part(ItemAdditionalCostsSubform; TlyItemAdditionalCosts)
+            {
+                ApplicationArea = All;
+                Enabled = true;
+                SubPageLink = "Item Category Code" = field("Code");
+                UpdatePropagation = Both;
             }
         }
     }

@@ -376,6 +376,14 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
+
+        field(50069; "Channel Code"; Code[20])
+        {
+            Caption = 'Channel Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Dimension Set Entry"."Dimension Value Code" where("Dimension Set ID" = field("Dimension Set ID"), "Dimension Code" = filter('CHANNEL')));
+            Editable = false;
+        }
     }
 
     keys

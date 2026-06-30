@@ -107,7 +107,7 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
                 Caption = 'Show Current Only';
                 trigger OnAction()
                 begin
-                    Rec.Reset();
+                    // Rec.Reset();
                     Rec.SetCurrentKey("Product No.");
                     Rec.SetFilter("Ending Date", '%1|>%2', 0D, WorkDate());
                 end;

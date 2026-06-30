@@ -1,4 +1,4 @@
-reportextension 50300 "TorlysPostedCreditMemo" extends "Standard Sales - Credit Memo"
+reportextension 50300 TlyStandardSalesCreditMemo extends "Standard Sales - Credit Memo"
 {
     dataset
     {

@@ -44,31 +44,6 @@ page 52003 TlySalesPriceCodeList
         }
     }
 
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action(New)
-    //         {
-    //             Caption = 'New Sales Price Code';
-    //             ToolTip = 'Create a new price code.';
-    //             ApplicationArea = All;
-    //             Image = New;
-    //             Promoted = true;
-    //             PromotedCategory = New;
-    //             PromotedOnly = true;
-    //             trigger OnAction()
-    //             var
-    //                 PriceCode: Record TlySalesPriceCode;
-    //             begin
-    //                 PriceCode.Init();
-    //                 if Page.RunModal(Page::TlySalesPriceCodeList, PriceCode) = ACTION::OK then
-    //                     PriceCode.Insert(true);
-    //             end;
-    //         }
-    //     }
-    // }
-
     views
     {
         view(PriceListOrder)

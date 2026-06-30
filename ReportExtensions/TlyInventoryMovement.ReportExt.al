@@ -1,4 +1,4 @@
-reportextension 51100 "TorlysInventoryMovement" extends "Inventory Movement"
+reportextension 51100 TlyInventoryMovement extends "Inventory Movement"
 {
     dataset
     {

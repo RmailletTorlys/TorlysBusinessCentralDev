@@ -1,4 +1,4 @@
-reportextension 50000 "TorlysStandardSalesOrderConf" extends "Standard Sales - Order Conf."
+reportextension 50000 TlyStandardSalesOrderConf extends "Standard Sales - Order Conf."
 {
     dataset
     {

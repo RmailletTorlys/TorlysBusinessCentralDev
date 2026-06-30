@@ -1,4 +1,4 @@
-reportextension 52600 TlyCheckReport extends "Check (Stub/Check/Stub)"
+reportextension 52600 TlyCheck extends "Check (Stub/Check/Stub)"
 {
     dataset
     {

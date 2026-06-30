@@ -1,4 +1,4 @@
-reportextension 51500 "TorlysProForma" extends "Standard Sales - Pro Forma Inv"
+reportextension 51500 TlyStandardSalesProFormaInv extends "Standard Sales - Pro Forma Inv"
 {
     dataset
     {

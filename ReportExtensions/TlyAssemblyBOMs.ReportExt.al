@@ -1,4 +1,4 @@
-reportextension 52700 TlyAssemblyBOM extends "Assembly BOMs"
+reportextension 52700 TlyAssemblyBOMs extends "Assembly BOMs"
 {
     dataset
     {

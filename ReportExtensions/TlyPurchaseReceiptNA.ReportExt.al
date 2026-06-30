@@ -1,4 +1,4 @@
-reportextension 50700 "TorlysPurchaseReceipt" extends "Purchase Receipt NA"
+reportextension 50700 TlyPurchaseReceiptNA extends "Purchase Receipt NA"
 {
     dataset
     {

@@ -1,4 +1,4 @@
-reportextension 50500 "TorlysTransferOrder" extends "Transfer Order"
+reportextension 50500 TlyTransferOrder extends "Transfer Order"
 {
     dataset
     {

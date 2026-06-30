@@ -1,7 +1,21 @@
-reportextension 51800 "TorlysCustomerStatement1" extends "Customer Statements"
+reportextension 51800 TlyCustomerStatements extends "Customer Statements"
 {
     dataset
     {
+        add(CustLedgerEntry4)
+        {
+            column(PoNumber; "External Document No.")
+            {
+
+            }
+        }
+        add(Customer)
+        {
+            column(CustName; "Name")
+            {
+
+            }
+        }
         add("OpenItem")
         {
             // column(Document_Date; "Document Date")
@@ -9,6 +23,10 @@ reportextension 51800 "TorlysCustomerStatement1" extends "Customer Statements"
 
             // }
             column(ponumber2; ponumber2)
+            {
+
+            }
+            column(tempPONumber; TempCustLedgEntry."External Document No.")
             {
 
             }

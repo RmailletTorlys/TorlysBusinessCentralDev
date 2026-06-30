@@ -73,8 +73,16 @@ pageextension 59301 TlySalesInvoiceList extends "Sales Invoice List"
                 TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
+                Visible = false;
+                Editable = false;
+            }
+            field("Channel Code"; Rec."Channel Code")
+            {
+                Caption = 'Channel Code';
+                ToolTip = 'Channel Code';
+                ApplicationArea = All;
                 Visible = true;
-
+                Editable = false;
             }
             field("Order Type"; Rec."Order Type")
             {

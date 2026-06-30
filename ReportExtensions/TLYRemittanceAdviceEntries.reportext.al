@@ -1,4 +1,4 @@
-reportextension 52800 "TorlysRemittanceAdviceEntries" extends "Remittance Advice - Entries"
+reportextension 52800 TlyRemittanceAdviceEntries extends "Remittance Advice - Entries"
 {
     dataset
     {

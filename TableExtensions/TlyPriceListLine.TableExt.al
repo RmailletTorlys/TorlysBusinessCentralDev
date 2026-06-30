@@ -39,5 +39,24 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Price List Line"."Price List Code" where("Product No." = field("Product No."), "Unit Price" = field("Stocking Pallet Price"), "Price List Code" = filter('TIER*&<>*QC&<>*US'), "Ending Date" = filter('')));
         }
+
+        modify("Product No.")
+        {
+            //TLY-SD - 06/29/2026 - start
+            //out of the box - start
+            TableRelation = if ("Asset Type" = const(Item)) Item //where("No." = field("Product No.")) //remove this because dont know why needed
+            else
+            if ("Asset Type" = const("G/L Account")) "G/L Account"
+            else
+            if ("Asset Type" = const(Resource)) Resource
+            else
+            if ("Asset Type" = const("Resource Group")) "Resource Group"
+            else
+            if ("Asset Type" = const("Item Discount Group")) "Item Discount Group"
+            //out of the box - end
+            else //for our added Asset Type
+            if ("Asset Type" = const("Sales Price Code")) TlySalesPriceCode; //for our added Asset Type
+            //TLY-SD - 06/29/2026 - end
+        }
     }
 }

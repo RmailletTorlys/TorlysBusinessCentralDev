@@ -1,4 +1,4 @@
-reportextension 50400 "TorlysPurchaseOrderConf" extends "Standard Purchase - Order"
+reportextension 50400 TlyStandardPurchaseOrder extends "Standard Purchase - Order"
 {
     dataset
     {

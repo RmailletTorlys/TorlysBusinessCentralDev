@@ -1,4 +1,4 @@
-reportextension 50082 "TorlysReturnReceipt" extends "Return Receipt"
+reportextension 50082 TlyReturnReceipt extends "Return Receipt"
 {
     dataset
     {

@@ -61,11 +61,19 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
                 ApplicationArea = Dimensions;
                 CaptionClass = '1,2,3';
                 ToolTip = 'Global Dimension 3 Code';
-                // TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
-                //   "Dimension Value Type" = const(Standard),
-                //   Blocked = const(false));
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                  "Dimension Value Type" = const(Standard),
+                  Blocked = const(false));
                 Visible = false;
-
+                Editable = false;
+            }
+            field("Channel Code"; Rec."Channel Code")
+            {
+                Caption = 'Channel Code';
+                ToolTip = 'Channel Code';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
             }
             field("Reason Code"; Rec."Reason Code")
             {

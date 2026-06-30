@@ -1,4 +1,4 @@
-reportextension 51400 "TorlysCashRequirementbyDueDate" extends "Cash Requirements by Due Date"
+reportextension 51400 TlyCashRequirementsbyDueDate extends "Cash Requirements by Due Date"
 {
     dataset
     {

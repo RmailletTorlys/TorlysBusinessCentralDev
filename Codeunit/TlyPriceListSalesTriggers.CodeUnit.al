@@ -80,6 +80,7 @@ codeunit 57000 TlyPriceListSalesTriggers
         // if (PriceListLine.FindFirst())
         // then begin
         if PriceListLine.Find('-') then begin
+            //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
             // SalesLine."Unit Price" := PriceListLine."Unit Price";
             SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
             // Commit(); //TLY-SD - 06/17/2026 - removed
@@ -89,12 +90,14 @@ codeunit 57000 TlyPriceListSalesTriggers
         PriceListLine.SetRange("Product No.", SalesLine."Sales Price Code");
         if (PriceListLine.FindFirst())
         then begin
+            //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
             // SalesLine."Unit Price" := PriceListLine."Unit Price";
             SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
             // Commit(); //TLY-SD - 06/17/2026 - removed
             exit;
         end;
 
+        //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
         // SalesLine."Unit Price" := Item."Unit Price";
         SalesLine.Validate("Unit Price", Item."Unit Price");
         // Commit(); //TLY-SD - 06/17/2026 - removed

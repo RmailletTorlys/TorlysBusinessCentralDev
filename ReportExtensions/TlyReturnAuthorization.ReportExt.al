@@ -1,4 +1,4 @@
-reportextension 50800 "TorlysReturnOrder" extends "Return Authorization"
+reportextension 50800 TlyReturnAuthorization extends "Return Authorization"
 {
     dataset
     {

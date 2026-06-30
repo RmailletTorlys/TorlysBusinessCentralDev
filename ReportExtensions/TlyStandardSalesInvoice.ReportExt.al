@@ -1,4 +1,4 @@
-reportextension 50100 "TorlysSalesInvoice" extends "Standard Sales - Invoice"
+reportextension 50100 TlyStandardSalesInvoice extends "Standard Sales - Invoice"
 {
     dataset
     {

@@ -65,7 +65,15 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Visible = false;
-
+                Editable = false;
+            }
+            field("Channel Code"; Rec."Channel Code")
+            {
+                Caption = 'Channel Code';
+                ToolTip = 'Channel Code';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
             }
             field("Reason Code"; Rec."Reason Code")
             {

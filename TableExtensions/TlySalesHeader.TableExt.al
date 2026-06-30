@@ -431,6 +431,14 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Warehouse Associate'));
         }
 
+        field(50069; "Channel Code"; Code[20])
+        {
+            Caption = 'Channel Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Dimension Set Entry"."Dimension Value Code" where("Dimension Set ID" = field("Dimension Set ID"), "Dimension Code" = filter('CHANNEL')));
+            Editable = false;
+        }
+
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()
@@ -458,16 +466,17 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             end;
         }
 
-        // modify("Ship-to Code")
-        // {
-        //     trigger OnAfterValidate()
-        //     begin
-        //         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
-        //             WarehouseNotifyFieldChanged := 'Ship-to';
-        //             UpdateWarehouseNotify;
-        //         end;
-        //     end;
-        // }
+        modify("Ship-to Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                //         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
+                //             WarehouseNotifyFieldChanged := 'Ship-to';
+                //             UpdateWarehouseNotify;
+                //         end;
+                CheckShippingDays;
+            end;
+        }
 
         modify("External Document No.")
         {
@@ -501,6 +510,8 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             trigger OnAfterValidate()
             begin
                 Rec."Requested Shipment Date" := Rec."Shipment Date";
+
+                CheckShippingDays;
             end;
         }
 
@@ -605,6 +616,59 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 SalesCommentLine."Print on Return Receipt" := CommentLine."Print on Return Receipt";
                 SalesCommentLine.Insert();
             until CommentLine.Next() = 0;
+        end;
+    end;
+
+    procedure GetShippingDays(): Text
+    var
+        ShippingDaysBoo: array[5] of Boolean;
+        ShipToAddress: Record "Ship-to Address";
+        ShippingDaysText: array[5] of Text;
+        ShippingDaysOutput: Text;
+        i: Integer;
+    begin
+        ShipToAddress.Reset();
+        ShipToAddress.SetRange("Customer No.", Rec."Sell-to Customer No.");
+        ShipToAddress.SetRange(Code, Rec."Ship-to Code");
+        if ShipToAddress.Find('-') then begin
+
+            ShippingDaysBoo[1] := ShipToAddress."Ships On - Monday";
+            ShippingDaysBoo[2] := ShipToAddress."Ships On - Tuesday";
+            ShippingDaysBoo[3] := ShipToAddress."Ships On - Wednesday";
+            ShippingDaysBoo[4] := ShipToAddress."Ships On - Thursday";
+            ShippingDaysBoo[5] := ShipToAddress."Ships On - Friday";
+
+            ShippingDaysText[1] := 'Monday';
+            ShippingDaysText[2] := 'Tuesday';
+            ShippingDaysText[3] := 'Wednesday';
+            ShippingDaysText[4] := 'Thursday';
+            ShippingDaysText[5] := 'Friday';
+
+            for i := 1 to ArrayLen(ShippingDaysBoo) do begin
+                if ShippingDaysBoo[i] then begin
+                    if ShippingDaysOutput <> '' then
+                        ShippingDaysOutput += ', ';
+                    ShippingDaysOutput += ShippingDaysText[i];
+                end;
+            end;
+
+            exit(ShippingDaysOutput);
+        end;
+    end;
+
+    procedure CheckShippingDays()
+    var
+        ShipToAddress: Record "Ship-to Address";
+    begin
+        ShipToAddress.Reset();
+        ShipToAddress.SetRange("Customer No.", Rec."Sell-to Customer No.");
+        ShipToAddress.SetRange(Code, Rec."Ship-to Code");
+        if ShipToAddress.Find('-') then begin
+            if (Date2DWY(Rec."Shipment Date", 1) = 1) AND (not ShipToAddress."Ships On - Monday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+            if (Date2DWY(Rec."Shipment Date", 1) = 2) AND (not ShipToAddress."Ships On - Tuesday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+            if (Date2DWY(Rec."Shipment Date", 1) = 3) AND (not ShipToAddress."Ships On - Wednesday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+            if (Date2DWY(Rec."Shipment Date", 1) = 4) AND (not ShipToAddress."Ships On - Thursday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+            if (Date2DWY(Rec."Shipment Date", 1) = 5) AND (not ShipToAddress."Ships On - Friday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
         end;
     end;
 }

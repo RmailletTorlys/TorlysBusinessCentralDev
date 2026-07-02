@@ -474,7 +474,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 //             WarehouseNotifyFieldChanged := 'Ship-to';
                 //             UpdateWarehouseNotify;
                 //         end;
-                CheckShippingDays;
+                CheckShippingDays; //TLY-SD - 06/30/2026 - went live
             end;
         }
 
@@ -511,7 +511,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             begin
                 Rec."Requested Shipment Date" := Rec."Shipment Date";
 
-                CheckShippingDays;
+                CheckShippingDays; //TLY-SD - 06/30/2026 - went live
             end;
         }
 
@@ -660,15 +660,17 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     var
         ShipToAddress: Record "Ship-to Address";
     begin
-        ShipToAddress.Reset();
-        ShipToAddress.SetRange("Customer No.", Rec."Sell-to Customer No.");
-        ShipToAddress.SetRange(Code, Rec."Ship-to Code");
-        if ShipToAddress.Find('-') then begin
-            if (Date2DWY(Rec."Shipment Date", 1) = 1) AND (not ShipToAddress."Ships On - Monday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
-            if (Date2DWY(Rec."Shipment Date", 1) = 2) AND (not ShipToAddress."Ships On - Tuesday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
-            if (Date2DWY(Rec."Shipment Date", 1) = 3) AND (not ShipToAddress."Ships On - Wednesday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
-            if (Date2DWY(Rec."Shipment Date", 1) = 4) AND (not ShipToAddress."Ships On - Thursday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
-            if (Date2DWY(Rec."Shipment Date", 1) = 5) AND (not ShipToAddress."Ships On - Friday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+        if Rec."Document Type" = Rec."Document Type"::Order then begin
+            ShipToAddress.Reset();
+            ShipToAddress.SetRange("Customer No.", Rec."Sell-to Customer No.");
+            ShipToAddress.SetRange(Code, Rec."Ship-to Code");
+            if ShipToAddress.Find('-') then begin
+                if (Date2DWY(Rec."Shipment Date", 1) = 1) AND (not ShipToAddress."Ships On - Monday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+                if (Date2DWY(Rec."Shipment Date", 1) = 2) AND (not ShipToAddress."Ships On - Tuesday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+                if (Date2DWY(Rec."Shipment Date", 1) = 3) AND (not ShipToAddress."Ships On - Wednesday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+                if (Date2DWY(Rec."Shipment Date", 1) = 4) AND (not ShipToAddress."Ships On - Thursday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+                if (Date2DWY(Rec."Shipment Date", 1) = 5) AND (not ShipToAddress."Ships On - Friday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
+            end;
         end;
     end;
 }

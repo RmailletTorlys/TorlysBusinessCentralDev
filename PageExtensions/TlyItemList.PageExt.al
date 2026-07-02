@@ -295,6 +295,33 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
+            field("Sales ($)"; Rec."Sales (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Sales ($)';
+                ToolTip = 'Sales ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("COGS ($)"; Rec."COGS (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'COGS ($)';
+                ToolTip = 'COGS ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Profit ($)"; Rec."Sales (LCY)" - Rec."COGS (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Profit ($)';
+                ToolTip = 'Profit ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
             field("Purchases (Qty.)"; Rec."Purchases (Qty.)")
             {
                 ApplicationArea = Dimensions;
@@ -309,6 +336,15 @@ pageextension 50031 TlyItemList extends "Item List"
                 ApplicationArea = Dimensions;
                 Caption = 'Purchases (Qty.) - 90D';
                 ToolTip = 'Purchases (Qty.) - 90D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("Purchases ($)"; Rec."Purchases (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Purchases ($)';
+                ToolTip = 'Purchases ($)';
                 DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;

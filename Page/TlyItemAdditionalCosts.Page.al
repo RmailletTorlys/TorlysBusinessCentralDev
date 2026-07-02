@@ -1,13 +1,17 @@
 page 55104 TlyItemAdditionalCosts
 {
-    Caption = 'Item Additional Costs';
-    PageType = ListPart;
-    ApplicationArea = All;
-    // UsageCategory = Lists;
-    Editable = true;
-    SourceTable = TlyItemAdditionalCosts;
     // AutoSplitKey = true;
+    Caption = 'Item Additional Costs';
     // DelayedInsert = true;
+    // LinksAllowed = true;
+    // MultipleNewLines = false;
+    // UsageCategory = Lists;
+    PageType = ListPart;
+    SourceTable = TlyItemAdditionalCosts;
+    Editable = true;
+    DeleteAllowed = true;
+    ModifyAllowed = true;
+    InsertAllowed = false;
 
     layout
     {

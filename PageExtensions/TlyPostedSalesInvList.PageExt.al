@@ -46,7 +46,7 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
                 Editable = false;
             }
         }
-        moveafter("Ship-to County"; "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
+        moveafter("Ship-to County"; "Salesperson Code", "Shortcut Dimension 1 Code", "Location Code", "External Document No.")
 
         addafter("External Document No.")
         {
@@ -140,6 +140,11 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
         modify("No.")
         {
             Width = 12;
+        }
+
+        modify("Salesperson Code")
+        {
+            Visible = true;
         }
 
         modify("Ship-to Code")

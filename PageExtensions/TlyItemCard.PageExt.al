@@ -274,6 +274,34 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
+            field("Sales ($)"; Rec."Sales (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Sales ($)';
+                ToolTip = 'Sales ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+            field("COGS ($)"; Rec."COGS (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'COGS ($)';
+                ToolTip = 'COGS ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                Importance = Additional;
+            }
+            field("Profit ($)"; Rec."Sales (LCY)" - Rec."COGS (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Profit ($)';
+                ToolTip = 'Profit ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
             field("Purchases (Qty.)"; Rec."Purchases (Qty.)")
             {
                 Caption = 'Purchases (Qty.)';
@@ -289,6 +317,15 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 ApplicationArea = All;
                 Visible = true;
                 Importance = Additional;
+            }
+            field("Purchases ($)"; Rec."Purchases (LCY)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Purchases ($)';
+                ToolTip = 'Purchases ($)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
             }
         }
 

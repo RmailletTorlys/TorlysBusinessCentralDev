@@ -19,7 +19,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         // moveafter("No. 2"; Description, "Description 2", Type)
 
-        moveafter("No."; "No. 2", Description, "Description 2", Type)
+        moveafter("No."; "No. 2", Description, "Description 2", "Search Description", Type)
 
         addafter("Base Unit of Measure")
         {
@@ -631,10 +631,10 @@ pageextension 50030 TlyItemCard extends "Item Card"
             Visible = false;
         }
 
-        modify("Search Description")
-        {
-            Visible = false;
-        }
+        // modify("Search Description")
+        // {
+        //     Visible = false;
+        // }
 
         modify("Qty. on Assembly Order")
         {

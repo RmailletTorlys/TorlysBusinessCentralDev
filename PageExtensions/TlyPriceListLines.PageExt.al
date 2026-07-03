@@ -126,6 +126,7 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
             PriceLine.Reset();
             PriceLine.SetFilter("Price List Code", 'TIER*');
             PriceLine.SetFilter("Assign-to No.", Customer."Customer Price Group");
+            PriceLine.SetFilter("Product No.", Rec."Product No.");
             PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
             PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
             PriceLine.SetRange("Unit Price", Rec."Unit Price");

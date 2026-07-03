@@ -578,7 +578,7 @@ tableextension 50027 TlyItem extends Item
                 SKU: Record "Stockkeeping Unit";
                 SKUcount: Integer;
             begin
-                //TLY-SD - 06/18/2026 - when using SKU, doesn't update this field
+                //TLY-SD - 06/18/2026 - when using SKU, need to update this field
                 SKU.Reset();
                 SKU.SetRange("Item No.", Rec."No.");
                 if SKU.Find('-') then begin
@@ -597,7 +597,7 @@ tableextension 50027 TlyItem extends Item
                 SKU: Record "Stockkeeping Unit";
                 SKUcount: Integer;
             begin
-                //TLY-SD - 06/18/2026 - when using SKU, doesn't update this field
+                //TLY-SD - 06/18/2026 - when using SKU, need to update this field
                 SKU.Reset();
                 SKU.SetRange("Item No.", Rec."No.");
                 if SKU.Find('-') then begin
@@ -607,6 +607,13 @@ tableextension 50027 TlyItem extends Item
                     until SKU.Next() = 0;
                 end;
             end;
+        }
+    }
+
+    fieldgroups
+    {
+        addlast(DropDown; "Search Description")
+        {
         }
     }
 

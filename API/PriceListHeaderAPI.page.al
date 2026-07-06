@@ -52,6 +52,11 @@ page 56001 "Price List Header API"
                 {
                     Caption = 'Source No.';
                 }
+
+                field(priceListType; Rec."Price List Type")
+                {
+                    Caption = 'Price List Type';
+                }
             }
         }
     }

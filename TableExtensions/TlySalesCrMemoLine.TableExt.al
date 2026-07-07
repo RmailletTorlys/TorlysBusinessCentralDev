@@ -76,24 +76,32 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
         {
             Caption = 'Override Unit Price';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 07/06/2026. Was never used.';
         }
 
         field(50013; "OverrideSOUnitPriceModDate"; Date)
         {
             Caption = 'Override Unit Price Modified Date';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 07/06/2026. Was never used.';
         }
 
         field(50014; "OverrideSOUnitPriceModTime"; Time)
         {
             Caption = 'Override Unit Price Modified Time';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 07/06/2026. Was never used.';
         }
 
         field(50015; "OverrideSOUnitPriceModUserID"; Text[2048])
         {
             Caption = 'Override Unit Price Modified User ID';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Removed 07/06/2026. Was never used.';
         }
 
         field(50016; "Discontinued Item"; Boolean)
@@ -152,7 +160,7 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
         }
         field(50024; "Master Project Order No."; Code[20])
         {
-            Caption = 'Transfer Order No.';
+            Caption = 'Master Project Order No.';
             DataClassification = CustomerContent;
             Editable = false;
             // TableRelation = "Sales Header"."No." where("Order Type" = const('MASTER PROJECT ORDER'));
@@ -232,7 +240,7 @@ tableextension 50115 TlySalesCrMemoLine extends "Sales Cr.Memo Line"
         }
         field(50037; "Entered At"; DateTime)
         {
-            Caption = 'External Document No.';
+            Caption = 'Entered At';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Header"."Entered At" where("No." = field("Document No.")));

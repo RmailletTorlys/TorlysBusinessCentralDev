@@ -41,27 +41,27 @@ page 51018 TlyClaimsTracking
                         ApplicationArea = All;
                         ToolTip = 'Specifies the customer number associated with the claim.';
                     }
-                    field("Invoice No."; Rec."Invoice No.")
+                    field("Invoice No."; Rec."Original Invoice No.")
                     {
                         ApplicationArea = All;
                         ToolTip = 'Invoice No.';
                     }
-                    field("Invoice Date"; Rec."Invoice Date")
+                    field("Invoice Date"; Rec."Original Invoice Date")
                     {
                         ApplicationArea = All;
                         ToolTip = 'Invoice Date';
                     }
-                    field("Shipment Date"; Rec."Shipment Date")
+                    field("Shipment Date"; Rec."Original Shipment Date")
                     {
                         ApplicationArea = All;
                         ToolTip = 'Shipment Date';
                     }
-                    field("Order No."; Rec."Order No.")
+                    field("Order No."; Rec."Original Order No.")
                     {
                         ApplicationArea = All;
                         ToolTip = 'Order No.';
                     }
-                    field("Order Date"; Rec."Order Date")
+                    field("Order Date"; Rec."Original Order Date")
                     {
                         ApplicationArea = All;
                         ToolTip = 'Specifies the date when the order was placed.';

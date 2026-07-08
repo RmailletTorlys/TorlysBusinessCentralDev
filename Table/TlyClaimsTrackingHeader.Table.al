@@ -73,7 +73,7 @@ table 55007 TlyClaimsTrackingHeader
             Editable = false;
         }
 
-        field(12; "Invoice No."; Code[20])
+        field(12; "Original Invoice No."; Code[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Invoice No.';
@@ -84,13 +84,13 @@ table 55007 TlyClaimsTrackingHeader
             begin
                 // SalesInvHead.Reset();
                 // SalesInvHead.SetRange("No.", Rec."Original Invoice No.");
-                SalesInvHead.Get(Rec."Invoice No.");
+                SalesInvHead.Get(Rec."Original Invoice No.");
                 // if Find('-') then begin
                 Rec."Ship-to Code" := SalesInvHead."Ship-to Code";
-                Rec."Invoice Date" := SalesInvHead."Posting Date";
-                Rec."Shipment Date" := SalesInvHead."Shipment Date";
-                Rec."Order No." := SalesInvHead."Order No.";
-                Rec."Order Date" := SalesInvHead."Order Date";
+                Rec."Original Invoice Date" := SalesInvHead."Posting Date";
+                Rec."Original Shipment Date" := SalesInvHead."Shipment Date";
+                Rec."Original Order No." := SalesInvHead."Order No.";
+                Rec."Original Order Date" := SalesInvHead."Order Date";
                 Rec."External Document No." := SalesInvHead."External Document No.";
                 Rec."Tag Name" := SalesInvHead."Tag Name";
                 Rec."Location Code" := SalesInvHead."Location Code";
@@ -98,21 +98,21 @@ table 55007 TlyClaimsTrackingHeader
             end;
         }
 
-        field(13; "Invoice Date"; Date)
+        field(13; "Original Invoice Date"; Date)
         {
             DataClassification = CustomerContent;
             Caption = 'Invoice Date';
             Editable = false;
         }
 
-        field(14; "Shipment Date"; Date)
+        field(14; "Original Shipment Date"; Date)
         {
             DataClassification = CustomerContent;
             Caption = 'Shipment Date';
             Editable = false;
         }
 
-        field(15; "Order Date"; Date)
+        field(15; "Original Order Date"; Date)
         {
             DataClassification = CustomerContent;
             Caption = 'Order Date';
@@ -145,7 +145,7 @@ table 55007 TlyClaimsTrackingHeader
             DataClassification = CustomerContent;
             TableRelation = "No. Series";
         }
-        field(20; "Order No."; Code[20])
+        field(20; "Original Order No."; Code[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Order No.';

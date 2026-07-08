@@ -50,12 +50,12 @@ page 55019 TlyClaimsTrackingSubform
                     ApplicationArea = All;
                     ToolTip = 'Specifies the unit price of the item in the line.';
                 }
-                field("Line Amount"; Rec."Line Amount")
+                field("Line Amount"; Rec."Line Amount Excl. Tax")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the total amount for the line.';
                 }
-                field("Unit Cost"; Rec."Unit Cost")
+                field("Unit Cost"; Rec."Unit Cost (LCY)")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Unit Cost';

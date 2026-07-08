@@ -33,27 +33,27 @@ page 55020 TlyClaimsTrackingList
                     Caption = 'Ship-to Code';
                     ToolTip = 'Specifies the customer number associated with the claim.';
                 }
-                field("Invoice No."; Rec."Invoice No.")
+                field("Invoice No."; Rec."Original Invoice No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Invoice Date"; Rec."Invoice Date")
+                field("Invoice Date"; Rec."Original Invoice Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Shipment Date"; Rec."Shipment Date")
+                field("Shipment Date"; Rec."Original Shipment Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Order No."; Rec."Order No.")
+                field("Order No."; Rec."Original Order No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Order Date"; Rec."Order Date")
+                field("Order Date"; Rec."Original Order Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';

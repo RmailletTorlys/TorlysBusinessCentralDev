@@ -10,8 +10,8 @@ table 55008 TlyClaimsTrackingLine
         field(1; "Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type';
-            ObsoleteState = Removed;
-            ObsoleteReason = 'TLY-SD - 07/07/2026 - not needed';
+            // ObsoleteState = Removed;
+            // ObsoleteReason = 'TLY-SD - 07/07/2026 - not needed';
         }
 
         field(2; "Claim No."; Code[20])
@@ -58,7 +58,7 @@ table 55008 TlyClaimsTrackingLine
                     Item.Get(Rec."No.");
                     Rec.Description := Item.Description;
                     Rec."Description 2" := Item."Description 2";
-                    Rec."Unit Cost" := Item."Unit Cost"
+                    Rec."Unit Cost (LCY)" := Item."Unit Cost"
                 end;
             end;
         }
@@ -109,7 +109,7 @@ table 55008 TlyClaimsTrackingLine
             end;
         }
 
-        field(10; "Line Amount"; Decimal)
+        field(10; "Line Amount Excl. Tax"; Decimal)
         {
             DataClassification = CustomerContent;
             Caption = 'Line Amount';
@@ -118,7 +118,7 @@ table 55008 TlyClaimsTrackingLine
             Editable = false;
         }
 
-        field(11; "Unit Cost"; Decimal)
+        field(11; "Unit Cost (LCY)"; Decimal)
         {
             DataClassification = CustomerContent;
             AutoFormatType = 2;
@@ -142,7 +142,7 @@ table 55008 TlyClaimsTrackingLine
 
     keys
     {
-        key(Key1; "Claim No.", "Claim Line No.")
+        key(Key1; "Document Type", "Claim No.", "Claim Line No.")
         {
             Clustered = true;
         }
@@ -150,6 +150,6 @@ table 55008 TlyClaimsTrackingLine
 
     procedure CalcAmount()
     begin
-        Rec.Validate(Rec."Line Amount", Rec.Quantity * Rec."Unit Price");
+        Rec.Validate(Rec."Line Amount Excl. Tax", Rec.Quantity * Rec."Unit Price");
     end;
 }

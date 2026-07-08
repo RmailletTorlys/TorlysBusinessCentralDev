@@ -33,30 +33,40 @@ page 55020 TlyClaimsTrackingList
                     Caption = 'Ship-to Code';
                     ToolTip = 'Specifies the customer number associated with the claim.';
                 }
-                field("Original Invoice No."; Rec."Original Invoice No.")
+                field("Invoice No."; Rec."Invoice No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Original Invoice Date"; Rec."Original Invoice Date")
+                field("Invoice Date"; Rec."Invoice Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Original Shipment Date"; Rec."Original Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Original Order No."; Rec."Original Order No.")
+                field("Order No."; Rec."Order No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
                 }
-                field("Original Order Date"; Rec."Original Order Date")
+                field("Order Date"; Rec."Order Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the date when the order was placed.';
+                }
+                field("External Document No."; Rec."External Document No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'External Document No.';
+                }
+                field("Tag Name"; Rec."Tag Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Tag Name';
                 }
                 field("Location Code"; Rec."Location Code")
                 {

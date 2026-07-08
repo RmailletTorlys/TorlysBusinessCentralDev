@@ -70,48 +70,74 @@ table 55007 TlyClaimsTrackingHeader
         {
             DataClassification = CustomerContent;
             Caption = 'Ship-to Code';
+            Editable = false;
         }
 
-        field(12; "Original Invoice No."; Code[20])
+        field(12; "Invoice No."; Code[20])
         {
             DataClassification = CustomerContent;
-            Caption = 'Original Invoice No.';
+            Caption = 'Invoice No.';
+            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            trigger OnValidate()
+            var
+                SalesInvHead: Record "Sales Invoice Header";
+            begin
+                // SalesInvHead.Reset();
+                // SalesInvHead.SetRange("No.", Rec."Original Invoice No.");
+                SalesInvHead.Get(Rec."Invoice No.");
+                // if Find('-') then begin
+                Rec."Ship-to Code" := SalesInvHead."Ship-to Code";
+                Rec."Invoice Date" := SalesInvHead."Posting Date";
+                Rec."Shipment Date" := SalesInvHead."Shipment Date";
+                Rec."Order No." := SalesInvHead."Order No.";
+                Rec."Order Date" := SalesInvHead."Order Date";
+                Rec."External Document No." := SalesInvHead."External Document No.";
+                Rec."Tag Name" := SalesInvHead."Tag Name";
+                Rec."Location Code" := SalesInvHead."Location Code";
+                // end;
+            end;
         }
 
-        field(13; "Original Invoice Date"; Date)
+        field(13; "Invoice Date"; Date)
         {
             DataClassification = CustomerContent;
-            Caption = 'Original Invoice Date';
+            Caption = 'Invoice Date';
+            Editable = false;
         }
 
-        field(14; "Original Shipment Date"; Date)
+        field(14; "Shipment Date"; Date)
         {
             DataClassification = CustomerContent;
-            Caption = 'Original Shipment Date';
+            Caption = 'Shipment Date';
+            Editable = false;
         }
 
-        field(15; "Original Order Date"; Date)
+        field(15; "Order Date"; Date)
         {
             DataClassification = CustomerContent;
-            Caption = 'Original Order Date';
+            Caption = 'Order Date';
+            Editable = false;
         }
 
         field(16; "External Document No."; Code[20])
         {
             DataClassification = CustomerContent;
             Caption = 'External Document No.';
+            Editable = false;
         }
 
         field(17; "Tag Name"; Text[50])
         {
             DataClassification = CustomerContent;
             Caption = 'Tag Name';
+            Editable = false;
         }
 
         field(18; "Location Code"; Code[10])
         {
             DataClassification = CustomerContent;
             Caption = 'Location Code';
+            Editable = false;
         }
         field(19; "No. Series"; Code[20])
         {
@@ -119,10 +145,11 @@ table 55007 TlyClaimsTrackingHeader
             DataClassification = CustomerContent;
             TableRelation = "No. Series";
         }
-        field(20; "Original Order No."; Code[20])
+        field(20; "Order No."; Code[20])
         {
             DataClassification = CustomerContent;
-            Caption = 'Original Order No.';
+            Caption = 'Order No.';
+            Editable = false;
         }
     }
 
@@ -133,7 +160,6 @@ table 55007 TlyClaimsTrackingHeader
             Clustered = true;
         }
     }
-
     trigger OnInsert()
     var
         SalesSetup: Record "Sales & Receivables Setup";
@@ -144,14 +170,14 @@ table 55007 TlyClaimsTrackingHeader
             Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
     end;
 
-    // procedure AssistEdit(OldClaimHeader: Record TlyClaimsTrackingHeader) Result: Boolean
-    // var
-    //     SalesSetup: Record "Sales & Receivables Setup";
-    //     NoSeries: Codeunit "No. Series";
-    // begin
-    //     SalesSetup.FindFirst();
-    //     if not SalesSetup.IsEmpty() then
-    //         Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
-    //     exit(true);
-    // end;
+    procedure AssistEdit(OldClaimHeader: Record TlyClaimsTrackingHeader) Result: Boolean
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        SalesSetup.FindFirst();
+        if not SalesSetup.IsEmpty() then
+            Rec."No." := NoSeries.GetNextNo(SalesSetup."Claims Tracking Nos.");
+        exit(true);
+    end;
 }

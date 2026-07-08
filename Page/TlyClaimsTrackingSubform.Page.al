@@ -14,11 +14,6 @@ page 55019 TlyClaimsTrackingSubform
         {
             repeater(Group)
             {
-                field("Document Type"; Rec."Document Type")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the type of document.';
-                }
                 field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
@@ -34,20 +29,36 @@ page 55019 TlyClaimsTrackingSubform
                     ApplicationArea = All;
                     ToolTip = 'Provides a description of the line item.';
                 }
+                field("Description 2"; Rec."Description 2")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Provides a description of the line item.';
+                }
+
                 field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the quantity of items in the line.';
+                }
+                field("Batch No."; Rec."Batch No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Batch No.';
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the unit price of the item in the line.';
                 }
-                field("Line Amount"; Rec."Line Amount Excl. Tax")
+                field("Line Amount"; Rec."Line Amount")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the total amount for the line.';
+                }
+                field("Unit Cost"; Rec."Unit Cost")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Unit Cost';
                 }
             }
         }

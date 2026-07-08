@@ -28,7 +28,6 @@ table 55002 TlyBillOfLadingHeader
             DataClassification = CustomerContent;
             TableRelation = "No. Series";
         }
-
         field(4; "Customer No."; Code[20])
         {
             Caption = 'Customer No.';

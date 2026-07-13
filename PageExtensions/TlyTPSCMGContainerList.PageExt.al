@@ -310,9 +310,14 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                         if DatePage.RunModal() = Action::OK then
                             DatePage.GetRecord(Rec);
                         repeat
-                            Rec."Appointment At" := DatePage.GetDateTime();
-                            Rec.Validate(Rec."Expected Receipt Date", DT2Date(DatePage.GetDateTime())); //TLY-SD - 06/22/2026 - update Expected Receipt Date when Appotinment booked
-                            Rec.Modify(true);
+                            if DatePage.GetDateTime() = 0DT then begin
+                                Rec."Appointment At" := 0DT;
+                                Rec.Modify(true);
+                            end else begin
+                                Rec."Appointment At" := DatePage.GetDateTime();
+                                Rec.Validate(Rec."Expected Receipt Date", DT2Date(DatePage.GetDateTime())); //TLY-SD - 06/22/2026 - update Expected Receipt Date when Appotinment booked
+                                Rec.Modify(true);
+                            end;
                         until ContainerHeader.Next() = 0;
                     end;
                     CurrPage.Update(true);

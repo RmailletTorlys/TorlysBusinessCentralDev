@@ -247,6 +247,12 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
 
         modify("Amt. Ship. Not Inv. (LCY)")
         {
+            Visible = true;
+            Caption = 'Shipped Not Invoiced ($)';
+        }
+
+        modify("Amt. Ship. Not Inv. (LCY) Base")
+        {
             Visible = false;
         }
 
@@ -282,6 +288,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         modify("Payment Terms Code")
         {
             Visible = true;
+            StyleExpr = CODbold;
         }
     }
 
@@ -492,6 +499,7 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
         FullyAllocated: Text[3];
         ToShipAmount: Decimal;
         ChannelCode: Code[20];
+        CODbold: Text;
 
     trigger OnOpenPage()
     var
@@ -535,5 +543,12 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             repeat
                 ToShipAmount := ToShipAmount + (SalesLine."Qty. to Ship" * SalesLine."Unit Price")
             until SalesLine.Next() = 0;
+
+        // make COD show as bold
+        if Rec."Payment Terms Code" = 'COD' then begin
+            CODbold := 'Strong'
+        end else begin
+            CODbold := '';
+        end;
     end;
 }

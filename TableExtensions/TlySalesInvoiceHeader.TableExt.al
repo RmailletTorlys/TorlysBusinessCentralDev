@@ -121,7 +121,7 @@ tableextension 50112 TlySalesInvoiceHeader extends "Sales Invoice Header"
 
         field(50020; "Qty. To ship"; Decimal)
         {
-            Caption = 'Qty. To ship';
+            Caption = 'Qty. to Ship';
             CalcFormula = Sum("Sales Line"."Qty. to Ship" WHERE("Document No." = FIELD("No.")));
             FieldClass = FlowField;
         }

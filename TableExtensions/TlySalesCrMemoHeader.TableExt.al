@@ -257,7 +257,7 @@ tableextension 50114 TlySalesCrMemoHeader extends "Sales Cr.Memo Header"
 
         field(50048; "Power Up Level"; Enum TlyPowerUpLevel)
         {
-            Caption = 'Club';
+            Caption = 'Power Up Level';
             FieldClass = FlowField;
             CalcFormula = Lookup(Customer."Power Up Level" where("No." = field("Sell-to Customer No.")));
             // OptionMembers = None,"Premier","Elite","Designer";

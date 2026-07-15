@@ -78,7 +78,7 @@ pageextension 50031 TlyItemList extends "Item List"
                 ApplicationArea = Dimensions;
                 Caption = 'Special Item';
                 ToolTip = 'Special Item';
-                Visible = false;
+                Visible = true;
             }
 
             field("Clearance Item"; Rec."Clearance Item")
@@ -86,7 +86,7 @@ pageextension 50031 TlyItemList extends "Item List"
                 ApplicationArea = Dimensions;
                 Caption = 'Clearance Item';
                 ToolTip = 'Clearance Item';
-                Visible = false;
+                Visible = true;
             }
 
             field("Sales Blocked"; Rec."Sales Blocked")
@@ -519,6 +519,11 @@ pageextension 50031 TlyItemList extends "Item List"
         modify("Default Deferral Template Code")
         {
             Visible = false;
+        }
+
+        modify(InventoryField)
+        {
+            Caption = 'Qty. on Hand';
         }
     }
 

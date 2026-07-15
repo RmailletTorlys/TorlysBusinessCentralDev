@@ -57,7 +57,7 @@ report 50030 "Cash Req By Due Date TLY"
             column(DocNo; DocNo)
             {
             }
-            column(Vendor_Ledger_Entry__Posting_Date_; "Posting Date")
+            column(Vendor_Ledger_Entry__Posting_Date_; "Document Date")
             {
             }
             column(Vendor_Ledger_Entry__Pmt__Discount_Date_; "Pmt. Discount Date")

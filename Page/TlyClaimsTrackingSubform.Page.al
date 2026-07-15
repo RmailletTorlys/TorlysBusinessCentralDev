@@ -40,6 +40,11 @@ page 55019 TlyClaimsTrackingSubform
                     ApplicationArea = All;
                     ToolTip = 'Specifies the quantity of items in the line.';
                 }
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the UOM for the line.';
+                }
                 field("Batch No."; Rec."Batch No.")
                 {
                     ApplicationArea = All;

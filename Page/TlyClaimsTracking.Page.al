@@ -35,7 +35,7 @@ page 51018 TlyClaimsTracking
                 }
                 group(OriginalInfo)
                 {
-                    Caption = 'Original Document Information';
+                    Caption = 'Original Invoice Information';
                     field("Ship-to Code"; Rec."Ship-to Code")
                     {
                         ApplicationArea = All;
@@ -105,6 +105,52 @@ page 51018 TlyClaimsTracking
                 ApplicationArea = All;
                 Enabled = true;
                 SubPageLink = "Claim No." = field("No.");
+            }
+        }
+    }
+
+    actions
+    {
+        area(Promoted)
+        {
+            actionref(Comments_Promoted; "Co&mments")
+            { }
+            actionref(Attachments_Promoted; Attachments)
+            { }
+        }
+        area(navigation)
+        {
+            action("Co&mments")
+            {
+                ApplicationArea = Comments;
+                Caption = 'Co&mments';
+                Image = ViewComments;
+                RunObject = Page "Comment Sheet";
+                RunPageLink = "Table Name" = const("Claims Tracking"),
+                                  "No." = field("No.");
+                ToolTip = 'View or add comments for the record.';
+            }
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+                trigger OnAction()
+                var
+                    DocumentAttachmentRecord: Record "Document Attachment";
+                    DocumentAttachmentPage: Page "Document Attachment Details";
+                    RecRef: RecordRef; //need this to establish record when attaching
+                begin
+                    RecRef.GetTable(Rec); //need this to establish record when attaching
+                    DocumentAttachmentPage.OpenForRecRef(RecRef); //need this to establish record when attaching
+                    DocumentAttachmentRecord.Reset;
+                    DocumentAttachmentRecord.SetFilter("Table ID", '55007');
+                    DocumentAttachmentRecord.SetFilter("No.", Rec."No.");
+                    DocumentAttachmentRecord.SetFilter("Document Type", 'Claims Tracking');
+                    DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
+                    DocumentAttachmentPage.RunModal();
+                end;
             }
         }
     }

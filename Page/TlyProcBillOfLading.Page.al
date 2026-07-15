@@ -428,6 +428,10 @@ page 51006 TlyProcBillOfLading
             { }
             actionref("Print Carrier Manifest"; PrintCarrierManifest)
             { }
+            actionref(Comments_Promoted; "Co&mments")
+            { }
+            actionref(Attachments_Promoted; Attachments)
+            { }
         }
         area(Navigation)
         {
@@ -453,6 +457,38 @@ page 51006 TlyProcBillOfLading
                 var
                 begin
                     TorlysDocPrint.PrintCarrierManifest(Rec);
+                end;
+            }
+            action("Co&mments")
+            {
+                ApplicationArea = Comments;
+                Caption = 'Co&mments';
+                Image = ViewComments;
+                RunObject = Page "Comment Sheet";
+                RunPageLink = "Table Name" = const("Processed BOL"),
+                                  "No." = field("No.");
+                ToolTip = 'View or add comments for the record.';
+            }
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+                trigger OnAction()
+                var
+                    DocumentAttachmentRecord: Record "Document Attachment";
+                    DocumentAttachmentPage: Page "Document Attachment Details";
+                    RecRef: RecordRef; //need this to establish record when attaching
+                begin
+                    RecRef.GetTable(Rec); //need this to establish record when attaching
+                    DocumentAttachmentPage.OpenForRecRef(RecRef); //need this to establish record when attaching
+                    DocumentAttachmentRecord.Reset;
+                    DocumentAttachmentRecord.SetFilter("Table ID", '55004');
+                    DocumentAttachmentRecord.SetFilter("No.", Rec."No.");
+                    DocumentAttachmentRecord.SetFilter("Document Type", 'Processed BOL');
+                    DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
+                    DocumentAttachmentPage.RunModal();
                 end;
             }
         }

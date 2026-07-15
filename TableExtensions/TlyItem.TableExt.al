@@ -136,7 +136,17 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Qty. to Ship';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
-            CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)" where("Document Type" = const(Order), "No." = field("No."), "Location Code" = field("Location Filter")));
+            // CalcFormula = Sum("Sales Line"."Qty. to Ship (Base)" where("Document Type" = const(Order), "No." = field("No."), "Location Code" = field("Location Filter")));
+            CalcFormula = sum("Sales Line"."Qty. to Ship (Base)" where("Document Type" = const(Order),
+                                                                            Type = const(Item),
+                                                                            "No." = field("No."),
+                                                                            "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                            "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                            "Location Code" = field("Location Filter"),
+                                                                            "Drop Shipment" = field("Drop Shipment Filter"),
+                                                                            "Variant Code" = field("Variant Filter"),
+                                                                            "Shipment Date" = field("Date Filter"),
+                                                                            "Unit of Measure Code" = field("Unit of Measure Filter")));
             Editable = false;
         }
 
@@ -145,7 +155,15 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity to Ship (Transfer)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
-            CalcFormula = Sum("Transfer Line"."Qty. to Ship (Base)" where("Item No." = field("No."), "Transfer-from Code" = field("Location Filter")));
+            // CalcFormula = Sum("Transfer Line"."Qty. to Ship (Base)" where("Item No." = field("No."), "Transfer-from Code" = field("Location Filter")));
+            CalcFormula = sum("Transfer Line"."Qty. to Ship (Base)" where("Derived From Line No." = const(0),
+                                                                              "Item No." = field("No."),
+                                                                              "Transfer-to Code" = field("Location Filter"),
+                                                                              "Variant Code" = field("Variant Filter"),
+                                                                              "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                              "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                              "Receipt Date" = field("Date Filter"),
+                                                                              "Unit of Measure Code" = field("Unit of Measure Filter")));
             Editable = false;
         }
 
@@ -154,7 +172,15 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity to Receive (Transfer)';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
-            CalcFormula = Sum("Transfer Line"."Qty. to Receive (Base)" where("Item No." = field("No."), "Transfer-to Code" = field("Location Filter")));
+            // CalcFormula = Sum("Transfer Line"."Qty. to Receive (Base)" where("Item No." = field("No."), "Transfer-to Code" = field("Location Filter")));
+            CalcFormula = sum("Transfer Line"."Qty. to Receive (Base)" where("Derived From Line No." = const(0),
+                                                                              "Item No." = field("No."),
+                                                                              "Transfer-to Code" = field("Location Filter"),
+                                                                              "Variant Code" = field("Variant Filter"),
+                                                                              "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                              "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                              "Receipt Date" = field("Date Filter"),
+                                                                              "Unit of Measure Code" = field("Unit of Measure Filter")));
             Editable = false;
         }
 
@@ -236,14 +262,17 @@ tableextension 50027 TlyItem extends Item
             DecimalPlaces = 0 : 5;
             // FieldClass = FlowField;
             Editable = false;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 07/15/2026 - not used, created other field';
         }
 
         field(50029; "Previous Full 3 Months Filter"; Date)
         {
-            //This one may not be required???
             Caption = 'Previous Full 3 Months Filter';
             // FieldClass = FlowField;
             Editable = false;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 07/15/2026 - not used, created other field';
         }
 
         field(50030; "Qty. on Hand (CAL)"; Decimal)
@@ -358,8 +387,7 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'VMI Stock';
             DecimalPlaces = 0 : 5;
-            DataClassification = CustomerContent;
-            // FieldClass = FlowField;
+            FieldClass = FlowField;
             // CalcFormula = sum("Purchase Line"."Outstanding Qty. (Base)" where("Document Type" = const(Order),
             //                                                         Type = const(Item),
             //                                                         "No." = field("No."),
@@ -370,6 +398,16 @@ tableextension 50027 TlyItem extends Item
             //                                                         "Variant Code" = field("Variant Filter"),
             //                                                         "Expected Receipt Date" = field("Date Filter"),
             //                                                         "Unit of Measure Code" = field("Unit of Measure Filter")));
+            CalcFormula = sum("Purchase Line"."Outstanding Qty. (Base)" where("Document Type" = const(Order),
+                                                                               Type = const(Item),
+                                                                               "No." = field("No."),
+                                                                               "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                               "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                               "Location Code" = const('VMI'),
+                                                                               "Drop Shipment" = field("Drop Shipment Filter"),
+                                                                               "Variant Code" = field("Variant Filter"),
+                                                                               "Expected Receipt Date" = field("Date Filter"),
+                                                                               "Unit of Measure Code" = field("Unit of Measure Filter")));
             Editable = false;
         }
 
@@ -378,7 +416,15 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Quantity on Transfer Order';
             DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
-            CalcFormula = Sum("Transfer Line"."Quantity (Base)" where("Item No." = field("No.")));
+            // CalcFormula = Sum("Transfer Line"."Quantity (Base)" where("Item No." = field("No.")));
+            CalcFormula = sum("Transfer Line"."Outstanding Qty. (Base)" where("Derived From Line No." = const(0),
+                                                                              "Item No." = field("No."),
+                                                                              "Transfer-to Code" = field("Location Filter"),
+                                                                              "Variant Code" = field("Variant Filter"),
+                                                                              "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                              "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                              "Receipt Date" = field("Date Filter"),
+                                                                              "Unit of Measure Code" = field("Unit of Measure Filter")));
             Editable = false;
         }
 
@@ -388,6 +434,8 @@ tableextension 50027 TlyItem extends Item
             DecimalPlaces = 0 : 5;
             // FieldClass = FlowField;
             Editable = false;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 07/15/2026 - not used, created other field';
         }
 
         field(50046; "Compare Unit of Measure"; Code[20])
@@ -431,6 +479,8 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Tariff Charge Required';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 07/15/2026 - not used, created other field';
         }
 
         field(50052; "Customs/Tariff Note"; Text[50])
@@ -569,6 +619,41 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = '90D Filter';
             FieldClass = FlowFilter;
+        }
+
+        field(50067; "Qty. on Hand (TR-BRANCH)"; Decimal)
+        {
+            Caption = 'Quantity on Hand (TR-BRANCH)';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+            CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
+                                                                  "Global Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                  "Global Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                  "Location Code" = const('TR-BRANCH'),
+                                                                  "Drop Shipment" = field("Drop Shipment Filter"),
+                                                                  "Variant Code" = field("Variant Filter"),
+                                                                  "Lot No." = field("Lot No. Filter"),
+                                                                  "Serial No." = field("Serial No. Filter"),
+                                                                  "Unit of Measure Code" = field("Unit of Measure Filter"),
+                                                                  "Package No." = field("Package No. Filter")));
+            Editable = false;
+        }
+        field(50068; "Qty. on Hand (TR-WATER)"; Decimal)
+        {
+            Caption = 'Quantity on Hand (TR-WATER)';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+            CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("No."),
+                                                                  "Global Dimension 1 Code" = field("Global Dimension 1 Filter"),
+                                                                  "Global Dimension 2 Code" = field("Global Dimension 2 Filter"),
+                                                                  "Location Code" = const('TR-WATER'),
+                                                                  "Drop Shipment" = field("Drop Shipment Filter"),
+                                                                  "Variant Code" = field("Variant Filter"),
+                                                                  "Lot No." = field("Lot No. Filter"),
+                                                                  "Serial No." = field("Serial No. Filter"),
+                                                                  "Unit of Measure Code" = field("Unit of Measure Filter"),
+                                                                  "Package No." = field("Package No. Filter")));
+            Editable = false;
         }
 
         modify("Vendor No.")

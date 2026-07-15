@@ -22,6 +22,20 @@ codeunit 51100 TlyDocumentAttach
                     DocumentAttachment.Validate("No.", DocumentNo);
                     DocumentAttachment.Validate("Document Type", "Attachment Document Type"::"TPS Container");
                 end;
+            Database::TlyProcessedBillOfLadingHeader:
+                begin
+                    FieldRef := RecRef.Field(1);
+                    DocumentNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", DocumentNo);
+                    DocumentAttachment.Validate("Document Type", "Attachment Document Type"::"Processed BOL");
+                end;
+            Database::TlyClaimsTrackingHeader:
+                begin
+                    FieldRef := RecRef.Field(1);
+                    DocumentNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", DocumentNo);
+                    DocumentAttachment.Validate("Document Type", "Attachment Document Type"::"Claims Tracking");
+                end;
         end;
     end;
 }

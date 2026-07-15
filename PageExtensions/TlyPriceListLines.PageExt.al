@@ -95,6 +95,14 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         {
             Visible = false;
         }
+
+        modify("Unit Price")
+        {
+            trigger OnAfterValidate()
+            begin
+                UpdateUnitPriceTier();
+            end;
+        }
     }
 
     actions
@@ -114,12 +122,18 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
             }
         }
     }
-
     trigger OnAfterGetRecord()
+    begin
+        UpdateUnitPriceTier();
+    end;
+
+    procedure UpdateUnitPriceTier();
     var
         Customer: Record "Customer";
         PriceLine: Record "Price List Line";
     begin
+        UnitPriceTier := '';
+
         if Rec."Assign-to No." = '' then exit; //All Customer as type
         if Rec."Assign-to No." = 'CA' then exit; //CA tiers, insurance, CA promos, buying group
         if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
@@ -134,8 +148,11 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
         PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
         PriceLine.SetRange("Unit Price", Rec."Unit Price");
-        if PriceLine.Find('-') then
+        if PriceLine.Find('-') then begin
             UnitPriceTier := PriceLine."Price List Code";
+        end else begin
+            UnitPriceTier := '';
+        end;
         // end;
     end;
 

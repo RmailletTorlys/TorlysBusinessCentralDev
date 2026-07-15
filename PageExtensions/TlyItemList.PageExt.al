@@ -155,15 +155,6 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
-            field("Qty. on Hand (SCANGLOBAL)"; Rec."Qty. on Hand (SCANGLOBAL)")
-            {
-                ApplicationArea = Dimensions;
-                Caption = 'Qty. on Hand (SCANGLOBAL)';
-                ToolTip = 'Qty. on Hand (SCANGLOBAL)';
-                DecimalPlaces = 2;
-                Editable = false;
-                Visible = false;
-            }
             field("Qty. on Hand (CAL)"; Rec."Qty. on Hand (CAL)")
             {
                 ApplicationArea = Dimensions;
@@ -210,15 +201,35 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = false;
             }
-            field("VMI Stock"; Rec."VMI Stock")
+            field("Qty. on Hand (TR-WATER)"; Rec."Qty. on Hand (TR-WATER)")
             {
                 ApplicationArea = Dimensions;
-                Caption = 'VMI Stock';
-                ToolTip = 'VMI Stock';
+                Caption = 'Qty. on Hand (TR-WATER)';
+                ToolTip = 'Qty. on Hand (TR-WATER)';
                 DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;
             }
+            field("Qty. on Hand (TR-BRANCH)"; Rec."Qty. on Hand (TR-BRANCH)")
+            {
+                ApplicationArea = Dimensions;
+                Caption = 'Qty. on Hand (TR-BRANCH)';
+                ToolTip = 'Qty. on Hand (TR-BRANCH)';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+            }
+
+            // field("VMI Stock"; Rec."VMI Stock")
+            // {
+            //     ApplicationArea = Dimensions;
+            //     Caption = 'VMI Stock';
+            //     ToolTip = 'VMI Stock';
+            //     DecimalPlaces = 2;
+            //     Editable = false;
+            //     Visible = true;
+            // }
+
             field("Qty. on Sales Order"; Rec."Qty. on Sales Order")
             {
                 ApplicationArea = Dimensions;
@@ -358,11 +369,9 @@ pageextension 50031 TlyItemList extends "Item List"
                 Editable = false;
                 Visible = true;
             }
-
         }
 
         moveafter("Sales Price Code"; "Costing Method", "Gen. Prod. Posting Group", "Inventory Posting Group")
-
 
         addafter("Inventory Posting Group")
         {
@@ -390,6 +399,7 @@ pageextension 50031 TlyItemList extends "Item List"
             }
         }
         moveafter("Country/Region of Origin"; "Tariff No.")
+
         addafter("Tariff No.")
         {
             field("Tariff No. (Sales)"; Rec."Tariff No. (Sales)")

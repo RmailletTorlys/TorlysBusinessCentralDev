@@ -240,6 +240,7 @@ codeunit 50414 TlyInsertFreightLine
         // don't process if meet these criteria
         if Rec."Shipping Agent Code" = 'PU' then exit;
         if Rec."Shipping Agent Code" = 'FEDEX' then exit;
+        if Rec."Shipping Agent Code" = 'UPS' then exit;
         if Rec."Order Type" = 'CLAIM REPLACEMENT' then exit;
         if Rec."Freight Zone Code" = '' then exit;
 

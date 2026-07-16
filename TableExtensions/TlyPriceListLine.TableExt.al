@@ -30,6 +30,8 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Price List Line"."Price List Code" where("Product No." = field("Product No."), "Unit Price" = field("Unit Price"), "Price List Code" = filter('TIER*&<>*QC&<>*US'), "Ending Date" = filter('')));
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 07/15/2026 - did not really work, just do a procedure on the page';
         }
         field(50005; "Full Pallet Price Tier"; Code[20])
         {
@@ -38,6 +40,8 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("Price List Line"."Price List Code" where("Product No." = field("Product No."), "Unit Price" = field("Stocking Pallet Price"), "Price List Code" = filter('TIER*&<>*QC&<>*US'), "Ending Date" = filter('')));
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 07/15/2026 - did not really work, just do a procedure on the page';
         }
 
         modify("Product No.")

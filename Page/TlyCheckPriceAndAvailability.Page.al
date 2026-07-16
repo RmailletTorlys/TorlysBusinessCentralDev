@@ -543,14 +543,14 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        if CustomerPriceList <> '' then begin
-            PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-            PriceListLine.SetRange("Asset No.", ItemPriceCode);
-            PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
-            PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
-            if PriceListLine.Find('-') then
-                exit(PriceListLine."Unit Price Tier");
-        end;
+        // if CustomerPriceList <> '' then begin
+        //     PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+        //     PriceListLine.SetRange("Asset No.", ItemPriceCode);
+        //     PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        //     PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
+        //     if PriceListLine.Find('-') then
+        //         exit(PriceListLine."Unit Price Tier");
+        // end;
     end;
 
     procedure GetCustomerPalletPrice(): Decimal
@@ -571,14 +571,14 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        if CustomerPriceList <> '' then begin
-            PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-            PriceListLine.SetRange("Asset No.", ItemPriceCode);
-            PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
-            PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
-            if PriceListLine.Find('-') then
-                exit(PriceListLine."Full Pallet Price Tier");
-        end;
+        // if CustomerPriceList <> '' then begin
+        //     PriceListLine.SetFilter("Price List Code", CustomerPriceList);
+        //     PriceListLine.SetRange("Asset No.", ItemPriceCode);
+        //     PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        //     PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
+        //     if PriceListLine.Find('-') then
+        //         exit(PriceListLine."Full Pallet Price Tier");
+        // end;
     end;
 
     procedure GetInsurancePrice(): Decimal
@@ -597,12 +597,12 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'INSURANCE');
-        PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
-        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
-        if PriceListLine.Find('-') then
-            exit(PriceListLine."Unit Price Tier");
+        // PriceListLine.SetFilter("Price List Code", 'INSURANCE');
+        // PriceListLine.SetRange("Asset No.", ItemPriceCode);
+        // PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
+        // PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
+        // if PriceListLine.Find('-') then
+        //     exit(PriceListLine."Unit Price Tier");
     end;
 
     procedure GetClearancePrice(): Decimal

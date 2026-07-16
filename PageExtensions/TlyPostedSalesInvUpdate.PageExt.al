@@ -4,6 +4,12 @@ pageextension 51355 TlyPostedSalesInvUpdate extends "Posted Sales Inv. - Update"
     {
         addafter("Your Reference")
         {
+            field("External Document No."; Rec."External Document No.")
+            {
+                Caption = 'External Document No.';
+                ToolTip = 'External Document No.';
+                ApplicationArea = All;
+            }
             field("Tag Name"; Rec."Tag Name")
             {
                 Caption = 'Tag Name';

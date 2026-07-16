@@ -462,6 +462,8 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                     Rec.Validate("Your Reference", 'SHOP AT HOME');
                     Rec.Validate("Order Type", 'SHOP AT HOME');
                     Rec.Validate("Shipping Instructions", 'SCHEDULED');
+                    Rec.Validate("MK Required", true);
+                    Rec.Validate("MK Required Type", Rec."MK Required Type"::Swatch);
                 end;
             end;
         }

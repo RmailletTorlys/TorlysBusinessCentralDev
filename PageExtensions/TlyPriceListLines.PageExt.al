@@ -18,8 +18,12 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
                 Caption = 'Full Pallet Price';
                 ToolTip = 'Full Pallet Price';
                 ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    UpdateFullPalletPriceTier();
+                end;
             }
-            field("Full Pallet Price Tier"; Rec."Full Pallet Price Tier")
+            field("Full Pallet Price Tier"; FullPalletPriceTier)
             {
                 Caption = 'Full Pallet Price Tier';
                 ToolTip = 'Full Pallet Price Tier';
@@ -125,6 +129,7 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
     trigger OnAfterGetRecord()
     begin
         UpdateUnitPriceTier();
+        UpdateFullPalletPriceTier();
     end;
 
     procedure UpdateUnitPriceTier();
@@ -139,7 +144,6 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
         if Rec."Assign-to No." = 'US' then exit; //US tiers, US promos
 
-        // if Rec."Assign-to No." <> '' then begin
         Customer.Get(Rec."Assign-to No.");
         PriceLine.Reset();
         PriceLine.SetFilter("Price List Code", 'TIER*');
@@ -153,10 +157,37 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         end else begin
             UnitPriceTier := '';
         end;
-        // end;
+    end;
+
+    procedure UpdateFullPalletPriceTier();
+    var
+        Customer: Record "Customer";
+        PriceLine: Record "Price List Line";
+    begin
+        FullPalletPriceTier := '';
+
+        if Rec."Assign-to No." = '' then exit; //All Customer as type
+        if Rec."Assign-to No." = 'CA' then exit; //CA tiers, insurance, CA promos, buying group
+        if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
+        if Rec."Assign-to No." = 'US' then exit; //US tiers, US promos
+
+        Customer.Get(Rec."Assign-to No.");
+        PriceLine.Reset();
+        PriceLine.SetFilter("Price List Code", 'TIER*');
+        PriceLine.SetFilter("Assign-to No.", Customer."Customer Price Group");
+        PriceLine.SetFilter("Product No.", Rec."Product No.");
+        PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
+        PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+        PriceLine.SetRange("Stocking Pallet Price", Rec."Unit Price");
+        if PriceLine.Find('-') then begin
+            FullPalletPriceTier := PriceLine."Price List Code";
+        end else begin
+            FullPalletPriceTier := '';
+        end;
     end;
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
         UnitPriceTier: Code[20];
+        FullPalletPriceTier: Code[20];
 }

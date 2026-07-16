@@ -535,6 +535,11 @@ pageextension 50031 TlyItemList extends "Item List"
         {
             Caption = 'Qty. on Hand';
         }
+
+        modify("Unit Cost")
+        {
+            Caption = 'Landed Cost (CAD)';
+        }
     }
 
     var

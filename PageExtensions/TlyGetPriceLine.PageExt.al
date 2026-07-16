@@ -146,7 +146,7 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
         PriceLine.SetFilter("Product No.", Rec."Product No.");
         PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
         PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
-        PriceLine.SetRange("Stocking Pallet Price", Rec."Unit Price");
+        PriceLine.SetRange("Unit Price", Rec."Stocking Pallet Price");
         if PriceLine.Find('-') then begin
             FullPalletPriceTier := PriceLine."Price List Code";
         end else begin

@@ -83,11 +83,13 @@ pageextension 55700 TlyStockkeepingUnitCard extends "Stockkeeping Unit Card"
         modify("Unit Cost")
         {
             Editable = false;
+            Caption = 'Landed Cost (CAD)';
         }
 
         modify("Last Direct Cost")
         {
             Editable = false;
+            Caption = 'Last Direct Cost (CAD)';
         }
 
         modify("Safety Stock Quantity")

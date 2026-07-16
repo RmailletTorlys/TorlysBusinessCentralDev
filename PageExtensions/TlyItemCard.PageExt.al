@@ -335,7 +335,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
         {
             field("Replacement Cost"; Rec."Replacement Cost")
             {
-                Caption = 'Replacement Cost';
+                Caption = 'Replacement Cost (CAD)';
                 ToolTip = 'The cost of replacement of the current item.';
                 ApplicationArea = All;
                 Visible = true;
@@ -838,12 +838,29 @@ pageextension 50030 TlyItemCard extends "Item Card"
         {
             Visible = true;
         }
+
+        modify("Standard Cost")
+        {
+            Caption = 'Standard Cost (CAD)';
+        }
+
+        modify("Unit Cost")
+        {
+            Caption = 'Landed Cost (CAD)';
+        }
+
+        modify("Last Direct Cost")
+        {
+            Caption = 'Last Direct Cost (CAD)';
+        }
     }
 
     actions
     {
         addlast(Category_Process)
         {
+            actionref(UOM_Promoted; "&Units of Measure")
+            { }
             actionref(StockkeepingUnits_Promoted; "Stockkeepin&g Units")
             { }
             actionref(ItemAttributes_Promoted; Attributes)
@@ -857,6 +874,12 @@ pageextension 50030 TlyItemCard extends "Item Card"
             actionref(BinContent_Promoted; "&Bin Contents")
             { }
             actionref(Turnover_Promoted; "T&urnover")
+            { }
+        }
+
+        addafter("Cost Shares_Promoted")
+        {
+            actionref(ChangeLog_Promoted; "Change Log")
             { }
         }
 
@@ -898,39 +921,19 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 RunPageLink = "Related Item No." = field("No.");
                 RunPageMode = View;
             }
-            // action(BinContent)
-            // {
-            //     Caption = 'Bin Content';
-            //     ToolTip = 'Bin Content';
-            //     ApplicationArea = All;
-            //     Image = BinContent;
-            //     RunObject = Page "Bin Content";
-            //     RunPageLink = "Item No." = field("No.");
-            // }
-            // action(StockkeepingUnits)
-            // {
-            //     Caption = 'Stockkeeping Units';
-            //     ToolTip = 'Open the item''s SKUs to view or edit instances of the item at different locations or with different variants. ';
-            //     ApplicationArea = All;
-            //     Image = SKU;
-            //     RunObject = Page "Stockkeeping Unit List";
-            //     RunPageLink = "Item No." = field("No.");
-            //     RunPageView = sorting("Item No.");
-            // }
-            // action(ItemTurnover)
-            // {
-            //     ApplicationArea = Suite;
-            //     Caption = 'T&urnover';
-            //     Image = Turnover;
-            //     RunObject = Page "Item Turnover";
-            //     RunPageLink = "No." = field("No."),
-            //                           "Global Dimension 1 Filter" = field("Global Dimension 1 Filter"),
-            //                           "Global Dimension 2 Filter" = field("Global Dimension 2 Filter"),
-            //                           "Location Filter" = field("Location Filter"),
-            //                           "Drop Shipment Filter" = field("Drop Shipment Filter"),
-            //                           "Variant Filter" = field("Variant Filter");
-            //     ToolTip = 'View a detailed account of item turnover by periods after you have set the relevant filters for location and variant.';
-            // }
+        }
+
+        addafter("Cost Shares")
+        {
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 1 Value" = field("No.");
+            }
         }
 
         modify(ApplyTemplate_Promoted)

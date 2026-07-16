@@ -206,8 +206,6 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
-
-    protected var
         ShortcutDimCode: array[8] of Code[20];
 
     trigger OnAfterGetRecord()

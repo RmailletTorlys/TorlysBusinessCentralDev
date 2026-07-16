@@ -158,7 +158,7 @@ tableextension 50027 TlyItem extends Item
             // CalcFormula = Sum("Transfer Line"."Qty. to Ship (Base)" where("Item No." = field("No."), "Transfer-from Code" = field("Location Filter")));
             CalcFormula = sum("Transfer Line"."Qty. to Ship (Base)" where("Derived From Line No." = const(0),
                                                                               "Item No." = field("No."),
-                                                                              "Transfer-to Code" = field("Location Filter"),
+                                                                              "Transfer-from Code" = field("Location Filter"),
                                                                               "Variant Code" = field("Variant Filter"),
                                                                               "Shortcut Dimension 1 Code" = field("Global Dimension 1 Filter"),
                                                                               "Shortcut Dimension 2 Code" = field("Global Dimension 2 Filter"),

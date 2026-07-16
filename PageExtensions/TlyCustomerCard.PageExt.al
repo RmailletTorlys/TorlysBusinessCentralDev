@@ -690,6 +690,24 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
     actions
     {
+        addafter(ShipToAddresses_Promoted)
+        {
+            actionref(Displays_Promoted; Displays)
+            { }
+        }
+
+        addafter("Item References_Promoted")
+        {
+            actionref(ChangeLog; "Change Log")
+            { }
+        }
+
+        addfirst(Category_Report)
+        {
+            actionref(SendStatementReview1; SendStatementReview)
+            { }
+        }
+
         addlast(processing)
         {
             // action(SendStatementReview)
@@ -874,28 +892,28 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
             }
         }
 
-        addafter(ShipToAddresses_Promoted)
+        addafter("Item References")
         {
-            actionref(Displays_Promoted; Displays)
-            { }
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 1 Value" = field("No.");
+            }
         }
 
-        addfirst(Category_Report)
-        {
-            actionref(SendStatementReview1; SendStatementReview)
-            { }
-        }
         modify("Report Statement_Promoted")
         {
             Visible = false;
         }
     }
 
-    protected var
-        ShortcutDimCode: array[8] of Code[20];
-
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        ShortcutDimCode: array[8] of Code[20];
         CustLedgEntry: Record "Cust. Ledger Entry";
         DocumentMailing: Codeunit "Document-Mailing";
         R: Report 10072;

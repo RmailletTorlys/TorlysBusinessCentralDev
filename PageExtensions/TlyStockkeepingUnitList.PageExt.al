@@ -28,14 +28,14 @@ pageextension 55701 TlyStockkeepingUnitList extends "Stockkeeping Unit List"
             field("Last Direct Cost"; Rec."Last Direct Cost")
             {
                 ApplicationArea = All;
-                Caption = 'Last Direct Cost';
-                ToolTip = 'Last Direct Cost';
+                Caption = 'Last Direct Cost (CAD)';
+                ToolTip = 'Last Direct Cost (CAD)';
             }
             field("Unit Cost"; Rec."Unit Cost")
             {
                 ApplicationArea = All;
-                Caption = 'Unit Cost';
-                ToolTip = 'Unit Cost';
+                Caption = 'Landed Cost (CAD)';
+                ToolTip = 'Landed Cost (CAD)';
             }
             field("Safety Stock"; Rec."Safety Stock Quantity")
             {

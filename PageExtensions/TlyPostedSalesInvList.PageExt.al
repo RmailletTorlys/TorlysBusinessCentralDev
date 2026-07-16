@@ -250,6 +250,4 @@ pageextension 50143 TlyPostedSalesInvList extends "Posted Sales Invoices"
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
-
-
 }

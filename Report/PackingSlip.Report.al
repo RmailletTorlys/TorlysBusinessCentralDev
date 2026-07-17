@@ -5,6 +5,7 @@ report 50018 "Packing Slip"
     Caption = 'Sales Shipment';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
+    AllowScheduling = true;
 
     dataset
     {

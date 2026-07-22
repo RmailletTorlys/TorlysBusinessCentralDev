@@ -472,7 +472,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-MGR1');
+        PriceListLine.SetFilter("Price List Code", 'TIER-MGR1-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -484,7 +484,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-MGR2');
+        PriceListLine.SetFilter("Price List Code", 'TIER-MGR2-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -496,7 +496,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-MGR3');
+        PriceListLine.SetFilter("Price List Code", 'TIER-MGR3-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -508,7 +508,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM1');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM1-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -520,7 +520,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM2');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM2-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -532,7 +532,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM3');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM3-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -544,7 +544,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM4');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM4-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -556,7 +556,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM5');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM5-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -568,7 +568,7 @@ page 50560 TlyItemAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM6');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM6-CA');
         PriceListLine.SetRange("Asset No.", Rec."Sales Price Code");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added

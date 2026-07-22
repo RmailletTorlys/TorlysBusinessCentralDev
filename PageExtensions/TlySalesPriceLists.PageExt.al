@@ -64,7 +64,7 @@ pageextension 57015 TlySalesPriceLists extends "Sales Price Lists"
     {
         addlast
         {
-            view(Tier)
+            view(TierCA)
             {
                 Caption = 'Tier CA';
                 // Filters = where("Code" = filter('TIER*&<>*QC&<>*US'));

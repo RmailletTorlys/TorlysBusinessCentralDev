@@ -29,6 +29,7 @@ page 50566 TlyCheckPriceAndAvailability
                         if Customer.Get(CustomerNo) then begin
                             CustomerName := Customer.Name;
                             CustomerPriceList := Customer."Default Price List Code";
+                            CustomerPriceGroup := Customer."Customer Price Group";
                         end;
                     end;
                 }
@@ -37,6 +38,14 @@ page 50566 TlyCheckPriceAndAvailability
                     ApplicationArea = All;
                     Caption = 'Customer Name';
                     ToolTip = 'Customer Name';
+                    Editable = false;
+                    QuickEntry = false;
+                }
+                field(CustomerPriceGroup; CustomerPriceGroup)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Customer Price Group';
+                    ToolTip = 'Customer Price Group';
                     Editable = false;
                     QuickEntry = false;
                 }
@@ -171,7 +180,7 @@ page 50566 TlyCheckPriceAndAvailability
                 {
                     group(MGR1CA1)
                     {
-                        Caption = 'MGR1';
+                        Caption = 'MGR1 - CA';
                         field(MGR1CA2; GetMGR1CA)
                         {
                             ApplicationArea = All;
@@ -183,7 +192,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(MGR2CA1)
                     {
-                        Caption = 'MGR2';
+                        Caption = 'MGR2 - CA';
                         field(MGR2CA2; GetMGR2CA)
                         {
                             ApplicationArea = All;
@@ -195,7 +204,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(MGR3CA1)
                     {
-                        Caption = 'MGR3';
+                        Caption = 'MGR3 - CA';
                         field(MGR3CA2; GetMGR3CA)
                         {
                             ApplicationArea = All;
@@ -207,7 +216,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM1CA1)
                     {
-                        Caption = 'TM1';
+                        Caption = 'TM1 - CA';
                         field(TM1CA2; GetTM1CA)
                         {
                             ApplicationArea = All;
@@ -219,7 +228,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM2CA1)
                     {
-                        Caption = 'TM2';
+                        Caption = 'TM2 - CA';
                         field(TM2CA2; GetTM2CA)
                         {
                             ApplicationArea = All;
@@ -231,7 +240,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM3CA1)
                     {
-                        Caption = 'TM3';
+                        Caption = 'TM3 - CA';
                         field(TM3CA2; GetTM3CA)
                         {
                             ApplicationArea = All;
@@ -243,7 +252,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM4CA1)
                     {
-                        Caption = 'TM4';
+                        Caption = 'TM4 - CA';
                         field(TM4CA2; GetTM4CA)
                         {
                             ApplicationArea = All;
@@ -255,7 +264,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM5CA1)
                     {
-                        Caption = 'TM5';
+                        Caption = 'TM5 - CA';
                         field(TM5CA2; GetTM5CA)
                         {
                             ApplicationArea = All;
@@ -267,7 +276,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM6CA1)
                     {
-                        Caption = 'TM6';
+                        Caption = 'TM6 - CA';
                         field(TM6CA2; GetTM6CA)
                         {
                             ApplicationArea = All;
@@ -286,7 +295,7 @@ page 50566 TlyCheckPriceAndAvailability
                 {
                     group(MGR1QC1)
                     {
-                        Caption = 'MGR1';
+                        Caption = 'MGR1 - QC';
                         field(MGR1QC2; GetMGR1QC)
                         {
                             ApplicationArea = All;
@@ -298,7 +307,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(MGR2QC1)
                     {
-                        Caption = 'MGR2';
+                        Caption = 'MGR2 - QC';
                         field(MGR2QC2; GetMGR2QC)
                         {
                             ApplicationArea = All;
@@ -322,7 +331,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM1QC1)
                     {
-                        Caption = 'TM1';
+                        Caption = 'TM1 - QC';
                         field(TM1QC2; GetTM1QC)
                         {
                             ApplicationArea = All;
@@ -334,7 +343,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM2QC1)
                     {
-                        Caption = 'TM2';
+                        Caption = 'TM2 - QC';
                         field(TM2QC2; GetTM2QC)
                         {
                             ApplicationArea = All;
@@ -346,7 +355,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM3QC1)
                     {
-                        Caption = 'TM3';
+                        Caption = 'TM3 - QC';
                         field(TM3QC2; GetTM3QC)
                         {
                             ApplicationArea = All;
@@ -358,7 +367,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM4QC1)
                     {
-                        Caption = 'TM4';
+                        Caption = 'TM4 - QC';
                         field(TM4QC2; GetTM4QC)
                         {
                             ApplicationArea = All;
@@ -370,7 +379,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM5QC1)
                     {
-                        Caption = 'TM5';
+                        Caption = 'TM5 - QC';
                         field(TM5QC2; GetTM5QC)
                         {
                             ApplicationArea = All;
@@ -382,7 +391,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM6QC1)
                     {
-                        Caption = 'TM6';
+                        Caption = 'TM6 - QC';
                         field(TM6QC2; GetTM6QC)
                         {
                             ApplicationArea = All;
@@ -402,7 +411,7 @@ page 50566 TlyCheckPriceAndAvailability
 
                     group(MGR1US1)
                     {
-                        Caption = 'MGR1';
+                        Caption = 'MGR1 - US';
                         field(MGR1US2; GetMGR1US)
                         {
                             ApplicationArea = All;
@@ -414,7 +423,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(MGR2US1)
                     {
-                        Caption = 'MGR2';
+                        Caption = 'MGR2 - US';
                         field(MGR2US2; GetMGR2US)
                         {
                             ApplicationArea = All;
@@ -426,7 +435,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(MGR3US1)
                     {
-                        Caption = 'MGR3';
+                        Caption = 'MGR3 - US';
                         field(MGR3US2; GetMGR3US)
                         {
                             ApplicationArea = All;
@@ -438,7 +447,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM1US1)
                     {
-                        Caption = 'TM1';
+                        Caption = 'TM1 - US';
                         field(TM1US2; GetTM1US)
                         {
                             ApplicationArea = All;
@@ -450,7 +459,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM2US1)
                     {
-                        Caption = 'TM2';
+                        Caption = 'TM2 - US';
                         field(TM2US2; GetTM2US)
                         {
                             ApplicationArea = All;
@@ -462,7 +471,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM3US1)
                     {
-                        Caption = 'TM3';
+                        Caption = 'TM3 - US';
                         field(TM3US2; GetTM3US)
                         {
                             ApplicationArea = All;
@@ -474,7 +483,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM4US1)
                     {
-                        Caption = 'TM4';
+                        Caption = 'TM4 - US';
                         field(TM4US2; GetTM4US)
                         {
                             ApplicationArea = All;
@@ -486,7 +495,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM5US1)
                     {
-                        Caption = 'TM5';
+                        Caption = 'TM5 - US';
                         field(TM5US2; GetTM5US)
                         {
                             ApplicationArea = All;
@@ -498,7 +507,7 @@ page 50566 TlyCheckPriceAndAvailability
                     }
                     group(TM6US1)
                     {
-                        Caption = 'TM6';
+                        Caption = 'TM6 - US';
                         field(TM6US2; GetTM6US)
                         {
                             ApplicationArea = All;
@@ -517,6 +526,7 @@ page 50566 TlyCheckPriceAndAvailability
         CustomerNo: Code[20];
         Customer: Record Customer;
         CustomerName: Text[100];
+        CustomerPriceGroup: Code[20];
         CustomerPriceList: Code[20];
         ItemNo: Code[20];
         Item: Record Item;
@@ -543,14 +553,18 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        // if CustomerPriceList <> '' then begin
-        //     PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-        //     PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        //     PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
-        //     PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
-        //     if PriceListLine.Find('-') then
-        //         exit(PriceListLine."Unit Price Tier");
-        // end;
+        if CustomerNo = '' then exit;
+        if CustomerPriceGroup = '' then exit;
+
+        PriceListLine.Reset();
+        PriceListLine.SetFilter("Price List Code", 'TIER*');
+        PriceListLine.SetFilter("Assign-to No.", CustomerPriceGroup);
+        PriceListLine.SetFilter("Product No.", ItemPriceCode);
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate());
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate());
+        PriceListLine.SetRange("Unit Price", GetCustomerCutPrice);
+        if PriceListLine.Find('-') then
+            exit(PriceListLine."Price List Code");
     end;
 
     procedure GetCustomerPalletPrice(): Decimal
@@ -621,7 +635,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-MGR1');
+        PriceListLine.SetFilter("Price List Code", 'TIER-MGR1-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -633,7 +647,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-MGR2');
+        PriceListLine.SetFilter("Price List Code", 'TIER-MGR2-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -645,7 +659,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-MGR3');
+        PriceListLine.SetFilter("Price List Code", 'TIER-MGR3-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -657,7 +671,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM1');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM1-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -669,7 +683,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM2');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM2-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -681,7 +695,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM3');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM3-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -693,7 +707,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM4');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM4-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -705,7 +719,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM5');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM5-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
@@ -717,7 +731,7 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        PriceListLine.SetFilter("Price List Code", 'TIER-TM6');
+        PriceListLine.SetFilter("Price List Code", 'TIER-TM6-CA');
         PriceListLine.SetRange("Asset No.", ItemPriceCode);
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added

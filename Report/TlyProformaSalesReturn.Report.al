@@ -1,108 +1,146 @@
-report 50031 "Proforma INV"
+report 50034 TlyProformaSalesReturn
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/ProformaINV.rdlc';
-    Caption = 'Proforma Posted Invoices';
+    RDLCLayout = './Local/Sales/History/ProformaReturns.rdlc';
+    Caption = 'Proforma Returns';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
     dataset
     {
-        dataitem("Sales Invoice Header"; "Sales Invoice Header")
+        dataitem("Sales Header"; "Sales Header")
         {
-            DataItemTableView = sorting("Bill-to Customer No.", "Order Date");
-            RequestFilterHeading = 'Sales Invoice';
+            DataItemTableView = sorting("Document Type", "No.") where("Document Type" = filter("Return Order" | "Credit Memo"));
+            RequestFilterHeading = 'Sales Order';
             RequestFilterFields = "No.", "Sell-to Customer No.", "Bill-to Customer No.", "Ship-to Code", "No. Printed";
 
-            dataitem("Sales Invoice Line"; "Sales Invoice Line")
+            dataitem("Sales Line"; "Sales Line")
             {
-                DataItemTableView = sorting("Document No.", "Line No.");
-                DataItemLinkReference = "Sales Invoice Header";
+                DataItemTableView = sorting("Document Type", "Document No.", "Line No.") where("Document Type" = filter("Return Order" | "Credit Memo"));
+                DataItemLinkReference = "Sales Header";
                 DataItemLink = "Document No." = field("No.");
 
 
                 trigger OnPreDataItem()
                 begin
-                    TempSalesInvoiceLine.Reset();
-                    TempSalesInvoiceLine.DeleteAll();
+                    TempSalesLine.Reset();
+                    TempSalesLine.DeleteAll();
                 end;
 
                 trigger OnAfterGetRecord()
                 begin
-                    TempSalesInvoiceLine := "Sales Invoice Line";
-                    TempSalesInvoiceLine.Insert();
+                    TempSalesLine := "Sales Line";
+
+                    IF IgnoreBackorder THEN begin
+                        IF "Qty. to Ship" = 0 THEN
+                            CurrReport.SKIP;
+                    end;
+
+                    If IgnoreBackorder then begin
+                        TempSalesLine.Quantity := TempSalesLine."Qty. to Ship";
+                        TempSalesLine."Outstanding Quantity" := TempSalesLine."Qty. to Ship";
+
+                        TempSalesLine."Quantity (Base)" := TempSalesLine."Qty. to Ship";
+                        TempSalesLine."Outstanding Qty. (Base)" := TempSalesLine."Qty. to Ship";
+                    end;
+                    TempSalesLine.Insert();
+
+                    If IgnoreBackorder then begin
+                        TempSalesLine.Quantity := TempSalesLine."Qty. to Ship";
+                        TempSalesLine."Outstanding Quantity" := TempSalesLine."Qty. to Ship";
+
+                        TempSalesLine."Quantity (Base)" := TempSalesLine."Qty. to Ship";
+                        TempSalesLine."Outstanding Qty. (Base)" := TempSalesLine."Qty. to Ship";
+                    end;
+
+                    TempSalesLine.Modify();
+
                     HighestLineNo := "Line No.";
-
-                    // If IgnoreBackorder then begin
-                    //     TempSalesLine.Quantity := TempSalesLine."Qty. to Ship";
-                    //     TempSalesLine."Outstanding Quantity" := TempSalesLine."Qty. to Ship";
-
-                    //     TempSalesLine."Quantity (Base)" := TempSalesLine."Qty. to Ship";
-                    //     TempSalesLine."Outstanding Qty. (Base)" := TempSalesLine."Qty. to Ship";
-                    // end;
-                    // TempSalesLine.Insert();
-
-                    // If IgnoreBackorder then begin
-                    //     TempSalesLine.Quantity := TempSalesLine."Qty. to Ship";
-                    //     TempSalesLine."Outstanding Quantity" := TempSalesLine."Qty. to Ship";
-
-                    //     TempSalesLine."Quantity (Base)" := TempSalesLine."Qty. to Ship";
-                    //     TempSalesLine."Outstanding Qty. (Base)" := TempSalesLine."Qty. to Ship";
-                    // end;
-
-
-
-
-                    // If "Sales Header"."Tax Area Code" <> '' then
-                    //     SalesTaxCalc.AddSalesLine(TempSalesLine);
+                    If "Sales Header"."Tax Area Code" <> '' then
+                        SalesTaxCalc.AddSalesLine(TempSalesLine);
                 end;
+
+                // trigger OnPostDataItem()
+                // begin
+                //     If "Sales Header"."Tax Area Code" <> '' then begin
+                //         SalesTaxCalc.EndSalesTaxCalculation(UseDate);
+                //         SalesTaxCalc.DistTaxOverSalesLines(TempSalesLine);
+                //         SalesTaxCalc.GetSummarizedSalesTaxTable(TempSalesTaxAmtLine);
+                //         BrkIdx := 0;
+                //         PrevPrintOrder := 0;
+                //         PrevTaxPercent := 0;
+                //         with TempSalesTaxAmtLine do begin
+                //             Reset();
+                //             SetCurrentKey("Print Order","Tax Area Code for Key","Tax Jurisdiction Code");
+                //             If find('-') then
+                //             repeat
+                //             If (("Print Order" = 0) or
+                //             ("Print Order" <> PrevPrintOrder) or
+                //             ("Tax %" <> PrevTaxPercent))
+                //             then begin
+                //                 BrkIdx := BrkIdx + 1;
+
+                //                 if BrkIdx > 1 then begin
+                //                     If TaxArea."Country/Region" = TaxArea."Country/Region"::CA then
+                //                     BreakdownTitle := Text006
+                //                     else
+                //                     BreakdownTitle := Text003;
+                //                 end;
+
+                //                 if BrkIdx > ArrayLen(BreakdownAmt) then begin
+
+                //                 end;
+                //             end;
+                //         end;
+                //     end;    
+                // end;
 
             }
 
             dataitem("Sales Comment Line"; "Sales Comment Line")
             {
-                DataItemTableView = sorting("Document Type", "No.", "Document Line No.", "Line No.") where("Document Type" = const("Posted Invoice"), "Print On Invoice" = const(True));
-                DataItemLinkReference = "Sales Invoice Header";
+                DataItemTableView = sorting("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = FILTER("Credit Memo" | "Return Order"), "Print On Order Confirmation" = CONST(true));
+                DataItemLinkReference = "Sales Header";
                 DataItemLink = "No." = field("No.");
 
                 trigger OnAfterGetRecord()
                 begin
-                    with TempSalesInvoiceLine do begin
+                    with TempSalesLine do begin
                         INit;
-                        // "Document Type" := "Sales Header"."Document Type";
-                        "Document No." := "Sales Invoice Header"."No.";
+                        "Document Type" := "Sales Header"."Document Type";
+                        "Document No." := "Sales Header"."No.";
                         "Line No." := HighestLineNo + 1000;
                         HighestLineNo := "Line No.";
                     end;
 
-                    If StrLen(Comment) <= MaxStrLen(TempSalesInvoiceLine.Description) then begin
-                        TempSalesInvoiceLine.Description := Comment;
-                        TempSalesInvoiceLine."Description 2" := '';
-                        // TempSalesLine."Qty. to Ship" := 1;
-                        // TempSalesLine."Quantity Shipped" := 1;
+                    If StrLen(Comment) <= MaxStrLen(TempSalesLine.Description) then begin
+                        TempSalesLine.Description := Comment;
+                        TempSalesLine."Description 2" := '';
+                        TempSalesLine."Qty. to Ship" := 1;
+                        TempSalesLine."Quantity Shipped" := 1;
                     end else begin
 
-                        SpacePointer := MAXSTRLEN(TempSalesInvoiceLine.Description) + 1;
-                        // TempSalesLine."Qty. to Ship" := 1; //since we dont show items with 0 qty to ship, we need to fake out for comments
-                        // TempSalesLine."Quantity Shipped" := 1; //since we dont show items with 0 quantity shipped, we need to fake out for comments
+                        SpacePointer := MAXSTRLEN(TempSalesLine.Description) + 1;
+                        TempSalesLine."Qty. to Ship" := 1; //since we dont show items with 0 qty to ship, we need to fake out for comments
+                        TempSalesLine."Quantity Shipped" := 1; //since we dont show items with 0 quantity shipped, we need to fake out for comments
                         WHILE (SpacePointer > 1) AND (Comment[SpacePointer] <> ' ') DO
                             SpacePointer := SpacePointer - 1;
 
                         IF SpacePointer = 1 THEN
-                            SpacePointer := MAXSTRLEN(TempSalesInvoiceLine.Description) + 1;
-                        // TempSalesLine."Qty. to Ship" := 1; //since we dont show items with 0 qty to ship, we need to fake out for comments
-                        // TempSalesLine."Quantity Shipped" := 1; //since we dont show items with 0 quantity shipped, we need to fake out for comments
-                        TempSalesInvoiceLine.Description := COPYSTR(Comment, 1, SpacePointer - 1);
-                        TempSalesInvoiceLine."Description 2" := COPYSTR(COPYSTR(Comment, SpacePointer + 1), 1, MAXSTRLEN(TempSalesInvoiceLine."Description 2"));
+                            SpacePointer := MAXSTRLEN(TempSalesLine.Description) + 1;
+                        TempSalesLine."Qty. to Ship" := 1; //since we dont show items with 0 qty to ship, we need to fake out for comments
+                        TempSalesLine."Quantity Shipped" := 1; //since we dont show items with 0 quantity shipped, we need to fake out for comments
+                        TempSalesLine.Description := COPYSTR(Comment, 1, SpacePointer - 1);
+                        TempSalesLine."Description 2" := COPYSTR(COPYSTR(Comment, SpacePointer + 1), 1, MAXSTRLEN(TempSalesLine."Description 2"));
                     end;
-                    TempSalesInvoiceLine.Insert();
+                    TempSalesLine.Insert;
                 end;
             }
 
             dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = sorting(Number);
-                DataItemLinkReference = "Sales Invoice Header";
+                DataItemLinkReference = "Sales Header";
 
                 dataitem(PageLoop; Integer)
                 {
@@ -113,7 +151,7 @@ report 50031 "Proforma INV"
                     {
 
                     }
-                    column(Location; "Sales Invoice Header"."Location Code")
+                    column(Location; "Sales Header"."Location Code")
                     {
 
                     }
@@ -133,11 +171,11 @@ report 50031 "Proforma INV"
                     {
 
                     }
-                    column(ORNo; "Sales Invoice Header"."No.")
+                    column(ORNo; "Sales Header"."No.")
                     {
 
                     }
-                    column(ORDate; "Sales invoice header"."Order Date")
+                    column(ORDate; "Sales header"."Order Date")
                     {
 
                     }
@@ -193,15 +231,15 @@ report 50031 "Proforma INV"
                     {
 
                     }
-                    column(Yourreference; "Sales Invoice Header"."Your Reference")
+                    column(Yourreference; "Sales Header"."Your Reference")
                     {
 
                     }
-                    column(shipvia; "sales Invoice header"."Shipping Agent Code")
+                    column(shipvia; "sales header"."Shipping Agent Code")
                     {
 
                     }
-                    column(Shipdate; "Sales Invoice Header"."Shipment Date")
+                    column(Shipdate; "Sales Header"."Shipment Date")
                     {
 
                     }
@@ -213,19 +251,19 @@ report 50031 "Proforma INV"
                     {
 
                     }
-                    column(tagname; "Sales Invoice Header"."Tag Name")
+                    column(tagname; "Sales Header"."Tag Name")
                     {
 
                     }
-                    column(customerID; "Sales Invoice Header"."Bill-to Customer No.")
+                    column(customerID; "Sales Header"."Bill-to Customer No.")
                     {
 
                     }
-                    column(PONumber; "Sales Invoice Header"."External Document No.")
+                    column(PONumber; "Sales Header"."External Document No.")
                     {
 
                     }
-                    column(PODate; "Sales Invoice Header"."Order Date")
+                    column(PODate; "Sales Header"."Order Date")
                     {
 
                     }
@@ -243,31 +281,27 @@ report 50031 "Proforma INV"
                         {
 
                         }
-                        column(quantity; tempsalesinvoiceline.Quantity)
-                        {
-
-                        }
                         column(TotalAmountExclInvDisc; TotalAmountExclInvDisc)
                         {
 
                         }
-                        column(ItemNo; tempsalesinvoiceline."No.")
+                        column(ItemNo; tempsalesline."No.")
                         {
 
                         }
-                        column(Itemtype; tempsalesinvoiceline.Type)
+                        column(Itemtype; tempsalesline.Type)
                         {
 
                         }
-                        column(Desc; tempsalesinvoiceline.Description)
+                        column(Desc; tempsalesline.Description)
                         {
 
                         }
-                        column(Desc2; tempsalesinvoiceline."Description 2")
+                        column(Desc2; tempsalesline."Description 2")
                         {
 
                         }
-                        column(UOM; tempsalesinvoiceline."Unit of Measure Code")
+                        column(UOM; tempsalesline."Unit of Measure Code")
                         {
 
                         }
@@ -374,29 +408,28 @@ report 50031 "Proforma INV"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.CREATETOTALS(TaxLiable, TaxAmount, AmountExclInvDisc, TempSalesinvoiceLine."Line Amount", TempSalesinvoiceLine."Inv. Discount Amount", TotalPieces);
-                            NumberOfLines := TempSalesinvoiceLine.COUNT;
+                            CurrReport.CREATETOTALS(TaxLiable, TaxAmount, AmountExclInvDisc, TempSalesLine."Line Amount", TempSalesLine."Inv. Discount Amount",
+                                                    TotalPieces);
+                            NumberOfLines := TempSalesLine.COUNT;
                             SETRANGE(Number, 1, NumberOfLines);
                             OnLineNumber := 0;
                             PrintFooter := FALSE;
 
                             GrandTotalLabel := 'Total:';
-                            TotalLabel := 'Subtotal';
-                            GrandTotal := 1;
 
-                            // IF IgnoreBackorder THEN BEGIN
-                            //     QtyLabel := '';
-                            //     QtyOrderedLabel := '';
-                            //     TotalLabel := 'Total:';
-                            //     GrandTotalLabel := '';
-                            //     GrandTotal := 0;
-                            // END
-                            // ELSE BEGIN
-                            //     QtyLabel := '';
-                            //     QtyOrderedLabel := 'Quantity';
-                            //     TotalLabel := 'Subtotal:';
-                            //     GrandTotal := 1;
-                            // END;
+                            IF IgnoreBackorder THEN BEGIN
+                                QtyLabel := '';
+                                QtyOrderedLabel := '';
+                                TotalLabel := 'Total:';
+                                GrandTotalLabel := '';
+                                GrandTotal := 0;
+                            END
+                            ELSE BEGIN
+                                QtyLabel := '';
+                                QtyOrderedLabel := 'Quantity';
+                                TotalLabel := 'Subtotal:';
+                                GrandTotal := 1;
+                            END;
                         end;
 
                         trigger OnAfterGetRecord()
@@ -404,7 +437,7 @@ report 50031 "Proforma INV"
                             OnLineNumber := OnLineNumber + 1;
                             // TempSalesLine.SetFilter("Document No.", "Sales Header"."No.");
 
-                            with TempSalesinvoiceLine do begin
+                            with TempSalesLine do begin
                                 If OnLineNumber = 1 then
                                     Find('-') else
                                     Next();
@@ -441,50 +474,71 @@ report 50031 "Proforma INV"
                                     TaxFlag := false;
                                     TaxLiable := 0;
                                 end;
-                                IF "Sales Invoice Header"."Currency Code" = '' THEN BEGIN
+                                IF "Sales Header"."Currency Code" = '' THEN BEGIN
                                     CurrencyCode := 'CDN';
                                 END ELSE BEGIN
-                                    CurrencyCode := "Sales invoice Header"."Currency Code"
+                                    CurrencyCode := "Sales Header"."Currency Code"
                                 END;
 
-
                                 // Message('tempsalesline %1', TempSalesLine);
+
                                 If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
                                     Item3.GET("No.");
                                     Item3.CalcFields("Outbound Duty % to US"); //TLY-SD - 04/01/2025
-                                    // IF (OrderShipped) THEN 
-                                    IF (CostInsteadOfPrice) THEN
-                                        AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity"
-                                    ELSE IF (UseListPrice) THEN
-                                        AmountExclInvDisc := "Unit Price" * "Quantity"
-                                    ELSE IF (BackoutDuty) then //AND (Item3."Tariff Charge Required") THEN
-                                        // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
-                                        //                     * "Quantity")
-                                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
-                                                            * "Quantity")
-                                    ELSE begin
-                                        AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity";
-                                        // Message('%1', AmountExclInvDisc);
-                                    end;
-                                    // AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
+                                    IF (NOT OrderShipped) THEN BEGIN
+                                        IF (CostInsteadOfPrice) THEN
+                                            AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity"
+                                        // ELSE IF (UseListPrice) THEN
+                                        //     AmountExclInvDisc := "Unit Price" * "Quantity"
+                                        ELSE IF (BackoutDuty) then //AND (Item3."Tariff Charge Required") THEN
+                                                                   // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) // 1.25)
+                                                                   //                     * "Quantity")
+                                                                   // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) // 1.25)
+                                                                   // * "Quantity")
+                                            AmountExclInvDisc := ("Unit Price" / (1 + (Item3."Outbound Duty % to US" * 0.01))) * "Quantity"
+                                        ELSE
+                                            // AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity");
+                                            AmountExclInvDisc := "Unit Price" * "Quantity";
 
+                                        QtyOrderedNo := "Quantity";
+                                        IF "Quantity" = 0 THEN
+                                            UnitPriceToPrint := 0  // so it won't print
+                                        ELSE
+                                            UnitPriceToPrint := ROUND(AmountExclInvDisc / "Quantity", 0.00001);
 
-                                    // QtyOrderedNo := "Quantity";
-                                    IF "Quantity" = 0 THEN
-                                        UnitPriceToPrint := 0  // so it won't print
-                                    ELSE
-                                        UnitPriceToPrint := ROUND(AmountExclInvDisc / "Quantity", 0.00001);
+                                        IF AdditionalWeight = 0 THEN BEGIN
+                                            Weight1Label := 'Net Weight (LB)';
+                                            Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity");
+                                            Weight2Label := 'Net Weight (KG)';
+                                            Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity") * 0.453592;
+                                        END ELSE BEGIN
+                                            Weight1Label := 'Net Weight (KG)';
+                                            Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity") * 0.453592;
+                                            Weight2Label := 'Gross Weight (KG)';
+                                            Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Quantity") * 0.453592;
+                                        END;
+
+                                        TotalWeight := TotalWeight + "Net Weight" * "quantity";
+                                        // TotalAmountExclInvDisc += AmountExclInvDisc;
+                                        // if (CostInsteadOfPrice) then
+                                        //     VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
+                                        // else
+                                        //     VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Qty. to Ship"));
+
+                                        // TotalVATAmount += VATAmount;
+                                        // TotalVATAmount += VATAmount;
+                                    END;
+                                    // end;
 
                                     IF Type = Type::Item THEN BEGIN
                                         IF Item.GET("No.") THEN BEGIN
                                             CountryOfOrigin := Item."Country/Region of Origin Code";
-                                            // ICProgramNo := Item.;
+                                            ICProgramNo := Item."Item Category Code";
                                             TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
-                                                                                      // IF UsePurchasesTariff THEN
-                                                                                      //     TariffNo := Item."Tariff No."
-                                                                                      // ELSE
-                                            TariffNo := Item."Tariff No. (Sales)";
-                                            Netweight := Item."Net Weight";
+                                            IF UsePurchasesTariff THEN
+                                                TariffNo := Item."Tariff No."
+                                            ELSE
+                                                TariffNo := Item."Tariff No. (Sales)";
                                         END ELSE BEGIN
                                             CountryOfOrigin := '';
                                             TariffNo := '';
@@ -494,100 +548,32 @@ report 50031 "Proforma INV"
                                         TariffNo := '';
                                     END;
 
-                                    IF AdditionalWeight = 0 THEN BEGIN
-                                        Weight1Label := 'Net Weight (LB)';
-                                        Weight1Calc := (TempSalesinvoiceLine."Net Weight" * TempSalesinvoiceLine."Quantity");
-                                        Weight2Label := 'Net Weight (KG)';
-                                        Weight2Calc := (TempSalesinvoiceLine."Net Weight" * TempSalesinvoiceLine."Quantity") * 0.453592;
-                                    END ELSE BEGIN
-                                        Weight1Label := 'Net Weight (KG)';
-                                        Weight1Calc := (TempSalesinvoiceLine."Net Weight" * TempSalesinvoiceLine."Quantity") * 0.453592;
-                                        Weight2Label := 'Gross Weight (KG)';
-                                        Weight2Calc := (TempSalesinvoiceLine."Net Weight" * TempSalesinvoiceLine."Quantity") * 0.453592;
-                                    END;
+                                    IF ICProgramNo = 'HWC-20' THEN
+                                        TariffNote := 'Subject to ADD case to 25.62% and CVD of 1.5%'
+                                    ELSE IF ICProgramNo = 'HWC-22' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-12' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-21' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-23' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE IF ICProgramNo = 'HWC-26' THEN
+                                        TariffNote := 'Subject to ADD case to 17.37% and CVD of 1.38%'
+                                    ELSE
+                                        TariffNote := '';
 
-                                    TotalWeight := TotalWeight + "Net Weight" * "Quantity";
-                                    TotalAmountExclInvDisc += AmountExclInvDisc;
-                                    // if (CostInsteadOfPrice) then
-                                    //     VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
-                                    // else
-                                    //     VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Quantity Shipped"));
-
-                                    TotalVATAmount += VATAmount;
                                     TotalPieces := CalcTotalPieces;
                                 end;
-
-                                // If NOT (Type = Type::" ") and NOt (Type = Type::"G/L Account") then begin
-                                //     Item3.GET("No.");
-                                //     IF (NOT OrderShipped) THEN BEGIN
-                                //         IF (CostInsteadOfPrice) THEN
-                                //             AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
-                                //         ELSE IF (UseListPrice) THEN
-                                //             AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
-                                //         ELSE IF (BackoutDuty) AND (Item3."Tariff Charge Required") THEN
-                                //             AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / 1.25)
-                                //                                 * "Qty. to Ship")
-                                //         ELSE
-                                //             AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
-
-                                //         QtyOrderedNo := "Qty. to Ship";
-                                //         IF "Qty. to Ship" = 0 THEN
-                                //             UnitPriceToPrint := 0  // so it won't print
-                                //         ELSE
-                                //             UnitPriceToPrint := ROUND(AmountExclInvDisc / "Qty. to Ship", 0.00001);
-
-                                //         IF AdditionalWeight = 0 THEN BEGIN
-                                //             Weight1Label := 'Net Weight (LB)';
-                                //             Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship");
-                                //             Weight2Label := 'Net Weight (KG)';
-                                //             Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                //         END ELSE BEGIN
-                                //             Weight1Label := 'Net Weight (KG)';
-                                //             Weight1Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                //             Weight2Label := 'Gross Weight (KG)';
-                                //             Weight2Calc := (TempSalesLine."Net Weight" * TempSalesLine."Qty. to Ship") * 0.453592;
-                                //         END;
-
-                                //         TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
-                                //         // TotalAmountExclInvDisc += AmountExclInvDisc;
-                                //         // if (CostInsteadOfPrice) then
-                                //         //     VATAmount := Round(("Unit Cost (LCY)" * "Qty. to Invoice" * "VAT %") / 100)
-                                //         // else
-                                //         //     VATAmount := Round(Amount * "VAT %" / 100 * ("Qty. to Invoice" / "Qty. to Ship"));
-
-                                //         // TotalVATAmount += VATAmount;
-                                //         // TotalVATAmount += VATAmount;
-                                //     END;
-                                //     // end;
-
-                                //     IF Type = Type::Item THEN BEGIN
-                                //         IF Item.GET("No.") THEN BEGIN
-                                //             CountryOfOrigin := Item."Country/Region of Origin Code";
-                                //             // ICProgramNo := Item.;
-                                //             TariffNote := Item."Customs/Tariff Note"; //TLY-SD - 04/09/2025
-                                //             IF UsePurchasesTariff THEN
-                                //                 TariffNo := Item."Tariff No."
-                                //             ELSE
-                                //                 TariffNo := Item."Tariff No. (Sales)";
-                                //         END ELSE BEGIN
-                                //             CountryOfOrigin := '';
-                                //             TariffNo := '';
-                                //         END;
-                                //     END ELSE BEGIN
-                                //         CountryOfOrigin := '';
-                                //         TariffNo := '';
-                                //     END;
-                                //     TotalPieces := CalcTotalPieces;
-                                // end;
                             end;
 
                             IF RemoveFreight THEN BEGIN
                                 // IF TempSalesinvoiceLine."Gen. Prod. Posting Group" = 'FREIGHT' THEN BEGIN
-                                IF TempSalesinvoiceLine."No." = '60700' THEN BEGIN
-                                    TempSalesinvoiceLine."No." := '';
-                                    TempSalesinvoiceLine.Description := '';
-                                    TempSalesinvoiceLine."Description 2" := '';
-                                    TempSalesinvoiceLine."Unit of Measure Code" := '';
+                                IF TempSalesLine."No." = '60700' THEN BEGIN
+                                    TempSalesLine."No." := '';
+                                    TempSalesLine.Description := '';
+                                    TempSalesLine."Description 2" := '';
+                                    TempSalesLine."Unit of Measure Code" := '';
                                     Weight1Calc := 0;
                                     Weight2Calc := 0;
                                     QtyOrderedNo := 0;
@@ -598,11 +584,11 @@ report 50031 "Proforma INV"
 
                             IF RemoveDuty THEN BEGIN
                                 // IF TempSalesLine."Gen. Prod. Posting Group" = 'DUTY' THEN BEGIN
-                                IF TempSalesinvoiceLine."No." = '51400' THEN BEGIN
-                                    TempSalesinvoiceLine."No." := '';
-                                    TempSalesinvoiceLine.Description := '';
-                                    TempSalesinvoiceLine."Description 2" := '';
-                                    TempSalesinvoiceLine."Unit of Measure Code" := '';
+                                IF TempSalesLine."No." = '51400' THEN BEGIN
+                                    TempSalesLine."No." := '';
+                                    TempSalesLine.Description := '';
+                                    TempSalesLine."Description 2" := '';
+                                    TempSalesLine."Unit of Measure Code" := '';
                                     Weight1Calc := 0;
                                     Weight2Calc := 0;
                                     QtyOrderedNo := 0;
@@ -628,7 +614,7 @@ report 50031 "Proforma INV"
 
                     IF CopyNo = NoLoops THEN BEGIN
                         IF NOT CurrReport.PREVIEW THEN
-                            SalesInvPrinted.RUN("Sales invoice Header");
+                            SalesPrinted.RUN("Sales Header");
                         CurrReport.BREAK;
                     END ELSE
                         CopyNo := CopyNo + 1;
@@ -637,7 +623,7 @@ report 50031 "Proforma INV"
                     ELSE
                         CopyTxt := Text000;
 
-                    // TotalWeight := 0;
+                    TotalWeight := 0;
                 end;
             }
             trigger OnPreDataItem()
@@ -678,18 +664,19 @@ report 50031 "Proforma INV"
                 If not Customer.get("Sell-to Customer No.") then
                     Clear(Customer);
 
-                FormatAddress.SalesInvBillTo(BillToAddress, "Sales Invoice Header");
-                FormatAddress.SalesInvShipTo(ShipToAddress, CustAddress, "Sales Invoice Header");
+                FormatAddress.SalesHeaderSellTo(BillToAddress, "Sales Header");
+                FormatAddress.SalesHeaderShipTo(ShipToAddress, CustAddress, "Sales Header");
 
 
-                If LogInteraction then
-                    if Not CurrReport.Preview then begin
-                        // CalcFields("No. of Archived Versions");
-                        If "Bill-to Contact No." <> '' then
-                            SegManagement.LogDocument(4, "No.", 0, 0, Database::Customer, "Bill-to Contact No.", "Salesperson Code", "Campaign No.", "Posting Description", '')
-                        else
-                            SegManagement.LogDocument(4, "No.", 0, 0, Database::Customer, "Bill-to Customer No.", "Salesperson Code", "Campaign No.", "Posting Description", '');
-                    end;
+                If LogInteraction then begin
+                    CalcFields("No. of Archived Versions");
+                    If "Bill-to Contact No." <> '' then
+                        SegManagement.LogDocument(3, "No.", "Doc. No. Occurrence", "No. of Archived Versions", Database::Customer, "Bill-to Contact No.",
+                        "Salesperson Code", "Campaign No.", "Posting Description", "Opportunity No.")
+                    else
+                        SegManagement.LogDocument(3, "No.", "Doc. No. Occurrence", "No. of Archived Versions", Database::Customer, "Bill-to Customer No.",
+                        "Salesperson Code", "Campaign No.", "Posting Description", "Opportunity No.");
+                end;
 
                 Clear(BreakdownTitle);
                 Clear(BreakdownLabel);
@@ -710,43 +697,12 @@ report 50031 "Proforma INV"
                             end;
                     end;
                     SalesTaxCalc.StartSalesTaxCalculation();
-                    SalesTaxCalc.AddSalesInvoiceLines("Sales Invoice Header"."No.");
-                    SalesTaxCalc.EndSalesTaxCalculation("Sales Invoice Header"."Posting Date");
-                    SalesTaxCalc.GetSummarizedSalesTaxTable(TempSalesTaxAmtLine);
-                    BrkIdx := 0;
-                    PrevPrintOrder := 0;
-                    PrevTaxPercent := 0;
-                    with TempSalesTaxAmtLine do begin
-                        RESET;
-                        SETCURRENTKEY("Print Order", "Tax Area Code for Key", "Tax Jurisdiction Code");
-                        IF FIND('-') THEN
-                            repeat
-                                IF ("Print Order" = 0) OR
-                                   ("Print Order" <> PrevPrintOrder) OR
-                                   ("Tax %" <> PrevTaxPercent)
-                                   then begin
-                                    BrkIdx := BrkIdx + 1;
-                                    if BrkIdx > 1 then begin
-                                        IF TaxArea."Country/Region" = TaxArea."Country/Region"::CA THEN
-                                            BreakdownTitle := Text006
-                                        ELSE
-                                            BreakdownTitle := Text003;
-                                    end;
-                                    If BrkIdx > ArrayLen(BreakdownAmt) then begin
-                                        BrkIdx := BrkIdx - 1;
-                                        BreakdownLabel[BrkIdx] := Text004;
-                                    end else
-                                        BreakdownLabel[BrkIdx] := STRSUBSTNO("Print Description", "Tax %");
-                                end;
-                                BreakdownAmt[BrkIdx] := BreakdownAmt[BrkIdx] + "Tax Amount";
-                            until Next() = 0;
-                    end;
                 end;
 
-                // If "Posting Date" <> 0D then
-                //     UseDate := "Posting Date"
-                // else
-                //     UseDate := WorkDate();
+                If "Posting Date" <> 0D then
+                    UseDate := "Posting Date"
+                else
+                    UseDate := WorkDate();
 
                 TotalWeight := 0;
 
@@ -787,11 +743,11 @@ report 50031 "Proforma INV"
                     //     ApplicationArea = Basic, Suite;
                     //     Caption = 'Print Company Address';
                     // }
-                    // field(OrderShipped; OrderShipped)
-                    // {
-                    //     ApplicationArea = basic, suite;
-                    //     Caption = 'Is Order Shipped?';
-                    // }
+                    field(OrderShipped; OrderShipped)
+                    {
+                        ApplicationArea = basic, suite;
+                        Caption = 'Is Order Shipped?';
+                    }
                     field(IgnoreBackorder; IgnoreBackorder)
                     {
                         ApplicationArea = Basic, Suite;
@@ -812,6 +768,7 @@ report 50031 "Proforma INV"
                     //     ApplicationArea = Basic, Suite;
                     //     Caption = 'Remove Duty Lines';
                     // }
+
                     // field(RemoveFreight; RemoveFreight)
                     // {
                     //     ApplicationArea = Basic, Suite;
@@ -822,11 +779,11 @@ report 50031 "Proforma INV"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Use Cost Instead of Price';
                     }
-                    field(UseListPrice; UseListPrice)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Use List Price';
-                    }
+                    // field(UseListPrice; UseListPrice)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Use List Price';
+                    // }
                     field(UsePurchasesTariff; UsePurchasesTariff)
                     {
                         ApplicationArea = Basic, Suite;
@@ -856,13 +813,13 @@ report 50031 "Proforma INV"
         QtyShippedSingles: Decimal;
         CalculatedCase: Decimal;
     begin
-        If TempSalesInvoiceLine."Quantity" <> 0 then begin
-            Item2.Get(TempSalesInvoiceLine."No.");
+        If TempSalesLine."Quantity" <> 0 then begin
+            Item2.Get(TempSalesLine."No.");
 
             PerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
             PerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
 
-            TempQuantity := ROUND(TempSalesInvoiceLine."Quantity" * TempSalesInvoiceLine."Qty. per Unit of Measure", 0.01, '<');
+            TempQuantity := ROUND(TempSalesLine."Quantity" * TempSalesLine."Qty. per Unit of Measure", 0.01, '<');
             QtyShippedPallet := 0;
 
             WHILE TempQuantity >= PerPallet DO BEGIN
@@ -892,7 +849,7 @@ report 50031 "Proforma INV"
         PaymentTerms: Record "Payment Terms";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInformation: Record "Company Information";
-        TempSalesInvoiceLine: Record "Sales Invoice Line" temporary;
+        TempSalesLine: Record "Sales Line" temporary;
         RespCenter: Record "Responsibility Center";
         Language1: Record Language;
         TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
@@ -906,7 +863,6 @@ report 50031 "Proforma INV"
         SalesTaxCalc: Codeunit "Sales Tax Calculate";
         SegManagement: Codeunit SegManagement;
         ArchiveManagement: Codeunit ArchiveManagement;
-        SalesInvPrinted: Codeunit "Sales Inv.-Printed";
         CountryOfOrigin: code[10];
         TariffNo: code[15];
         ICProgramNo: Code[10];
@@ -920,7 +876,6 @@ report 50031 "Proforma INV"
         Weight1Calc: Decimal;
         Weight2Calc: Decimal;
         GrandTotal: Decimal;
-        Netweight: Decimal;
         AdditionalWeight: Decimal;
         IFSAmount: Decimal;
         TotalAmountExclInvDisc: Decimal;

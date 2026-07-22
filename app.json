@@ -16,13 +16,13 @@
         {
             "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
             "name": "Sustainability",
-            "version": "28.0.46665.48257",
+            "version": "28.1.49838.50065",
             "publisher": "Microsoft"
         },
         {
             "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
             "name": "E-Document Core",
-            "version": "28.0.46665.51365",
+            "version": "28.1.49838.52602",
             "publisher": "Microsoft"
         },
         {
@@ -40,13 +40,13 @@
         {
             "id": "bd6ded48-b30c-48b3-b0a2-7e561d3c0d19",
             "name": "Shipping Connector",
-            "version": "4.8.2.0",
+            "version": "4.8.4.0",
             "publisher": "Software Grotto"
         },
         {
             "id": "9f5a78d6-7644-413a-92e5-588c20a191e0",
             "name": "Shipping Connector Documentation Library",
-            "version": "4.8.2.0",
+            "version": "4.8.4.0",
             "publisher": "Software Grotto"
         },
         {
@@ -59,7 +59,7 @@
     ],
     "screenshots": [],
     "platform": "1.0.0.0",
-    "application": "28.0.46665.48257",
+    "application": "28.1.49838.50065",
     "idRanges": [
         {
             "from": 50000,

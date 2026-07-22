@@ -1,8 +1,8 @@
-report 50020 "B13 Purchase"
+report 50023 TlyB13SalesSalesOrder
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/B13.rdlc';
-    Caption = 'B13 Purchase';
+    RDLCLayout = './Local/Sales/History/B13Sales.rdlc';
+    Caption = 'B13 Sales    ';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -43,7 +43,7 @@ report 50020 "B13 Purchase"
             {
 
             }
-            column(Tariff_No_; "Tariff No.")
+            column(Tariff_No_; "Tariff No. (Sales)")
             {
 
             }
@@ -54,13 +54,17 @@ report 50020 "B13 Purchase"
 
             dataitem("Sales Line"; "Sales Line")
             {
-                DataItemTableView = where(Type = filter(Item));
+                DataItemTableView = where(Type = filter(Item), Quantity = filter(<> 0));
                 DataItemLinkReference = Item;
                 DataItemLink = "No." = field("No.");
                 RequestFilterFields = "Document No.", "Sell-to Customer No.", "Shipment Date";
                 RequestFilterHeading = 'Sales Line';
 
                 column(No_; "No.")
+                {
+
+                }
+                column(IgnoreBackorder; IgnoreBackorder)
                 {
 
                 }
@@ -133,8 +137,6 @@ report 50020 "B13 Purchase"
                             OrderUOM := 'M3';
                         end;
 
-
-
                         NetWeightLB := "Quantity Shipped" * "Net Weight";
                         NetWeightKG := "Quantity Shipped" * "Net Weight" * 0.453592;
                         LineAmount := "Quantity Shipped" * NetPrice;
@@ -189,7 +191,7 @@ report 50020 "B13 Purchase"
                         TariffQuantity := TariffQuantity + OrderQuantity;
                         TariffNetWeightLB := TariffNetWeightLB + ("Sales Line"."Quantity" * "Sales Line"."Net Weight");
                         TariffNetWeightKG := TariffNetWeightKG + ("Sales Line"."Quantity" * "Sales Line"."Net Weight" * 0.453592);
-                        TariffLineAmount := TariffLineAmount + LineAmount;
+                        TariffLineAmount += LineAmount;
                     end;
 
                     If RemoveFreight then begin
@@ -210,6 +212,22 @@ report 50020 "B13 Purchase"
 
                     If RemoveDuty then begin
                         If "No." = '51400' then begin
+                            "No." := '';
+                            Description := '';
+                            OrderQuantity := 0;
+                            NetWeightLB := 0;
+                            NetWeightKG := 0;
+                            NetPrice := 0;
+                            LineAmount := 0;
+                            TariffQuantity := 0;
+                            TariffNetWeightLB := 0;
+                            TariffNetWeightKG := 0;
+                            TariffLineAmount := 0;
+                        end;
+                    end;
+
+                    If IgnoreBackorder then begin
+                        If "Outstanding Quantity" <> 0 then begin
                             "No." := '';
                             Description := '';
                             OrderQuantity := 0;

@@ -482,15 +482,17 @@ report 50026 TlyProformaSalesOrder
                                     IF (OrderShipped) THEN BEGIN
                                         IF (CostInsteadOfPrice) THEN
                                             AmountExclInvDisc := "Unit Cost (LCY)" * "Quantity Shipped"
-                                        ELSE IF (UseListPrice) THEN
-                                            AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
+                                        // ELSE IF (UseListPrice) THEN
+                                        // AmountExclInvDisc := "Unit Price" * "Quantity Shipped"
                                         ELSE IF (BackoutDuty) THEN //AND (Item3."Tariff Charge Required") THEN
                                                                    // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
                                                                    // * "Quantity Shipped")
-                                            AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
-                                                                * "Quantity Shipped")
+                                                                   // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
+                                                                   //                     * "Quantity Shipped")
+                                            AmountExclInvDisc := ("Unit Price" / (1 + (Item3."Outbound Duty % to US" * 0.01))) * "Quantity Shipped"
                                         ELSE begin
-                                            AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
+                                            // AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
+                                            AmountExclInvDisc := "Unit Price" * "Quantity Shipped";
                                             // Message('%1', AmountExclInvDisc);
                                         end;
                                         // AmountExclInvDisc := ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Quantity Shipped";
@@ -551,15 +553,17 @@ report 50026 TlyProformaSalesOrder
                                     IF (NOT OrderShipped) THEN BEGIN
                                         IF (CostInsteadOfPrice) THEN
                                             AmountExclInvDisc := "Unit Cost (LCY)" * "Qty. to Ship"
-                                        ELSE IF (UseListPrice) THEN
-                                            AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
+                                        // ELSE IF (UseListPrice) THEN
+                                        // AmountExclInvDisc := "Unit Price" * "Qty. to Ship"
                                         ELSE IF (BackoutDuty) THEN //AND (Item3."Tariff Charge Required") THEN
-                                            // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
-                                            //                     * "Qty. to Ship")
-                                                                AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
-                                                                * "Qty. to Ship")
+                                                                   // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (DutyPercentage * 0.01))) //1.25)
+                                                                   //                     * "Qty. to Ship")
+                                                                   // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
+                                                                   // * "Qty. to Ship")
+                                            AmountExclInvDisc := ("Unit Price" * (1 + (Item3."Outbound Duty % to US" * 0.01))) * "Qty. to Ship"
                                         ELSE
-                                            AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
+                                            // AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
+                                            AmountExclInvDisc := "Unit Price" * "Qty. to Ship";
 
                                         QtyOrderedNo := "Qty. to Ship";
                                         IF "Qty. to Ship" = 0 THEN
@@ -580,7 +584,6 @@ report 50026 TlyProformaSalesOrder
                                         END;
 
                                         TotalWeight := TotalWeight + "Net Weight" * "Qty. to Ship";
-
 
                                         // TotalAmountExclInvDisc += AmountExclInvDisc;
                                         // if (CostInsteadOfPrice) then
@@ -825,11 +828,11 @@ report 50026 TlyProformaSalesOrder
                         ApplicationArea = Basic, Suite;
                         Caption = 'Use Cost Instead of Price';
                     }
-                    field(UseListPrice; UseListPrice)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Use List Price';
-                    }
+                    // field(UseListPrice; UseListPrice)
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     Caption = 'Use List Price';
+                    // }
                     field(UsePurchasesTariff; UsePurchasesTariff)
                     {
                         ApplicationArea = Basic, Suite;

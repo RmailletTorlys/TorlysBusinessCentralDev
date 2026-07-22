@@ -271,6 +271,9 @@ End Function
         <Field Name="OverLimitDescription">
           <DataField>OverLimitDescription</DataField>
         </Field>
+        <Field Name="PaymentTerms">
+          <DataField>PaymentTerms</DataField>
+        </Field>
         <Field Name="TotalBalanceDue__">
           <DataField>TotalBalanceDue__</DataField>
         </Field>

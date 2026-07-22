@@ -91,6 +91,7 @@ report 50038 "Aged Accounts Payable Torlys"
                 column(Vendor__Phone_No__; "Phone No.") { }
                 column(Vendor_Contact; Contact) { }
                 column(BlockedDescription; BlockedDescription) { }
+                column(PaymentTerms; "Payment Terms Code") { }
 
                 // Vendor totals in LCY (existing)
                 column(TotalBalanceDue__; -"TotalBalanceDue$") { }

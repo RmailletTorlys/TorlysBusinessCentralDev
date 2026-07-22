@@ -85,6 +85,7 @@ report 50039 "Aged Accounts Rec Torlys"
                 column(Customer_Contact; Contact) { }
                 column(BlockedDescription; BlockedDescription) { }
                 column(OverLimitDescription; OverLimitDescription) { }
+                column(PaymentTerms; "Payment Terms Code") { } //TLY-SD - 07/22/2026
 
                 // Vendor-level LCY totals (existing)
                 column(TotalBalanceDue__; "TotalBalanceDue$") { }

@@ -1,8 +1,8 @@
-report 50028 "B13 Sales Invoice"
+report 50029 TlyB13PurchasesPostedInvoice
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/B13Salesinvoice.rdlc';
-    Caption = 'B13 Sales Invoice';
+    RDLCLayout = './Local/Sales/History/B13PurchInvoice.rdlc';
+    Caption = 'B13 Purchase Invoice';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -10,7 +10,7 @@ report 50028 "B13 Sales Invoice"
     {
         dataitem(Item; Item)
         {
-            DataItemTableView = sorting("Country/Region of Origin Code", "Tariff No. (Sales)");
+            DataItemTableView = sorting("Country/Region of Origin Code", "Tariff No.");
             RequestFilterFields = "Country/Region of Origin Code", "Tariff No.";
             PrintOnlyIfDetail = true;
             RequestFilterHeading = 'Item';
@@ -31,10 +31,6 @@ report 50028 "B13 Sales Invoice"
             {
 
             }
-            // column(SystemId; LookupUserIdWithGuid(SystemId))
-            // {
-
-            // }
             column(TariffNetWeightLB; TariffNetWeightLB)
             {
 
@@ -51,7 +47,7 @@ report 50028 "B13 Sales Invoice"
             {
 
             }
-            column(Tariff_No_; "Tariff No. (Sales)")
+            column(Tariff_No_; "Tariff No.")
             {
 
             }
@@ -119,9 +115,9 @@ report 50028 "B13 Sales Invoice"
                     else
                         // NetPrice := (Round(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '='));
                         NetPrice := "Unit Price";
-
                     // SalesHeader.get("Document Type", "Document No.");
-                    If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesHeader."Ship-to Country/Region Code" = 'NZ') then begin
+                    // If OrderShipped then begin
+                    If ("Gen. Prod. Posting Group" = 'SS HardWood') then begin
                         OrderQuantity := ("Quantity" / 10.764);
                         OrderUOM := 'M2';
                     end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
@@ -142,23 +138,23 @@ report 50028 "B13 Sales Invoice"
 
                     If Type = Type::Item then begin
                         If Item2.get("No.") then begin
-                            TariffNote := item."Customs/Tariff Note";
-                            netweight := Item2."Net Weight";
+                            TariffNote := Item."Customs/Tariff Note";
+                            NetWeight := Item2."Net Weight";
                         end;
                     end;
 
                     TariffQuantity := TariffQuantity + OrderQuantity;
                     TariffNetWeightLB := TariffNetWeightLB + ("Sales Invoice Line"."Quantity" * "Sales Invoice Line"."Net Weight");
-                    TariffNetWeightKG := TariffNetWeightKG + ("Sales Invoice Line"."Quantity" * "Sales invoice Line"."Net Weight" * 0.453592);
+                    TariffNetWeightKG := TariffNetWeightKG + ("Sales Invoice Line"."Quantity" * "Sales Invoice Line"."Net Weight" * 0.453592);
                     TariffLineAmount += LineAmount;
-
+                    // end;
 
                     If RemoveFreight then begin
                         If "No." = '60700' then begin
                             "No." := '';
                             Description := '';
                             Quantity := 0;
-                            "Net Weight" := 0;
+                            NetWeight := 0;
                             NetPrice := 0;
                             LineAmount := 0;
                             TariffQuantity := 0;
@@ -173,7 +169,7 @@ report 50028 "B13 Sales Invoice"
                             "No." := '';
                             Description := '';
                             Quantity := 0;
-                            "Net Weight" := 0;
+                            NetWeight := 0;
                             NetPrice := 0;
                             LineAmount := 0;
                             TariffQuantity := 0;
@@ -187,11 +183,11 @@ report 50028 "B13 Sales Invoice"
 
             trigger OnPreDataItem()
             begin
-                SalesLineFilter := "Sales invoice Line".GetFilters;
+                SalesLineFilter := "Sales Invoice Line".GetFilters;
 
                 User := Format(UserId());
 
-                LastFieldNo := FieldNo("Tariff No. (Sales)");
+                LastFieldNo := FieldNo("Tariff No.");
 
                 CurrReport.CreateTotals(TariffQuantity, TariffNetWeightLB, TariffNetWeightKG, TariffLineAmount);
             end;

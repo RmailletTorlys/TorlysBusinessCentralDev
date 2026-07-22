@@ -1,8 +1,8 @@
-report 50032 "B13 Purchase Returns"
+report 50033 TlyB13SalesReturnOrder
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Local/Sales/History/B13PurchReturns.rdlc';
-    Caption = 'B13 Purchase Returns';
+    RDLCLayout = './Local/Sales/History/B13SalesReturns.rdlc';
+    Caption = 'B13 Sales Returns';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -10,8 +10,8 @@ report 50032 "B13 Purchase Returns"
     {
         dataitem(Item; Item)
         {
-            DataItemTableView = sorting("Country/Region of Origin Code", "Tariff No.");
-            RequestFilterFields = "Country/Region of Origin Code", "Tariff No.";
+            DataItemTableView = sorting("Country/Region of Origin Code", "Tariff No. (Sales)");
+            RequestFilterFields = "Country/Region of Origin Code", "Tariff No. (Sales)";
             PrintOnlyIfDetail = true;
             RequestFilterHeading = 'Item';
 
@@ -43,7 +43,7 @@ report 50032 "B13 Purchase Returns"
             {
 
             }
-            column(Tariff_No_; "Tariff No.")
+            column(Tariff_No_; "Tariff No. (Sales)")
             {
 
             }
@@ -132,8 +132,6 @@ report 50032 "B13 Purchase Returns"
                             OrderQuantity := ("Quantity Shipped" / ItemUOM."Qty. per Unit of Measure") * ((ItemUOM.Cubage / 1728) / 35.315);
                             OrderUOM := 'M3';
                         end;
-
-
 
                         NetWeightLB := "Quantity Shipped" * "Net Weight";
                         NetWeightKG := "Quantity Shipped" * "Net Weight" * 0.453592;

@@ -142,6 +142,9 @@ End Function
         <Field Name="TaxNo">
           <DataField>TaxNo</DataField>
         </Field>
+        <Field Name="Shippingcomment">
+          <DataField>Shippingcomment</DataField>
+        </Field>
         <Field Name="tagname">
           <DataField>tagname</DataField>
         </Field>

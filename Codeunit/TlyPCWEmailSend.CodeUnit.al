@@ -19,6 +19,7 @@ codeunit 50032 "SendShippingReport"
         Yesterday: Date;
     begin
         // Calculate date T-1
+        // Yesterday := 20260602D;
         Yesterday := CalcDate('<-1D>', WorkDate());
 
         // Filter Setup for Sales Shipment Header
@@ -31,19 +32,20 @@ codeunit 50032 "SendShippingReport"
             Error('Could not generate report 50018.');
         TempBlob.CreateInStream(IStream);
 
-        EmailList.Add('Giselle.Silva@torlys.com'); // Replace with your target email
+        EmailList.Add('amanda@pcwcanada.com; dawn@pcwcanada.com'); // Replace with your target email
         FileName := 'TORLYS PCW Shipping_Report_' + Format(Yesterday, 0, '<Year4><Month,2><Day,2>') + '.pdf';
 
         EmailMessage.Create(
             EmailList,
             'TORLYS PCW Shipping Report - ' + Format(Yesterday, 0, '<Month Text> <Day>, <Year4>'),
-            'Please find attached the shipping report for yesterday.',
+            'Please find attached the shipping report for yesterday. For any issues please reach out to calgarywarehouse@torlys.com.',
             true
         );
 
         EmailMessage.AddAttachment(FileName, 'application/pdf', IStream);
 
-        SendFromSpecificAccount(Email, EmailMessage, 'customerservice@torlys.com');
+        // Updated sender address here
+        SendFromSpecificAccount(Email, EmailMessage, 'no-reply@torlys.com');
     end;
 
     local procedure SendFromSpecificAccount(var Email: Codeunit "Email"; var EmailMessage: Codeunit "Email Message"; FromAddress: Text)

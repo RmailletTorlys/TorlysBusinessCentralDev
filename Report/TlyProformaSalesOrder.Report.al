@@ -245,6 +245,10 @@ report 50026 TlyProformaSalesOrder
                     {
 
                     }
+                    column(Shippingcomment; "Sales Header"."Shipping Comment")
+                    {
+
+                    }
                     column(tagname; "Sales Header"."Tag Name")
                     {
 

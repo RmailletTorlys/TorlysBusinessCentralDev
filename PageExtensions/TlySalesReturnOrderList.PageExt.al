@@ -202,6 +202,39 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
         }
     }
 
+    actions
+    {
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify(Post)
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Post and Email")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Post and &Print")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Preview Posting")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Post &Batch")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+    }
+
     // views
     // {
     //     addlast
@@ -214,15 +247,12 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
     //         }
     // }
 
-    var
-        LookupUserId: Codeunit TlyLookupUserID;
-
-    protected var
-        ShortcutDimCode: array[8] of Code[20];
-
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
 
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
+        ShortcutDimCode: array[8] of Code[20];
 }

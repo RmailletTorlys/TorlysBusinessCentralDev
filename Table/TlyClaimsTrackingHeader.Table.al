@@ -81,6 +81,7 @@ table 55007 TlyClaimsTrackingHeader
             trigger OnValidate()
             var
                 SalesInvHead: Record "Sales Invoice Header";
+                Salesperson: Record "Salesperson/Purchaser";
             begin
                 // SalesInvHead.Reset();
                 // SalesInvHead.SetRange("No.", Rec."Original Invoice No.");
@@ -94,6 +95,12 @@ table 55007 TlyClaimsTrackingHeader
                 Rec."External Document No." := SalesInvHead."External Document No.";
                 Rec."Tag Name" := SalesInvHead."Tag Name";
                 Rec."Location Code" := SalesInvHead."Location Code";
+                Rec."Salesperson Code" := SalesInvHead."Salesperson Code";
+
+                Salesperson.Reset;
+                Salesperson.SetRange(Code, Rec."Salesperson Code");
+                if Salesperson.Find('-') then
+                    Rec."Sales Manager Code" := Salesperson.Manager;
                 // end;
             end;
         }
@@ -150,6 +157,80 @@ table 55007 TlyClaimsTrackingHeader
             DataClassification = CustomerContent;
             Caption = 'Order No.';
             Editable = false;
+        }
+
+        field(21; "Salesperson Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Salesperson Code';
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Flooring Consultant'));
+            trigger OnValidate()
+            var
+                Salesperson: Record "Salesperson/Purchaser";
+            begin
+                Salesperson.Reset;
+                Salesperson.SetRange(Code, Rec."Salesperson Code");
+                if Salesperson.Find('-') then
+                    Rec."Sales Manager Code" := Salesperson.Manager;
+            end;
+        }
+
+        field(22; "Sales Manager Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Sales Manager Code';
+            TableRelation = "Salesperson/Purchaser".Code where("Job Title" = filter('Flooring Consultant'));
+        }
+        field(23; "Claim Input Date"; Date)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Claim Input Date';
+        }
+        field(24; "Consumer Name"; Text[100])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer Name';
+        }
+        field(25; "Consumer Address"; Text[100])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer Address';
+        }
+        field(26; "Consumer Address 2"; Text[100])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer Address 2';
+        }
+        field(27; "Consumer City"; Text[30])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer City';
+        }
+        field(28; "Consumer County"; Text[30])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer County';
+        }
+        field(29; "Consumer Country/Region Code"; Code[10])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer Country/Region Code';
+            TableRelation = "Country/Region";
+        }
+        field(30; "Consumer Contact"; Text[100])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer Contact';
+        }
+        field(31; "Consumer Phone No."; Text[30])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Consumer Phone No.';
+        }
+        field(32; "Status"; Text[30])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Status';
         }
     }
 

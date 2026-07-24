@@ -542,6 +542,28 @@ pageextension 50031 TlyItemList extends "Item List"
         }
     }
 
+    views
+    {
+        addlast
+        {
+            view(NonMarketingOnly)
+            {
+                Caption = 'Non-Marketing Items';
+                Filters = where("Gen. Prod. Posting Group" = filter('<>MK*'));
+            }
+            view(MarketingOnly)
+            {
+                Caption = 'Marketing Items';
+                Filters = where("Gen. Prod. Posting Group" = filter('MK*'));
+            }
+            // view(NegativeInventory)
+            // {
+            //     Caption = 'Negative Inventory';
+            //     Filters = where("Inventory" = filter('<0'));
+            // }
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];

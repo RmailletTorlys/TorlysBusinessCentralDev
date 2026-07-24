@@ -201,15 +201,23 @@ pageextension 59302 TlySalesCrMemoList extends "Sales Credit Memos"
         {
             Visible = true;
         }
-
     }
 
-    var
-        LookupUserId: Codeunit TlyLookupUserID;
-        ShortcutDimCode: array[8] of Code[20];
+    actions
+    {
+        //TLY-SD - 07/24/2026 - can hide via the group since all functions exist in this menu
+        modify("P&osting")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+    }
 
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
+        ShortcutDimCode: array[8] of Code[20];
 }

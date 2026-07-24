@@ -966,12 +966,31 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
         //         // CurrPage.Update();
         //     end;
         // }
-    }
 
-    var
-        LookupUserId: Codeunit TlyLookupUserID;
-        ShortcutDimCode: array[8] of Code[20];
-    // MustReturnDate: Date;
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify(Post)
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Post and &Print")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Preview Posting")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 07/24/2026 - need to hide via each action since they live in the functions menu and cant hide whole menu
+        modify("Post &Batch")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+    }
 
     trigger OnAfterGetRecord()
     begin
@@ -1042,4 +1061,9 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
             SalesLine.Insert;
         end;
     end;
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
+        ShortcutDimCode: array[8] of Code[20];
+    // MustReturnDate: Date;
 }

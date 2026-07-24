@@ -292,6 +292,90 @@ tableextension 50018 TlyCustomer extends Customer
             DataClassification = CustomerContent;
         }
 
+        field(50043; "Bucket 1 Filter"; Date)
+        {
+            Caption = 'Bucket 1 Filter';
+            FieldClass = FlowFilter;
+        }
+
+        field(50044; "Bucket 2 Filter"; Date)
+        {
+            Caption = 'Bucket 2 Filter';
+            FieldClass = FlowFilter;
+        }
+
+        field(50045; "Bucket 3 Filter"; Date)
+        {
+            Caption = 'Bucket 3 Filter';
+            FieldClass = FlowFilter;
+        }
+
+        field(50046; "Bucket 4 Filter"; Date)
+        {
+            Caption = 'Bucket 4 Filter';
+            FieldClass = FlowFilter;
+        }
+
+        field(50047; "Balance Due (LCY) - Bucket 1"; Decimal)
+        {
+            AutoFormatType = 1;
+            AutoFormatExpression = '';
+            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Customer No." = field("No."),
+                                                                                 "Initial Entry Due Date" = field("Bucket 1 Filter"),
+                                                                                 "Initial Entry Global Dim. 1" = field("Global Dimension 1 Filter"),
+                                                                                 "Initial Entry Global Dim. 2" = field("Global Dimension 2 Filter"),
+                                                                                 "Currency Code" = field("Currency Filter")));
+            Caption = 'Balance Due (LCY) - Bucket 1';
+            Editable = false;
+            FieldClass = FlowField;
+            ToolTip = 'Specifies the total amount that''s due from the customer as of today. Consider using reminders to minimize late payments and optimize cashflow.';
+        }
+
+        field(50048; "Balance Due (LCY) - Bucket 2"; Decimal)
+        {
+            AutoFormatType = 1;
+            AutoFormatExpression = '';
+            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Customer No." = field("No."),
+                                                                                 "Initial Entry Due Date" = field("Bucket 2 Filter"),
+                                                                                 "Initial Entry Global Dim. 1" = field("Global Dimension 1 Filter"),
+                                                                                 "Initial Entry Global Dim. 2" = field("Global Dimension 2 Filter"),
+                                                                                 "Currency Code" = field("Currency Filter")));
+            Caption = 'Balance Due (LCY) - Bucket 2';
+            Editable = false;
+            FieldClass = FlowField;
+            ToolTip = 'Specifies the total amount that''s due from the customer as of today. Consider using reminders to minimize late payments and optimize cashflow.';
+        }
+
+        field(50049; "Balance Due (LCY) - Bucket 3"; Decimal)
+        {
+            AutoFormatType = 1;
+            AutoFormatExpression = '';
+            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Customer No." = field("No."),
+                                                                                 "Initial Entry Due Date" = field("Bucket 3 Filter"),
+                                                                                 "Initial Entry Global Dim. 1" = field("Global Dimension 1 Filter"),
+                                                                                 "Initial Entry Global Dim. 2" = field("Global Dimension 2 Filter"),
+                                                                                 "Currency Code" = field("Currency Filter")));
+            Caption = 'Balance Due (LCY) - Bucket 3';
+            Editable = false;
+            FieldClass = FlowField;
+            ToolTip = 'Specifies the total amount that''s due from the customer as of today. Consider using reminders to minimize late payments and optimize cashflow.';
+        }
+
+        field(50050; "Balance Due (LCY) - Bucket 4"; Decimal)
+        {
+            AutoFormatType = 1;
+            AutoFormatExpression = '';
+            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Customer No." = field("No."),
+                                                                                 "Initial Entry Due Date" = field("Bucket 4 Filter"),
+                                                                                 "Initial Entry Global Dim. 1" = field("Global Dimension 1 Filter"),
+                                                                                 "Initial Entry Global Dim. 2" = field("Global Dimension 2 Filter"),
+                                                                                 "Currency Code" = field("Currency Filter")));
+            Caption = 'Balance Due (LCY) - Bucket 4';
+            Editable = false;
+            FieldClass = FlowField;
+            ToolTip = 'Specifies the total amount that''s due from the customer as of today. Consider using reminders to minimize late payments and optimize cashflow.';
+        }
+
         modify("Credit Limit (LCY)")
         {
             trigger OnAfterValidate()
@@ -304,6 +388,12 @@ tableextension 50018 TlyCustomer extends Customer
             end;
         }
     }
+
+    trigger OnAfterInsert()
+    begin
+        "Restocking Fee %" := 15; //TLY-SD - 07/23/2026 - added per FM
+        "Restocking Fee Minimum" := 25; //TLY-SD - 07/23/2026 - added per FM
+    end;
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
     var
@@ -345,16 +435,6 @@ tableextension 50018 TlyCustomer extends Customer
         for i := 1 to 8 do
             ShortcutDimCode[i] := '';
     end;
-
-    // procedure GetOptionsTorlysClub(): Text[30]
-    // begin
-    //     exit(Format(Rec."Club"));
-    // end;
-
-    // procedure GetOptionsPowerUpLevel(): Text[30]
-    // begin
-    //     exit(Format(Rec."Power Up Level"));
-    // end;
 }
 
 

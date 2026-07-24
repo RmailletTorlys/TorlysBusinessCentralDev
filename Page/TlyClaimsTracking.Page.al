@@ -21,66 +21,17 @@ page 51018 TlyClaimsTracking
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
                     Caption = 'No.';
-                    Editable = false;
-                    trigger OnAssistEdit()
-                    begin
-                        if Rec.AssistEdit(xRec) then
-                            CurrPage.Update();
-                    end;
+                    // Editable = false;
+                    // trigger OnAssistEdit()
+                    // begin
+                    //     if Rec.AssistEdit(xRec) then
+                    //         CurrPage.Update();
+                    // end;
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the customer number associated with the claim.';
-                }
-                group(OriginalInfo)
-                {
-                    Caption = 'Original Invoice Information';
-                    field("Ship-to Code"; Rec."Ship-to Code")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Specifies the customer number associated with the claim.';
-                    }
-                    field("Invoice No."; Rec."Original Invoice No.")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Invoice No.';
-                    }
-                    field("Invoice Date"; Rec."Original Invoice Date")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Invoice Date';
-                    }
-                    field("Shipment Date"; Rec."Original Shipment Date")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Shipment Date';
-                    }
-                    field("Order No."; Rec."Original Order No.")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Order No.';
-                    }
-                    field("Order Date"; Rec."Original Order Date")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Specifies the date when the order was placed.';
-                    }
-                    field("External Document No."; Rec."External Document No.")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'External Document No.';
-                    }
-                    field("Tag Name"; Rec."Tag Name")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Tag Name';
-                    }
-                    field("Location Code"; Rec."Location Code")
-                    {
-                        ApplicationArea = All;
-                        ToolTip = 'Location Code';
-                    }
                 }
                 field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
                 {
@@ -99,12 +50,126 @@ page 51018 TlyClaimsTracking
                     Importance = Additional;
                 }
             }
+            group(OriginalInfo)
+            {
+                Caption = 'Original Invoice Information';
+                field("Ship-to Code"; Rec."Ship-to Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the customer number associated with the claim.';
+                }
+                field("Salesperson Code"; Rec."Salesperson Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Salesperson Code';
+                }
+                field("Sales Manager Code"; Rec."Sales Manager Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Sales Manager Code';
+                }
+                field("Invoice No."; Rec."Original Invoice No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Invoice No.';
+                }
+                field("Invoice Date"; Rec."Original Invoice Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Invoice Date';
+                }
+                field("Shipment Date"; Rec."Original Shipment Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Shipment Date';
+                }
+                field("Order No."; Rec."Original Order No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Order No.';
+                }
+                field("Order Date"; Rec."Original Order Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the date when the order was placed.';
+                }
+                field("External Document No."; Rec."External Document No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'External Document No.';
+                }
+                field("Tag Name"; Rec."Tag Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Tag Name';
+                }
+                field("Location Code"; Rec."Location Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Location Code';
+                }
+            }
 
             part(ClaimsOrderSubform; TlyClaimsTrackingSubform)
             {
                 ApplicationArea = All;
                 Enabled = true;
                 SubPageLink = "Claim No." = field("No.");
+            }
+
+            group(ConsumerInformation)
+            {
+                Caption = 'Consumer Information';
+                field("Consumer Name"; Rec."Consumer Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer Name';
+                }
+                field("Consumer Address"; Rec."Consumer Address")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer Address';
+                }
+                field("Consumer Address 2"; Rec."Consumer Address 2")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer Address 2';
+                }
+                field("Consumer City"; Rec."Consumer City")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer City';
+                }
+                field("Consumer County"; Rec."Consumer County")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer County';
+                }
+                field("Consumer Country/Region Code"; Rec."Consumer Country/Region Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer Country/Region Code';
+                }
+                field("Consumer Contact"; Rec."Consumer Contact")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer Contact';
+                }
+                field("Consumer Phone No."; Rec."Consumer Phone No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Consumer Phone No.';
+                }
+                field("Claim Input Date"; Rec."Claim Input Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Claim Input Date';
+                }
+                field("Status"; Rec."Status")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Status';
+                }
             }
         }
     }

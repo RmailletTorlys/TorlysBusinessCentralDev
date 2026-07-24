@@ -103,10 +103,66 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         }
 
-        moveafter("Date Closed"; "Blocked", "Balance (LCY)", "Balance Due (LCY)")
+        moveafter("Date Closed"; "Blocked", "Balance (LCY)")
 
-        addafter("Balance Due (LCY)")
+        addafter("Balance (LCY)")
         {
+            field("Balance Due ($) - Bucket 1"; Rec."Balance Due (LCY) - Bucket 1")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 0-30D';
+                ToolTip = 'Balance Due ($) - 0-30D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                Importance = Additional;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
+            field("Balance Due ($) - Bucket 2"; Rec."Balance Due (LCY) - Bucket 2")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 31-60D';
+                ToolTip = 'Balance Due ($) - 31-60D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                Importance = Additional;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
+            field("Balance Due ($) - Bucket 3"; Rec."Balance Due (LCY) - Bucket 3")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 61-90D';
+                ToolTip = 'Balance Due ($) - 61-90D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                Importance = Additional;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
+            field("Balance Due ($) - Bucket 4"; Rec."Balance Due (LCY) - Bucket 4")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 91D+';
+                ToolTip = 'Balance Due ($) - 91D+';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                Importance = Additional;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
             field("Outstanding Orders"; Rec."Outstanding Orders")
             {
                 ApplicationArea = All;
@@ -117,6 +173,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         }
 
         moveafter("Outstanding Orders"; "Credit Limit (LCY)")
+
         addafter("Credit Limit (LCY)")
         {
             field("Credit Limit Modified Date"; Rec."Credit Limit Modified Date")
@@ -686,6 +743,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Importance = Standard;
         }
+
+        modify("Balance Due (LCY)")
+        {
+            Visible = false;
+        }
     }
 
     actions
@@ -922,6 +984,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
     var
         UserSetup: Record "User Setup";
     begin
+        Rec.SetRange(Rec."Bucket 1 Filter", 0D, WorkDate() + 30);
+        Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() + 31, WorkDate() + 60);
+        Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() + 61, WorkDate() + 90);
+        Rec.SetRange(Rec."Bucket 4 Filter", WorkDate() + 91, WorkDate() + 999);
+
         CurrPage.Editable := false;
 
         if UserSetup.Get(UserId) then begin

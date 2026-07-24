@@ -693,6 +693,12 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
                 RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
             }
         }
+
+        //TLY-SD - 07/24/2026 - can hide via the group since all functions exist in this menu
+        modify("P&osting")
+        {
+            Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
     }
 
     var

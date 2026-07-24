@@ -5,6 +5,7 @@ pageextension 50022 TlyCustomerList extends "Customer List"
     layout
     {
         moveafter("No."; "Name", "Search Name")
+
         addafter("Search Name")
         {
             field("Collector ID"; Rec."Collector ID")
@@ -201,7 +202,6 @@ pageextension 50022 TlyCustomerList extends "Customer List"
             {
                 ApplicationArea = All;
                 ToolTip = 'Global Dimension 1 Code';
-
             }
         }
 
@@ -225,12 +225,20 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 end;
             }
 
+            field("Club"; Rec."Club")
+            {
+                ApplicationArea = All;
+                Caption = 'Club';
+                ToolTip = 'Club';
+                Visible = true;
+            }
+
             field("Power Up Level"; Rec."Power Up Level")
             {
                 ApplicationArea = All;
                 Caption = 'Power Up Level';
                 ToolTip = 'Power Up Level';
-                Visible = false;
+                Visible = true;
             }
 
             field("Program Fees Amount (LCY)"; Rec."Program Fees Amount (LCY)")
@@ -341,8 +349,60 @@ pageextension 50022 TlyCustomerList extends "Customer List"
             }
         }
 
-        addafter("Balance Due (LCY)")
+        addafter("Balance (LCY)")
         {
+            field("Balance Due ($) - Bucket 1"; Rec."Balance Due (LCY) - Bucket 1")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 0-30D';
+                ToolTip = 'Balance Due ($) - 0-30D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
+            field("Balance Due ($) - Bucket 2"; Rec."Balance Due (LCY) - Bucket 2")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 31-60D';
+                ToolTip = 'Balance Due ($) - 31-60D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
+            field("Balance Due ($) - Bucket 3"; Rec."Balance Due (LCY) - Bucket 3")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 61-90D';
+                ToolTip = 'Balance Due ($) - 61-90D';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
+            field("Balance Due ($) - Bucket 4"; Rec."Balance Due (LCY) - Bucket 4")
+            {
+                ApplicationArea = All;
+                Caption = 'Balance Due ($) - 91D+';
+                ToolTip = 'Balance Due ($) - 91D+';
+                DecimalPlaces = 2;
+                Editable = false;
+                Visible = true;
+                trigger OnDrillDown()
+                begin
+                    Rec.OpenCustomerLedgerEntries(true);
+                end;
+            }
             field("Outstanding Orders ($)"; Rec."Outstanding Orders (LCY)")
             {
                 ApplicationArea = All;
@@ -366,7 +426,7 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 ToolTip = 'Profit ($)';
                 DecimalPlaces = 2;
                 Editable = false;
-                Visible = false;
+                Visible = true;
             }
 
             field(SystemCreatedBy; Rec.SystemCreatedBy)
@@ -446,23 +506,54 @@ pageextension 50022 TlyCustomerList extends "Customer List"
         {
             Visible = true;
         }
+
+        modify(Blocked)
+        {
+            Visible = true;
+        }
+
+        modify("Balance Due (LCY)")
+        {
+            Visible = false;
+        }
     }
 
+    views
+    {
+        addlast
+        {
+            view(Over60D)
+            {
+                Caption = '60D Overdue';
+                Filters = where("Balance Due (LCY) - Bucket 3" = filter('>0'));
+            }
+            view(Over90D)
+            {
+                Caption = '90D Overdue';
+                Filters = where("Balance Due (LCY) - Bucket 4" = filter('>0'));
+            }
+        }
+    }
 
-
-    protected var
-        ShortcutDimCode: array[8] of Code[20];
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, 0D);
+        Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() - 60, WorkDate() - 31);
+        Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() - 90, WorkDate() - 61);
+        Rec.SetRange(Rec."Bucket 4 Filter", 0D, WorkDate() - 91);
+    end;
 
     trigger OnAfterGetRecord()
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
     end;
 
-
-
     local procedure ValidateShortcutDimension(DimIndex: Integer)
     var
     begin
         Rec.ValidateShortcutDimCode(DimIndex, ShortcutDimCode[DimIndex]);
     end;
+
+    var
+        ShortcutDimCode: array[8] of Code[20];
 }

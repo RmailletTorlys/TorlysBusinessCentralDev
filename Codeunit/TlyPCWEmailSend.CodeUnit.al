@@ -32,7 +32,8 @@ codeunit 50032 "SendShippingReport"
             Error('Could not generate report 50018.');
         TempBlob.CreateInStream(IStream);
 
-        EmailList.Add('amanda@pcwcanada.com; dawn@pcwcanada.com'); // Replace with your target email
+        EmailList.Add('amanda@pcwcanada.com');
+        EmailList.Add('dawn@pcwcanada.com'); // Replace with your target email
         FileName := 'TORLYS PCW Shipping_Report_' + Format(Yesterday, 0, '<Year4><Month,2><Day,2>') + '.pdf';
 
         EmailMessage.Create(

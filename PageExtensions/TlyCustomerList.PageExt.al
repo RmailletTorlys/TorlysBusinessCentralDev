@@ -537,7 +537,7 @@ pageextension 50022 TlyCustomerList extends "Customer List"
 
     trigger OnOpenPage()
     begin
-        Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, 0D);
+        Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, WorkDate() + 999);
         Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() - 60, WorkDate() - 31);
         Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() - 90, WorkDate() - 61);
         Rec.SetRange(Rec."Bucket 4 Filter", 0D, WorkDate() - 91);

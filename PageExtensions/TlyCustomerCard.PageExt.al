@@ -984,10 +984,10 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
     var
         UserSetup: Record "User Setup";
     begin
-        Rec.SetRange(Rec."Bucket 1 Filter", 0D, WorkDate() + 30);
-        Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() + 31, WorkDate() + 60);
-        Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() + 61, WorkDate() + 90);
-        Rec.SetRange(Rec."Bucket 4 Filter", WorkDate() + 91, WorkDate() + 999);
+        Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, WorkDate() + 999);
+        Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() - 60, WorkDate() - 31);
+        Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() - 90, WorkDate() - 61);
+        Rec.SetRange(Rec."Bucket 4 Filter", 0D, WorkDate() - 91);
 
         CurrPage.Editable := false;
 

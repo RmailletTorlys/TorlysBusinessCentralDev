@@ -564,7 +564,7 @@ report 50026 TlyProformaSalesOrder
                                                                    //                     * "Qty. to Ship")
                                                                    // AmountExclInvDisc := (((ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=')) / (1 + (Item3."Outbound Duty % to US" * 0.01))) //1.25)
                                                                    // * "Qty. to Ship")
-                                            AmountExclInvDisc := ("Unit Price" * (1 + (Item3."Outbound Duty % to US" * 0.01))) * "Qty. to Ship"
+                                            AmountExclInvDisc := ("Unit Price" / (1 + (Item3."Outbound Duty % to US" * 0.01))) * "Qty. to Ship"
                                         ELSE
                                             // AmountExclInvDisc := (ROUND(("Unit Price" * (1 - "Line Discount %" / 100)), 0.01, '=') * "Qty. to Ship");
                                             AmountExclInvDisc := "Unit Price" * "Qty. to Ship";

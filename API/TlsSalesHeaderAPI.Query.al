@@ -50,7 +50,10 @@ Query 56013 TlySalesHeaderAPI
             column(requestedDeliveryDate; "Requested Delivery Date") { }
             column(status; "Status") { }
             column(shipmentDate; "Shipment Date") { }
-
+            column(outstandingQty; "Outstanding Quantity") { }
+            column(qtyToShip; "Qty. to Ship") { }
+            column(shippingAgentCode; "Shipping Agent Code") { }
+            column(shippingAgentServiceCode; "Shipping Agent Service Code") { }
         }
     }
 }

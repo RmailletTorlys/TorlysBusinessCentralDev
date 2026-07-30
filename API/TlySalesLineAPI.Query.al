@@ -26,6 +26,9 @@ Query 56016 TlySalesLineAPI
             column(customerNumber; "Sell-to Customer No.") { }
             column(customerName; "Sell-to Customer Name") { }
             column(billToCustomerNumber; "Bill-to Customer No.") { }
+            column(quantity; "Quantity (Base)") { }
+            column(caseQty; "Quantity Case") { }
+            column(palletQty; "Quantity Pallet") { }
             column(totalAmountExclTax; Amount) { }
             column(shortcutDimension1Code; "Shortcut Dimension 1 Code") { }
             column(shortcutDimension2Code; "Shortcut Dimension 2 Code") { }

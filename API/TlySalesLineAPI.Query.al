@@ -15,6 +15,7 @@ Query 56016 TlySalesLineAPI
             DataItemTableFilter = "Type" = filter('Item');
 
             column(number; "No.") { }
+            column(documentNo; "Document No.") { }
             column(type; "Type") { }
             column(genProdPostingGroup; "Gen. Prod. Posting Group") { }
             column(itemCategoryCode; "Item Category Code") { }

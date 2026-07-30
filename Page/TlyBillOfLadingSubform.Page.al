@@ -64,7 +64,7 @@ page 51004 TlyBillOfLadingSubform
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to name';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Ship-to Address"; Rec."Ship-to Address")
                 {
@@ -83,28 +83,28 @@ page 51004 TlyBillOfLadingSubform
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'The associated ship-to city';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Ship-to County"; Rec."Ship-to County")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the state of the ship-to address.';
                     Caption = 'Ship-to County';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the Post Code of the ship-to address.';
                     Caption = 'Ship-to Post Code';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("Ship-to Country/Region Code"; Rec."Ship-to Country/Region Code")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the country of the ship-to address.';
                     Caption = 'Ship-to Country';
-                    Editable = false;
+                    // Editable = false;
                 }
                 field("External Document No."; Rec."External Document No.")
                 {

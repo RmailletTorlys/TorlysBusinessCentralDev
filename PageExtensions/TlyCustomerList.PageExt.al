@@ -349,13 +349,15 @@ pageextension 50022 TlyCustomerList extends "Customer List"
             }
         }
 
-        addafter("Balance (LCY)")
+        moveafter("Balance (LCY)"; "Balance Due (LCY)")
+
+        addafter("Balance Due (LCY)")
         {
             field("Balance Due ($) - Bucket 1"; Rec."Balance Due (LCY) - Bucket 1")
             {
                 ApplicationArea = All;
-                Caption = 'Balance Due ($) - 0-30D';
-                ToolTip = 'Balance Due ($) - 0-30D';
+                Caption = 'Balance Due ($) - 1-30D';
+                ToolTip = 'Balance Due ($) - 1-30D';
                 DecimalPlaces = 2;
                 Editable = false;
                 Visible = true;
@@ -512,9 +514,9 @@ pageextension 50022 TlyCustomerList extends "Customer List"
             Visible = true;
         }
 
-        modify("Balance Due (LCY)")
+        modify("Balance (LCY)")
         {
-            Visible = false;
+            Caption = 'Total Balance ($)';
         }
     }
 
@@ -522,6 +524,11 @@ pageextension 50022 TlyCustomerList extends "Customer List"
     {
         addlast
         {
+            view(Over30D)
+            {
+                Caption = '30D Overdue';
+                Filters = where("Balance Due (LCY) - Bucket 2" = filter('>0'));
+            }
             view(Over60D)
             {
                 Caption = '60D Overdue';
@@ -537,7 +544,7 @@ pageextension 50022 TlyCustomerList extends "Customer List"
 
     trigger OnOpenPage()
     begin
-        Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, WorkDate() + 999);
+        Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, WorkDate() - 1);
         Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() - 60, WorkDate() - 31);
         Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() - 90, WorkDate() - 61);
         Rec.SetRange(Rec."Bucket 4 Filter", 0D, WorkDate() - 91);

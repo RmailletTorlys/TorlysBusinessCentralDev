@@ -50,7 +50,9 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         {
             field("Port of Loading Date"; Rec."Port of Loading Date")
             {
-                Caption = 'Port of Loading Date';
+                // Caption = 'Port of Loading Date';
+                // to match same as Container card page
+                Caption = 'Origin Port Departure Date';
                 ToolTip = 'Port of Loading Date';
                 ApplicationArea = All;
             }
@@ -62,7 +64,9 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         {
             field("Port of Discharge Date"; Rec."Port of Discharge Date")
             {
-                Caption = 'Port of Discharge Date';
+                // Caption = 'Port of Discharge Date';
+                // to match same as Container card page
+                caption = 'Destination Port Arrival Date';
                 ToolTip = 'Port of Discharge Date';
                 ApplicationArea = All;
             }

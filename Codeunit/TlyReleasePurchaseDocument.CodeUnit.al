@@ -1,13 +1,13 @@
 codeunit 57027 TlyReleasePurchaseDocument
 {
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnCodeOnAfterCheckPurchaseReleaseRestrictions', '', false, false)]
-    local procedure OnCodeOnAfterCheckPurchaseReleaseRestrictions(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnCodeOnAfterCheck', '', false, false)]
+    local procedure OnCodeOnAfterCheck(PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var LinesWereModified: Boolean)
     var
         DimensionSetEntry: Record "Dimension Set Entry";
         HeaderRegion: Code[20];
-        PurchaseLine: Record "Purchase Line";
+    // PurchaseLine: Record "Purchase Line";
     begin
-        IsHandled := true;
+        // IsHandled := true;
 
         // these are for PO only
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order then begin
@@ -26,7 +26,7 @@ codeunit 57027 TlyReleasePurchaseDocument
                     DimensionSetEntry.SetFilter("Dimension Code", 'REGION');
                     if DimensionSetEntry.Find('-') then
                         if HeaderRegion <> DimensionSetEntry."Dimension Value Code" then
-                            Error('Line %1 with item %2 has a Region mismatch.', PurchaseLine."Line No.", PurchaseLine."No.");
+                            Error('Item %1 on line %2 (%3) has a REGION mismatch (%4).', PurchaseLine."No.", PurchaseLine."Line No.", DimensionSetEntry."Dimension Value Code", HeaderRegion);
                 until PurchaseLine.Next() = 0;
             end;
         end;

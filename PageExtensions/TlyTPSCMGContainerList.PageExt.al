@@ -53,7 +53,7 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 // Caption = 'Port of Loading Date';
                 // to match same as Container card page
                 Caption = 'Origin Port Departure Date';
-                ToolTip = 'Port of Loading Date';
+                ToolTip = 'Origin Port Departure Date';
                 ApplicationArea = All;
             }
         }
@@ -67,7 +67,7 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 // Caption = 'Port of Discharge Date';
                 // to match same as Container card page
                 caption = 'Destination Port Arrival Date';
-                ToolTip = 'Port of Discharge Date';
+                ToolTip = 'Destination Port Arrival Date';
                 ApplicationArea = All;
             }
             field("Inland Terminal"; Rec."Inland Terminal")

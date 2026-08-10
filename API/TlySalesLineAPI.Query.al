@@ -15,6 +15,7 @@ Query 56016 TlySalesLineAPI
             DataItemTableFilter = "Type" = filter('Item');
 
             column(number; "No.") { }
+            column(documentNo; "Document No.") { }
             column(type; "Type") { }
             column(genProdPostingGroup; "Gen. Prod. Posting Group") { }
             column(itemCategoryCode; "Item Category Code") { }
@@ -25,6 +26,9 @@ Query 56016 TlySalesLineAPI
             column(customerNumber; "Sell-to Customer No.") { }
             column(customerName; "Sell-to Customer Name") { }
             column(billToCustomerNumber; "Bill-to Customer No.") { }
+            column(quantity; "Quantity (Base)") { }
+            column(caseQty; "Quantity Case") { }
+            column(palletQty; "Quantity Pallet") { }
             column(totalAmountExclTax; Amount) { }
             column(shortcutDimension1Code; "Shortcut Dimension 1 Code") { }
             column(shortcutDimension2Code; "Shortcut Dimension 2 Code") { }

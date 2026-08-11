@@ -665,6 +665,15 @@ page 51029 TlyExecutiveStatistics
                     Caption = 'In Transit (Now)';
                     ToolTip = 'In Transit (Now)';
                     Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        TransferLine: Record "Transfer Line";
+                    begin
+                        TransferLine.Reset;
+                        TransferLine.SetFilter("Derived from Line No.", '0');
+                        TransferLine.SetFilter("Qty. in Transit", '>0');
+                        Page.Run(5749, TransferLine);
+                    end;
                 }
                 field(InventInTransYearAgo; GetInventInTransYearAgo())
                 {
@@ -688,6 +697,14 @@ page 51029 TlyExecutiveStatistics
                             Caption = 'Shipped Not Invoiced $';
                             ToolTip = 'Shipped Not Invoiced $';
                             Editable = false;
+                            trigger OnDrillDown()
+                            var
+                                SalesLine: Record "Sales Line";
+                            begin
+                                SalesLine.Reset;
+                                SalesLine.SetFilter("Qty. Shipped Not Invoiced", '>0');
+                                Page.Run(516, SalesLine);
+                            end;
                         }
                         field(OpenSO; GetOpenSO())
                         {
@@ -695,6 +712,14 @@ page 51029 TlyExecutiveStatistics
                             Caption = 'Open Sales Orders $';
                             ToolTip = 'Open Sales Orders $';
                             Editable = false;
+                            trigger OnDrillDown()
+                            var
+                                SalesLine: Record "Sales Line";
+                            begin
+                                SalesLine.Reset;
+                                SalesLine.SetFilter("Outstanding Quantity", '>0');
+                                Page.Run(516, SalesLine);
+                            end;
                         }
                     }
                     group(PurchaseOrders)
@@ -706,6 +731,14 @@ page 51029 TlyExecutiveStatistics
                             Caption = 'Received Not Invoiced $';
                             ToolTip = 'Received Not Invoiced $';
                             Editable = false;
+                            trigger OnDrillDown()
+                            var
+                                PurchLine: Record "Purchase Line";
+                            begin
+                                PurchLine.Reset;
+                                PurchLine.SetFilter("A. Rcd. Not Inv. Ex. VAT (LCY)", '>0');
+                                Page.Run(518, PurchLine);
+                            end;
                         }
                         field(OpenPO; GetOpenPO())
                         {
@@ -713,6 +746,14 @@ page 51029 TlyExecutiveStatistics
                             Caption = 'Open Purchase Orders $';
                             ToolTip = 'Open Purchase Orders $';
                             Editable = false;
+                            trigger OnDrillDown()
+                            var
+                                PurchLine: Record "Purchase Line";
+                            begin
+                                PurchLine.Reset;
+                                PurchLine.SetFilter("Outstanding Amount (LCY)", '>0');
+                                Page.Run(518, PurchLine);
+                            end;
                         }
                     }
                     group(AccountsReceivable)
@@ -869,7 +910,6 @@ page 51029 TlyExecutiveStatistics
     end;
 
     //////////////////////// Revenue - start ////////////////////////
-
     procedure GetRevenueCurrMTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
@@ -946,12 +986,10 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount * -1);
     end;
-
     //////////////////////// Revenue - end ////////////////////////
 
 
     //////////////////////// Sales/COGS - start ////////////////////////
-
     procedure GetSalesCurrMTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
@@ -1091,12 +1129,10 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
-
     //////////////////////// Sales/COGS - end ////////////////////////
 
 
     //////////////////////// Freight - start ////////////////////////
-
     procedure GetFreightChargeCurrMTD(): Decimal
     var
         GLEntry: Record "G/L Entry";
@@ -1236,7 +1272,6 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
-
     //////////////////////// Freight - end ////////////////////////
 
 
@@ -1281,7 +1316,6 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
-
     //////////////////////// Inventory - end ////////////////////////
 
 

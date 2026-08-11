@@ -54,6 +54,15 @@ tableextension 55747 TlyTransferReceiptLine extends "Transfer Receipt Line"
             // TableRelation = "Sales Line"."Line No." where("Document Type" = const(Order), "Document No." = field("Sales Order No."));
         }
 
-    }
+        //50009
 
+        //50010
+        field(50011; "Vendor No."; Code[20])
+        {
+            Caption = 'Vendor No.';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Vendor No." where("No." = field("Item No.")));
+            Editable = false;
+        }
+    }
 }

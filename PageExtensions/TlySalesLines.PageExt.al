@@ -42,6 +42,17 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
                 Editable = false;
                 Visible = true;
             }
+            field(ShortcutDimCode3; ShortcutDimCode[3])
+            {
+                ApplicationArea = Dimensions;
+                CaptionClass = '1,2,3';
+                ToolTip = 'Global Dimension 3 Code';
+                TableRelation = "Dimension Value".Code where("Global Dimension No." = const(3),
+                                                                  "Dimension Value Type" = const(Standard),
+                                                                  Blocked = const(false));
+                Editable = false;
+                Visible = true;
+            }
             field("Salesperson Code"; Rec."Salesperson Code")
             {
                 Caption = 'Salesperson Code';

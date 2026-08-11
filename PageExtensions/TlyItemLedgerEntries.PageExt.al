@@ -4,6 +4,8 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
     {
         moveafter(Description; "Source No.")
 
+        moveafter("Remaining Quantity"; "Sales Amount (Expected)", "Sales Amount (Actual)", "Cost Amount (Expected)", "Cost Amount (Actual)")
+
         addafter("TPS CMG Container No.")
         {
             field("Container No. (TPS)"; Rec."Container No. (TPS)")
@@ -47,11 +49,23 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
                 Importance = Additional;
             }
         }
+
         modify("Source No.")
         {
             Visible = true;
         }
+
+        modify("Sales Amount (Expected)")
+        {
+            Visible = true;
+        }
+
+        modify("Cost Amount (Expected)")
+        {
+            Visible = true;
+        }
     }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 }

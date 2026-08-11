@@ -11,6 +11,7 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                 ApplicationArea = All;
                 Caption = 'Dealer Locator Participant';
                 ToolTip = 'Dealer Locator Participant';
+                Editable = LocatorEditable;
             }
         }
 
@@ -224,7 +225,15 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
     //     Rec.Validate("Tax Area Code", Customer."Tax Area Code");
     // end;
 
+    trigger OnAfterGetRecord()
+    begin
+        if CopyStr(Rec.Code, StrLen(Rec.Code) - 3, 4) = 'SHOW' then
+            LocatorEditable := true
+        else
+            LocatorEditable := false;
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
-
+        LocatorEditable: Boolean;
 }

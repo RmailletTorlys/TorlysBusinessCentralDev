@@ -2,7 +2,20 @@ pageextension 59741 TlyTPSCMGContanierLineSubform extends "TPS CMG Contanier Lin
 {
     layout
     {
-        moveafter("Item Description"; "Unit of Measure Code", Quantity, "Source Quantity", "Qty. to Ship", "Quantity Shipped", "Qty. to Receive", "Quantity Received", Weight, Cube)
+        moveafter("Item Description"; "Unit of Measure Code", Quantity)
+
+        addafter(Quantity)
+        {
+            field("PO Amount"; POAmount)
+            {
+                Caption = 'PO Amount';
+                ToolTip = 'PO Amount';
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
+
+        moveafter("PO Amount"; "Source Quantity", "Qty. to Ship", "Quantity Shipped", "Qty. to Receive", "Quantity Received", Weight, Cube)
 
         addafter(Cube)
         {
@@ -87,4 +100,18 @@ pageextension 59741 TlyTPSCMGContanierLineSubform extends "TPS CMG Contanier Lin
             Caption = 'TR Quantity Received';
         }
     }
+
+    trigger OnAfterGetRecord()
+    var
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchLine.Reset;
+        PurchLine.SetRange("Document No.", Rec."Document No.");
+        PurchLine.SetRange("Line No.", Rec."Document Line No.");
+        if PurchLine.Find('-') then
+            POAmount := (PurchLine."Unit Cost (LCY)" * PurchLine.Quantity);
+    end;
+
+    var
+        POAmount: Decimal;
 }

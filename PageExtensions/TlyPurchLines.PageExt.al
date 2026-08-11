@@ -1,5 +1,7 @@
 pageextension 50518 TlyPurchLines extends "Purchase Lines"
 {
+    // Editable = true;
+
     layout
     {
         addafter("Buy-from Vendor Name")

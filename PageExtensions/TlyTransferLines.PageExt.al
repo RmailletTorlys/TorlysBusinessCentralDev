@@ -22,6 +22,12 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
                 ToolTip = 'Receipt Date';
                 ApplicationArea = All;
             }
+            field("Vendor No."; Rec."Vendor No.")
+            {
+                Caption = 'Vendor No.';
+                ToolTip = 'Vendor No.';
+                ApplicationArea = All;
+            }
         }
 
         moveafter("Item No."; Description)

@@ -1295,7 +1295,6 @@ page 51029 TlyExecutiveStatistics
         SalesLine.CalcSums("Shipped Not Invoiced (LCY)");
         exit(SalesLine."Shipped Not Invoiced (LCY)");
     end;
-
     //////////////////////// Shipped Not Invoiced - end ////////////////////////
 
 
@@ -1309,7 +1308,6 @@ page 51029 TlyExecutiveStatistics
         SalesLine.CalcSums("Outstanding Amount (LCY)");
         exit(SalesLine."Outstanding Amount (LCY)");
     end;
-
     //////////////////////// Open Sales Orders - end ////////////////////////
 
 
@@ -1319,10 +1317,11 @@ page 51029 TlyExecutiveStatistics
         PurchLine: Record "Purchase Line";
     begin
         PurchLine.SetFilter("Document Type", 'Order');
-        PurchLine.CalcSums("Amt. Rcd. Not Invoiced (LCY)");
-        exit(PurchLine."Amt. Rcd. Not Invoiced (LCY)");
+        // PurchLine.CalcSums("Amt. Rcd. Not Invoiced (LCY)");
+        PurchLine.CalcSums("A. Rcd. Not Inv. Ex. VAT (LCY)");
+        // exit(PurchLine."Amt. Rcd. Not Invoiced (LCY)");
+        exit(PurchLine."A. Rcd. Not Inv. Ex. VAT (LCY)");
     end;
-
     //////////////////////// Received Not Invoiced - end ////////////////////////
 
 
@@ -1335,7 +1334,6 @@ page 51029 TlyExecutiveStatistics
         PurchLine.CalcSums("Outstanding Amount (LCY)");
         exit(PurchLine."Outstanding Amount (LCY)");
     end;
-
     //////////////////////// Open Purchase Orders - end ////////////////////////
 
 
@@ -1348,7 +1346,6 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
-
     //////////////////////// Open Accounts Receivable - end ////////////////////////
 
 
@@ -1361,6 +1358,5 @@ page 51029 TlyExecutiveStatistics
         GLEntry.CalcSums(Amount);
         exit(GLEntry.Amount);
     end;
-
     //////////////////////// Open Accounts Payable - end ////////////////////////
 }

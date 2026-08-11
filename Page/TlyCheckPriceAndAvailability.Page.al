@@ -69,6 +69,12 @@ page 50566 TlyCheckPriceAndAvailability
                     begin
                         if Item.Get(ItemNo) then begin
                             ItemDescription := Item.Description;
+                            if Item."New Item" then ItemStatus := 'Current';
+                            if Item."Current Item" then ItemStatus := 'Current';
+                            if Item."Sunset Item" then ItemStatus := 'Current';
+                            if Item."Discontinued Item" then ItemStatus := 'Discontinued';
+                            If ItemStatus = 'Current' then ItemStatusStyle := '';
+                            If ItemStatus = 'Discontinued' then ItemStatusStyle := 'Unfavorable';
                             ItemCategory := Item."Item Category Code";
                             ItemPriceCode := Item."Sales Price Code";
                             CurrPage.TorlysItemAvailabilitySubform.Page.SetItemNo(Item);
@@ -82,6 +88,15 @@ page 50566 TlyCheckPriceAndAvailability
                     ToolTip = 'Item Description';
                     Editable = false;
                     QuickEntry = false;
+                }
+                field(ItemStatus; ItemStatus)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Status';
+                    ToolTip = 'Item Status';
+                    Editable = false;
+                    QuickEntry = false;
+                    StyleExpr = ItemStatusStyle;
                 }
                 field(ItemCategory; ItemCategory)
                 {
@@ -531,6 +546,8 @@ page 50566 TlyCheckPriceAndAvailability
         ItemNo: Code[20];
         Item: Record Item;
         ItemDescription: Text[100];
+        ItemStatus: Text[15];
+        ItemStatusStyle: Text;
         ItemCategory: Code[20];
         ItemPriceCode: Code[20];
         CustomerPrice: Decimal;
@@ -585,14 +602,18 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        // if CustomerPriceList <> '' then begin
-        //     PriceListLine.SetFilter("Price List Code", CustomerPriceList);
-        //     PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        //     PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
-        //     PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
-        //     if PriceListLine.Find('-') then
-        //         exit(PriceListLine."Full Pallet Price Tier");
-        // end;
+        if CustomerNo = '' then exit;
+        if CustomerPriceGroup = '' then exit;
+
+        PriceListLine.Reset();
+        PriceListLine.SetFilter("Price List Code", 'TIER*');
+        PriceListLine.SetFilter("Assign-to No.", CustomerPriceGroup);
+        PriceListLine.SetFilter("Product No.", ItemPriceCode);
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate());
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate());
+        PriceListLine.SetRange("Stocking Pallet Price", GetCustomerPalletPrice);
+        if PriceListLine.Find('-') then
+            exit(PriceListLine."Price List Code");
     end;
 
     procedure GetInsurancePrice(): Decimal
@@ -611,12 +632,14 @@ page 50566 TlyCheckPriceAndAvailability
     var
         PriceListLine: Record "Price List Line";
     begin
-        // PriceListLine.SetFilter("Price List Code", 'INSURANCE');
-        // PriceListLine.SetRange("Asset No.", ItemPriceCode);
-        // PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/22/2026 - added
-        // PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/22/2026 - added
-        // if PriceListLine.Find('-') then
-        //     exit(PriceListLine."Unit Price Tier");
+        PriceListLine.Reset();
+        PriceListLine.SetFilter("Price List Code", 'INSURANCE');
+        PriceListLine.SetFilter("Product No.", ItemPriceCode);
+        PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate());
+        PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate());
+        PriceListLine.SetRange("Unit Price", GetInsurancePrice);
+        if PriceListLine.Find('-') then
+            exit(PriceListLine."Price List Code");
     end;
 
     procedure GetClearancePrice(): Decimal

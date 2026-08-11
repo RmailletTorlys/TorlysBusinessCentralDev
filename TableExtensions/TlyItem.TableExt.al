@@ -13,7 +13,8 @@ tableextension 50027 TlyItem extends Item
                         Error('Item cannot be NEW and CURRENT')
                     else if "Sunset Item" = true then
                         Error('Item cannot be NEW and SUNSET')
-                    else if "Discontinued Item" = true then Error('Item cannot be NEW and DISCONTINUED')
+                    else if "Discontinued Item" = true then
+                        Error('Item cannot be NEW and DISCONTINUED')
             end;
         }
 
@@ -28,7 +29,8 @@ tableextension 50027 TlyItem extends Item
                         Error('Item cannot be CURRENT and NEW')
                     else if "Sunset Item" = true then
                         Error('Item cannot be CURRENT and SUNSET')
-                    else if "Discontinued Item" = true then Error('Item cannot be CURRENT and DISCONTINUED');
+                    else if "Discontinued Item" = true then
+                        Error('Item cannot be CURRENT and DISCONTINUED');
             end;
         }
 
@@ -55,7 +57,8 @@ tableextension 50027 TlyItem extends Item
                         Error('Item cannot be DISCONTINUED and NEW')
                     else if "Current Item" = true then
                         Error('Item cannot be DISCONTINUED and CURRENT')
-                    else if "Sunset Item" = true then Error('Item cannot be DISCONTINUED and SUNSET');
+                    else if "Sunset Item" = true then
+                        Error('Item cannot be DISCONTINUED and SUNSET');
 
                 if ("Discontinued Item" = false) and (CopyStr("No.", 1, 2) = 'Z-') then
                     Error('If this sku is no longer DISCONTINUED, you must un-Z it!');
@@ -91,7 +94,8 @@ tableextension 50027 TlyItem extends Item
                         Error('Item cannot be SUNSET and NEW')
                     else if "Current Item" = true then
                         Error('Item cannot be SUNSET and CURRENT')
-                    else if "Discontinued Item" = true then Error('Item cannot be SUNSET and DISCONTINUED')
+                    else if "Discontinued Item" = true then
+                        Error('Item cannot be SUNSET and DISCONTINUED')
             end;
         }
 

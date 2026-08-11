@@ -660,21 +660,32 @@ page 51002 TlyBillOfLading
                     SalesShipmentLine.SetFilter(Type, 'Item');
                     if SalesShipmentLine.FindSet() then begin
                         repeat
+                            //this is 1 of 2 way of checking, essentially no case counts, just the quantity
                             if (SalesShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
                                 Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + SalesShipmentLine."Quantity";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
                             end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" = 'ROLL') then begin
                                 Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + SalesShipmentLine."Quantity";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+                                //this is 2 of 2 way of checking, use case counts from item card
                             end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
+                                Item.Get(SalesShipmentLine."No."); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
                                 Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case";
+                                // Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"
+                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case";
+                                // BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
+                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                                                                                                               //this is 2 of 2 way of checking, use case counts from item card
                             end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
                                                                                     'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
                                                                                     'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
@@ -687,6 +698,7 @@ page 51002 TlyBillOfLading
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
                                                         + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
                             end else begin
                                 Rec."Weight - Other" := Rec."Weight - Other" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
                                 Rec."Cases - Other" := Rec."Cases - Other" + SalesShipmentLine."Quantity";
@@ -759,21 +771,32 @@ page 51002 TlyBillOfLading
                     TransferShipmentLine.SetRange("Document No.", TransferShipmentHeader."No.");
                     if TransferShipmentLine.FindSet() then begin
                         repeat
+                            //this is 1 of 2 way of checking, essentially no case counts, just the quantity
                             if (TransferShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
                                 Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + TransferShipmentLine."Quantity";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
                             end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" = 'ROLL') then begin
                                 Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + TransferShipmentLine."Quantity";
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+                                //this is 2 of 2 way of checking, use case counts from item card
                             end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
+                                Item.Get(TransferShipmentLine."Item No."); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
                                 Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case";
+                                // Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"
+                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case";
+                                // BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
+                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+                                                                                                                                  //this is 2 of 2 way of checking, use case counts from item card
                             end else if (TransferShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
                                                                                     'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
                                                                                     'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
@@ -786,6 +809,7 @@ page 51002 TlyBillOfLading
                                 BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
                                                         + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
                             end else begin
                                 Rec."Weight - Other" := Rec."Weight - Other" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
                                 Rec."Cases - Other" := Rec."Cases - Other" + TransferShipmentLine."Quantity";

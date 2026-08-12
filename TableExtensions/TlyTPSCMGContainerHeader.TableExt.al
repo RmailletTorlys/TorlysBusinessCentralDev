@@ -136,5 +136,35 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             FieldClass = FlowField;
             CalcFormula = count("Transfer Header" where("TPS CMG Container No." = field("No.")));
         }
+
+        // modify("Actual Shipment Date")
+        // {
+        //     trigger OnAfterValidate()
+        //     var
+        //         UpdateDate: Boolean;
+        //         PurchaseLines: Record "Purchase Line";
+        //     begin
+        //         UpdateDate := Dialog.Confirm('Do you want to update the Shipment Date %1 on Source Documents?.', true, Rec."No.");
+        //         if UpdateDate then
+        //             Message('cool')
+        //         else
+        //             message('not cool');
+        //     end;
+        // }
+
+
+        //                 if "Actual Shipment Date" <> xRec."Actual Shipment Date" then begin
+        //   PurchaseLines.SetFilter("Document Type",'=%1',PurchaseLines."Document Type"::Order);
+        //   PurchaseLines.SetFilter("Container No.","No.");
+        //   if PurchaseLines.Find('-') then begin
+        //     repeat
+        //       PurchaseLines."Shipment Date" := "Actual Shipment Date";
+        //       PurchaseLines."Previous ETA" := "Previous ETA";
+        //       PurchaseLines.Modify();
+        //     until PurchaseLines.Next = 0;
+        //   end;
+        //                 end;
+        // end;
+        // }
     }
 }

@@ -2,9 +2,9 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
 {
     layout
     {
-        moveafter(ShowMap; "Phone No.", "Fax No.", "E-Mail")
+        moveafter(ShowMap; "Phone No.", "Fax No.", "E-Mail", "Home Page")
 
-        addafter("E-Mail")
+        addafter("Home Page")
         {
             field("Dealer Locator Participant"; Rec."Dealer Locator Participant")
             {
@@ -25,6 +25,7 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Freight Zone Code';
             }
+
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 ApplicationArea = All;
@@ -32,6 +33,7 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                 ToolTip = 'Shipping Instructions';
                 Visible = false;
             }
+
             field("Shipping Comment"; Rec."Shipping Comment")
             {
                 ApplicationArea = All;
@@ -86,24 +88,28 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                     ToolTip = 'Ships On - Monday';
                     ApplicationArea = All;
                 }
+
                 field("Ships On - Tuesday"; Rec."Ships On - Tuesday")
                 {
                     Caption = 'Ships On - Tuesday';
                     ToolTip = 'Ships On - Tuesday';
                     ApplicationArea = All;
                 }
+
                 field("Ships On - Wednesday"; Rec."Ships On - Wednesday")
                 {
                     Caption = 'Ships On - Wednesday';
                     ToolTip = 'Ships On - Wednesday';
                     ApplicationArea = All;
                 }
+
                 field("Ships On - Thursday"; Rec."Ships On - Thursday")
                 {
                     Caption = 'Ships On - Thursday';
                     ToolTip = 'Ships On - Thursday';
                     ApplicationArea = All;
                 }
+
                 field("Ships On - Friday"; Rec."Ships On - Friday")
                 {
                     Caption = 'Ships On - Friday';
@@ -111,6 +117,7 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                     ApplicationArea = All;
                 }
             }
+
             group("Receiving Capabilities")
             {
                 Caption = 'Receiving Capabilities';
@@ -141,7 +148,6 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                     Caption = 'Tailgate Required';
                     ToolTip = 'Tailgate Required';
                     ApplicationArea = All;
-
                 }
 
                 field("Pump Truck Required"; Rec."Pump Truck Required")
@@ -165,11 +171,6 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
             Visible = false;
         }
 
-        modify("Home Page")
-        {
-            Visible = false;
-        }
-
         modify("Last Date Modified")
         {
             Visible = false;
@@ -183,6 +184,51 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
         modify("Shipment Method Code")
         {
             Visible = false;
+        }
+
+        modify(Code)
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify(Name)
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify(Address)
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify("Address 2")
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify("Post Code")
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify(City)
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify(County)
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify("Phone No.")
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify("Home Page")
+        {
+            ShowMandatory = Rec."Dealer Locator Participant" = true;
         }
     }
 

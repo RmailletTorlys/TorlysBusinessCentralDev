@@ -15,7 +15,7 @@ query 50003 CustInfoForTorlysDotComV2
             column(No; Code)
             {
             }
-            column(Name; "Name 2")
+            column(Name; Name)
             {
             }
             column(Address; Address)

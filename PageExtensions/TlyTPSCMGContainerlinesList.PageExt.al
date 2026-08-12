@@ -2,12 +2,17 @@ pageextension 59745 TlyTPSCMGContainerlinesList extends "TPS CMG Container lines
 {
     layout
     {
-        moveafter("Container No."; "Line No.", "Document No.", "Document Line No")
+        moveafter("Container No."; "Line No.", "Document No.", "Document Line No", "Item No", "Item Description", "Unit of Measure Code", Quantity)
 
-        moveafter("Item Description"; "Unit of Measure Code", Quantity)
-
-        addafter(Quantity)
+        addafter("Quantity")
         {
+            field("PO Amount"; POAmount)
+            {
+                Caption = 'PO Amount';
+                ToolTip = 'PO Amount';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("PO Quantity"; Rec."Source Quantity")
             {
                 Caption = 'PO Quantity';
@@ -126,4 +131,18 @@ pageextension 59745 TlyTPSCMGContainerlinesList extends "TPS CMG Container lines
             Visible = false;
         }
     }
+
+    trigger OnAfterGetRecord()
+    var
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchLine.Reset;
+        PurchLine.SetRange("Document No.", Rec."Document No.");
+        PurchLine.SetRange("Line No.", Rec."Document Line No.");
+        if PurchLine.Find('-') then
+            POAmount := (PurchLine."Unit Cost (LCY)" * PurchLine.Quantity);
+    end;
+
+    var
+        POAmount: Decimal;
 }

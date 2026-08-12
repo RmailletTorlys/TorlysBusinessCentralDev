@@ -2,7 +2,7 @@ report 50009 "Processed Bill Of Lading"
 {
     Caption = 'Processed Bill Of Lading';
     PreviewMode = PrintLayout;
-    WordMergeDataItem = "Processed BOL Header";
+    // WordMergeDataItem = "Processed BOL Header";
     RDLCLayout = './Sales/Reports/ProcessedBOL.rdlc';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

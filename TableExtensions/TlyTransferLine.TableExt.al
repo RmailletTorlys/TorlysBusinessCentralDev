@@ -168,6 +168,14 @@ tableextension 55741 TlyTransferLine extends "Transfer Line"
             CalcFormula = Sum("Sales Line"."Qty. to Ship" where("Linked Transfer Order No." = field("Document No."), "Linked Transfer Order Line No." = field("Line No.")));
         }
 
+        field(50011; "Vendor No."; Code[20])
+        {
+            Caption = 'Vendor No.';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Vendor No." where("No." = field("Item No.")));
+            Editable = false;
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()

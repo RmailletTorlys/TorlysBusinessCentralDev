@@ -559,6 +559,12 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         {
             Importance = Standard;
             Caption = 'Shipping Agent Code';
+            ShowMandatory = Rec."Temporary Hold" = false;
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."Shipping Agent Code" = '') and (Rec.Status = Rec.Status::Released) then
+                    Error('Cannot delete if order released');
+            end;
         }
 
         modify("Ship-to Code")

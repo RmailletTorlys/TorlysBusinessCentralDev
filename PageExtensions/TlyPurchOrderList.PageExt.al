@@ -92,9 +92,21 @@ pageextension 59307 TlyPurchOrderList extends "Purchase Order List"
                 ToolTip = 'Tax Area Code';
                 ApplicationArea = All;
             }
+            field("Amount Rcvd. Not Invoiced"; Rec."A. Rcd. Not Inv. Ex. VAT (LCY)")
+            {
+                Caption = 'Amount Rcvd. Not Invoiced';
+                ToolTip = 'Amount Rcvd. Not Invoiced';
+                ApplicationArea = All;
+            }
+            field("Outstanding Amount"; OutsAmount)
+            {
+                Caption = 'Outstanding Amount';
+                ToolTip = 'Outstanding Amount';
+                ApplicationArea = All;
+            }
         }
 
-        moveafter("Tax Area Code"; "Amount")
+        moveafter("Outstanding Amount"; "Amount")
 
         addafter("Amount")
         {
@@ -210,7 +222,22 @@ pageextension 59307 TlyPurchOrderList extends "Purchase Order List"
         }
     }
 
+    trigger OnAfterGetRecord()
+    var
+        PurchLine: Record "Purchase Line";
+    begin
+        Clear(OutsAmount);
+        PurchLine.Reset();
+        PurchLine.SetRange("Document Type", Rec."Document Type");
+        PurchLine.SetRange("Document No.", Rec."No.");
+        // PurchLine.SetFilter("Type", 'Item');
+        if PurchLine.Find('-') then
+            repeat
+                OutsAmount := OutsAmount + (PurchLine."Outstanding Amount (LCY)")
+            until PurchLine.Next() = 0;
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
-
+        OutsAmount: Decimal;
 }

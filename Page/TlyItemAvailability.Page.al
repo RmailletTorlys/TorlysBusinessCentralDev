@@ -33,6 +33,17 @@ page 50560 TlyItemAvailability
                 ToolTip = 'Description';
                 Editable = false;
             }
+
+            field(ItemStatus; ItemStatus)
+            {
+                ApplicationArea = All;
+                Caption = 'Item Status';
+                ToolTip = 'Item Status';
+                Editable = false;
+                QuickEntry = false;
+                StyleExpr = ItemStatusStyle;
+            }
+
             field("Item Category Code"; Rec."Item Category Code")
             {
                 ApplicationArea = All;
@@ -451,12 +462,6 @@ page 50560 TlyItemAvailability
         }
     }
 
-    trigger OnAfterGetRecord()
-    begin
-        Rec.SetRange(Rec."No.");
-        CurrPage.TorlysItemAvailabilitySubform.Page.SetItemNo(Rec);
-    end;
-
     procedure GetInsurance(): Decimal
     var
         PriceListLine: Record "Price List Line";
@@ -791,4 +796,20 @@ page 50560 TlyItemAvailability
         if PriceListLine.Find('-') then
             exit(PriceListLine."Unit Price");
     end;
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.SetRange(Rec."No.");
+        if Rec."New Item" then ItemStatus := 'Current';
+        if Rec."Current Item" then ItemStatus := 'Current';
+        if Rec."Sunset Item" then ItemStatus := 'Current';
+        if Rec."Discontinued Item" then ItemStatus := 'Discontinued';
+        If ItemStatus = 'Current' then ItemStatusStyle := '';
+        If ItemStatus = 'Discontinued' then ItemStatusStyle := 'Unfavorable';
+        CurrPage.TorlysItemAvailabilitySubform.Page.SetItemNo(Rec);
+    end;
+
+    var
+        ItemStatus: Text[15];
+        ItemStatusStyle: Text;
 }

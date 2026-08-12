@@ -47,6 +47,7 @@ codeunit 57006 TlyReleaseSalesDocument
             SalesHeader.TestField("Shortcut Dimension 1 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Shortcut Dimension 2 Code"); //mandatory comes from GL Account setup
             SalesHeader.TestField("Salesperson Code"); //code added on screen to not allow delete if released
+            SalesHeader.TestField("Shipping Agent Code"); //code added on screen to not allow delete if released
 
             //check lines for those that have Item selected as type but no item number populated
             SalesLine.Reset();

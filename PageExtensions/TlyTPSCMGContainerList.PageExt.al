@@ -50,8 +50,10 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         {
             field("Port of Loading Date"; Rec."Port of Loading Date")
             {
-                Caption = 'Port of Loading Date';
-                ToolTip = 'Port of Loading Date';
+                // Caption = 'Port of Loading Date';
+                // to match same as Container card page
+                Caption = 'Origin Port Departure Date';
+                ToolTip = 'Origin Port Departure Date';
                 ApplicationArea = All;
             }
         }
@@ -62,8 +64,10 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         {
             field("Port of Discharge Date"; Rec."Port of Discharge Date")
             {
-                Caption = 'Port of Discharge Date';
-                ToolTip = 'Port of Discharge Date';
+                // Caption = 'Port of Discharge Date';
+                // to match same as Container card page
+                caption = 'Destination Port Arrival Date';
+                ToolTip = 'Destination Port Arrival Date';
                 ApplicationArea = All;
             }
             field("Inland Terminal"; Rec."Inland Terminal")
@@ -104,6 +108,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             //     ApplicationArea = All;
             //     Editable = false;
             // }
+            field("Total Quantity"; TotalQty)
+            {
+                Caption = 'Total Quantity';
+                ToolTip = 'Total Quantity';
+                ApplicationArea = All;
+                Editable = false;
+            }
             field("Open Transfer Count"; Rec."Open Transfer Count")
             {
                 Caption = 'Open Transfer Count';
@@ -467,8 +478,22 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
         }
     }
 
+    trigger OnAfterGetRecord()
+    var
+        ContainerLine: Record "TPS CMG Container Line";
+    begin
+        Clear(TotalQty);
+        ContainerLine.Reset();
+        ContainerLine.SetRange("Container No.", Rec."No.");
+        if ContainerLine.Find('-') then
+            repeat
+                TotalQty := TotalQty + (ContainerLine."Quantity (Base)");
+            until ContainerLine.Next() = 0;
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
+        TotalQty: Decimal;
     // BookingNo: Code[20];
     // AppointmentDate: Date;
     // AppointmentTime: Time;

@@ -2,7 +2,7 @@ report 50009 "Processed Bill Of Lading"
 {
     Caption = 'Processed Bill Of Lading';
     PreviewMode = PrintLayout;
-    WordMergeDataItem = "Processed BOL Header";
+    // WordMergeDataItem = "Processed BOL Header";
     RDLCLayout = './Sales/Reports/ProcessedBOL.rdlc';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -279,6 +279,13 @@ report 50009 "Processed Bill Of Lading"
                 BarcodeFontProvider: Interface "Barcode Font Provider";
                 BarcodeStrings: Code[20];
             begin
+                Clear(CategoryArray);
+                Clear(NumberofPackagesArray);
+                Clear(WeightArray);
+                Clear(OrderString);
+                Clear(LocationString);
+                Clear(CollectMessage);
+                Clear(Prepaidmessage);
                 // Declare the barcode provider using the barcode provider interface and enum
                 BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
 

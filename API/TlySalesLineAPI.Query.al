@@ -36,6 +36,7 @@ Query 56016 TlySalesLineAPI
             column(salesperson; "Salesperson Code") { }
             column(requestedDeliveryDate; "Requested Delivery Date") { }
             column(shipmentDate; "Shipment Date") { }
+            column(netWeight; "Net Weight") { }
 
         }
     }

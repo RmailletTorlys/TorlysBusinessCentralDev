@@ -279,6 +279,13 @@ report 50009 "Processed Bill Of Lading"
                 BarcodeFontProvider: Interface "Barcode Font Provider";
                 BarcodeStrings: Code[20];
             begin
+                Clear(CategoryArray);
+                Clear(NumberofPackagesArray);
+                Clear(WeightArray);
+                Clear(OrderString);
+                Clear(LocationString);
+                Clear(CollectMessage);
+                Clear(Prepaidmessage);
                 // Declare the barcode provider using the barcode provider interface and enum
                 BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
 

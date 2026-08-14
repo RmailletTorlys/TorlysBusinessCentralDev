@@ -645,6 +645,13 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
             }
 
         }
+
+        addlast(Category_Category8)
+        {
+            actionref(ChangeLog; "Change Log")
+            { }
+        }
+
         addfirst("F&unctions")
         {
             action("Open Sales Orders")
@@ -692,9 +699,19 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
                 RunObject = Page "Posted Sales Credit Memo Lines";
                 RunPageLink = "Sell-to Customer No." = field("Sell-to Customer No.");
             }
+
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 2 Value" = field("No.");
+            }
         }
 
-        //TLY-SD - 07/24/2026 - can hide via the group since all functions exist in this menu
+        //TLY-SD - 07/24/2026 - cant hide via the group since all functions exist in this menu
         modify("P&osting")
         {
             Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';

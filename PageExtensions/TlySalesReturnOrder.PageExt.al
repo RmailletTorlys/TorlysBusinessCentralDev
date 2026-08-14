@@ -829,6 +829,13 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 end;
             }
         }
+
+        addlast(Category_Category11)
+        {
+            actionref(ChangeLog; "Change Log")
+            { }
+        }
+
         addfirst("P&osting")
         {
             action("Warehouse Receive")
@@ -924,6 +931,16 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 begin
                     AddRestockingLine;
                 end;
+            }
+
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 2 Value" = field("No.");
             }
 
             // action("Remove Posting Hold")

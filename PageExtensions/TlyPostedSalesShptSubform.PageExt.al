@@ -267,6 +267,49 @@ pageextension 50131 TlyPostedSalesShptSubform extends "Posted Sales Shpt. Subfor
         }
     }
 
+    actions
+    {
+        modify(UndoShipment)
+        {
+            trigger OnBeforeAction()
+            var
+                UndoShipmentModal: Page TlyUndoShipmentModal;
+                UndoComment: Text[30];
+                UndoString: Text[80];
+                SalesCommentLine: Record "Sales Comment Line";
+                LineNo: Integer;
+            begin
+                UndoComment := '';
+                UndoString := '';
+
+                UndoShipmentModal.PresentModal(Rec."Document No.", Rec."No.", Rec.Quantity);
+                if UndoShipmentModal.RunModal() = Action::OK then begin
+                    UndoComment := UndoShipmentModal.GetUndoComment();
+                    UndoString := StrSubstNo('Undo shipment done by %1 on %2 at %3. %4', UserId, WorkDate(), Time, UndoComment);
+                end else begin
+                    Error('You did not enter a reason for undoing this shipment');
+                end;
+
+                if UndoComment = '' then Error('You did not enter a reason for undoing this shipment');
+
+                SalesCommentLine.Reset();
+                SalesCommentLine.SetCurrentKey("Document Type", "No.");
+                SalesCommentLine.SetFilter("Document Type", 'Shipment');
+                SalesCommentLine.SetRange("No.", Rec."Document No.");
+                if SalesCommentLine.Find('+') then LineNo := SalesCommentLine."Line No.";
+                SalesCommentLine.Reset;
+                SalesCommentLine.Validate("Document Type", SalesCommentLine."Document Type"::Shipment);
+                SalesCommentLine.Validate("No.", Rec."Document No.");
+                SalesCommentLine.Validate("Line No.", LineNo + 10000);
+                SalesCommentLine.Validate(Date, WorkDate());
+                SalesCommentLine.Validate("Entered By", UserId);
+                SalesCommentLine.Validate(Comment, UndoString);
+                SalesCommentLine.Insert();
+                Commit();
+            end;
+        }
+    }
+
     procedure LookupUserIdWithGuid(var UserGuid: Guid): Code[50]
     var
         UserDetails: Record "User";

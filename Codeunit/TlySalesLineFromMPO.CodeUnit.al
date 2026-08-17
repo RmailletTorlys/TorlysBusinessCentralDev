@@ -2,7 +2,7 @@ codeunit 50022 TlySalesLineFromMPO
 {
     procedure AddToExisting(Rec: Record "Sales Line")
     var
-        TorlysSalesLineFromMPOQty: Page TlySalesLineFromMPOQty;
+        TorlysSalesLineFromMPOQty: Page TlySalesLineMPOQtyModal;
         QtySendback: Decimal;
         SalesOrders: Page "Sales Order List";
         SalesHeader: Record "Sales Header";
@@ -56,7 +56,7 @@ codeunit 50022 TlySalesLineFromMPO
 
     procedure CreateNew(Rec: Record "Sales Line")
     var
-        TorlysSalesLineFromMPOQty: Page TlySalesLineFromMPOQty;
+        TorlysSalesLineFromMPOQty: Page TlySalesLineMPOQtyModal;
         QtySendback: Decimal;
         SalesHeader: Record "Sales Header";
         NewSalesHeader: Record "Sales Header";

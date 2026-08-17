@@ -710,7 +710,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                         SelectedLines: Record "Sales Line";
                         MPOSalesHeader: Record "Sales Header";
                         ExistingAnswer: Boolean;
-                        TorlysCreateMPOFromSalesLine: Codeunit TlySalesLineFromMPO;
+                        CreateMPOFromSalesLine: Codeunit TlySalesLineFromMPO;
                     begin
                         CurrPage.SetSelectionFilter(SelectedLines);
                         if SelectedLines.FindSet() then
@@ -724,9 +724,9 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                                 end else begin
                                     ExistingAnswer := Dialog.Confirm('Are you looking to add to an existing order?');
                                     if ExistingAnswer then
-                                        TorlysCreateMPOFromSalesLine.AddToExisting(SelectedLines)
+                                        CreateMPOFromSalesLine.AddToExisting(SelectedLines)
                                     else
-                                        TorlysCreateMPOFromSalesLine.CreateNew(SelectedLines);
+                                        CreateMPOFromSalesLine.CreateNew(SelectedLines);
                                 end;
                             end;
                     end;

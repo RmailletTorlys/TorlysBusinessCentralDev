@@ -176,6 +176,14 @@ tableextension 55741 TlyTransferLine extends "Transfer Line"
             Editable = false;
         }
 
+        field(50012; "Quantity Linked to PO"; Decimal)
+        {
+            Caption = 'Quantity Linked to PO';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("TPS CMG Container Line"."Quantity Linked via PO" where("Container No." = field("TPS CMG Container No."), "Transfer Order No." = field("Document No."), "Transfer Order Line No." = field("Line No.")));
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()

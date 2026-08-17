@@ -1,26 +1,29 @@
 codeunit 57003 TlyPriceCodeSourcePriceCalc
 {
-    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime', '', false, false)]
-    local procedure OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime(var SalesLine: Record "Sales Line")
-    begin
-        UpdateUnitPriceByLocationCode(SalesLine);
-    end;
+    //TLY-SD - start - 08/14/2026
+    //dont want to run out of the box price check when location changes
+    // [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime', '', false, false)]
+    // local procedure OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime(var SalesLine: Record "Sales Line")
+    // begin
+    //     UpdateUnitPriceByLocationCode(SalesLine);
+    // end;
 
-    local procedure UpdateUnitPriceByLocationCode(var SalesLine: Record "Sales Line")
-    var
-        SalesHeader: Record "Sales Header";
-        PriceCalculation: Interface "Price Calculation";
-    begin
-        SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
-        SalesLine.TestField("Qty. per Unit of Measure");
+    // local procedure UpdateUnitPriceByLocationCode(var SalesLine: Record "Sales Line")
+    // var
+    //     SalesHeader: Record "Sales Header";
+    //     PriceCalculation: Interface "Price Calculation";
+    // begin
+    //     SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
+    //     SalesLine.TestField("Qty. per Unit of Measure");
 
-        SalesLine.GetPriceCalculationHandler("Price Type"::Sale, SalesHeader, PriceCalculation);
-        if not (SalesLine."Copied From Posted Doc." and SalesLine.IsCreditDocType()) then begin
-            PriceCalculation.ApplyDiscount();
-            SalesLine.ApplyPrice(SalesLine.FieldNo("Sales Price Code"), PriceCalculation);
-        end;
-        SalesLine.Validate("Unit Price");
-    end;
+    //     SalesLine.GetPriceCalculationHandler("Price Type"::Sale, SalesHeader, PriceCalculation);
+    //     if not (SalesLine."Copied From Posted Doc." and SalesLine.IsCreditDocType()) then begin
+    //         PriceCalculation.ApplyDiscount();
+    //         SalesLine.ApplyPrice(SalesLine.FieldNo("Sales Price Code"), PriceCalculation);
+    //     end;
+    //     SalesLine.Validate("Unit Price");
+    // end;
+    //TLY-SD - end - 08/14/2026
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterAddSources', '', false, false)]
     local procedure OnAfterAddSources(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line";

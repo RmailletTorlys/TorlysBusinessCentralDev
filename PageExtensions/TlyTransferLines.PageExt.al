@@ -132,18 +132,27 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
                 Visible = true;
             }
 
-            field("Quantity Linked"; Rec."Quantity Linked")
+            field("Quantity Linked to PO"; QuantityLinkedToPO)
             {
-                Caption = 'Quantity Linked';
-                ToolTip = 'Quantity Linked';
+                Caption = 'Quantity Linked to PO';
+                ToolTip = 'Quantity Linked to PO';
                 ApplicationArea = All;
             }
+
+            field("Quantity Linked to TO"; Rec."Quantity Linked")
+            {
+                Caption = 'Quantity Linked to TO';
+                ToolTip = 'Quantity Linked to TO';
+                ApplicationArea = All;
+            }
+
             field("Quantity Remaining"; QuantityRemaining)
             {
                 Caption = 'Quantity Remaining';
                 ToolTip = 'Quantity Remaining';
                 ApplicationArea = All;
             }
+
             field("Qty. to Ship Linked"; Rec."Qty. to Ship Linked")
             {
                 Caption = 'Qty. to Ship Linked';
@@ -205,9 +214,24 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
     var
         LookupUserId: Codeunit TlyLookupUserID;
         QuantityRemaining: Decimal;
+        QuantityLinkedToPO: Decimal;
 
     trigger OnAfterGetRecord()
+    var
+        ContainerLine: Record "TPS CMG Container Line";
     begin
-        QuantityRemaining := Rec.Quantity - Rec."Quantity Linked";
+        ContainerLine.Reset;
+        ContainerLine.SetRange("Container No.", Rec."TPS CMG Container No.");
+        ContainerLine.SetRange("Transfer Order No.", Rec."Document No.");
+        ContainerLine.SetRange("Transfer Order Line No.", Rec."Line No.");
+        if ContainerLine.Find('-') then begin
+            ContainerLine.CalcFields("Transfer Order No.", "Transfer Order Line No.");
+            ContainerLine.SetRange("Transfer Order No.", Rec."Document No.");
+            ContainerLine.SetRange("Transfer Order Line No.", Rec."Line No.");
+            ContainerLine.CalcFields("Quantity Linked via PO");
+            QuantityLinkedToPO := ContainerLine."Quantity Linked via PO"
+        end;
+
+        QuantityRemaining := Rec.Quantity - Rec."Quantity Linked" - QuantityLinkedToPO;
     end;
 }

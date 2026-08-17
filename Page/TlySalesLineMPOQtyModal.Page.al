@@ -1,4 +1,4 @@
-page 50997 TlySalesLineFromMPOQty
+page 50997 TlySalesLineMPOQtyModal
 {
     PageType = StandardDialog;
     Caption = 'Enter Quantity To Draw';

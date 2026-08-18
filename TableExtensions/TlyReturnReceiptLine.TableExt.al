@@ -290,6 +290,22 @@ tableextension 56661 TlyReturnReceiptLine extends "Return Receipt Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Return Receipt Header"."Currency Factor" where("No." = field("Document No.")));
         }
+
+        field(50046; "Channel Code"; Code[20])
+        {
+            Caption = 'Channel Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Dimension Set Entry"."Dimension Value Code" where("Dimension Set ID" = field("Dimension Set ID"), "Dimension Code" = filter('CHANNEL')));
+            Editable = false;
+        }
+
+        field(50047; "Order Type"; Code[20])
+        {
+            Caption = 'Order Type';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Return Receipt Header"."Order Type" where("No." = field("Document No.")));
+        }
     }
 
     // trigger OnModify()

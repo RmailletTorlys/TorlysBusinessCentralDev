@@ -4,6 +4,17 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
     {
         moveafter(Description; "Source No.")
 
+        addafter("Source No.")
+        {
+            field("External Document No."; Rec."External Document No.")
+            {
+                ApplicationArea = All;
+                Caption = 'External Document No.';
+                ToolTip = 'External Document No.';
+                Visible = true;
+            }
+        }
+
         moveafter("Remaining Quantity"; "Sales Amount (Expected)", "Sales Amount (Actual)", "Cost Amount (Expected)", "Cost Amount (Actual)")
 
         addafter("TPS CMG Container No.")

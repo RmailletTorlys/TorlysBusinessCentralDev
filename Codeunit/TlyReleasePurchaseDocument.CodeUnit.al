@@ -5,13 +5,11 @@ codeunit 57027 TlyReleasePurchaseDocument
     var
         DimensionSetEntry: Record "Dimension Set Entry";
         HeaderRegion: Code[20];
-    // PurchaseLine: Record "Purchase Line";
     begin
-        // IsHandled := true;
-
         // these are for PO only
         if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order then begin
 
+            //check for region mismatch on header and lines
             DimensionSetEntry.SetRange("Dimension Set ID", PurchaseHeader."Dimension Set ID");
             DimensionSetEntry.SetFilter("Dimension Code", 'REGION');
             if DimensionSetEntry.Find('-') then

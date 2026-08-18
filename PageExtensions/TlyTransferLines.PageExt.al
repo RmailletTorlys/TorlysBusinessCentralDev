@@ -1,5 +1,7 @@
 pageextension 55749 TlyTransferLines extends "Transfer Lines"
 {
+    AdditionalSearchTerms = 'Transfer Lines';
+
     layout
     {
         addafter("Document No.")

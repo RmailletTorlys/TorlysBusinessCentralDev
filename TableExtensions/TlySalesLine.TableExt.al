@@ -427,6 +427,22 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             CalcFormula = lookup("Sales Header"."Currency Factor" where("No." = field("Document No.")));
         }
 
+        field(50046; "Channel Code"; Code[20])
+        {
+            Caption = 'Channel Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Dimension Set Entry"."Dimension Value Code" where("Dimension Set ID" = field("Dimension Set ID"), "Dimension Code" = filter('CHANNEL')));
+            Editable = false;
+        }
+
+        field(50047; "Order Type"; Code[20])
+        {
+            Caption = 'Order Type';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Order Type" where("No." = field("Document No.")));
+        }
+
         modify("No.")
         {
             trigger OnBeforeValidate()

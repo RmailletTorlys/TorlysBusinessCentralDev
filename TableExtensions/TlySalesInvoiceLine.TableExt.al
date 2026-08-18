@@ -300,6 +300,22 @@ tableextension 50113 TlySalesInvoiceLine extends "Sales Invoice Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Invoice Header"."Currency Factor" where("No." = field("Document No.")));
         }
+
+        field(50046; "Channel Code"; Code[20])
+        {
+            Caption = 'Channel Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Dimension Set Entry"."Dimension Value Code" where("Dimension Set ID" = field("Dimension Set ID"), "Dimension Code" = filter('CHANNEL')));
+            Editable = false;
+        }
+
+        field(50047; "Order Type"; Code[20])
+        {
+            Caption = 'Order Type';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Invoice Header"."Order Type" where("No." = field("Document No.")));
+        }
     }
 
     // trigger OnModify()

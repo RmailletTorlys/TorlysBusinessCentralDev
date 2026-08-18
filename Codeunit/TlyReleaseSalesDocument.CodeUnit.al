@@ -184,4 +184,10 @@ codeunit 57006 TlyReleaseSalesDocument
         end;
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Sales Document", 'OnBeforeManualReOpenSalesDoc', '', false, false)]
+    local procedure OnBeforeManualReOpenSalesDoc(var SalesHeader: Record "Sales Header"; PreviewMode: Boolean)
+    begin
+        if SalesHeader."No. Pick Slips Printed" > 0 then
+            Message('This pick slip has been printed, please contact warehouse with order changes.');
+    end;
 }

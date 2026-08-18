@@ -51,6 +51,22 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
                                                                   "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                 Editable = false;
+                Visible = false;
+            }
+            field("Channel Code"; Rec."Channel Code")
+            {
+                Caption = 'Channel Code';
+                ToolTip = 'Channel Code';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+            field("Order Type"; Rec."Order Type")
+            {
+                Caption = 'Order Type';
+                ToolTip = 'Order Type';
+                ApplicationArea = All;
+                Editable = false;
                 Visible = true;
             }
             field("Salesperson Code"; Rec."Salesperson Code")

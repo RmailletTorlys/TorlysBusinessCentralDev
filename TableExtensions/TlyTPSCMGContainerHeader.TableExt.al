@@ -137,34 +137,42 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             CalcFormula = count("Transfer Header" where("TPS CMG Container No." = field("No.")));
         }
 
-        // modify("Actual Shipment Date")
-        // {
-        //     trigger OnAfterValidate()
-        //     var
-        //         UpdateDate: Boolean;
-        //         PurchaseLines: Record "Purchase Line";
-        //     begin
-        //         UpdateDate := Dialog.Confirm('Do you want to update the Shipment Date %1 on Source Documents?.', true, Rec."No.");
-        //         if UpdateDate then
-        //             Message('cool')
-        //         else
-        //             message('not cool');
-        //     end;
-        // }
+        modify("Actual Shipment Date")
+        {
+            //TLY-SD - 08/19/2026 - per KM
+            trigger OnAfterValidate()
+            var
+                PurchaseLines: Record "Purchase Line";
+                POLinesCount: Integer;
+                UpdateDate: Boolean;
+            begin
+                if Rec."Actual Shipment Date" <> xRec."Actual Shipment Date" then begin
+                    PurchaseLines.SetFilter("Document Type", '=%1', PurchaseLines."Document Type"::Order);
+                    PurchaseLines.SetFilter("Container No.", "No.");
+                    POLinesCount := PurchaseLines.Count;
+                    if POLinesCount > 0 then begin
+                        UpdateDate := Dialog.Confirm('Do you want to update the Shipment Date on %1 Purchase Lines?', true, POLinesCount);
+                        if UpdateDate then begin
+                            if PurchaseLines.Find('-') then begin
+                                repeat
+                                    PurchaseLines.SetFilter("Document Type", '=%1', PurchaseLines."Document Type"::Order);
+                                    PurchaseLines.SetFilter("Container No.", "No.");
+                                    PurchaseLines."Shipment Date" := "Actual Shipment Date";
+                                    PurchaseLines.Modify();
+                                until PurchaseLines.Next = 0;
+                            end;
+                        end;
+                    end;
+                end;
+            end;
+        }
 
-
-        //                 if "Actual Shipment Date" <> xRec."Actual Shipment Date" then begin
-        //   PurchaseLines.SetFilter("Document Type",'=%1',PurchaseLines."Document Type"::Order);
-        //   PurchaseLines.SetFilter("Container No.","No.");
-        //   if PurchaseLines.Find('-') then begin
-        //     repeat
-        //       PurchaseLines."Shipment Date" := "Actual Shipment Date";
-        //       PurchaseLines."Previous ETA" := "Previous ETA";
-        //       PurchaseLines.Modify();
-        //     until PurchaseLines.Next = 0;
-        //   end;
-        //                 end;
-        // end;
-        // }
+        modify("Expected Receipt Date")
+        {
+            trigger OnAfterValidate()
+            begin
+                Rec."Previous ETA" := xRec."Expected Receipt Date"; //TLY-SD - 08/19/2026 - we did this forever on PO lines, lets do here too
+            end;
+        }
     }
 }

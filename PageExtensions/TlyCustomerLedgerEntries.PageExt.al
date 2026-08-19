@@ -13,9 +13,15 @@ pageextension 50025 TlyCustomerLedgerEntries extends "Customer Ledger Entries"
             }
         }
 
-        moveafter(Description; "External Document No.")
+        moveafter(Description; "External Document No.", "Reason Code")
 
         modify("External Document No.")
+        {
+            Visible = true;
+        }
+
+
+        modify("Reason Code")
         {
             Visible = true;
         }

@@ -10,6 +10,32 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
         {
             Caption = 'Port of Loading Date';
             DataClassification = CustomerContent;
+
+            trigger OnValidate() //TLY-SD - 08/19/2026 - per KM
+            var
+                PurchaseLines: Record "Purchase Line";
+                POLinesCount: Integer;
+                UpdateDate: Boolean;
+            begin
+                if Rec."Port of Loading Date" <> xRec."Port of Loading Date" then begin
+                    PurchaseLines.SetFilter("Document Type", '=%1', PurchaseLines."Document Type"::Order);
+                    PurchaseLines.SetFilter("Container No.", "No.");
+                    POLinesCount := PurchaseLines.Count;
+                    if POLinesCount > 0 then begin
+                        UpdateDate := Dialog.Confirm('Do you want to update the Origin Port Departure Date on %1 Purchase Lines?', true, POLinesCount);
+                        if UpdateDate then begin
+                            if PurchaseLines.Find('-') then begin
+                                repeat
+                                    PurchaseLines.SetFilter("Document Type", '=%1', PurchaseLines."Document Type"::Order);
+                                    PurchaseLines.SetFilter("Container No.", "No.");
+                                    PurchaseLines."Expected Departure Date" := "Port of Loading Date";
+                                    PurchaseLines.Modify();
+                                until PurchaseLines.Next = 0;
+                            end;
+                        end;
+                    end;
+                end;
+            end;
         }
         field(50002; "Port of Discharge Date"; Date)
         {
@@ -139,8 +165,8 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
 
         modify("Actual Shipment Date")
         {
-            //TLY-SD - 08/19/2026 - per KM
-            trigger OnAfterValidate()
+
+            trigger OnAfterValidate() //TLY-SD - 08/19/2026 - per KM
             var
                 PurchaseLines: Record "Purchase Line";
                 POLinesCount: Integer;
@@ -169,9 +195,9 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
 
         modify("Expected Receipt Date")
         {
-            trigger OnAfterValidate()
+            trigger OnAfterValidate() //TLY-SD - 08/19/2026 - we did this forever on PO lines, lets do here too
             begin
-                Rec."Previous ETA" := xRec."Expected Receipt Date"; //TLY-SD - 08/19/2026 - we did this forever on PO lines, lets do here too
+                Rec."Previous ETA" := xRec."Expected Receipt Date";
             end;
         }
     }

@@ -25,7 +25,7 @@ pageextension 59657 TlyCustomerReportSelections extends "Customer Report Selecti
                 Caption = 'Usage';
                 ToolTip = 'Usage';
                 Visible = true;
-                Editable = true;
+                Editable = false;
             }
         }
         // modify(Usage2)

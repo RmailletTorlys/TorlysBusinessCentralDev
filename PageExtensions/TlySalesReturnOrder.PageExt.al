@@ -81,6 +81,8 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 ShowMandatory = true;
                 trigger OnValidate()
                 begin
+                    if Rec."Reason Code" = 'CLAIM-OPEN' then Rec.Validate(Rec."Location Code", '');
+
                     if (Rec."Reason Code" = '') and (Rec.Status = Rec.Status::Released) then
                         Error('Cannot delete if order released');
                 end;
@@ -1006,6 +1008,16 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
         modify("Post &Batch")
         {
             Enabled = Rec."Reason Code" <> 'CLAIM-OPEN';
+        }
+
+        //TLY-SD - 08/20/2025 - added per LV
+        modify(Release)
+        {
+            trigger OnBeforeAction()
+            begin
+                if (CopyStr(Rec."Reason Code", 1, 5) = 'CLAIM') and (Rec."Return Claim No." = '') then
+                    Error('Return Claim No. not selected');
+            end;
         }
     }
 

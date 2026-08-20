@@ -480,7 +480,7 @@ report 50009 "Processed Bill Of Lading"
         FormatAddress: Codeunit "Format Address";
         ShipToAddress: array[8] of Text[100];
         LocationAddress: array[8] of Text[50];
-        OrderString: array[8] of Text[100];
+        OrderString: array[8] of Text[150];
         CategoryArray: array[8] of Text[30];
         NumberofPackagesArray: array[8] of Decimal;
         WeightArray: array[8] of Decimal;

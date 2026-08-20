@@ -19,6 +19,44 @@ pageextension 59657 TlyCustomerReportSelections extends "Customer Report Selecti
                 ToolTip = 'Ship-to Code';
                 Visible = true;
             }
+            field("Usage"; Rec."Usage")
+            {
+                ApplicationArea = All;
+                Caption = 'Usage';
+                ToolTip = 'Usage';
+                Visible = true;
+                Editable = true;
+            }
         }
+        // modify(Usage2)
+        // {
+        //     trigger OnAfterValidate()
+        //     var
+        //         Usage2: Enum "Custom Report Selection Sales";
+        //     begin
+        //         case Usage2 of
+        //             "Custom Report Selection Sales"::Quote:
+        //                 Rec.Usage := "Report Selection Usage"::"S.Quote";
+        //             "Custom Report Selection Sales"::"Confirmation Order":
+        //                 Rec.Usage := "Report Selection Usage"::"S.Order";
+        //             "Custom Report Selection Sales"::Invoice:
+        //                 Rec.Usage := "Report Selection Usage"::"S.Invoice";
+        //             "Custom Report Selection Sales"::"Credit Memo":
+        //                 Rec.Usage := "Report Selection Usage"::"S.Cr.Memo";
+        //             "Custom Report Selection Sales"::"Customer Statement":
+        //                 Rec.Usage := "Report Selection Usage"::"C.Statement";
+        //             "Custom Report Selection Sales"::"Job Quote":
+        //                 Rec.Usage := "Report Selection Usage"::JQ;
+        //             "Custom Report Selection Sales"::Reminder:
+        //                 Rec.Usage := "Report Selection Usage"::Reminder;
+        //             "Custom Report Selection Sales"::Shipment:
+        //                 Rec.Usage := "Report Selection Usage"::"S.Shipment";
+        //             "Custom Report Selection Sales"::"Pro Forma Invoice":
+        //                 Rec.Usage := "Report Selection Usage"::"Pro Forma S. Invoice";
+        //             "Custom Report Selection Sales"::"Processed BOL":
+        //                 Rec.Usage := "Report Selection Usage"::"Processed BOL";
+        //         end;
+        //     end;
+        // }
     }
 }

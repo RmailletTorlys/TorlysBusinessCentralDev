@@ -13,6 +13,13 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
                 ToolTip = 'External Document No.';
                 Visible = true;
             }
+            field("Reason Code"; Rec."Reason Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Reason Code';
+                ToolTip = 'Reason Code';
+                Visible = true;
+            }
         }
 
         moveafter("Remaining Quantity"; "Sales Amount (Expected)", "Sales Amount (Actual)", "Cost Amount (Expected)", "Cost Amount (Actual)")
@@ -31,13 +38,6 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
                 ApplicationArea = All;
                 Caption = 'Container No. (NAV)';
                 ToolTip = 'Container No. (NAV)';
-                Visible = true;
-            }
-            field("Reason Code"; Rec."Reason Code")
-            {
-                ApplicationArea = All;
-                Caption = 'Reason Code';
-                ToolTip = 'Reason Code';
                 Visible = true;
             }
         }

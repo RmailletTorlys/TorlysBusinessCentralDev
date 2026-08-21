@@ -36,7 +36,13 @@ codeunit 50035 TlyBOLandShipmentBatchSend
                 ProcessedBOL.SetRange("Customer No.", DocumentLayout."Source No.");
                 ProcessedBOL.SetRange("Ship-to Code", DocumentLayout."Ship-to Code");
 
-                ProcessedBOL.SetRange(SystemCreatedAt, CreateDateTime(WorkDate(), 0T), CurrentDateTime());
+                // ProcessedBOL.SetRange(SystemCreatedAt, CreateDateTime(WorkDate(), 0T), CurrentDateTime());
+
+                // Filter for yesterday's records
+                ProcessedBOL.SetRange(
+                    SystemCreatedAt,
+                    CreateDateTime(CalcDate('<-1D>', WorkDate()), 0T),
+                    CreateDateTime(WorkDate(), 0T));
 
                 // Loop found BOLs and email them to the document layout specific email list
                 if ProcessedBOL.FindSet() then

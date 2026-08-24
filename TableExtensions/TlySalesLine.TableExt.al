@@ -733,7 +733,9 @@ tableextension 50037 TlySalesLine extends "Sales Line"
             PriceListLine.Reset();
             PriceListLine.SetRange("Price List Code", Rec."Price List");
             PriceListLine.SetRange("Product No.", Rec."Sales Price Code");
-            PriceListLine.SetFilter("Ending Date", '');
+            // PriceListLine.SetFilter("Ending Date", ''); //TLY-SD - 08/24/2026 - removed
+            PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 08/24/2026 - added
+            PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 08/24/2026 - added
             PriceListLine.SetFilter("Stocking Pallet Price", '<>0'); //TLY-SD - 05/26/2026 - this was needed as was bringing over $0
             if PriceListLine.Find('-') then begin
                 Rec.Validate("Unit Price", PriceListLine."Stocking Pallet Price");

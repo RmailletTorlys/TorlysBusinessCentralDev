@@ -13,7 +13,7 @@ codeunit 57000 TlyPriceListSalesTriggers
     //this is validating price on the table
     //pricing on the table uses "UpdateUnitPriceByField" procedure which fires on change of:
     //item #, quantity, customer price group, work type code, variant code, unit of measure code, quantity base, customer discount group
-    //TlyPriceSalesLineWithPrice.CodeUnit makes it not do it qhen quantity is changed
+    //TlyPriceSalesLineWithPrice.CodeUnit makes it not do it when quantity is changed
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterGetAssetType', '', false, false)]
     local procedure OnAfterGetAssetType(SalesLine: Record "Sales Line"; var AssetType: Enum "Price Asset Type")

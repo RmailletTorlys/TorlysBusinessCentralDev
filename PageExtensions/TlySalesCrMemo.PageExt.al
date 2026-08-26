@@ -106,7 +106,7 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
                 Caption = 'Claim No.';
                 ToolTip = 'Claim No.';
                 ApplicationArea = All;
-                Importance = Promoted;
+                Importance = Additional;
             }
         }
 

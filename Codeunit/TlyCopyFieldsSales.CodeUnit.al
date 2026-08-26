@@ -69,12 +69,18 @@ codeunit 50019 TlyCopyFieldsSales
     local procedure OnAfterInitHeaderDefaults(var SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header"; xSalesLine: Record "Sales Line")
     var
         Cust: Record Customer;
+        Campaign: Record Campaign;
     begin
         SalesLine."Ship-to Code" := SalesHeader."Ship-to Code";
         if SalesLine."Type" = SalesLine."Type"::Item then begin
             Cust.Get(SalesLine."Sell-to Customer No."); //TLY-SD - 03/11/2026 - makes more sense to be here
             SalesLine."Default Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
-            SalesLine."Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
+            if SalesHeader."Campaign No." <> '' then begin //TLY-SD - 08/26/2026 - add in for our national promos
+                Campaign.Get(SalesHeader."Campaign No.");
+                SalesLine."Price List" := Campaign."Default Price List Code" //TLY-SD - 08/26/2026 - add in for our national promos
+            end else begin //TLY-SD - 08/26/2026 - add in for our national promos
+                SalesLine."Price List" := Cust."Default Price List Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
+            end;
         end;
     end;
 

@@ -1,7 +1,7 @@
 tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
 
 {
-    LookupPageId = "TPS CMG Container List";
+    // LookupPageId = "TPS CMG Container List"; //TLY-SD - 08/26/2026 - changed to fieldgroup
     DrillDownPageId = "TPS CMG Container Document";
 
     fields
@@ -206,6 +206,13 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             begin
                 Rec."Previous ETA" := xRec."Expected Receipt Date";
             end;
+        }
+    }
+
+    fieldgroups
+    {
+        addlast(DropDown; "No.", "Description", "Vendor No.", "Status")
+        {
         }
     }
 }

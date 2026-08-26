@@ -110,6 +110,12 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                         Error('Cannot delete if order released');
                 end;
             }
+        }
+
+        moveafter("Order Type"; "Campaign No.")
+
+        addafter("Campaign No.")
+        {
             field("Temporary Hold"; Rec."Temporary Hold")
             {
                 Caption = 'Temporary Hold';
@@ -733,6 +739,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         modify("Campaign No.")
         {
+            Importance = Additional;
             Visible = false;
         }
 

@@ -507,7 +507,7 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     // Display: DateTime;
 
     trigger OnOpenPage()
-    var
+    // var
     // InputDate: Date;
     // Tomorrow: Date;
     begin

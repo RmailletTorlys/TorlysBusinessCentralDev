@@ -101,9 +101,16 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
                 ApplicationArea = All;
                 Importance = Standard;
             }
+            field("Return Claim No."; Rec."Return Claim No.")
+            {
+                Caption = 'Claim No.';
+                ToolTip = 'Claim No.';
+                ApplicationArea = All;
+                Importance = Promoted;
+            }
         }
 
-        moveafter("Rebill Invoice No."; "Posting Date")
+        moveafter("Return Claim No."; "Posting Date")
 
         addafter("Posting Date")
         {

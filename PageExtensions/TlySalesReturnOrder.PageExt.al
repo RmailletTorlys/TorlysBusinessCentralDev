@@ -136,7 +136,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 Caption = 'Claim No.';
                 ToolTip = 'Claim No.';
                 ApplicationArea = All;
-                Importance = Standard;
+                Importance = Promoted;
             }
         }
 

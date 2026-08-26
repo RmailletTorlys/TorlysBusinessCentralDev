@@ -2,7 +2,17 @@ pageextension 50032 TlyItemLookup extends "Item Lookup"
 {
     layout
     {
-        moveafter(Description; "Search Description", "Item Category Code")
+        addafter(Description)
+        {
+            field("Description 2"; Rec."Description 2")
+            {
+                Caption = 'Description 2';
+                ToolTip = 'Description 2';
+                ApplicationArea = All;
+            }
+        }
+
+        moveafter("Description 2"; "Item Category Code")
 
         addafter("Item Category Code")
         {
@@ -37,11 +47,6 @@ pageextension 50032 TlyItemLookup extends "Item Lookup"
         modify("Vendor No.")
         {
             Visible = false;
-        }
-
-        modify("Search Description")
-        {
-            Visible = true;
         }
 
         modify("Item Category Code")

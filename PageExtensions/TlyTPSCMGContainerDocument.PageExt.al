@@ -36,6 +36,12 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 ToolTip = 'Freight Forwarder';
                 ApplicationArea = All;
             }
+            field("Transport Method"; Rec."Transport Method")
+            {
+                Caption = 'Transport Method';
+                ToolTip = 'Transport Method';
+                ApplicationArea = All;
+            }
             field("Steamship Line"; Rec."Steamship Line")
             {
                 Caption = 'Steamship Line';

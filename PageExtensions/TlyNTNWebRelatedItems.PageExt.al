@@ -87,4 +87,40 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
             Visible = false;
         }
     }
+
+    actions
+    {
+        addlast(Category_Process)
+        {
+            actionref("Update Item Description"; UpdateItemDescription)
+            { }
+        }
+
+        addlast(Processing)
+        {
+            action(UpdateItemDescription)
+            {
+                Caption = 'Update Item Description';
+                ToolTip = 'Update Item Description';
+                ApplicationArea = All;
+                Image = CopyItem;
+                trigger OnAction()
+                var
+                    RelatedItems: Record "NTN Related Item";
+                    Item: Record Item;
+                begin
+                    CurrPage.SetSelectionFilter(RelatedItems);
+                    if RelatedItems.FindSet() then begin
+                        repeat
+                            if Item.Get(Rec."Related Item No.") then begin
+                                RelatedItems."Related Item Description" := Item.Description;
+                                RelatedItems.Modify(true);
+                            end;
+                        until RelatedItems.Next() = 0;
+                    end;
+                    CurrPage.Update(true);
+                end;
+            }
+        }
+    }
 }

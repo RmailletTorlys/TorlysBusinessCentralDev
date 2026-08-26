@@ -393,6 +393,8 @@ tableextension 50018 TlyCustomer extends Customer
     begin
         "Restocking Fee %" := 15; //TLY-SD - 07/23/2026 - added per FM
         "Restocking Fee Minimum" := 25; //TLY-SD - 07/23/2026 - added per FM
+        "NTN Web Enabled" := true; //TLY-SD - 08/25/2026 - added
+        "NTN Catalog Group Code" := '1-3' //TLY-SD - 08/25/2026 - added
     end;
 
     procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
@@ -436,6 +438,3 @@ tableextension 50018 TlyCustomer extends Customer
             ShortcutDimCode[i] := '';
     end;
 }
-
-
-

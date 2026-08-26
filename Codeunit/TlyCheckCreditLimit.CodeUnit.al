@@ -18,8 +18,6 @@ codeunit 50343 TlyCheckCreditLimit
         CustBalanceDue := 0;
 
         //still need to add in current order into calc
-        //DEV example = A333
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Credit Limit + Open Orders or Terms" then begin
             //check if balance plus open order is greater than credit limit
             //check if balance with 15 days grace is greater than 0
@@ -38,8 +36,6 @@ codeunit 50343 TlyCheckCreditLimit
         end;
 
         //still need to add in current order into calc
-        //DEV example = A197
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Credit Limit + Open Orders" then begin
             //check if balance plus open order is greater than credit limit
             Customer.CalcFields(Balance, "Outstanding Orders");
@@ -51,8 +47,6 @@ codeunit 50343 TlyCheckCreditLimit
         end;
 
         //still need to add in current order into calc
-        //DEV example = A200
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Terms" then begin
             //check if balance with 15 days grace is greater than 0
             Customer.SetFilter("Date Filter", '..%1', WorkDate() - 15);
@@ -65,8 +59,6 @@ codeunit 50343 TlyCheckCreditLimit
         end;
 
         //still need to add in current order into calc
-        //DEV example = A331
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Credit Limit or Terms" then begin
             //check if balance is above credit limit
             //check if balance with 15 days grace is greater than 0
@@ -85,8 +77,6 @@ codeunit 50343 TlyCheckCreditLimit
         end;
 
         //still need to add in current order into calc
-        //DEV example = A212
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Credit Limit" then begin
             //check if balance is above credit limit
             Customer.CalcFields(Balance);
@@ -97,16 +87,12 @@ codeunit 50343 TlyCheckCreditLimit
             end;
         end;
 
-        //DEV example = A160
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"No Hold" then begin
             //never hold
             SalesHeader."On Hold" := '';
             SalesHeader.Modify(true);
         end;
 
-        //DEV example = A145
-        //working Feb 19
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Hold All" then begin
             //always hold
             SalesHeader."On Hold" := 'CR';

@@ -36,6 +36,12 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 ToolTip = 'Freight Forwarder';
                 ApplicationArea = All;
             }
+            field("Transport Method"; Rec."Transport Method")
+            {
+                Caption = 'Transport Method';
+                ToolTip = 'Transport Method';
+                ApplicationArea = All;
+            }
             field("Steamship Line"; Rec."Steamship Line")
             {
                 Caption = 'Steamship Line';
@@ -500,14 +506,15 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
     // AppointmentAt: DateTime;
     // Display: DateTime;
 
-    // trigger OnOpenPage()
-    // var
-    //     InputDate: Date;
-    //     Tomorrow: Date;
-    // begin
-    //     Rec.SetFilter("Status", '<>Completely Received');
-    // end;
-
+    trigger OnOpenPage()
+    var
+    // InputDate: Date;
+    // Tomorrow: Date;
+    begin
+        Rec.SetFilter("Status", '<>Completely Received');
+        // Rec.SetAscending("Expected Receipt Date", true);
+    end;
+    // 
     // begin
     //     InputDate := Today();
     //     Tomorrow := CalcDate('<+1D>', InputDate);

@@ -163,6 +163,13 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             CalcFormula = count("Transfer Header" where("TPS CMG Container No." = field("No.")));
         }
 
+        field(50023; "Transport Method"; Text[20])
+        {
+            Caption = 'Transport Method';
+            DataClassification = CustomerContent;
+            TableRelation = TlyTransportMethod;
+        }
+
         modify("Actual Shipment Date")
         {
 

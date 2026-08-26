@@ -694,7 +694,7 @@ tableextension 50027 TlyItem extends Item
 
     fieldgroups
     {
-        addlast(DropDown; "Search Description")
+        addlast(DropDown; "Description 2")
         {
         }
     }

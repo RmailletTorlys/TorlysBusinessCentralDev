@@ -1,7 +1,7 @@
 tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
 
 {
-    // LookupPageId = "TPS CMG Container List"; //TLY-SD - 08/26/2026 - changed to fieldgroup
+    LookupPageId = "TPS CMG Container Document";
     DrillDownPageId = "TPS CMG Container Document";
 
     fields

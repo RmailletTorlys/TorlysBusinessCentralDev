@@ -140,23 +140,24 @@ page 50561 TlyItemAvailabilitySubform
                     ToolTip = 'Net Available';
                     Editable = false;
                 }
-                // field("Sales (Qty.) - 90D"; Item."Sales (Qty.) - 90D")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Sales (Qty.) - 90D';
-                //     ToolTip = 'Sales (Qty.) - 90D';
-                //     Editable = false;
-                //     trigger OnDrillDown()
-                //     var
-                //         ItemLedgerEntry: Record "Item Ledger Entry";
-                //     begin
-                //         ItemLedgerEntry.Reset;
-                //         ItemLedgerEntry.SetRange("Item No.", Item."No.");
-                //         ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
-                //         ItemLedgerEntry.SetFilter("Entry Type", 'Sale');
-                //         Page.Run(0, ItemLedgerEntry);
-                //     end;
-                // }
+                field("Sales (Qty.) - 90D"; Item."Sales (Qty.) - 90D")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sales (Qty.) - 90D';
+                    ToolTip = 'Sales (Qty.) - 90D';
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        ItemLedgerEntry: Record "Item Ledger Entry";
+                    begin
+                        ItemLedgerEntry.Reset;
+                        ItemLedgerEntry.SetRange("Item No.", Item."No.");
+                        ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
+                        ItemLedgerEntry.SetFilter("Posting Date", Item.GetFilter("90D Filter"));
+                        ItemLedgerEntry.SetFilter("Entry Type", 'Sale');
+                        Page.Run(0, ItemLedgerEntry);
+                    end;
+                }
             }
         }
     }
@@ -181,6 +182,7 @@ page 50561 TlyItemAvailabilitySubform
     begin
         if Item."No." <> '' then begin
             Item.SetRange("Location Filter", Rec.Code);
+            Item.SetRange("90D Filter", WorkDate() - 90, WorkDate());
         end;
     end;
 
@@ -188,7 +190,7 @@ page 50561 TlyItemAvailabilitySubform
     begin
         if Item."No." <> '' then begin
             SetItemFilter;
-            Item.CalcFields(Inventory, "Qty. on Sales Order", "Qty. to Ship", "Qty. to Ship (Transfer)", "Qty. in Transit", "Qty. on Purch. Order");
+            Item.CalcFields(Inventory, "Qty. on Sales Order", "Qty. to Ship", "Qty. to Ship (Transfer)", "Qty. in Transit", "Qty. on Purch. Order", Item."Sales (Qty.) - 90D");
         end;
     end;
 }

@@ -6,7 +6,7 @@ page 55104 TlyItemAdditionalCosts
     // LinksAllowed = true;
     // MultipleNewLines = false;
     // UsageCategory = Lists;
-    PageType = ListPart;
+    PageType = List;//Part;
     SourceTable = TlyItemAdditionalCosts;
     Editable = true;
     DeleteAllowed = true;

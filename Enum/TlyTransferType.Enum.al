@@ -26,4 +26,9 @@ Enum 50006 TlyTransferType
     {
         Caption = 'Supplier Purchase';
     }
+
+    value(5; "PID")
+    {
+        Caption = 'PID';
+    }
 }

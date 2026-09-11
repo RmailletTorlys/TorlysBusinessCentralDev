@@ -349,6 +349,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
+
             field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
             {
                 Caption = 'Outbound Duty % to US';

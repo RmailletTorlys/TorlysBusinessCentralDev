@@ -140,24 +140,24 @@ page 50561 TlyItemAvailabilitySubform
                     ToolTip = 'Net Available';
                     Editable = false;
                 }
-                field("Sales (Qty.) - 90D"; Item."Sales (Qty.) - 90D")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sales (Qty.) - 90D';
-                    ToolTip = 'Sales (Qty.) - 90D';
-                    Editable = false;
-                    trigger OnDrillDown()
-                    var
-                        ItemLedgerEntry: Record "Item Ledger Entry";
-                    begin
-                        ItemLedgerEntry.Reset;
-                        ItemLedgerEntry.SetRange("Item No.", Item."No.");
-                        ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
-                        ItemLedgerEntry.SetFilter("Posting Date", Item.GetFilter("90D Filter"));
-                        ItemLedgerEntry.SetFilter("Entry Type", 'Sale');
-                        Page.Run(0, ItemLedgerEntry);
-                    end;
-                }
+                // field("Sales (Qty.) - 90D"; Item."Sales (Qty.) - 90D")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Sales (Qty.) - 90D';
+                //     ToolTip = 'Sales (Qty.) - 90D';
+                //     Editable = false;
+                //     trigger OnDrillDown()
+                //     var
+                //         ItemLedgerEntry: Record "Item Ledger Entry";
+                //     begin
+                //         ItemLedgerEntry.Reset;
+                //         ItemLedgerEntry.SetRange("Item No.", Item."No.");
+                //         ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
+                //         ItemLedgerEntry.SetFilter("Posting Date", Item.GetFilter("90D Filter"));
+                //         ItemLedgerEntry.SetFilter("Entry Type", 'Sale');
+                //         Page.Run(0, ItemLedgerEntry);
+                //     end;
+                // }
             }
         }
     }

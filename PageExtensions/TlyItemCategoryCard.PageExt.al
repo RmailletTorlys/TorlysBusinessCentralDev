@@ -49,14 +49,6 @@ pageextension 55733 TlyItemCategoryCard extends "Item Category Card"
 
             }
 
-            field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
-            {
-                ApplicationArea = All;
-                Caption = 'Outbound Duty % to US';
-                ToolTip = 'Outbound Duty % to US';
-
-            }
-
             field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 ApplicationArea = All;

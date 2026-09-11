@@ -64,6 +64,13 @@ table 55104 TlyItemAdditionalCosts
             DataClassification = CustomerContent;
             TableRelation = Vendor;
         }
+        field(11; "Item Category Description"; Text[100])
+        {
+            Caption = 'Item Category Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Item Category".Description where(Code = field("Item Category Code")));
+            Editable = false;
+        }
     }
 
     keys

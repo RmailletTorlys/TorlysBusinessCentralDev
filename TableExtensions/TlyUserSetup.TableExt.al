@@ -22,6 +22,13 @@ tableextension 50091 TlyUserSetup extends "User Setup"
             ToolTip = 'Department';
             DataClassification = CustomerContent;
         }
+
+        //         field(50004; "Item Card Edit"; Boolean)
+        // {
+        //     Caption = 'Item Card Edit';
+        //     ToolTip = 'Item Card Edit';
+        //     DataClassification = CustomerContent;
+        // }
     }
 
 }

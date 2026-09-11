@@ -572,7 +572,7 @@ tableextension 50027 TlyItem extends Item
         {
             Caption = 'Outbound Duty % to US';
             FieldClass = FlowField;
-            CalcFormula = lookup("Item Category"."Outbound Duty % to US" where("Code" = field("Item Category Code")));
+            CalcFormula = lookup(TlyItemAdditionalCosts.Amount where("Item Category Code" = field("Item Category Code"), "Additional Cost Type" = filter('DUTY OUTBOUND'), "Ending Date" = filter(0D)));
             Editable = false;
         }
         field(50064; "Sales (Qty.) - 90D"; Decimal)

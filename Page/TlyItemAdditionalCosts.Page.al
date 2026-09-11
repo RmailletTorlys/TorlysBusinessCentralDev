@@ -11,7 +11,7 @@ page 55104 TlyItemAdditionalCosts
     Editable = true;
     DeleteAllowed = true;
     ModifyAllowed = true;
-    InsertAllowed = false;
+    InsertAllowed = true;
 
     layout
     {
@@ -24,6 +24,13 @@ page 55104 TlyItemAdditionalCosts
                     ApplicationArea = All;
                     Caption = 'Item Category Code';
                     ToolTip = 'Item Category Code';
+                }
+                field("Item Category Description"; Rec."Item Category Description")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Category Description';
+                    ToolTip = 'Item Category Description';
+                    Editable = false;
                 }
                 field("Additional Cost Type"; Rec."Additional Cost Type")
                 {

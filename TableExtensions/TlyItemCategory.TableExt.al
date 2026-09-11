@@ -47,6 +47,8 @@ tableextension 55722 TlyItemCategory extends "Item Category"
         {
             Caption = 'Outbound Duty % to US';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 09/11/2026 - will now use Item Additional Costs table to track history';
         }
     }
 

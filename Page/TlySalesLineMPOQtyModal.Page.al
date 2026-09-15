@@ -40,7 +40,7 @@ page 50997 TlySalesLineMPOQtyModal
         }
     }
 
-    procedure PresentModal(MPODocumentNo: Code[20]; MPOItemNo: Code[20]; MPODescription: Text[50]; MPOQuantity: Decimal)
+    procedure PresentModal(MPODocumentNo: Code[20]; MPOItemNo: Code[20]; MPODescription: Text[100]; MPOQuantity: Decimal)
     begin
         DocumentNo := MPODocumentNo;
         ItemNo := MPOItemNo;

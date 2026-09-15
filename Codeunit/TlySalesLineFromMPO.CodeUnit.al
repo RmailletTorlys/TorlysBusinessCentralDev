@@ -1,5 +1,8 @@
 codeunit 50022 TlySalesLineFromMPO
 {
+
+    // Permissions = tabledata "Dimension Set Entry" = rim;
+
     procedure AddToExisting(Rec: Record "Sales Line")
     var
         TorlysSalesLineFromMPOQty: Page TlySalesLineMPOQtyModal;
@@ -59,7 +62,10 @@ codeunit 50022 TlySalesLineFromMPO
         TorlysSalesLineFromMPOQty: Page TlySalesLineMPOQtyModal;
         QtySendback: Decimal;
         SalesHeader: Record "Sales Header";
+        // DimensionSetEntry: Record "Dimension Set Entry";
+        // MPOChannel: Code[20];
         NewSalesHeader: Record "Sales Header";
+        // NewDimensionSetEntry: Record "Dimension Set Entry";
         NewSalesLine: Record "Sales Line";
     begin
         TorlysSalesLineFromMPOQty.PresentModal(Rec."Document No.", Rec."No.", Rec.Description, Rec.Quantity);
@@ -68,6 +74,12 @@ codeunit 50022 TlySalesLineFromMPO
         end;
 
         SalesHeader.Get(1, Rec."Document No.");
+        // if SalesHeader.Find('-') then begin
+        // DimensionSetEntry.Reset;
+        // DimensionSetEntry.SetRange("Dimension Set ID", Rec."Dimension Set ID");
+        // DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+        // if DimensionSetEntry.Find('-') then MPOChannel := DimensionSetEntry."Dimension Value Code";
+        // end;
 
         Rec.Validate("Quantity", Rec."Quantity" - QtySendback);
         Rec.Modify(true);
@@ -78,8 +90,24 @@ codeunit 50022 TlySalesLineFromMPO
         NewSalesHeader.Validate(NewSalesHeader."Sell-to Customer No.", Rec."Sell-to Customer No.");
         NewSalesHeader.Validate(NewSalesHeader."Ship-to Code", Rec."Ship-to Code");
         NewSalesHeader.Validate(NewSalesHeader."Tag Name", SalesHeader."Tag Name");
-        // NewSalesHeader.Validate(NewSalesHeader.ShortcutDimCode3,SalesHeader.Shortcut);
+        NewSalesHeader.Validate(NewSalesHeader."Dimension Set ID", SalesHeader."Dimension Set ID");
         NewSalesHeader.Insert(true);
+        //TLY-SD - start - 09/08/2026 - map over channel from MPO to new order
+        // NewSalesHeader.Validate(NewSalesHeader.ShortcutDimCode3,SalesHeader.Shortcut);
+        // NewDimensionSetEntry.Reset;
+        // NewDimensionSetEntry.SetRange("Dimension Set ID", NewSalesHeader."Dimension Set ID");
+        // NewDimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
+        // if NewDimensionSetEntry.Find('-') then begin
+        //     NewDimensionSetEntry.Validate("Dimension Value Code", MPOChannel);
+        //     NewDimensionSetEntry.Modify(true);
+        // end else begin
+        //     NewDimensionSetEntry.Init();
+        //     NewDimensionSetEntry.Validate("Dimension Set ID", NewSalesHeader."Dimension Set ID");
+        //     NewDimensionSetEntry.Validate(NewDimensionSetEntry."Dimension Code", 'CHANNEL');
+        //     NewDimensionSetEntry.Validate(NewDimensionSetEntry."Dimension Value Code", MPOChannel);
+        //     NewDimensionSetEntry.Insert(true);
+        // end;
+        //TLY-SD - end - 09/08/2026 - map over channel from MPO to new order
         NewSalesLine.Reset();
         NewSalesLine.Init();
         NewSalesLine.Validate(NewSalesLine."Document Type", 1);

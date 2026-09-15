@@ -33,7 +33,6 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 ToolTip = 'Dimensions';
             }
 
-
             field("US Exclusive"; Rec."US Exclusive")
             {
                 ApplicationArea = All;
@@ -46,15 +45,6 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 ApplicationArea = All;
                 Caption = 'Not Available in US';
                 ToolTip = 'Not Available in US';
-
-            }
-
-            field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
-            {
-                ApplicationArea = All;
-                Caption = 'Outbound Duty % to US';
-                ToolTip = 'Outbound Duty % to US';
-
             }
 
             field("SystemCreatedBy"; LookupUserId.UserId(Rec."SystemCreatedBy"))
@@ -80,6 +70,7 @@ pageextension 55730 TlyItemCategories extends "Item Categories"
                 ToolTip = 'Modified By';
                 Editable = false;
             }
+
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
                 ApplicationArea = All;

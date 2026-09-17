@@ -28,5 +28,14 @@ tableextension 50032 TlyItemLedgerEntry extends "Item Ledger Entry"
             CalcFormula = lookup("Purch. Rcpt. Line"."Container No. (NAV)" where("Document No." = field("Document No."), "Line No." = field("Document Line No.")));
             Editable = false;
         }
+
+        field(50004; "Tag Name"; Text[30])
+        {
+            Caption = 'Tag Name';
+            ToolTip = 'Tag Name';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Shipment Header"."Tag Name" where("No." = field("Document No.")));
+            Editable = false;
+        }
     }
 }

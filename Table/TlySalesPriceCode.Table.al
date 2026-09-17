@@ -36,6 +36,8 @@ table 50007 TlySalesPriceCode
         {
             Caption = 'Regular Price';
             DataClassification = CustomerContent;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 09/16/2026 - do not need it';
         }
     }
 

@@ -63,4 +63,9 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             //TLY-SD - 06/29/2026 - end
         }
     }
+
+    // trigger OnAfterInsert()
+    // begin
+    //     Rec.Validate("Starting Date", WorkDate());
+    // end;
 }

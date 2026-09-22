@@ -27,8 +27,8 @@ Enum 50006 TlyTransferType
         Caption = 'Supplier Purchase';
     }
 
-    value(5; "Product Innovation")
+    value(5; "PID")
     {
-        Caption = 'Product Innovation';
+        Caption = 'PID';
     }
 }

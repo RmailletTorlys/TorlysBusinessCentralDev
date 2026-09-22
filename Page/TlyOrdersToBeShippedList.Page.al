@@ -345,6 +345,8 @@ page 52001 TlyOrdersToBeShippedList
             }
             actionref("Shipment Summary"; ShipmentSummary)
             { }
+            actionref("Transfer Orders"; TransferOrders)
+            { }
         }
 
         area(Processing)
@@ -1342,6 +1344,30 @@ page 52001 TlyOrdersToBeShippedList
                     // RunPageLink = "Shipment Date" = field("Shipment Date");
                     // RunPageView = sorting("Order No.");
                     ToolTip = 'View shipment summary for today.';
+                }
+                action(TransferOrders)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Transfer Orders';
+                    ToolTip = 'View transfer orders.';
+                    Image = TransferOrder;
+                    trigger OnAction()
+                    var
+                        UserSetup: Record "User Setup";
+                        LocationCode: Code[25];
+                        TransferHeader: Record "Transfer Header";
+                    begin
+                        UserSetup.Get(UserId);
+                        if UserSetup."Default Location Code" = 'TOR' then
+                            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+                        else if UserSetup."Default Location Code" = 'CAL' then
+                            LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+
+                        TransferHeader.Reset;
+                        TransferHeader.SetFilter("Transfer-from Code", LocationCode);
+                        TransferHeader.SetFilter("Shipment Date", Rec.GetFilter("Shipment Date"));
+                        Page.Run(0, TransferHeader);
+                    end;
                 }
             }
         }

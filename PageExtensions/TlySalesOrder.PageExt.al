@@ -740,7 +740,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         modify("Campaign No.")
         {
             Importance = Additional;
-            Visible = false;
+            // Visible = false;
         }
 
         modify("Opportunity No.")

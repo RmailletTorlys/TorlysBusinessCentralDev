@@ -349,6 +349,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
+
             field("Outbound Duty % to US"; Rec."Outbound Duty % to US")
             {
                 Caption = 'Outbound Duty % to US';
@@ -601,8 +602,6 @@ pageextension 50030 TlyItemCard extends "Item Card"
         {
             Importance = Additional;
         }
-
-
 
         modify(NTNTemplates)
         {
@@ -863,6 +862,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
             { }
             actionref(StockkeepingUnits_Promoted; "Stockkeepin&g Units")
             { }
+            actionref("Item Additional Costs"; ItemAdditionalCosts)
+            { }
             actionref(ItemAttributes_Promoted; Attributes)
             { }
             actionref(ItemAccessories_Promoted; ItemAccessories)
@@ -885,6 +886,14 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         addafter(ApplyTemplate)
         {
+            action(ItemAdditionalCosts)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Additional Costs';
+                Image = ItemCosts;
+                RunObject = Page TlyItemAdditionalCosts;
+                RunPageLink = "Item Category Code" = field("Item Category Code");
+            }
             action(ItemAvailability)
             {
                 ApplicationArea = Basic, Suite;

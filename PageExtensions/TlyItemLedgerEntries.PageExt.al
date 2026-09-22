@@ -20,6 +20,13 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
                 ToolTip = 'Reason Code';
                 Visible = true;
             }
+            field("Tag Name"; Rec."Tag Name")
+            {
+                ApplicationArea = All;
+                Caption = 'Tag Name';
+                ToolTip = 'Tag Name';
+                Visible = true;
+            }
         }
 
         moveafter("Remaining Quantity"; "Sales Amount (Expected)", "Sales Amount (Actual)", "Cost Amount (Expected)", "Cost Amount (Actual)")

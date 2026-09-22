@@ -30,6 +30,12 @@ Query 56012 TlyCustomersAPI
             column(currencyCode; "Currency Code") { }
             column(blocked; "Blocked") { }
             column(defaultPriceList; "Default Price List Code") { }
+            column(club; "Club") { }
+            column(powerUpLevel; "Power Up Level") { }
+            column(paymentTermsCode; "Payment Terms Code") { }
+            column(outstandingOrders; "Outstanding Orders") { }
+
+
 
 
         }

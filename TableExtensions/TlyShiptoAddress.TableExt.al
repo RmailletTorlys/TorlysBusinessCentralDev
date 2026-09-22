@@ -39,7 +39,7 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
         }
         field(50009; "Pump Truck Required"; Boolean)
         {
-            Caption = 'Pump Truck Required';
+            Caption = 'Driver Assist with Pump Truck';
             DataClassification = CustomerContent;
         }
         // field(50010; "Destination Instructions"; Text[50])

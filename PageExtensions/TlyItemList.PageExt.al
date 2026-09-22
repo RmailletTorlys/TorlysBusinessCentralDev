@@ -371,7 +371,7 @@ pageextension 50031 TlyItemList extends "Item List"
             }
         }
 
-        moveafter("Sales Price Code"; "Costing Method", "Gen. Prod. Posting Group", "Inventory Posting Group")
+        moveafter("Sales Price Code"; "Unit Price", "Costing Method", "Gen. Prod. Posting Group", "Inventory Posting Group")
 
         addafter("Inventory Posting Group")
         {
@@ -521,10 +521,10 @@ pageextension 50031 TlyItemList extends "Item List"
             Visible = false;
         }
 
-        modify("Unit Price")
-        {
-            Visible = false;
-        }
+        // modify("Unit Price")
+        // {
+        //     Visible = false;
+        // }
 
         modify("Default Deferral Template Code")
         {

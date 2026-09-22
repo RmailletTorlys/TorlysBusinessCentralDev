@@ -150,10 +150,10 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
                     ApplicationArea = All;
                 }
 
-                field("Pump Truck Required"; Rec."Pump Truck Required")
+                field("Driver Assist with Pump Truck"; Rec."Pump Truck Required")
                 {
-                    Caption = 'Pump Truck Required';
-                    ToolTip = 'Pump Truck Required';
+                    Caption = 'Driver Assist with Pump Truck';
+                    ToolTip = 'Driver Assist with Pump Truck';
                     ApplicationArea = All;
                 }
 

@@ -59,7 +59,7 @@ page 50560 TlyItemAvailability
                 Editable = false;
             }
 
-            part(TorlysItemAvailabilitySubform; TlyItemAvailabilitySubform)
+            part(TlyItemAvailabilitySubform; TlyItemAvailabilitySubform)
             {
                 ApplicationArea = All;
                 Editable = false;
@@ -76,6 +76,12 @@ page 50560 TlyItemAvailability
                     // UpdatePropagation = Both;
                     Editable = false;
                 }
+            }
+
+            part(TlyItemStatsSubform; TlyItemStatsSubform)
+            {
+                ApplicationArea = All;
+                Editable = false;
             }
 
             group(PricingCA)
@@ -462,6 +468,11 @@ page 50560 TlyItemAvailability
         }
     }
 
+
+    var
+        ItemStatus: Text[15];
+        ItemStatusStyle: Text;
+
     procedure GetInsurance(): Decimal
     var
         PriceListLine: Record "Price List Line";
@@ -806,10 +817,7 @@ page 50560 TlyItemAvailability
         if Rec."Discontinued Item" then ItemStatus := 'Discontinued';
         If ItemStatus = 'Current' then ItemStatusStyle := '';
         If ItemStatus = 'Discontinued' then ItemStatusStyle := 'Unfavorable';
-        CurrPage.TorlysItemAvailabilitySubform.Page.SetItemNo(Rec);
+        CurrPage.TlyItemAvailabilitySubform.Page.SetItemNo(Rec);
+        CurrPage.TlyItemStatsSubform.Page.SetItemNo(Rec);
     end;
-
-    var
-        ItemStatus: Text[15];
-        ItemStatusStyle: Text;
 }

@@ -3,15 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-<<<<<<< HEAD
-    "version": "1.26.9.9",
-=======
-<<<<<<< HEAD
-    "version": "1.26.9.7",
-=======
-    "version": "1.26.9.6",
->>>>>>> 7c41a1b792f51aab147899a1b9c25233d44fa247
->>>>>>> 65fc0e9f5777cb8505321d121bd3f6fb05dc192b
+    "version": "1.26.9.11",
 
     "brief": "",
     "description": "",
@@ -24,13 +16,13 @@
         {
             "id": "b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af",
             "name": "Sustainability",
-            "version": "28.3.52162.52273",
+            "version": "28.4.53241.53312",
             "publisher": "Microsoft"
         },
         {
             "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
             "name": "E-Document Core",
-            "version": "28.3.52162.52328",
+            "version": "28.4.53241.54890",
             "publisher": "Microsoft"
         },
         {
@@ -66,7 +58,7 @@
     ],
     "screenshots": [],
     "platform": "1.0.0.0",
-    "application": "28.3.52162.52273",
+    "application": "28.4.53241.53312",
     "idRanges": [
         {
             "from": 50000,

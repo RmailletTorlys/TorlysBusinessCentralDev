@@ -285,7 +285,7 @@ pageextension 50131 TlyPostedSalesShptSubform extends "Posted Sales Shpt. Subfor
                 UndoShipmentModal.PresentModal(Rec."Document No.", Rec."No.", Rec.Quantity);
                 if UndoShipmentModal.RunModal() = Action::OK then begin
                     UndoComment := UndoShipmentModal.GetUndoComment();
-                    UndoString := StrSubstNo('Undo shipment done by %1 on %2 at %3. %4', UserId, WorkDate(), Time, UndoComment);
+                    UndoString := StrSubstNo('Undo shipment by %1 on %2 at %3. %4', UserId, WorkDate(), Time, UndoComment);
                 end else begin
                     Error('You did not enter a reason for undoing this shipment');
                 end;

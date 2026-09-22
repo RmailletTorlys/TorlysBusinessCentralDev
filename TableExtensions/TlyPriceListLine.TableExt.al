@@ -62,10 +62,14 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             if ("Asset Type" = const("Sales Price Code")) TlySalesPriceCode; //for our added Asset Type
             //TLY-SD - 06/29/2026 - end
         }
-    }
 
-    // trigger OnAfterInsert()
-    // begin
-    //     Rec.Validate("Starting Date", WorkDate());
-    // end;
+        // modify("Starting Date")
+        // {
+        //     trigger OnAfterValidate()
+        //     begin
+        //         Rec.Validate(Rec."Starting Date", WorkDate());
+        //         // Message('%1 --- %2', Rec."Starting Date", WorkDate());
+        //     end;
+        // }
+    }
 }

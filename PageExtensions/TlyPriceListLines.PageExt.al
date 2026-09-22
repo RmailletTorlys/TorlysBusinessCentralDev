@@ -126,6 +126,12 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
             }
         }
     }
+
+    var
+        LookupUserId: Codeunit TlyLookupUserID;
+        UnitPriceTier: Code[20];
+        FullPalletPriceTier: Code[20];
+
     trigger OnAfterGetRecord()
     begin
         UpdateUnitPriceTier();
@@ -187,9 +193,4 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
             FullPalletPriceTier := '';
         end;
     end;
-
-    var
-        LookupUserId: Codeunit TlyLookupUserID;
-        UnitPriceTier: Code[20];
-        FullPalletPriceTier: Code[20];
 }

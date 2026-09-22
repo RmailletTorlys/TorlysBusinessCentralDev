@@ -1359,9 +1359,9 @@ page 52001 TlyOrdersToBeShippedList
                     begin
                         UserSetup.Get(UserId);
                         if UserSetup."Default Location Code" = 'TOR' then
-                            LocationCode := 'TOR|QUATOR|CLAIMS TOR'
+                            LocationCode := 'TOR|QUATOR|CLAIMS TOR|PID'
                         else if UserSetup."Default Location Code" = 'CAL' then
-                            LocationCode := 'CAL|QUACAL|CLAIMS CAL';
+                            LocationCode := 'CAL|QUACAL|CLAIMS CAL|PID';
 
                         TransferHeader.Reset;
                         TransferHeader.SetFilter("Transfer-from Code", LocationCode);

@@ -13,18 +13,18 @@ pageextension 50038 TlyItemLedgerEntries extends "Item Ledger Entries"
                 ToolTip = 'External Document No.';
                 Visible = true;
             }
-            field("Reason Code"; Rec."Reason Code")
-            {
-                ApplicationArea = All;
-                Caption = 'Reason Code';
-                ToolTip = 'Reason Code';
-                Visible = true;
-            }
             field("Tag Name"; Rec."Tag Name")
             {
                 ApplicationArea = All;
                 Caption = 'Tag Name';
                 ToolTip = 'Tag Name';
+                Visible = true;
+            }
+            field("Reason Code"; Rec."Reason Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Reason Code';
+                ToolTip = 'Reason Code';
                 Visible = true;
             }
         }

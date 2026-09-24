@@ -104,6 +104,10 @@ reportextension 51000 TlyPickInstruction extends "Pick Instruction"
             {
 
             }
+            column(ShippingAgentServiceCode; "Shipping Agent Service Code")
+            {
+
+            }
             column(BillToAddress1; BillToAddress[1])
             {
 

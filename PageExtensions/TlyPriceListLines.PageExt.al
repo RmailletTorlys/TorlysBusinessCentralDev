@@ -132,6 +132,13 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         UnitPriceTier: Code[20];
         FullPalletPriceTier: Code[20];
 
+
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        //TLY-SD - 09/22/2026 - instead of the header start date, this uses todays date (which is required most of the time)
+        Rec.Validate(Rec."Starting Date", WorkDate());
+    end;
+
     trigger OnAfterGetRecord()
     begin
         UpdateUnitPriceTier();

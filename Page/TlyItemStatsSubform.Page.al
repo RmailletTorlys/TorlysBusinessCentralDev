@@ -1,6 +1,6 @@
 page 50562 TlyItemStatsSubform
 {
-    Caption = 'Item Stats';
+    Caption = 'Sales Stats';
     PageType = ListPart;
     SourceTable = Location;
     SourceTableView = sorting("Sort Order") where("Code" = filter('TOR|CAL|TMT'));
@@ -25,35 +25,113 @@ page 50562 TlyItemStatsSubform
                     Editable = false;
                 }
 
-                field("Qty. on Hand"; Item."Inventory")
+                // field("Qty. on Hand"; Item."Inventory")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Qty. on Hand';
+                //     ToolTip = 'Qty. on Hand';
+                //     Editable = false;
+                //     trigger OnDrillDown()
+                //     var
+                //         ItemLedgerEntry: Record "Item Ledger Entry";
+                //     begin
+                //         ItemLedgerEntry.Reset;
+                //         ItemLedgerEntry.SetRange("Item No.", Item."No.");
+                //         ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
+                //         ItemLedgerEntry.SetFilter(Open, 'Yes');
+                //         Page.Run(0, ItemLedgerEntry);
+                //     end;
+                // }
+
+                field("Sales (Previous Quarter)"; GetSalesPrevQtr())
                 {
                     ApplicationArea = All;
-                    Caption = 'Qty. on Hand';
-                    ToolTip = 'Qty. on Hand';
+                    Caption = 'Sales (Previous Quarter)';
+                    ToolTip = 'Sales (Previous Quarter)';
                     Editable = false;
                     trigger OnDrillDown()
                     var
                         ItemLedgerEntry: Record "Item Ledger Entry";
                     begin
                         ItemLedgerEntry.Reset;
+                        ItemLedgerEntry.SetFilter("Entry Type", 'Sale');
                         ItemLedgerEntry.SetRange("Item No.", Item."No.");
-                        ItemLedgerEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
-                        ItemLedgerEntry.SetFilter(Open, 'Yes');
+                        ItemLedgerEntry.SetFilter("Location Code", Rec.Code);
+                        ItemLedgerEntry.SetRange("Posting Date", PrevQuarterStart, PrevQuarterEnd);
                         Page.Run(0, ItemLedgerEntry);
                     end;
                 }
+                // field("Purchases (Previous Quarter)"; GetPurchasesPrevQtr())
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Purchases (Previous Quarter)';
+                //     ToolTip = 'Purchases (Previous Quarter)';
+                //     Editable = false;
+                //     trigger OnDrillDown()
+                //     var
+                //         ItemLedgerEntry: Record "Item Ledger Entry";
+                //     begin
+                //         ItemLedgerEntry.Reset;
+                //         ItemLedgerEntry.SetFilter("Entry Type", 'Purchase');
+                //         ItemLedgerEntry.SetRange("Item No.", Item."No.");
+                //         ItemLedgerEntry.SetFilter("Location Code", Rec.Code);
+                //         ItemLedgerEntry.SetRange("Posting Date", PrevQuarterStart, PrevQuarterEnd);
+                //         Page.Run(0, ItemLedgerEntry);
+                //     end;
+                // }
+                field("Sales (Current Quarter)"; GetSalesCurrQtr())
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sales (Current Quarter)';
+                    ToolTip = 'Sales (Current Quarter)';
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        ItemLedgerEntry: Record "Item Ledger Entry";
+                    begin
+                        ItemLedgerEntry.Reset;
+                        ItemLedgerEntry.SetFilter("Entry Type", 'Sale');
+                        ItemLedgerEntry.SetRange("Item No.", Item."No.");
+                        ItemLedgerEntry.SetFilter("Location Code", Rec.Code);
+                        ItemLedgerEntry.SetRange("Posting Date", CurrQuarterStart, CurrQuarterEnd);
+                        Page.Run(0, ItemLedgerEntry);
+                    end;
+                }
+                // field("Purchases (Current Quarter)"; GetPurchasesCurrQtr())
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Purchases (Current Quarter)';
+                //     ToolTip = 'Purchases (Current Quarter)';
+                //     Editable = false;
+                //     trigger OnDrillDown()
+                //     var
+                //         ItemLedgerEntry: Record "Item Ledger Entry";
+                //     begin
+                //         ItemLedgerEntry.Reset;
+                //         ItemLedgerEntry.SetFilter("Entry Type", 'Purchase');
+                //         ItemLedgerEntry.SetRange("Item No.", Item."No.");
+                //         ItemLedgerEntry.SetFilter("Location Code", Rec.Code);
+                //         ItemLedgerEntry.SetRange("Posting Date", CurrQuarterStart, CurrQuarterEnd);
+                //         Page.Run(0, ItemLedgerEntry);
+                //     end;
+                // }
             }
         }
     }
 
     var
+        PrevQuarterStart: Date;
+        PrevQuarterEnd: Date;
+        CurrQuarterStart: Date;
+        CurrQuarterEnd: Date;
         Item: Record Item;
 
-    trigger OnAfterGetRecord()
+    trigger OnOpenPage()
     begin
-        if Item."No." <> '' then begin
-            CalculateQtyByLocation;
-        end;
+        PrevQuarterStart := CalcDate('<-CQ-1Q>', WorkDate());
+        PrevQuarterend := CalcDate('<CQ-1Q>', WorkDate());
+        CurrQuarterStart := CalcDate('<-CQ>', WorkDate());
+        CurrQuarterend := CalcDate('<CQ>', WorkDate());
     end;
 
     procedure SetItemNo(NewItem: Record Item)
@@ -62,18 +140,55 @@ page 50562 TlyItemStatsSubform
         CurrPage.Update(false);
     end;
 
-    procedure SetItemFilter()
+    procedure GetSalesPrevQtr(): Decimal
+    var
+        ValueEntry: Record "Value Entry";
     begin
-        if Item."No." <> '' then begin
-            Item.SetRange("Location Filter", Rec.Code);
-        end;
+        ValueEntry.Reset();
+        ValueEntry.SetFilter("Item Ledger Entry Type", 'Sale');
+        ValueEntry.SetRange("Item No.", Item."No.");
+        ValueEntry.SetRange("Location Code", Rec.Code);
+        ValueEntry.SetRange("Posting Date", PrevQuarterStart, PrevQuarterEnd);
+        ValueEntry.CalcSums("Invoiced Quantity");
+        exit(ValueEntry."Invoiced Quantity" * -1);
     end;
 
-    procedure CalculateQtyByLocation()
+    // procedure GetPurchasesPrevQtr(): Decimal
+    // var
+    //     ValueEntry: Record "Value Entry";
+    // begin
+    //     ValueEntry.Reset();
+    //     ValueEntry.SetFilter("Item Ledger Entry Type", 'Purchase');
+    //     ValueEntry.SetRange("Item No.", Item."No.");
+    //     ValueEntry.SetRange("Location Code", Rec.Code);
+    //     ValueEntry.SetRange("Posting Date", PrevQuarterStart, PrevQuarterEnd);
+    //     ValueEntry.CalcSums("Invoiced Quantity");
+    //     exit(ValueEntry."Invoiced Quantity");
+    // end;
+
+    procedure GetSalesCurrQtr(): Decimal
+    var
+        ValueEntry: Record "Value Entry";
     begin
-        if Item."No." <> '' then begin
-            SetItemFilter;
-            Item.CalcFields(Inventory, "Qty. on Sales Order", "Qty. to Ship", "Qty. to Ship (Transfer)", "Qty. in Transit", "Qty. on Purch. Order", Item."Sales (Qty.) - 90D");
-        end;
+        ValueEntry.Reset();
+        ValueEntry.SetFilter("Item Ledger Entry Type", 'Sale');
+        ValueEntry.SetRange("Item No.", Item."No.");
+        ValueEntry.SetRange("Location Code", Rec.Code);
+        ValueEntry.SetRange("Posting Date", CurrQuarterStart, CurrQuarterEnd);
+        ValueEntry.CalcSums("Invoiced Quantity");
+        exit(ValueEntry."Invoiced Quantity" * -1);
     end;
+
+    // procedure GetPurchasesCurrQtr(): Decimal
+    // var
+    //     ValueEntry: Record "Value Entry";
+    // begin
+    //     ValueEntry.Reset();
+    //     ValueEntry.SetFilter("Item Ledger Entry Type", 'Purchase');
+    //     ValueEntry.SetRange("Item No.", Item."No.");
+    //     ValueEntry.SetRange("Location Code", Rec.Code);
+    //     ValueEntry.SetRange("Posting Date", CurrQuarterStart, CurrQuarterEnd);
+    //     ValueEntry.CalcSums("Invoiced Quantity");
+    //     exit(ValueEntry."Invoiced Quantity");
+    // end;
 }

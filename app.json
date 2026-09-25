@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.26.9.11",
+    "version": "1.26.9.12",
 
     "brief": "",
     "description": "",
@@ -51,7 +51,7 @@
         },
         {
             "id": "24aff131-8f2b-4fde-86f3-07a1e67fbe26",
-            "name": "Nav-to-Net 10",
+            "name": "Nav-to-Net: B2B and B2C eCommerce for Business Central",
             "version": "10.13.20260812.1",
             "publisher": "Digital Vantage Point"
         }

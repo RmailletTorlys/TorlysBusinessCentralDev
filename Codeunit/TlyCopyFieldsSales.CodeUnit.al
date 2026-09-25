@@ -64,7 +64,7 @@ codeunit 50019 TlyCopyFieldsSales
         SalesLine."Sales Price Code" := Item."Sales Price Code"; //TLY-SD - 03/11/2026 - makes more sense to be here
     end;
 
-    // Sales Header (and Customer)  --> Sales Line
+    // Sales Header (and Customer) --> Sales Line
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterInitHeaderDefaults', '', false, false)]
     local procedure OnAfterInitHeaderDefaults(var SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header"; xSalesLine: Record "Sales Line")
     var

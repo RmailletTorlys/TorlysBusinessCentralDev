@@ -354,6 +354,8 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
 
         moveafter("Freight Zone Code"; "Shipping Advice")
 
+        moveafter("Ship-to Phone No."; "Ship-to Contact")
+
         addafter(BillToOptions)
         {
             field("Bill-to Customer No."; Rec."Bill-to Customer No.")
@@ -528,6 +530,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             Importance = Standard;
             Visible = true;
         }
+
         modify("Sell-to Customer Name")
         {
             //TLY-SD - 03/26/2026 - added here so user can't find records via name which can mess stuff up
@@ -566,6 +569,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
             Importance = Standard;
             Caption = 'Shipping Agent Code';
             ShowMandatory = Rec."Temporary Hold" = false;
+
             trigger OnBeforeValidate()
             begin
                 if (Rec."Shipping Agent Code" = '') and (Rec.Status = Rec.Status::Released) then
@@ -693,11 +697,6 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         }
 
         modify("Sell-to Contact")
-        {
-            Visible = false;
-        }
-
-        modify("Ship-to Contact")
         {
             Visible = false;
         }

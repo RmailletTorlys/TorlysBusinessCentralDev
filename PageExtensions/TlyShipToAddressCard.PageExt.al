@@ -2,7 +2,7 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
 {
     layout
     {
-        moveafter(ShowMap; "Phone No.", "Fax No.", "E-Mail", "Home Page")
+        moveafter(ShowMap; Contact, "Phone No.", "Fax No.", "E-Mail", "Home Page")
 
         addafter("Home Page")
         {
@@ -176,11 +176,6 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
             Visible = false;
         }
 
-        modify(Contact)
-        {
-            Visible = false;
-        }
-
         modify("Shipment Method Code")
         {
             Visible = false;
@@ -229,6 +224,11 @@ pageextension 50300 TlyShipToAddressCard extends "Ship-to Address"
         modify("Home Page")
         {
             ShowMandatory = Rec."Dealer Locator Participant" = true;
+        }
+
+        modify(Contact)
+        {
+            Importance = Additional;
         }
     }
 

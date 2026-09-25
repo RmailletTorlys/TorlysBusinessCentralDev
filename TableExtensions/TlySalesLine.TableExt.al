@@ -651,7 +651,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
 
     var
         //     EditCasePallet: Boolean;
-        WarehouseNotifyFieldChanged: Text[15];
+        WarehouseNotifyFieldChanged: Text[20];
 
     // trigger OnAfterGetRecord()
     // begin
@@ -681,7 +681,6 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     trigger OnAfterDelete()
     begin
         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec.Type = Rec.Type::Item) then begin
-            // if not SkipHeaderModify then begin //this is here so user can delete order on header as opposed to lines then header, but we want this as a double check
             WarehouseNotifyFieldChanged := 'Line Deleted';
             UpdateWarehouseNotify;
         end;
@@ -710,8 +709,9 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     begin
         // populate below field only when:
         // 1) delete a line (Sales Line)
-        // 2) modify Qty to Ship (don't need if add a line because the Qty. to Ship will be modified at that time) (Sales Line)
-        // 3) change ship-to (Sales Header)
+        // 2) modify Qty to Ship (Sales Line)
+        // 3) modify Ship-to Code (Sales Header) //TLY-SD - 09/25/2026 - added
+        // 4) modify Shipping Agent Code (Sales Header) //TLY-SD - 09/25/2026 - added
         if SalesHeader.Get("Document Type", "Document No.") then begin
             SalesHeader."Popup Modify By" := UserId;
             SalesHeader."Popup Modify Date" := WorkDate();

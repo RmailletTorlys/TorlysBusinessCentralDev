@@ -351,7 +351,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             DataClassification = CustomerContent;
         }
 
-        field(50057; "Warehouse Notify Modify Field"; Text[15])
+        field(50057; "Warehouse Notify Modify Field"; Text[20])
         {
             Caption = 'Warehouse Notify Field';
             DataClassification = CustomerContent;
@@ -445,8 +445,10 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             var
                 CommentLine: Record "Comment Line";
             begin
+                //TLY-SD - customer comments copy to sales header
                 CopyCommentsFromCustCardToSalesHeader();
 
+                // TLY-SD - popup comments from customer record
                 CommentLine.Reset();
                 CommentLine.SetRange("Table Name", Enum::"Comment Line Table Name"::Customer);
                 CommentLine.SetFilter(CommentLine."No.", "Sell-to Customer No.");
@@ -457,6 +459,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                     until CommentLine.Next = 0;
                 end;
 
+                // TLY-SD - default values for SWATCH SAMPLE
                 if Rec."Sell-to Customer No." = 'SWATCH SAMPLE' then begin
                     Rec.Validate("Order Method", 'ONLINE');
                     Rec.Validate("Your Reference", 'SHOP AT HOME');
@@ -465,6 +468,16 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                     Rec.Validate("MK Required", true);
                     Rec.Validate("MK Required Type", Rec."MK Required Type"::Swatch);
                 end;
+
+                UpdateRegionFromSellToCust();
+            end;
+        }
+
+        modify("Bill-to Customer No.")
+        {
+            trigger OnAfterValidate()
+            begin
+                UpdateRegionFromSellToCust();
             end;
         }
 
@@ -472,10 +485,11 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         {
             trigger OnAfterValidate()
             begin
-                //         if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
-                //             WarehouseNotifyFieldChanged := 'Ship-to';
-                //             UpdateWarehouseNotify;
-                //         end;
+                if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Ship-to Code" <> xRec."Ship-to Code") then begin
+                    WarehouseNotifyFieldChanged := 'Ship-to Code';
+                    UpdateWarehouseNotify;
+                end;
+
                 CheckShippingDays; //TLY-SD - 06/30/2026 - went live
             end;
         }
@@ -517,6 +531,17 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             end;
         }
 
+        modify("Shipping Agent Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."Shipping Agent Code" <> xRec."Shipping Agent Code") then begin
+                    WarehouseNotifyFieldChanged := 'Shipping Agent Code';
+                    UpdateWarehouseNotify;
+                end;
+            end;
+        }
+
         // modify("Location Code")
         // {
         //     trigger OnAfterValidate()
@@ -531,8 +556,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     }
 
     var
-        WarehouseNotifyFieldChanged: Text[15];
-    // LookupUserId: Codeunit TlyLookupUserID;
+        WarehouseNotifyFieldChanged: Text[20];
 
     trigger OnAfterInsert()
     begin
@@ -540,8 +564,9 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         "Entered At" := CurrentDateTime;
         // "Order Time" := Time;
         Rec."Requested Shipment Date" := Rec."Shipment Date"; //TLY-SD - 05/08/2026
+        UpdateRegionFromSellToCust();
         Rec.Modify(true);
-        CopyCommentsFromCustCardToSalesHeader();
+        CopyCommentsFromCustCardToSalesHeader(); //this fires here (for new creation) and on change of customer #
     end;
 
     trigger OnBeforeDelete()
@@ -566,16 +591,16 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     begin
         // populate below field only when:
         // 1) delete a line (Sales Line)
-        // 2) modify Qty to Ship (don't need if add a line because the Qty. to Ship will be modified at that time) (Sales Line)
-        // 3) change ship-to (Sales Header)
-        if Rec.Get("Document Type", "No.") then begin
-            Rec."Popup Modify By" := UserId;
-            Rec."Popup Modify Date" := WorkDate();
-            Rec."Popup Modify Time" := Time;
-            Rec."Warehouse Notify At" := CurrentDateTime;
-            Rec."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
-            Rec.Modify(true);
-        end;
+        // 2) modify Qty to Ship (Sales Line)
+        // 3) modify Ship-to Code (Sales Header) //TLY-SD - 09/25/2026 - added
+        // 4) modify Shipping Agent Code (Sales Header) //TLY-SD - 09/25/2026 - added
+        // - for whatever reason this only works when there is a line on the order, but if there is no lines, who cares if this is modified
+        // - but this makes no sense, i swear it worked at some point
+        Rec."Popup Modify By" := UserId;
+        Rec."Popup Modify Date" := WorkDate();
+        Rec."Popup Modify Time" := Time;
+        Rec."Warehouse Notify At" := CurrentDateTime;
+        Rec."Warehouse Notify Modify Field" := WarehouseNotifyFieldChanged;
     end;
 
     local procedure CopyCommentsFromCustCardToSalesHeader()
@@ -674,5 +699,11 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 if (Date2DWY(Rec."Shipment Date", 1) = 5) AND (not ShipToAddress."Ships On - Friday") then Message('%1 is not a ship day for this customer/ship-to code. They can ship on %2.', Format(Rec."Shipment Date", 0, '<Weekday Text>'), GetShippingDays);
             end;
         end;
+    end;
+
+    procedure UpdateRegionFromSellToCust()
+    begin
+        GetCust(Rec."Sell-to Customer No.");
+        Rec.Validate(Rec."Shortcut Dimension 1 Code", Customer."Global Dimension 1 Code");
     end;
 }

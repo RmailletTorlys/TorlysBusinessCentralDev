@@ -66,7 +66,20 @@ codeunit 57006 TlyReleaseSalesDocument
                     DimensionSetEntry.SetRange("Dimension Set ID", SalesLine."Dimension Set ID");
                     DimensionSetEntry.SetFilter("Dimension Code", 'CHANNEL');
                     if DimensionSetEntry.IsEmpty then
-                        Error('Line %1 with item %2 has the Channel missing.', SalesLine."Line No.", SalesLine."No.");
+                        Error('Line %1 with item %2 has the CHANNEL dimension missing.', SalesLine."Line No.", SalesLine."No.");
+                until SalesLine.Next() = 0;
+            end;
+
+            //09/23/2026 - check lines for product dimension
+            SalesLine.Reset();
+            SalesLine.SetRange("Document No.", SalesHeader."No.");
+            SalesLine.SetFilter(Type, 'Item');
+            if SalesLine.Find('-') then begin
+                repeat
+                    DimensionSetEntry.SetRange("Dimension Set ID", SalesLine."Dimension Set ID");
+                    DimensionSetEntry.SetFilter("Dimension Code", 'PRODUCT');
+                    if DimensionSetEntry.IsEmpty then
+                        Error('Line %1 with item %2 has the PRODUCT dimension missing.', SalesLine."Line No.", SalesLine."No.");
                 until SalesLine.Next() = 0;
             end;
         end;

@@ -10,7 +10,7 @@
             //  "environmentName": "TORLYS_BC_NTN", //only used for UAT NTN - created April 3, 2026
             // "environmentName": "TORLYS_BC_UAT", //current UAT environment - created August 25, 2026
             "environmentName": "TORLYS_BC_DEV", //current DEV environment - created August 25, 2026
-            "startupObjectId": 31,
+            "startupObjectId": 9305,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

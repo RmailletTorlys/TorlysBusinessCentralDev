@@ -310,7 +310,7 @@ tableextension 50110 TlySalesShipmentHeader extends "Sales Shipment Header"
             DataClassification = CustomerContent;
         }
 
-        field(50057; "Warehouse Notify Modify Field"; Text[15])
+        field(50057; "Warehouse Notify Modify Field"; Text[20])
         {
             Caption = 'Warehouse Notify Modify Field';
             DataClassification = CustomerContent;

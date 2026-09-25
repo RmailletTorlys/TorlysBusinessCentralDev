@@ -1351,6 +1351,7 @@ page 52001 TlyOrdersToBeShippedList
                     Caption = 'Transfer Orders';
                     ToolTip = 'View transfer orders.';
                     Image = TransferOrder;
+                    Enabled = TransferCount > 0;
                     trigger OnAction()
                     var
                         UserSetup: Record "User Setup";
@@ -1776,6 +1777,10 @@ page 52001 TlyOrdersToBeShippedList
         BOLWeight: Decimal;
         Usage: Option "Order Confirmation","Work Order","Pick Instruction";
         LocationFilter: Code[30];
+        LocationCode: Code[25];
+        TransferHeader: Record "Transfer Header";
+        TransferCount: Integer;
+
 
     trigger OnOpenPage()
     begin
@@ -1915,5 +1920,17 @@ page 52001 TlyOrdersToBeShippedList
             BOLDate := PostedBOLHeader."SystemCreatedAt";
         end else
             BOLDate := 0DT;
+
+        // enable/disable transfer order button
+        UserSetup.Get(UserId);
+        if UserSetup."Default Location Code" = 'TOR' then
+            LocationCode := 'TOR|QUATOR|CLAIMS TOR|PID'
+        else if UserSetup."Default Location Code" = 'CAL' then
+            LocationCode := 'CAL|QUACAL|CLAIMS CAL|PID';
+
+        TransferHeader.Reset;
+        TransferHeader.SetFilter("Transfer-from Code", LocationCode);
+        TransferHeader.SetFilter("Shipment Date", Rec.GetFilter("Shipment Date"));
+        TransferCount := TransferHeader.Count;
     end;
 }

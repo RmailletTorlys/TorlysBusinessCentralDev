@@ -2,7 +2,7 @@ pageextension 59308 TlyPurchInvoiceList extends "Purchase Invoices"
 {
     layout
     {
-        moveafter("No."; "Status", "Buy-from Vendor No.", "Order Address Code", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date")
+        moveafter("No."; "Status", "Buy-from Vendor No.", "Buy-from Vendor Name", "Buy-from Country/Region Code", "Location Code", "Posting Date")
 
         addafter("Posting Date")
         {
@@ -123,7 +123,7 @@ pageextension 59308 TlyPurchInvoiceList extends "Purchase Invoices"
 
         modify("Order Address Code")
         {
-            Visible = true;
+            Visible = false;
         }
 
         modify("Buy-from Country/Region Code")

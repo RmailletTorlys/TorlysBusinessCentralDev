@@ -1,34 +1,36 @@
-codeunit 57003 TlyPriceCodeSourcePriceCalc
-{
-    //TLY-SD - start - 08/14/2026
-    //dont want to run out of the box price check when location changes
-    // [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime', '', false, false)]
-    // local procedure OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime(var SalesLine: Record "Sales Line")
-    // begin
-    //     UpdateUnitPriceByLocationCode(SalesLine);
-    // end;
+//TLY-SD - 09/29/2026 - discontinued, doesnt seem to be needed
 
-    // local procedure UpdateUnitPriceByLocationCode(var SalesLine: Record "Sales Line")
-    // var
-    //     SalesHeader: Record "Sales Header";
-    //     PriceCalculation: Interface "Price Calculation";
-    // begin
-    //     SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
-    //     SalesLine.TestField("Qty. per Unit of Measure");
+// codeunit 57003 TlyPriceCodeSourcePriceCalc
+// {
+//     //TLY-SD - start - 08/14/2026
+//     //dont want to run out of the box price check when location changes
+//     // [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime', '', false, false)]
+//     // local procedure OnValidateLocationCodeOnAfterSetOutboundWhseHandlingTime(var SalesLine: Record "Sales Line")
+//     // begin
+//     //     UpdateUnitPriceByLocationCode(SalesLine);
+//     // end;
 
-    //     SalesLine.GetPriceCalculationHandler("Price Type"::Sale, SalesHeader, PriceCalculation);
-    //     if not (SalesLine."Copied From Posted Doc." and SalesLine.IsCreditDocType()) then begin
-    //         PriceCalculation.ApplyDiscount();
-    //         SalesLine.ApplyPrice(SalesLine.FieldNo("Sales Price Code"), PriceCalculation);
-    //     end;
-    //     SalesLine.Validate("Unit Price");
-    // end;
-    //TLY-SD - end - 08/14/2026
+//     // local procedure UpdateUnitPriceByLocationCode(var SalesLine: Record "Sales Line")
+//     // var
+//     //     SalesHeader: Record "Sales Header";
+//     //     PriceCalculation: Interface "Price Calculation";
+//     // begin
+//     //     SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
+//     //     SalesLine.TestField("Qty. per Unit of Measure");
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterAddSources', '', false, false)]
-    local procedure OnAfterAddSources(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line";
-                                        PriceType: Enum "Price Type"; var PriceSourceList: Codeunit "Price Source List");
-    begin
-        PriceSourceList.Add("Price Source Type"::"Sales Price Code", SalesLine."Sales Price Code");
-    end;
-}
+//     //     SalesLine.GetPriceCalculationHandler("Price Type"::Sale, SalesHeader, PriceCalculation);
+//     //     if not (SalesLine."Copied From Posted Doc." and SalesLine.IsCreditDocType()) then begin
+//     //         PriceCalculation.ApplyDiscount();
+//     //         SalesLine.ApplyPrice(SalesLine.FieldNo("Sales Price Code"), PriceCalculation);
+//     //     end;
+//     //     SalesLine.Validate("Unit Price");
+//     // end;
+//     //TLY-SD - end - 08/14/2026
+
+//     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterAddSources', '', false, false)]
+//     local procedure OnAfterAddSources(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line";
+//                                         PriceType: Enum "Price Type"; var PriceSourceList: Codeunit "Price Source List");
+//     begin
+//         PriceSourceList.Add("Price Source Type"::"Sales Price Code", SalesLine."Sales Price Code");
+//     end;
+// }

@@ -62,6 +62,4 @@ codeunit 57002 TlyPriceSourceSalesPriceCode implements "Price Source"
         PriceSource."Source Type" := "Price Source Type"::"Sales Price Code";
         PriceSource."Price Type" := "Price Type"::"Sale";
     end;
-
-
 }

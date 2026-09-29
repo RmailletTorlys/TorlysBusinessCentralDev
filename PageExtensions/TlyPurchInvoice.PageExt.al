@@ -17,7 +17,7 @@ pageextension 50051 TlyPurchInvoice extends "Purchase Invoice"
 
         moveafter("Manufacturer Code"; "Buy-from Vendor Name", "Buy-from")
 
-        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Invoice No.", Status)
+        moveafter("Buy-from"; "Buy-from Address", "Buy-from Address 2", "Buy-from City", "Buy-from County", "Buy-from Post Code", "Buy-from Country/Region Code", "Location Code", "Posting Date", "Document Date", "Vendor Invoice No.", "Purchaser Code", Status)
 
         addafter(Status)
         {
@@ -103,7 +103,7 @@ pageextension 50051 TlyPurchInvoice extends "Purchase Invoice"
 
         modify("Purchaser Code")
         {
-            Visible = false;
+            Importance = Standard;
         }
 
         modify("Campaign No.")

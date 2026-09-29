@@ -53,6 +53,16 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 ToolTip = 'Order Type';
                 ApplicationArea = All;
             }
+
+            field("Campaign No."; Rec."Campaign No.")
+            {
+                Caption = 'Campaign No.';
+                ToolTip = 'Campaign No.';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+
             field("Temporary Hold"; Rec."Temporary Hold")
             {
                 Caption = 'Temporary Hold';

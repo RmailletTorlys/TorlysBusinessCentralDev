@@ -69,8 +69,8 @@ permissionset 50000 TorlysPermissions
         codeunit TlyPriceSourceSalesPriceCode = X,
         codeunit TlyPriceListSalesTriggers = X,
         codeunit TlyPriceSalesLineWithPrice = X,
-        codeunit TlyPriceCalcBufferMgt = X,
-        codeunit TlyPriceCodeSourcePriceCalc = X,
+        // codeunit TlyPriceCalcBufferMgt = X, //TLY-SD - 09/29/2026 - discontinued
+        // codeunit TlyPriceCodeSourcePriceCalc = X, //TLY-SD - 09/29/2026 - discontinued
         // page CustomerSalesPriceListsLookup = X,
         page TlyFreightZoneCard = X,
         page TlyFreightZoneList = X,

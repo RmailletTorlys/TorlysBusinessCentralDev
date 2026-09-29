@@ -45,7 +45,18 @@ pageextension 50132 TlyPostedSalesInv extends "Posted Sales Invoice"
             }
         }
 
-        moveafter("Order Type"; "Posting Date")
+        addafter("Order Type")
+        {
+            field("Campaign No."; Rec."Campaign No.")
+            {
+                Caption = 'Campaign No.';
+                ToolTip = 'Campaign No.';
+                ApplicationArea = All;
+                Importance = Additional;
+                Editable = false;
+            }
+        }
+        moveafter("Campaign No."; "Posting Date")
 
         addafter("Posting Date")
         {

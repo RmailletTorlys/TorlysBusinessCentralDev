@@ -47,6 +47,17 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
                 Visible = true;
                 Editable = false;
             }
+
+            field("Campaign No."; Rec."Campaign No.")
+            {
+                Caption = 'Campaign No.';
+                ToolTip = 'Campaign No.';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+                Importance = Additional;
+            }
+
             field("Order Comment"; Rec."Order Comment")
             {
                 Caption = 'Order Comment';

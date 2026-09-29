@@ -69,7 +69,7 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
             }
         }
 
-        moveafter(ShortcutDimCode3; "Reason Code")
+        moveafter(ShortcutDimCode3; "Campaign No.", "Reason Code")
 
         addafter("Reason Code")
         {
@@ -468,7 +468,8 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
 
         modify("Campaign No.")
         {
-            Visible = false;
+            // Visible = false;
+            Importance = Additional;
         }
 
         modify("Responsibility Center")

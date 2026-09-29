@@ -73,6 +73,12 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                         ValidateShortcutDimension(3);
                 end;
             }
+        }
+
+        moveafter(ShortcutDimCode3; "Campaign No.")
+
+        addafter("Campaign No.")
+        {
             field("Reason Code"; Rec."Reason Code")
             {
                 Caption = 'Reason Code';
@@ -596,7 +602,8 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
 
         modify("Campaign No.")
         {
-            Visible = false;
+            // Visible = false;
+            Importance = Additional;
         }
 
         modify("Responsibility Center")

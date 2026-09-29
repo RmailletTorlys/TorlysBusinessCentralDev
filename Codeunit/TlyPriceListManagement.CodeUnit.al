@@ -1,4 +1,3 @@
-
 codeunit 57016 TlyPriceListManagement
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Price List Management", 'OnAfterSetHeadersFilters', '', false, false)]

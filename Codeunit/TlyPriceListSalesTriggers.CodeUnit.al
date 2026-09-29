@@ -3,17 +3,23 @@ codeunit 57000 TlyPriceListSalesTriggers
     EventSubscriberInstance = StaticAutomatic;
     SingleInstance = true;
 
-    // this is validating price on the page
-    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterNoOnAfterValidate', '', true, true)]
-    local procedure OnAfterNoOnAfterValidate(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line")
+    // // this is validating price on the sales order page
+    // // TLY-SD - 09/29/2026 - discontinued and changed to validating on table
+    // [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterNoOnAfterValidate', '', true, true)]
+    // local procedure OnAfterNoOnAfterValidate(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line")
+    // begin
+    //     UpdateUnitPrice(SalesLine);
+    // end;
+
+    // this is validating price on the table
+    // pricing on the table uses "UpdateUnitPriceByField" procedure which fires on change of:
+    // item #, quantity, customer price group, work type code, variant code, unit of measure code, quantity base, customer discount group
+    // TLY-SD - 09/29/2026 - started to use this instead of on page above, seems to only fire when item entered, other triggers above not happening
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateNoOnAfterUpdateUnitPrice', '', true, true)]
+    local procedure OnValidateNoOnAfterUpdateUnitPrice(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line"; var TempSalesLine: Record "Sales Line" temporary)
     begin
         UpdateUnitPrice(SalesLine);
     end;
-
-    //this is validating price on the table
-    //pricing on the table uses "UpdateUnitPriceByField" procedure which fires on change of:
-    //item #, quantity, customer price group, work type code, variant code, unit of measure code, quantity base, customer discount group
-    //TlyPriceSalesLineWithPrice.CodeUnit makes it not do it when quantity is changed
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Line - Price", 'OnAfterGetAssetType', '', false, false)]
     local procedure OnAfterGetAssetType(SalesLine: Record "Sales Line"; var AssetType: Enum "Price Asset Type")
@@ -25,6 +31,7 @@ codeunit 57000 TlyPriceListSalesTriggers
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnUpdateUnitPriceOnBeforeFindPrice', '', true, true)]
     local procedure OnUpdateUnitPriceOnBeforeFindPrice(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CallingFieldNo: Integer; var IsHandled: Boolean; xSalesLine: Record "Sales Line")
     begin
+        // this is the key piece to run our custom pricing, without this it will do the out of the box "lowest price"
         IsHandled := true;
     end;
 
@@ -41,8 +48,8 @@ codeunit 57000 TlyPriceListSalesTriggers
     var
         Item: Record "Item";
         AssetType: Enum "Price Asset Type";
-
     begin
+        // this is what populates the "Get Price" page with the out of the box "item #" and custom "sales price code"
         if not (PriceCalculationBuffer."Asset Type" <> Enum::"Price Asset Type"::Item) then begin
             Item.Reset();
             Item.Get(PriceCalculationBuffer."Asset No.");
@@ -53,10 +60,9 @@ codeunit 57000 TlyPriceListSalesTriggers
     //local
     procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")
     var
-        Customer: Record "Customer";
+        // Customer: Record "Customer";
         Item: Record "Item";
         PriceListLine: Record "Price List Line";
-
     begin
         if SalesLine."Type" <> SalesLine.Type::Item then
             exit;
@@ -77,8 +83,7 @@ codeunit 57000 TlyPriceListSalesTriggers
         PriceListLine.SetRange("Product No.", SalesLine."No.");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/17/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/17/2026 - added
-        // if (PriceListLine.FindFirst())
-        // then begin
+        // if (PriceListLine.FindFirst()) then begin
         if PriceListLine.Find('-') then begin
             //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
             // SalesLine."Unit Price" := PriceListLine."Unit Price";
@@ -88,8 +93,8 @@ codeunit 57000 TlyPriceListSalesTriggers
         end;
 
         PriceListLine.SetRange("Product No.", SalesLine."Sales Price Code");
-        if (PriceListLine.FindFirst())
-        then begin
+        // if (PriceListLine.FindFirst()) then begin
+        if PriceListLine.Find('-') then begin
             //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
             // SalesLine."Unit Price" := PriceListLine."Unit Price";
             SalesLine.Validate("Unit Price", PriceListLine."Unit Price");

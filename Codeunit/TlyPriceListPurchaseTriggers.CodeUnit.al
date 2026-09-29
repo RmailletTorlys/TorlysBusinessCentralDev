@@ -1,4 +1,3 @@
-
 codeunit 57015 TlyPriceListPurchaseTriggers
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purchase Line - Price", 'OnAfterFillBuffer', '', false, false)]

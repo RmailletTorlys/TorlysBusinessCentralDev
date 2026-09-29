@@ -1,5 +1,4 @@
 codeunit 57001 TlyPriceAssetSalesPriceCode implements "Price Asset"
-
 {
     var
         SalesPriceCode: Record TlySalesPriceCode;
@@ -67,14 +66,12 @@ codeunit 57001 TlyPriceAssetSalesPriceCode implements "Price Asset"
             case PriceCalculationBuffer."Price Type" of
                 PriceCalculationBuffer."Price Type"::Sale:
                     begin
-
                         PriceListLine."Price Includes VAT" := false;
                         PriceListLine."Unit Price" := 1.00;
                     end;
                 PriceCalculationBuffer."Price Type"::Purchase:
                     PriceListLine."Price Includes VAT" := false;
             end;
-
     end;
 
     procedure FilterPriceLines(PriceAsset: Record "Price Asset"; var PriceListLine: Record "Price List Line") Result: Boolean;
@@ -99,8 +96,6 @@ codeunit 57001 TlyPriceAssetSalesPriceCode implements "Price Asset"
         NewPriceAsset := PriceAsset;
         NewPriceAsset.Validate("Asset No.", ''); // All Items
         PriceAssetList.Add(NewPriceAsset);
-
-
     end;
 
     procedure FillFromBuffer(var PriceAsset: Record "Price Asset"; PriceCalculationBuffer: Record "Price Calculation Buffer")

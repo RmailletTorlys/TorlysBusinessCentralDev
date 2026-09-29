@@ -4,20 +4,7 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
 
     layout
     {
-        moveafter("No."; Name, "Search Name")
-
-        addafter("Search Name")
-        {
-            field("Payer ID"; Rec."Payer ID")
-            {
-                ApplicationArea = All;
-                Caption = 'Payer ID';
-                Visible = true;
-                ToolTip = 'Payer ID';
-            }
-        }
-
-        moveafter("Payer ID"; "Purchaser Code", "Our Account No.")
+        moveafter("No."; Name, "Search Name", "Our Account No.")
 
         addafter("Our Account No.")
         {
@@ -69,6 +56,8 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
             }
         }
 
+        movefirst(Invoicing; "Purchaser Code")
+
         moveafter("Pay-to Vendor No."; "Tax Liable", "Tax Area Code", "Tax Identification Type", "VAT Registration No.")
 
         // moveafter("Posting Details"; "Gen. Bus. Posting Group", "Vendor Posting Group")
@@ -90,6 +79,17 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
                 Visible = true;
                 ToolTip = 'Global Dimension 2 Code';
                 Importance = Standard;
+            }
+        }
+
+        addfirst(Payments)
+        {
+            field("Payer ID"; Rec."Payer ID")
+            {
+                ApplicationArea = All;
+                Caption = 'Payer ID';
+                Visible = true;
+                ToolTip = 'Payer ID';
             }
         }
 

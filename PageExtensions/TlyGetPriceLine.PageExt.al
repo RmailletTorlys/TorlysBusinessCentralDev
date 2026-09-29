@@ -108,9 +108,10 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
         UnitPriceTier := '';
 
         if Rec."Assign-to No." = '' then exit; //All Customer as type
-        if Rec."Assign-to No." = 'CA' then exit; //CA tiers, insurance, CA promos, buying group
-        if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
-        if Rec."Assign-to No." = 'US' then exit; //US tiers, US promos
+        // if Rec."Assign-to No." = 'CA' then exit; //CA tiers, insurance, CA promos, buying group
+        // if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
+        // if Rec."Assign-to No." = 'US' then exit; //US tiers, US promos
+        if Rec."Source Type" <> Rec."Source Type"::Customer then exit; //TLY-SD - 08/26/2026 - changed from above 4 lines to this 1 line
 
         Customer.Get(Rec."Assign-to No.");
         PriceLine.Reset();
@@ -135,9 +136,10 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
         FullPalletPriceTier := '';
 
         if Rec."Assign-to No." = '' then exit; //All Customer as type
-        if Rec."Assign-to No." = 'CA' then exit; //CA tiers, insurance, CA promos, buying group
-        if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
-        if Rec."Assign-to No." = 'US' then exit; //US tiers, US promos
+        // if Rec."Assign-to No." = 'CA' then exit; //CA tiers, insurance, CA promos, buying group
+        // if Rec."Assign-to No." = 'QC' then exit; //QC tiers, QC promos
+        // if Rec."Assign-to No." = 'US' then exit; //US tiers, US promos
+        if Rec."Source Type" <> Rec."Source Type"::Customer then exit; //TLY-SD - 08/26/2026 - changed from above 4 lines to this 1 line
 
         Customer.Get(Rec."Assign-to No.");
         PriceLine.Reset();

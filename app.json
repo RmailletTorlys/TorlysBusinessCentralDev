@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.26.9.13",
+    "version": "1.26.9.14",
 
     "brief": "",
     "description": "",
@@ -23,6 +23,12 @@
             "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
             "name": "E-Document Core",
             "version": "28.4.53241.54890",
+            "publisher": "Microsoft"
+        },
+                {
+            "id": "0144dfc5-827d-4f37-925a-a20d49f8ef63",
+            "name": "Extended Bank Deposit NA",
+            "version": "28.4.53241.53312",
             "publisher": "Microsoft"
         },
         {

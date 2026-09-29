@@ -1,4 +1,4 @@
-codeunit 50343 TlyCheckCreditLimit
+codeunit 50343 TlyCreditLimitCheck
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnBeforeSalesLineCheck', '', false, false)]
     local procedure OnBeforeSalesLineCheck(var SalesLine: Record "Sales Line"; var IsHandled: Boolean; var CreditLimitExceeded: Boolean)
@@ -19,7 +19,7 @@ codeunit 50343 TlyCheckCreditLimit
 
         //still need to add in current order into calc
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Credit Limit + Open Orders or Terms" then begin
-            //check if balance plus open order is greater than credit limit
+            //check if balance plus open orders is greater than credit limit
             //check if balance with 15 days grace is greater than 0
             Customer.CalcFields(Balance, "Outstanding Orders");
             CustBalance := Customer.Balance + Customer."Outstanding Orders";
@@ -28,20 +28,23 @@ codeunit 50343 TlyCheckCreditLimit
             CustBalanceDue := Customer.Balance;
             if CustBalance > Customer."Credit Limit (LCY)" then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end else if CustBalanceDue > 0 then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end;
         end;
 
         //still need to add in current order into calc
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Credit Limit + Open Orders" then begin
-            //check if balance plus open order is greater than credit limit
+            //check if balance plus open orders is greater than credit limit
             Customer.CalcFields(Balance, "Outstanding Orders");
             CustBalance := Customer.Balance + Customer."Outstanding Orders";
             if CustBalance > Customer."Credit Limit (LCY)" then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end;
         end;
@@ -54,6 +57,7 @@ codeunit 50343 TlyCheckCreditLimit
             CustBalanceDue := Customer.Balance;
             if CustBalanceDue > 0 then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end;
         end;
@@ -69,9 +73,11 @@ codeunit 50343 TlyCheckCreditLimit
             CustBalanceDue := Customer.Balance;
             if CustBalance > Customer."Credit Limit (LCY)" then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end else if CustBalanceDue > 0 then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end;
         end;
@@ -83,6 +89,7 @@ codeunit 50343 TlyCheckCreditLimit
             CustBalance := Customer.Balance;
             if CustBalance > Customer."Credit Limit (LCY)" then begin
                 SalesHeader."On Hold" := 'CR';
+                CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
                 SalesHeader.Modify(true);
             end;
         end;
@@ -90,12 +97,14 @@ codeunit 50343 TlyCheckCreditLimit
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"No Hold" then begin
             //never hold
             SalesHeader."On Hold" := '';
+            CreditLimitExceeded := false; //TLY-SD - 09/25/2026 - added to make TSS orders work
             SalesHeader.Modify(true);
         end;
 
         if Customer."Credit Warnings" = Customer."Credit Warnings"::"Hold All" then begin
             //always hold
             SalesHeader."On Hold" := 'CR';
+            CreditLimitExceeded := true; //TLY-SD - 09/25/2026 - added to make TSS orders work
             SalesHeader.Modify(true);
         end;
     end;

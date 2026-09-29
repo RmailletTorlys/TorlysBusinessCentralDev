@@ -28,6 +28,10 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
             {
 
             }
+            column(AllComments; AllComments)
+            {
+
+            }
         }
 
         add("Transfer Line")
@@ -82,7 +86,6 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
             }
         }
 
-
         modify("Transfer Header")
         {
             trigger OnAfterAfterGetRecord()
@@ -106,6 +109,17 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
 
                 // Encode the data string to the barcode font
                 EncodedText := BarcodeFontProvider.EncodeFont(BarcodeStrings, BarcodeSymbology);
+
+                Inventorycommentline.Reset();
+                Inventorycommentline.SetRange("No.", "No.");
+                If Inventorycommentline.FindSet() then begin
+                    repeat
+                        AllComments := AllComments + '---' + Inventorycommentline.Comment;
+                    until Inventorycommentline.Next() = 0;
+                end else begin
+                    AllComments := '';
+                end;
+
             end;
         }
 
@@ -145,6 +159,8 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
 
     var
         BinContent: Record "Bin Content";
+
+        Inventorycommentline: Record "Inventory Comment Line";
         BinLocation: Code[100];
         TotalWeight: Decimal;
         ToShipWeight: Decimal;
@@ -153,4 +169,6 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
         EncodedText: Text;
         Picked: Text;
         BinLocationLabel: Text;
+
+        AllComments: Text;
 }

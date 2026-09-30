@@ -9,6 +9,7 @@ pageextension 50067 TlySalesCommentSheet extends "Sales Comment Sheet"
                 Caption = 'Created By';
                 ToolTip = 'Created By';
                 ApplicationArea = All;
+                Visible = false;
             }
             field("Entered By"; Rec."Entered By")
             {

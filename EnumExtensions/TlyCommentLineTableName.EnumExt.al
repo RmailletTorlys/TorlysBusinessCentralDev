@@ -8,4 +8,8 @@ enumextension 50097 TlyCommentLineTableName extends "Comment Line Table Name"
     {
         Caption = 'Processed BOL';
     }
+    value(50003; "Bill of Lading")
+    {
+        Caption = 'Bill of Lading';
+    }
 }

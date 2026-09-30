@@ -118,8 +118,11 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
         PriceLine.SetFilter("Price List Code", 'TIER*');
         PriceLine.SetFilter("Assign-to No.", Customer."Customer Price Group");
         PriceLine.SetFilter("Product No.", Rec."Product No.");
-        PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
-        PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+        //TLY-SD - 09/30/2026 - start - change filters because if has old price we care what the tier is now, not what it was before
+        // PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
+        // PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+        PriceLine.SetFilter("Ending Date", '%1', 0D);
+        //TLY-SD - 09/30/2026 - end
         PriceLine.SetRange("Unit Price", Rec."Unit Price");
         if PriceLine.Find('-') then begin
             UnitPriceTier := PriceLine."Price List Code";
@@ -146,8 +149,11 @@ pageextension 57010 TlyGetPriceLine extends "Get Price Line"
         PriceLine.SetFilter("Price List Code", 'TIER*');
         PriceLine.SetFilter("Assign-to No.", Customer."Customer Price Group");
         PriceLine.SetFilter("Product No.", Rec."Product No.");
-        PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
-        PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+        //TLY-SD - 09/30/2026 - start - change filters because if has old price we care what the tier is now, not what it was before
+        // PriceLine.SetFilter("Ending Date", '%1|>=%2', 0D, Rec."Starting Date");
+        // PriceLine.SetRange("Starting Date", 0D, Rec."Starting Date");
+        PriceLine.SetFilter("Ending Date", '%1', 0D);
+        //TLY-SD - 09/30/2026 - end
         PriceLine.SetRange("Unit Price", Rec."Stocking Pallet Price");
         if PriceLine.Find('-') then begin
             FullPalletPriceTier := PriceLine."Price List Code";

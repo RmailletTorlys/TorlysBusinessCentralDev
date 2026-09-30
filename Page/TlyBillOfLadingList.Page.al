@@ -148,6 +148,28 @@ page 51001 TlyBillOfLadingList
         }
     }
 
+    actions
+    {
+        area(Promoted)
+        {
+            actionref(Comments_Promoted; "Co&mments")
+            { }
+        }
+        area(Navigation)
+        {
+            action("Co&mments")
+            {
+                ApplicationArea = Comments;
+                Caption = 'Co&mments';
+                Image = ViewComments;
+                RunObject = Page "Comment Sheet";
+                RunPageLink = "Table Name" = const("Bill of Lading"),
+                                  "No." = field("No.");
+                ToolTip = 'View or add comments for the record.';
+            }
+        }
+    }
+
     views
     {
         view(TOR)

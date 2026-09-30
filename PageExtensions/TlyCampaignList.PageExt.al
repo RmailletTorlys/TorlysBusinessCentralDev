@@ -10,6 +10,20 @@ pageextension 55087 TlyCampaignList extends "Campaign List"
                 ToolTip = 'Default Price List Code';
                 ApplicationArea = All;
             }
+
+            field("Open Order Count"; Rec."Open Order Count")
+            {
+                Caption = 'Open Order Count';
+                ToolTip = 'Open Order Count';
+                ApplicationArea = All;
+            }
+
+            field("Posted Invoice Count"; Rec."Posted Invoice Count")
+            {
+                Caption = 'Posted Invoice Count';
+                ToolTip = 'Posted Invoice Count';
+                ApplicationArea = All;
+            }
         }
 
         modify("Salesperson Code")

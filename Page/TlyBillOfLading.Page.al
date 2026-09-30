@@ -444,6 +444,8 @@ page 51002 TlyBillOfLading
             { }
             actionref("Print Shipping Label"; PrintShippingLabel)
             { }
+            actionref(Comments_Promoted; "Co&mments")
+            { }
         }
         area(Navigation)
         {
@@ -572,6 +574,16 @@ page 51002 TlyBillOfLading
                 begin
                     TorlysDocPrint.PrintBOLShippingLabel(Rec);
                 end;
+            }
+            action("Co&mments")
+            {
+                ApplicationArea = Comments;
+                Caption = 'Co&mments';
+                Image = ViewComments;
+                RunObject = Page "Comment Sheet";
+                RunPageLink = "Table Name" = const("Bill of Lading"),
+                                  "No." = field("No.");
+                ToolTip = 'View or add comments for the record.';
             }
         }
     }

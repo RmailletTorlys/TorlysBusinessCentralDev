@@ -34,7 +34,8 @@ codeunit 50118 TlySalesInvoiceHeaderEdit
           (SalesInvoiceHeader."Salesperson Commission 2" <> xSalesInvoiceHeader."Salesperson Commission 2") or
           (SalesInvoiceHeader."Salesperson Code 3" <> xSalesInvoiceHeader."Salesperson Code 3") or
           (SalesInvoiceHeader."Salesperson Commission 3" <> xSalesInvoiceHeader."Salesperson Commission 3") or
-          (SalesInvoiceHeader."External Document No." <> xSalesInvoiceHeader."External Document No.")
+          (SalesInvoiceHeader."External Document No." <> xSalesInvoiceHeader."External Document No.") or
+          (SalesInvoiceHeader."Campaign No." <> xSalesInvoiceHeader."Campaign No.") //TLY-SD - 09/30/2026
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Inv. Header - Edit", 'OnOnRunOnBeforeTestFieldNo', '', false, false)]
@@ -74,6 +75,7 @@ codeunit 50118 TlySalesInvoiceHeaderEdit
         SalesInvoiceHeader."Salesperson Code 3" := SalesInvoiceHeaderRec."Salesperson Code 3";
         SalesInvoiceHeader."Salesperson Commission 3" := SalesInvoiceHeaderRec."Salesperson Commission 3";
         SalesInvoiceHeader."External Document No." := SalesInvoiceHeaderRec."External Document No.";
+        SalesInvoiceHeader."Campaign No." := SalesInvoiceHeaderRec."Campaign No."; //TLY-SD - 09/30/2026
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Inv. Header - Edit", 'OnBeforeUpdateCustLedgerEntryAfterSetValues', '', false, false)]

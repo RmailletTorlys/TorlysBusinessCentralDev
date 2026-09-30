@@ -16,6 +16,12 @@ pageextension 51355 TlyPostedSalesInvUpdate extends "Posted Sales Inv. - Update"
                 ToolTip = 'Tag Name';
                 ApplicationArea = All;
             }
+            field("Campaign No."; Rec."Campaign No.")
+            {
+                Caption = 'Campaign No.';
+                ToolTip = 'Campaign No.';
+                ApplicationArea = All;
+            }
             field("Salesperson Code"; Rec."Salesperson Code")
             {
                 Caption = 'Salesperson Code';

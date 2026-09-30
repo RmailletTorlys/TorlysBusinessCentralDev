@@ -110,11 +110,29 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
                 // Encode the data string to the barcode font
                 EncodedText := BarcodeFontProvider.EncodeFont(BarcodeStrings, BarcodeSymbology);
 
+                // Inventorycommentline.Reset();
+                // Inventorycommentline.SetRange("No.", "No.");
+                // If Inventorycommentline.FindSet() then begin
+                //     repeat
+                //         AllComments := AllComments + '---' + Inventorycommentline.Comment;
+                //     until Inventorycommentline.Next() = 0;
+                // end else begin
+                //     AllComments := '';
+                // end;
+
+                CR := 13; // Carriage Return
+                LF := 10; // Line Feed
+                NewLine := Format(CR) + Format(LF);
+
                 Inventorycommentline.Reset();
                 Inventorycommentline.SetRange("No.", "No.");
-                If Inventorycommentline.FindSet() then begin
+                if Inventorycommentline.FindSet() then begin
+                    AllComments := ''; // Reset the string before looping
                     repeat
-                        AllComments := AllComments + '---' + Inventorycommentline.Comment;
+                        if AllComments <> '' then
+                            AllComments := AllComments + NewLine + Inventorycommentline.Comment
+                        else
+                            AllComments := Inventorycommentline.Comment; // Prevents an empty line at the very beginning
                     until Inventorycommentline.Next() = 0;
                 end else begin
                     AllComments := '';
@@ -169,6 +187,7 @@ reportextension 50500 TlyTransferOrder extends "Transfer Order"
         EncodedText: Text;
         Picked: Text;
         BinLocationLabel: Text;
-
         AllComments: Text;
+        CR, LF : Char;
+        NewLine: Text;
 }

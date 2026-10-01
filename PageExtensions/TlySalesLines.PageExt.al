@@ -133,6 +133,14 @@ pageextension 50516 TlySalesLines extends "Sales Lines"
         addafter("Shipment Date")
         {
 
+            field("Requested Shipment Date"; Rec."Requested Shipment Date")
+            {
+                Caption = 'Requested Shipment Date';
+                ToolTip = 'Requested Shipment Date';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
                 Caption = 'Shipping Instructions';

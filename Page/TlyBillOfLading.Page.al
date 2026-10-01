@@ -523,6 +523,8 @@ page 51002 TlyBillOfLading
                     SalesHeader: Record "Sales Header";
                     TransferShipmentHeader: Record "Transfer Shipment Header";
                     TransferHeader: Record "Transfer Header";
+                    CommentLine: Record "Comment Line";
+                    CommentLine2: Record "Comment Line";
                 begin
                     BOLPrintPostChecks.BOLChecks(Rec);
                     if Rec."No. Printed" = 0 then Error('Cannot post until it has first been printed.');
@@ -555,6 +557,20 @@ page 51002 TlyBillOfLading
                             end;
                         until BOLLine.Next = 0;
                     end;
+
+                    //TLY-SD - 10/01/2025 - start
+                    //copy comments from Open BOL to Processed BOL
+                    CommentLine.SetFilter("Table Name", 'Bill of Lading');
+                    CommentLine.SetRange("No.", Rec."No.");
+                    if CommentLine.FindSet() then
+                        repeat
+                            CommentLine2 := CommentLine;
+                            CommentLine2."Table Name" := CommentLine."Table Name"::"Processed BOL";
+                            CommentLine2."No." := Rec."No.";
+                            CommentLine2.Insert();
+                            CommentLine.Delete(true);
+                        until CommentLine.Next() = 0;
+                    //TLY-SD - 10/01/2025 - end
 
                     Message('%1 has been posted.', Rec."No.");
                     BOLLine.DeleteAll();

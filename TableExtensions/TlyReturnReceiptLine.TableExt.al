@@ -275,13 +275,13 @@ tableextension 56661 TlyReturnReceiptLine extends "Return Receipt Line"
             CalcFormula = lookup("Return Receipt Header"."Shipping Instructions" where("No." = field("Document No.")));
         }
 
-        // field(50044; "Requested Shipment Date"; Date)
-        // {
-        //     Caption = 'Requested Shipment Date';
-        //     Editable = false;
-        //     FieldClass = FlowField;
-        //     CalcFormula = lookup("Return Receipt Header"."Requested Shipment Date" where("No." = field("Document No.")));
-        // }
+        field(50044; "Requested Shipment Date"; Date)
+        {
+            Caption = 'Requested Shipment Date';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Return Receipt Header"."Requested Shipment Date" where("No." = field("Document No.")));
+        }
 
         field(50045; "Currency Factor"; Decimal)
         {

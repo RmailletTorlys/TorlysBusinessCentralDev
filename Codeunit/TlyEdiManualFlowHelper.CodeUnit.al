@@ -1,13 +1,23 @@
-codeunit 57007 TlyEdiManualFlowHelper
+codeunit 57008 "tlyEdiManualFlowHelper"
 {
+    // Make this procedure available as a public OData V4 Action
     [ServiceEnabled]
-    procedure InvokeReceive(Channel: Text; ProcessFollowing: Boolean)
+    procedure TriggerEDIReceive(ChannelCode: Code[20]; ProcessFollowingParam: Boolean)
     var
-        // Your target internal/non-public codeunit or logic handler
-        InternalProcessor: Codeunit "ANVEDI Job Handler";
+        EDISetup: Record "ANVEDI Setup";
+        EDIIntegration: Codeunit "ANVEDI Integration";
+
     begin
-        // Call the internal routines safely from inside Business Central
-        // (Assuming you can pass parameters or trigger functions it allows)
-        InternalProcessor.RECEIVE(Channel, ProcessFollowing);
+        // Optional: Ensure setup exists
+        EDISetup.Get();
+
+        // Replicating what ANVEDI Job Handler does internally:
+        EDIIntegration.BEGIN_USER_TRANSACTION('Receiving data via n8n');
+
+        // Call the integration engine function directly
+        EDIIntegration.RECEIVE_COMMUNICATIONCHANNEL(ChannelCode, ProcessFollowingParam, '');
+
+        // Finalize transaction safely
+        EDIIntegration.END_USER_TRANSACTION(false, EDISetup."Job Queue Error Handling" = EDISetup."Job Queue Error Handling"::"Collect (Report first Error)");
     end;
 }

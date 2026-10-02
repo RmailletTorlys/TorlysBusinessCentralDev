@@ -1,11 +1,9 @@
-
 pageextension 50021 TlyCustomerCard extends "Customer Card"
 {
-    // DeleteAllowed = false;
-
     layout
     {
         moveafter("No."; Name, "Search Name")
+
         addafter("Search Name")
         {
             field("Collector ID"; Rec."Collector ID")
@@ -14,6 +12,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Collector ID';
                 Visible = true;
                 ToolTip = 'This field is the Primary Credit Collector assigned to the customer account.';
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
 
@@ -28,6 +27,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the commission percentage assigned to the salesperson.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("Salesperson Code 2"; Rec."Salesperson Code 2")
@@ -37,6 +37,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the second salesperson assigned to the customer account.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("Salesperson Commission 2"; Rec."Salesperson Commission 2")
@@ -46,6 +47,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the commission percentage assigned to the second salesperson.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("Salesperson Code 3"; Rec."Salesperson Code 3")
@@ -55,6 +57,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the third salesperson assigned to the customer account.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("Salesperson Commission 3"; Rec."Salesperson Commission 3")
@@ -64,6 +67,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the commission percentage assigned to the third salesperson.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field(ShortcutDimCode3; ShortcutDimCode[3])
@@ -76,7 +80,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                                                   Blocked = const(false));
                 Visible = true;
                 Importance = Additional;
-
+                Editable = (UserDept = UserDept::"Accounts Receivable");
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(3);
@@ -90,6 +94,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the date the customer account was opened.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("Date Closed"; Rec."Date Closed")
@@ -99,6 +104,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the date the customer account was closed.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
         }
@@ -113,9 +119,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Balance Due ($) - 1-30D';
                 ToolTip = 'Balance Due ($) - 1-30D';
                 DecimalPlaces = 2;
-                Editable = false;
                 Visible = true;
                 Importance = Additional;
+                Editable = false;
                 trigger OnDrillDown()
                 begin
                     Rec.OpenCustomerLedgerEntries(true);
@@ -127,9 +133,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Balance Due ($) - 31-60D';
                 ToolTip = 'Balance Due ($) - 31-60D';
                 DecimalPlaces = 2;
-                Editable = false;
                 Visible = true;
                 Importance = Additional;
+                Editable = false;
                 trigger OnDrillDown()
                 begin
                     Rec.OpenCustomerLedgerEntries(true);
@@ -141,9 +147,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Balance Due ($) - 61-90D';
                 ToolTip = 'Balance Due ($) - 61-90D';
                 DecimalPlaces = 2;
-                Editable = false;
                 Visible = true;
                 Importance = Additional;
+                Editable = false;
                 trigger OnDrillDown()
                 begin
                     Rec.OpenCustomerLedgerEntries(true);
@@ -155,9 +161,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Balance Due ($) - 91D+';
                 ToolTip = 'Balance Due ($) - 91D+';
                 DecimalPlaces = 2;
-                Editable = false;
                 Visible = true;
                 Importance = Additional;
+                Editable = false;
                 trigger OnDrillDown()
                 begin
                     Rec.OpenCustomerLedgerEntries(true);
@@ -169,6 +175,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Outstanding Orders';
                 Visible = true;
                 ToolTip = 'This field is the number of outstanding orders for the customer account.';
+                Editable = false;
             }
         }
 
@@ -183,6 +190,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the date the credit limit was last modified.';
                 Importance = Additional;
+                Editable = false;
             }
 
             field("Credit Limit Modified By"; Rec."Credit Limit Modified By")
@@ -192,6 +200,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the user who last modified the credit limit.';
                 Importance = Additional;
+                Editable = false;
             }
 
             field("Prev. Credit Limit (LCY)"; Rec."Previous Credit Limit (LCY)")
@@ -201,6 +210,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the previous credit limit of the customer account.';
                 Importance = Additional;
+                Editable = false;
             }
 
             field("Temp. Credit Limit (LCY)"; Rec."Temp. Credit Limit (LCY)")
@@ -210,6 +220,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the temporary credit limit of the customer account.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("Temp. Credit Limit Expiry Date"; Rec."Temp. Credit Limit Expiry Date")
@@ -219,6 +230,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the date the temporary credit limit expires.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
         moveafter("Temp. Credit Limit Expiry Date"; "Document Sending Profile")
@@ -232,6 +244,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the user who created the customer account.';
                 Importance = Additional;
+                Editable = false;
             }
 
             field("SystemCreatedAt"; Rec."SystemCreatedAt")
@@ -241,6 +254,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the date the customer account was created.';
                 Importance = Additional;
+                Editable = false;
             }
 
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
@@ -249,6 +263,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ToolTip = 'Modified By';
                 ApplicationArea = All;
                 Importance = Additional;
+                Editable = false;
             }
             field("SystemModifiedAt"; Rec."SystemModifiedAt")
             {
@@ -257,6 +272,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Visible = true;
                 ToolTip = 'This field is the date the customer account was last modified.';
                 Importance = Additional;
+                Editable = false;
             }
         }
 
@@ -269,9 +285,9 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Website';
                 ToolTip = 'This field is the website of the customer account.';
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
-
 
         moveafter(Website; MobilePhoneNo, "Fax No.", "E-Mail", "Language Code")
 
@@ -282,23 +298,25 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Credit Warnings';
                 ToolTip = 'Specifies the number of times that the customer''s credit limit has been exceeded.';
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
 
         moveafter("Credit Warnings"; "Tax Liable", "Tax Area Code", "Tax Identification Type", "Registration Number", "VAT Registration No.", "Tax Exemption No.")
 
         addafter("Customer Posting Group")
-
         {
             field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
             {
                 ApplicationArea = All;
                 ToolTip = 'Global Dimension 1 Code';
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
             field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
             {
                 ApplicationArea = All;
                 ToolTip = 'Global Dimension 2 Code';
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
 
@@ -312,6 +330,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Default Price List Code';
                 Visible = true;
                 ToolTip = 'This field is the default price list assigned to the customer account.';
+                Editable = (UserDept = UserDept::IT);
             }
             field("Remove Regular Price On PL"; Rec."Remove Regular Price On PL")
             {
@@ -319,6 +338,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Remove Regular Price On PL';
                 Visible = true;
                 ToolTip = 'Remove Regular Price On PL';
+                Editable = (UserDept = UserDept::IT);
             }
             field("Full Pallet Price On PL"; Rec."Stocking Pallet Price On PL")
             {
@@ -326,6 +346,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Full Pallet Price On PL';
                 Visible = true;
                 ToolTip = 'Full Pallet Price On PL';
+                Editable = (UserDept = UserDept::IT);
             }
         }
 
@@ -337,6 +358,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Restocking Fee %';
                 DecimalPlaces = 2 : 1;
                 ToolTip = 'Specifies the percentage of the item that is restocked when the item is restocked.';
+                Editable = (UserDept = UserDept::"Customer Serivce");
             }
 
             field("Restocking Fee Minimum"; Rec."Restocking Fee Minimum")
@@ -345,6 +367,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Restocking Fee Minimum';
                 DecimalPlaces = 2;
                 ToolTip = 'Specifies the minimum amount of the item that is restocked when the item is restocked.';
+                Editable = (UserDept = UserDept::"Customer Serivce");
             }
 
             group(Marketing)
@@ -360,7 +383,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                                                 "Dimension Value Type" = const(Standard),
                                                                   Blocked = const(false));
                     Visible = true;
-
+                    Editable = (UserDept = UserDept::"Accounts Receivable");
                     trigger OnValidate()
                     begin
                         ValidateShortcutDimension(5);
@@ -373,6 +396,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     CaptionClass = 'Club';
                     ToolTip = 'Club';
                     Visible = true;
+                    Editable = (UserDept = UserDept::Marketing);
                 }
 
                 field("Power Up Level"; Rec."Power Up Level")
@@ -380,6 +404,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     ApplicationArea = All;
                     Caption = 'Power Up Level';
                     ToolTip = 'Specifies the level of the power up.';
+                    Editable = (UserDept = UserDept::Marketing);
                 }
 
                 field("Program Fees Amount (LCY)"; Rec."Program Fees Amount (LCY)")
@@ -388,6 +413,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     Caption = 'Program Fees Amount';
                     DecimalPlaces = 2;
                     ToolTip = 'Specifies the amount of the program fees that you have paid for the customer.';
+                    Editable = (UserDept = UserDept::Marketing);
                 }
 
                 field("Co-op Entitlement %"; Rec."Co-op Entitlement %")
@@ -396,6 +422,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     Caption = 'Co-op Entitlement %';
                     DecimalPlaces = 2 : 1;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s co-op.';
+                    Editable = (UserDept = UserDept::Marketing);
                 }
 
                 field("Sample Allowance %"; Rec."Sample Allowance %")
@@ -404,6 +431,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     Caption = 'Sample Allowance %';
                     DecimalPlaces = 2 : 1;
                     ToolTip = 'Specifies the percentage of the customer''s total payment that is allocated to the customer''s sample.';
+                    Editable = (UserDept = UserDept::Marketing);
                 }
                 field("Marketing Items Zero Charge"; Rec."Marketing Items Zero Charge")
                 {
@@ -413,7 +441,6 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     ToolTip = 'Marketing Items Zero Charge';
                 }
             }
-
         }
 
         movefirst(Payments; "Application Method", "Payment Terms Code", "Payment Method Code", "Print Statements", "Last Statement No.", "Block Payment Tolerance")
@@ -426,6 +453,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'A/R Notes';
                 ToolTip = 'Specifies the notes that you have entered for the customer.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("On Hold Count"; Rec."On Hold Count")
@@ -434,6 +462,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'On Hold Count';
                 ToolTip = 'Specifies the number of times that the customer has been put on hold.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
 
             field("NSF Count"; Rec."NSF Count")
@@ -442,6 +471,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'NSF Count';
                 ToolTip = 'Specifies the number of times that the customer has been marked with NSF cheques.';
                 Importance = Additional;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
 
@@ -455,6 +485,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Specifies the freight zone that the customer is assigned to.';
                 Visible = false;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
@@ -462,6 +493,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 Visible = false;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
             field("Shipping Comment"; Rec."Shipping Comment")
             {
@@ -469,64 +501,21 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
                 Visible = false;
+                Editable = (UserDept = UserDept::"Accounts Receivable");
             }
         }
 
         moveafter("Shipping Comment"; "Shipping Time")
 
-        modify(Blocked)
+        //start of fields that are visible on the screen therefore need the Editable property
+        modify("No.")
         {
-            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
         }
 
-        modify("Country/Region Code")
+        modify("Name")
         {
-            Importance = Additional;
-        }
-
-        modify(MobilePhoneNo)
-        {
-            Importance = Additional;
-        }
-
-        modify(County)
-        {
-            Importance = Additional;
-        }
-
-        modify("Post Code")
-        {
-            Importance = Additional;
-        }
-
-        modify(ShowMap)
-        {
-            Importance = Additional;
-        }
-
-        modify("Fax No.")
-        {
-            Importance = Additional;
-        }
-
-        modify("E-Mail")
-        {
-            Visible = false;
-        }
-
-        modify("Language Code")
-        {
-            Importance = Additional;
-        }
-
-        modify("Primary Contact No.")
-        {
-            Importance = Additional;
-        }
-
-        modify(ContactName)
-        {
-            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
         }
 
         modify("Search Name")
@@ -534,68 +523,354 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
             ApplicationArea = All;
             Visible = true;
             ToolTip = 'This field is the name of the customer account.';
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Salesperson Code")
+        {
+            Importance = Standard;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify(Blocked)
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Balance (LCY)")
+        {
+            Caption = 'Total Balance ($)';
+            Editable = false;
+        }
+
+        modify("Credit Limit (LCY)")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Document Sending Profile")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("NTN Web Enabled")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("NTN Order Processing")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("NTN Catalog Group Code")
+        {
+            Editable = (UserDept = UserDept::"IT");
+        }
+
+        modify("NTN Head Office")
+        {
+            Editable = (UserDept = UserDept::"IT");
+        }
+
+        modify("NTN Head Office Cust. No.")
+        {
+            Editable = (UserDept = UserDept::"IT");
+        }
+
+        modify("Address")
+        {
+            Importance = Promoted;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Address 2")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("City")
+        {
+            Importance = Promoted;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("County")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Country/Region Code")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Post Code")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify(ShowMap)
+        {
+            Importance = Additional;
+            Editable = false;
+        }
+
+        modify("Phone No.")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify(MobilePhoneNo)
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Fax No.")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Primary Contact No.")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify(ContactName)
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Language Code")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Bill-to Customer No.")
+        {
+            Importance = Promoted;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Tax Liable")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Tax Area Code")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Tax Identification Type")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Registration Number")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("VAT Registration No.")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Tax Exemption No.")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Gen. Bus. Posting Group")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Customer Posting Group")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Customer Price Group")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Currency Code")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Application Method")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Payment Terms Code")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Payment Method Code")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Print Statements")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Last Statement No.")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Block Payment Tolerance")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Ship-to Code")
+        {
+            Importance = Promoted;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Location Code")
+        {
+            Importance = Promoted;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Shipment Method Code")
+        {
+            Visible = false;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Shipping Agent Code")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Shipping Agent Service Code")
+        {
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Reserve")
+        {
+            Visible = false;
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Shipping Advice")
+        {
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+
+        modify("Shipping Time")
+        {
+            Visible = false;
+            Importance = Additional;
+            Editable = (UserDept = UserDept::"Accounts Receivable");
+        }
+        //end of fields that are visible on the screen therefore need the Editable property
+
+        modify("E-Mail")
+        {
+            Visible = false;
         }
 
         modify("IC Partner Code")
         {
             Visible = false;
         }
+
         modify(BalanceAsVendor)
         {
             Visible = false;
         }
+
         modify("Privacy Blocked")
         {
             Visible = false;
         }
+
         modify("Responsibility Center")
         {
             Visible = false;
         }
-        // modify("Document Sending Profile")
-        // {
-        //     Visible = false;
-        // }
+
         modify(TotalSales2)
         {
             Visible = false;
         }
+
         modify(AdjCustProfit)
         {
             Visible = false;
         }
+
         modify(AdjProfitPct)
         {
             Visible = false;
         }
+
         modify("Last Date Modified")
         {
             Visible = false;
         }
+
         modify("Disable Search by Name")
         {
             Visible = false;
         }
+
         modify("Home Page")
         {
             Visible = false;
         }
+
         modify("Format Region")
         {
             Visible = false;
         }
+
         modify(GLN)
         {
             Visible = false;
         }
+
         modify("Use GLN in Electronic Document")
         {
             Visible = false;
         }
+
         modify("Copy Sell-to Addr. to Qte From")
         {
             Visible = false;
         }
+
         modify("Price Calculation Method")
         {
             Visible = false;
@@ -605,54 +880,67 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
+
         modify("Allow Line Disc.")
         {
             Visible = false;
         }
+
         modify("Invoice Disc. Code")
         {
             Visible = false;
         }
+
         modify("Prepayment %")
         {
             Visible = false;
         }
+
         modify("Partner Type")
         {
             Visible = false;
         }
+
         modify("Intrastat Partner Type")
         {
             Visible = false;
         }
+
         modify("Reminder Terms Code")
         {
             Visible = false;
         }
+
         modify("Fin. Charge Terms Code")
         {
             Visible = false;
         }
+
         modify("Cash Flow Payment Terms Code")
         {
             Visible = false;
         }
+
         modify("Preferred Bank Account Code")
         {
             Visible = false;
         }
+
         modify("Bank Communication")
         {
             Visible = false;
         }
+
         modify("Check Date Format")
         {
             Visible = false;
         }
+
         modify("Check Date Separator")
         {
             Visible = false;
         }
+
         modify("Exclude from Pmt. Practices")
         {
             Visible = false;
@@ -662,91 +950,55 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
+
         modify("Customized Calendar")
         {
             Visible = false;
         }
+
         modify("Combine Shipments")
         {
             Visible = false;
         }
+
         modify("CustSalesLCY - CustProfit - AdjmtCostLCY")
         {
             Visible = false;
         }
-        modify("Address")
-        {
-            Importance = Promoted;
-        }
-        modify("City")
-        {
-            Importance = Promoted;
-        }
-        modify("Bill-to Customer No.")
-        {
-            Importance = Promoted;
-        }
-        modify("Application Method")
-        {
-            Importance = Additional;
-        }
-        modify("Payment Method Code")
-        {
-            Importance = Additional;
-        }
-        modify("Shipment Method Code")
+
+        modify("NTN Login Template")
         {
             Visible = false;
         }
-        modify("Print Statements")
-        {
-            Importance = Additional;
-        }
-        modify("Last Statement No.")
-        {
-            Importance = Additional;
-        }
-        modify("Block Payment Tolerance")
-        {
-            Importance = Additional;
-        }
-        modify("Ship-to Code")
-        {
-            Importance = Promoted;
-        }
-        modify("Location Code")
-        {
-            Importance = Promoted;
-        }
-        modify("Reserve")
-        {
-            Importance = Additional;
-        }
-        modify("Shipping Advice")
-        {
-            Importance = Additional;
-        }
-        modify("Shipping Time")
-        {
-            Importance = Additional;
-        }
-        modify("Registration Number")
-        {
-            Importance = Additional;
-        }
-        // modify("Shipping Agent Code")
-        // {
-        //     Visible = false;
-        // }
 
-        modify("Salesperson Code")
+        modify("NTN NAV Created Date")
         {
-            Importance = Standard;
+            Visible = false;
         }
 
-        modify("Balance (LCY)")
+        modify("NTN NAV Modified Date")
         {
-            Caption = 'Total Balance ($)';
+            Visible = false;
+        }
+
+        modify("NTN Previously Modified Date")
+        {
+            Visible = false;
+        }
+
+        modify("NTN NAV Modified by")
+        {
+            Visible = false;
+        }
+
+        modify("SCX Residential")
+        {
+            Visible = false;
+        }
+
+        modify("SCX Fields")
+        {
+            Visible = false;
         }
     }
 
@@ -979,22 +1231,30 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         CustLedgEntry: Record "Cust. Ledger Entry";
         DocumentMailing: Codeunit "Document-Mailing";
         R: Report 10072;
+        UserSetup: Record "User Setup";
+        UserDept: Enum TlyUserDepartment;
 
     trigger OnOpenPage()
-    var
-        UserSetup: Record "User Setup";
     begin
         Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, WorkDate() - 1);
         Rec.SetRange(Rec."Bucket 2 Filter", WorkDate() - 60, WorkDate() - 31);
         Rec.SetRange(Rec."Bucket 3 Filter", WorkDate() - 90, WorkDate() - 61);
         Rec.SetRange(Rec."Bucket 4 Filter", 0D, WorkDate() - 91);
 
-        CurrPage.Editable := false;
+        //TLY-SD - 10/01/2026 - start
+        //change from page level security to field level security
+        // CurrPage.Editable := false;
+
+        // if UserSetup.Get(UserId) then begin
+        //     if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::"Accounts Receivable") then
+        //         CurrPage.Editable := true;
+        // end;
+        CurrPage.Editable := true;
 
         if UserSetup.Get(UserId) then begin
-            if (UserSetup.Department = UserSetup.Department::IT) or (UserSetup.Department = UserSetup.Department::"Accounts Receivable") then
-                CurrPage.Editable := true;
+            UserDept := UserSetup.Department;
         end;
+        //TLY-SD - 10/01/2026 - end
     end;
 
     trigger OnAfterGetRecord()

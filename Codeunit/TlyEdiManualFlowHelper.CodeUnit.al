@@ -1,4 +1,4 @@
-codeunit 57007 TlyEdiManualFlowHelper
+codeunit 57008 TlyEdiManualFlowHelper
 {
     [ServiceEnabled]
     procedure InvokeReceive(Channel: Text; ProcessFollowing: Boolean)

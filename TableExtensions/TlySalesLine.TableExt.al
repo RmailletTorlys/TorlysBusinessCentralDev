@@ -614,6 +614,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 end;
             end;
         }
+
         modify("Return Qty. to Receive")
         {
             trigger OnBeforeValidate()
@@ -647,6 +648,15 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                 end;
             end;
         }
+
+        // modify("Unit Price")
+        // {
+        //     trigger OnBeforeValidate()
+        //     begin
+        //         if ((Rec."Unit Price") <> (xRec."Unit Price")) then
+        //             Rec."Price List" := '';
+        //     end;
+        // }
     }
 
     var
@@ -657,6 +667,7 @@ tableextension 50037 TlySalesLine extends "Sales Line"
     // begin
     //     CheckEditCasePallet(Rec, xRec, EditCasePallet);
     // end;
+
     trigger OnBeforeDelete()
     var
         TransferLine: Record "Transfer Line";

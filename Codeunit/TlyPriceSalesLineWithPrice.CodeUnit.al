@@ -252,7 +252,7 @@ codeunit 57004 TlyPriceSalesLineWithPrice implements "Line With Price"
                     CurrPriceType::Sale:
                         begin
                             SalesLine."Unit Price" := PriceListLine."Unit Price";
-                            SalesLine."Price List" := PriceListLine."Price List Code";
+                            SalesLine."Price List" := PriceListLine."Price List Code"; //this brings back the price list code to the SO line
                             if PriceListLine.IsRealLine() then
                                 SalesLine."Allow Line Disc." := PriceListLine."Allow Line Disc.";
                             SalesLine."Allow Invoice Disc." := PriceListLine."Allow Invoice Disc.";

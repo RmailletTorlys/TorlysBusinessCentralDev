@@ -18,10 +18,24 @@ pageextension 55086 TlyCampaignCard extends "Campaign Card"
                 ApplicationArea = All;
             }
 
+            field("Open Credit Count"; Rec."Open Credit Count")
+            {
+                Caption = 'Open Credit Count';
+                ToolTip = 'Open Credit Count';
+                ApplicationArea = All;
+            }
+
             field("Posted Invoice Count"; Rec."Posted Invoice Count")
             {
                 Caption = 'Posted Invoice Count';
                 ToolTip = 'Posted Invoice Count';
+                ApplicationArea = All;
+            }
+
+            field("Posted Credit Count"; Rec."Posted Credit Count")
+            {
+                Caption = 'Posted Credit Count';
+                ToolTip = 'Posted Credit Count';
                 ApplicationArea = All;
             }
         }

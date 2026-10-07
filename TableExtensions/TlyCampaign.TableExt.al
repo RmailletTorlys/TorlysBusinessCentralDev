@@ -14,7 +14,15 @@ tableextension 55071 TlyCampaign extends "Campaign"
         {
             Caption = 'Open Order Count';
             FieldClass = FlowField;
-            CalcFormula = count("Sales Header" where("Campaign No." = field("No.")));
+            CalcFormula = count("Sales Header" where("Document Type" = const(Order), "Campaign No." = field("No.")));
+            Editable = false;
+        }
+
+        field(50003; "Open Credit Count"; Integer)
+        {
+            Caption = 'Open Credit Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Sales Header" where("Document Type" = const("Credit Memo"), "Campaign No." = field("No.")));
             Editable = false;
         }
 
@@ -23,6 +31,14 @@ tableextension 55071 TlyCampaign extends "Campaign"
             Caption = 'Posted Invoice Count';
             FieldClass = FlowField;
             CalcFormula = count("Sales Invoice Header" where("Campaign No." = field("No.")));
+            Editable = false;
+        }
+
+        field(50005; "Posted Credit Count"; Integer)
+        {
+            Caption = 'Posted Credit Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Sales Cr.Memo Header" where("Campaign No." = field("No.")));
             Editable = false;
         }
     }

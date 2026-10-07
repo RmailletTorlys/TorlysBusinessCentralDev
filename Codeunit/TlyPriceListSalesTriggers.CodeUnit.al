@@ -105,6 +105,9 @@ codeunit 57000 TlyPriceListSalesTriggers
         //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
         // SalesLine."Unit Price" := Item."Unit Price";
         SalesLine.Validate("Unit Price", Item."Unit Price");
+        //TLY-SD - 10/07/2026 - since item is not on customers price list and we are pulling list price, blank out the price lists        
+        SalesLine.Validate("Price List", '');
+        SalesLine.Validate("Default Price List", '');
         // Commit(); //TLY-SD - 06/17/2026 - removed
     end;
 }

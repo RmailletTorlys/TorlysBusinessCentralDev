@@ -914,7 +914,7 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
 
     var
         LookupUserId: Codeunit TlyLookupUserID;
-        UserModifiedUnitPrice: Boolean;
+        // UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
         UserSetup: Record "User Setup";
         UserEditQTS: Boolean;

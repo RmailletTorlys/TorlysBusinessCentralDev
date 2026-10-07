@@ -107,7 +107,7 @@ pageextension 50047 TlySalesInvoiceSubform extends "Sales Invoice Subform"
                 Caption = 'Price List';
                 ToolTip = 'Price List';
                 ApplicationArea = All;
-                Visible = false;
+                Visible = true;
             }
         }
 
@@ -244,12 +244,39 @@ pageextension 50047 TlySalesInvoiceSubform extends "Sales Invoice Subform"
         {
             Visible = false;
         }
+
+        modify("Unit Price")
+        {
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."Unit Price") <> (xRec."Unit Price") then begin
+                    Rec."Price List" := '';
+                    CurrPage.Update();
+                end;
+            end;
+        }
     }
 
     actions
     {
         addfirst("&Line")
         {
+            action(GetPrices1)
+            {
+                AccessByPermission = TableData "Sales Price Access" = R;
+                ApplicationArea = Basic, Suite;
+                Caption = 'Get Price';
+                Ellipsis = true;
+                Image = Price;
+                // Visible = ExtendedPriceEnabled;
+                ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
+                Promoted = true;
+
+                trigger OnAction()
+                begin
+                    ShowPrices();
+                end;
+            }
             group(CustomerItemHistory)
             {
                 Visible = true;

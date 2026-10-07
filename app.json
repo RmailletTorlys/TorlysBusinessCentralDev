@@ -3,7 +3,7 @@
     "name": "Torlys Extensions",
     "publisher": "TORLYS IT",
 
-    "version": "1.26.10.1",
+    "version": "1.26.10.4",
 
     "brief": "",
     "description": "",
@@ -60,6 +60,12 @@
             "name": "Nav-to-Net: B2B and B2C eCommerce for Business Central",
             "version": "10.13.20260812.1",
             "publisher": "Digital Vantage Point"
+        },
+        {
+            "id": "fc195c4f-19bf-4167-bfe8-6d1ff7d266bc",
+            "name": "Anvaigo EDI Connect",
+            "version": "5.4.25.270",
+            "publisher": "conion media GmbH"
         }
     ],
     "screenshots": [],

@@ -56,6 +56,14 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
                 Visible = true;
                 Editable = false;
             }
+            field("Return Must Return By Date"; Rec."Return Must Return By Date")
+            {
+                Caption = 'Return Must Return By Date';
+                ToolTip = 'Return Must Return By Date';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
             field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;

@@ -56,14 +56,6 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
                 Visible = true;
                 Editable = false;
             }
-            field("Return Must Return By Date"; Rec."Return Must Return By Date")
-            {
-                Caption = 'Return Must Return By Date';
-                ToolTip = 'Return Must Return By Date';
-                ApplicationArea = All;
-                Visible = true;
-                Editable = false;
-            }
             field(ShortcutDimCode3; ShortcutDimCode[3])
             {
                 ApplicationArea = Dimensions;
@@ -91,6 +83,39 @@ pageextension 59304 TlySalesReturnOrderList extends "Sales Return Order List"
                 Visible = true;
                 Editable = false;
             }
+            field("Original Invoice No."; Rec."Original Invoice No.")
+            {
+                Caption = 'Original Invoice No.';
+                ToolTip = 'Original Invoice No.';
+                ApplicationArea = All;
+                Editable = false;
+            }
+
+            field("Rebill Invoice No."; Rec."Rebill Invoice No.")
+            {
+                Caption = 'Rebill Invoice No.';
+                ToolTip = 'Rebill Invoice No.';
+                ApplicationArea = All;
+                Importance = Standard;
+            }
+
+            field("Return Must Return By Date"; Rec."Return Must Return By Date")
+            {
+                Caption = 'Return Must Return By Date';
+                ToolTip = 'Return Must Return By Date';
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
+
+            field("Return Claim No."; Rec."Return Claim No.")
+            {
+                Caption = 'Claim No.';
+                ToolTip = 'Claim No.';
+                ApplicationArea = All;
+                Importance = Additional;
+            }
+
             field("Order Type"; Rec."Order Type")
             {
                 Caption = 'Order Type';

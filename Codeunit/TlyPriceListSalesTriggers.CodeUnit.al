@@ -57,57 +57,50 @@ codeunit 57000 TlyPriceListSalesTriggers
         end;
     end;
 
-    //local
     procedure UpdateUnitPrice(var SalesLine: Record "Sales Line")
     var
-        // Customer: Record "Customer";
         Item: Record "Item";
         PriceListLine: Record "Price List Line";
     begin
         if SalesLine."Type" <> SalesLine.Type::Item then
             exit;
 
-        //TLY-SD - 06/17/2026 - got rid of some of the below as this is not needed here
-        // Customer.Reset();
-        // Customer.Get(SalesLine."Sell-to Customer No.");
         Item.Reset();
         Item.Get(SalesLine."No.");
-        // SalesLine."Sales Price Code" := Item."Sales Price Code";
-        // SalesLine."Default Price List" := Customer."Default Price List Code";
-        // SalesLine."Price List" := Customer."Default Price List Code";
-        // SalesLine."Unit Price" := 0;
-        // Commit();
+        // TLY-SD - 10/08/2026 - start
+        // added the below 1 line becasue of the repeats added below, need to add this here so can start calculating price from the highest
+        SalesLine.Validate("Unit Price", Item."Unit Price");
+        // TLY-SD - 10/08/2026 - end
 
+        // check for pricing for this item, if find then use, if dont find move on
         PriceListLine.Reset();
         PriceListLine.SetRange("Price List Code", SalesLine."Price List");
         PriceListLine.SetRange("Product No.", SalesLine."No.");
         PriceListLine.SetFilter("Starting Date", '<=%1', WorkDate()); //TLY-SD - 06/17/2026 - added
         PriceListLine.SetFilter("Ending Date", '%1|>=%2', 0D, WorkDate()); //TLY-SD - 06/17/2026 - added
-        // if (PriceListLine.FindFirst()) then begin
         if PriceListLine.Find('-') then begin
-            //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
-            // SalesLine."Unit Price" := PriceListLine."Unit Price";
-            SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
-            // Commit(); //TLY-SD - 06/17/2026 - removed
+            repeat // TLY-SD - 10/08/2026
+                if PriceListLine."Unit Price" < SalesLine."Unit Price" then begin // TLY-SD - 10/08/2026
+                    SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
+                end; // TLY-SD - 10/08/2026
+            until PriceListLine.Next() = 0; // TLY-SD - 10/08/2026
             exit;
         end;
 
+        // check for pricing for this sales price code, if find then use, if dont find move on
         PriceListLine.SetRange("Product No.", SalesLine."Sales Price Code");
-        // if (PriceListLine.FindFirst()) then begin
         if PriceListLine.Find('-') then begin
-            //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
-            // SalesLine."Unit Price" := PriceListLine."Unit Price";
-            SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
-            // Commit(); //TLY-SD - 06/17/2026 - removed
+            repeat // TLY-SD - 10/08/2026
+                if PriceListLine."Unit Price" < SalesLine."Unit Price" then begin // TLY-SD - 10/08/2026
+                    SalesLine.Validate("Unit Price", PriceListLine."Unit Price");
+                end; // TLY-SD - 10/08/2026
+            until PriceListLine.Next() = 0; // TLY-SD - 10/08/2026
             exit;
         end;
 
-        //TLY-SD - 06/05/2026 - changed top line to bottom line, without validate it wasnt updating the line amount
-        // SalesLine."Unit Price" := Item."Unit Price";
+        // use unit price from item card
         SalesLine.Validate("Unit Price", Item."Unit Price");
-        //TLY-SD - 10/07/2026 - since item is not on customers price list and we are pulling list price, blank out the price lists        
-        SalesLine.Validate("Price List", '');
-        SalesLine.Validate("Default Price List", '');
-        // Commit(); //TLY-SD - 06/17/2026 - removed
+        SalesLine.Validate("Price List", ''); //TLY-SD - 10/07/2026 - since item is not on customers price list and we are pulling list price, blank out the price lists        
+        SalesLine.Validate("Default Price List", ''); //TLY-SD - 10/07/2026 - since item is not on customers price list and we are pulling list price, blank out the price lists        
     end;
 }

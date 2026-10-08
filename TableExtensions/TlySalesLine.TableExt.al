@@ -571,8 +571,10 @@ tableextension 50037 TlySalesLine extends "Sales Line"
                         Rec.Quantity := ((QtyPerPallet * Rec."Quantity Pallet") + (QtyPerCase * Rec."Quantity Case")) / Rec."Qty. per Unit of Measure";
                     end;
                 end;
+                ApplyFullPalletPrice(); //TLY-SD - 10/08/2026 - this was missed when this went live
             end;
         }
+
         modify("Qty. to Ship")
         {
             trigger OnBeforeValidate()

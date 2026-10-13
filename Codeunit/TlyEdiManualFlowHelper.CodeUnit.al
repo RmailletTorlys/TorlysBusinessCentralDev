@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 codeunit 57008 "tlyEdiManualFlowHelper"
+=======
+codeunit 57008 TlyEdiManualFlowHelper
+>>>>>>> 774b0c9a26cf97e6e2d619ff84b5419c2364ddf5
 {
     // Make this procedure available as a public OData V4 Action
     [ServiceEnabled]

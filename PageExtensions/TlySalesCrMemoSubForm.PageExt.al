@@ -309,13 +309,13 @@ pageextension 50096 TlySalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         {
             trigger OnBeforeValidate()
             begin
-                if Rec.Type <> Rec.Type::Item then
-                    exit;
-                PrepareUserModifiedUnitPrice();
+                // if Rec.Type <> Rec.Type::Item then
+                // exit;
+                // PrepareUserModifiedUnitPrice();
 
-                if ((Rec."Unit Price") <> (xRec."Unit Price")) and (xRec."Unit Price" <> 0) and (UserModifiedUnitPrice) then begin
+                if ((Rec."Unit Price") <> (xRec."Unit Price")) then begin //and (xRec."Unit Price" <> 0)  //and (UserModifiedUnitPrice) then begin
                     Rec."Price List" := '';
-                    UserModifiedUnitPrice := false;
+                    // UserModifiedUnitPrice := false;
                     CurrPage.Update();
                 end;
             end;
@@ -398,7 +398,7 @@ pageextension 50096 TlySalesCrMemoSubForm extends "Sales Cr. Memo Subform"
 
     var
         LookupUser: Codeunit TlyLookupUserID;
-        UserModifiedUnitPrice: Boolean;
+        // UserModifiedUnitPrice: Boolean;
         EditCasePallet: Boolean;
 
     trigger OnAfterGetRecord()
@@ -407,14 +407,13 @@ pageextension 50096 TlySalesCrMemoSubForm extends "Sales Cr. Memo Subform"
         EditCasePallet := CheckEditCasePallet(Rec);
     end;
 
-    procedure PrepareUserModifiedUnitPrice()
-    begin
-        if Rec.Type <> Rec.Type::Item then
-            exit;
+    // procedure PrepareUserModifiedUnitPrice()
+    // begin
+    //     if Rec.Type <> Rec.Type::Item then
+    //         exit;
 
-        UserModifiedUnitPrice := true;
-
-    end;
+    //     UserModifiedUnitPrice := true;
+    // end;
 
     procedure CheckEditCasePallet(var Rec: Record "Sales Line"): Boolean
     var

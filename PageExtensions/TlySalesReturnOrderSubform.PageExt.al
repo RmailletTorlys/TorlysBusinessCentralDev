@@ -247,12 +247,39 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
                 InsertDamageLine;
             end;
         }
+
+        modify("Unit Price")
+        {
+            trigger OnBeforeValidate()
+            begin
+                if (Rec."Unit Price") <> (xRec."Unit Price") then begin
+                    Rec."Price List" := '';
+                    CurrPage.Update();
+                end;
+            end;
+        }
     }
 
     actions
     {
         addfirst("&Line")
         {
+            action(GetPrices1)
+            {
+                AccessByPermission = TableData "Sales Price Access" = R;
+                ApplicationArea = Basic, Suite;
+                Caption = 'Get Price';
+                Ellipsis = true;
+                Image = Price;
+                // Visible = ExtendedPriceEnabled;
+                ToolTip = 'Insert the lowest possible price in the Unit Price field according to any special price that you have set up.';
+                Promoted = true;
+
+                trigger OnAction()
+                begin
+                    ShowPrices();
+                end;
+            }
             group(CustomerItemHistory)
             {
                 Visible = true;
@@ -351,6 +378,12 @@ pageextension 56631 TlySalesReturnOrderSubform extends "Sales Return Order Subfo
         Item.Get(Rec."No.");
         if Item."Compare Unit of Measure" = '' then exit(false);
         exit(true);
+    end;
+
+    procedure ShowPrices()
+    begin
+        Rec.PickPrice();
+        UpdateForm(true);
     end;
 
     procedure InsertDamageLine()

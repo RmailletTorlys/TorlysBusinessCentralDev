@@ -566,17 +566,17 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         modify("NTN Catalog Group Code")
         {
-            Editable = (UserDept = UserDept::"IT");
+            Editable = (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("NTN Head Office")
         {
-            Editable = (UserDept = UserDept::"IT");
+            Editable = (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("NTN Head Office Cust. No.")
         {
-            Editable = (UserDept = UserDept::"IT");
+            Editable = (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("Address")

@@ -58,6 +58,22 @@ tableextension 51641 TlyNTNRelatedItem extends "NTN Related Item"
             CalcFormula = lookup(Item."In Catalogue" where("No." = field("No.")));
         }
 
+        field(50014; "Item - Description"; Text[100])
+        {
+            Caption = 'Item - Description';
+            ToolTip = 'Item - Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Description" where("No." = field("No.")));
+        }
+
+        field(50015; "Item - Description 2"; Text[100])
+        {
+            Caption = 'Item - Description';
+            ToolTip = 'Item - Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Description 2" where("No." = field("No.")));
+        }
+
         field(50020; "Related - Web Enabled"; Boolean)
         {
             Caption = 'Related - Web Enabled';
@@ -88,6 +104,22 @@ tableextension 51641 TlyNTNRelatedItem extends "NTN Related Item"
             ToolTip = 'Related - Item Category Code';
             FieldClass = FlowField;
             CalcFormula = lookup(Item."Item Category Code" where("No." = field("Related Item No.")));
+        }
+
+        field(50024; "Related - Description"; Text[100])
+        {
+            Caption = 'Item - Description';
+            ToolTip = 'Item - Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Description" where("No." = field("Related Item No.")));
+        }
+
+        field(50025; "Related - Description 2"; Text[100])
+        {
+            Caption = 'Item - Description';
+            ToolTip = 'Item - Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Description 2" where("No." = field("Related Item No.")));
         }
     }
 }

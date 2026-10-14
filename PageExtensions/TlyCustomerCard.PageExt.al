@@ -80,7 +80,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                                                   Blocked = const(false));
                 Visible = true;
                 Importance = Additional;
-                Editable = (UserDept = UserDept::"Accounts Receivable");
+                Editable = (UserDept = UserDept::"Customer Serivce");
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(3);
@@ -405,6 +405,14 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     Caption = 'Power Up Level';
                     ToolTip = 'Specifies the level of the power up.';
                     Editable = (UserDept = UserDept::Marketing);
+                }
+
+                field("SampleSmart Program"; Rec."SampleSmart Program")
+                {
+                    ApplicationArea = All;
+                    Caption = 'SampleSmart Program';
+                    ToolTip = 'SampleSmart Program';
+                    Visible = true;
                 }
 
                 field("Program Fees Amount (LCY)"; Rec."Program Fees Amount (LCY)")

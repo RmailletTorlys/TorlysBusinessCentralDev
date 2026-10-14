@@ -241,6 +241,14 @@ pageextension 50022 TlyCustomerList extends "Customer List"
                 Visible = true;
             }
 
+            field("SampleSmart Program"; Rec."SampleSmart Program")
+            {
+                ApplicationArea = All;
+                Caption = 'SampleSmart Program';
+                ToolTip = 'SampleSmart Program';
+                Visible = true;
+            }
+
             field("Program Fees Amount (LCY)"; Rec."Program Fees Amount (LCY)")
             {
                 ApplicationArea = All;

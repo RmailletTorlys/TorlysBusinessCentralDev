@@ -263,7 +263,8 @@ tableextension 50018 TlyCustomer extends Customer
         {
             Caption = 'Add to Dealer Locator';
             DataClassification = CustomerContent;
-            // Enabled = false;
+            ObsoleteState = Removed;
+            ObsoleteReason = 'TLY-SD - 10/14/2026 - use the one on the ship-to card';
         }
 
         field(50039; "Shipping Comment"; Text[100])
@@ -374,6 +375,12 @@ tableextension 50018 TlyCustomer extends Customer
             Editable = false;
             FieldClass = FlowField;
             ToolTip = 'Specifies the total amount that''s due from the customer as of today. Consider using reminders to minimize late payments and optimize cashflow.';
+        }
+
+        field(50051; "SampleSmart Program"; Boolean)
+        {
+            Caption = 'SampleSmart Program';
+            DataClassification = CustomerContent;
         }
 
         modify("Credit Limit (LCY)")

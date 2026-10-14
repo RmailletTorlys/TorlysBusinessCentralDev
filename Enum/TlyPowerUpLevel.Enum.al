@@ -23,4 +23,9 @@ Enum 50008 TlyPowerUpLevel
     {
         Caption = 'Designer';
     }
+
+    value(4; "Vista")
+    {
+        Caption = 'Vista';
+    }
 }

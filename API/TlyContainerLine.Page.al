@@ -4,7 +4,7 @@ page 50742 "tlyContainerLine"
     Caption = 'Container Head';
     APIPublisher = 'torlys';
     APIGroup = 'integrations';
-    APIVersion = 'v1.0';
+    APIVersion = 'v2.0', 'v1.0';
     EntityName = 'containerLine';
     EntitySetName = 'containerLines';
     SourceTable = "TPS CMG Container Line";

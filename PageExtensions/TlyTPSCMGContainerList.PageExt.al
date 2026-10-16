@@ -6,6 +6,13 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
 
         addafter(Description)
         {
+            field("Urgent"; Rec."Urgent")
+            {
+                Caption = 'Urgent';
+                ToolTip = 'Urgent';
+                ApplicationArea = All;
+            }
+
             field("Vendor No."; Rec."Vendor No.")
             {
                 Caption = 'Vendor No.';

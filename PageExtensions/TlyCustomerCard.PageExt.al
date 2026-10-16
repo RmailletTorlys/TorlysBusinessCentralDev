@@ -80,7 +80,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                                                   Blocked = const(false));
                 Visible = true;
                 Importance = Additional;
-                Editable = (UserDept = UserDept::"Accounts Receivable");
+                Editable = (UserDept = UserDept::"Customer Serivce");
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(3);
@@ -407,6 +407,14 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     Editable = (UserDept = UserDept::Marketing);
                 }
 
+                field("SampleSmart Program"; Rec."SampleSmart Program")
+                {
+                    ApplicationArea = All;
+                    Caption = 'SampleSmart Program';
+                    ToolTip = 'SampleSmart Program';
+                    Visible = true;
+                }
+
                 field("Program Fees Amount (LCY)"; Rec."Program Fees Amount (LCY)")
                 {
                     ApplicationArea = All;
@@ -566,17 +574,17 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         modify("NTN Catalog Group Code")
         {
-            Editable = (UserDept = UserDept::"IT");
+            Editable = (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("NTN Head Office")
         {
-            Editable = (UserDept = UserDept::"IT");
+            Editable = (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("NTN Head Office Cust. No.")
         {
-            Editable = (UserDept = UserDept::"IT");
+            Editable = (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("Address")

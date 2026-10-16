@@ -123,14 +123,14 @@ page 51025 TlyCustomerDisplays
                 {
                     Caption = 'Club';
                     ApplicationArea = All;
-                    Visible = false;
+                    // Visible = false;
                     Editable = false;
                 }
                 field("Power Up Level"; Rec."Power Up Level")
                 {
                     Caption = 'Power Up Level';
                     ApplicationArea = All;
-                    Visible = false;
+                    // Visible = false;
                     Editable = false;
                 }
 

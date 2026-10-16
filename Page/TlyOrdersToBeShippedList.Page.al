@@ -798,6 +798,7 @@ page 52001 TlyOrdersToBeShippedList
                         UserSetup: Record "User Setup";
                         LocationCode: Code[25];
                         ShipmentDate: Date;
+                        HolidayCalendar: Record TlyHolidays;
                     begin
                         UserSetup.Get(UserId);
                         if UserSetup."Default Location Code" = 'TOR' then
@@ -806,10 +807,15 @@ page 52001 TlyOrdersToBeShippedList
                             if UserSetup."Default Location Code" = 'CAL' then
                                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
 
-                        if Date2DWY(WorkDate(), 1) = 5 then
-                            ShipmentDate := WorkDate() + 3
-                        else
+                        HolidayCalendar.Reset();
+                        HolidayCalendar.SetRange("Last Work Day", WorkDate());
+                        if HolidayCalendar.Find('-') then begin
+                            ShipmentDate := WorkDate() + HolidayCalendar."Days until next working day"
+                        end else if Date2DWY(WorkDate(), 1) = 5 then begin
+                            ShipmentDate := WorkDate() + 3;
+                        end else begin
                             ShipmentDate := WorkDate() + 1;
+                        end;
 
                         Rec.Reset();
                         // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
@@ -834,6 +840,7 @@ page 52001 TlyOrdersToBeShippedList
                         UserSetup: Record "User Setup";
                         LocationCode: Code[25];
                         ShipmentDate: Date;
+                        HolidayCalendar: Record TlyHolidays;
                     begin
                         UserSetup.Get(UserId);
                         if UserSetup."Default Location Code" = 'TOR' then
@@ -842,10 +849,15 @@ page 52001 TlyOrdersToBeShippedList
                             if UserSetup."Default Location Code" = 'CAL' then
                                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
 
-                        if Date2DWY(WorkDate(), 1) = 5 then
-                            ShipmentDate := WorkDate() + 3
-                        else
+                        HolidayCalendar.Reset();
+                        HolidayCalendar.SetRange("Last Work Day", WorkDate());
+                        if HolidayCalendar.Find('-') then begin
+                            ShipmentDate := WorkDate() + HolidayCalendar."Days until next working day"
+                        end else if Date2DWY(WorkDate(), 1) = 5 then begin
+                            ShipmentDate := WorkDate() + 3;
+                        end else begin
                             ShipmentDate := WorkDate() + 1;
+                        end;
 
                         Rec.Reset();
                         // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
@@ -871,6 +883,7 @@ page 52001 TlyOrdersToBeShippedList
                         UserSetup: Record "User Setup";
                         LocationCode: Code[25];
                         ShipmentDate: Date;
+                        HolidayCalendar: Record TlyHolidays;
                     begin
                         UserSetup.Get(UserId);
                         if UserSetup."Default Location Code" = 'TOR' then
@@ -879,10 +892,15 @@ page 52001 TlyOrdersToBeShippedList
                             if UserSetup."Default Location Code" = 'CAL' then
                                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
 
-                        if Date2DWY(WorkDate(), 1) = 5 then
-                            ShipmentDate := WorkDate() + 3
-                        else
+                        HolidayCalendar.Reset();
+                        HolidayCalendar.SetRange("Last Work Day", WorkDate());
+                        if HolidayCalendar.Find('-') then begin
+                            ShipmentDate := WorkDate() + HolidayCalendar."Days until next working day"
+                        end else if Date2DWY(WorkDate(), 1) = 5 then begin
+                            ShipmentDate := WorkDate() + 3;
+                        end else begin
                             ShipmentDate := WorkDate() + 1;
+                        end;
 
                         Rec.Reset();
                         // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");
@@ -908,6 +926,7 @@ page 52001 TlyOrdersToBeShippedList
                         UserSetup: Record "User Setup";
                         LocationCode: Code[25];
                         ShipmentDate: Date;
+                        HolidayCalendar: Record TlyHolidays;
                     begin
                         UserSetup.Get(UserId);
                         if UserSetup."Default Location Code" = 'TOR' then
@@ -916,10 +935,15 @@ page 52001 TlyOrdersToBeShippedList
                             if UserSetup."Default Location Code" = 'CAL' then
                                 LocationCode := 'CAL|QUACAL|CLAIMS CAL';
 
-                        if Date2DWY(WorkDate(), 1) = 5 then
-                            ShipmentDate := WorkDate() + 3
-                        else
+                        HolidayCalendar.Reset();
+                        HolidayCalendar.SetRange("Last Work Day", WorkDate());
+                        if HolidayCalendar.Find('-') then begin
+                            ShipmentDate := WorkDate() + HolidayCalendar."Days until next working day"
+                        end else if Date2DWY(WorkDate(), 1) = 5 then begin
+                            ShipmentDate := WorkDate() + 3;
+                        end else begin
                             ShipmentDate := WorkDate() + 1;
+                        end;
 
                         Rec.Reset();
                         // Rec.SetCurrentKey("Shipping Agent Code", "Ship-to Code", "No. Pick Slips Printed", "Pick Slip Printed Date", "Pick Slip Printed Time", "No.");

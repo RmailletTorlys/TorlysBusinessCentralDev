@@ -22,6 +22,7 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Rank';
                 Editable = true;
             }
+
             field("Sell Order Rank"; Rec."Sell Order Rank")
             {
                 ApplicationArea = All;
@@ -31,8 +32,24 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
             }
         }
 
-        addafter("Related Item Description")
+        addafter("Related Item No.")
         {
+            field("Related - Description"; Rec."Related - Description")
+            {
+                ApplicationArea = All;
+                Caption = 'Related - Description';
+                ToolTip = 'Related - Description';
+                Editable = false;
+            }
+
+            field("Related - Description 2"; Rec."Related - Description 2")
+            {
+                ApplicationArea = All;
+                Caption = 'Related - Description 2';
+                ToolTip = 'Related - Description 2';
+                Editable = false;
+            }
+
             field("Inventory - TOR"; Rec."Inventory - TOR")
             {
                 ApplicationArea = All;
@@ -40,6 +57,7 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Inventory - TOR';
                 Editable = false;
             }
+
             field("Inventory - CAL"; Rec."Inventory - CAL")
             {
                 ApplicationArea = All;
@@ -47,6 +65,7 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Inventory - CAL';
                 Editable = false;
             }
+
             field("Item - In Catalogue"; Rec."Item - In Catalogue")
             {
                 ApplicationArea = All;
@@ -54,6 +73,7 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Item - In Catalogue';
                 Editable = false;
             }
+
             field("Item - Web Enabled"; Rec."Item - Web Enabled")
             {
                 ApplicationArea = All;
@@ -61,6 +81,7 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Item - Web Enabled';
                 Editable = false;
             }
+
             field("Related - In Catalogue"; Rec."Related - In Catalogue")
             {
                 ApplicationArea = All;
@@ -68,6 +89,7 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
                 ToolTip = 'Related - In Catalogue';
                 Editable = false;
             }
+
             field("Related - Web Enabled"; Rec."Related - Web Enabled")
             {
                 ApplicationArea = All;
@@ -83,6 +105,11 @@ pageextension 51643 TlyNTNWebRelatedItems extends "NTN Web Related Items"
         }
 
         modify("Prediction Exclusion")
+        {
+            Visible = false;
+        }
+
+        modify("Related Item Description")
         {
             Visible = false;
         }

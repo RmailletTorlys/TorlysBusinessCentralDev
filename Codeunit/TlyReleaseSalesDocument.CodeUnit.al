@@ -201,6 +201,6 @@ codeunit 57006 TlyReleaseSalesDocument
     local procedure OnBeforeManualReOpenSalesDoc(var SalesHeader: Record "Sales Header"; PreviewMode: Boolean)
     begin
         if SalesHeader."No. Pick Slips Printed" > 0 then
-            Message('This pick slip has been printed, please contact warehouse with order changes.');
+            Message('This order has already been printed for shipping. Are you sure you want to reopen it? Ensure the warehouse is notified if required.');
     end;
 }

@@ -24,6 +24,7 @@ page 50561 TlyItemAvailabilitySubform
                     ToolTip = 'Code';
                     Editable = false;
                 }
+
                 field("Qty. on Hand"; Item."Inventory")
                 {
                     ApplicationArea = All;
@@ -41,6 +42,7 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, ItemLedgerEntry);
                     end;
                 }
+
                 field("Qty. on Sales Order"; Item."Qty. on Sales Order")
                 {
                     ApplicationArea = All;
@@ -60,6 +62,7 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, SalesLine);
                     end;
                 }
+
                 field("Qty. to Ship"; Item."Qty. to Ship")
                 {
                     ApplicationArea = All;
@@ -79,6 +82,7 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, SalesLine);
                     end;
                 }
+
                 field("Qty. to Ship (Transfer)"; Item."Qty. to Ship (Transfer)")
                 {
                     ApplicationArea = All;
@@ -96,6 +100,7 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, TransferLine);
                     end;
                 }
+
                 field("Qty. in Transit"; Item."Qty. in Transit")
                 {
                     ApplicationArea = All;
@@ -113,6 +118,16 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, TransferLine);
                     end;
                 }
+
+                // field("Quantity Remaining"; Item."Qty. in Transit" - CalcQuantityLinkedTO - CalcQuantityLinkedPO)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Quantity Remaining';
+                //     ToolTip = 'Quantity Remaining';
+                //     Editable = false;
+                //     DecimalPlaces = 0 : 5;
+                // }
+
                 field("Qty. on Purch. Order"; Item."Qty. on Purch. Order")
                 {
                     ApplicationArea = All;
@@ -132,6 +147,7 @@ page 50561 TlyItemAvailabilitySubform
                         Page.Run(0, PurchaseLine);
                     end;
                 }
+
                 field("Net Available"; Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)")
                 {
                     ApplicationArea = All;
@@ -140,6 +156,7 @@ page 50561 TlyItemAvailabilitySubform
                     ToolTip = 'Net Available';
                     Editable = false;
                 }
+
                 // field("Sales (Qty.) - 90D"; Item."Sales (Qty.) - 90D")
                 // {
                 //     ApplicationArea = All;
@@ -192,5 +209,29 @@ page 50561 TlyItemAvailabilitySubform
             SetItemFilter;
             Item.CalcFields(Inventory, "Qty. on Sales Order", "Qty. to Ship", "Qty. to Ship (Transfer)", "Qty. in Transit", "Qty. on Purch. Order", Item."Sales (Qty.) - 90D");
         end;
+    end;
+
+    procedure CalcQuantityLinkedTO(): Decimal
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.Reset();
+        SalesLine.SetRange("No.", Item."No.");
+        SalesLine.SetRange("Location Code", Rec.Code);
+        SalesLine.SetFilter("Linked Transfer Order No.", '<>%1', ' ');
+        SalesLine.CalcSums(Quantity);
+        exit(SalesLine."Quantity");
+    end;
+
+    procedure CalcQuantityLinkedPO(): Decimal
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.Reset();
+        SalesLine.SetRange("No.", Item."No.");
+        SalesLine.SetRange("Location Code", Rec.Code);
+        SalesLine.SetFilter("Linked Purchase Order No.", '<>%1', ' ');
+        SalesLine.CalcSums(Quantity);
+        exit(SalesLine."Quantity");
     end;
 }

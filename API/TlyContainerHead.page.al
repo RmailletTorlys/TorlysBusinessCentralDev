@@ -73,6 +73,7 @@ page 50743 "tlyContainerHead"
                 field(ReceivedBy; Rec."Received By") { }
                 field(ReceivedAt; Rec."Received At") { }
                 field(TransportMethod; Rec."Transport Method") { }
+                field(OceanContainerNo; Rec."Ocean Container No.") { }
 
                 part(containerLines; "tlyContainerLine")
                 {

@@ -44,4 +44,11 @@ tableextension 57000 TlyPriceListHeader extends "Price List Header"
             DataClassification = CustomerContent;
         }
     }
+
+    fieldgroups
+    {
+        addlast(DropDown; "Assign-to No.", "Shared Commission", "National Property Management", "Project Builder/Brand")
+        {
+        }
+    }
 }

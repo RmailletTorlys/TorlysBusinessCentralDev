@@ -17,12 +17,14 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             DataClassification = CustomerContent;
             TableRelation = "Shipment Method";
         }
+
         field(50003; "Stocking Pallet Price"; Decimal)
         {
             Caption = 'Full Pallet Price';
             ToolTip = 'Full Pallet Price';
             DataClassification = CustomerContent;
         }
+
         field(50004; "Unit Price Tier"; Code[20])
         {
             Caption = 'Unit Price Tier';
@@ -33,6 +35,7 @@ tableextension 57001 TlyPriceListLine extends "Price List Line"
             ObsoleteState = Removed;
             ObsoleteReason = 'TLY-SD - 07/15/2026 - did not really work, just do a procedure on the page';
         }
+
         field(50005; "Full Pallet Price Tier"; Code[20])
         {
             Caption = 'Full Pallet Price Tier';

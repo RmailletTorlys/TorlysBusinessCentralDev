@@ -4,7 +4,7 @@
 
 // //this is just our file for writing the code and making sure there are no errors,
 // //have to send to DVP for them to load with their extensions
-// //TORLYS = CU 502231
+// //TORLYS = CU 52231
 // //DVP = CU 50231
 
 // codeunit 52231 TlyNTNInventorySynch

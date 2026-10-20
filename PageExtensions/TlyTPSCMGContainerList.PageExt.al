@@ -300,6 +300,18 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
 
     actions
     {
+
+        addlast(Category_Process)
+        {
+            actionref(Comments_Promoted; Comments)
+            { }
+            actionref(Attachments_Promoted; Attachments)
+            { }
+
+            actionref(ChangeLog_Promoted; "Change Log")
+            { }
+        }
+
         addafter(Category_New)
         {
             group("Warehouse")
@@ -315,6 +327,53 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
                 { }
             }
         }
+
+        addlast(Purchase)
+        {
+            action(Comments)
+            {
+                Caption = 'Comments';
+                ToolTip = 'Comments';
+                ApplicationArea = All;
+                Image = Comment;
+                RunObject = Page "TPS CMG Comments";
+                RunPageLink = "Container No." = field("No.");
+            }
+
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+                trigger OnAction()
+                var
+                    DocumentAttachmentRecord: Record "Document Attachment";
+                    DocumentAttachmentPage: Page "Document Attachment Details";
+                    RecRef: RecordRef; //need this to establish record when attaching
+                begin
+                    RecRef.GetTable(Rec); //need this to establish record when attaching
+                    DocumentAttachmentPage.OpenForRecRef(RecRef); //need this to establish record when attaching
+                    DocumentAttachmentRecord.Reset;
+                    DocumentAttachmentRecord.SetFilter("Table ID", '70909743');
+                    DocumentAttachmentRecord.SetFilter("No.", Rec."No.");
+                    DocumentAttachmentRecord.SetFilter("Document Type", 'TPS Container');
+                    DocumentAttachmentPage.SetTableView(DocumentAttachmentRecord);
+                    DocumentAttachmentPage.RunModal();
+                end;
+            }
+
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 1 Value" = field("No.");
+            }
+        }
+
         addlast(Purchase)
         {
             action("Book Appointment")

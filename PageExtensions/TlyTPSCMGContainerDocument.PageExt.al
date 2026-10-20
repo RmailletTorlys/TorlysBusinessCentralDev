@@ -372,6 +372,9 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         {
             actionref(Attachments_Promoted; Attachments)
             { }
+
+            actionref(ChangeLog_Promoted; "Change Log")
+            { }
         }
 
         addafter(Category_New)
@@ -414,6 +417,17 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                     DocumentAttachmentPage.RunModal();
                 end;
             }
+
+            action("Change Log")
+            {
+                Caption = 'Change Log';
+                ToolTip = 'Change Log';
+                ApplicationArea = All;
+                Image = ChangeLog;
+                RunObject = Page "Change Log Entries";
+                RunPageLink = "Primary Key Field 1 Value" = field("No.");
+            }
+
             action("Force Close")
             {
                 ApplicationArea = All;
@@ -543,6 +557,16 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
         modify(UndoShipContainer)
         {
             Visible = Rec."Location Code" <> 'DIRECT';
+        }
+
+        modify(TrackingInfo)
+        {
+            Visible = false;
+        }
+
+        modify(SealInfo)
+        {
+            Visible = false;
         }
     }
 

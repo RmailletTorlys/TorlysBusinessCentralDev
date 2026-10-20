@@ -170,6 +170,12 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             TableRelation = TlyTransportMethod;
         }
 
+        field(50024; "Ocean Container No."; Text[20])
+        {
+            Caption = 'Ocean Container No.';
+            DataClassification = CustomerContent;
+        }
+
         modify("Actual Shipment Date")
         {
 

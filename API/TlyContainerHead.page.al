@@ -73,6 +73,7 @@ page 50743 "tlyContainerHead"
                 field(ReceivedBy; Rec."Received By") { }
                 field(ReceivedAt; Rec."Received At") { }
                 field(TransportMethod; Rec."Transport Method") { }
+                field(OceanContainerNo; Rec."Ocean Container No.") { }
 
                 part(containerLines; "tlyContainerLine")
                 {
@@ -86,6 +87,19 @@ page 50743 "tlyContainerHead"
         }
     }
 
+    [ServiceEnabled]
+    procedure updateBoL(var ActionContext: WebServiceActionContext; mBolNo: Text)
+    var
+        ContainerHeader: Record "TPS CMG Container Header";
+    begin
+        ContainerHeader.GetBySystemId(Rec.SystemId);
+        ContainerHeader."BoL No." := CopyStr(mBolNo, 1, MaxStrLen(ContainerHeader."BoL No."));
+        ContainerHeader.Modify(false);
 
+        ActionContext.SetObjectType(ObjectType::Page);
+        ActionContext.SetObjectId(Page::"tlyContainerHead");
+        ActionContext.AddEntityKey(Rec.FieldNo(SystemId), ContainerHeader.SystemId);
+        ActionContext.SetResultCode(WebServiceActionResultCode::Updated);
+    end;
 
 }

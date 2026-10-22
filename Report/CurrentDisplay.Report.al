@@ -34,6 +34,10 @@ report 50041 "Display Report"
             { }
             column(Comments; Comments)
             { }
+            column(Club; Club)
+            { }
+            column(Power_Up_Level; "Power Up Level")
+            { }
 
             trigger OnAfterGetRecord()
             var

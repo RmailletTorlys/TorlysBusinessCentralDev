@@ -949,7 +949,18 @@ pageextension 50030 TlyItemCard extends "Item Card"
         {
             Visible = false;
         }
+
         modify("&Create Stockkeeping Unit_Promoted")
+        {
+            Visible = false;
+        }
+
+        modify(SalesPriceListsDiscounts_Promoted)
+        {
+            Visible = false;
+        }
+
+        modify(PurchPriceListsDiscounts_Promoted)
         {
             Visible = false;
         }

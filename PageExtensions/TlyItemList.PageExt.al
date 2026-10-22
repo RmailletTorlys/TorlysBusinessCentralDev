@@ -542,6 +542,19 @@ pageextension 50031 TlyItemList extends "Item List"
         }
     }
 
+    actions
+    {
+        modify(SalesPriceListsDiscounts)
+        {
+            Visible = false;
+        }
+
+        modify(PurchPriceListsDiscounts)
+        {
+            Visible = false;
+        }
+    }
+
     views
     {
         addlast

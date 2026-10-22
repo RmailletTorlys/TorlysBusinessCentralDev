@@ -308,6 +308,13 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 }
             }
         }
+
+        addafter("Credit Hold")
+        {
+            actionref(FullyAllocated_Promoted; FullyAllocated)
+            { }
+        }
+
         addfirst("F&unctions")
         {
             action("Remove Credit Hold")
@@ -346,6 +353,23 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                         repeat
                             TorlysCreditHold.PlaceOnCreditHold(SelectedOrders, SelectedOrders)
                         until SelectedOrders.Next() = 0;
+                end;
+            }
+
+            action(FullyAllocated)
+            {
+                ToolTip = 'Show Fully Allocated Orders Only';
+                Caption = 'Fully Allocated';
+                Image = UntrackedQuantity;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    if Rec.FindFirst() then
+                        repeat
+                            if Rec."Outstanding Quantity" = Rec."Qty. to Ship" then
+                                Rec.Mark(true);
+                        until Rec.Next() = 0;
+                    Rec.MarkedOnly(true);
                 end;
             }
         }

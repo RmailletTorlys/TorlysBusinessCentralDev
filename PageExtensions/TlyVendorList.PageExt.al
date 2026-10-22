@@ -164,6 +164,33 @@ pageextension 50027 TlyVendorList extends "Vendor List"
         }
     }
 
+    actions
+    {
+        addafter("Item Refe&rences_Promoted")
+        {
+            actionref(FreightForwarderCosts_Promoted; "Freight Forwarder Costs")
+            { }
+        }
+
+        addfirst(Functions)
+        {
+            action("Freight Forwarder Costs")
+            {
+                Caption = 'Freight Forwarder Costs';
+                ToolTip = 'Freight Forwarder Costs';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page TlyFreightForwarderCosts;
+                RunPageLink = "Vendor No." = field("No.");
+            }
+        }
+
+        modify(DiscountLines_Promoted)
+        {
+            Visible = false;
+        }
+    }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 }

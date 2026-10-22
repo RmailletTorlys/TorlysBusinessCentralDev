@@ -243,6 +243,12 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
 
     actions
     {
+        addafter("Item References_Promoted")
+        {
+            actionref(FreightForwarderCosts_Promoted; "Freight Forwarder Costs")
+            { }
+        }
+
         addfirst("F&unctions")
         {
             action("Freight Forwarder Costs")
@@ -254,6 +260,11 @@ pageextension 50026 TlyVendorCard extends "Vendor Card"
                 RunObject = Page TlyFreightForwarderCosts;
                 RunPageLink = "Vendor No." = field("No.");
             }
+        }
+
+        modify(DiscountLines_Promoted)
+        {
+            Visible = false;
         }
     }
 

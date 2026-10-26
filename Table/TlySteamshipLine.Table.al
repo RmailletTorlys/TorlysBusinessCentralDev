@@ -12,9 +12,16 @@ table 55100 TlySteamshipLine
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
+
         field(2; "Description"; Text[50])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
+        }
+
+        field(3; "SCAC Code"; Code[4])
+        {
+            Caption = 'SCAC Code';
             DataClassification = CustomerContent;
         }
     }

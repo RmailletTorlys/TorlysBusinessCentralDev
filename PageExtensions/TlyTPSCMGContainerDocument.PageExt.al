@@ -50,7 +50,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             }
         }
 
-        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Port of loading", "Port of discharge")
+        moveafter("Steamship Line"; "SCAC Code", "Vessel No.", "Voyage No.", "Port of loading", "Port of discharge")
 
         addafter("Port of discharge")
         {
@@ -267,10 +267,6 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
             Caption = 'Vessel Name';
         }
 
-        modify("SCAC Code")
-        {
-            Visible = false;
-        }
         modify("Shipping Agent To Port")
         {
             Visible = false;

@@ -7,7 +7,7 @@ table 55079 TlySCACCode
 
     fields
     {
-        field(1; "Code"; Text[4])
+        field(1; "Code"; Code[500])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
@@ -25,6 +25,5 @@ table 55079 TlySCACCode
         {
             Clustered = true;
         }
-
     }
 }

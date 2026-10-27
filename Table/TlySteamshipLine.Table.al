@@ -19,10 +19,12 @@ table 55100 TlySteamshipLine
             DataClassification = CustomerContent;
         }
 
-        field(3; "SCAC Code"; Code[4])
+        field(3; "SCAC Code"; Code[500])
         {
             Caption = 'SCAC Code';
             DataClassification = CustomerContent;
+            TableRelation = TlySCACCode;
+            Description = 'TLY-SD - 10/26/2026 - added';
         }
     }
 
@@ -33,5 +35,11 @@ table 55100 TlySteamshipLine
             Clustered = true;
         }
 
+    }
+
+    fieldgroups
+    {
+        fieldgroup(DropDown; Code, Description, "SCAC Code")
+        { }
     }
 }

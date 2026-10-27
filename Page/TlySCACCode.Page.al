@@ -7,7 +7,6 @@ page 55079 TlySCACCode
     Editable = true;
     SourceTable = TlySCACCode;
 
-
     layout
     {
         area(content)

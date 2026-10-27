@@ -2,12 +2,13 @@ table 55079 TlySCACCode
 {
     DataClassification = CustomerContent;
     Caption = 'SCAC Code';
-    LookupPageId = TlySCACCode;
-    DrillDownPageId = TlySCACCode;
+    // LookupPageId = TlySCACCode;
+    // DrillDownPageId = TlySCACCode;
+    ObsoleteState = Removed;
 
     fields
     {
-        field(1; "Code"; Code[500])
+        field(1; "Code"; Text[4])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;

@@ -23,7 +23,7 @@ table 55100 TlySteamshipLine
         {
             Caption = 'SCAC Code';
             DataClassification = CustomerContent;
-            TableRelation = TlySCACCode;
+            TableRelation = TlySCACCodes;
             Description = 'TLY-SD - 10/26/2026 - added';
         }
     }

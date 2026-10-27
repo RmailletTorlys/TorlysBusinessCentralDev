@@ -224,7 +224,7 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
 
         modify("SCAC Code")
         {
-            TableRelation = TlySCACCode; //TLY-SD - 10/26/2026 - added
+            TableRelation = TlySCACCodes; //TLY-SD - 10/26/2026 - added
         }
     }
 

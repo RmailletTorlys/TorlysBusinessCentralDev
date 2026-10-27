@@ -1,11 +1,11 @@
-page 55079 TlySCACCode
+page 55080 TlySCACCodes
 {
     Caption = 'SCAC Code';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = true;
-    SourceTable = TlySCACCode;
+    SourceTable = TlySCACCodes;
 
     layout
     {

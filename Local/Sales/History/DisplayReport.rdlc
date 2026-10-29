@@ -94,6 +94,12 @@ End Function
         <Field Name="Comments">
           <DataField>Comments</DataField>
         </Field>
+        <Field Name="Club">
+          <DataField>Club</DataField>
+        </Field>
+        <Field Name="Power_Up_Level">
+          <DataField>Power_Up_Level</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

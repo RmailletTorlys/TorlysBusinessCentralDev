@@ -11,6 +11,7 @@ codeunit 50035 TlyBOLandShipmentBatchSend
         SalesShipmentHeader: Record "Sales Shipment Header"; // Used to filter shipments for Report 50018
         EmailMessage: Codeunit "Email Message";
         Email: Codeunit Email;
+        EmailScenario: Enum "Email Scenario";
         TempBlob: Codeunit "Temp Blob";
         TempBlobReport50018: Codeunit "Temp Blob";
         OutStr: OutStream;
@@ -24,6 +25,7 @@ codeunit 50035 TlyBOLandShipmentBatchSend
         TableRowsText: Text;
         PickupDateText: Text;
     begin
+        EmailScenario := Enum::"Email Scenario"::BOLandShipmentSend;
         // Scans Document Layout table
         DocumentLayout.Reset();
         DocumentLayout.SetRange("Report ID", 50009);
@@ -159,7 +161,8 @@ codeunit 50035 TlyBOLandShipmentBatchSend
                                 InStr50018);
                         end;
 
-                        Email.Send(EmailMessage);
+                        // Email.Send(EmailMessage);
+                        Email.Send(EmailMessage, EmailScenario);
                     until ProcessedBOL.Next() = 0;
             until DocumentLayout.Next() = 0;
     end;

@@ -57,7 +57,7 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             }
         }
 
-        moveafter("Steamship Line"; "Vessel No.", "Voyage No.", "Port of loading")
+        moveafter("Steamship Line"; "SCAC Code", "Vessel No.", "Voyage No.", "Port of loading")
 
         addafter("Port of loading")
         {
@@ -222,10 +222,6 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             Caption = 'Vessel Name';
         }
 
-        modify("SCAC Code")
-        {
-            Visible = false;
-        }
         modify("Shipping Agent To Port")
         {
             Visible = false;

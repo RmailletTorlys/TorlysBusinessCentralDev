@@ -79,6 +79,9 @@ End Function
         <Field Name="CurrencyCode">
           <DataField>CurrencyCode</DataField>
         </Field>
+        <Field Name="CurrencySym">
+          <DataField>CurrencySym</DataField>
+        </Field>
         <Field Name="ExchangeRate">
           <DataField>ExchangeRate</DataField>
         </Field>

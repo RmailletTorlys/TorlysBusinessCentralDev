@@ -10,7 +10,6 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
         {
             Caption = 'Port of Loading Date';
             DataClassification = CustomerContent;
-
             trigger OnValidate() //TLY-SD - 08/19/2026 - per KM
             var
                 PurchaseLines: Record "Purchase Line";
@@ -63,6 +62,15 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             Caption = 'Steamship Line';
             DataClassification = CustomerContent;
             TableRelation = TlySteamshipLine;
+            trigger OnValidate()
+            var
+                SteamshipLine: Record TlySteamshipLine;
+            begin
+                SteamShipLine.Reset();
+                SteamshipLine.SetRange(Code, Rec."Steamship Line");
+                if SteamshipLine.Find('-') then
+                    Rec."SCAC Code" := SteamshipLine."SCAC Code";
+            end;
         }
         field(50007; "Insurance Certificate No."; Text[30])
         {
@@ -212,6 +220,11 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             begin
                 Rec."Previous ETA" := xRec."Expected Receipt Date";
             end;
+        }
+
+        modify("SCAC Code")
+        {
+            TableRelation = TlySCACCodes; //TLY-SD - 10/26/2026 - added
         }
     }
 

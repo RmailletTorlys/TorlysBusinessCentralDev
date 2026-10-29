@@ -27,6 +27,13 @@ page 55100 TlySteamshipLine
                     Caption = 'Description';
                     ToolTip = 'Description';
                 }
+
+                field("SCAC Code"; Rec."SCAC Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'SCAC Code';
+                    ToolTip = 'SCAC Code';
+                }
             }
         }
     }

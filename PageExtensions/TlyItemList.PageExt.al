@@ -361,6 +361,21 @@ pageextension 50031 TlyItemList extends "Item List"
                 Visible = true;
             }
 
+            field("Replacement Cost"; Rec."Replacement Cost")
+            {
+                Caption = 'Replacement Cost (CAD)';
+                ToolTip = 'The cost of replacement of the current item.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+            field("Replacement Cost Date"; Rec."Replacement Cost (Date)")
+            {
+                Caption = 'Replacement Cost Date';
+                ToolTip = 'The date that the replacement cost is valid as of.';
+                ApplicationArea = All;
+                Visible = true;
+            }
+
             field("Sales Price Code"; Rec."Sales Price Code")
             {
                 ApplicationArea = Dimensions;

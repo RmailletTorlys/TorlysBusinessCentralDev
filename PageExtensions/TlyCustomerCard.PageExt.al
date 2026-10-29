@@ -80,7 +80,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                                                   Blocked = const(false));
                 Visible = true;
                 Importance = Additional;
-                Editable = (UserDept = UserDept::"Customer Serivce");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(3);
@@ -330,7 +330,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Default Price List Code';
                 Visible = true;
                 ToolTip = 'This field is the default price list assigned to the customer account.';
-                Editable = (UserDept = UserDept::IT);
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::IT);
             }
             field("Remove Regular Price On PL"; Rec."Remove Regular Price On PL")
             {
@@ -358,7 +358,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Restocking Fee %';
                 DecimalPlaces = 2 : 1;
                 ToolTip = 'Specifies the percentage of the item that is restocked when the item is restocked.';
-                Editable = (UserDept = UserDept::"Customer Serivce");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
             }
 
             field("Restocking Fee Minimum"; Rec."Restocking Fee Minimum")
@@ -367,7 +367,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Restocking Fee Minimum';
                 DecimalPlaces = 2;
                 ToolTip = 'Specifies the minimum amount of the item that is restocked when the item is restocked.';
-                Editable = (UserDept = UserDept::"Customer Serivce");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
             }
 
             group(Marketing)
@@ -413,6 +413,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     Caption = 'SampleSmart Program';
                     ToolTip = 'SampleSmart Program';
                     Visible = true;
+                    Editable = (UserDept = UserDept::Marketing);
                 }
 
                 field("Program Fees Amount (LCY)"; Rec."Program Fees Amount (LCY)")
@@ -574,17 +575,17 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         modify("NTN Catalog Group Code")
         {
-            Editable = (UserDept = UserDept::"Customer Serivce");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("NTN Head Office")
         {
-            Editable = (UserDept = UserDept::"Customer Serivce");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("NTN Head Office Cust. No.")
         {
-            Editable = (UserDept = UserDept::"Customer Serivce");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
         }
 
         modify("Address")

@@ -9,7 +9,6 @@ pageextension 55733 TlyItemCategoryCard extends "Item Category Card"
                 ApplicationArea = All;
                 Caption = 'Description 2';
                 ToolTip = 'Description 2';
-
             }
 
             field("Description (FR)"; Rec."Description (FR)")

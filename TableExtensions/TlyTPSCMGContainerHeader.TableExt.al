@@ -184,6 +184,12 @@ tableextension 59743 TlyTPSCMGContainerHeader extends "TPS CMG Container Header"
             DataClassification = CustomerContent;
         }
 
+        field(50025; "T49 Expected Receipt Date"; Date)
+        {
+            Caption = 'T49 Expected Receipt Date';
+            DataClassification = CustomerContent;
+        }
+
         modify("Actual Shipment Date")
         {
 

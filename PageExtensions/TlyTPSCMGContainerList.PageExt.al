@@ -33,7 +33,21 @@ pageextension 59744 TlyTPSCMGContainerList extends "TPS CMG Container List"
             }
         }
 
-        moveafter("Previous ETA"; "Actual Shipment Date", "Expected Receipt Date", "BOL No.", "Shipment Method Code")
+        moveafter("Previous ETA"; "Actual Shipment Date", "Expected Receipt Date")
+
+        addafter("Expected Receipt Date")
+        {
+            field("T49 Expected Receipt Date"; Rec."T49 Expected Receipt Date")
+            {
+                Caption = 'T49 Expected Receipt Date';
+                ToolTip = 'T49 Expected Receipt Date';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+        }
+
+        moveafter("T49 Expected Receipt Date"; "BOL No.", "Shipment Method Code")
 
         addafter("Shipment Method Code")
         {

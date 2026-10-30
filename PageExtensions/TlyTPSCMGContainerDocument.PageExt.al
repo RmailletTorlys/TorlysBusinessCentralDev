@@ -96,6 +96,16 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
 
         addafter("Expected Receipt Date")
         {
+            field("T49 Expected Receipt Date"; Rec."T49 Expected Receipt Date")
+            {
+                Caption = 'T49 Expected Receipt Date';
+                ToolTip = 'T49 Expected Receipt Date';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+                Importance = Additional;
+            }
+
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';

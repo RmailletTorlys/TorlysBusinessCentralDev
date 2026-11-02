@@ -1232,6 +1232,11 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             Visible = false;
         }
+
+        modify(DiscountLines_Promoted)
+        {
+            Visible = false;
+        }
     }
 
     var

@@ -11,7 +11,7 @@ codeunit 57007 TlyBOLPrintPostCheck
         if BOLHeader."Shipping Agent Code" = '' then Error('Shipping Agent Code cannot be blank!');
         if BOLHeader."Loaded By" = '' then Error('Loaded By cannot be blank!');
         if BOLHeader."Shipping Agent Code" = 'MIDLAND IN' then Message('Did you place both stickers on the BOL?');
-        if BOLHeader."Shipping Agent Code" = 'GATEWAY' then Message('Have you applied stickers to required boxes?');
+        // if BOLHeader."Shipping Agent Code" = 'GATEWAY' then Message('Have you applied stickers to required boxes?'); //TLY-SD - 11/02/2026 - removed per JK
 
         // check for mismatches between lines and header
         BOLLine.Reset();

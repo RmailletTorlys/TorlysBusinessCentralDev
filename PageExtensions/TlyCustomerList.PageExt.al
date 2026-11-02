@@ -528,6 +528,14 @@ pageextension 50022 TlyCustomerList extends "Customer List"
         }
     }
 
+    actions
+    {
+        modify(DiscountLines_Promoted)
+        {
+            Visible = false;
+        }
+    }
+
     views
     {
         addlast
@@ -549,7 +557,6 @@ pageextension 50022 TlyCustomerList extends "Customer List"
             }
         }
     }
-
     trigger OnOpenPage()
     begin
         Rec.SetRange(Rec."Bucket 1 Filter", WorkDate() - 30, WorkDate() - 1);

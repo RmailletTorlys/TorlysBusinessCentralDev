@@ -27,7 +27,7 @@ report 50082 "Customer Top Selling Item"
                 column(Item_Description; TopItemDesc) { }
                 column(Top_Sales_Quantity; TopItemQty) { }
                 column(Top_Sales_Amount; TopItemAmount) { }
-                column(Gen_Prod_Posting_Group; TopGenProdPostingGroup) { }
+                column(Collection_Name; TopGenProdPostingGroup) { }
                 column(Item_Category_Name; TopItemCategoryName) { }
 
                 trigger OnAfterGetRecord()

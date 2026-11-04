@@ -585,7 +585,7 @@ tableextension 50027 TlyItem extends Item
                                                                         "Drop Shipment" = field("Drop Shipment Filter"),
                                                                         "Variant Code" = field("Variant Filter"),
                                                                         "Posting Date" = field("90D Filter")));
-            Caption = 'Sales (Qty.) - 90D';
+            Caption = 'Sales (Qty.) - 13W';
             DecimalPlaces = 0 : 5;
             Editable = false;
             FieldClass = FlowField;
@@ -605,7 +605,7 @@ tableextension 50027 TlyItem extends Item
                                                                              "Lot No." = field("Lot No. Filter"),
                                                                              "Serial No." = field("Serial No. Filter"),
                                                                              "Package No." = field("Package No. Filter")));
-            Caption = 'Purchases (Qty.) - 90D';
+            Caption = 'Purchases (Qty.) - 13W';
             DecimalPlaces = 0 : 5;
             Editable = false;
             FieldClass = FlowField;
@@ -614,7 +614,7 @@ tableextension 50027 TlyItem extends Item
 
         field(50066; "90D Filter"; Date)
         {
-            Caption = '90D Filter';
+            Caption = '13W Filter';
             FieldClass = FlowFilter;
         }
 

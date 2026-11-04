@@ -191,6 +191,24 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
                 Editable = false;
                 Visible = true;
             }
+            field("MK Required"; Rec."MK Required")
+            {
+                Caption = 'MK Required';
+                ToolTip = 'MK Required';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
+            field("MK Staged"; Rec."MK Staged")
+            {
+                Caption = 'MK Staged';
+                ToolTip = 'MK Staged';
+                ApplicationArea = All;
+                Editable = false;
+                Visible = true;
+            }
+
             field("Created By"; LookupUserId.UserId(Rec."SystemCreatedBy"))
             {
                 Caption = 'Created By';

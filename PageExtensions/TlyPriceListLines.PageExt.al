@@ -118,7 +118,8 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
                 trigger OnAction()
                 begin
                     // Rec.Reset();
-                    Rec.SetCurrentKey("Product No.");
+                    // Rec.SetCurrentKey("Product No.");
+                    Rec.SetCurrentKey("Price List Code", "Asset Type", "Asset No.", "Starting Date", "Ending Date"); //should be same at all spots
                     Rec.SetFilter("Ending Date", '%1|>%2', 0D, WorkDate());
                 end;
             }
@@ -129,6 +130,12 @@ pageextension 57001 TlyPriceListLines extends "Price List Lines"
         LookupUserId: Codeunit TlyLookupUserID;
         UnitPriceTier: Code[20];
         FullPalletPriceTier: Code[20];
+
+    trigger OnOpenPage()
+    begin
+        // key(PK; "Price List Code", "Line No.") this is primary key of table for reference
+        Rec.SetCurrentKey("Price List Code", "Asset Type", "Asset No.", "Starting Date", "Ending Date"); //should be same at all spots
+    end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     var

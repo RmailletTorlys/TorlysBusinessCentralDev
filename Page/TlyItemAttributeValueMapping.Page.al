@@ -29,6 +29,14 @@ page 57505 TlyItemAttributeValueMapping
                     Editable = false;
                 }
 
+                field("Item Category Code"; Rec."Item Category Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Category Code';
+                    ToolTip = 'Item Category Code';
+                    Editable = false;
+                }
+
                 field("Item Attribute ID"; Rec."Item Attribute ID")
                 {
                     ApplicationArea = All;

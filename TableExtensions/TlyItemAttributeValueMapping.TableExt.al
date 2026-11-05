@@ -17,5 +17,13 @@ tableextension 57505 TlyItemAttributeValueMapping extends "Item Attribute Value 
             FieldClass = FlowField;
             CalcFormula = lookup("Item Attribute Value".Value where(ID = field("Item Attribute Value ID")));
         }
+
+        field(50003; "Item Category Code"; Code[20])
+        {
+            Caption = 'Item Category Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup(item."Item Category Code" where("No." = field("No.")));
+        }
     }
 }

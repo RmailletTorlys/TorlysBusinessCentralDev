@@ -266,10 +266,10 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Importance = Additional;
             }
 
-            field("Sales (Qty.) - 90D"; Rec."Sales (Qty.) - 90D")
+            field("Sales (Qty.) - 13W"; Rec."Sales (Qty.) - 90D")
             {
-                Caption = 'Sales (Qty.) - 90D';
-                ToolTip = 'Sales (Qty.) - 90D';
+                Caption = 'Sales (Qty.) - 13W';
+                ToolTip = 'Sales (Qty.) - 13W';
                 ApplicationArea = All;
                 Visible = true;
                 Importance = Additional;
@@ -310,10 +310,10 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 Visible = true;
                 Importance = Additional;
             }
-            field("Purchases (Qty.) - 90D"; Rec."Purchases (Qty.) - 90D")
+            field("Purchases (Qty.) - 13W"; Rec."Purchases (Qty.) - 90D")
             {
-                Caption = 'Purchases (Qty.) - 90D';
-                ToolTip = 'Purchases (Qty.) - 90D';
+                Caption = 'Purchases (Qty.) - 13W';
+                ToolTip = 'Purchases (Qty.) - 13W';
                 ApplicationArea = All;
                 Visible = true;
                 Importance = Additional;
@@ -945,6 +945,18 @@ pageextension 50030 TlyItemCard extends "Item Card"
             }
         }
 
+        addafter(Attributes)
+        {
+            action(BCItemAttributeMapping)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'BC Item Attribute Mapping';
+                Image = ItemGroup;
+                RunObject = Page TlyItemAttributeValueMapping;
+                RunPageLink = "No." = field("No.");
+            }
+        }
+
         modify(ApplyTemplate_Promoted)
         {
             Visible = false;
@@ -983,7 +995,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 CurrPage.Editable := true;
         end;
 
-        Rec.SetRange(Rec."90D Filter", WorkDate() - 90, WorkDate());
+        Rec.SetRange(Rec."90D Filter", WorkDate() - 91, WorkDate());
     end;
 
     trigger OnAfterGetRecord()

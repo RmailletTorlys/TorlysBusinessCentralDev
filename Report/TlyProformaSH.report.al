@@ -104,7 +104,7 @@ report 50085 TlyProformaShipment
                 end;
             }
 
-            // 3) One page block per shipment (the old copy loop is gone, it only ever ran once)
+            // 3) One page block per shipment 
             dataitem(PageLoop; Integer)
             {
                 DataItemTableView = sorting(Number) where(Number = const(1));
@@ -117,7 +117,7 @@ report 50085 TlyProformaShipment
                 column(CALaddress4; CALaddress4) { }
                 column(CALaddress5; CALaddress5) { }
                 column(ORNo; "Sales Shipment Header"."No.") { }  // shipment number
-                column(OrderNo; "Sales Shipment Header"."Order No.") { }  // optional for the layout
+                column(OrderNo; "Sales Shipment Header"."Order No.") { }
                 column(ORDate; "Sales Shipment Header"."Order Date") { }
                 column(PageNo; CurrReport.PageNo) { }
                 column(ShipToAddress1; ShipToAddress[1]) { }
@@ -137,7 +137,6 @@ report 50085 TlyProformaShipment
                 column(Shipdate; "Sales Shipment Header"."Shipment Date") { }
                 column(Payterms; PaymentTerms.Description) { }
                 column(TaxNo; Customer."VAT Registration No.") { }
-                // Custom fields: must also exist on Sales Shipment Header and be copied when the shipment is posted
                 column(Shippingcomment; "Sales Shipment Header"."Shipping Comment") { }
                 column(tagname; "Sales Shipment Header"."Tag Name") { }
                 column(customerID; "Sales Shipment Header"."Bill-to Customer No.") { }
@@ -185,12 +184,10 @@ report 50085 TlyProformaShipment
                     column(GrandTotalLabel; GrandTotalLabel) { }
                     trigger OnPreDataItem()
                     begin
-                        // FIXED: TotalPieces removed from CreateTotals entirely to stop background calculation conflicts
                         CurrReport.CreateTotals(TaxLiable, TaxAmount, AmountExclInvDisc, TempSalesLine."Line Amount", TempSalesLine."Inv. Discount Amount");
                         NumberOfLines := TempSalesLine.Count();
                         SetRange(Number, 1, NumberOfLines);
                         OnLineNumber := 0;
-                        // Shipments have no backorder: single "Total:" row
                         QtyOrderedLabel := 'Quantity';
                         TotalLabel := 'Total:';
                         GrandTotalLabel := '';
@@ -270,7 +267,7 @@ report 50085 TlyProformaShipment
                                         TariffNo := Item."Tariff No. (Sales)";
                                 end;
                             LinePieces := CalcTotalPieces();
-                            // FIXED: Re-added the manual accumulation here to safely handle the running total for RDLC dataset mapping
+                            // Re-added the manual accumulation here to safely handle the running total for RDLC dataset mapping
                             TotalPieces += LinePieces;
                         end;
                     end;

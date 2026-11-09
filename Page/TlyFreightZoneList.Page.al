@@ -50,8 +50,8 @@ page 51015 TlyFreightZoneList
                 field(MinimumCharge; Rec."Minimum Charge")
                 {
                     ApplicationArea = All;
-                    Caption = 'Minimum Charge';
-                    ToolTip = 'Minimum Charge.';
+                    Caption = 'Minimum Charge per Shipment';
+                    ToolTip = 'Minimum Charge per Shipment.';
                 }
                 field(RatePerRollUnderlay; Rec."Rate per Roll (underlay)")
                 {
@@ -68,14 +68,14 @@ page 51015 TlyFreightZoneList
                 field(MinimumChargeMoulding; Rec."Minimum Charge (moulding)")
                 {
                     ApplicationArea = All;
-                    Caption = 'Minimum Charge (moulding)';
-                    ToolTip = 'Minimum Charge (moulding).';
+                    Caption = 'Minimum Moulding Charge';
+                    ToolTip = 'Minimum Moulding Charge.';
                 }
                 field(TailgateCharge; Rec."Tailgate Charge")
                 {
                     ApplicationArea = All;
-                    Caption = 'Tailgate Charge';
-                    ToolTip = 'Tailgate Charge.';
+                    Caption = 'Tailgate Charge (If Applicable)';
+                    ToolTip = 'Tailgate Charge (If Applicable).';
                 }
                 field(ShipsOnMonday; Rec."Ships on - Monday")
                 {

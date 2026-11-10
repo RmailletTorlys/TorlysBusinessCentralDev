@@ -440,7 +440,7 @@ pageextension 59740 TlyTPSCMGContainerDocument extends "TPS CMG Container Docume
                 Caption = 'Force Close';
                 Image = Close;
                 ToolTip = 'Force Close';
-                Visible = (UserDepartment = UserDepartment::IT);
+                // Visible = (UserDepartment = UserDepartment::IT); //TLY-SD - 11/10/2026 - removed so all users can click
                 trigger OnAction()
                 begin
                     Rec.Status := Rec.Status::"Completely Received";

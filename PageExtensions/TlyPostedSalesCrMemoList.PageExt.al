@@ -21,7 +21,6 @@ pageextension 50144 TlyPostedSalesCrMemoList extends "Posted Sales Credit Memos"
                 Visible = true;
                 Editable = false;
             }
-
         }
 
         moveafter("Pre-Assigned No."; "Posting Date", "Sell-to Customer No.", "Ship-to Code", "Sell-to Customer Name")

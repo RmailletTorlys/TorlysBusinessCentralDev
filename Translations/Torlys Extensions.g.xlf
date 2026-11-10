@@ -6344,22 +6344,22 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control EndDate - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2532417810 - Control 2320761248 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Minimum Charge.</source>
+          <source>Minimum Charge per Shipment.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control MinimumCharge - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2532417810 - Control 2320761248 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Minimum Charge</source>
+          <source>Minimum Charge per Shipment</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control MinimumCharge - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2532417810 - Control 1005765877 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Minimum Charge (moulding).</source>
+          <source>Minimum Moulding Charge.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control MinimumChargeMoulding - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2532417810 - Control 1005765877 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Minimum Charge (moulding)</source>
+          <source>Minimum Moulding Charge</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control MinimumChargeMoulding - Property Caption</note>
         </trans-unit>
@@ -6454,12 +6454,12 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control StartDate - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2532417810 - Control 985263543 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Tailgate Charge.</source>
+          <source>Tailgate Charge (If Applicable).</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control TailgateCharge - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2532417810 - Control 985263543 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Tailgate Charge</source>
+          <source>Tailgate Charge (If Applicable)</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyFreightZoneList - Control TailgateCharge - Property Caption</note>
         </trans-unit>

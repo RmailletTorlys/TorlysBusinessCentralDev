@@ -198,12 +198,28 @@ codeunit 50299 TlyDocumentPrint
         Report.RunModal(50023, true, false, SalesLine)
     end;
 
+    procedure PrintB13SalesFromSH(SalesShipmentHeader: Record "Sales Shipment Header"): Boolean
+    var
+        SalesShipmentLine: Record "Sales Shipment Line";
+    begin
+        SalesShipmentLine.SetRange("Document No.", SalesShipmentHeader."No.");
+        Report.RunModal(50083, true, false, SalesShipmentLine)
+    end;
+
     procedure PrintB13PurchaseFromSO(SalesHeader: Record "Sales Header"): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
         SalesLine.SetRange("Document No.", SalesHeader."No.");
         Report.RunModal(50020, true, false, SalesLine)
+    end;
+
+    procedure PrintB13PurchaseFromSH(SalesShipmentHeader: Record "Sales Shipment Header"): Boolean
+    var
+        SalesShipmentLine: Record "Sales Shipment Line";
+    begin
+        SalesShipmentLine.SetRange("Document No.", SalesShipmentHeader."No.");
+        Report.RunModal(50084, true, false, SalesShipmentLine)
     end;
 
     procedure PrintB13SalesFromInvoice(SalesInvHeader: Record "Sales Invoice Header"): Boolean
@@ -226,6 +242,12 @@ codeunit 50299 TlyDocumentPrint
     begin
         SalesInvHeader.SetRange("No.", SalesInvHeader."No.");
         Report.RunModal(50031, true, false, SalesInvHeader)
+    end;
+
+    procedure PrintProformaFromSH(SalesShipmentHeader: Record "Sales Shipment Header"): Boolean
+    begin
+        SalesShipmentHeader.SetRange("No.", SalesShipmentHeader."No.");
+        Report.RunModal(50085, true, false, SalesShipmentHeader)
     end;
 
     procedure PrintB13SalesFromRO(SalesHeader: Record "Sales Header"): Boolean

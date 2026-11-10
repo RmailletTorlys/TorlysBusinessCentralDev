@@ -894,22 +894,7 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 RunObject = Page TlyItemAdditionalCosts;
                 RunPageLink = "Item Category Code" = field("Item Category Code");
             }
-            action(ItemAvailability)
-            {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Item Availability';
-                Ellipsis = true;
-                Image = ItemAvailability;
-                ToolTip = 'Item Availability';
-                trigger OnAction()
-                var
-                    Item: Record "Item";
-                begin
-                    Item.Reset();
-                    Item.SetRange("No.", Rec."No.");
-                    Page.Run(Page::TlyItemAvailability, Item);
-                end;
-            }
+
             action(ItemAccessories)
             {
                 Caption = 'Item Accessories';
@@ -929,6 +914,23 @@ pageextension 50030 TlyItemCard extends "Item Card"
                 RunObject = Page "NTN Web Related Items";
                 RunPageLink = "Related Item No." = field("No.");
                 RunPageMode = View;
+            }
+
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."No.");
+                    Page.Run(Page::TlyItemAvailability, Item);
+                end;
             }
         }
 

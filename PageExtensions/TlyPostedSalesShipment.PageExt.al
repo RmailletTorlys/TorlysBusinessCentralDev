@@ -442,6 +442,27 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
 
     actions
     {
+        addlast(Category_Category6)
+        {
+            actionref(PrintProforma_Promoted; PrintProforma)
+            { }
+
+            actionref(PrintB13Sales_Promoted; PrintB13Sales)
+            { }
+
+            actionref(PrintB13Purchases_Promoted; PrintB13Purchases)
+            { }
+
+            actionref(PrintLaceyAct_Promoted; PrintLaceyAct)
+            { }
+
+            actionref(PrintTCSA_Promoted; PrintTCSA)
+            { }
+
+            actionref(PrintSteelAluminium_Promoted; PrintSteelAluminum)
+            { }
+        }
+
         addlast(Category_Category5)
         {
             actionref(ChangeLog; "Change Log")
@@ -472,6 +493,92 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 RunObject = Page "Change Log Entries";
                 RunPageLink = "Primary Key Field 2 Value" = field("Order No.");
             }
+        }
+
+        addafter(AttachAsPDF)
+        {
+            action(PrintProforma)
+            {
+                ApplicationArea = All;
+                Caption = 'Print Proforma';
+                Image = PrintVAT;
+                ToolTip = 'Print Proforma';
+                trigger OnAction()
+                begin
+
+                    Message('proforma');
+                end;
+            }
+
+            action(PrintB13Sales)
+            {
+                ApplicationArea = All;
+                Caption = 'Print B13 Sales';
+                Image = PrintVAT;
+                ToolTip = 'Print B13 Sales';
+                trigger OnAction()
+                begin
+                    Message('B13 sales');
+                end;
+            }
+
+            action(PrintB13Purchases)
+            {
+                ApplicationArea = All;
+                Caption = 'Print B13 Purchases';
+                Image = PrintVAT;
+                ToolTip = 'Print B13 Purchases';
+                trigger OnAction()
+                begin
+                    Message('B13 purchases');
+                end;
+            }
+
+            action(PrintLaceyAct)
+            {
+                ApplicationArea = All;
+                Caption = 'Print Lacey Act';
+                Image = PrintVAT;
+                ToolTip = 'Print Lacey Act';
+                trigger OnAction()
+                begin
+                    Message('lacey');
+                end;
+            }
+
+            action(PrintTCSA)
+            {
+                ApplicationArea = All;
+                Caption = 'Print TCSA';
+                Image = PrintVAT;
+                ToolTip = 'Print TCSA';
+                trigger OnAction()
+                begin
+                    Message('tcsa');
+                end;
+            }
+
+            action(PrintSteelAluminum)
+            {
+                ApplicationArea = All;
+                Caption = 'Print Steel Aluminum Derivative';
+                Image = PrintVAT;
+                ToolTip = 'Print Steel Aluminum Derivative';
+                trigger OnAction()
+                begin
+                    Message('Aluminum');
+                end;
+            }
+        }
+
+        modify(AttachAsPDF_Promoted)
+        {
+            Visible = false;
+        }
+
+        modify(SendCustom_Promoted)
+        {
+            Visible = false;
         }
     }
 

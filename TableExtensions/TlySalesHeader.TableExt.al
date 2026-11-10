@@ -128,7 +128,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                         SalesHeader.Reset;
                         SalesHeader.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
                         SalesHeader.SetRange("Original Invoice No.", Rec."Original Invoice No.");
-                        SalesHeader.SetFilter("Document Type", '%1', Rec."Document Type"::"Credit Memo");
+                        // SalesHeader.SetFilter("Document Type", '%1', Rec."Document Type"::"Credit Memo"); //TLY-SD - 11/06/2026 - check all types, not just CM
                         if (SalesHeader.Find('-') and (SalesHeader."No." <> Rec."No.")) then
                             Message('Invoice number %1 exists on open credit memo %3. Please investigate!', Rec."Original Invoice No.", SalesHeader."Document Type", SalesHeader."No.");
                         // Check posted CR

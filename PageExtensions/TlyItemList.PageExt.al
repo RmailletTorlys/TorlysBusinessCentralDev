@@ -559,6 +559,28 @@ pageextension 50031 TlyItemList extends "Item List"
 
     actions
     {
+        addlast(Category_Process)
+        {
+            actionref(UOM_Promoted; "&Units of Measure")
+            { }
+            actionref(StockkeepingUnits_Promoted; "Stockkeepin&g Units")
+            { }
+            actionref("Item Additional Costs"; ItemAdditionalCosts)
+            { }
+            actionref(ItemAttributes_Promoted; Attributes)
+            { }
+            actionref(ItemAccessories_Promoted; ItemAccessories)
+            { }
+            actionref(ItemAccessoriesReversal_Promoted; ItemAccessoriesReversal)
+            { }
+            actionref(ItemAvailability_Promoted; ItemAvailability)
+            { }
+            actionref(BinContent_Promoted; "&Bin Contents")
+            { }
+            actionref(Turnover_Promoted; "T&urnover")
+            { }
+        }
+
         addafter(Attributes_Promoted)
         {
             actionref(BCItemAttributeMapping_Promoted; BCItemAttributeMapping)
@@ -585,6 +607,57 @@ pageextension 50031 TlyItemList extends "Item List"
                 Image = ItemSubstitution;
                 RunObject = Page "NTN Item Attribute List";
                 RunPageLink = "Item No." = field("No.");
+            }
+        }
+
+        addafter(ApplyTemplate)
+        {
+            action(ItemAdditionalCosts)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Additional Costs';
+                Image = ItemCosts;
+                RunObject = Page TlyItemAdditionalCosts;
+                RunPageLink = "Item Category Code" = field("Item Category Code");
+            }
+
+            action(ItemAccessories)
+            {
+                Caption = 'Item Accessories';
+                ToolTip = 'Item Accessories';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "No." = field("No.");
+                RunPageMode = View;
+            }
+
+            action(ItemAccessoriesReversal)
+            {
+                Caption = 'Item Accessories Reversal';
+                ToolTip = 'Item Accessories Reversal';
+                ApplicationArea = All;
+                Image = Order;
+                RunObject = Page "NTN Web Related Items";
+                RunPageLink = "Related Item No." = field("No.");
+                RunPageMode = View;
+            }
+
+            action(ItemAvailability)
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Item Availability';
+                Ellipsis = true;
+                Image = ItemAvailability;
+                ToolTip = 'Item Availability';
+                trigger OnAction()
+                var
+                    Item: Record "Item";
+                begin
+                    Item.Reset();
+                    Item.SetRange("No.", Rec."No.");
+                    Page.Run(Page::TlyItemAvailability, Item);
+                end;
             }
         }
 

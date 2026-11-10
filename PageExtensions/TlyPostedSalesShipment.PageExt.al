@@ -504,9 +504,11 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Image = PrintVAT;
                 ToolTip = 'Print Proforma';
                 trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-
-                    Message('proforma');
+                    TorlysDocPrint.PrintProformaFromSH(Rec);
+                    // Message('proforma');
                 end;
             }
 
@@ -517,8 +519,11 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Image = PrintVAT;
                 ToolTip = 'Print B13 Sales';
                 trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    Message('B13 sales');
+                    TorlysDocPrint.PrintB13SalesFromSH(Rec);
+                    // Message('B13 sales');
                 end;
             }
 
@@ -529,8 +534,11 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Image = PrintVAT;
                 ToolTip = 'Print B13 Purchases';
                 trigger OnAction()
+                var
+                    TorlysDocPrint: Codeunit TlyDocumentPrint;
                 begin
-                    Message('B13 purchases');
+                    TorlysDocPrint.PrintB13PurchaseFromSH(Rec);
+                    // Message('B13 purchases');
                 end;
             }
 

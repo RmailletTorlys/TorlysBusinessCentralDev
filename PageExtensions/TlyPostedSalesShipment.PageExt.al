@@ -105,32 +105,9 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Importance = Standard;
             }
         }
-        moveafter("Order Comment"; "Order No.")
+        moveafter("Order Comment"; "No. Printed", "Order No.")
 
         addafter("Order No.")
-        {
-            field("Picked By"; Rec."Picked By")
-            {
-                Caption = 'Picked By';
-                ToolTip = 'Picked By';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
-
-            field("Audited By"; Rec."Audited By")
-            {
-                Caption = 'Audited By';
-                ToolTip = 'Audited By';
-                ApplicationArea = All;
-                Editable = false;
-                Importance = Additional;
-            }
-        }
-
-        moveafter("Audited By"; "No. Printed")
-
-        addafter("No. Printed")
         {
             field("Entered By"; Rec."Entered By")
             {
@@ -148,6 +125,51 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
                 Importance = Additional;
                 Editable = false;
             }
+
+            field("Picked By"; Rec."Picked By")
+            {
+                Caption = 'Picked By';
+                ToolTip = 'Picked By';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+
+            field("Audited By"; Rec."Audited By")
+            {
+                Caption = 'Audited By';
+                ToolTip = 'Audited By';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+
+            field("Invoice No."; InvoiceNo)
+            {
+                Caption = 'Invoice No.';
+                ToolTip = 'Invoice No.';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+                trigger OnDrillDown()
+                var
+                    SalesInvoiceHeader: Record "Sales Invoice Header";
+                begin
+                    SalesInvoiceHeader.Reset;
+                    SalesInvoiceHeader.SetRange("No.", InvoiceNo);
+                    Page.Run(132, SalesInvoiceHeader);
+                end;
+            }
+
+            field("Invoiced At"; InvoicedAt)
+            {
+                Caption = 'Invoiced At';
+                ToolTip = 'Invoiced At';
+                ApplicationArea = All;
+                Editable = false;
+                Importance = Additional;
+            }
+
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -593,10 +615,22 @@ pageextension 50130 TlyPostedSalesShipment extends "Posted Sales Shipment"
     var
         LookupUserId: Codeunit TlyLookupUserID;
         ShortcutDimCode: array[8] of Code[20];
+        InvoiceNo: Code[20];
+        InvoicedAt: DateTime;
 
     trigger OnAfterGetRecord()
+    var
+        SalesInvoiceHeader: Record "Sales Invoice Header";
     begin
         Rec.ShowShortcutDimCode(ShortcutDimCode);
-    end;
 
+        //pull Invoice #
+        SalesInvoiceHeader.Reset();
+        SalesInvoiceHeader.SetRange("Order No.", Rec."Order No.");
+        SalesInvoiceHeader.SetRange("Shipment Date", Rec."Shipment Date");
+        if SalesInvoiceHeader.Find('+') then begin
+            InvoiceNo := SalesInvoiceHeader."No.";
+            InvoicedAt := SalesInvoiceHeader.SystemCreatedAt;
+        end;
+    end;
 }

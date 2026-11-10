@@ -20853,16 +20853,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Audited By - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1737338844 - Control 2630704957 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
-          <source>Picked By</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Picked By - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 1737338844 - Control 2630704957 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
-          <source>Picked By</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Picked By - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 1737338844 - Control 562549928 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
           <source>Entered At</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -20882,6 +20872,36 @@
           <source>Entered By</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Entered By - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1737338844 - Control 166038250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
+          <source>Invoice No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Invoice No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1737338844 - Control 166038250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
+          <source>Invoice No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Invoice No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1737338844 - Control 1399805636 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
+          <source>Invoiced At</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Invoiced At - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1737338844 - Control 1399805636 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
+          <source>Invoiced At</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Invoiced At - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1737338844 - Control 2630704957 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
+          <source>Picked By</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Picked By - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1737338844 - Control 2630704957 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
+          <source>Picked By</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShipment - Control Picked By - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1737338844 - Control 577209412 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
           <source>Created Date</source>

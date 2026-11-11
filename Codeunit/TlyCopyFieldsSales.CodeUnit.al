@@ -50,7 +50,10 @@ codeunit 50019 TlyCopyFieldsSales
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopyShipToCustomerAddressFieldsFromShipToAddr', '', false, false)]
     local procedure OnAfterCopyShipToCustomerAddressFieldsFromShipToAddr(var SalesHeader: Record "Sales Header"; ShipToAddress: Record "Ship-to Address"; xSalesHeader: Record "Sales Header")
     begin
-        // SalesHeader."Shipping Agent Code" := ShipToAddress."Shipping Agent Code"; //TLY-SD - 06/26/2026 - it does this out of the box so I am not sure why I added it, but we will remove for now
+        // SalesHeader."Shipping Agent Code" := ShipToAddress."Shipping Agent Code";
+        //TLY-SD - 06/26/2026 - it does this out of the box so I am not sure why I added it, but we will remove for now
+        //TLY-SD - 11/11/2026 - further research on this, I can't get it to pull from the default ship-to on the customer card, but there is logic somewhere (I couldn't find it)
+        //                      that updates the shipping agent on the customer card when a particular ship-to is chosen
         SalesHeader."Freight Zone Code" := ShipToAddress."Freight Zone Code";
         SalesHeader."Shipping Comment" := ShipToAddress."Shipping Comment";
     end;

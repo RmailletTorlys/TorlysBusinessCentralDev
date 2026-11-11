@@ -46,6 +46,7 @@ codeunit 50021 TlyLinkSalesLine
 
         TransferLines.LookupMode(true);
         TransferLine.Reset;
+        TransferLine.SetFilter("Transfer Type", '<>Order Fullfillment'); //TLY-SD - 11/11/2026 - added per GS
         TransferLine.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
         TransferLine.SetRange("Transfer-to Code", Rec."Location Code");
         TransferLine.SetRange("Item No.", Rec."No.");

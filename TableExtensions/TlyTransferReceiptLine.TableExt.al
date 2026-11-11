@@ -57,12 +57,23 @@ tableextension 55747 TlyTransferReceiptLine extends "Transfer Receipt Line"
         //50009
 
         //50010
+
         field(50011; "Vendor No."; Code[20])
         {
             Caption = 'Vendor No.';
             FieldClass = FlowField;
             CalcFormula = lookup(Item."Vendor No." where("No." = field("Item No.")));
             Editable = false;
+        }
+
+        //50012
+
+        field(50013; "Transfer Type"; Enum TlyTransferType)
+        {
+            Caption = 'Transfer Type';
+            Description = 'TLY-SD - 11/11/2026 - so we can filter on our link to transfer function';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Transfer Header"."Transfer Type" where("No." = field("Document No.")));
         }
     }
 }

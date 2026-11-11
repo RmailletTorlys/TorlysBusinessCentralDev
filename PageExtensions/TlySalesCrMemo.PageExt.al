@@ -94,6 +94,7 @@ pageextension 50044 TlySalesCrMemo extends "Sales Credit Memo"
                 //         ShortcutDimCode[3] := DimensionSetEntry."Dimension Value Code";
                 // end;
             }
+
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")
             {
                 Caption = 'Rebill Invoice No.';

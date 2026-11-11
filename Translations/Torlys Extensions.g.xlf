@@ -37223,6 +37223,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferLine - Field Sales Order No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 807429216 - Field 2731701685 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 558353423">
+          <source>Transfer Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferLine - Field Transfer Type - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 807429216 - Field 1527594213 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 558353423">
           <source>Vendor No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -37303,6 +37308,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferReceiptLine - Field Sales Order No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 3379443620 - Field 2731701685 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1903112923">
+          <source>Transfer Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferReceiptLine - Field Transfer Type - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 3379443620 - Field 1527594213 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1903112923">
           <source>Vendor No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -37382,6 +37392,11 @@
           <source>Sales Order No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferShipmentLine - Field Sales Order No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 372024440 - Field 2731701685 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1496656855">
+          <source>Transfer Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferShipmentLine - Field Transfer Type - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 372024440 - Field 1527594213 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1496656855">
           <source>Vendor No.</source>

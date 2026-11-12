@@ -491,32 +491,32 @@ pageextension 59305 TlySalesOrderList extends "Sales Order List"
             {
                 Caption = 'Ship Today, Not Released';
                 Filters = where("Shipment Date" = filter('T'), "Status" = const(Open));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Service");
             }
             view(ShipTodayAll)
             {
                 Caption = 'Ship Today, All';
                 Filters = where("Shipment Date" = filter('T'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Service");
             }
             view(ShipTomorrowAll)
             {
                 Caption = 'Ship Tomorrow, All';
                 Filters = where("Shipment Date" = filter('T+1D'));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Service");
             }
             view(TSSNotReleased)
             {
                 Caption = 'TSS, Not Released';
                 Filters = where("No." = filter('NTN*|SS*'), "Status" = const(Open));
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Service");
             }
             view(PickupOnly)
             {
                 Caption = 'Pickup Only';
                 Filters = where("Shipping Agent Code" = filter('PU'));
                 OrderBy = ascending("Shipment Date");
-                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Serivce");
+                Visible = (UserDepartment = UserDepartment::IT) or (UserDepartment = UserDepartment::"Executive") or (UserDepartment = UserDepartment::"Customer Service");
             }
             // view(Seperator4)
             // {

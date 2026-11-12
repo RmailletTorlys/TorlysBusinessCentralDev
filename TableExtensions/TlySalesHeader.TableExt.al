@@ -115,13 +115,27 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         {
             Caption = 'Original Invoice No.';
             // TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
+            // TableRelation = if ("Original Invoice No." = const('IN')) "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
             DataClassification = CustomerContent;
             trigger OnValidate()
             var
+                SalesInvHeader: Record "Sales Invoice Header";
                 SalesHeader: Record "Sales Header";
                 SalesCrMemo: Record "Sales Cr.Memo Header";
-                SalesInvoiceHeader: Record "Sales Invoice Header";
+            // SalesInvoiceHeader: Record "Sales Invoice Header";
             begin
+                //TLY-SD - 11/12/2026 - start - a temporary fix to allow for BC invoice validation but skip for NAV until we can turn TableRelation on
+                if (CopyStr(Rec."Original Invoice No.", 1, 1) = '9') and (StrLen(Rec."Original Invoice No.") = 6) then begin
+                    Message('This is a NAV invoice.');
+                end else begin
+                    SalesInvHeader.Reset();
+                    SalesInvHeader.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
+                    SalesInvHeader.SetRange("No.", Rec."Original Invoice No.");
+                    if not SalesInvHeader.Find('-') then
+                        Error('This invoice is not for this customer.');
+                end;
+                //TLY-SD - 11/12/2026 - end
+
                 if (Rec."Original Invoice No." <> '') and (Rec."Document Type" in [Rec."Document Type"::"Return Order", Rec."Document Type"::"Credit Memo"]) then begin
                     if Rec."Original Invoice No." <> xRec."Original Invoice No." then begin
                         // Check open CM/RO

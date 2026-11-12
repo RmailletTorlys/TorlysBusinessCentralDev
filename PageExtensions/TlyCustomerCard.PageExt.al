@@ -80,7 +80,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                                                                   Blocked = const(false));
                 Visible = true;
                 Importance = Additional;
-                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
                 trigger OnValidate()
                 begin
                     ValidateShortcutDimension(3);
@@ -358,7 +358,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Restocking Fee %';
                 DecimalPlaces = 2 : 1;
                 ToolTip = 'Specifies the percentage of the item that is restocked when the item is restocked.';
-                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
             }
 
             field("Restocking Fee Minimum"; Rec."Restocking Fee Minimum")
@@ -367,7 +367,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Restocking Fee Minimum';
                 DecimalPlaces = 2;
                 ToolTip = 'Specifies the minimum amount of the item that is restocked when the item is restocked.';
-                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
             }
 
             group(Marketing)
@@ -494,7 +494,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Freight Zone Code';
                 ToolTip = 'Specifies the freight zone that the customer is assigned to.';
                 Visible = false;
-                Editable = (UserDept = UserDept::"Accounts Receivable");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
             }
             field("Shipping Instructions"; Rec."Shipping Instructions")
             {
@@ -502,7 +502,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Shipping Instructions';
                 ToolTip = 'Shipping Instructions';
                 Visible = false;
-                Editable = (UserDept = UserDept::"Accounts Receivable");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
             }
             field("Shipping Comment"; Rec."Shipping Comment")
             {
@@ -510,7 +510,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                 Caption = 'Shipping Comment';
                 ToolTip = 'Shipping Comment';
                 Visible = false;
-                Editable = (UserDept = UserDept::"Accounts Receivable");
+                Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
             }
         }
 
@@ -575,17 +575,17 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
 
         modify("NTN Catalog Group Code")
         {
-            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("NTN Head Office")
         {
-            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("NTN Head Office Cust. No.")
         {
-            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Serivce");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Address")
@@ -759,49 +759,49 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         modify("Ship-to Code")
         {
             Importance = Promoted;
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Location Code")
         {
             Importance = Promoted;
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Shipment Method Code")
         {
             Visible = false;
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Shipping Agent Code")
         {
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Shipping Agent Service Code")
         {
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Reserve")
         {
             Visible = false;
             Importance = Additional;
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Shipping Advice")
         {
             Importance = Additional;
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
 
         modify("Shipping Time")
         {
             Visible = false;
             Importance = Additional;
-            Editable = (UserDept = UserDept::"Accounts Receivable");
+            Editable = (UserDept = UserDept::"Accounts Receivable") or (UserDept = UserDept::"Customer Service");
         }
         //end of fields that are visible on the screen therefore need the Editable property
 

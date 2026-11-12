@@ -690,6 +690,18 @@ tableextension 50027 TlyItem extends Item
                 end;
             end;
         }
+
+        modify("NTN Web Enabled")
+        {
+            trigger OnAfterValidate()
+            begin
+                //TLY-SD - 11/12/2026
+                if Rec."NTN Web Enabled" = true then begin
+                    Rec."NTN Show Actual INV. on Web" := true;
+                    Rec."NTN Inventory Threshold" := 999999;
+                end
+            end;
+        }
     }
 
     fieldgroups

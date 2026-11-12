@@ -15298,6 +15298,26 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Compare Unit of Measure - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 3299736916 - Control 2575582066 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>The quantity on all open transfer orders</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. on Transfer Order - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3299736916 - Control 2575582066 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>Qty. on Transfer Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. on Transfer Order - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3299736916 - Control 723309523 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>The quantity to Ship on  open transfer orders</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. to Ship (Transfer) - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3299736916 - Control 723309523 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>Qty. to Ship (Transfer)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. to Ship (Transfer) - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 3299736916 - Control 2591222399 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>COGS ($)</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -15737,26 +15757,6 @@
           <source>Qty. to Ship</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. to Ship - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3299736916 - Control 2575582066 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>The quantity on all open transfer orders</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. on Transfer Order - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3299736916 - Control 2575582066 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>Qty. on Transfer Order</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. on Transfer Order - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3299736916 - Control 723309523 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>The quantity to Ship on  open transfer orders</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. to Ship (Transfer) - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3299736916 - Control 723309523 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>Qty. to Ship (Transfer)</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyItemCard - Control Qty. to Ship (Transfer) - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3299736916 - Change 2885544704 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>Last Direct Cost (CAD)</source>
@@ -37708,10 +37708,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum TlyUserDepartment - EnumValue Accounts Receivable - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Enum 1632205232 - EnumValue 4164103323 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Enum 1632205232 - EnumValue 1216003395 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer Service</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum TlyUserDepartment - EnumValue Customer Serivce - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum TlyUserDepartment - EnumValue Customer Service - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 1632205232 - EnumValue 2803003124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Executive</source>

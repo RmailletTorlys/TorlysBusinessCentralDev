@@ -8,15 +8,9 @@
             "tenant": "8e814182-a16b-4579-954b-adbc4658aada",
             "environmentType": "Sandbox",
             // "environmentName": "TORLYS_BC_NTN", //only used for UAT NTN - created April 3, 2026
-<<<<<<< HEAD
             // "environmentName": "TORLYS_BC_UAT", //current UAT environment - created August 25, 2026
             "environmentName": "TORLYS_BC_DEV", //current DEV environment - created August 25, 2026
-            "startupObjectId": 42,
-=======
-            "environmentName": "TORLYS_BC_UAT", //current UAT environment - created August 25, 2026
-            // "environmentName": "TORLYS_BC_DEV", //current DEV environment - created August 25, 2026
             "startupObjectId": 44,
->>>>>>> e5478d718fa0296a9c23b65c2f92cffce158b150
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

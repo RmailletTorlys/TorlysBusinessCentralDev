@@ -13108,6 +13108,96 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report TlyB13SalesSH - Control CostInsteadOfPrice - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 530349666 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TORLYS Lacey Act Declaration (Sales Shipment)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - ReportDataItem 3118382297 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Shipment</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - ReportDataItem Sales Shipment Header - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2189203052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Attribute Names</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control AttributeNames - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2857173794 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Genus attribute</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control GenusAttrName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 3157885773 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country of harvest attribute</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control HarvestAttrName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 335025297 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>% recycled attribute</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control RecycledAttrName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 3872530594 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Species attribute</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control SpeciesAttrName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 4039216867 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Back out duty from entered value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control BackoutDuty - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2401325067 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Skip lines where genus, species and country of harvest are all blank (freight, non-wood items). Leave off to see every line with a MISSING flag.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control OnlyLinesWithLaceyData - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2401325067 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Only items with Lacey attributes</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control OnlyLinesWithLaceyData - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2763822120 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Use cost instead of price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control UseCostInsteadOfPrice - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 1209134666 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Information (Section 1)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control ShipmentInfo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 3636497428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>3. Container number</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control ContainerNoInput - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 1219779742 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>10. Description of merchandise</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control DescMerchandiseInput - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2853031577 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Leave blank to use the shipment's Promised Delivery Date, then Requested Delivery Date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control EstArrivalInput - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 2853031577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>1. Estimated date of arrival</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control EstArrivalInput - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 530349666 - Control 1641412274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>5. MID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report TlyLaceyActSH - Control MIDInput - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 2318802165 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Proforma Posted Invoices</source>
           <note from="Developer" annotates="general" priority="2"></note>

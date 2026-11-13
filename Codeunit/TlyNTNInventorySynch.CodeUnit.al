@@ -7,6 +7,7 @@
 // // February 2, 2026 - DVP copied this from NAV and made slight changes
 // // TLY-SD - 04/14/2026 - SD added "CalculateInventoryAvailability" as was missed at go live and cleaned up some of the other procedures
 // // TLY-SD - 10/15/2026 - SD made changes
+// // TLY-SD - 11/12/2026 - SD made more changes, fixed "exit" and "else if" of new procedures
 
 
 // codeunit 52231 TlyNTNInventorySynch

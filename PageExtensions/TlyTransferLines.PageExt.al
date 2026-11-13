@@ -234,6 +234,11 @@ pageextension 55749 TlyTransferLines extends "Transfer Lines"
             QuantityLinkedToPO := ContainerLine."Quantity Linked via PO"
         end;
 
-        QuantityRemaining := Rec.Quantity - Rec."Quantity Linked" - QuantityLinkedToPO;
+        Rec.CalcFields("Transfer Type"); //TLY-SD - 11/13/2026 - dont show qty remaining if order fulfillment as that confuses, those qty are not avail
+        if Rec."Transfer Type" = Rec."Transfer Type"::"Order Fullfillment" then begin //TLY-SD - 11/13/2026 - dont show qty remaining if order fulfillment as that confuses, those qty are not avail
+            QuantityRemaining := 0; //TLY-SD - 11/13/2026 - dont show qty remaining if order fulfillment as that confuses, those qty are not avail
+        end else begin //TLY-SD - 11/13/2026 - dont show qty remaining if order fulfillment as that confuses, those qty are not avail
+            QuantityRemaining := Rec.Quantity - Rec."Quantity Linked" - QuantityLinkedToPO;
+        end; //TLY-SD - 11/13/2026 - dont show qty remaining if order fulfillment as that confuses, those qty are not avail
     end;
 }

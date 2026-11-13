@@ -121,6 +121,25 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                     if ShortcutDimCode[3] = 'INSURANCE' then Rec."Return Must Return By Date" := WorkDate() + 28;
                     if ShortcutDimCode[3] = '' then Rec."Return Must Return By Date" := WorkDate() + 14;
                 end;
+
+                //TLY-SD - 11/13/2026 - start - a temporary fix to allow for BC invoice validation but skip for NAV until we can turn TableRelation on      
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    SalesInvoiceTable: Record "Sales Invoice Header";
+                    SalesInvoicePage: Page "Posted Sales Invoices";
+                begin
+                    //TLY-SD - 11/13/2026 - start - a temporary fix to allow for BC invoice validation but skip for NAV until we can turn TableRelation on
+                    SalesInvoiceTable.Reset();
+                    SalesInvoiceTable.FilterGroup(2);
+                    SalesInvoiceTable.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
+                    SalesInvoicePage.SetTableView(SalesInvoiceTable);
+                    SalesInvoicePage.LookupMode(true);
+                    if SalesInvoicePage.RunModal() = Action::LookupOK then begin
+                        SalesInvoicePage.GetRecord(SalesInvoiceTable);
+                        Rec.Validate("Original Invoice No.", SalesInvoiceTable."No.");
+                    end;
+                end;
+                //TLY-SD - 11/13/2026 - end
             }
 
             field("Rebill Invoice No."; Rec."Rebill Invoice No.")

@@ -1356,6 +1356,8 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
                 Image = PickLines;
                 ApplicationArea = All;
                 trigger OnAction()
+                var
+                    InsertFreightLine: Codeunit TlyInsertFreightLine;
                 begin
                     InsertFreightLine.SOscreens(Rec);
                 end;
@@ -1447,7 +1449,7 @@ pageextension 50042 TlySalesOrder extends "Sales Order"
         MPOSalesHeader: Record "Sales Header";
         MPOVisible: Boolean;
         LookupUserId: Codeunit TlyLookupUserID;
-        InsertFreightLine: Codeunit TlyInsertFreightLine;
+        // InsertFreightLine: Codeunit TlyInsertFreightLine;
         TorlysCreditHold: Codeunit TlyCreditHold;
         UserDepartment: Enum TlyUserDepartment;
 

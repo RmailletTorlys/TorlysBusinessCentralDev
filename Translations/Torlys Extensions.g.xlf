@@ -3653,15 +3653,45 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Control Transaction Type - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3566847732 - Action 3000180178 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 3566847732 - Action 503024588 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View or add comments for the record.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action Co&amp;mments - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action Comments - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="Page 3566847732 - Action 3000180178 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Co&amp;mments</source>
+        <trans-unit id="Page 3566847732 - Action 503024588 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Comments</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action Co&amp;mments - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action Comments - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3566847732 - Action 621598285 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Post and Print BOL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action PostAndPrintBOL - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3566847732 - Action 621598285 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Post and Print BOL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action PostAndPrintBOL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3566847732 - Action 3157976148 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print BOL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action PrintBOL - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3566847732 - Action 3157976148 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print BOL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action PrintBOL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3566847732 - Action 351646255 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print Shipping Label</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action PrintShippingLabel - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3566847732 - Action 351646255 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print Shipping Label</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyBillOfLadingList - Action PrintShippingLabel - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3566847732 - View 3823950202 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>CAL</source>
@@ -9423,15 +9453,35 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action Attachments - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1167030722 - Action 3000180178 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1167030722 - Action 503024588 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View or add comments for the record.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action Co&amp;mments - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action Comments - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="Page 1167030722 - Action 3000180178 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1167030722 - Action 503024588 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Co&amp;mments</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action Co&amp;mments - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action Comments - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1167030722 - Action 3157976148 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print BOL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action PrintBOL - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1167030722 - Action 3157976148 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print BOL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action PrintBOL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1167030722 - Action 1447120942 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print Carrier Manifest</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action PrintCarrierManifest - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1167030722 - Action 1447120942 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print Carrier Manifest</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page TlyProcBillOfLadingList - Action PrintCarrierManifest - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1167030722 - View 3823950202 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>CAL</source>
@@ -28683,15 +28733,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Warehouse Receive - Method OnAction - NamedType Text1020001</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 3584421954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3511649410 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Add Restocking</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Add Restocking - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action AddRestocking - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 3584421954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3511649410 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Add Restocking</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Add Restocking - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action AddRestocking - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1940353519 - Action 80739734 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Change Log</source>
@@ -28977,6 +29027,16 @@
           <source>Salesperson Commission 3</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Control Salesperson Commission 3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1940353519 - Control 404145548 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+          <source>Freight Zone Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Control Freight Zone Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1940353519 - Control 404145548 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+          <source>Freight Zone Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Control Freight Zone Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1940353519 - Control 4103888635 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Shipping Comment</source>

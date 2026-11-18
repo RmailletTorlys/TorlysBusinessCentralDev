@@ -9,7 +9,6 @@ page 51006 TlyProcBillOfLading
     Editable = false;
     ApplicationArea = Basic, Suite;
 
-
     layout
     {
         area(content)

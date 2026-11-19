@@ -7,7 +7,7 @@ page 51002 TlyBillOfLading
     SourceTable = TlyBillOfLadingHeader;
     // UsageCategory = Documents;
     ApplicationArea = Basic, Suite;
-    // Permissions = tabledata "Sales Shipment Header" = rm;
+    Permissions = tabledata "Sales Shipment Header" = rm;
     DeleteAllowed = true;
     InsertAllowed = true;
 

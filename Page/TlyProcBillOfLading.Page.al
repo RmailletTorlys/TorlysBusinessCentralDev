@@ -256,13 +256,10 @@ page 51006 TlyProcBillOfLading
                 Caption = 'Weights & Quantities';
                 grid(WeightsAndQuantities)
                 {
-
-
                     group(Weights)
                     {
 
                         Caption = 'Weights';
-
                         field("Weight - Flooring"; Rec."Weight - Flooring")
                         {
                             ApplicationArea = Basic, Suite;
@@ -270,8 +267,6 @@ page 51006 TlyProcBillOfLading
                             Caption = 'Flooring';
                             Editable = false;
                         }
-
-
                         field("Weight - Underlayment Rolls"; Rec."Weight - Underlayment Rolls")
                         {
                             ApplicationArea = Basic, Suite;
@@ -311,7 +306,6 @@ page 51006 TlyProcBillOfLading
                             Editable = false;
                             Style = Strong;
                         }
-
                     }
 
                     group(Quantity)

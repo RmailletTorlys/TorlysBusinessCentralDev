@@ -149,14 +149,42 @@ page 51005 TlyProcBillOfLadingList
     {
         area(Promoted)
         {
-            actionref(Comments_Promoted; "Co&mments")
+            actionref(PrintBOL_Promoted; PrintBOL)
+            { }
+            actionref(PrintCarrierManifest_Promoted; PrintCarrierManifest)
+            { }
+            actionref(Comments_Promoted; Comments)
             { }
             actionref(Attachments_Promoted; Attachments)
             { }
         }
         area(Navigation)
         {
-            action("Co&mments")
+            action(PrintBOL)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print BOL';
+                Caption = 'Print BOL';
+                Image = Print;
+                trigger OnAction()
+                var
+                begin
+                    TorlysDocPrint.PrintProcessedBillOfLading(Rec);
+                end;
+            }
+            action(PrintCarrierManifest)
+            {
+                ApplicationArea = Basic, Suite;
+                ToolTip = 'Print Carrier Manifest';
+                Caption = 'Print Carrier Manifest';
+                Image = Print;
+                trigger OnAction()
+                var
+                begin
+                    TorlysDocPrint.PrintCarrierManifest(Rec);
+                end;
+            }
+            action(Comments)
             {
                 ApplicationArea = Comments;
                 Caption = 'Co&mments';
@@ -208,5 +236,6 @@ page 51005 TlyProcBillOfLadingList
     }
 
     var
+        TorlysDocPrint: Codeunit TlyDocumentPrint;
         LookupUserId: Codeunit TlyLookupUserID;
 }

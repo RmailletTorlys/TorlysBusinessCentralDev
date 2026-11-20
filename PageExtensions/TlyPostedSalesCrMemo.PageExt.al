@@ -563,6 +563,7 @@ pageextension 50134 TlyPostedSalesCrMemo extends "Posted Sales Credit Memo"
             }
 
         }
+
         addfirst("F&unctions")
         {
             action("Open Sales Orders")

@@ -4,10 +4,9 @@ codeunit 50414 TlyInsertFreightLine
     // 1 for adding from SO related screens
     // 1 for adding when posting SH
 
+    procedure SOscreens(Rec: Record "Sales Header")
     // this is for adding freight when initiated from a sales order or related screen by clicking a button
     // main difference here is respecting minimum charge
-    procedure SOscreens(Rec: Record "Sales Header")
-
     var
         FreightZones: Record TlyFreightZone;
         LineCountTotal: Integer;
@@ -216,10 +215,9 @@ codeunit 50414 TlyInsertFreightLine
         end;
     end;
 
+    procedure SHposting(Rec: Record "Sales Header")
     // this is for adding freight when initiated during posting of shipment from the warehouse screens
     // main difference here is not respecting minimum charge and just doing the math
-    procedure SHposting(Rec: Record "Sales Header")
-
     var
         FreightZones: Record TlyFreightZone;
         LineCountTotal: Integer;

@@ -118,7 +118,8 @@ report 50084 TlyB13PurchasesSH
 
                     SalesShipmentHeader.get("Document No.");
 
-                    If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesHeader."Ship-to Country/Region Code" = 'NZ') then begin
+                    // Use the shipment header (SalesHeader was never loaded, so the NZ test could never be true)
+                    If ("Gen. Prod. Posting Group" = 'SS HardWood') and (SalesShipmentHeader."Ship-to Country/Region Code" = 'NZ') then begin
                         OrderQuantity := ("Quantity" / 10.764);
                         OrderUOM := 'M2';
                     end else if "Gen. Prod. Posting Group" In ['ACCESSORY', 'MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS', 'UNDERLAYMENT'] then begin
@@ -128,8 +129,7 @@ report 50084 TlyB13PurchasesSH
                         OrderQuantity := "Quantity";
                         OrderUOM := "Unit of Measure Code";
                     end else begin
-                        ItemUOM.get("No.", 'CASE');
-                        OrderQuantity := ("Quantity" / ItemUOM."Qty. per Unit of Measure") * ((ItemUOM.Cubage / 1728) / 35.315);
+                        OrderQuantity := CalcVolumeM3("No.", "Quantity (Base)", Item3."Base Unit of Measure");
                         OrderUOM := 'M3';
                     end;
 
@@ -237,6 +237,27 @@ report 50084 TlyB13PurchasesSH
     begin
         UserDetails.Get(UserGuid);
         exit(UserDetails."User Name");
+    end;
+
+    /// Returns the volume in M3 for a quantity expressed in base units.
+    /// 1) If the item has a CASE unit of measure, volume = cases * CASE cubage.
+    /// 2) Otherwise falls back to the cubage of the item's base unit (e.g. EACH), per piece.
+    /// 3) If no cubage can be found, returns 0 instead of raising an error.
+    local procedure CalcVolumeM3(ItemNo: Code[20]; QtyBase: Decimal; BaseUOMCode: Code[10]): Decimal
+    var
+        CaseUOM: Record "Item Unit of Measure";
+        BaseUOM: Record "Item Unit of Measure";
+        CubicInchesPerM3: Decimal;
+    begin
+        CubicInchesPerM3 := 1728 * 35.315; // 1728 in3 per ft3, 35.315 ft3 per m3 (same factors as the original report)
+
+        if CaseUOM.Get(ItemNo, 'CASE') and (CaseUOM."Qty. per Unit of Measure" <> 0) then
+            exit((QtyBase / CaseUOM."Qty. per Unit of Measure") * (CaseUOM.Cubage / CubicInchesPerM3));
+
+        if BaseUOM.Get(ItemNo, BaseUOMCode) then
+            exit(QtyBase * (BaseUOM.Cubage / CubicInchesPerM3));
+
+        exit(0);
     end;
 
     trigger OnInitReport()

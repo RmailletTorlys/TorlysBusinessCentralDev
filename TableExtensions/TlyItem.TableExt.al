@@ -440,6 +440,19 @@ tableextension 50027 TlyItem extends Item
             Caption = 'Compare Unit of Measure';
             DataClassification = CustomerContent;
             TableRelation = "Item Unit of Measure".Code where("Item No." = field("No."));
+            trigger OnValidate()
+            begin
+                //TLY-SD - 11/19/2026 - start
+                if (Rec."Compare Unit of Measure" <> 'CASE') and (Rec."Compare Unit of Measure" <> '') then
+                    Error('This must be set to CASE or blank.');
+
+                if Rec."Compare Unit of Measure" = 'CASE' then begin
+                    "NTN Order Decimal Qty. Allow" := 2;
+                end else begin
+                    "NTN Order Decimal Qty. Allow" := 0;
+                end;
+                //TLY-SD - 11/19/2026 - end
+            end;
         }
 
         field(50047; "Sales Price Code"; Code[20])
@@ -688,6 +701,18 @@ tableextension 50027 TlyItem extends Item
                         SKU.Modify(true);
                     until SKU.Next() = 0;
                 end;
+            end;
+        }
+
+        modify("NTN Web Enabled")
+        {
+            trigger OnAfterValidate()
+            begin
+                //TLY-SD - 11/12/2026
+                if Rec."NTN Web Enabled" = true then begin
+                    Rec."NTN Show Actual INV. on Web" := true;
+                    Rec."NTN Inventory Threshold" := 999999;
+                end
             end;
         }
     }

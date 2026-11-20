@@ -218,9 +218,7 @@ report 50087 SalesDetailsbyREP
     var
         Customer: Record Customer;
     begin
-        // CHANGE HERE if "customer type" in your system is a different field,
-        // e.g. Customer."Customer Price Group", Customer."Gen. Bus. Posting Group",
-        // or a custom field from your extension.
+
         if Customer.Get(CustomerNo) then
             exit(Customer."Customer Posting Group");
         exit('');

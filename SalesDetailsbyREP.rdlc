@@ -73,12 +73,6 @@ End Function
         <Field Name="ShowDetail">
           <DataField>ShowDetail</DataField>
         </Field>
-        <Field Name="ShowByCustType">
-          <DataField>ShowByCustType</DataField>
-        </Field>
-        <Field Name="ShowByGenProd">
-          <DataField>ShowByGenProd</DataField>
-        </Field>
         <Field Name="SalespersonCode">
           <DataField>SalespersonCode</DataField>
         </Field>

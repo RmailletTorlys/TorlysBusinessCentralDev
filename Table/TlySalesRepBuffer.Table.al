@@ -1,4 +1,4 @@
-table 50087 "Sales Rep Buffer"
+table 50087 TlySalesRepBuffer
 {
     Caption = 'Sales Rep Buffer';
     DataClassification = CustomerContent;

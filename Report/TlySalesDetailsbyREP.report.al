@@ -223,7 +223,7 @@ report 50087 SalesDetailsbyREP
     end;
 
     var
-        TempBuf: Record "Sales Rep Buffer" temporary;
+        TempBuf: Record TlySalesRepBuffer temporary;
         ShowDetail: Boolean;
         Initialized: Boolean;
         CustomerTypeFilter: Text;

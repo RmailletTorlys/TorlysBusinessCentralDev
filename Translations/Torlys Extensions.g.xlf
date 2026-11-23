@@ -21878,45 +21878,45 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedSalesShptSubform - Control Transfer Order No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 80739734 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 3640084062 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action Change Log - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ChangeLog - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 80739734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 3640084062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action Change Log - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ChangeLog - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 3749546866 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 2503276274 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>View and Fill Joined SO</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action View and Fill Joined SO - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ViewAndFillJoinedSO - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 3749546866 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 2503276274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>View and Fill Joined SO</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action View and Fill Joined SO - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ViewAndFillJoinedSO - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 430467354 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 921468863 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>View and Fill Linked SO via PO#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action View and Fill Linked SO via PO# - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ViewAndFillLinkedSOViaPO - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 430467354 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 921468863 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>View and Fill Linked SO via PO#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action View and Fill Linked SO via PO# - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ViewAndFillLinkedSOViaPO - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 1519425169 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 1128672480 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>View and Fill Linked SO via TR#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action View and Fill Linked SO via TR# - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ViewAndFillLinkedSOViaTR - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1077530377 - Action 1519425169 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
+        <trans-unit id="PageExtension 1077530377 - Action 1128672480 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>View and Fill Linked SO via TR#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action View and Fill Linked SO via TR# - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcpt - Action ViewAndFillLinkedSOViaTR - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1077530377 - Control 2731701685 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>Transfer Type</source>
@@ -22188,25 +22188,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransRcptSubform - Control Sales Order No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 764263703 - Action 80739734 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
+        <trans-unit id="PageExtension 764263703 - Action 3640084062 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransShpt - Action Change Log - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransShpt - Action ChangeLog - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 764263703 - Action 80739734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
+        <trans-unit id="PageExtension 764263703 - Action 3640084062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransShpt - Action Change Log - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 764263703 - Action 3749546866 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
-          <source>View and Fill Joined SO</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransShpt - Action View and Fill Joined SO - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 764263703 - Action 3749546866 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
-          <source>View and Fill Joined SO</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransShpt - Action View and Fill Joined SO - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyPostedTransShpt - Action ChangeLog - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 764263703 - Control 2731701685 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
           <source>Transfer Type</source>
@@ -31413,65 +31403,65 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferLines - Control Sales Order No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 80739734 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 3640084062 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action Change Log - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ChangeLog - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 80739734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 3640084062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action Change Log - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ChangeLog - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 515100000 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 52823382 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Populate Qty. to Receive</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action Populate Qty. to Receive - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action PopulateQtyToReceive - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 515100000 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 52823382 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Populate Qty. to Receive</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action Populate Qty. to Receive - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action PopulateQtyToReceive - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 3749546866 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 2503276274 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>View and Fill Joined SO</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action View and Fill Joined SO - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ViewAndFillJoinedSO - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 3749546866 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 2503276274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>View and Fill Joined SO</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action View and Fill Joined SO - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ViewAndFillJoinedSO - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 430467354 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 921468863 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>View and Fill Linked SO via PO#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action View and Fill Linked SO via PO# - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ViewAndFillLinkedSOViaPO - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 430467354 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 921468863 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>View and Fill Linked SO via PO#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action View and Fill Linked SO via PO# - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ViewAndFillLinkedSOViaPO - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 1519425169 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 1128672480 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>View and Fill Linked SO via TR#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action View and Fill Linked SO via TR# - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ViewAndFillLinkedSOViaTR - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 1519425169 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 1128672480 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>View and Fill Linked SO via TR#</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action View and Fill Linked SO via TR# - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action ViewAndFillLinkedSOViaTR - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 1886847543 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 1663644360 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Print Summary Pick</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action Summary Pick - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action PrintSummaryPick - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3618190128 - Action 1701713127 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
+        <trans-unit id="PageExtension 3618190128 - Action 614552336 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Print Transfer Label</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action Transfer Label - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrder - Action PrintTransferLabel - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3618190128 - Control 2731701685 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Transfer Type</source>

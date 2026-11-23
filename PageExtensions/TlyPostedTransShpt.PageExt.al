@@ -125,17 +125,17 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
     {
         addlast(Category_Category4)
         {
-            actionref(ChangeLog; "Change Log")
+            actionref(ChangeLog_Promoted; ChangeLog)
             {
             }
-            actionref(SOJoin; "View and Fill Joined SO")
-            {
-            }
+            // actionref(ViewAndFillJoinedSO_Promoted; ViewAndFillJoinedSO)
+            // {
+            // }
         }
 
         addlast("&Shipment")
         {
-            action("Change Log")
+            action(ChangeLog)
             {
                 Caption = 'Change Log';
                 ToolTip = 'Change Log';
@@ -144,17 +144,19 @@ pageextension 55743 TlyPostedTransShpt extends "Posted Transfer Shipment"
                 RunObject = Page "Change Log Entries";
                 RunPageLink = "Primary Key Field 1 Value" = field("Transfer Order No.");
             }
-            action("View and Fill Joined SO")
-            {
-                ApplicationArea = Location;
-                Caption = 'View and Fill Joined SO';
-                ToolTip = 'View and Fill Joined SO';
-                Image = Order;
-                RunObject = Page TlyJoinedSOtoTO;
-                RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
-            }
+
+            // action(ViewAndFillJoinedSO)
+            // {
+            //     ApplicationArea = Location;
+            //     Caption = 'View and Fill Joined SO';
+            //     ToolTip = 'View and Fill Joined SO';
+            //     Image = Order;
+            //     RunObject = Page TlyJoinedSOtoTO;
+            //     RunPageLink = "Transfer Order No." = field("No."), Type = const(Item);
+            // }
         }
     }
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 }

@@ -8,6 +8,81 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">EnumExtension BOLandShipmentSend - EnumValue BOLandShipmentSend - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 370357593 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Rep Buffer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 592951229 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount (LCY)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Amount (LCY) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 4198939294 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Currency Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Currency Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 1171137197 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Customer Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 4190130733 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Customer No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 1754546768 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Customer Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 486908828 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Document No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 2363328873 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Document Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 883711285 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Entry No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Entry No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 2139693550 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Gen. Prod. Posting Group</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Gen. Prod. Posting Group - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 3710982960 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Posting Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Posting Date - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 2704404533 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Quantity - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 370357593 - Field 2937233469 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Unit Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Sales Rep Buffer - Field Unit Price - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3411753623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>BOL Header</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12812,6 +12887,36 @@
           <source>Sales Costing Sheet</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Sales Costing Sheet - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 123443706 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Details by REP</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report SalesDetailsbyREP - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 123443706 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report SalesDetailsbyREP - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 123443706 - Control 2853133570 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Optional. Only include customers of this type (filter syntax allowed, e.g. A|B).</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report SalesDetailsbyREP - Control CustomerTypeFilterField - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 123443706 - Control 2853133570 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Type Filter</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report SalesDetailsbyREP - Control CustomerTypeFilterField - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 123443706 - Control 847510124 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Selected: print every invoice and credit memo line. Cleared: print one summarized line per customer.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report SalesDetailsbyREP - Control ShowDetailField - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 123443706 - Control 847510124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print in Detail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report SalesDetailsbyREP - Control ShowDetailField - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 583333463 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipping Manifest</source>

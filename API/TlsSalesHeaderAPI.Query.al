@@ -55,6 +55,7 @@ Query 56013 TlySalesHeaderAPI
             column(shipToCode; "Ship-to Code") { }
             column(shippingAgentCode; "Shipping Agent Code") { }
             column(shippingAgentServiceCode; "Shipping Agent Service Code") { }
+            column(tagName; "Tag Name") { }
         }
     }
 }

@@ -490,7 +490,20 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
         modify("Bill-to Customer No.")
         {
             trigger OnAfterValidate()
+            // var
+            // Customer: Record Customer;
             begin
+                //TLY-SD - 11/24/2026 - start
+                //check bill-to info and hold right away if needed
+                //this is really just a temp fix for TSS orders until can get CU 50343 to work
+                Customer.Reset();
+                Customer.Get(Rec."Bill-to Customer No.");
+
+                if Customer."Credit Warnings" = Customer."Credit Warnings"::"Hold All" then begin
+                    Rec."On Hold" := 'CR';
+                end;
+                //TLY-SD - 11/24/2026 - end
+
                 UpdateRegionFromSellToCust();
             end;
         }
@@ -716,6 +729,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
     end;
 
     procedure UpdateRegionFromSellToCust()
+    //TLY-SD - before we did this, always took the region from the bill-to, we want from sell-to
     begin
         GetCust(Rec."Sell-to Customer No.");
         Rec.Validate(Rec."Shortcut Dimension 1 Code", Customer."Global Dimension 1 Code");

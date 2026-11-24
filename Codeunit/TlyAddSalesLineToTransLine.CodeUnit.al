@@ -54,7 +54,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
             TransferHeader.FilterGroup(2); //TLY-SD - 04/07/2026 - added this because CSRs were removing filters and adding to bogus documents
             TransferHeader.SetFilter(Status, 'Open');
             TransferHeader.SetRange("Transfer-to Code", Rec."Location Code");
-            TransferHeader.SetRange("Receipt Date", ReceiptDate + 1, 20441201D); //TLY-SD - 11/20/2026 - for linking TOR PO to CAL SO
+            TransferHeader.SetRange("Receipt Date", ReceiptDate, 20441201D); //TLY-SD - 11/20/2026 - for linking TOR PO to CAL SO
             TransferOrders.SetTableView(TransferHeader);
             if TransferOrders.RunModal() = Action::LookupOK then
                 TransferOrders.GetRecord(TransferHeader);

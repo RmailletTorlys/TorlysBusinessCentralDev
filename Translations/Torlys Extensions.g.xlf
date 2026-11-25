@@ -28798,35 +28798,35 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Customer History - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 490676357 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 2022786742 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Print B13 Purchase</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action B13 Purchase - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action PrintB13Purchase - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 2359027996 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3020257091 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Print B13 Sales</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action B13 Sales - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action PrintB13Sales - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 1939491734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 2417184485 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Print Proforma</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Proforma - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action PrintProforma - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 3371895906 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3980859202 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Warehouse Receive</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Warehouse Receive - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action WarehouseReceive - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 3371895906 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3980859202 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Warehouse Receive</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Warehouse Receive - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action WarehouseReceive - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 3371895906 - Method 1377591017 - NamedType 3253734849" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 1940353519">
+        <trans-unit id="PageExtension 1940353519 - Action 3980859202 - Method 1377591017 - NamedType 3253734849" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 1940353519">
           <source>Do you want to return and print %1 for customer %2?</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Warehouse Receive - Method OnAction - NamedType Text1020001</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action WarehouseReceive - Method OnAction - NamedType Text1020001</note>
         </trans-unit>
         <trans-unit id="PageExtension 1940353519 - Action 3511649410 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Add Restocking</source>
@@ -28838,15 +28838,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action AddRestocking - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 80739734 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3640084062 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Change Log - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action ChangeLog - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1940353519 - Action 80739734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+        <trans-unit id="PageExtension 1940353519 - Action 3640084062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Change Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Change Log - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action ChangeLog - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1940353519 - Action 2044548948 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>View open credit memos for this customer</source>
@@ -28897,6 +28897,16 @@
           <source>Posted Sales Invoices</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action Posted Sales Invoices - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1940353519 - Action 175007606 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+          <source>Return Receipt No. Clear</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action RRNumberClear - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1940353519 - Action 175007606 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
+          <source>Return Receipt No. Clear</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlySalesReturnOrder - Action RRNumberClear - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1940353519 - Control 993414011 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Ship-to Code</source>
@@ -31818,6 +31828,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Last Shipment No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 184790795 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Outstanding Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Outstanding Quantity - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 184790795 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Outstanding Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Outstanding Quantity - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 712997530 - Control 1115434830 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
           <source>Package Tracking No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -31827,6 +31847,26 @@
           <source>Package Tracking No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Package Tracking No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 2077925582 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Qty. in Transit</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Qty. in Transit - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 2077925582 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Qty. in Transit</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Qty. in Transit - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 1128541325 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Qty. to Ship</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Qty. to Ship - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 1128541325 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Qty. to Ship</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Qty. to Ship - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 712997530 - Control 4103888635 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
           <source>Shipping Comment</source>
@@ -31907,6 +31947,16 @@
           <source>Total Weight</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Total Weight - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 1527594213 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Vendor No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Vendor No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 712997530 - Control 1527594213 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3061233890">
+          <source>Vendor No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension TlyTransferOrderList - Control Vendor No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 2428942322 - Action 2811632608 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 225830225">
           <source>Item Availability</source>
@@ -37388,6 +37438,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferHeader - Field BOL No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 572338631 - Field 184790795 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 151805736">
+          <source>Outstanding Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferHeader - Field Outstanding Quantity - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 572338631 - Field 1115434830 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 151805736">
           <source>Package Tracking No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -37397,6 +37452,16 @@
           <source>Picked By</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferHeader - Field Picked By - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 572338631 - Field 2077925582 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 151805736">
+          <source>Qty. in Transit</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferHeader - Field Qty. in Transit - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 572338631 - Field 1128541325 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 151805736">
+          <source>Qty. to Ship</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension TlyTransferHeader - Field Qty. to Ship - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 572338631 - Field 549730328 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 151805736">
           <source>Received By</source>

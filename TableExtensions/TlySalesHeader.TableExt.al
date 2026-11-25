@@ -174,6 +174,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
             TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Sell-to Customer No."));
             DataClassification = CustomerContent;
         }
+
         field(50020; "Qty. to Ship"; Decimal)
         {
             Caption = 'Qty. to ship';
@@ -499,7 +500,7 @@ tableextension 50036 TlySalesHeader extends "Sales Header"
                 Customer.Reset();
                 Customer.Get(Rec."Bill-to Customer No.");
 
-                if Customer."Credit Warnings" = Customer."Credit Warnings"::"Hold All" then begin
+                if (Rec."Document Type" = Rec."Document Type"::"Order") and (Customer."Credit Warnings" = Customer."Credit Warnings"::"Hold All") then begin
                     Rec."On Hold" := 'CR';
                 end;
                 //TLY-SD - 11/24/2026 - end

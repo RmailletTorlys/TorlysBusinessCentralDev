@@ -58,6 +58,12 @@ tableextension 55746 TlyTransferReceiptHeader extends "Transfer Receipt Header"
             ObsoleteState = Removed;
         }
 
+        //50010 - Outstanding Quantity flow field
+
+        //50011 - Qty. to Ship flow field
+
+        //50012 - Qty. in Transit flow field
+
         modify("TPS CMG Container No.")
         {
             TableRelation = "TPS CMG Container Header";

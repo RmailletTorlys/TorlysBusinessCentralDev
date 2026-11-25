@@ -92,6 +92,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
+
             field("Total Weight"; TotalWeight)
             {
                 Caption = 'Total Weight';
@@ -113,6 +114,43 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
+
+            field("Vendor No."; VendorNo)
+            {
+                Caption = 'Vendor No.';
+                ToolTip = 'Vendor No.';
+                ApplicationArea = All;
+                Editable = false;
+                Description = 'TLY-SD - 11/25/2026';
+            }
+
+            field("Outstanding Quantity"; Rec."Outstanding Quantity")
+            {
+                Caption = 'Outstanding Quantity';
+                ToolTip = 'Outstanding Quantity';
+                ApplicationArea = All;
+                Editable = false;
+                Description = 'TLY-SD - 11/25/2026';
+            }
+
+            field("Qty. to Ship"; Rec."Qty. to Ship")
+            {
+                Caption = 'Qty. to Ship';
+                ToolTip = 'Qty. to Ship';
+                ApplicationArea = All;
+                Editable = false;
+                Description = 'TLY-SD - 11/25/2026';
+            }
+
+            field("Qty. in Transit"; Rec."Qty. in Transit")
+            {
+                Caption = 'Qty. in Transit';
+                ToolTip = 'Qty. in Transit';
+                ApplicationArea = All;
+                Editable = false;
+                Description = 'TLY-SD - 11/25/2026';
+            }
+
             field(SystemCreatedBy; LookupUserId.UserId(Rec.SystemCreatedBy))
             {
                 Caption = 'Created By';
@@ -120,6 +158,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
+
             field(SystemCreatedAt; Rec.SystemCreatedAt)
             {
                 Caption = 'Created Date';
@@ -127,6 +166,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
+
             field(SystemModifiedBy; LookupUserId.UserId(Rec.SystemModifiedBy))
             {
                 Caption = 'Modified By';
@@ -134,6 +174,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ApplicationArea = All;
                 Editable = false;
             }
+
             field(SystemModifiedAt; Rec.SystemModifiedAt)
             {
                 Caption = 'Modified Date';
@@ -222,6 +263,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
         TotalWeight := 0;
         ToShipWeight := 0;
         ToReceiveWeight := 0;
+        VendorNo := ''; //TLY-SD - 11/25/2026
 
         TransferLine.Reset();
         TransferLine.SetRange("Document No.", Rec."No.");
@@ -232,6 +274,10 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToShipWeight := ToShipWeight + (TransferLine."Net Weight" * TransferLine."Qty. to Ship");
                 ToReceiveWeight := ToReceiveWeight + (TransferLine."Net Weight" * TransferLine."Qty. to Receive");
             until TransferLine.Next() = 0;
+            if Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase" then begin //TLY-SD - 11/25/2026
+                TransferLine.CalcFields("Vendor No."); //TLY-SD - 11/25/2026
+                VendorNo := TransferLine."Vendor No."; //TLY-SD - 11/25/2026
+            end; //TLY-SD - 11/25/2026
         end;
     end;
 
@@ -240,4 +286,5 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
         TotalWeight: Decimal;
         ToShipWeight: Decimal;
         ToReceiveWeight: Decimal;
+        VendorNo: Code[20]; //TLY-SD - 11/25/2026
 }

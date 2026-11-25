@@ -774,25 +774,33 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
 
     actions
     {
-
         addlast(Category_Category10)
         {
-            actionref(Proforma_Promoted; "Proforma")
+            actionref(Proforma_Promoted; PrintProforma)
             {
             }
-            actionref(B13_Sales; "B13 Sales")
+            actionref(B13_Sales; PrintB13Sales)
             {
             }
-            actionref(B13_Purchase; "B13 Purchase")
+            actionref(B13_Purchase; PrintB13Purchase)
             {
             }
         }
 
         addafter(Category_Category6)
         {
-            actionref(WarehouseReceive; "Warehouse Receive")
+            actionref(WarehouseReceive_Promoted; WarehouseReceive)
             {
             }
+        }
+
+        addlast(Category_Category11)
+        {
+            actionref(ChangeLog_Promtoed; ChangeLog)
+            { }
+
+            actionref(RRNumberClear_Promoted; RRNumberClear)
+            { }
         }
 
         addbefore(Category_New)
@@ -828,8 +836,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
 
         addlast(Approval)
         {
-
-            action("Proforma")
+            action(PrintProforma)
             {
                 Caption = 'Print Proforma';
                 Image = Print;
@@ -841,7 +848,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                     TorlysDocPrint.PrintProformaFromRO(Rec);
                 end;
             }
-            action("B13 Sales")
+            action(PrintB13Sales)
             {
                 Caption = 'Print B13 Sales';
                 Image = Print;
@@ -853,7 +860,7 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                     TorlysDocPrint.PrintB13SalesFromRO(Rec);
                 end;
             }
-            action("B13 Purchase")
+            action(PrintB13Purchase)
             {
                 Caption = 'Print B13 Purchase';
                 Image = Print;
@@ -867,15 +874,9 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
             }
         }
 
-        addlast(Category_Category11)
-        {
-            actionref(ChangeLog; "Change Log")
-            { }
-        }
-
         addfirst("P&osting")
         {
-            action("Warehouse Receive")
+            action(WarehouseReceive)
             {
                 ToolTip = 'Warehouse Receive';
                 Caption = 'Warehouse Receive';
@@ -974,7 +975,24 @@ pageextension 56630 TlySalesReturnOrder extends "Sales Return Order"
                 end;
             }
 
-            action("Change Log")
+            action(RRNumberClear)
+            {
+                Caption = 'Return Receipt No. Clear';
+                ToolTip = 'Return Receipt No. Clear';
+                ApplicationArea = All;
+                Image = ClearFilter;
+                trigger OnAction()
+                begin
+                    if Rec."Return Receipt No." = '-1' then begin
+                        Rec."Return Receipt No." := '';
+                        Message('Return Receipt No. cleared!');
+                    end else begin
+                        Error('This is not required for this order.');
+                    end;
+                end;
+            }
+
+            action(ChangeLog)
             {
                 Caption = 'Change Log';
                 ToolTip = 'Change Log';

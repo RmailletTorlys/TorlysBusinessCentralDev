@@ -35,21 +35,25 @@ tableextension 55744 TlyTransferShipmentHeader extends "Transfer Shipment Header
         //     DataClassification = CustomerContent;
         //     TableRelation = "Salesperson/Purchaser";
         // }
+
         field(50006; "BOL No."; Code[20])
         {
             Caption = 'BOL No.';
             DataClassification = CustomerContent;
         }
+
         field(50007; "Package Tracking No."; Text[50])
         {
             Caption = 'Package Tracking No.';
             DataClassification = CustomerContent;
         }
+
         field(50008; "Shipping Comment"; Text[100])
         {
             Caption = 'Shipping Comment';
             DataClassification = CustomerContent;
         }
+
         field(50009; "Booking No."; Code[20])
         {
             Caption = 'Booking No.';
@@ -57,6 +61,13 @@ tableextension 55744 TlyTransferShipmentHeader extends "Transfer Shipment Header
             // TableRelation = TlyBookingInfo;
             ObsoleteState = Removed;
         }
+
+        //50010 - Outstanding Quantity flow field
+
+        //50011 - Qty. to Ship flow field
+
+        //50012 - Qty. in Transit flow field
+
         modify("TPS CMG Container No.")
         {
             TableRelation = "TPS CMG Container Header";

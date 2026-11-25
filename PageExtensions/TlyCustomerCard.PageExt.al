@@ -1029,6 +1029,8 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         {
             actionref(SendStatementReview1; SendStatementReview)
             { }
+            actionref(AgedAccountsReceivable_Promoted; AgedAccountsReceivable)
+            { }
         }
 
         addlast(processing)
@@ -1200,6 +1202,18 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
                     end;
                 end;
             }
+
+            action(AgedAccountsReceivable)
+            {
+                Caption = 'Aged Accounts Receivable (consolidated)';
+                ToolTip = 'Aged Accounts Receivable (consolidated)';
+                ApplicationArea = All;
+                Image = AccountingPeriods;
+                trigger OnAction()
+                begin
+                    TlyDocPrint.PrintAgedAccountsReceivableConsolidated(Rec);
+                end;
+            }
         }
 
         addafter(ShipToAddresses)
@@ -1247,6 +1261,7 @@ pageextension 50021 TlyCustomerCard extends "Customer Card"
         R: Report 10072;
         UserSetup: Record "User Setup";
         UserDept: Enum TlyUserDepartment;
+        TlyDocPrint: Codeunit TlyDocumentPrint;
 
     trigger OnOpenPage()
     begin

@@ -80,6 +80,30 @@ pageextension 57011 TlyPurchPriceListLines extends "Purchase Price List Lines"
         }
     }
 
+    actions
+    {
+        addlast(Processing)
+        {
+            action(ShowCurrent)
+            {
+                ApplicationArea = All;
+                Caption = 'Show Current Only';
+                trigger OnAction()
+                begin
+                    // key(PK; "Price List Code", "Line No.") this is primary key of table for reference
+                    Rec.SetCurrentKey("Price List Code", "Asset Type", "Asset No.", "Starting Date", "Ending Date"); //should be same at all spots
+                    Rec.SetFilter("Ending Date", '%1|>%2', 0D, WorkDate());
+                end;
+            }
+        }
+    }
+
+    trigger OnOpenPage()
+    begin
+        // key(PK; "Price List Code", "Line No.") this is primary key of table for reference
+        Rec.SetCurrentKey("Price List Code", "Asset Type", "Asset No.", "Starting Date", "Ending Date"); //should be same at all spots
+    end;
+
     var
         LookupUserId: Codeunit TlyLookupUserID;
 }

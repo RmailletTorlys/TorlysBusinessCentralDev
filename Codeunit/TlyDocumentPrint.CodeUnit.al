@@ -359,4 +359,10 @@ codeunit 50299 TlyDocumentPrint
         Item.SetRange("No.", AssemblyBOM."Parent Item No.");
         Report.RunModal(50040, true, false, Item);
     end;
+
+    procedure PrintAgedAccountsReceivableConsolidated(Customer: Record Customer): Boolean
+    begin
+        Customer.SetRange("No.", Customer."No.");
+        Report.RunModal(120, true, false, Customer)
+    end;
 }

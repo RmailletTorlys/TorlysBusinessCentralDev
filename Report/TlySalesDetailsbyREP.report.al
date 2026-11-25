@@ -8,12 +8,9 @@ report 50087 SalesDetailsbyREP
 
     dataset
     {
-
         dataitem(SalespersonPurchaser; "Salesperson/Purchaser")
         {
-
             RequestFilterFields = "Code", "Global Dimension 2 Code";
-
 
             dataitem(SalesInvHeader; "Sales Invoice Header")
             {
@@ -23,7 +20,6 @@ report 50087 SalesDetailsbyREP
                 dataitem(SalesInvLine; "Sales Invoice Line")
                 {
                     DataItemLink = "Document No." = field("No.");
-
                     RequestFilterFields = "Gen. Prod. Posting Group", "No.", "Item Category Code";
 
                     trigger OnAfterGetRecord()
@@ -34,7 +30,6 @@ report 50087 SalesDetailsbyREP
                     end;
                 }
             }
-
 
             dataitem(SalesCrMemoHeader; "Sales Cr.Memo Header")
             {
@@ -55,7 +50,6 @@ report 50087 SalesDetailsbyREP
                 }
             }
 
-
             dataitem(Detail; Integer)
             {
                 DataItemTableView = sorting(Number);
@@ -63,6 +57,7 @@ report 50087 SalesDetailsbyREP
                 column(CompanyName; CompanyProperty.DisplayName()) { }
                 column(DateFilter; DateFilterText) { }
                 column(ShowDetail; ShowDetailInt) { }
+                column(ShowSelTotals; ShowSelTotalsInt) { }
                 column(SalespersonCode; SalespersonPurchaser.Code) { }
                 column(SalespersonName; SalespersonPurchaser.Name) { }
                 column(DocType; DocTypeText) { }
@@ -75,9 +70,8 @@ report 50087 SalesDetailsbyREP
                 column(LineDescription; TempBuf.Description) { }
                 column(GenProdPostingGroup; TempBuf."Gen. Prod. Posting Group") { }
                 column(Quantity; TempBuf.Quantity) { }
-                column(CurrencyCode; TempBuf."Currency Code") { }
-                column(UnitPrice; TempBuf."Unit Price") { }
                 column(AmountLCY; TempBuf."Amount (LCY)") { }
+                column(CostLCY; TempBuf."Cost (LCY)") { }
 
                 trigger OnPreDataItem()
                 begin
@@ -104,12 +98,12 @@ report 50087 SalesDetailsbyREP
 
             trigger OnAfterGetRecord()
             begin
-                // start each salesperson with an empty buffer
                 TempBuf.Reset();
                 TempBuf.DeleteAll();
                 EntryNo := 0;
             end;
         }
+
     }
 
     requestpage
@@ -127,23 +121,21 @@ report 50087 SalesDetailsbyREP
                         Caption = 'Print in Detail';
                         ToolTip = 'Selected: print every invoice and credit memo line. Cleared: print one summarized line per customer.';
                     }
+                    field(PrintSelTotalsField; PrintSelTotals)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Print Total for Selected Salespersons';
+                        ToolTip = 'Prints a combined total (and totals by Customer Type and Gen. Prod. Posting Group) at the end of the report. Only printed when more than one salesperson is in the report.';
+                    }
                     field(CustomerTypeFilterField; CustomerTypeFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Customer Type Filter';
-                        ToolTip = 'Optional. Only include customers of this type (filter syntax allowed, e.g. A|B).';
+                        ToolTip = 'Optional. Only include transactions with this Customer Type (Shortcut Dimension 3 value). Filter syntax allowed, e.g. A|B.';
                     }
                 }
             }
         }
-
-        trigger OnOpenPage()
-        begin
-            if not Initialized then begin
-                ShowDetail := true;
-                Initialized := true;
-            end;
-        end;
     }
 
     trigger OnPreReport()
@@ -162,6 +154,9 @@ report 50087 SalesDetailsbyREP
         if ShowDetail then
             ShowDetailInt := 1;
 
+        ShowSelTotalsInt := 0;
+        if PrintSelTotals then
+            ShowSelTotalsInt := 1;
     end;
 
     local procedure AddInvoiceLineToBuffer()
@@ -174,7 +169,7 @@ report 50087 SalesDetailsbyREP
         TempBuf."Posting Date" := SalesInvHeader."Posting Date";
         TempBuf."Customer No." := SalesInvHeader."Sell-to Customer No.";
         TempBuf."Customer Name" := SalesInvHeader."Sell-to Customer Name";
-        TempBuf."Customer Type" := GetCustomerType(SalesInvHeader."Sell-to Customer No.");
+        TempBuf."Customer Type" := GetCustomerType(SalesInvLine."Dimension Set ID");
         TempBuf."No." := SalesInvLine."No.";
         TempBuf.Description := SalesInvLine.Description;
         TempBuf."Gen. Prod. Posting Group" := SalesInvLine."Gen. Prod. Posting Group";
@@ -182,6 +177,7 @@ report 50087 SalesDetailsbyREP
         TempBuf."Unit Price" := SalesInvLine."Unit Price";
         TempBuf."Currency Code" := SalesInvHeader."Currency Code";
         TempBuf."Amount (LCY)" := ToLCY(SalesInvLine.Amount, SalesInvHeader."Currency Factor");
+        TempBuf."Cost (LCY)" := ToCost(SalesInvLine.Quantity, SalesInvLine."Unit Cost (LCY)");
         TempBuf.Insert();
     end;
 
@@ -195,7 +191,7 @@ report 50087 SalesDetailsbyREP
         TempBuf."Posting Date" := SalesCrMemoHeader."Posting Date";
         TempBuf."Customer No." := SalesCrMemoHeader."Sell-to Customer No.";
         TempBuf."Customer Name" := SalesCrMemoHeader."Sell-to Customer Name";
-        TempBuf."Customer Type" := GetCustomerType(SalesCrMemoHeader."Sell-to Customer No.");
+        TempBuf."Customer Type" := GetCustomerType(SalesCrMemoLine."Dimension Set ID");
         TempBuf."No." := SalesCrMemoLine."No.";
         TempBuf.Description := SalesCrMemoLine.Description;
         TempBuf."Gen. Prod. Posting Group" := SalesCrMemoLine."Gen. Prod. Posting Group";
@@ -203,6 +199,7 @@ report 50087 SalesDetailsbyREP
         TempBuf."Unit Price" := SalesCrMemoLine."Unit Price";
         TempBuf."Currency Code" := SalesCrMemoHeader."Currency Code";
         TempBuf."Amount (LCY)" := -ToLCY(SalesCrMemoLine.Amount, SalesCrMemoHeader."Currency Factor");
+        TempBuf."Cost (LCY)" := -ToCost(SalesCrMemoLine.Quantity, SalesCrMemoLine."Unit Cost (LCY)");
         TempBuf.Insert();
     end;
 
@@ -213,19 +210,33 @@ report 50087 SalesDetailsbyREP
         exit(Round(Amount / CurrencyFactor, 0.01));
     end;
 
-    local procedure GetCustomerType(CustomerNo: Code[20]): Code[20]
-    var
-        Customer: Record Customer;
+    local procedure ToCost(Qty: Decimal; UnitCostLCY: Decimal): Decimal
     begin
-        if Customer.Get(CustomerNo) then
-            exit(Customer."Customer Posting Group");
+        exit(Round(Qty * UnitCostLCY, 0.01));
+    end;
+
+    local procedure GetCustomerType(DimSetID: Integer): Code[20]
+    var
+        DimSetEntry: Record "Dimension Set Entry";
+    begin
+        if not GLSetupRead then begin
+            GLSetup.Get();
+            GLSetupRead := true;
+        end;
+        if GLSetup."Shortcut Dimension 3 Code" = '' then
+            exit('');
+        if DimSetEntry.Get(DimSetID, GLSetup."Shortcut Dimension 3 Code") then
+            exit(DimSetEntry."Dimension Value Code");
         exit('');
     end;
 
     var
-        TempBuf: Record TlySalesRepBuffer temporary;
+        TempBuf: Record "TlySalesRepBuffer" temporary;
+        GLSetup: Record "General Ledger Setup";
+        GLSetupRead: Boolean;
         ShowDetail: Boolean;
-        Initialized: Boolean;
+        PrintSelTotals: Boolean;
+        ShowSelTotalsInt: Integer;
         CustomerTypeFilter: Text;
         ShowDetailInt: Integer;
         EntryNo: Integer;

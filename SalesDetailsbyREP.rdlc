@@ -73,6 +73,9 @@ End Function
         <Field Name="ShowDetail">
           <DataField>ShowDetail</DataField>
         </Field>
+        <Field Name="ShowSelTotals">
+          <DataField>ShowSelTotals</DataField>
+        </Field>
         <Field Name="SalespersonCode">
           <DataField>SalespersonCode</DataField>
         </Field>
@@ -112,20 +115,17 @@ End Function
         <Field Name="QuantityFormat">
           <DataField>QuantityFormat</DataField>
         </Field>
-        <Field Name="CurrencyCode">
-          <DataField>CurrencyCode</DataField>
-        </Field>
-        <Field Name="UnitPrice">
-          <DataField>UnitPrice</DataField>
-        </Field>
-        <Field Name="UnitPriceFormat">
-          <DataField>UnitPriceFormat</DataField>
-        </Field>
         <Field Name="AmountLCY">
           <DataField>AmountLCY</DataField>
         </Field>
         <Field Name="AmountLCYFormat">
           <DataField>AmountLCYFormat</DataField>
+        </Field>
+        <Field Name="CostLCY">
+          <DataField>CostLCY</DataField>
+        </Field>
+        <Field Name="CostLCYFormat">
+          <DataField>CostLCYFormat</DataField>
         </Field>
       </Fields>
       <Query>

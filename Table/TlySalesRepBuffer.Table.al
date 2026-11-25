@@ -23,6 +23,7 @@ table 50087 TlySalesRepBuffer
         field(12; "Unit Price"; Decimal) { Caption = 'Unit Price'; }
         field(13; "Currency Code"; Code[10]) { Caption = 'Currency Code'; }
         field(14; "Amount (LCY)"; Decimal) { Caption = 'Amount (LCY)'; }
+        field(15; "Cost (LCY)"; Decimal) { Caption = 'Cost (LCY)'; }
     }
 
     keys

@@ -15,7 +15,7 @@ Enum 50011 TlyUserDepartment
     {
         Caption = 'Accounts Receivable';
     }
-    value(3; "Customer Serivce")
+    value(3; "Customer Service")
     {
         Caption = 'Customer Service';
     }

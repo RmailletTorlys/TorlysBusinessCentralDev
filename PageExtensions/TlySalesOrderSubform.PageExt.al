@@ -747,10 +747,12 @@ pageextension 50046 TlySalesOrderSubform extends "Sales Order Subform"
                         SelectedLines: Record "Sales Line";
                         TransferOrderNumber: Code[20];
                         TorlysAddSalesLineToTransLine: Codeunit TlyAddSalesLineToTransLine;
+                        FictiousReceiptDate: Date; //TLY-SD - 11/20/2026 - not needed here, just need to insert variable
                     begin
+                        FictiousReceiptDate := 0D; //TLY-SD - 11/20/2026 - not needed here, just need to insert variable
                         CurrPage.SetSelectionFilter(SelectedLines);
                         if SelectedLines.FindSet() then
-                            TorlysAddSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber);
+                            TorlysAddSalesLineToTransLine.PresentModal(SelectedLines, TransferOrderNumber, FictiousReceiptDate);
 
                         if TransferOrderNumber <> '' then
                             repeat

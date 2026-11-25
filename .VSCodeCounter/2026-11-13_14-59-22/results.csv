@@ -1,0 +1,36 @@
+"filename", "language", "AL", "comment", "blank", "total"
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyBillOfLadingHeader.Table.al", "AL", 385, 63, 61, 509
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyBillOfLadingLine.Table.al", "AL", 157, 28, 35, 220
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyClaimsTrackingHeader.Table.al", "AL", 237, 4, 23, 264
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyClaimsTrackingLine.Table.al", "AL", 131, 19, 14, 164
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyCommentType.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyCustomerDisplays.Table.al", "AL", 133, 0, 5, 138
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyFreightForwarderCosts.Table.al", "AL", 117, 0, 2, 119
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyFreightZone.Table.al", "AL", 108, 0, 9, 117
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyHolidays.Table.al", "AL", 37, 0, 3, 40
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyInlandTerminal.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyItemAdditionalCostType.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyItemAdditionalCosts.Table.al", "AL", 81, 0, 2, 83
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyMKStagedLocation.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyNationalPMBrand.Table.al", "AL", 27, 2, 3, 32
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyOrderMethod.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyOrderType.Table.al", "AL", 27, 0, 5, 32
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyProcessedBillOfLadingHeader.Table.al", "AL", 221, 61, 63, 345
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyProcessedBillOfLadingLine.Table.al", "AL", 124, 21, 25, 170
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyProjectBuilderBrand.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyReplacementCosts.Table.al", "AL", 45, 0, 2, 47
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlySCACCodes.Table.al", "AL", 27, 0, 2, 29
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlySalesBudgets.Table.al", "AL", 102, 7, 9, 118
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlySalesPriceCode.Table.al", "AL", 39, 10, 3, 52
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyShippingInstructions.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlySteamshipLine.Table.al", "AL", 39, 0, 6, 45
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\TlyTransportMethod.Table.al", "AL", 27, 0, 3, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlyBookingInfo.Table.al", "AL", 101, 17, 16, 134
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlyDisplayHeader.Table.al", "AL", 46, 31, 6, 83
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlyDisplayLine.Table.al", "AL", 65, 2, 8, 75
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlyDisplays.Table.al", "AL", 109, 10, 4, 123
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlyHolidayCalendar.Table.al", "AL", 35, 6, 3, 44
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlyLookupValues.Table.al", "AL", 0, 32, 5, 37
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlySCACCode.Table.al", "AL", 26, 2, 2, 30
+"c:\Users\sdwyer\OneDrive - TORLYS INC\Documents\TORLYS\Business Central customizations\TorlysBusinessCentralDev\Table\Z-TlySalespersonPurchaserBuffer.Table.al", "AL", 0, 30, 3, 33
+"Total", "-", 2635, 345, 343, 3323

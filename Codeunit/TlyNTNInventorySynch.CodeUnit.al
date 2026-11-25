@@ -7,6 +7,7 @@
 // // February 2, 2026 - DVP copied this from NAV and made slight changes
 // // TLY-SD - 04/14/2026 - SD added "CalculateInventoryAvailability" as was missed at go live and cleaned up some of the other procedures
 // // TLY-SD - 10/15/2026 - SD made changes
+// // TLY-SD - 11/12/2026 - SD made more changes, fixed "exit" and "else if" of new procedures
 
 
 // codeunit 52231 TlyNTNInventorySynch
@@ -429,8 +430,11 @@
 
 //         if Item.Get(ItemNo) then begin
 //             Item.CalcFields(Item.Inventory, Item."Qty. to Ship", Item."Qty. to Ship (Transfer)");
-//             exit(Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)");
+//             // exit(Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)");
+//             Bucket1v2Qty := Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)";
 //         end;
+
+//         exit(Bucket1v2Qty);
 //     end;
 
 //     procedure GetBucket1v2Date(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket1v2Date: Date
@@ -450,11 +454,18 @@
 //             exit(0D);
 
 //         if LocationCode <> '' then begin
-//             if LocationCode = 'TOR' then
-//                 exit(WorkDate() + 7)
-//             else if LocationCode = 'CAL' then
-//                 exit(WorkDate() + 14);
+//             if (LocationCode = 'TOR') and (GetBucket1v2Qty(ItemNo, VariantCode, 'TMT') <> 0) then begin
+//                 // exit(WorkDate() + 7)
+//                 Bucket1v2Date := WorkDate() + 7;
+//             end else if (LocationCode = 'CAL') and (GetBucket1v2Qty(ItemNo, VariantCode, 'TOR|TMT') <> 0) then begin
+//                 // exit(WorkDate() + 14);
+//                 Bucket1v2Date := WorkDate() + 14;
+//             end else begin
+//                 Bucket1v2Date := 0D;
+//             end;
 //         end;
+
+//         exit(Bucket1v2Date);
 //     end;
 
 //     procedure GetBucket2v2Date(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket2v2Date: Date
@@ -475,8 +486,14 @@
 //         TransferLine.SetFilter("Item No.", ItemNo);
 //         TransferLine.SetRange("Transfer-to Code", LocationCode);
 //         TransferLine.SetFilter("Qty. in Transit", '<>0');
-//         if TransferLine.Find('-') then
-//             exit(TransferLine."Receipt Date");
+//         if TransferLine.Find('-') then begin
+//             // exit(TransferLine."Receipt Date");
+//             Bucket2v2Date := TransferLine."Receipt Date";
+//         end else begin
+//             Bucket2v2Date := 0D;
+//         end;
+
+//         exit(Bucket2v2Date);
 //     end;
 
 //     procedure GetBucket2v2Qty(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket2v2Qty: Decimal
@@ -492,12 +509,19 @@
 //             exit(0);
 //         end;
 
-//         TransferLine.Reset();
-//         TransferLine.SetFilter("Item No.", ItemNo);
-//         TransferLine.SetRange("Transfer-to Code", LocationCode);
-//         TransferLine.SetRange("Receipt Date", GetBucket2v2Date(ItemNo, VariantCode, LocationCode));
-//         TransferLine.CalcSums("Qty. in Transit");
-//         exit(TransferLine."Qty. in Transit");
+//         if GetBucket2v2Date(ItemNo, VariantCode, LocationCode) <> 0D then begin
+//             TransferLine.Reset();
+//             TransferLine.SetFilter("Item No.", ItemNo);
+//             TransferLine.SetRange("Transfer-to Code", LocationCode);
+//             TransferLine.SetRange("Receipt Date", GetBucket2v2Date(ItemNo, VariantCode, LocationCode));
+//             TransferLine.CalcSums("Qty. in Transit");
+//             // exit(TransferLine."Qty. in Transit");
+//             Bucket2v2Qty := TransferLine."Qty. in Transit";
+//         end else begin
+//             Bucket2v2Qty := 0;
+//         end;
+
+//         exit(Bucket2v2Qty);
 //     end;
 
 //     procedure GetBucket3v2Date(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket3v2Date: Date
@@ -520,9 +544,17 @@
 //             TransferLine.SetRange("Transfer-to Code", LocationCode);
 //             TransferLine.SetFilter("Qty. in Transit", '<>0');
 //             TransferLine.SetRange("Receipt Date", GetBucket2v2Date(ItemNo, VariantCode, LocationCode) + 1, 20441201D);
-//             if TransferLine.Find('-') then
-//                 exit(TransferLine."Receipt Date");
+//             if TransferLine.Find('-') then begin
+//                 // exit(TransferLine."Receipt Date");
+//                 Bucket3v2Date := TransferLine."Receipt Date";
+//             end else begin
+//                 Bucket3v2Date := 0D;
+//             end;
+//         end else begin
+//             Bucket3v2Date := 0D;
 //         end;
+
+//         exit(Bucket3v2Date);
 //     end;
 
 //     procedure GetBucket3v2Qty(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket3v2Qty: Decimal
@@ -538,12 +570,19 @@
 //             exit(0);
 //         end;
 
-//         TransferLine.Reset();
-//         TransferLine.SetFilter("Item No.", ItemNo);
-//         TransferLine.SetRange("Transfer-to Code", LocationCode);
-//         TransferLine.SetRange("Receipt Date", GetBucket3v2Date(ItemNo, VariantCode, LocationCode));
-//         TransferLine.CalcSums("Qty. in Transit");
-//         exit(TransferLine."Qty. in Transit");
+//         if GetBucket3v2Date(ItemNo, VariantCode, LocationCode) <> 0D then begin
+//             TransferLine.Reset();
+//             TransferLine.SetFilter("Item No.", ItemNo);
+//             TransferLine.SetRange("Transfer-to Code", LocationCode);
+//             TransferLine.SetRange("Receipt Date", GetBucket3v2Date(ItemNo, VariantCode, LocationCode));
+//             TransferLine.CalcSums("Qty. in Transit");
+//             // exit(TransferLine."Qty. in Transit");
+//             Bucket3v2Qty := TransferLine."Qty. in Transit";
+//         end else begin
+//             Bucket3v2Qty := 0;
+//         end;
+
+//         exit(Bucket3v2Qty);
 //     end;
 
 //     procedure GetBucket4v2Date(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket4v2Date: Date
@@ -566,9 +605,17 @@
 //             TransferLine.SetRange("Transfer-to Code", LocationCode);
 //             TransferLine.SetFilter("Qty. in Transit", '<>0');
 //             TransferLine.SetRange("Receipt Date", GetBucket3v2Date(ItemNo, VariantCode, LocationCode) + 1, 20441201D);
-//             if TransferLine.Find('-') then
-//                 exit(TransferLine."Receipt Date");
+//             if TransferLine.Find('-') then begin
+//                 // exit(TransferLine."Receipt Date");
+//                 Bucket4v2Date := TransferLine."Receipt Date";
+//             end else begin
+//                 Bucket4v2Date := 0D;
+//             end;
+//         end else begin
+//             Bucket4v2Date := 0D;
 //         end;
+
+//         exit(Bucket4v2Date);
 //     end;
 
 //     procedure GetBucket4v2Qty(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]) Bucket4v2Qty: Decimal
@@ -584,11 +631,18 @@
 //             exit(0);
 //         end;
 
-//         TransferLine.Reset();
-//         TransferLine.SetFilter("Item No.", ItemNo);
-//         TransferLine.SetRange("Transfer-to Code", LocationCode);
-//         TransferLine.SetRange("Receipt Date", GetBucket4v2Date(ItemNo, VariantCode, LocationCode));
-//         TransferLine.CalcSums("Qty. in Transit");
-//         exit(TransferLine."Qty. in Transit");
+//         if GetBucket4v2Date(ItemNo, VariantCode, LocationCode) <> 0D then begin
+//             TransferLine.Reset();
+//             TransferLine.SetFilter("Item No.", ItemNo);
+//             TransferLine.SetRange("Transfer-to Code", LocationCode);
+//             TransferLine.SetRange("Receipt Date", GetBucket4v2Date(ItemNo, VariantCode, LocationCode));
+//             TransferLine.CalcSums("Qty. in Transit");
+//             // exit(TransferLine."Qty. in Transit");
+//             Bucket4v2Qty := TransferLine."Qty. in Transit";
+//         end else begin
+//             Bucket4v2Qty := 0;
+//         end;
+
+//         exit(Bucket4v2Qty);
 //     end;
 // }

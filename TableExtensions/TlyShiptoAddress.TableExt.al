@@ -109,4 +109,15 @@ tableextension 50222 TlyShiptoAddress extends "Ship-to Address"
         {
         }
     }
+
+    trigger OnInsert()
+    var
+        Cust: Record Customer;
+    begin
+        //TLY-SD - 11/24/2026 - moved here from CU for more efficient setup
+        Cust.Get(Rec."Customer No.");
+        Rec.Validate("Location Code", Cust."Location Code");
+        Rec.Validate("Tax Liable", Cust."Tax Liable");
+        Rec.Validate("Tax Area Code", Cust."Tax Area Code");
+    end;
 }

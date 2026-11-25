@@ -184,6 +184,14 @@ tableextension 55741 TlyTransferLine extends "Transfer Line"
             CalcFormula = Sum("TPS CMG Container Line"."Quantity Linked via PO" where("Container No." = field("TPS CMG Container No."), "Transfer Order No." = field("Document No."), "Transfer Order Line No." = field("Line No.")));
         }
 
+        field(50013; "Transfer Type"; Enum TlyTransferType)
+        {
+            Caption = 'Transfer Type';
+            Description = 'TLY-SD - 11/11/2026 - so we can filter on our link to transfer function';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Transfer Header"."Transfer Type" where("No." = field("Document No.")));
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()

@@ -74,6 +74,8 @@ pageextension 50030 TlyItemCard extends "Item Card"
 
         //NTN Group Start
 
+        moveafter("NTN Allow Decimal Qty. When Ordering"; "NTN Show Actual Inventory on Web", "NTN Inventory Threshold")
+
         //NTN Group End
 
         //Attributes Group Start

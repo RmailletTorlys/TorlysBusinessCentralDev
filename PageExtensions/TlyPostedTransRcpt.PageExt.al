@@ -125,23 +125,23 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
     {
         addlast(Category_Category4)
         {
-            actionref(ChangeLog; "Change Log")
+            actionref(ChangeLog_Promoted; ChangeLog)
             {
             }
-            actionref(SOJoin; "View and Fill Joined SO")
+            actionref(ViewAndFillJoinedSO_Promoted; ViewAndFillJoinedSO)
             {
             }
-            actionref(LinkededSOviaCT; "View and Fill Linked SO via PO#")
+            actionref(ViewAndFillLinkedSOViaPO_Promoted; ViewAndFillLinkedSOViaPO)
             {
             }
-            actionref(LinkededSOviaTR; "View and Fill Linked SO via TR#")
+            actionref(ViewAndFillLinkedSOViaTR_Promoted; ViewAndFillLinkedSOViaTR)
             {
             }
         }
 
         addlast("&Receipt")
         {
-            action("Change Log")
+            action(ChangeLog)
             {
                 Caption = 'Change Log';
                 ToolTip = 'Change Log';
@@ -150,7 +150,7 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 RunObject = Page "Change Log Entries";
                 RunPageLink = "Primary Key Field 1 Value" = field("Transfer Order No.");
             }
-            action("View and Fill Joined SO")
+            action(ViewAndFillJoinedSO)
             {
                 ApplicationArea = Location;
                 Caption = 'View and Fill Joined SO';
@@ -159,7 +159,7 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 RunObject = Page TlyJoinedSOtoTO;
                 RunPageLink = "Transfer Order No." = field("Transfer Order No."), Type = const(Item);
             }
-            action("View and Fill Linked SO via PO#")
+            action(ViewAndFillLinkedSOViaPO)
             {
                 ApplicationArea = Location;
                 Caption = 'View and Fill Linked SO via PO#';
@@ -167,9 +167,11 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 Image = OrderTracking;
                 // Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning") or (Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase");
                 RunObject = Page TlyLinkedSOtoTO;
-                RunPageLink = "Container No." = field("TPS CMG Container No."), "Outstanding Quantity" = filter(<> 0);
+                //TLY-SD - 11/20/2026 - only order show for the inbound location, if on other order, deal with on exception report
+                // RunPageLink = "Container No." = field("TPS CMG Container No."), "Outstanding Quantity" = filter(<> 0);
+                RunPageLink = "Container No." = field("TPS CMG Container No."), "Outstanding Quantity" = filter(<> 0), "Location Code" = field("Transfer-to Code");
             }
-            action("View and Fill Linked SO via TR#")
+            action(ViewAndFillLinkedSOViaTR)
             {
                 ApplicationArea = Location;
                 Caption = 'View and Fill Linked SO via TR#';
@@ -177,7 +179,9 @@ pageextension 55745 TlyPostedTransRcpt extends "Posted Transfer Receipt"
                 Image = OrderTracking;
                 // Visible = (Rec."Transfer Type" = Rec."Transfer Type"::"Demand Planning") or (Rec."Transfer Type" = Rec."Transfer Type"::"Supplier Purchase");
                 RunObject = Page TlyLinkedSOtoTO;
-                RunPageLink = "Linked Transfer Order No." = field("Transfer Order No."), "Outstanding Quantity" = filter(<> 0);
+                //TLY-SD - 11/20/2026 - only order show for the inbound location, if on other order, deal with on exception report
+                // RunPageLink = "Linked Transfer Order No." = field("No."), "Outstanding Quantity" = filter(<> 0);
+                RunPageLink = "Linked Transfer Order No." = field("No."), "Outstanding Quantity" = filter(<> 0), "Location Code" = field("Transfer-to Code");
             }
         }
     }

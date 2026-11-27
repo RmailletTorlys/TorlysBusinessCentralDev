@@ -24,7 +24,7 @@ codeunit 50027 TlyAddSalesLineToTransLine
     //     end;
     // end;
 
-    procedure PresentModal(Rec: Record "Sales Line"; var TransferOrderNumber: Code[20]; var ReceiptDate: Date)
+    procedure PresentModal(Rec: Record "Sales Line"; var TransferOrderNumber: Code[20]; var ReceiptDate: Date; var SkipInventoryCheck: Boolean)
     var
         TransferOrders: Page "Transfer Orders";
         TransferHeader: Record "Transfer Header";
@@ -40,12 +40,15 @@ codeunit 50027 TlyAddSalesLineToTransLine
         else if Rec."Location Code" = 'CAL' then
             LocationCode := 'TOR';
 
-        Item.Reset();
-        Item.Get(Rec."No.");
-        Item.SetRange("Location Filter", LocationCode);
-        Item.CalcFields(Inventory, "Qty. to Ship", "Qty. to Ship (Transfer)");
-        if (Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)") < Rec."Quantity" then
-            Error('ERROR!\\Line not joined to transfer, not enough inventory.');
+        if not SkipInventoryCheck then begin //TLY-SD - 11/26/2026 - added here depending on method to add to transfer
+            Item.Reset();
+            Item.Get(Rec."No.");
+            Item.SetRange("Location Filter", LocationCode);
+            Item.CalcFields(Inventory, "Qty. to Ship", "Qty. to Ship (Transfer)");
+            if (Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)") < Rec."Quantity" then
+                Error('ERROR!\\Line not joined to transfer, not enough inventory.');
+        end; //TLY-SD - 11/26/2026 - added here depending on method to add to transfer
+
         // Error('ERROR!\\Line not joined to transfer, not enough inventory.\\Order Quantity = %1.\\Inventory = %2.', Rec.Quantity, (Item.Inventory - Item."Qty. to Ship" - Item."Qty. to Ship (Transfer)"));
         if Rec.Type = Rec.Type::Item then begin
             TransferOrders.LookupMode(true);

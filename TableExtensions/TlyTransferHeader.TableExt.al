@@ -67,23 +67,31 @@ tableextension 55740 TlyTransferHeader extends "Transfer Header"
         field(50010; "Outstanding Quantity"; Decimal)
         {
             Caption = 'Outstanding Quantity';
-            CalcFormula = Sum("Transfer Line"."Outstanding Quantity" where("Document No." = field("No."), "Derived From Line No." = filter(0)));
             FieldClass = FlowField;
+            CalcFormula = Sum("Transfer Line"."Outstanding Quantity" where("Document No." = field("No."), "Derived From Line No." = filter(0)));
         }
 
         field(50011; "Qty. to Ship"; Decimal)
         {
             Caption = 'Qty. to Ship';
-            CalcFormula = Sum("Transfer Line"."Qty. to Ship" where("Document No." = field("No."), "Derived From Line No." = filter(0)));
             FieldClass = FlowField;
+            CalcFormula = Sum("Transfer Line"."Qty. to Ship" where("Document No." = field("No."), "Derived From Line No." = filter(0)));
         }
 
         field(50012; "Qty. in Transit"; Decimal)
         {
             Caption = 'Qty. in Transit';
-            CalcFormula = Sum("Transfer Line"."Qty. in Transit" where("Document No." = field("No."), "Derived From Line No." = filter(0)));
             FieldClass = FlowField;
+            CalcFormula = Sum("Transfer Line"."Qty. in Transit" where("Document No." = field("No."), "Derived From Line No." = filter(0)));
         }
+
+        // field(50013; "Vendor No."; Code[20])
+        // {
+        //     Caption = 'Vendor No.';
+        //     FieldClass = FlowField;
+        //     CalcFormula = lookup("Transfer Line"."Vendor No." where("Document No." = field("No."), "Derived From Line No." = filter(0)));//, "Transfer Type" = filter('Supplier Purchase')));
+        //     Description = 'TLY-SD - 11/26/2026';
+        // }
 
         modify("TPS CMG Container No.")
         {

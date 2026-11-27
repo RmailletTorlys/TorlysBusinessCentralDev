@@ -7,7 +7,7 @@ page 51002 TlyBillOfLading
     SourceTable = TlyBillOfLadingHeader;
     // UsageCategory = Documents;
     ApplicationArea = Basic, Suite;
-    Permissions = tabledata "Sales Shipment Header" = rm;
+    // Permissions = tabledata "Sales Shipment Header" = rm;
     DeleteAllowed = true;
     InsertAllowed = true;
 
@@ -456,8 +456,11 @@ page 51002 TlyBillOfLading
                 Caption = 'Add Shipments for Pickup Date';
                 Image = Document;
                 trigger OnAction()
+                var
+                    GetShipment: Codeunit TlyBOLGetShipment;
                 begin
-                    GetShipment();
+                    GetShipment.GetShipment(Rec);
+                    // GetShipment();
                 end;
             }
             action(ClearWeightsAndQuantities)
@@ -489,8 +492,8 @@ page 51002 TlyBillOfLading
                 trigger OnAction()
                 var
                 begin
-                    BOLPrintPostChecks.BOLChecks(Rec);
-                    TorlysDocPrint.PrintBillOfLading(Rec);
+                    BOLPrintPostChecks.BOLChecks(Rec); //TLY-SD - 11/26/2026 - move from here to CU
+                    // TorlysDocPrint.PrintBillOfLading(Rec); //TLY-SD - 11/26/2026 - move from here to CU
                 end;
             }
             // action(PostBOL)
@@ -602,281 +605,280 @@ page 51002 TlyBillOfLading
                 Caption = 'Co&mments';
                 Image = ViewComments;
                 RunObject = Page "Comment Sheet";
-                RunPageLink = "Table Name" = const("Bill of Lading"),
-                                  "No." = field("No.");
+                RunPageLink = "Table Name" = const("Bill of Lading"), "No." = field("No.");
                 ToolTip = 'View or add comments for the record.';
             }
         }
     }
 
-    internal procedure GetShipment()
-    var
-        SalesShipmentHeader: Record "Sales Shipment Header";
-        SalesShipmentLine: Record "Sales Shipment Line";
-        BOLLine: Record TlyBillOfLadingLine;
-        NextLineNo: Integer;
-        ShippingAgent: Record "Shipping Agent";
-        UOMMgt: Codeunit "Unit of Measure Management";
-        QtyPerCase: Decimal;
-        QtyPerPallet: Decimal;
-        Item: Record Item;
-        TotalWeight: Decimal;
-        TotalCases: Integer;
-        SalesHeader: Record "Sales Header";
-        TransferShipmentHeader: Record "Transfer Shipment Header";
-        TransferShipmentLine: Record "Transfer Shipment Line";
-        TransferHeader: Record "Transfer Header";
-    begin
-        SalesShipmentHeader.Reset();
-        SalesShipmentLine.Reset();
-        BOLLine.Reset();
-        NextLineNo := 0;
-        ShippingAgent.Reset();
-        QtyPerCase := 0;
-        QtyPerPallet := 0;
-        Item.Reset();
-        TotalWeight := 0;
-        TotalCases := 0;
-        SalesHeader.Reset();
-        TransferShipmentHeader.Reset();
-        TransferShipmentLine.Reset();
-        TransferHeader.Reset();
+    //TLY-SD - 11/26/2026 - move from here to CU
+    // internal procedure GetShipment()
+    // var
+    //     SalesShipmentHeader: Record "Sales Shipment Header";
+    //     SalesShipmentLine: Record "Sales Shipment Line";
+    //     BOLLine: Record TlyBillOfLadingLine;
+    //     NextLineNo: Integer;
+    //     ShippingAgent: Record "Shipping Agent";
+    //     UOMMgt: Codeunit "Unit of Measure Management";
+    //     QtyPerCase: Decimal;
+    //     QtyPerPallet: Decimal;
+    //     Item: Record Item;
+    //     TotalWeight: Decimal;
+    //     TotalCases: Integer;
+    //     SalesHeader: Record "Sales Header";
+    //     TransferShipmentHeader: Record "Transfer Shipment Header";
+    //     TransferShipmentLine: Record "Transfer Shipment Line";
+    //     TransferHeader: Record "Transfer Header";
+    // begin
+    //     SalesShipmentHeader.Reset();
+    //     SalesShipmentLine.Reset();
+    //     BOLLine.Reset();
+    //     NextLineNo := 0;
+    //     ShippingAgent.Reset();
+    //     QtyPerCase := 0;
+    //     QtyPerPallet := 0;
+    //     Item.Reset();
+    //     TotalWeight := 0;
+    //     TotalCases := 0;
+    //     SalesHeader.Reset();
+    //     TransferShipmentHeader.Reset();
+    //     TransferShipmentLine.Reset();
+    //     TransferHeader.Reset();
 
-        BOLLine.SetRange("BOL No.", Rec."No.");
-        if BOLLine.Find('+') then
-            NextLineNo := BOLLine."BOL Line No." + 10000
-        else
-            NextLineNo := 10000;
+    //     BOLLine.SetRange("BOL No.", Rec."No.");
+    //     if BOLLine.Find('+') then
+    //         NextLineNo := BOLLine."BOL Line No." + 10000
+    //     else
+    //         NextLineNo := 10000;
 
-        if Rec."Transaction Type" = Rec."Transaction Type"::Shipment then begin
-            SalesShipmentHeader.SetRange("Sell-to Customer No.", Rec."Customer No.");
-            SalesShipmentHeader.SetRange("Ship-to Code", Rec."Ship-to Code");
-            SalesShipmentHeader.SetRange("Location Code", Rec."Location Code");
-            SalesShipmentHeader.SetRange("Shipment Date", Rec."Pickup Date");
-            SalesShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-            SalesShipmentHeader.SetRange("BOL No.", '');
-            if SalesShipmentHeader.IsEmpty then begin
-                Error('No shipments were found. Please verify the information and try again.');
-            end;
-            if SalesShipmentHeader.FindSet() then begin
-                repeat
-                    BOLLine.Init();
-                    BOLLine."BOL Line No." := NextLineNo;
-                    BOLLine."BOL No." := Rec."No.";
-                    BOLLine."Order No." := SalesShipmentHeader."Order No.";
-                    BOLLine."Shipment No." := SalesShipmentHeader."No.";
-                    BOLLine."Shipment Date" := SalesShipmentHeader."Shipment Date";
-                    BOLLine."Customer No." := SalesShipmentHeader."Sell-to Customer No.";
-                    BOLLine."Ship-to Code" := SalesShipmentHeader."Ship-to Code";
-                    BOLLine."Ship-to Name" := SalesShipmentHeader."Ship-to Name";
-                    BOLLine."Ship-to Address" := SalesShipmentHeader."Ship-to Address";
-                    BOLLine."Ship-to Address 2" := SalesShipmentHeader."Ship-to Address 2";
-                    BOLLine."Ship-to City" := SalesShipmentHeader."Ship-to City";
-                    BOLLine."Ship-to County" := SalesShipmentHeader."Ship-to County";
-                    BOLLine."Ship-to Post Code" := SalesShipmentHeader."Ship-to Post Code";
-                    BOLLine."Ship-to Country/Region Code" := SalesShipmentHeader."Ship-to Country/Region Code";
-                    BOLLine."External Document No." := SalesShipmentHeader."External Document No.";
-                    BOLLine."Shipping Agent Code" := SalesShipmentHeader."Shipping Agent Code";
-                    if ShippingAgent.Get(Rec."Shipping Agent Code") THEN
-                        BOLLine."Freight Charges" := ShippingAgent."Freight Charges";
-                    BOLLine."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
-                    BOLLine."Total Weight" := 0;
-                    BOLLine."Total Cases" := 0;
+    //     if Rec."Transaction Type" = Rec."Transaction Type"::Shipment then begin
+    //         SalesShipmentHeader.SetRange("Sell-to Customer No.", Rec."Customer No.");
+    //         SalesShipmentHeader.SetRange("Ship-to Code", Rec."Ship-to Code");
+    //         SalesShipmentHeader.SetRange("Location Code", Rec."Location Code");
+    //         SalesShipmentHeader.SetRange("Shipment Date", Rec."Pickup Date");
+    //         SalesShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
+    //         SalesShipmentHeader.SetRange("BOL No.", '');
+    //         if SalesShipmentHeader.IsEmpty then begin
+    //             Error('No shipments were found. Please verify the information and try again.');
+    //         end;
+    //         if SalesShipmentHeader.FindSet() then begin
+    //             repeat
+    //                 BOLLine.Init();
+    //                 BOLLine."BOL Line No." := NextLineNo;
+    //                 BOLLine."BOL No." := Rec."No.";
+    //                 BOLLine."Order No." := SalesShipmentHeader."Order No.";
+    //                 BOLLine."Shipment No." := SalesShipmentHeader."No.";
+    //                 BOLLine."Shipment Date" := SalesShipmentHeader."Shipment Date";
+    //                 BOLLine."Customer No." := SalesShipmentHeader."Sell-to Customer No.";
+    //                 BOLLine."Ship-to Code" := SalesShipmentHeader."Ship-to Code";
+    //                 BOLLine."Ship-to Name" := SalesShipmentHeader."Ship-to Name";
+    //                 BOLLine."Ship-to Address" := SalesShipmentHeader."Ship-to Address";
+    //                 BOLLine."Ship-to Address 2" := SalesShipmentHeader."Ship-to Address 2";
+    //                 BOLLine."Ship-to City" := SalesShipmentHeader."Ship-to City";
+    //                 BOLLine."Ship-to County" := SalesShipmentHeader."Ship-to County";
+    //                 BOLLine."Ship-to Post Code" := SalesShipmentHeader."Ship-to Post Code";
+    //                 BOLLine."Ship-to Country/Region Code" := SalesShipmentHeader."Ship-to Country/Region Code";
+    //                 BOLLine."External Document No." := SalesShipmentHeader."External Document No.";
+    //                 BOLLine."Shipping Agent Code" := SalesShipmentHeader."Shipping Agent Code";
+    //                 if ShippingAgent.Get(Rec."Shipping Agent Code") THEN
+    //                     BOLLine."Freight Charges" := ShippingAgent."Freight Charges";
+    //                 BOLLine."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
+    //                 BOLLine."Total Weight" := 0;
+    //                 BOLLine."Total Cases" := 0;
 
-                    if Rec."Shipping Comment" = '' then begin
-                        Rec."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
-                        Rec.Modify(true);
-                    end;
+    //                 if Rec."Shipping Comment" = '' then begin
+    //                     Rec."Shipping Comment" := SalesShipmentHeader."Shipping Comment";
+    //                     Rec.Modify(true);
+    //                 end;
 
-                    SalesShipmentLine.Reset();
-                    SalesShipmentLine.SetRange("Document No.", SalesShipmentHeader."No.");
-                    SalesShipmentLine.SetFilter(Type, 'Item');
-                    if SalesShipmentLine.FindSet() then begin
-                        repeat
-                            //this is 1 of 2 way of checking, essentially no case counts, just the quantity
-                            if (SalesShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
-                                Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + SalesShipmentLine."Quantity";
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
-                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
-                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" = 'ROLL') then begin
-                                Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + SalesShipmentLine."Quantity";
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
-                                //this is 2 of 2 way of checking, use case counts from item card
-                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
-                                Item.Get(SalesShipmentLine."No."); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                // Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"
-                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                // BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
-                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                                                                                                               //this is 2 of 2 way of checking, use case counts from item card
-                            end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
-                                                                                    'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
-                                                                                    'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
-                                Item.Get(SalesShipmentLine."No.");
-                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
-                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"
-                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
-                                                        + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
-                            end else begin
-                                Rec."Weight - Other" := Rec."Weight - Other" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                Rec."Cases - Other" := Rec."Cases - Other" + SalesShipmentLine."Quantity";
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
-                            end;
-                        until SalesShipmentLine.Next() = 0;
-                    end;
-                    BOLLine.Insert();
-                    NextLineNo += 10000;
-                until SalesShipmentHeader.Next() = 0;
-                // write BOL # on shipment header
-                if SalesShipmentHeader.Find('-') then begin
-                    SalesShipmentHeader.ModifyAll(SalesShipmentHeader."BOL No.", Rec."No.");
-                end;
-                // write BOL # on sales header
-                BOLLine.Reset();
-                BOLLine.SetRange("BOL No.", Rec."No.");
-                if BOLLine.Find('-') then begin
-                    repeat
-                        SalesHeader.Reset();
-                        SalesHeader.SetRange("No.", BOLLine."Order No.");
-                        if SalesHeader.Find('-') then begin
-                            repeat
-                                SalesHeader."BOL No." := BOLLine."BOL No.";
-                                SalesHeader.Modify(true);
-                            until SalesHeader.Next() = 0;
-                        end;
-                    until BOLLine.Next() = 0;
-                end;
-            end;
-        end else if Rec."Transaction Type" = Rec."Transaction Type"::Transfer then begin
-            TransferShipmentHeader.SetRange("Transfer-to Code", Rec."Customer No.");
-            TransferShipmentHeader.SetRange("Transfer-from Code", Rec."Location Code");
-            TransferShipmentHeader.SetRange("Shipment Date", Rec."Pickup Date");
-            TransferShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
-            TransferShipmentHeader.SetRange("BOL No.", '');
-            if TransferShipmentHeader.IsEmpty then begin
-                Error('No transfers were found. Please verify the information and try again.');
-            end;
-            if TransferShipmentHeader.FindSet() then begin
-                repeat
-                    BOLLine.Init();
-                    BOLLine."BOL Line No." := NextLineNo;
-                    BOLLine."BOL No." := Rec."No.";
-                    BOLLine."Order No." := TransferShipmentHeader."Transfer Order No.";
-                    BOLLine."Shipment No." := TransferShipmentHeader."No.";
-                    BOLLine."Shipment Date" := TransferShipmentHeader."Shipment Date";
-                    BOLLine."Customer No." := TransferShipmentHeader."Transfer-to Code";
-                    // BOLLine."Ship-to Code" := TransferShipmentHeader."Transfer-to Code";
-                    BOLLine."Ship-to Name" := TransferShipmentHeader."Transfer-to Name";
-                    BOLLine."Ship-to Address" := TransferShipmentHeader."Transfer-to Address";
-                    BOLLine."Ship-to Address 2" := TransferShipmentHeader."Transfer-to Address 2";
-                    BOLLine."Ship-to City" := TransferShipmentHeader."Transfer-to City";
-                    BOLLine."Ship-to County" := TransferShipmentHeader."Transfer-to County";
-                    BOLLine."Ship-to Post Code" := TransferShipmentHeader."Transfer-to Post Code";
-                    BOLLine."Ship-to Country/Region Code" := TransferShipmentHeader."Trsf.-to Country/Region Code";
-                    BOLLine."External Document No." := TransferShipmentHeader."External Document No.";
-                    BOLLine."Shipping Agent Code" := TransferShipmentHeader."Shipping Agent Code";
-                    if ShippingAgent.Get(Rec."Shipping Agent Code") THEN
-                        BOLLine."Freight Charges" := ShippingAgent."Freight Charges";
-                    BOLLine."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
-                    BOLLine."Total Weight" := 0;
-                    BOLLine."Total Cases" := 0;
+    //                 SalesShipmentLine.Reset();
+    //                 SalesShipmentLine.SetRange("Document No.", SalesShipmentHeader."No.");
+    //                 SalesShipmentLine.SetFilter(Type, 'Item');
+    //                 if SalesShipmentLine.FindSet() then begin
+    //                     repeat
+    //                         //this is 1 of 2 way of checking, essentially no case counts, just the quantity
+    //                         if (SalesShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
+    //                             Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + SalesShipmentLine."Quantity";
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+    //                             //this is 1 of 2 way of checking, essentially no case counts, just the quantity
+    //                         end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" = 'ROLL') then begin
+    //                             Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + SalesShipmentLine."Quantity";
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+    //                             //this is 2 of 2 way of checking, use case counts from item card
+    //                         end else if (SalesShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (SalesShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
+    //                             Item.Get(SalesShipmentLine."No."); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             // Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"
+    //                                                     + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             // BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
+    //                                                     + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                                                                                                                            //this is 2 of 2 way of checking, use case counts from item card
+    //                         end else if (SalesShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
+    //                                                                                 'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
+    //                                                                                 'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
+    //                             Item.Get(SalesShipmentLine."No.");
+    //                             QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+    //                             QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
+    //                             Rec."Weight - Flooring" := Rec."Weight - Flooring" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             Rec."Cases - Flooring" := Rec."Cases - Flooring" + SalesShipmentLine."Quantity Case"
+    //                                                     + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity Case"
+    //                                                     + (SalesShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+    //                             //this is 1 of 2 way of checking, essentially no case counts, just the quantity
+    //                         end else begin
+    //                             Rec."Weight - Other" := Rec."Weight - Other" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             Rec."Cases - Other" := Rec."Cases - Other" + SalesShipmentLine."Quantity";
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (SalesShipmentLine."Net Weight" * SalesShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + SalesShipmentLine."Quantity";
+    //                         end;
+    //                     until SalesShipmentLine.Next() = 0;
+    //                 end;
+    //                 BOLLine.Insert();
+    //                 NextLineNo += 10000;
+    //             until SalesShipmentHeader.Next() = 0;
+    //             // write BOL # on shipment header
+    //             if SalesShipmentHeader.Find('-') then begin
+    //                 SalesShipmentHeader.ModifyAll(SalesShipmentHeader."BOL No.", Rec."No.");
+    //             end;
+    //             // write BOL # on sales header
+    //             BOLLine.Reset();
+    //             BOLLine.SetRange("BOL No.", Rec."No.");
+    //             if BOLLine.Find('-') then begin
+    //                 repeat
+    //                     SalesHeader.Reset();
+    //                     SalesHeader.SetRange("No.", BOLLine."Order No.");
+    //                     if SalesHeader.Find('-') then begin
+    //                         repeat
+    //                             SalesHeader."BOL No." := BOLLine."BOL No.";
+    //                             SalesHeader.Modify(true);
+    //                         until SalesHeader.Next() = 0;
+    //                     end;
+    //                 until BOLLine.Next() = 0;
+    //             end;
+    //         end;
+    //     end else if Rec."Transaction Type" = Rec."Transaction Type"::Transfer then begin
+    //         TransferShipmentHeader.SetRange("Transfer-to Code", Rec."Customer No.");
+    //         TransferShipmentHeader.SetRange("Transfer-from Code", Rec."Location Code");
+    //         TransferShipmentHeader.SetRange("Shipment Date", Rec."Pickup Date");
+    //         TransferShipmentHeader.SetRange("Shipping Agent Code", Rec."Shipping Agent Code");
+    //         TransferShipmentHeader.SetRange("BOL No.", '');
+    //         if TransferShipmentHeader.IsEmpty then begin
+    //             Error('No transfers were found. Please verify the information and try again.');
+    //         end;
+    //         if TransferShipmentHeader.FindSet() then begin
+    //             repeat
+    //                 BOLLine.Init();
+    //                 BOLLine."BOL Line No." := NextLineNo;
+    //                 BOLLine."BOL No." := Rec."No.";
+    //                 BOLLine."Order No." := TransferShipmentHeader."Transfer Order No.";
+    //                 BOLLine."Shipment No." := TransferShipmentHeader."No.";
+    //                 BOLLine."Shipment Date" := TransferShipmentHeader."Shipment Date";
+    //                 BOLLine."Customer No." := TransferShipmentHeader."Transfer-to Code";
+    //                 // BOLLine."Ship-to Code" := TransferShipmentHeader."Transfer-to Code";
+    //                 BOLLine."Ship-to Name" := TransferShipmentHeader."Transfer-to Name";
+    //                 BOLLine."Ship-to Address" := TransferShipmentHeader."Transfer-to Address";
+    //                 BOLLine."Ship-to Address 2" := TransferShipmentHeader."Transfer-to Address 2";
+    //                 BOLLine."Ship-to City" := TransferShipmentHeader."Transfer-to City";
+    //                 BOLLine."Ship-to County" := TransferShipmentHeader."Transfer-to County";
+    //                 BOLLine."Ship-to Post Code" := TransferShipmentHeader."Transfer-to Post Code";
+    //                 BOLLine."Ship-to Country/Region Code" := TransferShipmentHeader."Trsf.-to Country/Region Code";
+    //                 BOLLine."External Document No." := TransferShipmentHeader."External Document No.";
+    //                 BOLLine."Shipping Agent Code" := TransferShipmentHeader."Shipping Agent Code";
+    //                 if ShippingAgent.Get(Rec."Shipping Agent Code") THEN
+    //                     BOLLine."Freight Charges" := ShippingAgent."Freight Charges";
+    //                 BOLLine."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
+    //                 BOLLine."Total Weight" := 0;
+    //                 BOLLine."Total Cases" := 0;
 
-                    Rec."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
-                    Rec.Modify(true);
+    //                 Rec."Shipping Comment" := TransferShipmentHeader."Shipping Comment";
+    //                 Rec.Modify(true);
 
-                    TransferShipmentLine.Reset();
-                    TransferShipmentLine.SetRange("Document No.", TransferShipmentHeader."No.");
-                    if TransferShipmentLine.FindSet() then begin
-                        repeat
-                            //this is 1 of 2 way of checking, essentially no case counts, just the quantity
-                            if (TransferShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
-                                Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + TransferShipmentLine."Quantity";
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
-                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
-                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" = 'ROLL') then begin
-                                Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + TransferShipmentLine."Quantity";
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
-                                //this is 2 of 2 way of checking, use case counts from item card
-                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
-                                Item.Get(TransferShipmentLine."Item No."); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                // Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"
-                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                // BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
-                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
-                                                                                                                                  //this is 2 of 2 way of checking, use case counts from item card
-                            end else if (TransferShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
-                                                                                    'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
-                                                                                    'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
-                                Item.Get(TransferShipmentLine."Item No.");
-                                QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
-                                QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
-                                Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"
-                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
-                                                        + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
-                                //this is 1 of 2 way of checking, essentially no case counts, just the quantity
-                            end else begin
-                                Rec."Weight - Other" := Rec."Weight - Other" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                Rec."Cases - Other" := Rec."Cases - Other" + TransferShipmentLine."Quantity";
-                                BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
-                                BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
-                            end;
-                        until TransferShipmentLine.Next() = 0;
-                    end;
-                    BOLLine.Insert();
-                    NextLineNo += 10000;
-                until TransferShipmentHeader.Next() = 0;
-                // write BOL # on shipment header
-                if TransferShipmentHeader.Find('-') then begin
-                    TransferShipmentHeader.ModifyAll(TransferShipmentHeader."BOL No.", Rec."No.");
-                end;
-                // write BOL # on sales header
-                BOLLine.Reset();
-                BOLLine.SetRange("BOL No.", Rec."No.");
-                if BOLLine.Find('-') then begin
-                    repeat
-                        TransferHeader.Reset();
-                        TransferHeader.SetRange("No.", BOLLine."Order No.");
-                        if TransferHeader.Find('-') then begin
-                            repeat
-                                TransferHeader."BOL No." := BOLLine."BOL No.";
-                                TransferHeader.Modify(true);
-                            until TransferHeader.Next() = 0;
-                        end;
-                    until BOLLine.Next() = 0;
-                end;
-            end;
-        end;
-
-    end;
+    //                 TransferShipmentLine.Reset();
+    //                 TransferShipmentLine.SetRange("Document No.", TransferShipmentHeader."No.");
+    //                 if TransferShipmentLine.FindSet() then begin
+    //                     repeat
+    //                         //this is 1 of 2 way of checking, essentially no case counts, just the quantity
+    //                         if (TransferShipmentLine."Gen. Prod. Posting Group" in ['MOULDINGS', 'MQ MOULDINGS', 'SS MOULDINGS']) then begin
+    //                             Rec."Weight - Mouldings" := Rec."Weight - Mouldings" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             Rec."Cases - Mouldings" := Rec."Cases - Mouldings" + TransferShipmentLine."Quantity";
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+    //                             //this is 1 of 2 way of checking, essentially no case counts, just the quantity
+    //                         end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" = 'ROLL') then begin
+    //                             Rec."Weight - Underlayment Rolls" := Rec."Weight - Underlayment Rolls" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             Rec."Cases - Underlayment Rolls" := Rec."Cases - Underlayment Rolls" + TransferShipmentLine."Quantity";
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+    //                             //this is 2 of 2 way of checking, use case counts from item card
+    //                         end else if (TransferShipmentLine."Gen. Prod. Posting Group" = 'UNDERLAYMENT') and (TransferShipmentLine."Unit of Measure Code" <> 'ROLL') then begin
+    //                             Item.Get(TransferShipmentLine."Item No."); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE'); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             // Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"
+    //                                                     + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             // BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"; //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
+    //                                                     + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase)); //TLY-SD - 08/10/2026 - do case count based on item card not order line
+    //                                                                                                                               //this is 2 of 2 way of checking, use case counts from item card
+    //                         end else if (TransferShipmentLine."Gen. Prod. Posting Group" in ['CORK', 'CORKWOOD', 'HARDWOOD', 'LAMINATE', 'LEATHER', 'MQ CARPET TILE',
+    //                                                                                 'MQ LAMINATE', 'MQ HARDWOOD', 'MQ VINYL DB', 'MQ VINYL LL', 'MQ VINYL SPC',
+    //                                                                                 'MQ VINYL WPC', 'SS HARDWOOD', 'VINYL EW', 'VINYL RW', 'VINYL UW', 'WALLS']) then begin
+    //                             Item.Get(TransferShipmentLine."Item No.");
+    //                             QtyPerPallet := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'PALLET');
+    //                             QtyPerCase := UOMMgt.GetQtyPerUnitOfMeasure(Item, 'CASE');
+    //                             Rec."Weight - Flooring" := Rec."Weight - Flooring" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             Rec."Cases - Flooring" := Rec."Cases - Flooring" + TransferShipmentLine."Quantity Case"
+    //                                                     + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity Case"
+    //                                                     + (TransferShipmentLine."Quantity Pallet" * (QtyPerPallet / QtyPerCase));
+    //                             //this is 1 of 2 way of checking, essentially no case counts, just the quantity
+    //                         end else begin
+    //                             Rec."Weight - Other" := Rec."Weight - Other" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             Rec."Cases - Other" := Rec."Cases - Other" + TransferShipmentLine."Quantity";
+    //                             BOLLine."Total Weight" := BOLLine."Total Weight" + (TransferShipmentLine."Net Weight" * TransferShipmentLine."Quantity");
+    //                             BOLLine."Total Cases" := BOLLine."Total Cases" + TransferShipmentLine."Quantity";
+    //                         end;
+    //                     until TransferShipmentLine.Next() = 0;
+    //                 end;
+    //                 BOLLine.Insert();
+    //                 NextLineNo += 10000;
+    //             until TransferShipmentHeader.Next() = 0;
+    //             // write BOL # on shipment header
+    //             if TransferShipmentHeader.Find('-') then begin
+    //                 TransferShipmentHeader.ModifyAll(TransferShipmentHeader."BOL No.", Rec."No.");
+    //             end;
+    //             // write BOL # on sales header
+    //             BOLLine.Reset();
+    //             BOLLine.SetRange("BOL No.", Rec."No.");
+    //             if BOLLine.Find('-') then begin
+    //                 repeat
+    //                     TransferHeader.Reset();
+    //                     TransferHeader.SetRange("No.", BOLLine."Order No.");
+    //                     if TransferHeader.Find('-') then begin
+    //                         repeat
+    //                             TransferHeader."BOL No." := BOLLine."BOL No.";
+    //                             TransferHeader.Modify(true);
+    //                         until TransferHeader.Next() = 0;
+    //                     end;
+    //                 until BOLLine.Next() = 0;
+    //             end;
+    //         end;
+    //     end;
+    // end;
 
     var
         BOLPrintPostChecks: Codeunit TlyBOLCheckPrintPost;

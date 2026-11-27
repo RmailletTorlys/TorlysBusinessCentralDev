@@ -41,6 +41,7 @@ codeunit 50021 TlyLinkSalesLine
         ContainerLine: Record "TPS CMG Container Line";
         AddSalesLineToTransLine: Codeunit TlyAddSalesLineToTransLine;
         TransferOrderNumber: Code[20];
+        SkipInventoryCheck: Boolean; //TLY-SD - 11/26/2026 - added here depending on method to add to transfer
     begin
         if Rec."Linked Transfer Order No." <> '' then
             Error('ERROR!\\%1 from %2 with a quantity of %3 is already linked to %4 line %5.\\Remove link to change.', Rec."No.", Rec."Document No.", Rec.Quantity, Rec."Linked Transfer Order No.", Rec."Linked Transfer Order Line No.");
@@ -81,7 +82,8 @@ codeunit 50021 TlyLinkSalesLine
                 Commit();
                 //TLY-SD - 11/20/2026 - start - if location on order doesnt match that on the transfer, give prompt to add to interbranch transfer
                 if Rec."Location Code" <> TransferLine."Transfer-to Code" then begin
-                    AddSalesLineToTransLine.PresentModal(Rec, TransferOrderNumber, TransferLine."Receipt Date");
+                    SkipInventoryCheck := true; //TLY-SD - 11/26/2026 - added here depending on method to add to transfer
+                    AddSalesLineToTransLine.PresentModal(Rec, TransferOrderNumber, TransferLine."Receipt Date", SkipInventoryCheck);
                     if TransferOrderNumber <> '' then
                         AddSalesLineToTransLine.AddSalesLineToTransLine(Rec, TransferOrderNumber);
                 end;

@@ -121,7 +121,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
                 ToolTip = 'Vendor No.';
                 ApplicationArea = All;
                 Editable = false;
-                Description = 'TLY-SD - 11/25/2026';
+                Description = 'TLY-SD - 11/26/2026';
             }
 
             field("Outstanding Quantity"; Rec."Outstanding Quantity")
@@ -256,6 +256,47 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
         }
     }
 
+    views
+    {
+        addlast
+        {
+            view(OrderFullfillment)
+            {
+                Caption = 'Order Fullfillment';
+                Filters = where("Transfer Type" = filter('Order Fullfillment'));
+                OrderBy = ascending("Receipt Date");
+            }
+
+            view(DemandPlanning)
+            {
+                Caption = 'Demand Planning';
+                Filters = where("Transfer Type" = filter('Demand Planning'));
+                OrderBy = ascending("Receipt Date");
+            }
+
+            view(Marketing)
+            {
+                Caption = 'Marketing';
+                Filters = where("Transfer Type" = filter('Marketing'));
+                OrderBy = ascending("Receipt Date");
+            }
+
+            view(SupplierPurchase)
+            {
+                Caption = 'Supplier Purchase';
+                Filters = where("Transfer Type" = filter('Supplier Purchase'));
+                OrderBy = ascending("Receipt Date");
+            }
+
+            view(PID)
+            {
+                Caption = 'PID';
+                Filters = where("Transfer Type" = filter('PID'));
+                OrderBy = ascending("Receipt Date");
+            }
+        }
+    }
+
     trigger OnAfterGetRecord()
     var
         TransferLine: Record "Transfer Line";
@@ -263,7 +304,7 @@ pageextension 55742 TlyTransferOrderList extends "Transfer Orders"
         TotalWeight := 0;
         ToShipWeight := 0;
         ToReceiveWeight := 0;
-        VendorNo := ''; //TLY-SD - 11/25/2026
+        // VendorNo := ''; //TLY-SD - 11/25/2026
 
         TransferLine.Reset();
         TransferLine.SetRange("Document No.", Rec."No.");
